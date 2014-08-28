@@ -47,10 +47,13 @@ function chpwd() { ls -FG }
 
 ## ls 
 alias ls='ls -FG'
+alias no='ls'
 alias la='ls -FA'
+alias na='la'
 alias ll='ls -Fl'
+alias nn='ll'
 alias lla='ls -FlA'
-alias lh='ls -lh'
+alias nna='lla'
 
 ## mkdir
 alias mkdir='mkdir -p'
@@ -131,14 +134,7 @@ alias toever="open -a Evetnote.app"
 #
 
 alias -s py=python
-if [ `uname` = "Darwin" ]; then
-	alias eog='open -a Preview'
-fi
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
-if [ `uname` = "Darwin" ]; then
-	alias google-chrome='open -a Google\ Chrome'
-fi
-alias chrome='google-chrome'
 
 alias -s html=chrome
 function extract() {
@@ -160,5 +156,4 @@ function extract() {
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 function runcpp () { gcc $1; ./a.out $2 $3 $4 $5 $6 $7 $8 $9; }
 alias -s {c,cpp}=runcpp
-
 

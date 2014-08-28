@@ -37,10 +37,9 @@ set vb
 " highlight CursorLine ctermbg=Black
 " highlight CursorColumn ctermbg=Black
 hi Visual ctermbg=152 guibg=#CCC
-
-nnoremap <Space>w  :<C-u>w<CR>
-nnoremap <Space>q  :<C-u>q<CR>
-nnoremap <Space>Q  :<C-u>q!<CR>
+nnoremap <Space>,  :<C-u>w<CR>
+nnoremap <Space>'  :<C-u>q<CR>
+nnoremap <Space>'''  :<C-u>q!<CR>
 
 nnoremap ;  :
 nnoremap :  ;
@@ -58,6 +57,7 @@ nnoremap gk  k
 nnoremap gj  j
 vnoremap gk  k
 vnoremap gj  j
+
 
 nnoremap <Space>/ *<C-o>
 nnoremap g<Space>/ g*<C-o>
@@ -130,7 +130,7 @@ NeoBundle 'deris/vim-fitcolumn' 		"for coding rule
 NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tyru/open-browser.vim'
-
+NeoBundleCheck
 """End of Neobundle""""
 
 
@@ -383,6 +383,8 @@ let g:calendar_date_month_name = 1
 """quickrun"""
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 nnoremap <silent> <space>r :<C-u>QuickRun<CR>
+nnoremap <silent> <space>w :<C-u>w<CR>
+nnoremap <silent> <space>q :<C-u>q<CR>
 let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
 """end quickrun""""
 
@@ -392,4 +394,3 @@ let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputt
 
 noremap :sudow :<C-u>w !sudo tee %
 noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
-
