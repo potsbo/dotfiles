@@ -7,9 +7,9 @@ set nocompatible
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 filetype off "TODO
-nohlsearch
 filetype plugin on
 filetype indent on
+nohlsearch
 syntax on
 colorscheme molokai
 
@@ -19,7 +19,7 @@ set hlsearch 	"highlightsearch"
 set wrap 		"all letters insite"
 " set showmatch
 set whichwrap=b,s,h,l "move to the p/n line with l/r keys"
-set wrapscan  "move to the p/n spelling mistake"
+" set wrapscan  "move to the p/n spelling mistake"
 set ignorecase
 set smartcase
 set hidden "TODO"
@@ -33,39 +33,21 @@ set cursorline
 set cursorcolumn
 set splitright
 set vb
+set timeoutlen=200 ttimeoutlen=0
 
-" highlight CursorLine ctermbg=Black
-" highlight CursorColumn ctermbg=Black
-hi Visual ctermbg=152 guibg=#CCC
+" set keymap=dvorak
+ hi Visual ctermbg=152 guibg=#CCC
 nnoremap <Space>,  :<C-u>w<CR>
 nnoremap <Space>'  :<C-u>q<CR>
-nnoremap <Space>'''  :<C-u>q!<CR>
-
-nnoremap ;  :
-nnoremap :  ;
-vnoremap ;  :
-vnoremap :  ;
-
-nnoremap <Space>h  ^
-nnoremap <Space>l  $
-
-nnoremap k   gk
-nnoremap j   gj
-vnoremap k   gk
-vnoremap j   gj
-nnoremap gk  k
-nnoremap gj  j
-vnoremap gk  k
-vnoremap gj  j
-
+nnoremap <Space>',.  :<C-u>q!<CR>
 
 nnoremap <Space>/ *<C-o>
 nnoremap g<Space>/ g*<C-o>
 
-nnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
-nnoremap <expr> N <SID>search_forward_p() ? 'Nzv' : 'nzv'
-vnoremap <expr> n <SID>search_forward_p() ? 'nzv' : 'Nzv'
-vnoremap <expr> N <SID>search_forward_p() ? 'Nzv' : 'nzv'
+nnoremap <expr> - <SID>search_forward_p() ? 'nzv' : 'Nzv'
+nnoremap <expr> _ <SID>search_forward_p() ? 'Nzv' : 'nzv'
+vnoremap <expr> - <SID>search_forward_p() ? 'nzv' : 'Nzv'
+vnoremap <expr> _ <SID>search_forward_p() ? 'Nzv' : 'nzv'
 
 function! s:search_forward_p()
 	  return exists('v:searchforward') ? v:searchforward : 1
@@ -73,10 +55,6 @@ endfunction
 
 nnoremap <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
 nnoremap <Space>O  :<C-u>for i in range(v:count1) \| call append(line('.')-1, '') \| endfor<CR>
-
-nnoremap <silent> tt  :<C-u>tabe<CR>
-nnoremap <C-p>  gT
-nnoremap <C-n>  gt
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
@@ -87,6 +65,85 @@ onoremap ir  i]
 onoremap ad  a"
 onoremap id  i"
 
+" for dvorak
+nnoremap d h
+nnoremap h j
+nnoremap t k
+nnoremap n l
+nnoremap <Space>d  ^
+nnoremap <Space>h  G
+nnoremap <Space>t  gg
+nnoremap <Space>n  $
+
+vnoremap d h
+vnoremap h j
+vnoremap t k
+vnoremap n l
+vnoremap <Space>d  ^
+vnoremap <Space>h  G
+vnoremap <Space>t  gg
+vnoremap <Space>n  $
+
+nnoremap D ,
+nnoremap H }
+nnoremap T {
+nnoremap N ;
+vnoremap D ,
+vnoremap H }
+vnoremap T {
+vnoremap N ;
+
+nnoremap a a
+nnoremap A A
+nnoremap e d
+nnoremap E D
+vnoremap e d
+vnoremap E D
+onoremap e d
+nnoremap u i
+nnoremap U I
+nnoremap i r
+nnoremap I R
+
+nnoremap , =
+onoremap , =
+
+nnoremap g u
+nnoremap c <C-r>
+
+nnoremap q x
+nnoremap Q X
+vnoremap q x
+vnoremap Q X
+nnoremap j c
+nnoremap J C
+nnoremap k v
+nnoremap K V
+nnoremap x :
+vnoremap x :
+
+nnoremap b (
+nnoremap B J
+nnoremap m b
+nnoremap M B
+nnoremap v e
+nnoremap V E
+nnoremap z )
+nnoremap Z ?
+
+nnoremap r f
+nnoremap R F
+nnoremap s n
+nnoremap S N
+
+nnoremap ;c  :<C-u>Commentary<CR>
+vnoremap ;c  :<C-u>'<,'>Commentary<CR>
+
+nnoremap \ll :latex
+
+inoremap hh <Esc>
+" end of for dvorak
+ 
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
 autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
 autocmd BufRead,BufNewFile *.md  setfiletype mkd
@@ -114,6 +171,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-markdown'
+NeoBundle 'tpope/vim-commentary'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kana/vim-smartinput'
@@ -130,6 +188,7 @@ NeoBundle 'deris/vim-fitcolumn' 		"for coding rule
 NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'powerman/vim-plugin-viewdoc'
 NeoBundleCheck
 """End of Neobundle""""
 
@@ -193,35 +252,35 @@ au FileType unite nnoremap
 "
 noremap :um :Unite file_mru -buffer-name=file_mru
 
-nnoremap + <C-a>
-nnoremap - <C-x>
+nnoremap ] <C-a>
+nnoremap [ <C-x>
 
-nnoremap s <Nop>
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
-nnoremap sJ <C-w>J
-nnoremap sK <C-w>K
-nnoremap sL <C-w>L
-nnoremap sH <C-w>H
-nnoremap sn gt
-nnoremap sp gT
-nnoremap sr <C-w>r
-nnoremap s= <C-w>=
-nnoremap sw <C-w>w
-nnoremap so <C-w>_<C-w>|
-nnoremap sO <C-w>=
-nnoremap sN :<C-u>bn<CR>
-nnoremap sP :<C-u>bp<CR>
-nnoremap st :<C-u>tabnew<CR>
-nnoremap sT :<C-u>Unite tab<CR>
-nnoremap ss :<C-u>sp<CR>
-nnoremap sv :<C-u>vs<CR>
-nnoremap sq :<C-u>q<CR>
-nnoremap sQ :<C-u>bd<CR>
-nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
+let mapleader = ";"
+nnoremap f <Nop>
+
+nnoremap <Leader>h <C-w>j
+nnoremap <Leader>t <C-w>k
+nnoremap <Leader>n <C-w>l
+nnoremap <Leader>d <C-w>h
+nnoremap <Leader>H <C-w>J
+nnoremap <Leader>T <C-w>K
+nnoremap <Leader>N <C-w>L
+nnoremap <Leader>D <C-w>H
+
+nnoremap fo <C-w>_<C-w>|
+
+nnoremap fr <C-w>r
+nnoremap f= <C-w>=
+nnoremap fw <C-w>w
+nnoremap fO <C-w>=
+nnoremap fN :<C-u>bn<CR>
+nnoremap fP :<C-u>bp<CR>
+nnoremap ft :<C-u>tabnew<CR>
+nnoremap fT :<C-u>Unite tab<CR>
+nnoremap <space>s :<C-u>sp<CR>
+nnoremap <space>v :<C-u>vs<CR>
+nnoremap fb :<C-u>Unite buffer_tab -buffer-name=file<CR>
+nnoremap fB :<C-u>Unite buffer -buffer-name=file<CR>
 
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
@@ -327,7 +386,6 @@ filetype plugin indent on
 
 
 
-
 """Vim-LaTeX"""
 filetype plugin on
 filetype indent on
@@ -361,8 +419,8 @@ let g:Tex_ViewRule_pdf = '/usr/bin/open -a Preview.app'
 "let g:Tex_ViewRule_pdf = '/usr/bin/open -a Firefox.app'
 "let g:Tex_ViewRule_pdf = '/usr/bin/open -a "Adobe Reader.app"'
 "let g:Tex_ViewRule_pdf = '/usr/bin/open'
-"
-" noremap <space>ll \ll
+nnoremap ;j :execute ":!".Tex_CompileRule_pdf." %"<CR>
+nnoremap ;k :execute ":!".Tex_CompileRule_pdf."% && ".Tex_ViewRule_pdf." %<.pdf"<CR>
 """End of Vim-LaTeX"""
 
 
@@ -372,7 +430,7 @@ let g:evervim_devtoken='S=s40:U=41c9cb:E=14e14e623a0:C=146bd34f558:P=1cd:A=en-de
 
 
 """Calendar.vim""""
-let g:calendar_locale= "jp"
+let g:calendar_locale= "uk"
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 let g:calendar_date_endian ="litte"
@@ -394,3 +452,6 @@ let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputt
 
 noremap :sudow :<C-u>w !sudo tee %
 noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
+
+let g:viewdoc_open = "open"
+
