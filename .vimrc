@@ -107,6 +107,8 @@ nnoremap I R
 
 nnoremap , =
 onoremap , =
+vnoremap , =
+
 
 nnoremap g u
 nnoremap c <C-r>
@@ -157,8 +159,9 @@ if has('vim_starting')
 	execute 'set runtimepath+=' . expand('~/.vim/bundle/neobundle.vim')
 endif
 "
-call neobundle#rc(expand('~/.vim/bundle'))
+" call neobundle#rc(expand('~/.vim/bundle'))
 "
+call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundle 'Shougo/neobundle.vim'	
 NeoBundle 'Shougo/neocomplcache.vim' 	"neo-completion with cache
 NeoBundle 'Shougo/unite.vim'
@@ -190,6 +193,7 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'powerman/vim-plugin-viewdoc'
 NeoBundleCheck
+call neobundle#end()
 """End of Neobundle""""
 
 

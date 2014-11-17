@@ -101,7 +101,8 @@ alias karabiner="vim ~/Library/Application\ Support/Karabiner/private.xml"
 alias wfstatus='networksetup -getairportpower en0'
 alias wfon='networksetup -setairportpower en0 on'
 alias wfoff='networksetup -setairportpower en0 off'
-alias wfscan='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport scan'
+alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
+alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
 # alias tmux="TERM=screen-256color-bce tmux"
