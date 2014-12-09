@@ -1,4 +1,5 @@
 export VIMHOME=$HOME/.vim
+export YUKITASKHOME=$HOME/yukitask
 export LANG=en_UK.UTF-8
 export TERM="screen-256color"
 export PATH=/usr/local/bin
@@ -10,6 +11,7 @@ export PATH=$PATH:/usr
 export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
+export PATH=$PATH:$YUKITASKHOME
 
 ### completion 
 autoload -Uz compinit
@@ -54,7 +56,7 @@ setopt pushd_ignore_dups
 function chpwd() { ls -FG }
 
 ## ls 
-alias ls='/bin/ls -FG'
+alias ls='/bin/ls -F'
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
@@ -194,3 +196,8 @@ if [ ! -z `which tmux` ]; then
 		fi
 	fi
 fi
+
+### yukitask
+export EDITOR=vim
+source $YUKITASKHOME/command_aliases
+source $YUKITASKHOME/here_aliases
