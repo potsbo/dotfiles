@@ -458,4 +458,5 @@ noremap :sudow :<C-u>w !sudo tee %
 noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 
 let g:viewdoc_open = "open"
+let g:no_viewdoc_maps = 1
 
