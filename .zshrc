@@ -1,4 +1,4 @@
-export VIMHOME=$HOME/.vim
+xport VIMHOME=$HOME/.vim
 export YUKITASKHOME=$HOME/yukitask
 export LANG=en_UK.UTF-8
 export TERM="screen-256color"
@@ -56,7 +56,7 @@ setopt pushd_ignore_dups
 function chpwd() { ls -FG }
 
 ## ls 
-alias ls='/bin/ls -F'
+alias ls='/bin/ls -FG'
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
