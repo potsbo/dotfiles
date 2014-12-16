@@ -1,4 +1,4 @@
-xport VIMHOME=$HOME/.vim
+export VIMHOME=$HOME/.vim
 export YUKITASKHOME=$HOME/yukitask
 export LANG=en_UK.UTF-8
 export TERM="screen-256color"
@@ -199,5 +199,5 @@ fi
 
 ### yukitask
 export EDITOR=vim
-source $YUKITASKHOME/command_aliases
-source $YUKITASKHOME/here_aliases
+#source $YUKITASKHOME/command_aliases
+#source $YUKITASKHOME/here_aliases
