@@ -67,8 +67,8 @@ onoremap id  i"
 
 " for dvorak
 nnoremap d h
-nnoremap h j
-nnoremap t k
+nnoremap h gj
+nnoremap t gk
 nnoremap n l
 nnoremap <Space>d  ^
 nnoremap <Space>h  G
@@ -76,8 +76,8 @@ nnoremap <Space>t  gg
 nnoremap <Space>n  $
 
 vnoremap d h
-vnoremap h j
-vnoremap t k
+vnoremap h gj
+vnoremap t gk
 vnoremap n l
 vnoremap <Space>d  ^
 vnoremap <Space>h  G
