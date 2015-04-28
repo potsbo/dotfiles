@@ -1,6 +1,7 @@
 export VIMHOME=$HOME/.vim
+export MYVIMRC=$HOME/.vimrc
 export YUKITASKHOME=$HOME/yukitask
-export LANG=en_UK.UTF-8
+export LANG=ja_JP.UTF-8
 export TERM="screen-256color"
 export PATH=/usr/local/bin
 export PATH=$PATH:/bin
@@ -47,7 +48,7 @@ bindkey -v
 ### Usual Commands
 ## cd
 # directory='cd directory'
-setopt auto_cd
+# setopt auto_cd
 # auto push when cd
 setopt auto_pushd
 # dont push dups
@@ -107,6 +108,7 @@ alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A
 alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
+alias globalip 'curl http://httpbin.org/ip | grep .'
 # alias tmux="TERM=screen-256color-bce tmux"
 
 ### Utility function

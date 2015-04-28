@@ -23,7 +23,7 @@ set whichwrap=b,s,h,l "move to the p/n line with l/r keys"
 set ignorecase
 set smartcase
 set hidden "TODO"
-set history=2000
+set history=5000
 set autoindent
 set tabstop=4
 set shiftwidth=4
@@ -35,8 +35,9 @@ set splitright
 set vb
 set timeoutlen=200 ttimeoutlen=0
 
-" set keymap=dvorak
- hi Visual ctermbg=152 guibg=#CCC
+hi Visual ctermbg=152 guibg=#CCC
+
+" save and quit
 nnoremap <Space>,  :<C-u>w<CR>
 nnoremap <Space>'  :<C-u>q<CR>
 nnoremap <Space>',.  :<C-u>q!<CR>
@@ -60,29 +61,36 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
 onoremap aa  a>
 onoremap ia  i>
-onoremap ar  a]
-onoremap ir  i]
+onoremap ao  a]
+onoremap io  i]
+onoremap ae  a)
+onoremap ie  i)
 onoremap ad  a"
 onoremap id  i"
 
-" for dvorak
-nnoremap d h
-nnoremap h gj
-nnoremap t gk
-nnoremap n l
-nnoremap <Space>d  ^
-nnoremap <Space>h  G
-nnoremap <Space>t  gg
-nnoremap <Space>n  $
+vnoremap aa  a>
+vnoremap ia  i>
+vnoremap ao  a]
+vnoremap io  i]
+vnoremap ae  a)
+vnoremap ie  i)
+vnoremap ad  a"
+vnoremap id  i"
 
-vnoremap d h
-vnoremap h gj
-vnoremap t gk
-vnoremap n l
-vnoremap <Space>d  ^
-vnoremap <Space>h  G
-vnoremap <Space>t  gg
-vnoremap <Space>n  $
+
+" for dvorak
+" noremap d h
+" noremap h gj
+" noremap t gk
+" noremap n l
+noremap <Space>d  ^
+noremap <Space>h  G
+noremap <Space>t  gg
+noremap <Space>n  $
+
+nnoremap ] <C-a>
+nnoremap [ <C-x>
+
 
 nnoremap D ,
 nnoremap H }
@@ -93,62 +101,69 @@ vnoremap H }
 vnoremap T {
 vnoremap N ;
 
-nnoremap a a
-nnoremap A A
-nnoremap e d
-nnoremap E D
-vnoremap e d
-vnoremap E D
-onoremap e d
-nnoremap u i
-nnoremap U I
-nnoremap i r
-nnoremap I R
+noremap j d
+noremap k t
+noremap l n
 
-nnoremap , =
-onoremap , =
-vnoremap , =
+noremap <C-.> <C-v>
 
+" vowls
+" nnoremap a a
+" nnoremap A A
+" nnoremap e d
+" nnoremap E D
+" vnoremap e d
+" vnoremap E D
+" onoremap e d
+" nnoremap u i
+" nnoremap U I
+" nnoremap i r
+" nnoremap I R
 
-nnoremap g u
-nnoremap c <C-r>
+" nnoremap ] =
+" onoremap , =
+" vnoremap , =
 
-nnoremap q x
-nnoremap Q X
-vnoremap q x
-vnoremap Q X
-nnoremap j c
-nnoremap J C
-nnoremap k v
-nnoremap K V
-nnoremap x :
-vnoremap x :
+" nnoremap g u
+" nnoremap c <C-r>
 
-nnoremap b (
-nnoremap B J
-nnoremap m b
-nnoremap M B
-nnoremap v e
-nnoremap V E
-nnoremap z )
-nnoremap Z ?
+" nnoremap q x
+" nnoremap Q X
+" vnoremap q x
+" vnoremap Q X
+" nnoremap j c
+" nnoremap J C
+" nnoremap k v
+" nnoremap K V
+" nnoremap x :
+" vnoremap x :
 
-nnoremap r f
-nnoremap R F
-nnoremap s n
-nnoremap S N
+" nnoremap b (
+" nnoremap B J
+" nnoremap m b
+" nnoremap M B
+" nnoremap v e
+" nnoremap V E
+" nnoremap z )
+" nnoremap Z ?
+
+" nnoremap r f
+" nnoremap R F
+" nnoremap s n
+" nnoremap S N
 
 nnoremap ;c  :<C-u>Commentary<CR>
 vnoremap ;c  :<C-u>'<,'>Commentary<CR>
 
 nnoremap \ll :latex
 
-inoremap hh <Esc>
+" inoremap hh <Esc>
 " end of for dvorak
  
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
-autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
-autocmd BufRead,BufNewFile *.md  setfiletype mkd
+" autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
+" autocmd BufRead,BufNewFile *.md  setfiletype mkd
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 nnoremap <silent> <Space>sp :<C-u>setlocal spell! spelllang=en_us<CR>:setlocal spell?<CR>
 
@@ -179,6 +194,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
+NeoBundle 'kana/vim-arpeggio' 
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'fuenor/qfixhowm'
@@ -256,22 +272,41 @@ au FileType unite nnoremap
 "
 noremap :um :Unite file_mru -buffer-name=file_mru
 
-nnoremap ] <C-a>
-nnoremap [ <C-x>
+" panes
+let mapleader = "z"
+" move to anther pane
+nnoremap zh <C-w>j
+nnoremap zt <C-w>k
+nnoremap zn <C-w>l
+nnoremap zd <C-w>h
+nnoremap ZH <C-w>J
+nnoremap ZT <C-w>K
+nnoremap ZN <C-w>L
+nnoremap ZD <C-w>H
+" create a pane
+nnoremap <Leader>s :<C-u>sp<CR>
+nnoremap <Leader>v :<C-u>vs<CR>
+" change size
+" call submode#enter_with('bufmove', 'n', '', 'ze', '<C-w>>')
+" call submode#enter_with('bufmove', 'n', '', 'za', '<C-w><')
+" call submode#enter_with('bufmove', 'n', '', 'zv', '<C-w>+')
+" call submode#enter_with('bufmove', 'n', '', 'z-', '<C-w>-')
+" call submode#map('bufmove', 'n', '', 'e', '<C-w>>')
+" call submode#map('bufmove', 'n', '', 'a', '<C-w><')
+" call submode#map('bufmove', 'n', '', '+', '<C-w>+')
+" call submode#map('bufmove', 'n', '', '+', '<C-w>-')
+" call submode#enter_with('movepane', 'n', '', 'zh', '<C-w>j')
+" call submode#enter_with('movepane', 'n', '', 'zt', '<C-w>k')
+" call submode#enter_with('movepane', 'n', '', 'zd', '<C-w>h')
+" call submode#enter_with('movepane', 'n', '', 'zn', '<C-w>l')
+" call submode#map('movepane', 'n', '', 'h', '<C-w>j')
+" call submode#map('movepane', 'n', '', 't', '<C-w>k')
+" call submode#map('movepane', 'n', '', 'd', '<C-w>h')
+" call submode#map('movepane', 'n', '', 'n', '<C-w>l')
+" call submode#leave_with('movepane', 'n', '', 'z,<ESC>')
+let g:submode_timeout = 0
 
-let mapleader = ";"
-nnoremap f <Nop>
-
-nnoremap <Leader>h <C-w>j
-nnoremap <Leader>t <C-w>k
-nnoremap <Leader>n <C-w>l
-nnoremap <Leader>d <C-w>h
-nnoremap <Leader>H <C-w>J
-nnoremap <Leader>T <C-w>K
-nnoremap <Leader>N <C-w>L
-nnoremap <Leader>D <C-w>H
-
-nnoremap fo <C-w>_<C-w>|
+" nnoremap q<Space> <C-w>_<C-w>|
 
 nnoremap fr <C-w>r
 nnoremap f= <C-w>=
@@ -281,18 +316,8 @@ nnoremap fN :<C-u>bn<CR>
 nnoremap fP :<C-u>bp<CR>
 nnoremap ft :<C-u>tabnew<CR>
 nnoremap fT :<C-u>Unite tab<CR>
-nnoremap <space>s :<C-u>sp<CR>
-nnoremap <space>v :<C-u>vs<CR>
 nnoremap fb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap fB :<C-u>Unite buffer -buffer-name=file<CR>
-
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 
 """lightline""""
 let g:lightline = {
@@ -459,4 +484,38 @@ noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 
 let g:viewdoc_open = "open"
 let g:no_viewdoc_maps = 1
+
+call arpeggio#load()
+" nnoremap <Plug>(arpeggio-default:h) <SID>gj
+" nnoremap <SID>gj gj
+" nmap <Plug>(arpeggio-default:t) <SID>gk
+" nnoremap <SID>gk gk
+" nmap <Plug>(arpeggio-default:d) <SID>gh
+" nnoremap <SID>gh gu
+" nmap <Plug>(arpeggio-default:n) <SID>gl
+" nnoremap <SID>gl gl
+" vmap <Plug>(arpeggio-default:h) <SID>gj
+" vnoremap <SID>gj gj
+" vmap <Plug>(arpeggio-default:t) <SID>gk
+" vnoremap <SID>gk gk
+" vmap <Plug>(arpeggio-default:d) <SID>gh
+" vnoremap <SID>gh gh
+" vmap <Plug>(arpeggio-default:n) <SID>gl
+" vnoremap <SID>gl gl
+
+
+noremap h j
+noremap t k
+noremap d h
+noremap n l
+" noremap s <Nop>
+
+" Arpeggionnoremap zh <C-w>j
+" Arpeggionnoremap zt <C-w>k
+" Arpeggionnoremap zd <C-w>h
+" Arpeggionnoremap zn <C-w>l
+" Arpeggionnoremap sh j
+" Arpeggionnoremap st k
+" Arpeggionnoremap sd h
+" Arpeggionnoremap sn l
 
