@@ -1,7 +1,7 @@
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
 export YUKITASKHOME=$HOME/yukitask
-export LANG=ja_JP.UTF-8
+export LANG=en_UK.UTF-8
 export TERM="screen-256color"
 export PATH=/usr/local/bin
 export PATH=$PATH:/bin

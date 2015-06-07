@@ -79,18 +79,22 @@ vnoremap id  i"
 
 
 " for dvorak
-" noremap d h
-" noremap h gj
-" noremap t gk
-" noremap n l
+noremap d h
+noremap h gj
+noremap t gk
+noremap n l
 noremap <Space>d  ^
 noremap <Space>h  G
 noremap <Space>t  gg
 noremap <Space>n  $
+noremap j d
+noremap k t
+noremap K T
+noremap l n
+noremap L N 
 
 nnoremap ] <C-a>
 nnoremap [ <C-x>
-
 
 nnoremap D ,
 nnoremap H }
@@ -101,9 +105,10 @@ vnoremap H }
 vnoremap T {
 vnoremap N ;
 
-noremap j d
-noremap k t
-noremap l n
+noremap h j
+noremap t k
+noremap d h
+noremap n l
 
 noremap <C-.> <C-v>
 
@@ -190,7 +195,6 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-commentary'
-NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kana/vim-submode'
@@ -208,6 +212,11 @@ NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'powerman/vim-plugin-viewdoc'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'tell-k/vim-browsereload-mac'
+NeoBundle 'hail2u/vim-css3-syntax'
+NeoBundle 'kchmck/vim-coffee-script'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
@@ -473,6 +482,7 @@ nnoremap <silent> <space>r :<C-u>QuickRun<CR>
 nnoremap <silent> <space>w :<C-u>w<CR>
 nnoremap <silent> <space>q :<C-u>q<CR>
 let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
+let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
 """end quickrun""""
 
 " nnoremap <space>s :<C-u>SplitjoinSplit<cr>
@@ -504,10 +514,6 @@ call arpeggio#load()
 " vnoremap <SID>gl gl
 
 
-noremap h j
-noremap t k
-noremap d h
-noremap n l
 " noremap s <Nop>
 
 " Arpeggionnoremap zh <C-w>j
@@ -518,4 +524,10 @@ noremap n l
 " Arpeggionnoremap st k
 " Arpeggionnoremap sd h
 " Arpeggionnoremap sn l
+
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+set mouse=a
 
