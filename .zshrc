@@ -196,6 +196,10 @@ if [ ! -z `which tmux` ]; then
 			[[ $YN = '' ]] && YN=y
 			[[ $YN = y ]] && tmux attach
 		fi
+		echo -n 'No tmux session, create new? [Y/n]'
+		read YN
+		[[ $YN = '' ]] && YN=y
+			[[ $YN = y ]] && tmux
 	fi
 fi
 
