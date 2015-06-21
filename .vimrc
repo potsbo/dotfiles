@@ -37,7 +37,7 @@ set timeoutlen=200 ttimeoutlen=0
 
 hi Visual ctermbg=152 guibg=#CCC
 
-" save and quit
+" save and quit (for dvorak)
 nnoremap <Space>,  :<C-u>w<CR>
 nnoremap <Space>'  :<C-u>q<CR>
 nnoremap <Space>',.  :<C-u>q!<CR>
@@ -78,7 +78,7 @@ vnoremap ad  a"
 vnoremap id  i"
 
 
-" for dvorak
+"move for dvorak
 noremap d h
 noremap h gj
 noremap t gk
@@ -92,10 +92,6 @@ noremap k t
 noremap K T
 noremap l n
 noremap L N 
-
-nnoremap ] <C-a>
-nnoremap [ <C-x>
-
 nnoremap D ,
 nnoremap H }
 nnoremap T {
@@ -105,10 +101,8 @@ vnoremap H }
 vnoremap T {
 vnoremap N ;
 
-noremap h j
-noremap t k
-noremap d h
-noremap n l
+nnoremap # <C-a>
+nnoremap ! <C-x>
 
 noremap <C-.> <C-v>
 
@@ -217,6 +211,9 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'kchmck/vim-coffee-script'
+" for swift
+NeoBundle 'toyamarinyon/vim-swift'
+NeoBundle 'Keithbsmiley/swift.vim'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
@@ -483,6 +480,8 @@ nnoremap <silent> <space>w :<C-u>w<CR>
 nnoremap <silent> <space>q :<C-u>q<CR>
 let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
 let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
+let g:quickrun_config['swift'] = { 'command': 'swift', 'cmdopt': '', 'exec': '%c %o %s',}
+"   }
 """end quickrun""""
 
 " nnoremap <space>s :<C-u>SplitjoinSplit<cr>
