@@ -57,7 +57,15 @@ setopt pushd_ignore_dups
 function chpwd() { ls -FG }
 
 ## ls 
-alias ls='/bin/ls -FG'
+case ${OSTYPE} in
+	darwin*)
+	alias ls='/bin/ls -FG'
+	;;
+	linux*)
+	alias ls='/bin/ls -F'
+	;;
+esac
+
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
@@ -199,11 +207,6 @@ if [ ! -z `which tmux` ]; then
 		echo -n 'No tmux session, create new? [Y/n]'
 		read YN
 		[[ $YN = '' ]] && YN=y
-			[[ $YN = y ]] && tmux
+		[[ $YN = y ]] && tmux
 	fi
 fi
-
-### yukitask
-export EDITOR=vim
-#source $YUKITASKHOME/command_aliases
-#source $YUKITASKHOME/here_aliases
