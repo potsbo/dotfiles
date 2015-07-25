@@ -38,9 +38,15 @@ set timeoutlen=200 ttimeoutlen=0
 hi Visual ctermbg=152 guibg=#CCC
 
 " save and quit (for dvorak)
-nnoremap <Space>,  :<C-u>w<CR>
-nnoremap <Space>'  :<C-u>q<CR>
-nnoremap <Space>',.  :<C-u>q!<CR>
+" nnoremap <Space>,  :<C-u>w<CR>
+" nnoremap <Space>'  :<C-u>q<CR>
+" nnoremap <Space>',.  :<C-u>q!<CR>
+
+" save and quit (like emacs)
+noremap <silent><C-x><C-s> :<C-u>w<CR>
+noremap <silent><C-x><C-w> :<C-u>w<Space>
+noremap <silent><C-x><C-c> :<C-u>quit<CR>
+
 
 nnoremap <Space>/ *<C-o>
 nnoremap g<Space>/ g*<C-o>
@@ -158,7 +164,7 @@ nnoremap \ll :latex
 
 " inoremap hh <Esc>
 " end of for dvorak
- 
+
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
 " autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
 " autocmd BufRead,BufNewFile *.md  setfiletype mkd
@@ -195,7 +201,7 @@ NeoBundle 'kana/vim-submode'
 NeoBundle 'kana/vim-arpeggio' 
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'fuenor/qfixhowm'
+" NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'vimtaku/vim-mlh'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'yegappan/mru'
