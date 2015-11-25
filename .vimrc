@@ -25,8 +25,6 @@ set smartcase
 set hidden "TODO"
 set history=5000
 set autoindent
-set tabstop=4
-set shiftwidth=4
 set helplang=en
 set laststatus=2
 set cursorline
@@ -37,16 +35,10 @@ set timeoutlen=200 ttimeoutlen=0
 
 hi Visual ctermbg=152 guibg=#CCC
 
-" save and quit (for dvorak)
-" nnoremap <Space>,  :<C-u>w<CR>
-" nnoremap <Space>'  :<C-u>q<CR>
-" nnoremap <Space>',.  :<C-u>q!<CR>
-
 " save and quit (like emacs)
 noremap <silent><C-x><C-s> :<C-u>w<CR>
 noremap <silent><C-x><C-w> :<C-u>w<Space>
 noremap <silent><C-x><C-c> :<C-u>quit<CR>
-
 
 nnoremap <Space>/ *<C-o>
 nnoremap g<Space>/ g*<C-o>
@@ -112,57 +104,9 @@ nnoremap ! <C-x>
 
 noremap <C-.> <C-v>
 
-" vowls
-" nnoremap a a
-" nnoremap A A
-" nnoremap e d
-" nnoremap E D
-" vnoremap e d
-" vnoremap E D
-" onoremap e d
-" nnoremap u i
-" nnoremap U I
-" nnoremap i r
-" nnoremap I R
-
-" nnoremap ] =
-" onoremap , =
-" vnoremap , =
-
-" nnoremap g u
-" nnoremap c <C-r>
-
-" nnoremap q x
-" nnoremap Q X
-" vnoremap q x
-" vnoremap Q X
-" nnoremap j c
-" nnoremap J C
-" nnoremap k v
-" nnoremap K V
-" nnoremap x :
-" vnoremap x :
-
-" nnoremap b (
-" nnoremap B J
-" nnoremap m b
-" nnoremap M B
-" nnoremap v e
-" nnoremap V E
-" nnoremap z )
-" nnoremap Z ?
-
-" nnoremap r f
-" nnoremap R F
-" nnoremap s n
-" nnoremap S N
-
 nnoremap ;c  :<C-u>Commentary<CR>
 vnoremap ;c  :<C-u>'<,'>Commentary<CR>
 
-nnoremap \ll :latex
-
-" inoremap hh <Esc>
 " end of for dvorak
 
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
@@ -186,9 +130,8 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache.vim' 	"neo-completion with cache
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'itchyny/thumbnail.vim'
-NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'itchyny/dictionary.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-surround'
@@ -197,33 +140,13 @@ NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kana/vim-smartinput'
-NeoBundle 'kana/vim-submode'
-NeoBundle 'kana/vim-arpeggio' 
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tomtom/tcomment_vim'
-" NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'vimtaku/vim-mlh'
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'yegappan/mru'
 NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
-NeoBundle 'kakkyz81/evervim'  			"Evernote for vim:
-NeoBundle 'deris/vim-fitcolumn' 		"for coding rule
-NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'powerman/vim-plugin-viewdoc'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'kchmck/vim-coffee-script'
-" for swift
-NeoBundle 'toyamarinyon/vim-swift'
-NeoBundle 'Keithbsmiley/swift.vim'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
-
 
 
 """NeoComplCache""""
@@ -481,6 +404,11 @@ let g:calendar_date_month_name = 1
 
 """quickrun"""
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+" let g:quickrun_config={'*': {'split': ''}}
+let g:quickrun_config._={ 'runner':'vimproc',
+			\       "runner/vimproc/updatetime" : 10,
+			\       "outputter/buffer/close_on_empty" : 1,
+			\ }
 nnoremap <silent> <space>r :<C-u>QuickRun<CR>
 nnoremap <silent> <space>w :<C-u>w<CR>
 nnoremap <silent> <space>q :<C-u>q<CR>
@@ -499,37 +427,6 @@ noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 
 let g:viewdoc_open = "open"
 let g:no_viewdoc_maps = 1
-
-call arpeggio#load()
-" nnoremap <Plug>(arpeggio-default:h) <SID>gj
-" nnoremap <SID>gj gj
-" nmap <Plug>(arpeggio-default:t) <SID>gk
-" nnoremap <SID>gk gk
-" nmap <Plug>(arpeggio-default:d) <SID>gh
-" nnoremap <SID>gh gu
-" nmap <Plug>(arpeggio-default:n) <SID>gl
-" nnoremap <SID>gl gl
-" vmap <Plug>(arpeggio-default:h) <SID>gj
-" vnoremap <SID>gj gj
-" vmap <Plug>(arpeggio-default:t) <SID>gk
-" vnoremap <SID>gk gk
-" vmap <Plug>(arpeggio-default:d) <SID>gh
-" vnoremap <SID>gh gh
-" vmap <Plug>(arpeggio-default:n) <SID>gl
-" vnoremap <SID>gl gl
-
-
-" noremap s <Nop>
-
-" Arpeggionnoremap zh <C-w>j
-" Arpeggionnoremap zt <C-w>k
-" Arpeggionnoremap zd <C-w>h
-" Arpeggionnoremap zn <C-w>l
-" Arpeggionnoremap sh j
-" Arpeggionnoremap st k
-" Arpeggionnoremap sd h
-" Arpeggionnoremap sn l
-
 
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'

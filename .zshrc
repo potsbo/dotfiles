@@ -1,7 +1,7 @@
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
 export YUKITASKHOME=$HOME/yukitask
-export LANG=en_UK.UTF-8
+export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export PATH=/usr/local/bin
 export PATH=$PATH:/bin
@@ -44,7 +44,7 @@ setopt interactive_comments
 # =command is equal to which command
 setopt equals
 #vim-like
-bindkey -v
+bindkey -e
 
 ### Usual Commands
 ## cd
