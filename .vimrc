@@ -138,6 +138,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
@@ -148,6 +149,19 @@ NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
 
+call pathogen#infect()
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+augroup AutoSyntasticAll
+	autocmd!
+	autocmd BufWritePost * call s:syntastic()
+augroup END
 
 """NeoComplCache""""
 "Disable AutoComplPop.
