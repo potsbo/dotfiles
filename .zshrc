@@ -12,6 +12,7 @@ export PATH=$PATH:/usr
 export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
+export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:$YUKITASKHOME
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/:$PATH
 

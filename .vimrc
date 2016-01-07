@@ -100,7 +100,7 @@ vnoremap T {
 vnoremap N ;
 
 nnoremap # <C-a>
-nnoremap ! <C-x>
+nnoremap & <C-x>
 
 noremap <C-.> <C-v>
 
@@ -128,23 +128,27 @@ endif
 call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundle 'Shougo/neobundle.vim'	
 NeoBundle 'Shougo/neocomplcache.vim' 	"neo-completion with cache
+" NeoBundle 'Shougo/neocomplete.vim' 	"neo-completion with cache
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'vim-perl/vim-perl'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'itchyny/dictionary.vim'
+" NeoBundle 'vim-perl/vim-perl'
+" NeoBundle 'itchyny/lightline.vim'
+" NeoBundle 'itchyny/dictionary.vim'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-markdown'
+" NeoBundle 'tpope/vim-surround'
+" NeoBundle 'tpope/vim-fugitive'
+" NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-pathogen'
+NeoBundle 'tpope/vim-endwise' "automatic insertion of end keyword
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kana/vim-smartinput'
-NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
+" NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'hail2u/vim-css3-syntax'
+" NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'osyo-manga/vim-monster'
+NeoBundle 'vim-ruby/vim-ruby'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
@@ -157,11 +161,7 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-augroup AutoSyntasticAll
-	autocmd!
-	autocmd BufWritePost * call s:syntastic()
-augroup END
+let g:syntastic_check_on_wq = 1
 
 """NeoComplCache""""
 "Disable AutoComplPop.
@@ -305,7 +305,6 @@ let g:lightline = {
     \   	'syntastic': 'error'
     \ 	}
 	\ }
-let g:syntastic_mode_map = { 'mode': 'passive' }
 augroup AutoSyntastic
 	autocmd!
 	autocmd BufWritePost *.c,*.cpp call s:syntastic()
@@ -429,6 +428,14 @@ nnoremap <silent> <space>q :<C-u>q<CR>
 let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
 let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
 let g:quickrun_config['swift'] = { 'command': 'swift', 'cmdopt': '', 'exec': '%c %o %s',}
+""
+"" quickrun
+""
+let g:quickrun_config.tex  = {
+			\ 'command': 'platex',
+			\ 'exec': ['%c %s', 'dvipdfmx %s:r.dvi', 'open %s:r.pdf -a Preview']
+			\ }
+			
 "   }
 """end quickrun""""
 
