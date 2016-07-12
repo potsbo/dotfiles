@@ -95,17 +95,24 @@
 			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_LEFT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
 			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
 		</item>
+
 		<item>
 			<name>J,K to move tab (for safari)</name>
 			<identifier>com.otsbo.JK2moveTab.forsafari</identifier>
 			<only>SAFARI</only>
-			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L, KeyCode::CURSOR_LEFT, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L</autogen>
-			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L, KeyCode::CURSOR_RIGHT, ModifierFlag::COMMAND_L | ModifierFlag::SHIFT_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L, KeyCode::TAB, ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L ,KeyCode::TAB, ModifierFlag::CONTROL_L</autogen>
 			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
 			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_LEFT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
 			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
 		</item>
 
+		<item>
+			<name>Control_L to Launch iTerm</name>
+			<appendix>You need set iTerm Hotkey</appendix>
+			<identifier>com.otsbo.ctrl2launchiterm</identifier>
+			<autogen>__KeyOverlaidModifier__ KeyCode::CONTROL_L, KeyCode::CONTROL_L, KeyCode::BACKQUOTE, ModifierFlag::CONTROL_L</autogen>
+		</item>
 
 		<item>
 			<name>コマンドキーの動作を優先モード v1</name>
@@ -122,6 +129,12 @@
 			<autogen>__KeyOverlaidModifier__ KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::BACKQUOTE, ModifierFlag::OPTION_L, KeyCode::JIS_EISUU</autogen>
 			<autogen>__KeyOverlaidModifier__ KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK , KeyCode::SHIFT_L, KeyCode::BACKQUOTE, ModifierFlag::OPTION_L, KeyCode::JIS_EISUU</autogen>
 
+		</item>
+
+		<item>
+			<name>Tab to Option</name>
+			<identifier>com.otsbo.tab2option</identifier>
+			<autogen>__KeyToKey__ KeyCode::TAB, KeyCode::OPTION_L</autogen>
 		</item>
 
 		<item>

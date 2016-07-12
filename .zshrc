@@ -1,9 +1,12 @@
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
-export YUKITASKHOME=$HOME/yukitask
+export SCALA_HOME=/usr/local/share/scala
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
-export PATH=/usr/local/bin
+export EDITOR=vim
+export PATH=~/.rbenv/shims
+export PATH=$PATH:$HOME/local/bin
+export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/bin
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/sbin
@@ -13,7 +16,7 @@ export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
 export PATH=$PATH:/Library/TeX/texbin
-export PATH=$PATH:$YUKITASKHOME
+export PATH=$PATH:$SCALA_HOME/bin
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/:$PATH
 
 ### completion 
@@ -212,3 +215,5 @@ if [ ! -z `which tmux` ]; then
 		[[ $YN = y ]] && tmux
 	fi
 fi
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+function git(){hub "$@"}

@@ -25,6 +25,7 @@ set smartcase
 set hidden "TODO"
 set history=5000
 set autoindent
+setlocal tabstop=4 shiftwidth=4 softtabstop=4 "タブ幅の設定です
 set helplang=en
 set laststatus=2
 set cursorline
@@ -131,8 +132,9 @@ NeoBundle 'Shougo/neocomplcache.vim' 	"neo-completion with cache
 " NeoBundle 'Shougo/neocomplete.vim' 	"neo-completion with cache
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'vim-perl/vim-perl'
-" NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'itchyny/lightline.vim'
 " NeoBundle 'itchyny/dictionary.vim'
 NeoBundle 'thinca/vim-quickrun'
 " NeoBundle 'tpope/vim-surround'
@@ -141,14 +143,21 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-pathogen'
 NeoBundle 'tpope/vim-endwise' "automatic insertion of end keyword
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-bundler'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'kana/vim-smartinput'
-" NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
+NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
 NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'hail2u/vim-css3-syntax'
 " NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'osyo-manga/vim-monster'
 NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'powerman/vim-plugin-viewdoc'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'burnettk/vim-angular'
+NeoBundle 'wakatime/vim-wakatime'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
@@ -428,9 +437,7 @@ nnoremap <silent> <space>q :<C-u>q<CR>
 let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
 let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
 let g:quickrun_config['swift'] = { 'command': 'swift', 'cmdopt': '', 'exec': '%c %o %s',}
-""
-"" quickrun
-""
+let g:quickrun_config['scala'] = { 'command': 'scala', 'cmdopt': ''}
 let g:quickrun_config.tex  = {
 			\ 'command': 'platex',
 			\ 'exec': ['%c %s', 'dvipdfmx %s:r.dvi', 'open %s:r.pdf -a Preview']
@@ -449,8 +456,19 @@ noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 let g:viewdoc_open = "open"
 let g:no_viewdoc_maps = 1
 
-let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 set mouse=a
 
+let g:cpp_class_scope_highlight = 1
+let g:syntastic_html_tidy_ignore_errors = [
+	\  '<html> attribute "lang" lacks value',
+	\  '<a> attribute "href" lacks value',
+	\  'trimming empty <span>',
+	\  'trimming empty <h1>',
+	\  'trimming empty <i>'
+	\ ]
+
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
