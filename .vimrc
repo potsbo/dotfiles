@@ -11,7 +11,6 @@ filetype plugin on
 filetype indent on
 nohlsearch
 syntax on
-colorscheme molokai
 
 set number 		"line number"
 set incsearch 	"incremental search
@@ -25,7 +24,7 @@ set smartcase
 set hidden "TODO"
 set history=5000
 set autoindent
-setlocal tabstop=4 shiftwidth=4 softtabstop=4 "タブ幅の設定です
+setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab"タブ幅の設定です
 set helplang=en
 set laststatus=2
 set cursorline
@@ -34,7 +33,6 @@ set splitright
 set vb
 set timeoutlen=200 ttimeoutlen=0
 
-hi Visual ctermbg=152 guibg=#CCC
 
 " save and quit (like emacs)
 noremap <silent><C-x><C-s> :<C-u>w<CR>
@@ -146,18 +144,20 @@ NeoBundle 'tpope/vim-endwise' "automatic insertion of end keyword
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-bundler'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'scrooloose/nerdtree'
+" NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
 NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'hail2u/vim-css3-syntax'
 " NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'osyo-manga/vim-monster'
-NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'powerman/vim-plugin-viewdoc'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'burnettk/vim-angular'
 NeoBundle 'wakatime/vim-wakatime'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'google/vim-ft-go'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
@@ -279,7 +279,7 @@ nnoremap fB :<C-u>Unite buffer -buffer-name=file<CR>
 
 """lightline""""
 let g:lightline = {
-	\ 	'colorscheme': 'wombatme',
+	\ 	'colorscheme': 'wombat',
 	\	'mode_map': {'c': 'NORMAL'},
 	\ 	'active': {
     \   	'left': 	[ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
@@ -472,3 +472,7 @@ let g:syntastic_html_tidy_ignore_errors = [
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+colorscheme molokai
+hi Visual ctermbg=White guibg=#FFF
+au BufNewFile,BufRead *.cap set filetype=ruby
+
