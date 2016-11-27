@@ -5,8 +5,12 @@ export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
 export PATH=~/.rbenv/shims
-export PATH=$PATH:$HOME/local/bin
+export GOPATH=/Users/potsbo/go
+export PGDATA=/usr/local/var/postgres
+export PATH=$PATH:$HOME/bin
 export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:$SCALA_HOME/bin
+export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/bin
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/sbin
@@ -17,7 +21,9 @@ export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
 export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:$SCALA_HOME/bin
-export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/:$PATH
+export PATH="$HOME/.nodenv/bin:$PATH"
+export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 
 ### completion 
 autoload -Uz compinit
@@ -217,3 +223,23 @@ if [ ! -z `which tmux` ]; then
 fi
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 function git(){hub "$@"}
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/potsbo/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/potsbo/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/potsbo/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'
+fi
+
+function cam {
+  git commit -am "$*"
+}
+
+function com {
+  git commit -am "$*"
+}
+
+eval "$(nodenv init -)"
