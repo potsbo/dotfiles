@@ -1,0 +1,524 @@
+<?xml version="1.0"?>
+<root>
+
+	<appdef>
+		<appname>iTERM2</appname>
+		<equal>com.googlecode.iterm2</equal>
+	</appdef>
+	<appdef>
+		<appname>MACVIM</appname>
+		<equal>org.vim.MacVim</equal>
+	</appdef>
+	<appdef>
+		<appname>SAFARI</appname>
+		<equal>com.apple.Safari</equal>
+	</appdef>
+
+	<inputsourcedef>
+		<name>Googlejp</name>
+		<inputsourceid_prefix>com.google.inputmethod.Japanese.base</inputsourceid_prefix>
+	</inputsourcedef>
+	<inputsourcedef>
+		<name>MACUIM</name>
+		<inputsourceid_prefix>info.yatsu.inputmethod.MacUIM-IMK.Japanese</inputsourceid_prefix>
+	</inputsourcedef>
+	<item>
+		<name>Double Shifts</name>
+		<item>
+			<name>J,K to move screen</name>
+			<identifier>com.otsbo.JK2moveScreen</identifier>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R, KeyCode::CURSOR_LEFT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_LEFT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+		</item>
+
+		<item>
+			<name>H,L to move screen</name>
+			<identifier>private.remap.expose</identifier>
+			<autogen>--KeyToKey-- KeyCode::H, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R, KeyCode::CURSOR_UP, ModifierFlag::CONTROL_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::L, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R, KeyCode::CURSOR_DOWN, ModifierFlag::CONTROL_L</autogen>
+		</item>
+
+	</item>
+
+	<item>
+		<name>Basic Setting</name>
+
+		<item>
+			<name>Tmux like Chrome</name>
+			<identifier>com.otsbo.tmuxlikechrome</identifier>
+			<only>iTERM2</only>
+			<!-- windows -->
+			<autogen>--KeyToKey-- KeyCode::W, ModifierFlag::COMMAND_L, KeyCode::W, ModifierFlag::OPTION_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::N, ModifierFlag::COMMAND_L, KeyCode::N, ModifierFlag::OPTION_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::N, ModifierFlag::COMMAND_R, KeyCode::N, ModifierFlag::OPTION_L</autogen>
+			<!-- move tabs -->
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_R, KeyCode::K, ModifierFlag::OPTION_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_R, KeyCode::J, ModifierFlag::OPTION_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L, KeyCode::K, ModifierFlag::OPTION_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L, KeyCode::J, ModifierFlag::OPTION_L</autogen>
+		</item>
+		<item> 
+			<name>Switch Windows</name>
+			<identifier>com.otsbo.window.switch</identifier>
+			<autogen>--KeyToKey-- KeyCode::TAB, ModifierFlag::OPTION_L, KeyCode::BACKQUOTE, ModifierFlag::COMMAND_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::TAB, ModifierFlag::OPTION_L, KeyCode::BACKQUOTE, ModifierFlag::COMMAND_L</autogen>
+		</item>
+
+		<item>
+			<name>Fn + Num = Fx</name>
+			<identifier>com.otsbo.fnumtofx</identifier>
+			<autogen>--KeyToKey-- KeyCode::KEY_1, ModifierFlag::FN, KeyCode::F1</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_2, ModifierFlag::FN, KeyCode::F2</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_3, ModifierFlag::FN, KeyCode::F3</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_4, ModifierFlag::FN, KeyCode::F4</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_5, ModifierFlag::FN, KeyCode::F5</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_6, ModifierFlag::FN, KeyCode::F6</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_7, ModifierFlag::FN, KeyCode::F7</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_8, ModifierFlag::FN, KeyCode::F8</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_9, ModifierFlag::FN, KeyCode::F9</autogen>
+			<autogen>--KeyToKey-- KeyCode::KEY_0, ModifierFlag::FN, KeyCode::F10</autogen>
+			<autogen>--KeyToKey-- KeyCode::MINUS, ModifierFlag::FN, KeyCode::F11</autogen>
+			<autogen>--KeyToKey-- KeyCode::EQUAL, ModifierFlag::FN, KeyCode::F12</autogen>
+
+		</item>
+
+
+		<item>
+			<name>J,K to move tab</name>
+			<identifier>com.otsbo.JK2moveTab</identifier>
+			<not>iTERM2,SAFARI</not>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L, KeyCode::CURSOR_LEFT, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L, KeyCode::CURSOR_RIGHT, ModifierFlag::COMMAND_L | ModifierFlag::OPTION_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_LEFT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+		</item>
+
+		<item>
+			<name>J,K to move tab (for safari)</name>
+			<identifier>com.otsbo.JK2moveTab.forsafari</identifier>
+			<only>SAFARI</only>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L, KeyCode::TAB, ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_R | ModifierFlag::CONTROL_L ,KeyCode::TAB, ModifierFlag::CONTROL_L</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>--KeyToKey-- KeyCode::J, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_LEFT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>--KeyToKey-- KeyCode::K, ModifierFlag::SHIFT_L | ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK, KeyCode::CURSOR_RIGHT, ModifierFlag::CONTROL_L, KeyCode::JIS_EISUU</autogen>
+		</item>
+
+		<item>
+			<name>Control_L to Launch iTerm</name>
+			<appendix>You need set iTerm Hotkey</appendix>
+			<identifier>com.otsbo.ctrl2launchiterm</identifier>
+			<autogen>__KeyOverlaidModifier__ KeyCode::CONTROL_L, KeyCode::CONTROL_L, KeyCode::BACKQUOTE, ModifierFlag::CONTROL_L</autogen>
+		</item>
+
+		<item>
+			<name>コマンドキーの動作を優先モード v1</name>
+			<appendix>（コマンドキーの空打ちで「英数／かな」）</appendix>
+			<appendix>（コマンドキーを押している間に他のキーを打つと通常のコマンドキーとして動作）</appendix>
+			<identifier>com.otsbo.copy.remap.jis_command2eisuukana_prefer_command</identifier>
+			<autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_L, KeyCode::COMMAND_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>__KeyOverlaidModifier__ KeyCode::COMMAND_R, KeyCode::COMMAND_R, KeyCode::JIS_KANA</autogen>
+		</item>
+		<item> <!-- for Alfred -->
+			<name>Shift_R to Shift_R</name>
+			<appendix>(+ When you type shift_R only without other modifiers, send option+`)</appendix>
+			<identifier>private.remap.shiftLR2control+Left</identifier>
+			<autogen>__KeyOverlaidModifier__ KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::BACKQUOTE, ModifierFlag::OPTION_L, KeyCode::JIS_EISUU</autogen>
+			<autogen>__KeyOverlaidModifier__ KeyCode::SHIFT_R, ModifierFlag::SHIFT_R | ModifierFlag::CAPSLOCK , KeyCode::SHIFT_L, KeyCode::BACKQUOTE, ModifierFlag::OPTION_L, KeyCode::JIS_EISUU</autogen>
+
+		</item>
+
+		<item>
+			<name>Tab to Option</name>
+			<identifier>com.otsbo.tab2option</identifier>
+			<autogen>__KeyToKey__ KeyCode::TAB, KeyCode::OPTION_L</autogen>
+		</item>
+
+		<item>
+			<name>Space to Control_L</name>
+			<appendix>(+ When you type Space only, send Space)</appendix>
+			<identifier>com.otsbo.space2shiftL</identifier>
+			<!-- <autogen>__KeyOverlaidModifier__ KeyCode::SPACE, KeyCode::CONTROL_L, KeyCode::SPACE</autogen> -->
+			<autogen>__KeyOverlaidModifier__ KeyCode::SPACE, ModifierFlag::NONE, KeyCode::CONTROL_L, KeyCode::SPACE</autogen>
+		</item>
+
+		<item>
+			<name>Shift_L to Shift_L</name>
+			<appendix>(+ When you type shift_L only without other modifiers, send Escape)</appendix>
+			<identifier>private.private.remap.shiftL2shiftL_escape</identifier>
+			<autogen>__KeyOverlaidModifier__ KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::NONE, KeyCode::SHIFT_L, KeyCode::ESCAPE, KeyCode::JIS_EISUU</autogen>
+			<autogen>__KeyOverlaidModifier__ KeyCode::SHIFT_L, ModifierFlag::SHIFT_L | ModifierFlag::CAPSLOCK, KeyCode::SHIFT_L, KeyCode::ESCAPE, KeyCode::JIS_EISUU</autogen>
+		</item>
+	</item>
+
+	<item>
+		<name>For Right Handed Dvorak</name>
+		<item>
+			<identifier>com.otsbo.return2ctrl</identifier>
+			<name>Return to Control</name>
+			<autogen>__KeyOverlaidModifier__ KeyCode::RETURN, ModifierFlag::RETURN | ModifierFlag::NONE, KeyCode::CONTROL_L</autogen>
+		</item>
+		<item>
+			<identifier>com.otsbo.simultaneousJKtoCapsLock</identifier>
+			<name>simultaneous J and K to CapsLock</name>
+			<autogen>__SimultaneousKeyPresses__ KeyCode::J, KeyCode::K, KeyCode::CAPSLOCK</autogen>
+		</item>
+	</item>
+	<item>
+		<name>Keyboard Layouts</name>
+		<item>
+			<name>Right Hadned Dvorak</name>
+			<identifier>com.otsbo.dvorak.right</identifier>
+
+			<!-- If ModifierFlag::FN is pressed, retain keys to convert Fn+jkl to 123 (numpad) -->
+			<modifier_not>
+				ModifierFlag::FN,
+				ModifierFlag::COMMAND_L,
+				ModifierFlag::COMMAND_R,
+				ModifierFlag::CONTROL_L,
+				ModifierFlag::CONTROL_R,
+				ModifierFlag::OPTION_L,
+				ModifierFlag::OPTION_R,
+			</modifier_not>
+
+			<!-- Q-\ -->
+			<autogen>__KeyToKey__ KeyCode::Q, KeyCode::KEY_5</autogen>
+			<autogen>__KeyToKey__ KeyCode::W, KeyCode::KEY_6</autogen>
+			<autogen>__KeyToKey__ KeyCode::E, KeyCode::Q</autogen>
+			<autogen>__KeyToKey__ KeyCode::R, KeyCode::DOT</autogen>
+			<autogen>__KeyToKey__ KeyCode::T, KeyCode::O</autogen>
+			<autogen>__KeyToKey__ KeyCode::Y, KeyCode::R</autogen>
+			<autogen>__KeyToKey__ KeyCode::U, KeyCode::S</autogen>
+			<autogen>__KeyToKey__ KeyCode::I, KeyCode::U</autogen>
+			<autogen>__KeyToKey__ KeyCode::O, KeyCode::Y</autogen>
+			<autogen>__KeyToKey__ KeyCode::P, KeyCode::B</autogen>
+			<autogen>__KeyToKey__ KeyCode::BRACKET_LEFT, KeyCode::SEMICOLON</autogen>
+			<autogen>__KeyToKey__ KeyCode::BRACKET_RIGHT, KeyCode::EQUAL</autogen>
+
+			<!-- A-' -->
+			<autogen>__KeyToKey__ KeyCode::A, KeyCode::KEY_7</autogen>
+			<autogen>__KeyToKey__ KeyCode::S, KeyCode::KEY_8</autogen>
+			<autogen>__KeyToKey__ KeyCode::D, KeyCode::Z</autogen>
+			<autogen>__KeyToKey__ KeyCode::F, KeyCode::A</autogen>
+			<autogen>__KeyToKey__ KeyCode::G, KeyCode::E</autogen>
+			<autogen>__KeyToKey__ KeyCode::H, KeyCode::H</autogen>
+			<autogen>__KeyToKey__ KeyCode::J, KeyCode::T</autogen>
+			<autogen>__KeyToKey__ KeyCode::K, KeyCode::D</autogen>
+			<autogen>__KeyToKey__ KeyCode::L, KeyCode::C</autogen>
+			<autogen>__KeyToKey__ KeyCode::SEMICOLON, KeyCode::K</autogen>
+			<autogen>__KeyToKey__ KeyCode::QUOTE, KeyCode::MINUS</autogen>
+
+			<!-- Z-/ -->
+			<autogen>__KeyToKey__ KeyCode::Z, KeyCode::KEY_9</autogen>
+			<autogen>__KeyToKey__ KeyCode::X, KeyCode::KEY_0</autogen>
+			<autogen>__KeyToKey__ KeyCode::C, KeyCode::X</autogen>
+			<autogen>__KeyToKey__ KeyCode::V, KeyCode::COMMA</autogen>
+			<autogen>__KeyToKey__ KeyCode::B, KeyCode::I</autogen>
+			<autogen>__KeyToKey__ KeyCode::N, KeyCode::N</autogen>
+			<autogen>__KeyToKey__ KeyCode::M, KeyCode::W</autogen>
+			<autogen>__KeyToKey__ KeyCode::COMMA, KeyCode::V</autogen>
+			<autogen>__KeyToKey__ KeyCode::DOT, KeyCode::G</autogen>
+			<autogen>__KeyToKey__ KeyCode::SLASH, KeyCode::QUOTE</autogen>
+
+			<!-- 1-= -->
+			<autogen>__KeyToKey__ KeyCode::KEY_5, KeyCode::J</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_6, KeyCode::L</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_7, KeyCode::M</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_8, KeyCode::F</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_9, KeyCode::P</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_0, KeyCode::SLASH</autogen>
+			<autogen>__KeyToKey__ KeyCode::MINUS, KeyCode::BRACKET_LEFT</autogen>
+			<autogen>__KeyToKey__ KeyCode::EQUAL, KeyCode::BRACKET_RIGHT</autogen>
+
+		</item>
+
+		<item>
+			<name>Use Left Dvorak - Qwerty Keyboard Layout</name>
+			<appendix>(QWERTY to Dvorak)</appendix>
+			<appendix>(+ Command,Control,Option+Keys to Qwerty)</appendix>
+			<identifier>com.otsbo.qwerty2leftdvorak_qwerty</identifier>
+			<modifier_not>
+				ModifierFlag::COMMAND_L,
+				ModifierFlag::COMMAND_R,
+				ModifierFlag::CONTROL_L,
+				ModifierFlag::CONTROL_R,
+				ModifierFlag::OPTION_L,
+				ModifierFlag::OPTION_R
+			</modifier_not>
+
+			<!-- Q-\ -->
+			<autogen>__KeyToKey__ KeyCode::Q, KeyCode::SEMICOLON</autogen>
+			<autogen>__KeyToKey__ KeyCode::W, KeyCode::Q</autogen>
+			<autogen>__KeyToKey__ KeyCode::E, KeyCode::B</autogen>
+			<autogen>__KeyToKey__ KeyCode::R, KeyCode::Y</autogen>
+			<autogen>__KeyToKey__ KeyCode::T, KeyCode::U</autogen>
+			<autogen>__KeyToKey__ KeyCode::Y, KeyCode::R</autogen>
+			<autogen>__KeyToKey__ KeyCode::U, KeyCode::S</autogen>
+			<autogen>__KeyToKey__ KeyCode::I, KeyCode::O</autogen>
+			<autogen>__KeyToKey__ KeyCode::O, KeyCode::DOT</autogen>
+			<autogen>__KeyToKey__ KeyCode::P, KeyCode::KEY_6</autogen>
+			<autogen>__KeyToKey__ KeyCode::BRACKET_LEFT, KeyCode::KEY_5</autogen>
+			<autogen>__KeyToKey__ KeyCode::BRACKET_RIGHT, KeyCode::EQUAL</autogen>
+
+			<!-- A-' -->
+			<autogen>__KeyToKey__ KeyCode::A, KeyCode::MINUS</autogen>
+			<autogen>__KeyToKey__ KeyCode::S, KeyCode::K</autogen>
+			<autogen>__KeyToKey__ KeyCode::D, KeyCode::C</autogen>
+			<autogen>__KeyToKey__ KeyCode::F, KeyCode::D</autogen>
+			<autogen>__KeyToKey__ KeyCode::G, KeyCode::T</autogen>
+			<autogen>__KeyToKey__ KeyCode::H, KeyCode::H</autogen>
+			<autogen>__KeyToKey__ KeyCode::J, KeyCode::E</autogen>
+			<autogen>__KeyToKey__ KeyCode::K, KeyCode::A</autogen>
+			<autogen>__KeyToKey__ KeyCode::L, KeyCode::Z</autogen>
+			<autogen>__KeyToKey__ KeyCode::SEMICOLON, KeyCode::KEY_8</autogen>
+			<autogen>__KeyToKey__ KeyCode::QUOTE, KeyCode::KEY_7</autogen>
+
+			<!-- Z-/ -->
+			<autogen>__KeyToKey__ KeyCode::Z, KeyCode::QUOTE</autogen>
+			<autogen>__KeyToKey__ KeyCode::X, KeyCode::X</autogen>
+			<autogen>__KeyToKey__ KeyCode::C, KeyCode::G</autogen>
+			<autogen>__KeyToKey__ KeyCode::V, KeyCode::V</autogen>
+			<autogen>__KeyToKey__ KeyCode::B, KeyCode::W</autogen>
+			<autogen>__KeyToKey__ KeyCode::N, KeyCode::N</autogen>
+			<autogen>__KeyToKey__ KeyCode::M, KeyCode::I</autogen>
+			<autogen>__KeyToKey__ KeyCode::COMMA, KeyCode::COMMA</autogen>
+			<autogen>__KeyToKey__ KeyCode::DOT, KeyCode::KEY_0</autogen>
+			<autogen>__KeyToKey__ KeyCode::SLASH, KeyCode::KEY_9</autogen>
+
+			<!-- 1-= -->
+			<autogen>__KeyToKey__ KeyCode::KEY_1, KeyCode::BRACKET_LEFT</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_2, KeyCode::BRACKET_RIGHT</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_3, KeyCode::SLASH</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_4, KeyCode::P</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_5, KeyCode::F</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_6, KeyCode::M</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_7, KeyCode::L</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_8, KeyCode::J</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_9, KeyCode::KEY_4</autogen>
+			<autogen>__KeyToKey__ KeyCode::KEY_0, KeyCode::KEY_3</autogen>
+			<autogen>__KeyToKey__ KeyCode::MINUS, KeyCode::KEY_2</autogen>
+			<autogen>__KeyToKey__ KeyCode::EQUAL, KeyCode::KEY_1</autogen>
+
+		</item>
+
+
+		<item>
+			<name>Use Modified Programmer Dvorak Keyboard Layout</name>
+			<appendix>(Change QWERTY to Programmer Dvorak)</appendix>
+			<identifier>com.otsbo.remap.qwerty_to_programmer_dvorak</identifier>
+
+			<!-- If ModifierFlag::FN is pressed, retain keys to convert Fn+jkl to 123 (numpad) -->
+			<inputsource_not>MACUIM</inputsource_not>
+			<modifier_not>
+				ModifierFlag::FN,
+				ModifierFlag::COMMAND_L,
+				ModifierFlag::COMMAND_R,
+				ModifierFlag::CONTROL_L,
+				ModifierFlag::CONTROL_R,
+				ModifierFlag::OPTION_L,
+				ModifierFlag::OPTION_R,
+			</modifier_not>
+
+			<!-- ======================================== -->
+			<autogen>__KeyToKey__ KeyCode::Q, KeyCode::QUOTE</autogen>
+			<autogen>__KeyToKey__ KeyCode::W, KeyCode::COMMA</autogen>
+			<autogen>__KeyToKey__ KeyCode::E, KeyCode::DOT</autogen>
+			<autogen>__KeyToKey__ KeyCode::R, KeyCode::P</autogen>
+			<autogen>__KeyToKey__ KeyCode::T, KeyCode::Y</autogen>
+			<autogen>__KeyToKey__ KeyCode::Y, KeyCode::F</autogen>
+			<autogen>__KeyToKey__ KeyCode::U, KeyCode::G</autogen>
+			<autogen>__KeyToKey__ KeyCode::I, KeyCode::C</autogen>
+			<autogen>__KeyToKey__ KeyCode::O, KeyCode::R</autogen>
+			<autogen>__KeyToKey__ KeyCode::P, KeyCode::L</autogen>
+			<autogen>__KeyToKey__ KeyCode::BRACKET_LEFT, KeyCode::SLASH</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::BRACKET_RIGHT, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_6, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::BRACKET_RIGHT,
+				KeyCode::KEY_2, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<!-- ======================================== -->
+			<autogen>__KeyToKey__ KeyCode::S, KeyCode::O</autogen>
+			<autogen>__KeyToKey__ KeyCode::D, KeyCode::E</autogen>
+			<autogen>__KeyToKey__ KeyCode::F, KeyCode::U</autogen>
+			<autogen>__KeyToKey__ KeyCode::G, KeyCode::I</autogen>
+			<autogen>__KeyToKey__ KeyCode::H, KeyCode::D</autogen>
+			<autogen>__KeyToKey__ KeyCode::J, KeyCode::H</autogen>
+			<autogen>__KeyToKey__ KeyCode::K, KeyCode::T</autogen>
+			<autogen>__KeyToKey__ KeyCode::L, KeyCode::N</autogen>
+			<autogen>__KeyToKey__ KeyCode::SEMICOLON, KeyCode::S</autogen>
+			<autogen>__KeyToKey__ KeyCode::QUOTE, KeyCode::MINUS</autogen>
+
+			<!-- ======================================== -->
+			<autogen>__KeyToKey__ KeyCode::Z, KeyCode::SEMICOLON</autogen>
+			<autogen>__KeyToKey__ KeyCode::X, KeyCode::Q</autogen>
+			<autogen>__KeyToKey__ KeyCode::C, KeyCode::J</autogen>
+			<autogen>__KeyToKey__ KeyCode::V, KeyCode::K</autogen>
+			<autogen>__KeyToKey__ KeyCode::B, KeyCode::X</autogen>
+			<autogen>__KeyToKey__ KeyCode::N, KeyCode::B</autogen>
+			<autogen>__KeyToKey__ KeyCode::COMMA, KeyCode::W</autogen>
+			<autogen>__KeyToKey__ KeyCode::DOT, KeyCode::V</autogen>
+			<autogen>__KeyToKey__ KeyCode::SLASH, KeyCode::Z</autogen>
+
+			<!-- ======================================== -->
+			<autogen>
+				__KeyToKey__
+				KeyCode::BACKQUOTE, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::BACKQUOTE, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::BACKQUOTE,
+				KeyCode::KEY_4, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_1, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_1
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_1,
+				KeyCode::KEY_1, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_2, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_2
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_2,
+				KeyCode::BRACKET_LEFT,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_3, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_3,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_3,
+				KeyCode::BRACKET_LEFT, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_4, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_4,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_4,
+				KeyCode::KEY_9, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_5, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_5,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_5,
+				KeyCode::EQUAL,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_6, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_6,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_6,
+				KeyCode::EQUAL, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_7, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_7,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_7,
+				KeyCode::KEY_0, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_8, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_8,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_8,
+				KeyCode::BRACKET_RIGHT, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_9, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_9,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_9,
+				KeyCode::BRACKET_RIGHT
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_0, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_0,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::KEY_0,
+				KeyCode::KEY_8, ModifierFlag::SHIFT_L
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::MINUS, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::KEY_5, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::MINUS,
+				KeyCode::KEY_7, ModifierFlag::SHIFT_L,
+			</autogen>
+
+			<autogen>
+				__KeyToKey__
+				KeyCode::EQUAL, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT,
+				KeyCode::BACKQUOTE,
+			</autogen>
+			<autogen>
+				__KeyToKey__
+				KeyCode::EQUAL,
+				KeyCode::KEY_3, ModifierFlag::SHIFT_L,
+			</autogen>
+		</item>
+
+	</item>
+
+
+
+	<item>
+		<name>--------------</name>
+	</item>
+
+</root>

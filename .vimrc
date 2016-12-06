@@ -11,7 +11,6 @@ filetype plugin on
 filetype indent on
 nohlsearch
 syntax on
-colorscheme molokai
 
 set number 		"line number"
 set incsearch 	"incremental search
@@ -23,10 +22,9 @@ set whichwrap=b,s,h,l "move to the p/n line with l/r keys"
 set ignorecase
 set smartcase
 set hidden "TODO"
-set history=2000
+set history=5000
 set autoindent
-set tabstop=4
-set shiftwidth=4
+setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab"タブ幅の設定です
 set helplang=en
 set laststatus=2
 set cursorline
@@ -35,11 +33,11 @@ set splitright
 set vb
 set timeoutlen=200 ttimeoutlen=0
 
-" set keymap=dvorak
- hi Visual ctermbg=152 guibg=#CCC
-nnoremap <Space>,  :<C-u>w<CR>
-nnoremap <Space>'  :<C-u>q<CR>
-nnoremap <Space>',.  :<C-u>q!<CR>
+
+" save and quit (like emacs)
+noremap <silent><C-x><C-s> :<C-u>w<CR>
+noremap <silent><C-x><C-w> :<C-u>w<Space>
+noremap <silent><C-x><C-c> :<C-u>quit<CR>
 
 nnoremap <Space>/ *<C-o>
 nnoremap g<Space>/ g*<C-o>
@@ -60,30 +58,37 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
 onoremap aa  a>
 onoremap ia  i>
-onoremap ar  a]
-onoremap ir  i]
+onoremap ao  a]
+onoremap io  i]
+onoremap ae  a)
+onoremap ie  i)
 onoremap ad  a"
 onoremap id  i"
 
-" for dvorak
-nnoremap d h
-nnoremap h gj
-nnoremap t gk
-nnoremap n l
-nnoremap <Space>d  ^
-nnoremap <Space>h  G
-nnoremap <Space>t  gg
-nnoremap <Space>n  $
+vnoremap aa  a>
+vnoremap ia  i>
+vnoremap ao  a]
+vnoremap io  i]
+vnoremap ae  a)
+vnoremap ie  i)
+vnoremap ad  a"
+vnoremap id  i"
 
-vnoremap d h
-vnoremap h gj
-vnoremap t gk
-vnoremap n l
-vnoremap <Space>d  ^
-vnoremap <Space>h  G
-vnoremap <Space>t  gg
-vnoremap <Space>n  $
 
+"move for dvorak
+noremap d h
+noremap h gj
+noremap t gk
+noremap n l
+noremap <Space>d  ^
+noremap <Space>h  G
+noremap <Space>t  gg
+noremap <Space>n  $
+noremap j d
+noremap k t
+noremap K T
+noremap l n
+noremap L N 
 nnoremap D ,
 nnoremap H }
 nnoremap T {
@@ -93,62 +98,20 @@ vnoremap H }
 vnoremap T {
 vnoremap N ;
 
-nnoremap a a
-nnoremap A A
-nnoremap e d
-nnoremap E D
-vnoremap e d
-vnoremap E D
-onoremap e d
-nnoremap u i
-nnoremap U I
-nnoremap i r
-nnoremap I R
+nnoremap # <C-a>
+nnoremap & <C-x>
 
-nnoremap , =
-onoremap , =
-vnoremap , =
-
-
-nnoremap g u
-nnoremap c <C-r>
-
-nnoremap q x
-nnoremap Q X
-vnoremap q x
-vnoremap Q X
-nnoremap j c
-nnoremap J C
-nnoremap k v
-nnoremap K V
-nnoremap x :
-vnoremap x :
-
-nnoremap b (
-nnoremap B J
-nnoremap m b
-nnoremap M B
-nnoremap v e
-nnoremap V E
-nnoremap z )
-nnoremap Z ?
-
-nnoremap r f
-nnoremap R F
-nnoremap s n
-nnoremap S N
+noremap <C-.> <C-v>
 
 nnoremap ;c  :<C-u>Commentary<CR>
 vnoremap ;c  :<C-u>'<,'>Commentary<CR>
 
-nnoremap \ll :latex
-
-inoremap hh <Esc>
 " end of for dvorak
- 
+
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
-autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
-autocmd BufRead,BufNewFile *.md  setfiletype mkd
+" autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
+" autocmd BufRead,BufNewFile *.md  setfiletype mkd
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 nnoremap <silent> <Space>sp :<C-u>setlocal spell! spelllang=en_us<CR>:setlocal spell?<CR>
 
@@ -164,39 +127,50 @@ endif
 call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundle 'Shougo/neobundle.vim'	
 NeoBundle 'Shougo/neocomplcache.vim' 	"neo-completion with cache
+" NeoBundle 'Shougo/neocomplete.vim' 	"neo-completion with cache
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'itchyny/thumbnail.vim'
-NeoBundle 'itchyny/calendar.vim'
-NeoBundle 'itchyny/dictionary.vim'
+" NeoBundle 'itchyny/dictionary.vim'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-markdown'
+" NeoBundle 'tpope/vim-surround'
+" NeoBundle 'tpope/vim-fugitive'
+" NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-commentary'
-NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-pathogen'
+NeoBundle 'tpope/vim-endwise' "automatic insertion of end keyword
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-bundler'
 NeoBundle 'scrooloose/syntastic'
+" NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'kana/vim-smartinput'
-NeoBundle 'kana/vim-submode'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'fuenor/qfixhowm'
-NeoBundle 'vimtaku/vim-mlh'
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'yegappan/mru'
 NeoBundle 'othree/html5.vim' 			"syntax for HTML5 
-NeoBundle 'kakkyz81/evervim'  			"Evernote for vim:
-NeoBundle 'deris/vim-fitcolumn' 		"for coding rule
-NeoBundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'tyru/open-browser.vim'
+" NeoBundle 'hail2u/vim-css3-syntax'
+" NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'osyo-manga/vim-monster'
 NeoBundle 'powerman/vim-plugin-viewdoc'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'burnettk/vim-angular'
+NeoBundle 'wakatime/vim-wakatime'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'google/vim-ft-go'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
 
+call pathogen#infect()
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
 
 """NeoComplCache""""
 "Disable AutoComplPop.
@@ -256,22 +230,41 @@ au FileType unite nnoremap
 "
 noremap :um :Unite file_mru -buffer-name=file_mru
 
-nnoremap ] <C-a>
-nnoremap [ <C-x>
+" panes
+let mapleader = "z"
+" move to anther pane
+nnoremap zh <C-w>j
+nnoremap zt <C-w>k
+nnoremap zn <C-w>l
+nnoremap zd <C-w>h
+nnoremap ZH <C-w>J
+nnoremap ZT <C-w>K
+nnoremap ZN <C-w>L
+nnoremap ZD <C-w>H
+" create a pane
+nnoremap <Leader>s :<C-u>sp<CR>
+nnoremap <Leader>v :<C-u>vs<CR>
+" change size
+" call submode#enter_with('bufmove', 'n', '', 'ze', '<C-w>>')
+" call submode#enter_with('bufmove', 'n', '', 'za', '<C-w><')
+" call submode#enter_with('bufmove', 'n', '', 'zv', '<C-w>+')
+" call submode#enter_with('bufmove', 'n', '', 'z-', '<C-w>-')
+" call submode#map('bufmove', 'n', '', 'e', '<C-w>>')
+" call submode#map('bufmove', 'n', '', 'a', '<C-w><')
+" call submode#map('bufmove', 'n', '', '+', '<C-w>+')
+" call submode#map('bufmove', 'n', '', '+', '<C-w>-')
+" call submode#enter_with('movepane', 'n', '', 'zh', '<C-w>j')
+" call submode#enter_with('movepane', 'n', '', 'zt', '<C-w>k')
+" call submode#enter_with('movepane', 'n', '', 'zd', '<C-w>h')
+" call submode#enter_with('movepane', 'n', '', 'zn', '<C-w>l')
+" call submode#map('movepane', 'n', '', 'h', '<C-w>j')
+" call submode#map('movepane', 'n', '', 't', '<C-w>k')
+" call submode#map('movepane', 'n', '', 'd', '<C-w>h')
+" call submode#map('movepane', 'n', '', 'n', '<C-w>l')
+" call submode#leave_with('movepane', 'n', '', 'z,<ESC>')
+let g:submode_timeout = 0
 
-let mapleader = ";"
-nnoremap f <Nop>
-
-nnoremap <Leader>h <C-w>j
-nnoremap <Leader>t <C-w>k
-nnoremap <Leader>n <C-w>l
-nnoremap <Leader>d <C-w>h
-nnoremap <Leader>H <C-w>J
-nnoremap <Leader>T <C-w>K
-nnoremap <Leader>N <C-w>L
-nnoremap <Leader>D <C-w>H
-
-nnoremap fo <C-w>_<C-w>|
+" nnoremap q<Space> <C-w>_<C-w>|
 
 nnoremap fr <C-w>r
 nnoremap f= <C-w>=
@@ -281,22 +274,12 @@ nnoremap fN :<C-u>bn<CR>
 nnoremap fP :<C-u>bp<CR>
 nnoremap ft :<C-u>tabnew<CR>
 nnoremap fT :<C-u>Unite tab<CR>
-nnoremap <space>s :<C-u>sp<CR>
-nnoremap <space>v :<C-u>vs<CR>
 nnoremap fb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap fB :<C-u>Unite buffer -buffer-name=file<CR>
 
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-
 """lightline""""
 let g:lightline = {
-	\ 	'colorscheme': 'wombatme',
+	\ 	'colorscheme': 'wombat',
 	\	'mode_map': {'c': 'NORMAL'},
 	\ 	'active': {
     \   	'left': 	[ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
@@ -331,7 +314,6 @@ let g:lightline = {
     \   	'syntastic': 'error'
     \ 	}
 	\ }
-let g:syntastic_mode_map = { 'mode': 'passive' }
 augroup AutoSyntastic
 	autocmd!
 	autocmd BufWritePost *.c,*.cpp call s:syntastic()
@@ -444,10 +426,24 @@ let g:calendar_date_month_name = 1
 
 """quickrun"""
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+" let g:quickrun_config={'*': {'split': ''}}
+let g:quickrun_config._={ 'runner':'vimproc',
+			\       "runner/vimproc/updatetime" : 10,
+			\       "outputter/buffer/close_on_empty" : 1,
+			\ }
 nnoremap <silent> <space>r :<C-u>QuickRun<CR>
 nnoremap <silent> <space>w :<C-u>w<CR>
 nnoremap <silent> <space>q :<C-u>q<CR>
 let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
+let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
+let g:quickrun_config['swift'] = { 'command': 'swift', 'cmdopt': '', 'exec': '%c %o %s',}
+let g:quickrun_config['scala'] = { 'command': 'scala', 'cmdopt': ''}
+let g:quickrun_config.tex  = {
+			\ 'command': 'platex',
+			\ 'exec': ['%c %s', 'dvipdfmx %s:r.dvi', 'open %s:r.pdf -a Preview']
+			\ }
+			
+"   }
 """end quickrun""""
 
 " nnoremap <space>s :<C-u>SplitjoinSplit<cr>
@@ -459,4 +455,24 @@ noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 
 let g:viewdoc_open = "open"
 let g:no_viewdoc_maps = 1
+
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+set mouse=a
+
+let g:cpp_class_scope_highlight = 1
+let g:syntastic_html_tidy_ignore_errors = [
+	\  '<html> attribute "lang" lacks value',
+	\  '<a> attribute "href" lacks value',
+	\  'trimming empty <span>',
+	\  'trimming empty <h1>',
+	\  'trimming empty <i>'
+	\ ]
+
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+colorscheme molokai
+hi Visual ctermbg=White guibg=#FFF
+au BufNewFile,BufRead *.cap set filetype=ruby
 

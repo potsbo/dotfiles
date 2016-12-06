@@ -1,8 +1,17 @@
 export VIMHOME=$HOME/.vim
-export YUKITASKHOME=$HOME/yukitask
-export LANG=en_UK.UTF-8
+export MYVIMRC=$HOME/.vimrc
+export SCALA_HOME=/usr/local/share/scala
+export LANG=en_US.UTF-8
 export TERM="screen-256color"
-export PATH=/usr/local/bin
+export EDITOR=vim
+export PATH=~/.rbenv/shims
+export PATH=$PATH:~/.nodenv/shims
+export GOPATH=/Users/potsbo/go
+export PGDATA=/usr/local/var/postgres
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:$SCALA_HOME/bin
+export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/bin
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/sbin
@@ -11,7 +20,10 @@ export PATH=$PATH:/usr
 export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
-export PATH=$PATH:$YUKITASKHOME
+export PATH=$PATH:/Library/TeX/texbin
+export PATH=$PATH:$SCALA_HOME/bin
+export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 
 ### completion 
 autoload -Uz compinit
@@ -42,12 +54,12 @@ setopt interactive_comments
 # =command is equal to which command
 setopt equals
 #vim-like
-bindkey -v
+bindkey -e
 
 ### Usual Commands
 ## cd
 # directory='cd directory'
-setopt auto_cd
+# setopt auto_cd
 # auto push when cd
 setopt auto_pushd
 # dont push dups
@@ -56,7 +68,15 @@ setopt pushd_ignore_dups
 function chpwd() { ls -FG }
 
 ## ls 
-alias ls='/bin/ls -FG'
+case ${OSTYPE} in
+	darwin*)
+	alias ls='/bin/ls -FG'
+	;;
+	linux*)
+	alias ls='/bin/ls -F'
+	;;
+esac
+
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
@@ -107,6 +127,7 @@ alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A
 alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
+alias globalip 'curl http://httpbin.org/ip | grep .'
 # alias tmux="TERM=screen-256color-bce tmux"
 
 ### Utility function
@@ -194,10 +215,31 @@ if [ ! -z `which tmux` ]; then
 			[[ $YN = '' ]] && YN=y
 			[[ $YN = y ]] && tmux attach
 		fi
+		echo -n 'No tmux session, create new? [Y/n]'
+		read YN
+		[[ $YN = '' ]] && YN=y
+		[[ $YN = y ]] && tmux
 	fi
 fi
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+function git(){hub "$@"}
 
-### yukitask
-export EDITOR=vim
-#source $YUKITASKHOME/command_aliases
-#source $YUKITASKHOME/here_aliases
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/potsbo/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/potsbo/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/potsbo/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'
+fi
+
+function cam {
+  git commit -am "$*"
+}
+
+function com {
+  git commit -am "$*"
+}
+
+eval "$(nodenv init -)"
