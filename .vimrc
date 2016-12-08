@@ -51,12 +51,10 @@ source ~/.dotfiles/neocomplecache.vimrc
 source ~/.dotfiles/lightline.vimrc
 source ~/.dotfiles/latex.vimrc
 source ~/.dotfiles/syntastic.vimrc
+source ~/.dotfiles/vim-plugin-viewdoc.vimrc
 
 noremap :sudow :<C-u>w !sudo tee %
 noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
-
-let g:viewdoc_open = "open"
-let g:no_viewdoc_maps = 1
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
