@@ -110,10 +110,6 @@ nnoremap fb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap fB :<C-u>Unite buffer -buffer-name=file<CR>
 
 source ~/.dotfiles/lightline.vimrc
-
-" nnoremap <space>s :<C-u>SplitjoinSplit<cr>
-" nnoremap <space>j :<C-u>SplitjoinJoin<cr>
-
 source ~/.dotfiles/latex.vimrc
 
 noremap :sudow :<C-u>w !sudo tee %
