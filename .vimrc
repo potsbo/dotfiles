@@ -57,25 +57,6 @@ let g:syntastic_check_on_wq = 1
 
 source ~/.dotfiles/neocomplecache.vimrc
 
-"
-" "mru,reg,buf
-noremap :um :Unite file_mru -buffer-name=file_mru
-noremap :ur :Unite register -buffer-name=register
-noremap :ub :Unite buffer -buffer-name=buffer
-"
-"file current_dir
-noremap :ufc :Unite file -buffer-name=file
-noremap :ufcr :Unite file_rec -buffer-name=file_rec
-"
-" "file file_current_dir
-noremap :uff :UniteWithBufferDir file -buffer-name=file
-noremap :uffr :UniteWithBufferDir file_rec -buffer-name=file_rec
-"
-" " c-jはescとする
-au FileType unite nnoremap    
-"
-noremap :um :Unite file_mru -buffer-name=file_mru
-
 " change size
 " call submode#enter_with('bufmove', 'n', '', 'ze', '<C-w>>')
 " call submode#enter_with('bufmove', 'n', '', 'za', '<C-w><')
