@@ -44,9 +44,7 @@ nnoremap <silent> <Space>sp :<C-u>setlocal spell! spelllang=en_us<CR>:setlocal s
 
 source ~/.dotfiles/neobundle.vimrc
 source ~/.dotfiles/quickrun.vimrc
-
-call pathogen#infect()
-
+source ~/.dotfiles/pathogen.vimrc
 source ~/.dotfiles/neocomplecache.vimrc
 source ~/.dotfiles/lightline.vimrc
 source ~/.dotfiles/latex.vimrc
