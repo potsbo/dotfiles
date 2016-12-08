@@ -37,9 +37,8 @@ set mouse=a
 source ~/.dotfiles/move.vimrc
 
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
-" autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
-" autocmd BufRead,BufNewFile *.md  setfiletype mkd
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.cap set filetype=ruby
 
 nnoremap <silent> <Space>sp :<C-u>setlocal spell! spelllang=en_us<CR>:setlocal spell?<CR>
 
@@ -56,44 +55,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 
-"""NeoComplCache""""
-"Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-"
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-let g:NeoComplCache_EnableAutoSelect = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-"let g:NeoComplCache_IgnoreCase=1
-"
-"" Define dictionary.
-"let g:neocomplcache_dictionary_filetype_lists = {
-"			\ 'default' : ''
-"			\ }
-"
-"" Plugin key-mappings.
-"inoremap <expr><C-g>     neocomplcache#undo_completion()
-"inoremap <expr><C-l>     neocomplcache#complete_common_string()
-"
-"" Recommended key-mappings.
-"" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-"	return neocomplcache#smart_close_popup() . "\<CR>"
-"endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-""   inoremap <expr><BS> neocomplcache#smart_close_popup().""
-
-
-"let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
+source ~/.dotfiles/neocomplecache.vimrc
 
 "
 " "mru,reg,buf
@@ -175,7 +137,6 @@ let g:syntastic_html_tidy_ignore_errors = [
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
-colorscheme molokai
 hi Visual ctermbg=White guibg=#FFF
-au BufNewFile,BufRead *.cap set filetype=ruby
 
+colorscheme molokai
