@@ -46,38 +46,17 @@ source ~/.dotfiles/neobundle.vimrc
 source ~/.dotfiles/quickrun.vimrc
 
 call pathogen#infect()
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
 
 source ~/.dotfiles/neocomplecache.vimrc
-
 source ~/.dotfiles/lightline.vimrc
 source ~/.dotfiles/latex.vimrc
+source ~/.dotfiles/syntastic.vimrc
 
 noremap :sudow :<C-u>w !sudo tee %
 noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 
 let g:viewdoc_open = "open"
 let g:no_viewdoc_maps = 1
-
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
-
-let g:cpp_class_scope_highlight = 1
-let g:syntastic_html_tidy_ignore_errors = [
-	\  '<html> attribute "lang" lacks value',
-	\  '<a> attribute "href" lacks value',
-	\  'trimming empty <span>',
-	\  'trimming empty <h1>',
-	\  'trimming empty <i>'
-	\ ]
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
