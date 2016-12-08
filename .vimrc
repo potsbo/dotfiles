@@ -337,21 +337,6 @@ nnoremap ;j :execute ":!".Tex_CompileRule_pdf." %"<CR>
 nnoremap ;k :execute ":!".Tex_CompileRule_pdf."% && ".Tex_ViewRule_pdf." %<.pdf"<CR>
 """End of Vim-LaTeX"""
 
-
-"""Evervim""""
-let g:evervim_devtoken='S=s40:U=41c9cb:E=14e14e623a0:C=146bd34f558:P=1cd:A=en-devtoken:V=2:H=2e17ab396f7b0d3a777a64b7d80de30d'
-"""End of Evervim""""
-
-
-"""Calendar.vim""""
-let g:calendar_locale= "uk"
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-let g:calendar_date_endian ="litte"
-let g:calendar_date_separator = "-"
-let g:calendar_date_month_name = 1
-"""End of Calender.vim""""
-
 """quickrun"""
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 " let g:quickrun_config={'*': {'split': ''}}
