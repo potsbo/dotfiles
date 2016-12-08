@@ -32,8 +32,9 @@ set cursorcolumn
 set splitright
 set vb
 set timeoutlen=200 ttimeoutlen=0
+set mouse=a
 
-source move.vimrc
+source ~/.dotfiles/move.vimrc
 
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
 " autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
@@ -386,7 +387,6 @@ let g:no_viewdoc_maps = 1
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-set mouse=a
 
 let g:cpp_class_scope_highlight = 1
 let g:syntastic_html_tidy_ignore_errors = [
