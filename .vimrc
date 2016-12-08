@@ -57,28 +57,6 @@ let g:syntastic_check_on_wq = 1
 
 source ~/.dotfiles/neocomplecache.vimrc
 
-" change size
-" call submode#enter_with('bufmove', 'n', '', 'ze', '<C-w>>')
-" call submode#enter_with('bufmove', 'n', '', 'za', '<C-w><')
-" call submode#enter_with('bufmove', 'n', '', 'zv', '<C-w>+')
-" call submode#enter_with('bufmove', 'n', '', 'z-', '<C-w>-')
-" call submode#map('bufmove', 'n', '', 'e', '<C-w>>')
-" call submode#map('bufmove', 'n', '', 'a', '<C-w><')
-" call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-" call submode#map('bufmove', 'n', '', '+', '<C-w>-')
-" call submode#enter_with('movepane', 'n', '', 'zh', '<C-w>j')
-" call submode#enter_with('movepane', 'n', '', 'zt', '<C-w>k')
-" call submode#enter_with('movepane', 'n', '', 'zd', '<C-w>h')
-" call submode#enter_with('movepane', 'n', '', 'zn', '<C-w>l')
-" call submode#map('movepane', 'n', '', 'h', '<C-w>j')
-" call submode#map('movepane', 'n', '', 't', '<C-w>k')
-" call submode#map('movepane', 'n', '', 'd', '<C-w>h')
-" call submode#map('movepane', 'n', '', 'n', '<C-w>l')
-" call submode#leave_with('movepane', 'n', '', 'z,<ESC>')
-let g:submode_timeout = 0
-
-" nnoremap q<Space> <C-w>_<C-w>|
-
 source ~/.dotfiles/lightline.vimrc
 source ~/.dotfiles/latex.vimrc
 
