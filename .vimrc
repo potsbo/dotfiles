@@ -90,6 +90,8 @@ NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
 
+source ~/.dotfiles/quickrun.vimrc
+
 call pathogen#infect()
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -158,20 +160,6 @@ au FileType unite nnoremap
 "
 noremap :um :Unite file_mru -buffer-name=file_mru
 
-" panes
-let mapleader = "z"
-" move to anther pane
-nnoremap zh <C-w>j
-nnoremap zt <C-w>k
-nnoremap zn <C-w>l
-nnoremap zd <C-w>h
-nnoremap ZH <C-w>J
-nnoremap ZT <C-w>K
-nnoremap ZN <C-w>L
-nnoremap ZD <C-w>H
-" create a pane
-nnoremap <Leader>s :<C-u>sp<CR>
-nnoremap <Leader>v :<C-u>vs<CR>
 " change size
 " call submode#enter_with('bufmove', 'n', '', 'ze', '<C-w>>')
 " call submode#enter_with('bufmove', 'n', '', 'za', '<C-w><')
@@ -336,28 +324,6 @@ let g:Tex_ViewRule_pdf = '/usr/bin/open -a Preview.app'
 nnoremap ;j :execute ":!".Tex_CompileRule_pdf." %"<CR>
 nnoremap ;k :execute ":!".Tex_CompileRule_pdf."% && ".Tex_ViewRule_pdf." %<.pdf"<CR>
 """End of Vim-LaTeX"""
-
-"""quickrun"""
-let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
-" let g:quickrun_config={'*': {'split': ''}}
-let g:quickrun_config._={ 'runner':'vimproc',
-			\       "runner/vimproc/updatetime" : 10,
-			\       "outputter/buffer/close_on_empty" : 1,
-			\ }
-nnoremap <silent> <space>r :<C-u>QuickRun<CR>
-nnoremap <silent> <space>w :<C-u>w<CR>
-nnoremap <silent> <space>q :<C-u>q<CR>
-let g:quickrun_config['html'] = { 'command' : 'open', 'exec' : '%c %s', 'outputter': 'browser' }
-let g:quickrun_config.cpp = { 'command': 'g++','cmdopt': '-std=c++11'}
-let g:quickrun_config['swift'] = { 'command': 'swift', 'cmdopt': '', 'exec': '%c %o %s',}
-let g:quickrun_config['scala'] = { 'command': 'scala', 'cmdopt': ''}
-let g:quickrun_config.tex  = {
-			\ 'command': 'platex',
-			\ 'exec': ['%c %s', 'dvipdfmx %s:r.dvi', 'open %s:r.pdf -a Preview']
-			\ }
-			
-"   }
-"""end quickrun""""
 
 " nnoremap <space>s :<C-u>SplitjoinSplit<cr>
 " nnoremap <space>j :<C-u>SplitjoinJoin<cr>

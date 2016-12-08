@@ -70,4 +70,17 @@ noremap <C-.> <C-v>
 nnoremap ;c  :<C-u>Commentary<CR>
 vnoremap ;c  :<C-u>'<,'>Commentary<CR>
 
-" end of for dvorak
+" panes
+let mapleader = "z"
+" move to anther pane
+nnoremap zh <C-w>j
+nnoremap zt <C-w>k
+nnoremap zn <C-w>l
+nnoremap zd <C-w>h
+nnoremap ZH <C-w>J
+nnoremap ZT <C-w>K
+nnoremap ZN <C-w>L
+nnoremap ZD <C-w>H
+" create a pane
+nnoremap <Leader>s :<C-u>sp<CR>
+nnoremap <Leader>v :<C-u>vs<CR>
