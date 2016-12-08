@@ -98,17 +98,6 @@ let g:submode_timeout = 0
 
 " nnoremap q<Space> <C-w>_<C-w>|
 
-nnoremap fr <C-w>r
-nnoremap f= <C-w>=
-nnoremap fw <C-w>w
-nnoremap fO <C-w>=
-nnoremap fN :<C-u>bn<CR>
-nnoremap fP :<C-u>bp<CR>
-nnoremap ft :<C-u>tabnew<CR>
-nnoremap fT :<C-u>Unite tab<CR>
-nnoremap fb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap fB :<C-u>Unite buffer -buffer-name=file<CR>
-
 source ~/.dotfiles/lightline.vimrc
 source ~/.dotfiles/latex.vimrc
 
