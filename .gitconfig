@@ -35,3 +35,5 @@
   new = "!f() { git sync; git checkout -b potsbo/$1; }; f"
 [push]
   default = current
+[url "git@github.com:"]
+      insteadOf = https://github.com/
