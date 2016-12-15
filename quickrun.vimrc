@@ -16,6 +16,7 @@ let g:quickrun_config.tex  = {
 			\ 'command': 'platex',
 			\ 'exec': ['%c %s', 'dvipdfmx %s:r.dvi', 'open %s:r.pdf -a Preview']
 			\ }
+let g:quickrun_config.js = { 'command': 'node' }
 			
 "   }
 """end quickrun""""
