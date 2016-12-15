@@ -35,6 +35,7 @@
   new = "!f() { git sync; git checkout -b potsbo/$1; }; f"
   orebase = "!f() { branch=`git rev-parse --abbrev-ref HEAD` && git sync; git checkout $branch && git rebase master; }; f"
   omerge  = "!f() { branch=`git rev-parse --abbrev-ref HEAD` && git sync; git checkout $branch && git merge master; }; f"
+  cl = "!f() { mkdir -p ~/src/github.com/$1 && hub clone $1/$2 ~/src/github.com/$1/$2; }; f"
 [push]
   default = current
 [url "git@github.com:"]
