@@ -33,7 +33,7 @@
   showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
   openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
   dif = --no-pager diff
-  new = "!f() { git sync; git checkout -b potsbo/$1; }; f"
+  new = "!f() { git sync; git checkout -b potsbo/$(echo $@ | sed 's/\\ /-/g'); }; f"
   orebase = "!f() { branch=`git rev-parse --abbrev-ref HEAD` && git sync; git checkout $branch && git rebase master; }; f"
   omerge  = "!f() { branch=`git rev-parse --abbrev-ref HEAD` && git sync; git checkout $branch && git merge master; }; f"
   cl = "!f() { mkdir -p ~/src/github.com/$1 && hub clone $1/$2 ~/src/github.com/$1/$2; }; f"
