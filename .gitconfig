@@ -30,6 +30,7 @@
   br = branch
   pr = pull-request
   pprb = !git push && git pull-request && git browse
+  pbrowse = !git push && git browse
   showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
   openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
   dif = --no-pager diff
