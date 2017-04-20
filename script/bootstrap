@@ -63,7 +63,11 @@ link_check $HOME/src $GOPATH/src
 
 # ghq
 echo "  + ghq"
-go get github.com/motemen/ghq
+if test ! $(which ghq); then
+  go get github.com/motemen/ghq
+else
+  echo "    + ghq found."
+fi
 
 # dotfiles
 echo "  + dotfiles"
