@@ -1,0 +1,27 @@
+#!/bin/bash
+
+brew_check() {
+  if brew info $1 | grep "Not installed" > /dev/null 2>&1
+  then
+    echo "  + Installing $1..."
+    brew install $1
+  else
+    echo "  + $1 found."
+  fi
+}
+
+# Install brew
+if test ! $(which brew)
+then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Check go
+brew_check go
+
+SRC_DIR=~/src
+export GOPATH=~/.go
+mkdir $GOPATH
+ln -s src $GOPATH/src
+
+go get github.com/motemen/ghq
