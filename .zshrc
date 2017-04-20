@@ -25,6 +25,7 @@ export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:$SCALA_HOME/bin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
+export ZSH=$HOME/.oh-my-zsh
 
 ### completion 
 autoload -Uz compinit
