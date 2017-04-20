@@ -248,7 +248,7 @@ eval "$(nodenv init -)"
 
 alias s='cd $(ghq list -p | peco)'
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="xxf"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
