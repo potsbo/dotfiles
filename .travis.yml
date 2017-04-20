@@ -1,2 +1,5 @@
 language: bash
 os: osx
+
+script:
+  - bash script/bootstrap
