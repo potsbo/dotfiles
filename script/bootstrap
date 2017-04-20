@@ -25,10 +25,15 @@ export GOPATH=$HOME/.go
 mkdir -p $GOPATH
 mkdir -p $SRC_DIR
 export PATH=$PATH:$GOPATH/bin
-ln -s ~/src $GOPATH/src
+ln -s $HOME/src $GOPATH/src
 
 # ghq
 go get github.com/motemen/ghq
 
 # dotfiles
 ghq get potsbo/dotfiles
+ln -s $SRC_DIR/potsbo/dotfiles $HOME/.dotfiles
+CONFS=(.vimrc .zshrc)
+for conf in ${CONFS[@]}; do
+  ln -s $HOME/.dotfiles/$conf $HOME/$conf
+done
