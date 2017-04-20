@@ -247,3 +247,7 @@ function com {
 eval "$(nodenv init -)"
 
 alias s='cd $(ghq list -p | peco)'
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
