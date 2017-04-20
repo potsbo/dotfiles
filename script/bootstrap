@@ -55,9 +55,10 @@ ghq get potsbo/tmux-powerline
 mkdir -p $HOME/.tmux
 link_check $SRC_DIR/github.com/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
-# rbenv
-brew_check rbenv
-
-# peco
+# Tools
 go get github.com/peco/peco
 brew_check hub
+brew_check jq
+brew_check wget
+brew_check rbenv
+brew_check pyenv
