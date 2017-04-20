@@ -35,7 +35,9 @@ ghq get potsbo/dotfiles
 ln -s $SRC_DIR/potsbo/dotfiles $HOME/.dotfiles
 CONFS=(.vimrc .zshrc)
 for conf in ${CONFS[@]}; do
-  ln -s $HOME/.dotfiles/$conf $HOME/$conf
+  if [ -f $HOME/$conf ]; then
+    ln -s $HOME/.dotfiles/$conf $HOME/$conf
+  fi
 done
 
 # tmux
