@@ -80,9 +80,8 @@ done
 # tmux
 echo "  + Tmux"
 brew_check tmux
-ghq get potsbo/tmux-powerline
 mkdir -p $HOME/.tmux
-link_check $SRC_DIR/github.com/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
+clone_and_link_to potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
 # Tools
 echo "  + Tools"
