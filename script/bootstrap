@@ -22,6 +22,6 @@ brew_check go
 SRC_DIR=~/src
 export GOPATH=~/.go
 mkdir $GOPATH
-ln -s src $GOPATH/src
+ln -s ~/src $GOPATH/src
 
 go get github.com/motemen/ghq
