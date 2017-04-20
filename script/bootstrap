@@ -50,7 +50,7 @@ for conf in ${CONFS[@]}; do
 done
 
 # tmux
-brew_check tumx
+brew_check tmux
 ghq get potsbo/tmux-powerline
 mkdir -p $HOME/.tmux
 link_check $SRC_DIR/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
