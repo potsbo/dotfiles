@@ -19,8 +19,7 @@ export PATH=$PATH:$GOPATH/bin
 DOTFILES_DIR=$HOME/.dotfiles
 
 # Install brew
-if test ! $(which brew)
-then
+if test ! $(which brew); then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -39,7 +38,7 @@ ln -s $SRC_DIR/potsbo/dotfiles $DOTFILES_DIR
 CONFS=(.vimrc .zshrc .gitconfig, .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
   if [ ! -f $HOME/$conf ]; then
-    ln -s $DOTFILES_DIR/$conf $HOME/$conf
+    ln -s $HOME/.dotfiles/$conf $HOME/$conf
   fi
 done
 
