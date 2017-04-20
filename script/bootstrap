@@ -30,4 +30,4 @@ ln -s ~/src $GOPATH/src
 go get github.com/motemen/ghq
 
 export PATH=$PATH:$GOPATH/bin
-ghq get github.com/potsbo/dotfiles
+ghq get potsbo/dotfiles
