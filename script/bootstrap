@@ -5,10 +5,10 @@ set -eu
 brew_check() {
   if brew info $1 | grep "Not installed" > /dev/null 2>&1
   then
-    echo "  + Installing $1..."
+    echo "    + Installing $1..."
     brew install $1
   else
-    echo "  + $1 found."
+    echo "    + $1 found."
   fi
 }
 
@@ -23,7 +23,7 @@ replace_with_link() {
     rm $2
   fi
   link_check $1 $2
-  echo "  + $2 updated."
+  echo "    + $2 updated."
 }
 
 clone_and_link_to() {
@@ -47,10 +47,12 @@ export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 
 # Install brew
+echo "  + Homebrew"
 if test ! $(which brew); then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+echo "  + Go"
 # Check go
 brew_check go
 mkdir -p $GOPATH
@@ -58,9 +60,11 @@ mkdir -p $SRC_DIR
 link_check $HOME/src $GOPATH/src
 
 # ghq
+echo "  + ghq"
 go get github.com/motemen/ghq
 
 # dotfiles
+echo "  + dotfiles"
 clone_and_link_to potsbo/dotfiles $DOTFILES_DIR
 CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
@@ -68,12 +72,14 @@ for conf in ${CONFS[@]}; do
 done
 
 # tmux
+echo "  + Tmux"
 brew_check tmux
 ghq get potsbo/tmux-powerline
 mkdir -p $HOME/.tmux
 link_check $SRC_DIR/github.com/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
 # Tools
+echo "  + Tools"
 go get github.com/peco/peco
 brew_check hub
 brew_check jq
@@ -81,6 +87,6 @@ brew_check wget
 brew_check rbenv
 brew_check pyenv
 
+echo "  + oh-my-zsh"
 clone_and_link_to robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
-
 install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
