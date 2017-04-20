@@ -3,3 +3,4 @@ os: osx
 
 script:
   - bash script/bootstrap
+  - bash script/bootstrap # check idempotency
