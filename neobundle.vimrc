@@ -41,6 +41,7 @@ NeoBundle 'wakatime/vim-wakatime'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'google/vim-ft-go'
+NeoBundle 'fatih/vim-go'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
