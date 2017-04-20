@@ -43,7 +43,7 @@ go get github.com/motemen/ghq
 
 # dotfiles
 ghq get potsbo/dotfiles
-link_check $SRC_DIR/potsbo/dotfiles $DOTFILES_DIR
+link_check $SRC_DIR/github.com/potsbo/dotfiles $DOTFILES_DIR
 CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
   link_check $HOME/.dotfiles/$conf $HOME/$conf
@@ -53,7 +53,7 @@ done
 brew_check tmux
 ghq get potsbo/tmux-powerline
 mkdir -p $HOME/.tmux
-link_check $SRC_DIR/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
+link_check $SRC_DIR/github.com/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
 # rbenv
 brew_check rbenv
