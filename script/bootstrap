@@ -18,6 +18,13 @@ link_check() {
   fi
 }
 
+replace_with_link() {
+  if [ -L "$2" || -f "$2"]; then
+    rm $2
+  fi
+  link_check $1 $2
+}
+
 # Config
 SRC_DIR=$HOME/src
 DOTFILES_DIR=$HOME/.dotfiles
@@ -46,7 +53,7 @@ ghq get potsbo/dotfiles
 link_check $SRC_DIR/github.com/potsbo/dotfiles $DOTFILES_DIR
 CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
-  link_check $HOME/.dotfiles/$conf $HOME/$conf
+  replace_with_link $HOME/.dotfiles/$conf $HOME/$conf
 done
 
 # tmux
@@ -63,7 +70,5 @@ brew_check wget
 brew_check rbenv
 brew_check pyenv
 
-if [ ! -d $HOME/.oh-my-zsh ]; then
-  ghq get robbyrussell/oh-my-zsh
-  link_check $SRC_DIR/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
-fi
+ghq get robbyrussell/oh-my-zsh
+replace_with_link $SRC_DIR/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
