@@ -27,13 +27,14 @@ replace_with_link() {
 
 clone_and_link_to() {
   ghq get $1
-  replace_with_link github.com/$1 $2
+  replace_with_link $SRC_DIR/github.com/$1 $2
 }
 
 # Config
 SRC_DIR=$HOME/src
 DOTFILES_DIR=$HOME/.dotfiles
 TMUX_DIR=$HOME/.tmux
+export GHQ_ROOT=$SRC_DIR
 
 # PATH
 export GOPATH=$HOME/.go
@@ -54,8 +55,7 @@ link_check $HOME/src $GOPATH/src
 go get github.com/motemen/ghq
 
 # dotfiles
-ghq get potsbo/dotfiles
-link_check $SRC_DIR/github.com/potsbo/dotfiles $DOTFILES_DIR
+clone_and_link_to potsbo/dotfiles $DOTFILES_DIR
 CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
   replace_with_link $HOME/.dotfiles/$conf $HOME/$conf
