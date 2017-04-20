@@ -23,6 +23,7 @@ replace_with_link() {
     rm $2
   fi
   link_check $1 $2
+  echo "  + $2 updated."
 }
 
 clone_and_link_to() {
