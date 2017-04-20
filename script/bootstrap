@@ -71,4 +71,4 @@ brew_check rbenv
 brew_check pyenv
 
 ghq get robbyrussell/oh-my-zsh
-replace_with_link $SRC_DIR/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
+replace_with_link $SRC_DIR/github.com/robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
