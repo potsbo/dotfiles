@@ -19,8 +19,8 @@ fi
 # Check go
 brew_check go
 
-SRC_DIR=~/src
-export GOPATH=~/.go
+SRC_DIR=$HOME/src
+export GOPATH=$HOME/.go
 mkdir -p $GOPATH
 mkdir -p $SRC_DIR
 ln -s ~/src $GOPATH/src
