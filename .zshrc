@@ -6,6 +6,7 @@ export TERM="screen-256color"
 export EDITOR=vim
 export PATH=~/.rbenv/shims
 export PATH=$PATH:~/.nodenv/shims
+export PATH=$PATH:~/.pyenv/shims
 export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
 export PATH=$PATH:$HOME/bin
