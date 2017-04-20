@@ -44,7 +44,7 @@ go get github.com/motemen/ghq
 # dotfiles
 ghq get potsbo/dotfiles
 link_check $SRC_DIR/potsbo/dotfiles $DOTFILES_DIR
-CONFS=(.vimrc .zshrc .gitconfig, .gitignore_global .tmux.conf .tmux-powerlinerc)
+CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
   link_check $HOME/.dotfiles/$conf $HOME/$conf
 done
