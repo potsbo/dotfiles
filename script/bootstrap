@@ -12,6 +12,12 @@ brew_check() {
   fi
 }
 
+# Config
+SRC_DIR=$HOME/src
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
+DOTFILES_DIR=$HOME/.dotfiles
+
 # Install brew
 if test ! $(which brew)
 then
@@ -20,11 +26,8 @@ fi
 
 # Check go
 brew_check go
-SRC_DIR=$HOME/src
-export GOPATH=$HOME/.go
 mkdir -p $GOPATH
 mkdir -p $SRC_DIR
-export PATH=$PATH:$GOPATH/bin
 ln -s $HOME/src $GOPATH/src
 
 # ghq
@@ -32,11 +35,11 @@ go get github.com/motemen/ghq
 
 # dotfiles
 ghq get potsbo/dotfiles
-ln -s $SRC_DIR/potsbo/dotfiles $HOME/.dotfiles
+ln -s $SRC_DIR/potsbo/dotfiles $DOTFILES_DIR
 CONFS=(.vimrc .zshrc .gitconfig, .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
   if [ ! -f $HOME/$conf ]; then
-    ln -s $HOME/.dotfiles/$conf $HOME/$conf
+    ln -s $DOTFILES_DIR/$conf $HOME/$conf
   fi
 done
 
