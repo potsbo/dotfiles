@@ -12,6 +12,12 @@ brew_check() {
   fi
 }
 
+link_check() {
+  if [ ! -f $2 ]; then
+    ln -s $1 $2
+  fi
+}
+
 # Config
 SRC_DIR=$HOME/src
 DOTFILES_DIR=$HOME/.dotfiles
@@ -30,9 +36,7 @@ fi
 brew_check go
 mkdir -p $GOPATH
 mkdir -p $SRC_DIR
-if [ ! -f $GOPATH/src ]; then
-  ln -s $HOME/src $GOPATH/src
-fi
+link_check $HOME/src $GOPATH/src
 
 # ghq
 go get github.com/motemen/ghq
@@ -42,18 +46,14 @@ ghq get potsbo/dotfiles
 ln -s $SRC_DIR/potsbo/dotfiles $DOTFILES_DIR
 CONFS=(.vimrc .zshrc .gitconfig, .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
-  if [ ! -f $HOME/$conf ]; then
-    ln -s $HOME/.dotfiles/$conf $HOME/$conf
-  fi
+  link_check $HOME/.dotfiles/$conf $HOME/$conf
 done
 
 # tmux
 brew_check tumx
 ghq get potsbo/tmux-powerline
 mkdir -p $HOME/.tmux
-if [ ! -f $TMUX_DIR/tmux-powerline ]; then
-  ln -s $SRC_DIR/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
-fi
+link_check $SRC_DIR/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
 # rbenv
 brew_check rbenv
