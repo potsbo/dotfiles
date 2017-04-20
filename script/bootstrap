@@ -52,3 +52,6 @@ mkdir -p $HOME/.tmux
 if [ ! -f $TMUX_DIR/tmux-powerline ]; then
   ln -s $SRC_DIR/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 fi
+
+# rbenv
+brew_check rbenv
