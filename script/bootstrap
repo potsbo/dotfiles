@@ -62,3 +62,5 @@ brew_check jq
 brew_check wget
 brew_check rbenv
 brew_check pyenv
+
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
