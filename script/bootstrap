@@ -20,14 +20,15 @@ fi
 
 # Check go
 brew_check go
-
 SRC_DIR=$HOME/src
 export GOPATH=$HOME/.go
 mkdir -p $GOPATH
 mkdir -p $SRC_DIR
+export PATH=$PATH:$GOPATH/bin
 ln -s ~/src $GOPATH/src
 
+# ghq
 go get github.com/motemen/ghq
 
-export PATH=$PATH:$GOPATH/bin
+# dotfiles
 ghq get potsbo/dotfiles
