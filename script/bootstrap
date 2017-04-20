@@ -29,5 +29,5 @@ ln -s ~/src $GOPATH/src
 
 go get github.com/motemen/ghq
 
-export $PATH:$GOPATH/bin
+export $PATH=$PATH:$GOPATH/bin
 ghq get github.com/potsbo/dotfiles
