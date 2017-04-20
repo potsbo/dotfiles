@@ -15,6 +15,7 @@ brew_check() {
 # Config
 SRC_DIR=$HOME/src
 DOTFILES_DIR=$HOME/.dotfiles
+TMUX_DIR=$HOME/.tmux
 
 # PATH
 export GOPATH=$HOME/.go
@@ -47,3 +48,7 @@ done
 # tmux
 brew_check tumx
 ghq get potsbo/tmux-powerline
+mkdir -p $HOME/.tmux
+if [ ! -f $TMUX_DIR/tmux-powerline ]; then
+  ln -s $SRC_DIR/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
+fi
