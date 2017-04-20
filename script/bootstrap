@@ -37,3 +37,7 @@ CONFS=(.vimrc .zshrc)
 for conf in ${CONFS[@]}; do
   ln -s $HOME/.dotfiles/$conf $HOME/$conf
 done
+
+# tmux
+brew_check tumx
+ghq get potsbo/tmux-powerline
