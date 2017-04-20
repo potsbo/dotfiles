@@ -57,3 +57,6 @@ link_check $SRC_DIR/github.com/potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
 # rbenv
 brew_check rbenv
+
+# peco
+go get github.com/peco/peco
