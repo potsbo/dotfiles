@@ -30,7 +30,9 @@ fi
 brew_check go
 mkdir -p $GOPATH
 mkdir -p $SRC_DIR
-ln -s $HOME/src $GOPATH/src
+if [ ! -f $GOPATH/src ]; then
+  ln -s $HOME/src $GOPATH/src
+fi
 
 # ghq
 go get github.com/motemen/ghq
