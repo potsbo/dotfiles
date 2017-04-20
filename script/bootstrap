@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eux
+
 brew_check() {
   if brew info $1 | grep "Not installed" > /dev/null 2>&1
   then
