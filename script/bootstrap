@@ -13,7 +13,7 @@ brew_check() {
 }
 
 link_check() {
-  if [ ! -f $2 ]; then
+  if [ ! -f "$2" && ! -d "$2" ]; then
     ln -s $1 $2
   fi
 }
