@@ -60,3 +60,4 @@ brew_check rbenv
 
 # peco
 go get github.com/peco/peco
+brew_check hub
