@@ -104,3 +104,4 @@ clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
 
 # assets
 ghq get edihbrandon/RictyDiminished
+ghq get mzyy94/RictyDiminished-for-Powerline
