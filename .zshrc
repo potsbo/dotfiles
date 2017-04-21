@@ -25,6 +25,7 @@ export PATH=$PATH:/Library/TeX/texbin
 export PATH=$PATH:$SCALA_HOME/bin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
+export ZSH=$HOME/.oh-my-zsh
 
 ### completion 
 autoload -Uz compinit
@@ -94,19 +95,19 @@ alias mkdir='mkdir -p'
 
 
 #Vim-Like Prompt
-function zle-line-init zle-keymap-select {
-  case $KEYMAP in
-    vicmd)
-    PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$fg[red]%}-NOR-%{$fg[cyan]%}%#%{$reset_color%} "
-    ;;
-    main|viins)
-    PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$reset_color%}-INS-%{$fg[cyan]%}%#%{$reset_color%} "
-    ;;
-  esac
-  zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
+# function zle-line-init zle-keymap-select {
+#   case $KEYMAP in
+#     vicmd)
+#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$fg[red]%}-NOR-%{$fg[cyan]%}%#%{$reset_color%} "
+#     ;;
+#     main|viins)
+#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$reset_color%}-INS-%{$fg[cyan]%}%#%{$reset_color%} "
+#     ;;
+#   esac
+#   zle reset-prompt
+# }
+# zle -N zle-line-init
+# zle -N zle-keymap-select
 
 #Right Prompt
 RPROMPT="%{$fg[cyan]%}[%~]%{$reset_color%}"$WHITE
@@ -246,3 +247,8 @@ function com {
 eval "$(nodenv init -)"
 
 alias s='cd $(ghq list -p | peco)'
+
+ZSH_THEME="xxf"
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh

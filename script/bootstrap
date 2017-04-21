@@ -1,0 +1,98 @@
+#!/bin/bash
+
+set -eu
+
+brew_check() {
+  if brew info $1 | grep "Not installed" > /dev/null 2>&1
+  then
+    echo "    + Installing $1..."
+    brew install $1
+  else
+    echo "    + $1 found."
+  fi
+}
+
+link_check() {
+  if [[ ! -f "$2" && ! -d "$2" && ! -L "$2" ]]; then
+    ln -s $1 $2
+  fi
+}
+
+replace_with_link() {
+  if [[ -L "$2" || -f "$2" ]]; then
+    rm $2
+  fi
+  link_check $1 $2
+  echo "    + $2 updated."
+}
+
+clone_and_link_to() {
+  ghq get $1
+  replace_with_link $SRC_DIR/github.com/$1 $2
+}
+
+install_zsh_theme() {
+  wget $1 -P $HOME/.oh-my-zsh/themes
+}
+
+# Config
+SRC_DIR=$HOME/src
+DOTFILES_DIR=$HOME/.dotfiles
+TMUX_DIR=$HOME/.tmux
+export GHQ_ROOT=$SRC_DIR
+
+# PATH
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
+
+# Install brew
+echo "  + Homebrew"
+if test ! $(which brew); then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+  echo "    + Homebrew found."
+fi
+
+echo "  + Go"
+# Check go
+brew_check go
+mkdir -p $GOPATH
+mkdir -p $SRC_DIR
+link_check $HOME/src $GOPATH/src
+
+# ghq
+echo "  + ghq"
+if test ! $(which ghq); then
+  go get github.com/motemen/ghq
+else
+  echo "    + ghq found."
+fi
+
+# dotfiles
+echo "  + dotfiles"
+clone_and_link_to potsbo/dotfiles $DOTFILES_DIR
+CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
+for conf in ${CONFS[@]}; do
+  replace_with_link $HOME/.dotfiles/$conf $HOME/$conf
+done
+
+# tmux
+echo "  + Tmux"
+brew_check tmux
+mkdir -p $HOME/.tmux
+clone_and_link_to potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
+
+# Tools
+echo "  + Tools"
+go get github.com/peco/peco
+brew_check hub
+brew_check jq
+brew_check wget
+brew_check rbenv
+brew_check pyenv
+brew_check envchain
+
+# oh-my-zsh
+echo "  + oh-my-zsh"
+clone_and_link_to robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
+install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
