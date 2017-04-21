@@ -43,4 +43,4 @@
 [url "git@github.com:"]
       insteadOf = https://github.com/
 [ghq]
-	root = /Users/potsbo/src
+	root = ~/src
