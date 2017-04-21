@@ -244,6 +244,10 @@ function com {
   git commit -am "$*"
 }
 
+function be {
+  bundle exec "$*"
+}
+
 eval "$(nodenv init -)"
 
 alias s='cd $(ghq list -p | peco)'
