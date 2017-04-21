@@ -90,9 +90,27 @@ brew_check peco
 brew_check hub
 brew_check jq
 brew_check wget
-brew_check rbenv
-brew_check pyenv
 brew_check envchain
+
+# rbenv
+brew_check rbenv
+if rbenv versions | grep $RUBY_VERSION > /dev/null 2>&1
+then
+  echo "    + ruby $RUBY_VERSION fonud."
+else
+  rbenv install $RUBY_VERSION
+fi
+rbenv global $RUBY_VERSION
+
+# rbenv
+brew_check pyenv
+if pyenv versions | grep $PYTHON_VERSION > /dev/null 2>&1
+then
+  echo "    + python $PYTHON_VERSION fonud."
+else
+  pyenv install $PYTHON_VERSION
+fi
+pyenv global $PYTHON_VERSION
 
 # oh-my-zsh
 echo "  + oh-my-zsh"
