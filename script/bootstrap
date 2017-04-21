@@ -91,6 +91,7 @@ brew_check jq
 brew_check wget
 brew_check rbenv
 brew_check pyenv
+brew_check envchain
 
 echo "  + oh-my-zsh"
 clone_and_link_to robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
