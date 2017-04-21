@@ -99,7 +99,8 @@ install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884
 
 # vim
 echo "  + vim"
-clone_and_link_to Shougo/neobundle.vim $HOME/.vim/neobundle.vim
+mkdir $HOME/.vim/bundle
+clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
 
 # assets
 ghq get edihbrandon/RictyDiminished
