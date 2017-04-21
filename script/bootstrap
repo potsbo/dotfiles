@@ -93,6 +93,7 @@ brew_check wget
 brew_check envchain
 
 # rbenv
+echo "  + Ruby"
 brew_check rbenv
 if rbenv versions | grep $RUBY_VERSION > /dev/null 2>&1
 then
@@ -102,7 +103,8 @@ else
 fi
 rbenv global $RUBY_VERSION
 
-# rbenv
+# pyenv
+echo "  + Python"
 brew_check pyenv
 if pyenv versions | grep $PYTHON_VERSION > /dev/null 2>&1
 then
