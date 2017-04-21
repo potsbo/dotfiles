@@ -39,6 +39,8 @@ install_zsh_theme() {
 SRC_DIR=$HOME/src
 DOTFILES_DIR=$HOME/.dotfiles
 TMUX_DIR=$HOME/.tmux
+PYTHON_VERSION=3.6.1
+RUBY_VERSION=2.4.1
 export GHQ_ROOT=$SRC_DIR
 
 # PATH
