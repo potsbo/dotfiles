@@ -57,5 +57,6 @@ noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 hi Visual ctermbg=White guibg=#FFF
+let g:jsx_ext_required = 0
 
 colorscheme molokai
