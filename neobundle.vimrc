@@ -42,6 +42,8 @@ NeoBundle 'tomasr/molokai'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'google/vim-ft-go'
 NeoBundle 'fatih/vim-go'
+NeoBundle "pangloss/vim-javascript"
+NeoBundle "mxw/vim-jsx"
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
