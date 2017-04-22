@@ -41,6 +41,7 @@ DOTFILES_DIR=$HOME/.dotfiles
 TMUX_DIR=$HOME/.tmux
 PYTHON_VERSION=3.6.1
 RUBY_VERSION=2.4.1
+NODE_VERSION=7.9.0
 export GHQ_ROOT=$SRC_DIR
 
 # PATH
@@ -115,6 +116,16 @@ else
 fi
 pyenv global $PYTHON_VERSION
 
+echo "  + Node"
+brew_check nodenv
+if nodenv versions | grep $NODE_VERSION > /dev/null 2>&1
+then
+  echo "    + node $NODE_VERSION found."
+else
+  nodenv install $NODE_VERSION
+fi
+nodenv global $NODE_VERSION
+
 # oh-my-zsh
 echo "  + oh-my-zsh"
 clone_and_link_to robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
@@ -124,6 +135,7 @@ install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884
 echo "  + Vim"
 mkdir -p $HOME/.vim/bundle
 clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+link_check $DOTFILES_DIR/vim/indent $HOME/.vim/indent
 
 # assets
 echo "  + Assets"
