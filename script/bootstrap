@@ -32,7 +32,12 @@ clone_and_link_to() {
 }
 
 install_zsh_theme() {
-  wget $1 -P $HOME/.oh-my-zsh/themes
+  filename=$(basename $1)
+  if [ ! -f "$HOME/.oh-my-zsh/themes/$filename" ]; then
+    wget $1 -P $HOME/.oh-my-zsh/themes
+  else
+    echo "    + $filename found."
+  fi
 }
 
 # Config
