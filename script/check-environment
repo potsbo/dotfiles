@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -eu
+
+echo_red() {
+  RED='\033[0;31m'
+  NC='\033[0m' # No Color
+  echo -e "${RED}$1${NC}"
+}
+
+check() {
+  if test ! $(which $1); then
+    echo_red "+ $1 is not installed"
+  else
+    echo "+ $1 is not installed"
+  fi
+}
+
+check tex
