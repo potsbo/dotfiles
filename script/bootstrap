@@ -53,6 +53,15 @@ export GHQ_ROOT=$SRC_DIR
 export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 
+echo "  + Machine Name"
+MACHINE=$(hostname | sed -e 's/\.local//g')
+if [[ $MACHINE =~ ^[a-z]+$ ]]; then
+  echo "    + $MACHINE is valid."
+else
+  echo "    + $MACHINE is not valid."
+  exit 1
+fi
+
 # Install brew
 echo "  + Homebrew"
 if test ! $(which brew); then
