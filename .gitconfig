@@ -29,7 +29,7 @@
   g = graph
   br = branch
   pr = pull-request
-  pprb = !git push && git pull-request && git browse
+  pprb = !git push && hub pull-request && hub browse
   pbrowse = !git push && hub browse
   showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
   openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
