@@ -241,7 +241,7 @@ function cam {
 }
 
 function com {
-  git commit -am "$*"
+  git commit -m "$*"
 }
 
 function be {
