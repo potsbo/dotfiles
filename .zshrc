@@ -244,6 +244,10 @@ function com {
   git commit -m "$*"
 }
 
+function CAM {
+  git add -A && git commit -am "$*"
+}
+
 function be {
   bundle exec "$*"
 }
