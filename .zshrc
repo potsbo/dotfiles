@@ -252,11 +252,20 @@ function be {
   bundle exec "$*"
 }
 
+function list-all-files {
+  if git rev-parse 2> /dev/null; then
+    git ls-files
+  else
+    find . -type f
+  fi
+}
+
 eval "$(nodenv init -)"
 
 alias s='cd $(ghq list -p | peco)'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 alias -g LB='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
+alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 ZSH_THEME="xxf"
 plugins=(git)
