@@ -70,6 +70,14 @@ else
   echo "    + $KEY_PATH exists."
 fi
 
+echo "  + SSH key"
+KEY_PATH=~/.ssh/$MACHINE.github
+if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
+  ssh-keygen -f $KEY_PATH -t rsa
+else
+  echo "    + $KEY_PATH exists."
+fi
+
 # Install brew
 echo "  + Homebrew"
 if test ! $(which brew); then
