@@ -172,6 +172,9 @@ mkdir -p $HOME/.vim/bundle
 clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
 link_check $DOTFILES_DIR/vim/indent $HOME/.vim/indent
 
+echo "  + Keyboard"
+ghq get potsbo/KeyType
+
 # assets
 echo "  + Assets"
 ghq get edihbrandon/RictyDiminished
