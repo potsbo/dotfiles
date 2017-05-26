@@ -265,7 +265,7 @@ eval "$(nodenv init -)"
 alias s='cd $(ghq list -p | peco)'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 alias -g LB='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
-alias -g RB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)/\1 \0/"'
+alias -g RB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)//"`'
 alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 ZSH_THEME="xxf"
