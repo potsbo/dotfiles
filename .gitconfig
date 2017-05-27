@@ -5,6 +5,7 @@
 [user]
 	name = Shimpei Otsubo
 	email = potsbo@gmail.com
+  privatekey = ~/.ssh/avalon.github
 [core]
 	excludesfile = ~/.gitignore_global
 [difftool "sourcetree"]

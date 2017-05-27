@@ -63,11 +63,20 @@ else
 fi
 
 echo "  + SSH key"
+echo "    + general key"
 KEY_PATH=~/.ssh/$MACHINE
 if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
   ssh-keygen -f $KEY_PATH -t rsa
 else
-  echo "    + $KEY_PATH exists."
+  echo "      + $KEY_PATH exists."
+fi
+
+echo "    + GitHub key"
+KEY_PATH=~/.ssh/$MACHINE.github
+if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
+  ssh-keygen -f $KEY_PATH -t rsa
+else
+  echo "      + $KEY_PATH exists."
 fi
 
 # Install brew
@@ -101,6 +110,10 @@ for conf in ${CONFS[@]}; do
   replace_with_link $HOME/.dotfiles/$conf $HOME/$conf
 done
 
+echo "  + .ssh"
+mkdir -p $HOME/.ssh
+link_check $DOTFILES_DIR/.ssh/config $HOME/.ssh/config
+
 # tmux
 echo "  + Tmux"
 brew_check tmux
@@ -123,9 +136,10 @@ then
   echo "    + ruby $RUBY_VERSION fonud."
 else
   rbenv install $RUBY_VERSION
-  gem install bundler
 fi
 rbenv global $RUBY_VERSION
+rbenv rehash
+gem install bundler
 
 # pyenv
 echo "  + Python"
@@ -158,6 +172,10 @@ echo "  + Vim"
 mkdir -p $HOME/.vim/bundle
 clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
 link_check $DOTFILES_DIR/vim/indent $HOME/.vim/indent
+link_check $DOTFILES_DIR/.vimrc $HOME/.ideavimrc
+
+echo "  + Keyboard"
+ghq get potsbo/KeyType
 
 # assets
 echo "  + Assets"
