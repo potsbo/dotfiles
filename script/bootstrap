@@ -171,7 +171,7 @@ install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884
 echo "  + Vim"
 mkdir -p $HOME/.vim/bundle
 clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-vim +NeoBundleInstall +qa
+vim -u $DOTFILES_DIR/neobundle.vimrc +NeoBundleInstall +qa
 link_check $DOTFILES_DIR/vim/indent $HOME/.vim/indent
 link_check $DOTFILES_DIR/.vimrc $HOME/.ideavimrc
 
