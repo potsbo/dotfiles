@@ -138,6 +138,8 @@ brew_check jq
 brew_check wget
 brew_check envchain
 
+brew_cask_check iterm2
+
 # rbenv
 echo "  + Ruby"
 brew_check rbenv
