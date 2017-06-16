@@ -1,3 +1,4 @@
+set nocompatible
 """Neobundle""""
 if has('vim_starting')
 	filetype plugin off
