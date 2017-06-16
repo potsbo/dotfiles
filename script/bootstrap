@@ -165,6 +165,7 @@ nodenv global $NODE_VERSION
 # oh-my-zsh
 echo "  + oh-my-zsh"
 clone_and_link_to robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
+clone_and_link_to zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
 
 # vim

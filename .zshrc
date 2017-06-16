@@ -270,6 +270,6 @@ alias -g RB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRAN
 alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 ZSH_THEME="xxf"
-plugins=(git)
+plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
