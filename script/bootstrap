@@ -136,10 +136,10 @@ then
   echo "    + ruby $RUBY_VERSION fonud."
 else
   rbenv install $RUBY_VERSION
+  gem install bundler
 fi
 rbenv global $RUBY_VERSION
 rbenv rehash
-gem install bundler
 
 # pyenv
 echo "  + Python"
