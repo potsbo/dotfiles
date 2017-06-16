@@ -140,6 +140,11 @@ brew_check envchain
 
 brew_cask_check iterm2
 brew_cask_check sourcetree
+brew_cask_check skype
+brew_cask_check atom
+brew_cask_check postgres
+brew_cask_check spotify
+brew_cask_check dropbox
 
 # rbenv
 echo "  + Ruby"
