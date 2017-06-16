@@ -44,6 +44,8 @@ NeoBundle 'google/vim-ft-go'
 NeoBundle 'fatih/vim-go'
 NeoBundle "pangloss/vim-javascript"
 NeoBundle "mxw/vim-jsx"
+NeoBundle 'rust-lang/rust.vim'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""
+let g:rustfmt_autosave = 1
