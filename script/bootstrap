@@ -139,6 +139,7 @@ brew_check wget
 brew_check envchain
 
 brew_cask_check iterm2
+brew_cask_check sourcetree
 
 # rbenv
 echo "  + Ruby"
