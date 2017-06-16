@@ -12,7 +12,7 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache.vim' 	"neo-completion with cache
 " NeoBundle 'Shougo/neocomplete.vim' 	"neo-completion with cache
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimproc.vim', { 'build': { 'mac': 'make' } }
 NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'itchyny/lightline.vim'
