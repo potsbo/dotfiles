@@ -47,10 +47,11 @@ zsh:
 
 link:
   bin: bin
-  .zshrc:            .zshrc
-  .vimrc:            .vimrc
-  .gitconfig:        .gitconfig
-  .gitignore_global: .gitignore_global
-  .tmux.conf:        .tmux.conf
-  .tmux-powerlinerc: .tmux-powerlinerc
-  .ssh/config:       .ssh/config
+  .zshrc:                  .zshrc
+  .vimrc:                  .vimrc
+  .gitconfig:              .gitconfig
+  .gitignore_global:       .gitignore_global
+  .tmux.conf:              .tmux.conf
+  .tmux-powerlinerc:       .tmux-powerlinerc
+  .ssh/config:             .ssh/config
+  ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems
