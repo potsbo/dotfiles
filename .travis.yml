@@ -1,6 +1,8 @@
 language: bash
 os: osx
 
+sudo: required
+
 env:
   global:
     MACHINE='travis'
