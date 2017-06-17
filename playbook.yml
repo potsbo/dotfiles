@@ -10,6 +10,9 @@
     - config.yml
 
   roles:
+    - role: anyenv
+      tags: ['install', 'anyenv']
+
     - role: homebrew
       tags: ['install', 'homebrew']
 

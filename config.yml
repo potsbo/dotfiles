@@ -1,3 +1,7 @@
+anyenv:
+  directory: .anyenv
+  repository: github.com/riywo/anyenv
+
 homebrew:
   repositories:
     - potsbo/tools 
