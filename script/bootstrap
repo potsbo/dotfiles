@@ -76,7 +76,7 @@ echo "  + SSH key"
 echo "    + general key"
 KEY_PATH=~/.ssh/$MACHINE
 if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-  ssh-keygen -f $KEY_PATH -t rsa
+  ssh-keygen -f $KEY_PATH -t rsa -N ''
 else
   echo "      + $KEY_PATH exists."
 fi
@@ -84,7 +84,7 @@ fi
 echo "    + GitHub key"
 KEY_PATH=~/.ssh/$MACHINE.github
 if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-  ssh-keygen -f $KEY_PATH -t rsa
+  ssh-keygen -f $KEY_PATH -t rsa -N ''
 else
   echo "      + $KEY_PATH exists."
 fi
