@@ -22,6 +22,7 @@ homebrew:
     - jq
     - wget
     - envchain
+    - tmux
 
 link:
   bin: bin
