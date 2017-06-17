@@ -25,3 +25,9 @@ homebrew:
 
 link:
   bin: bin
+  .zshrc:            .zshrc
+  .vimrc:            .vimrc
+  .gitconfig:        .gitconfig
+  .gitignore_global: .gitignore_global
+  .tmux.conf:        .tmux.conf
+  .tmux-powerlinerc: .tmux-powerlinerc

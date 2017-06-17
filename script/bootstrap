@@ -182,13 +182,5 @@ echo "  + Assets"
 ghq get edihbrandon/RictyDiminished
 ghq get mzyy94/RictyDiminished-for-Powerline
 
-# dotfiles
-echo "  + dotfiles"
-clone_and_link_to potsbo/dotfiles $DOTFILES_DIR
-CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
-for conf in ${CONFS[@]}; do
-  replace_with_link $HOME/.dotfiles/$conf $HOME/$conf
-done
-
 # ansible
 ansible-playbook playbook.yml
