@@ -155,6 +155,8 @@ if rbenv versions | grep $RUBY_VERSION > /dev/null 2>&1
 then
   echo "    + ruby $RUBY_VERSION fonud."
 else
+  brew update
+  brew upgrade ruby-build
   rbenv install $RUBY_VERSION
   gem install bundler
 fi
