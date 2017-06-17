@@ -7,4 +7,3 @@ env:
 
 script:
   - bash script/bootstrap
-  - bash script/bootstrap # check idempotency
