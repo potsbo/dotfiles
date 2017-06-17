@@ -145,6 +145,8 @@ brew_cask_check atom
 brew_cask_check postgres
 brew_cask_check spotify
 brew_cask_check dropbox
+brew_cask_check docker
+brew_cask_check jetbrains-toolbox
 
 # rbenv
 echo "  + Ruby"
