@@ -7,3 +7,6 @@
   roles:
     - role: homebrew
       tags: ['install', 'homebrew']
+
+    - role: link
+      tags: ['link']
