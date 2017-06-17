@@ -1,0 +1,34 @@
+- name: install oh-my-zsh
+  git:
+    repo: 'https://{{ zsh.manager }}'
+    dest: '{{ src_path }}/{{ zsh.manager }}'
+    update: no
+
+- name: create zsh symlink
+  file:
+    src:   '{{ src_path }}/{{ zsh.manager }}'
+    dest:  '{{ zsh.directory }}'
+    state: link
+    force: yes
+
+- name: install plugin
+  git:
+    repo: '{{ item }}'
+    dest: '{{ src_path }}/{{ item }}'
+    update: no
+  with_items: '{{ zsh.plugins }}'
+
+- name: link plugin
+  file:
+    src:   '{{ src_path }}/{{ item }}'
+    dest:  '{{ zsh.directory }}/custom/plugins/{{ item | basename }}'
+    state: link
+    force: yes
+  with_items: '{{ zsh.plugins }}'
+
+- name: install theme
+  get_url:
+    url:  '{{ item }}'
+    dest: '{{ zsh.directory }}/themes/{{ item | basename }}'
+    mode: 0640
+  with_items: '{{ zsh.themes }}'

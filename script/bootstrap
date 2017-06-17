@@ -41,15 +41,6 @@ clone_and_link_to() {
   replace_with_link $SRC_DIR/github.com/$1 $2
 }
 
-install_zsh_theme() {
-  filename=$(basename $1)
-  if [ ! -f "$HOME/.oh-my-zsh/themes/$filename" ]; then
-    wget $1 -P $HOME/.oh-my-zsh/themes
-  else
-    echo "    + $filename found."
-  fi
-}
-
 # Config
 SRC_DIR=$HOME/src
 DOTFILES_DIR=$HOME/.dotfiles
@@ -151,11 +142,6 @@ else
   nodenv install $NODE_VERSION
 fi
 nodenv global $NODE_VERSION
-
-# oh-my-zsh
-echo "  + oh-my-zsh"
-clone_and_link_to zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
 
 # vim
 echo "  + Vim"
