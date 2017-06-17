@@ -11,5 +11,8 @@
     - role: homebrew
       tags: ['install', 'homebrew']
 
+    - role: tmux
+      tags: ['install', 'tmux']
+
     - role: link
       tags: ['link']
