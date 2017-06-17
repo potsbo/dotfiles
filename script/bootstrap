@@ -124,24 +124,7 @@ clone_and_link_to potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
 # Tools
 echo "  + Tools"
-brew_check peco
-brew_check hub
-brew_check jq
-brew_check wget
-brew_check envchain
 brew_check ansible
-
-brew_cask_check iterm2
-brew_cask_check sourcetree
-brew_cask_check skype
-brew_cask_check atom
-brew_cask_check postgres
-brew_cask_check spotify
-brew_cask_check dropbox
-brew_cask_check docker
-brew_cask_check jetbrains-toolbox
-brew_cask_check google-chrome
-brew_cask_check google-japanese-ime
 
 # rbenv
 echo "  + Ruby"
