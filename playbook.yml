@@ -16,6 +16,9 @@
     - role: homebrew
       tags: ['install', 'homebrew']
 
+    - role: ruby
+      tags: ['language', 'ruby']
+
     - role: tmux
       tags: ['install', 'tmux']
 

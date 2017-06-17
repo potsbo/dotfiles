@@ -109,19 +109,6 @@ fi
 echo "  + Tools"
 brew_check ansible
 
-# rbenv
-echo "  + Ruby"
-brew_check rbenv
-if rbenv versions | grep $RUBY_VERSION > /dev/null 2>&1
-then
-  echo "    + ruby $RUBY_VERSION fonud."
-else
-  rbenv install $RUBY_VERSION
-  gem install bundler
-fi
-rbenv global $RUBY_VERSION
-rbenv rehash
-
 # pyenv
 echo "  + Python"
 brew_check pyenv

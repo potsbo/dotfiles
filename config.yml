@@ -28,6 +28,10 @@ homebrew:
     - envchain
     - tmux
 
+ruby:
+  versions:
+    - 2.4.1
+
 tmux:
   directory: '{{ home_path }}/.tmux'
   deps:
