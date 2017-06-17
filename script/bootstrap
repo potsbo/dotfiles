@@ -116,11 +116,6 @@ echo "  + .ssh"
 mkdir -p $HOME/.ssh
 link_check $DOTFILES_DIR/.ssh/config $HOME/.ssh/config
 
-# tmux
-echo "  + Tmux"
-mkdir -p $HOME/.tmux
-clone_and_link_to potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
-
 # Tools
 echo "  + Tools"
 brew_check ansible
