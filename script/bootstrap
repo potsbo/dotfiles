@@ -112,10 +112,6 @@ else
   echo "    + ghq found."
 fi
 
-echo "  + .ssh"
-mkdir -p $HOME/.ssh
-link_check $DOTFILES_DIR/.ssh/config $HOME/.ssh/config
-
 # Tools
 echo "  + Tools"
 brew_check ansible

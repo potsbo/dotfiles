@@ -37,3 +37,4 @@ link:
   .gitignore_global: .gitignore_global
   .tmux.conf:        .tmux.conf
   .tmux-powerlinerc: .tmux-powerlinerc
+  .ssh/config:       .ssh/config
