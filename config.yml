@@ -22,3 +22,6 @@ homebrew:
     - jq
     - wget
     - envchain
+
+link:
+  bin: bin
