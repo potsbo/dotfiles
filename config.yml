@@ -32,6 +32,8 @@ tmux:
 zsh:
   directory: '{{ home_path }}/.oh-my-zsh'
   manager: github.com/robbyrussell/oh-my-zsh
+  plugins:
+    - github.com/zsh-users/zsh-syntax-highlighting
 
 link:
   bin: bin
