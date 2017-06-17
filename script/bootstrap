@@ -151,9 +151,6 @@ vim -u $DOTFILES_DIR/neobundle.vimrc +NeoBundleInstall +qa
 link_check $DOTFILES_DIR/vim/indent $HOME/.vim/indent
 link_check $DOTFILES_DIR/.vimrc $HOME/.ideavimrc
 
-echo "  + Keyboard"
-ghq get potsbo/KeyType
-
 # assets
 echo "  + Assets"
 ghq get edihbrandon/RictyDiminished
