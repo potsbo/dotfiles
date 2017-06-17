@@ -80,6 +80,7 @@ if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
 else
   echo "      + $KEY_PATH exists."
 fi
+link_check $KEY_PATH ~/.ssh/id_rsa
 
 echo "    + GitHub key"
 KEY_PATH=~/.ssh/$MACHINE.github
@@ -88,6 +89,7 @@ if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
 else
   echo "      + $KEY_PATH exists."
 fi
+link_check $KEY_PATH ~/.ssh/id_rsa.github
 
 # Install brew
 echo "  + Homebrew"

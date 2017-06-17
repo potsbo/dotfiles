@@ -16,5 +16,8 @@
     - role: tmux
       tags: ['install', 'tmux']
 
+    - role: zsh
+      tags: ['install', 'zsh']
+
     - role: link
       tags: ['link']

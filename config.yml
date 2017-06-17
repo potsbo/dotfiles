@@ -29,6 +29,10 @@ tmux:
   deps:
     - github.com/potsbo/tmux-powerline
 
+zsh:
+  directory: '{{ home_path }}/.oh-my-zsh'
+  manager: github.com/robbyrussell/oh-my-zsh
+
 link:
   bin: bin
   .zshrc:            .zshrc
