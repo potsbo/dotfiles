@@ -206,3 +206,6 @@ CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
 for conf in ${CONFS[@]}; do
   replace_with_link $HOME/.dotfiles/$conf $HOME/$conf
 done
+
+# ansible
+ansible-playbook playbook.yml
