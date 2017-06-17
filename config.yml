@@ -1,0 +1,40 @@
+homebrew:
+  repositories:
+    - potsbo/tools 
+
+  applications:
+    - iterm2
+    - sourcetree
+    - skype
+    - atom
+    - postgres
+    - spotify
+    - dropbox
+    - docker
+    - jetbrains-toolbox
+    - google-chrome
+    - google-japanese-ime
+    - keytype
+
+  packages:
+    - peco
+    - hub
+    - jq
+    - wget
+    - envchain
+    - tmux
+
+tmux:
+  directory: '{{ home_path }}/.tmux'
+  deps:
+    - github.com/potsbo/tmux-powerline
+
+link:
+  bin: bin
+  .zshrc:            .zshrc
+  .vimrc:            .vimrc
+  .gitconfig:        .gitconfig
+  .gitignore_global: .gitignore_global
+  .tmux.conf:        .tmux.conf
+  .tmux-powerlinerc: .tmux-powerlinerc
+  .ssh/config:       .ssh/config
