@@ -22,6 +22,12 @@ homebrew:
     - jq
     - wget
     - envchain
+    - tmux
+
+tmux:
+  directory: '{{ home_path }}/.tmux'
+  deps:
+    - github.com/potsbo/tmux-powerline
 
 link:
   bin: bin

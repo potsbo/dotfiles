@@ -118,7 +118,6 @@ link_check $DOTFILES_DIR/.ssh/config $HOME/.ssh/config
 
 # tmux
 echo "  + Tmux"
-brew_check tmux
 mkdir -p $HOME/.tmux
 clone_and_link_to potsbo/tmux-powerline $TMUX_DIR/tmux-powerline
 
