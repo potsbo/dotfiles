@@ -129,6 +129,7 @@ brew_check hub
 brew_check jq
 brew_check wget
 brew_check envchain
+brew_check ansible
 
 brew_cask_check iterm2
 brew_cask_check sourcetree
