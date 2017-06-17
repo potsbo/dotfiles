@@ -64,7 +64,7 @@ export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 
 echo "  + Machine Name"
-MACHINE=$(hostname | sed -e 's/\.local//g')
+${MACHINE-$(hostname | sed -e 's/\.local//g')}
 if [[ $MACHINE =~ ^[a-z]+$ ]]; then
   echo "    + $MACHINE is valid."
 else
