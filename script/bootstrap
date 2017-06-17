@@ -147,6 +147,8 @@ brew_cask_check spotify
 brew_cask_check dropbox
 brew_cask_check docker
 brew_cask_check jetbrains-toolbox
+brew_cask_check google-chrome
+brew_cask_check google-japanese-ime
 
 # rbenv
 echo "  + Ruby"
