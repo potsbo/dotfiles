@@ -5,6 +5,7 @@ export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
 export PATH=~/.rbenv/shims
+export PATH=$PATH:~/.anyenv/bin
 export PATH=$PATH:~/.nodenv/shims
 export PATH=$PATH:~/.pyenv/shims
 export GOPATH=$HOME/.go
@@ -273,3 +274,8 @@ ZSH_THEME="xxf"
 plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+#  Anyenv
+#-----------------------------------------------
+if [ -d $HOME/.anyenv ]; then
+  eval "$(anyenv init -)"
+fi

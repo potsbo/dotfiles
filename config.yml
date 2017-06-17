@@ -1,6 +1,8 @@
 anyenv:
-  directory: .anyenv
+  directory: '{{ home_path }}/.anyenv'
   repository: github.com/riywo/anyenv
+  plugins_dir: '{{ home_path }}/.anyenv/plugins'
+  envs_dir:    '{{ home_path }}/.anyenv/envs'
 
 homebrew:
   repositories:
@@ -31,6 +33,10 @@ homebrew:
 ruby:
   versions:
     - 2.4.1
+  plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
+  plugins:
+    - github.com/sstephenson/rbenv-default-gems
+    - github.com/sstephenson/rbenv-gem-rehash
 
 tmux:
   directory: '{{ home_path }}/.tmux'
