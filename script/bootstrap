@@ -147,6 +147,8 @@ brew_cask_check spotify
 brew_cask_check dropbox
 brew_cask_check docker
 brew_cask_check jetbrains-toolbox
+brew_cask_check google-chrome
+brew_cask_check google-japanese-ime
 
 # rbenv
 echo "  + Ruby"
@@ -205,3 +207,11 @@ ghq get potsbo/KeyType
 echo "  + Assets"
 ghq get edihbrandon/RictyDiminished
 ghq get mzyy94/RictyDiminished-for-Powerline
+
+# dotfiles
+echo "  + dotfiles"
+clone_and_link_to potsbo/dotfiles $DOTFILES_DIR
+CONFS=(.vimrc .zshrc .gitconfig .gitignore_global .tmux.conf .tmux-powerlinerc)
+for conf in ${CONFS[@]}; do
+  replace_with_link $HOME/.dotfiles/$conf $HOME/$conf
+done
