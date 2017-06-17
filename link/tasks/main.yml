@@ -1,6 +1,3 @@
-- set_fact:
-    link: {}
-
 - name: allocate parent directories
   file:
     dest:    '{{ home_path }}/{{ item }}'
