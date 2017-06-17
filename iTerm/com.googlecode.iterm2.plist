@@ -50,7 +50,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>935 112 679 235 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>-888 429 796 473 -1600 109 1600 900 </string>
+	<string>-888 437 796 473 -1600 109 1600 900 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>-1447 280 490 352 -1600 109 1600 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
@@ -632,7 +632,7 @@
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
-			<true/>
+			<false/>
 			<key>Use Bright Bold</key>
 			<true/>
 			<key>Use HFS Plus Mapping</key>
