@@ -46,7 +46,6 @@ NODE_VERSION=7.9.0
 export GHQ_ROOT=$SRC_DIR
 
 # PATH
-export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 
 echo "  + Machine Name"
@@ -115,10 +114,11 @@ if test ! $(which rustc); then
   curl https://sh.rustup.rs -sSf | sh -s -- -y
 fi
 
+# ansible
+ansible-playbook playbook.yml
+
 # assets
 echo "  + Assets"
 ghq get edihbrandon/RictyDiminished
 ghq get mzyy94/RictyDiminished-for-Powerline
 
-# ansible
-ansible-playbook playbook.yml
