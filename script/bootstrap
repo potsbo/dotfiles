@@ -27,9 +27,6 @@ RUBY_VERSION=2.4.1
 NODE_VERSION=7.9.0
 export GHQ_ROOT=$SRC_DIR
 
-# PATH
-export PATH=$PATH:$GOPATH/bin
-
 echo "  + Machine Name"
 MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
 if [[ $MACHINE =~ ^[a-z]+$ ]]; then
