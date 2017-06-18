@@ -38,6 +38,13 @@ ruby:
     - github.com/sstephenson/rbenv-default-gems
     - github.com/sstephenson/rbenv-gem-rehash
 
+golang:
+  path: '{{ home_path }}/.go'
+  versions:
+    - 1.8.3
+  packages:
+    - github.com/motemen/ghq
+
 tmux:
   directory: '{{ home_path }}/.tmux'
   deps:

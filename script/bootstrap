@@ -85,21 +85,6 @@ else
   echo "    + Homebrew found."
 fi
 
-echo "  + Go"
-# Check go
-brew_check go
-mkdir -p $GOPATH
-mkdir -p $SRC_DIR
-link_check $HOME/src $GOPATH/src
-
-# ghq
-echo "  + ghq"
-if test ! $(which ghq); then
-  go get github.com/motemen/ghq
-else
-  echo "    + ghq found."
-fi
-
 # Tools
 echo "  + Tools"
 brew_check ansible

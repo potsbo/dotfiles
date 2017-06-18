@@ -1,0 +1,45 @@
+- name: create src
+  file:
+    dest:    '{{ src_path }}'
+    state:   directory
+
+- name: link src
+  file:
+    src:   '{{ src_path }}'
+    dest:  '{{ golang.path }}/src'
+    state: link
+    force: yes
+
+- name: check goenv
+  command: |
+    bash -lc 'which goenv'
+  register: which_goenv
+  ignore_errors: yes
+
+- name: install goenv
+  command: |
+    bash -lc 'anyenv install goenv'
+  when: which_goenv.rc > 0
+
+- name: get installed versions
+  command: |
+    bash -lc 'goenv versions'
+  register: installed_versions
+
+- name: install golang
+  command: |
+    bash -lc 'goenv install {{ item | quote }}'
+  when: |
+    golang.versions and installed_versions.stdout.find(item) == -1
+  with_items: '{{ golang.versions }}'
+
+- name: set global golang
+  command: |
+    bash -lc 'goenv global {{ golang.versions[0] | quote }}'
+  when: golang.versions
+
+- name: install packages
+  command: |
+    bash -lc 'go get -u {{ item | quote }}'
+  with_items: '{{ golang.packages }}'
+  when: golang.packages

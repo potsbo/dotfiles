@@ -19,6 +19,9 @@
     - role: ruby
       tags: ['language', 'ruby']
 
+    - role: golang
+      tags: ['language', 'golang']
+
     - role: tmux
       tags: ['install', 'tmux']
 
