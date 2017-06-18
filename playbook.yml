@@ -10,11 +10,26 @@
     - config.yml
 
   roles:
+    - role: anyenv
+      tags: ['install', 'anyenv']
+
     - role: homebrew
       tags: ['install', 'homebrew']
+
+    - role: ruby
+      tags: ['language', 'ruby']
+
+    - role: golang
+      tags: ['language', 'golang']
 
     - role: tmux
       tags: ['install', 'tmux']
 
+    - role: zsh
+      tags: ['install', 'zsh']
+
     - role: link
       tags: ['link']
+
+    - role: vim
+      tags: ['vim']

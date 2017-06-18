@@ -1,3 +1,9 @@
+anyenv:
+  directory: '{{ home_path }}/.anyenv'
+  repository: github.com/riywo/anyenv
+  plugins_dir: '{{ home_path }}/.anyenv/plugins'
+  envs_dir:    '{{ home_path }}/.anyenv/envs'
+
 homebrew:
   repositories:
     - potsbo/tools 
@@ -15,6 +21,7 @@ homebrew:
     - google-chrome
     - google-japanese-ime
     - keytype
+    - bettertouchtool
 
   packages:
     - peco
@@ -24,17 +31,49 @@ homebrew:
     - envchain
     - tmux
 
+ruby:
+  versions:
+    - 2.4.1
+  plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
+  plugins:
+    - github.com/sstephenson/rbenv-default-gems
+    - github.com/sstephenson/rbenv-gem-rehash
+
+golang:
+  path: '{{ home_path }}/.go'
+  versions:
+    - 1.8.3
+  packages:
+    - github.com/motemen/ghq
+
 tmux:
   directory: '{{ home_path }}/.tmux'
   deps:
     - github.com/potsbo/tmux-powerline
 
+vim:
+  directory:  '{{ home_path }}/.vim'
+  bundle_dir: '{{ home_path }}/.vim/bundle'
+  manager: github.com/Shougo/neobundle.vim
+  links:
+    vim/indent: .vim/indent
+    .vimrc:     .ideavimrc
+
+zsh:
+  directory: '{{ home_path }}/.oh-my-zsh'
+  manager: github.com/robbyrussell/oh-my-zsh
+  plugins:
+    - github.com/zsh-users/zsh-syntax-highlighting
+  themes:
+    - https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
+
 link:
   bin: bin
-  .zshrc:            .zshrc
-  .vimrc:            .vimrc
-  .gitconfig:        .gitconfig
-  .gitignore_global: .gitignore_global
-  .tmux.conf:        .tmux.conf
-  .tmux-powerlinerc: .tmux-powerlinerc
-  .ssh/config:       .ssh/config
+  .zshrc:                  .zshrc
+  .vimrc:                  .vimrc
+  .gitconfig:              .gitconfig
+  .gitignore_global:       .gitignore_global
+  .tmux.conf:              .tmux.conf
+  .tmux-powerlinerc:       .tmux-powerlinerc
+  .ssh/config:             .ssh/config
+  ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems

@@ -12,41 +12,9 @@ brew_check() {
   fi
 }
 
-brew_cask_check() {
-  if brew cask info $1 | grep "Not installed" > /dev/null 2>&1
-  then
-    echo "    + Installing $1..."
-    brew cask install $1
-  else
-    echo "    + $1 found."
-  fi
-}
-
 link_check() {
   if [[ ! -f "$2" && ! -d "$2" && ! -L "$2" ]]; then
     ln -s $1 $2
-  fi
-}
-
-replace_with_link() {
-  if [[ -L "$2" || -f "$2" ]]; then
-    rm $2
-  fi
-  link_check $1 $2
-  echo "    + $2 updated."
-}
-
-clone_and_link_to() {
-  ghq get $1
-  replace_with_link $SRC_DIR/github.com/$1 $2
-}
-
-install_zsh_theme() {
-  filename=$(basename $1)
-  if [ ! -f "$HOME/.oh-my-zsh/themes/$filename" ]; then
-    wget $1 -P $HOME/.oh-my-zsh/themes
-  else
-    echo "    + $filename found."
   fi
 }
 
@@ -60,7 +28,6 @@ NODE_VERSION=7.9.0
 export GHQ_ROOT=$SRC_DIR
 
 # PATH
-export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin
 
 echo "  + Machine Name"
@@ -91,6 +58,7 @@ if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
 else
   echo "      + $KEY_PATH exists."
 fi
+link_check $KEY_PATH ~/.ssh/id_rsa
 
 echo "    + GitHub key"
 KEY_PATH=~/.ssh/$MACHINE.github
@@ -99,6 +67,7 @@ if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
 else
   echo "      + $KEY_PATH exists."
 fi
+link_check $KEY_PATH ~/.ssh/id_rsa.github
 
 # Install brew
 echo "  + Homebrew"
@@ -108,39 +77,9 @@ else
   echo "    + Homebrew found."
 fi
 
-echo "  + Go"
-# Check go
-brew_check go
-mkdir -p $GOPATH
-mkdir -p $SRC_DIR
-link_check $HOME/src $GOPATH/src
-
-# ghq
-echo "  + ghq"
-if test ! $(which ghq); then
-  go get github.com/motemen/ghq
-else
-  echo "    + ghq found."
-fi
-
 # Tools
 echo "  + Tools"
 brew_check ansible
-
-# rbenv
-echo "  + Ruby"
-brew_check rbenv
-if rbenv versions | grep $RUBY_VERSION > /dev/null 2>&1
-then
-  echo "    + ruby $RUBY_VERSION fonud."
-else
-  brew update
-  brew upgrade ruby-build
-  rbenv install $RUBY_VERSION
-  gem install bundler
-fi
-rbenv global $RUBY_VERSION
-rbenv rehash
 
 # pyenv
 echo "  + Python"
@@ -163,27 +102,16 @@ else
 fi
 nodenv global $NODE_VERSION
 
-# oh-my-zsh
-echo "  + oh-my-zsh"
-clone_and_link_to robbyrussell/oh-my-zsh $HOME/.oh-my-zsh
-clone_and_link_to zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-install_zsh_theme https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
+echo "  + Rust"
+if test ! $(which rustc); then
+  curl https://sh.rustup.rs -sSf | sh -s -- -y
+fi
 
-# vim
-echo "  + Vim"
-mkdir -p $HOME/.vim/bundle
-clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-vim -u $DOTFILES_DIR/neobundle.vimrc +NeoBundleInstall +qa
-link_check $DOTFILES_DIR/vim/indent $HOME/.vim/indent
-link_check $DOTFILES_DIR/.vimrc $HOME/.ideavimrc
-
-echo "  + Keyboard"
-ghq get potsbo/KeyType
+# ansible
+ansible-playbook playbook.yml
 
 # assets
 echo "  + Assets"
 ghq get edihbrandon/RictyDiminished
 ghq get mzyy94/RictyDiminished-for-Powerline
 
-# ansible
-ansible-playbook playbook.yml
