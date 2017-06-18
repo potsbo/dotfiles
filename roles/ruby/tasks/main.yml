@@ -28,3 +28,8 @@
   when: |
     ruby.versions and installed_versions.stdout.find(item) == -1
   with_items: '{{ ruby.versions }}'
+
+- name: set global ruby
+  command: |
+    bash -lc 'rbenv global {{ ruby.versions[0] | quote }}'
+  when: ruby.versions'
