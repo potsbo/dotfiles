@@ -143,6 +143,10 @@ else
 fi
 nodenv global $NODE_VERSION
 
+echo "  + Rust"
+if test ! $(which rustc); then
+  curl https://sh.rustup.rs -sSf | sh -s -- -y
+fi
 # vim
 echo "  + Vim"
 mkdir -p $HOME/.vim/bundle
