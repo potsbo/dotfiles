@@ -12,28 +12,10 @@ brew_check() {
   fi
 }
 
-brew_cask_check() {
-  if brew cask info $1 | grep "Not installed" > /dev/null 2>&1
-  then
-    echo "    + Installing $1..."
-    brew cask install $1
-  else
-    echo "    + $1 found."
-  fi
-}
-
 link_check() {
   if [[ ! -f "$2" && ! -d "$2" && ! -L "$2" ]]; then
     ln -s $1 $2
   fi
-}
-
-replace_with_link() {
-  if [[ -L "$2" || -f "$2" ]]; then
-    rm $2
-  fi
-  link_check $1 $2
-  echo "    + $2 updated."
 }
 
 # Config
