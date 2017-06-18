@@ -1,3 +1,9 @@
+anyenv:
+  directory: '{{ home_path }}/.anyenv'
+  repository: github.com/riywo/anyenv
+  plugins_dir: '{{ home_path }}/.anyenv/plugins'
+  envs_dir:    '{{ home_path }}/.anyenv/envs'
+
 homebrew:
   repositories:
     - potsbo/tools 
@@ -24,6 +30,14 @@ homebrew:
     - envchain
     - tmux
 
+ruby:
+  versions:
+    - 2.4.1
+  plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
+  plugins:
+    - github.com/sstephenson/rbenv-default-gems
+    - github.com/sstephenson/rbenv-gem-rehash
+
 tmux:
   directory: '{{ home_path }}/.tmux'
   deps:
@@ -39,10 +53,11 @@ zsh:
 
 link:
   bin: bin
-  .zshrc:            .zshrc
-  .vimrc:            .vimrc
-  .gitconfig:        .gitconfig
-  .gitignore_global: .gitignore_global
-  .tmux.conf:        .tmux.conf
-  .tmux-powerlinerc: .tmux-powerlinerc
-  .ssh/config:       .ssh/config
+  .zshrc:                  .zshrc
+  .vimrc:                  .vimrc
+  .gitconfig:              .gitconfig
+  .gitignore_global:       .gitignore_global
+  .tmux.conf:              .tmux.conf
+  .tmux-powerlinerc:       .tmux-powerlinerc
+  .ssh/config:             .ssh/config
+  ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems

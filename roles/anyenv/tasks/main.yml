@@ -1,0 +1,12 @@
+- name: fetch anyenv repo
+  git:
+    repo: 'https://{{ anyenv.repository }}'
+    dest: '{{ src_path }}/{{ anyenv.repository }}'
+    update: no
+
+- name: link anyenv
+  file:
+    src:   '{{ src_path }}/{{ anyenv.repository }}'
+    dest:  '{{ anyenv.directory }}'
+    state: link
+    force: yes
