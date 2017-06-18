@@ -21,6 +21,7 @@ homebrew:
     - google-chrome
     - google-japanese-ime
     - keytype
+    - bettertouchtool
 
   packages:
     - peco
