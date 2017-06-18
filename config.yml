@@ -43,6 +43,14 @@ tmux:
   deps:
     - github.com/potsbo/tmux-powerline
 
+vim:
+  directory:  '{{ home_path }}/.vim'
+  bundle_dir: '{{ home_path }}/.vim/bundle'
+  manager: github.com/Shougo/neobundle.vim
+  links:
+    vim/indent: .vim/indent
+    .vimrc:     .ideavimrc
+
 zsh:
   directory: '{{ home_path }}/.oh-my-zsh'
   manager: github.com/robbyrussell/oh-my-zsh

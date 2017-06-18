@@ -27,3 +27,6 @@
 
     - role: link
       tags: ['link']
+
+    - role: vim
+      tags: ['vim']

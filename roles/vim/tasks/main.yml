@@ -1,0 +1,31 @@
+- name: check vim directory
+  file:
+    dest:    '{{ vim.directory }}'
+    state:   directory
+    recurse: yes
+
+- name: install manager
+  git:
+    repo: 'https://{{ vim.manager }}'
+    dest: '{{ src_path }}/{{ vim.manager }}'
+    update: no
+
+- name: create manager symlink
+  file:
+    src:   '{{ src_path }}/{{ vim.manager }}'
+    dest:  '{{ vim.bundle_dir }}/{{ vim.manager | basename }}'
+    state: link
+    force: yes
+
+- name: install plugins
+  shell: vim -u {{ dotfiles_path }}/neobundle.vimrc +NeoBundleInstall +qa
+
+- name: create symlinks
+  file:
+    src:   '{{ dotfiles_path }}/{{ item.key }}'
+    dest:  '{{ home_path }}/{{ item.value }}'
+    state: link
+    force: yes
+  loop_control:
+    label: '{{ item.value }}'
+  with_dict: '{{ vim.links }}'

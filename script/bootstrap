@@ -134,13 +134,6 @@ echo "  + Rust"
 if test ! $(which rustc); then
   curl https://sh.rustup.rs -sSf | sh -s -- -y
 fi
-# vim
-echo "  + Vim"
-mkdir -p $HOME/.vim/bundle
-clone_and_link_to Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-vim -u $DOTFILES_DIR/neobundle.vimrc +NeoBundleInstall +qa
-link_check $DOTFILES_DIR/vim/indent $HOME/.vim/indent
-link_check $DOTFILES_DIR/.vimrc $HOME/.ideavimrc
 
 # assets
 echo "  + Assets"
