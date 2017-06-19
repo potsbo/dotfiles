@@ -45,3 +45,6 @@
 
     - role: ssh
       tags: ['ssh']
+
+    - role: osx
+      tags: ['osx']
