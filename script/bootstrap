@@ -73,7 +73,7 @@ if test ! $(which rustc); then
 fi
 
 # ansible
-ansible-playbook playbook.yml
+provisioning/run.sh
 
 # assets
 echo "  + Assets"
