@@ -23,6 +23,8 @@ homebrew:
     - google-japanese-ime
     - keytype
     - bettertouchtool
+    - quitter
+    - dash
 
   packages:
     - peco
@@ -32,6 +34,7 @@ homebrew:
     - envchain
     - tmux
     - reattach-to-user-namespace
+
 mas:
   appstore_id: potsbo@gmail.com
   applications:
