@@ -90,24 +90,6 @@ alias nna='lla'
 ## mkdir
 alias mkdir='mkdir -p'
 
-
-
-
-#Vim-Like Prompt
-# function zle-line-init zle-keymap-select {
-#   case $KEYMAP in
-#     vicmd)
-#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$fg[red]%}-NOR-%{$fg[cyan]%}%#%{$reset_color%} "
-#     ;;
-#     main|viins)
-#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$reset_color%}-INS-%{$fg[cyan]%}%#%{$reset_color%} "
-#     ;;
-#   esac
-#   zle reset-prompt
-# }
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-
 ### Utility alias
 alias battery="pmset -g ps"
 alias stig="cd /etc; sudo tig"
