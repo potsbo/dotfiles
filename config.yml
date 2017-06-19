@@ -39,6 +39,18 @@ ruby:
     - github.com/sstephenson/rbenv-default-gems
     - github.com/sstephenson/rbenv-gem-rehash
 
+python:
+  versions:
+    - 3.6.1
+  packages:
+    - numpy
+
+nodejs:
+  versions:
+    - 7.9.0
+  packages:
+    - yarn
+
 golang:
   path: '{{ home_path }}/.go'
   versions:
@@ -77,3 +89,4 @@ link:
   .tmux-powerlinerc:       .tmux-powerlinerc
   .ssh/config:             .ssh/config
   ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems
+  .bash_profile:           .bash_profile
