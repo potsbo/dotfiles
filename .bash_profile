@@ -1,3 +1,5 @@
+export PATH=$PATH:~/.anyenv/bin
+
 #  Anyenv
 #-----------------------------------------------
 if [ -d $HOME/.anyenv ]; then
