@@ -34,5 +34,8 @@
     - role: python
       tags: ['language', 'python']
 
+    - role: nodejs
+      tags: ['language', 'nodejs']
+
     - role: vim
       tags: ['vim']

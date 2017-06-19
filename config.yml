@@ -45,6 +45,12 @@ python:
   packages:
     - numpy
 
+nodejs:
+  versions:
+    - 7.9.0
+  packages:
+    - yarn
+
 golang:
   path: '{{ home_path }}/.go'
   versions:

@@ -70,16 +70,6 @@ fi
 echo "  + Tools"
 brew_check ansible
 
-echo "  + Node"
-brew_check nodenv
-if nodenv versions | grep $NODE_VERSION > /dev/null 2>&1
-then
-  echo "    + node $NODE_VERSION found."
-else
-  nodenv install $NODE_VERSION
-fi
-nodenv global $NODE_VERSION
-
 echo "  + Rust"
 if test ! $(which rustc); then
   curl https://sh.rustup.rs -sSf | sh -s -- -y
