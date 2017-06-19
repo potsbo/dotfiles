@@ -19,6 +19,9 @@
     - role: homebrew
       tags: ['install', 'homebrew']
 
+    - role: mas
+      tags: ['install', 'mas']
+
     - role: ruby
       tags: ['language', 'ruby']
 

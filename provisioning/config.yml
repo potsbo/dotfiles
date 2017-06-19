@@ -31,6 +31,10 @@ homebrew:
     - envchain
     - tmux
     - reattach-to-user-namespace
+mas:
+  appstore_id: potsbo@gmail.com
+  applications:
+    Quiver.app: '866773894'
 
 ruby:
   versions:
