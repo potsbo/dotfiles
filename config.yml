@@ -87,6 +87,5 @@ link:
   .gitignore_global:       .gitignore_global
   .tmux.conf:              .tmux.conf
   .tmux-powerlinerc:       .tmux-powerlinerc
-  .ssh/config:             .ssh/config
   ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems
   .bash_profile:           .bash_profile

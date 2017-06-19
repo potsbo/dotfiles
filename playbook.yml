@@ -39,3 +39,6 @@
 
     - role: vim
       tags: ['vim']
+
+    - role: ssh
+      tags: ['ssh']
