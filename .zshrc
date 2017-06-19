@@ -111,10 +111,6 @@ alias mkdir='mkdir -p'
 # zle -N zle-line-init
 # zle -N zle-keymap-select
 
-#Right Prompt
-RPROMPT="%{$fg[cyan]%}[%~]%{$reset_color%}"$WHITE
-setopt transient_rprompt
-
 ### Utility alias
 alias battery="pmset -g ps"
 alias stig="cd /etc; sudo tig"
@@ -261,8 +257,6 @@ function list-all-files {
     find . -type f
   fi
 }
-
-eval "$(nodenv init -)"
 
 alias s='cd $(ghq list -p | peco)'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
