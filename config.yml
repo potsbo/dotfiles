@@ -30,6 +30,7 @@ homebrew:
     - wget
     - envchain
     - tmux
+    - reattach-to-user-namespace
 
 ruby:
   versions:
