@@ -13,6 +13,9 @@
     - role: anyenv
       tags: ['install', 'anyenv']
 
+    - role: link
+      tags: ['link']
+
     - role: homebrew
       tags: ['install', 'homebrew']
 
@@ -27,9 +30,6 @@
 
     - role: zsh
       tags: ['install', 'zsh']
-
-    - role: link
-      tags: ['link']
 
     - role: python
       tags: ['language', 'python']
