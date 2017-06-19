@@ -13,6 +13,9 @@
     - role: anyenv
       tags: ['install', 'anyenv']
 
+    - role: ssh
+      tags: ['ssh']
+
     - role: link
       tags: ['link']
 
@@ -42,9 +45,6 @@
 
     - role: vim
       tags: ['vim']
-
-    - role: ssh
-      tags: ['ssh']
 
     - role: osx
       tags: ['osx']
