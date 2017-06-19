@@ -31,5 +31,8 @@
     - role: link
       tags: ['link']
 
+    - role: python
+      tags: ['language', 'python']
+
     - role: vim
       tags: ['vim']

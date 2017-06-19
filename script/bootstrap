@@ -70,17 +70,6 @@ fi
 echo "  + Tools"
 brew_check ansible
 
-# pyenv
-echo "  + Python"
-brew_check pyenv
-if pyenv versions | grep $PYTHON_VERSION > /dev/null 2>&1
-then
-  echo "    + python $PYTHON_VERSION fonud."
-else
-  pyenv install $PYTHON_VERSION
-fi
-pyenv global $PYTHON_VERSION
-
 echo "  + Node"
 brew_check nodenv
 if nodenv versions | grep $NODE_VERSION > /dev/null 2>&1
