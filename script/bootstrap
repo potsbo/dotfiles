@@ -27,9 +27,6 @@ RUBY_VERSION=2.4.1
 NODE_VERSION=7.9.0
 export GHQ_ROOT=$SRC_DIR
 
-# PATH
-export PATH=$PATH:$GOPATH/bin
-
 echo "  + Machine Name"
 MACHINE=$(hostname | sed -e 's/\.local//g')
 if [[ $MACHINE =~ ^[a-z]+$ ]]; then
@@ -69,27 +66,6 @@ fi
 # Tools
 echo "  + Tools"
 brew_check ansible
-
-# pyenv
-echo "  + Python"
-brew_check pyenv
-if pyenv versions | grep $PYTHON_VERSION > /dev/null 2>&1
-then
-  echo "    + python $PYTHON_VERSION fonud."
-else
-  pyenv install $PYTHON_VERSION
-fi
-pyenv global $PYTHON_VERSION
-
-echo "  + Node"
-brew_check nodenv
-if nodenv versions | grep $NODE_VERSION > /dev/null 2>&1
-then
-  echo "    + node $NODE_VERSION found."
-else
-  nodenv install $NODE_VERSION
-fi
-nodenv global $NODE_VERSION
 
 echo "  + Rust"
 if test ! $(which rustc); then
