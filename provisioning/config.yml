@@ -9,6 +9,7 @@ homebrew:
     - potsbo/tools 
 
   applications:
+    - alfred
     - iterm2
     - sourcetree
     - skype
