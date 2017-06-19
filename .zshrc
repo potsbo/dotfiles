@@ -93,7 +93,6 @@ alias mkdir='mkdir -p'
 ### Utility alias
 alias battery="pmset -g ps"
 alias stig="cd /etc; sudo tig"
-alias wakemate="wakeonlan -i otsbo.com -f ~/.mateHdWrAd"
 alias zshrc='vim ~/.zshrc'
 alias sourcerc='source ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
