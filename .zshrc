@@ -123,19 +123,6 @@ function pdftopng {
 	convert $1 ${1:r}.png
 }
 
-### Application alias
-alias finder='open -a Finder .'
-#get twitter tl
-alias twl="tw -tl"
-#matrix
-alias mmm="cmatrix -sab -u 10"
-#weather for Fukuoka
-alias meteo="curl --silent \"http://xml.weather.yahoo.com/forecastrss?p=JAXX0009&u=f\" | grep -E '(Forecast:<b><br />|High)' | sed -e 's/Forecast://' -e 's/<br \/>//' -e 's/<b>//' -e 's/<\/b>//' -e 's/<BR \/>//' -e 's/<description>//' -e 's/<\/description>//'"
-alias t="/Users/potsbo/Dropbox/Library/todotxt/todo.sh"
-alias me="vim /Users/Shimpei/Dropbox/Library/memex/memex.txt"
-alias vimeuc="vim -c 'e ++enc=euc-jp'"
-alias toever="open -a Evernote.app -g"
-
 ### Application function
 #short wiki 
 function wiki {
