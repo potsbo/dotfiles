@@ -161,16 +161,6 @@ if [ ! -z `which tmux` ]; then
 fi
 function git(){hub "$@"}
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/potsbo/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/potsbo/google-cloud-sdk/path.zsh.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/potsbo/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'
-fi
-
 function cam {
   git commit -am "$*"
 }
