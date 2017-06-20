@@ -1,6 +1,5 @@
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
-export SCALA_HOME=/usr/local/share/scala
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
