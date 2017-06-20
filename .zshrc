@@ -125,7 +125,6 @@ function pdftopng {
 
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
-alias -s html=chrome
 function extract() {
 	case $1 in
 		*.tar.gz|*.tgz) tar xzvf $1;;
