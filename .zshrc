@@ -1,3 +1,4 @@
+# export
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
 export LANG=en_US.UTF-8
