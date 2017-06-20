@@ -51,9 +51,6 @@ source ~/.dotfiles/latex.vimrc
 source ~/.dotfiles/syntastic.vimrc
 source ~/.dotfiles/vim-plugin-viewdoc.vimrc
 
-noremap :sudow :<C-u>w !sudo tee %
-noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
-
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 hi Visual ctermbg=White guibg=White
