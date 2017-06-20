@@ -104,6 +104,7 @@ function pdftopng {
 	convert $1 ${1:r}.png
 }
 
+# extract
 function extract() {
 	case $1 in
 		*.tar.gz|*.tgz) tar xzvf $1;;
