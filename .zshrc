@@ -4,9 +4,12 @@ export SCALA_HOME=/usr/local/share/scala
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
-export PATH=~/.anyenv/bin
 export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
+export ZSH=$HOME/.oh-my-zsh
+
+# PATH
+export PATH=~/.anyenv/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:$SCALA_HOME/bin
@@ -24,7 +27,6 @@ export PATH=$PATH:$SCALA_HOME/bin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
-export ZSH=$HOME/.oh-my-zsh
 
 ### completion 
 autoload -Uz compinit
@@ -140,7 +142,6 @@ function wiki {
 	dig +short txt "$*".wp.dg.cx
 }
 
-alias -s py=python
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
 alias -s html=chrome
