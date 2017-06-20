@@ -123,8 +123,6 @@ function extract() {
 }
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
-function runcpp () { gcc $1; ./a.out $2 $3 $4 $5 $6 $7 $8 $9; }
-alias -s {c,cpp}=runcpp
 
 # tmux
 if [ ! -z `which tmux` ]; then
