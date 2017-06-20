@@ -106,7 +106,7 @@ alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A
 alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
-alias globalip 'curl http://httpbin.org/ip | grep .'
+alias globalip='curl http://httpbin.org/ip | grep .'
 # alias tmux="TERM=screen-256color-bce tmux"
 
 ### Utility function
