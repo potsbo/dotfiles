@@ -56,8 +56,6 @@ setopt equals
 
 ### Usual Commands
 ## cd
-# directory='cd directory'
-# setopt auto_cd
 # auto push when cd
 setopt auto_pushd
 # dont push dups
