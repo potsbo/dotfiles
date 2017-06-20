@@ -123,12 +123,6 @@ function pdftopng {
 	convert $1 ${1:r}.png
 }
 
-### Application function
-#short wiki 
-function wiki {
-	dig +short txt "$*".wp.dg.cx
-}
-
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
 
 alias -s html=chrome
