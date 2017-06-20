@@ -10,19 +10,17 @@ export ZSH=$HOME/.oh-my-zsh
 # PATH
 export PATH=~/.anyenv/bin
 export PATH=$PATH:$HOME/bin
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$SCALA_HOME/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/bin
-export PATH=$PATH:/usr/bin
-export PATH=$PATH:/usr/local/sbin
-export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/usr
+export PATH=$PATH:/usr/bin
+export PATH=$PATH:/usr/sbin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
 export PATH=$PATH:/Library/TeX/texbin
-export PATH=$PATH:$SCALA_HOME/bin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
@@ -68,15 +66,7 @@ setopt pushd_ignore_dups
 function chpwd() { ls -FG }
 
 ## ls 
-case ${OSTYPE} in
-	darwin*)
-	alias ls='/bin/ls -FG'
-	;;
-	linux*)
-	alias ls='/bin/ls -F'
-	;;
-esac
-
+alias ls='/bin/ls -FG'
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
