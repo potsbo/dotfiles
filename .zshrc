@@ -104,8 +104,6 @@ function pdftopng {
 	convert $1 ${1:r}.png
 }
 
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
-
 function extract() {
 	case $1 in
 		*.tar.gz|*.tgz) tar xzvf $1;;
@@ -165,10 +163,13 @@ alias -g LB='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^
 alias -g RB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)//"`'
 alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
+# zsh
 ZSH_THEME="xxf"
 plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+
+
 #  Anyenv
 #-----------------------------------------------
 if [ -d $HOME/.anyenv ]; then
