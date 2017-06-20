@@ -110,10 +110,6 @@ alias globalip='curl http://httpbin.org/ip | grep .'
 # alias tmux="TERM=screen-256color-bce tmux"
 
 ### Utility function
-function zipr {
-	zip -r $1 $1;
-}
-
 function man {
 	# vim <(/usr/bin/man $1)
 	# /usr/bin/man $1 | vim -
