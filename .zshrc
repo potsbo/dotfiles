@@ -56,8 +56,6 @@ setopt no_beep
 setopt interactive_comments
 # =command is equal to which command
 setopt equals
-#vim-like
-bindkey -e
 
 ### Usual Commands
 ## cd
