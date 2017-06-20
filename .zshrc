@@ -178,7 +178,6 @@ if [ ! -z `which tmux` ]; then
 		[[ $YN = y ]] && tmux
 	fi
 fi
-export PATH=$HOME/.nodebrew/current/bin:$PATH
 function git(){hub "$@"}
 
 # The next line updates PATH for the Google Cloud SDK.
