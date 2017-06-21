@@ -35,6 +35,9 @@ homebrew:
     - tmux
     - reattach-to-user-namespace
 
+ssh:
+  dotssh: github.com/potsbo/dotssh
+
 mas:
   appstore_id: potsbo@gmail.com
   applications:
