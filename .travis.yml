@@ -9,6 +9,8 @@ env:
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_d1b5d8cd2408_key -iv $encrypted_d1b5d8cd2408_iv -in travis.github.enc -out travis.github -d
+  - mv .travis.key ~/.ssh/id_rsa
+  - chmod 0600 ~/.ssh/id_rsa
 
 script:
   - bash script/bootstrap
