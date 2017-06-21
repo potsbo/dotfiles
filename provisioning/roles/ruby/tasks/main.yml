@@ -2,6 +2,7 @@
   command: |
     bash -lc 'which rbenv'
   register: which_rbenv
+  changed_when: False
   ignore_errors: yes
 
 - name: install rbenv
@@ -20,6 +21,7 @@
 - name: get installed versions
   command: |
     bash -lc 'rbenv versions'
+  changed_when: False
   register: installed_versions
 
 - name: install ruby
