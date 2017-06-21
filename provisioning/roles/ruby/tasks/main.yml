@@ -31,7 +31,13 @@
     ruby.versions and installed_versions.stdout.find(item) == -1
   with_items: '{{ ruby.versions }}'
 
+- name: get global version
+  command: |
+    bash -lc 'rbenv global'
+  register: global_ruby
+  changed_when: False
+
 - name: set global ruby
   command: |
     bash -lc 'rbenv global {{ ruby.versions[0] | quote }}'
-  when: ruby.versions
+  when: global_ruby.stdout != ruby.versions[0]
