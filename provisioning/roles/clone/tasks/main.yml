@@ -1,0 +1,6 @@
+- name: clone
+  git:
+    repo: 'https://{{ anyenv.repository }}'
+    dest: '{{ src_path }}/{{ anyenv.repository }}'
+    update: no
+  with_items: '{{ clone }}'

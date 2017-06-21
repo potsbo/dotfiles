@@ -19,14 +19,6 @@ link_check() {
 }
 
 # Config
-SRC_DIR=$HOME/src
-DOTFILES_DIR=$HOME/.dotfiles
-TMUX_DIR=$HOME/.tmux
-PYTHON_VERSION=3.6.1
-RUBY_VERSION=2.4.1
-NODE_VERSION=7.9.0
-export GHQ_ROOT=$SRC_DIR
-
 echo "  + Machine Name"
 MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
 if [[ $MACHINE =~ ^[a-z]+$ ]]; then
@@ -84,10 +76,4 @@ if test ! $(which rustc); then
 fi
 
 # ansible
-ansible-playbook playbook.yml
-
-# assets
-echo "  + Assets"
-ghq get edihbrandon/RictyDiminished
-ghq get mzyy94/RictyDiminished-for-Powerline
-
+provisioning/run.sh

@@ -1,33 +1,30 @@
+# export
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
-export SCALA_HOME=/usr/local/share/scala
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
-export PATH=~/.rbenv/shims
-export PATH=$PATH:~/.anyenv/bin
-export PATH=$PATH:~/.nodenv/shims
-export PATH=$PATH:~/.pyenv/shims
 export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
+export ZSH=$HOME/.oh-my-zsh
+
+# PATH
+export PATH=~/.anyenv/bin
 export PATH=$PATH:$HOME/bin
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$SCALA_HOME/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/bin
-export PATH=$PATH:/usr/bin
-export PATH=$PATH:/usr/local/sbin
-export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/usr
+export PATH=$PATH:/usr/bin
+export PATH=$PATH:/usr/sbin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
 export PATH=$PATH:/Library/TeX/texbin
-export PATH=$PATH:$SCALA_HOME/bin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
-export ZSH=$HOME/.oh-my-zsh
 
 ### completion 
 autoload -Uz compinit
@@ -57,30 +54,18 @@ setopt no_beep
 setopt interactive_comments
 # =command is equal to which command
 setopt equals
-#vim-like
-bindkey -e
 
 ### Usual Commands
 ## cd
-# directory='cd directory'
-# setopt auto_cd
 # auto push when cd
 setopt auto_pushd
 # dont push dups
 setopt pushd_ignore_dups 
 # ls just after cd
-function chpwd() { ls -FG }
+function chpwd() { ls }
 
 ## ls 
-case ${OSTYPE} in
-	darwin*)
-	alias ls='/bin/ls -FG'
-	;;
-	linux*)
-	alias ls='/bin/ls -F'
-	;;
-esac
-
+alias ls='/bin/ls -FG'
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
@@ -93,37 +78,13 @@ alias nna='lla'
 ## mkdir
 alias mkdir='mkdir -p'
 
-
-
-
-#Vim-Like Prompt
-# function zle-line-init zle-keymap-select {
-#   case $KEYMAP in
-#     vicmd)
-#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$fg[red]%}-NOR-%{$fg[cyan]%}%#%{$reset_color%} "
-#     ;;
-#     main|viins)
-#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$reset_color%}-INS-%{$fg[cyan]%}%#%{$reset_color%} "
-#     ;;
-#   esac
-#   zle reset-prompt
-# }
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-
-#Right Prompt
-RPROMPT="%{$fg[cyan]%}[%~]%{$reset_color%}"$WHITE
-setopt transient_rprompt
-
 ### Utility alias
 alias battery="pmset -g ps"
 alias stig="cd /etc; sudo tig"
-alias wakemate="wakeonlan -i otsbo.com -f ~/.mateHdWrAd"
 alias zshrc='vim ~/.zshrc'
 alias sourcerc='source ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
 alias tmuxrc='vim ~/.tmux.conf'
-alias karabiner="vim ~/Library/Application\ Support/Karabiner/private.xml"
 alias wfstatus='networksetup -getairportpower en0'
 alias wfon='networksetup -setairportpower en0 on'
 alias wfoff='networksetup -setairportpower en0 off'
@@ -131,24 +92,9 @@ alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A
 alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
-alias globalip 'curl http://httpbin.org/ip | grep .'
-# alias tmux="TERM=screen-256color-bce tmux"
+alias globalip='curl http://httpbin.org/ip | grep .'
 
 ### Utility function
-function rcpost {
-	scp ~/.zshrc $1:;
-	scp ~/.vimrc $1:;
-}
-
-function rcget {
-	scp $1:~/.zshrc ~/;
-	scp $1:~/.vimrc ~/;
-}
-
-function zipr {
-	zip -r $1 $1;
-}
-
 function man {
 	# vim <(/usr/bin/man $1)
 	# /usr/bin/man $1 | vim -
@@ -158,39 +104,7 @@ function pdftopng {
 	convert $1 ${1:r}.png
 }
 
-### Application alias
-alias ical='vim -c Calendar'
-alias finder='open -a Finder .'
-#get twitter tl
-alias twl="tw -tl"
-#matrix
-alias mmm="cmatrix -sab -u 10"
-#weather for Fukuoka
-alias meteo="curl --silent \"http://xml.weather.yahoo.com/forecastrss?p=JAXX0009&u=f\" | grep -E '(Forecast:<b><br />|High)' | sed -e 's/Forecast://' -e 's/<br \/>//' -e 's/<b>//' -e 's/<\/b>//' -e 's/<BR \/>//' -e 's/<description>//' -e 's/<\/description>//'"
-alias t="/Users/potsbo/Dropbox/Library/todotxt/todo.sh"
-alias me="vim /Users/Shimpei/Dropbox/Library/memex/memex.txt"
-alias vimeuc="vim -c 'e ++enc=euc-jp'"
-alias toever="open -a Evernote.app -g"
-
-### Application function
-#short wiki 
-function wiki {
-	dig +short txt "$*".wp.dg.cx
-}
-# # Geeknote
-# alias gknote="python ~/Dropbox/geeknote/geeknote.py"
-# function gkcr {
-# 	gknote create -t "$1" -c "$2"
-# }
-# function togk {
-# 	gknote create -t "$1" -c "`echo $1`"
-# }
-#
-
-alias -s py=python
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
-
-alias -s html=chrome
+# extract
 function extract() {
 	case $1 in
 		*.tar.gz|*.tgz) tar xzvf $1;;
@@ -208,9 +122,8 @@ function extract() {
 }
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
-function runcpp () { gcc $1; ./a.out $2 $3 $4 $5 $6 $7 $8 $9; }
-alias -s {c,cpp}=runcpp
 
+# tmux
 if [ ! -z `which tmux` ]; then
 	if [ $SHLVL = 1 ]; then
 		if [ $(( `ps aux | grep tmux | grep $USER | grep -v grep | wc -l` )) != 0 ]; then
@@ -225,44 +138,13 @@ if [ ! -z `which tmux` ]; then
 		[[ $YN = y ]] && tmux
 	fi
 fi
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-function git(){hub "$@"}
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/potsbo/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/potsbo/google-cloud-sdk/path.zsh.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/potsbo/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'
-fi
-
-function cam {
-  git commit -am "$*"
-}
-
-function com {
-  git commit -m "$*"
-}
-
-function CAM {
-  git add -A && git commit -am "$*"
-}
-
-function be {
-  bundle exec "$*"
-}
-
-function list-all-files {
-  if git rev-parse 2> /dev/null; then
-    git ls-files
-  else
-    find . -type f
-  fi
-}
-
-eval "$(nodenv init -)"
+# Git
+function git { hub "$@" }
+function cam { git commit -am "$*" }
+function com { git commit -m "$*" }
+function CAM { git add -A && git commit -am "$*" }
+function be { bundle exec "$*" }
 
 alias s='cd $(ghq list -p | peco)'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
@@ -270,10 +152,13 @@ alias -g LB='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^
 alias -g RB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)//"`'
 alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
+# zsh
 ZSH_THEME="xxf"
 plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+
+
 #  Anyenv
 #-----------------------------------------------
 if [ -d $HOME/.anyenv ]; then

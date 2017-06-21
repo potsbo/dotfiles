@@ -12,7 +12,7 @@ vnoremap <expr> - <SID>search_forward_p() ? 'nzv' : 'Nzv'
 vnoremap <expr> _ <SID>search_forward_p() ? 'Nzv' : 'nzv'
 
 function! s:search_forward_p()
-	  return exists('v:searchforward') ? v:searchforward : 1
+	return exists('v:searchforward') ? v:searchforward : 1
 endfunction
 
 nnoremap <Space>o  :<C-u>for i in range(v:count1) \| call append(line('.'), '') \| endfor<CR>
@@ -73,10 +73,10 @@ vnoremap ;c  :<C-u>'<,'>Commentary<CR>
 " panes
 let mapleader = "z"
 " move to anther pane
-nnoremap zh <C-w>j
-nnoremap zt <C-w>k
-nnoremap zn <C-w>l
-nnoremap zd <C-w>h
+nnoremap <Leader>h <C-w>j
+nnoremap <Leader>t <C-w>k
+nnoremap <Leader>n <C-w>l
+nnoremap <Leader>d <C-w>h
 nnoremap ZH <C-w>J
 nnoremap ZT <C-w>K
 nnoremap ZN <C-w>L

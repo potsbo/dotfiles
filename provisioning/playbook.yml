@@ -13,8 +13,17 @@
     - role: anyenv
       tags: ['install', 'anyenv']
 
+    - role: ssh
+      tags: ['ssh']
+
+    - role: link
+      tags: ['link']
+
     - role: homebrew
       tags: ['install', 'homebrew']
+
+    - role: mas
+      tags: ['install', 'mas']
 
     - role: ruby
       tags: ['language', 'ruby']
@@ -28,9 +37,6 @@
     - role: zsh
       tags: ['install', 'zsh']
 
-    - role: link
-      tags: ['link']
-
     - role: python
       tags: ['language', 'python']
 
@@ -39,3 +45,9 @@
 
     - role: vim
       tags: ['vim']
+
+    - role: osx
+      tags: ['osx']
+
+    - role: clone
+      tags: ['clone']

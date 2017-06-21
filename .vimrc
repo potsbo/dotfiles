@@ -27,8 +27,8 @@ set autoindent
 setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab"タブ幅の設定です
 set helplang=en
 set laststatus=2
-set cursorline
-set cursorcolumn
+" set cursorline
+" set cursorcolumn
 set splitright
 set vb
 set timeoutlen=200 ttimeoutlen=0
@@ -50,9 +50,6 @@ source ~/.dotfiles/lightline.vimrc
 source ~/.dotfiles/latex.vimrc
 source ~/.dotfiles/syntastic.vimrc
 source ~/.dotfiles/vim-plugin-viewdoc.vimrc
-
-noremap :sudow :<C-u>w !sudo tee %
-noremap :chrome :<C-u>open -a Google\ Chrome %<CR><CR>
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
