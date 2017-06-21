@@ -108,3 +108,7 @@ link:
   .tmux-powerlinerc:       .tmux-powerlinerc
   ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems
   .bash_profile:           .bash_profile
+
+clone:
+  - github.com/edihbrandon/RictyDiminished
+  - github.com/mzyy94/RictyDiminished-for-Powerline

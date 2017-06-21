@@ -48,3 +48,6 @@
 
     - role: osx
       tags: ['osx']
+
+    - role: clone
+      tags: ['clone']

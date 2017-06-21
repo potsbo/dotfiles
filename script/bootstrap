@@ -74,9 +74,3 @@ fi
 
 # ansible
 provisioning/run.sh
-
-# assets
-echo "  + Assets"
-ghq get edihbrandon/RictyDiminished
-ghq get mzyy94/RictyDiminished-for-Powerline
-
