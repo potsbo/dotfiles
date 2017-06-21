@@ -4,10 +4,7 @@ export SCALA_HOME=/usr/local/share/scala
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
-export PATH=~/.rbenv/shims
-export PATH=$PATH:~/.anyenv/bin
-export PATH=$PATH:~/.nodenv/shims
-export PATH=$PATH:~/.pyenv/shims
+export PATH=~/.anyenv/bin
 export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
 export PATH=$PATH:$HOME/bin
@@ -93,33 +90,13 @@ alias nna='lla'
 ## mkdir
 alias mkdir='mkdir -p'
 
-
-
-
-#Vim-Like Prompt
-# function zle-line-init zle-keymap-select {
-#   case $KEYMAP in
-#     vicmd)
-#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$fg[red]%}-NOR-%{$fg[cyan]%}%#%{$reset_color%} "
-#     ;;
-#     main|viins)
-#     PROMPT="%{$fg[cyan]%}%n%{$reset_color%}@%{$fg[cyan]%}%m%{$reset_color%}-INS-%{$fg[cyan]%}%#%{$reset_color%} "
-#     ;;
-#   esac
-#   zle reset-prompt
-# }
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-
 ### Utility alias
 alias battery="pmset -g ps"
 alias stig="cd /etc; sudo tig"
-alias wakemate="wakeonlan -i otsbo.com -f ~/.mateHdWrAd"
 alias zshrc='vim ~/.zshrc'
 alias sourcerc='source ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
 alias tmuxrc='vim ~/.tmux.conf'
-alias karabiner="vim ~/Library/Application\ Support/Karabiner/private.xml"
 alias wfstatus='networksetup -getairportpower en0'
 alias wfon='networksetup -setairportpower en0 on'
 alias wfoff='networksetup -setairportpower en0 off'
@@ -131,16 +108,6 @@ alias globalip 'curl http://httpbin.org/ip | grep .'
 # alias tmux="TERM=screen-256color-bce tmux"
 
 ### Utility function
-function rcpost {
-	scp ~/.zshrc $1:;
-	scp ~/.vimrc $1:;
-}
-
-function rcget {
-	scp $1:~/.zshrc ~/;
-	scp $1:~/.vimrc ~/;
-}
-
 function zipr {
 	zip -r $1 $1;
 }
@@ -155,7 +122,6 @@ function pdftopng {
 }
 
 ### Application alias
-alias ical='vim -c Calendar'
 alias finder='open -a Finder .'
 #get twitter tl
 alias twl="tw -tl"
@@ -173,15 +139,6 @@ alias toever="open -a Evernote.app -g"
 function wiki {
 	dig +short txt "$*".wp.dg.cx
 }
-# # Geeknote
-# alias gknote="python ~/Dropbox/geeknote/geeknote.py"
-# function gkcr {
-# 	gknote create -t "$1" -c "$2"
-# }
-# function togk {
-# 	gknote create -t "$1" -c "`echo $1`"
-# }
-#
 
 alias -s py=python
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
@@ -248,14 +205,6 @@ function CAM {
 
 function be {
   bundle exec "$*"
-}
-
-function list-all-files {
-  if git rev-parse 2> /dev/null; then
-    git ls-files
-  else
-    find . -type f
-  fi
 }
 
 alias s='cd $(ghq list -p | peco)'

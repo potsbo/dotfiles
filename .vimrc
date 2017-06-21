@@ -27,8 +27,8 @@ set autoindent
 setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab"タブ幅の設定です
 set helplang=en
 set laststatus=2
-set cursorline
-set cursorcolumn
+" set cursorline
+" set cursorcolumn
 set splitright
 set vb
 set timeoutlen=200 ttimeoutlen=0

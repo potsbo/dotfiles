@@ -9,6 +9,7 @@ homebrew:
     - potsbo/tools 
 
   applications:
+    - alfred
     - iterm2
     - sourcetree
     - skype
@@ -22,6 +23,8 @@ homebrew:
     - google-japanese-ime
     - keytype
     - bettertouchtool
+    - quitter
+    - dash
 
   packages:
     - peco
@@ -45,6 +48,7 @@ mas:
     1Password.app:     '443987910'
     Wantedly Chat.app: '1076860635'
     OmniFocus.app:     '867299399'
+    PopClip.app:       '445189367'
 
 ruby:
   versions:
