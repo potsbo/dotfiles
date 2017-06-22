@@ -10,14 +10,14 @@
     - config.yml
 
   roles:
+    - role: link
+      tags: ['link']
+
     - role: anyenv
       tags: ['install', 'anyenv']
 
     - role: ssh
       tags: ['ssh']
-
-    - role: link
-      tags: ['link']
 
     - role: homebrew
       tags: ['install', 'homebrew']
