@@ -62,7 +62,7 @@ setopt auto_pushd
 # dont push dups
 setopt pushd_ignore_dups 
 # ls just after cd
-function chpwd() { ls }
+function chpwd() { ls -FG }
 
 ## ls 
 alias ls='/bin/ls -FG'
