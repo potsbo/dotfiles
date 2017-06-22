@@ -11,10 +11,16 @@
   register: mas_signin
   when: mas.appstore_id and mas_already_signin.rc > 0
 
+- name: get installed applications
+  command: |
+    bash -lc 'ls /Applications'
+  changed_when: False
+  register: installed_applications
+
 - name: install applications
   command: |
-    bash -lc '[ -d /Applications/{{ item.key }} ] || mas install {{ item.value | quote }}'
+    bash -lc 'mas install {{ item.value | quote }}'
   loop_control:
     label: '{{ item.key }}'
+  when: mas.applications and ( mas_already_signin.rc == 0 or mas_signin.get('rc') == 0 ) and item.key not in installed_applications.stdout_lines
   with_dict: '{{ mas.applications }}'
-  when: mas.applications and ( mas_already_signin.rc == 0 or mas_signin.get('rc') == 0 )
