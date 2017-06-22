@@ -8,6 +8,24 @@
     - '.ssh/config.d'
     - '.ssh/keys'
 
+- name: copy common config
+  file:
+    src:   '{{ item }}'
+    dest: '{{ home_path }}/.ssh/config.d/{{ item | basename }}'
+    state: link
+    force: yes
+    mode: 0600
+  with_fileglob:
+    - '_*'
+
+- name: assemble config.d
+  assemble:
+    src:           '{{ home_path }}/.ssh/config.d'
+    dest:          '{{ home_path }}/.ssh/config'
+    mode:          0600
+    ignore_hidden: yes
+    delimiter:     "\n"
+
 - name: clone dotssh
   git:
     repo: 'git@github.com:{{ ssh.dotssh }}'
@@ -24,16 +42,7 @@
   with_fileglob:
     - '{{ src_path }}/{{ ssh.dotssh }}/config.d/_*'
 
-- name: copy common config
-  file:
-    src:   '{{ item }}'
-    dest: '{{ home_path }}/.ssh/config.d/{{ item | basename }}'
-    state: link
-    force: yes
-    mode: 0600
-  with_fileglob:
-    - '_*'
-
+# reassemble
 - name: assemble config.d
   assemble:
     src:           '{{ home_path }}/.ssh/config.d'
