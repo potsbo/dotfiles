@@ -10,8 +10,8 @@
 
 - name: clone dotssh
   git:
-    repo: 'https://{{ ssh.dotssh }}'
-    dest: '{{ src_path }}/{{ ssh.dotssh }}'
+    repo: 'git@github.com:{{ ssh.dotssh }}'
+    dest: '{{ src_path }}/github.com/{{ ssh.dotssh }}'
     update: no
 
 - name: install dotssh

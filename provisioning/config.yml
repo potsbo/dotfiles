@@ -36,7 +36,7 @@ homebrew:
     - reattach-to-user-namespace
 
 ssh:
-  dotssh: github.com/potsbo/dotssh
+  dotssh: potsbo/dotssh
 
 mas:
   appstore_id: potsbo@gmail.com
