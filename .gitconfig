@@ -49,3 +49,6 @@
       insteadOf = https://github.com/
 [ghq]
 	root = ~/src
+[github]
+	user = potsbo
+	privatekey = ~/.ssh/id_rsa.github
