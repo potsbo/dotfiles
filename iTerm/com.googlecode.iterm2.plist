@@ -12,6 +12,8 @@
 	<string>49B0967F-FD5D-4804-BB26-56B3DB7F103E</string>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/Documents</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -50,7 +52,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1475 33 445 342 0 0 1920 1080 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>474 166 918 495 0 0 1920 1080 </string>
+	<string>474 188 796 473 0 0 1920 1080 </string>
+	<key>NSWindow Frame iTerm Window 0</key>
+	<string>226 205 570 377 0 0 1920 1058 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -580,7 +584,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>RictyDiminishedDiscord-Regular 13</string>
+			<string>RictyDiscordForPowerline-Regular 13</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
