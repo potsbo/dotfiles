@@ -48,9 +48,9 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1409 -970 445 103 0 -900 1440 900 </string>
+	<string>1475 33 445 342 0 0 1920 1080 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>469 56 796 473 0 0 1920 1080 </string>
+	<string>474 166 918 495 0 0 1920 1080 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -580,7 +580,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>RictyDiminishedDiscordForPowerline-Regular 13</string>
+			<string>RictyDiminishedDiscord-Regular 13</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
