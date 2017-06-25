@@ -25,6 +25,7 @@ homebrew:
     - bettertouchtool
     - quitter
     - dash
+    - quicklook-json
 
   packages:
     - peco
