@@ -91,35 +91,28 @@
     type:   bool
     value:  true
 
-- name: general | skin (1/5)
+- name: general | skin (1/4)
   osx_defaults:
     domain: NSGlobalDomain
     key:    AppleAntiAliasingThreshold
     type:   int
     value:  4
 
-- name: general | skin (2/5)
+- name: general | skin (2/4)
   osx_defaults:
     domain: NSGlobalDomain
     key:    AppleEnableMenuBarTransparency
     type:   bool
     value:  true
 
-- name: general | skin (3/5)
+- name: general | skin (3/4)
   osx_defaults:
     domain: NSGlobalDomain
     key:    AppleEnableSwipeNavigateWithScrolls
     type:   bool
     value:  false
 
-- name: general | skin (4/5)
-  osx_defaults:
-    domain: NSGlobalDomain
-    key:    AppleInterfaceStyle
-    type:   string
-    value:  Dark
-
-- name: general | skin (5/5)
+- name: general | skin (4/4)
   osx_defaults:
     domain: NSGlobalDomain
     key:    AppleKeyboardUIMode
