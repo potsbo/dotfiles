@@ -2,6 +2,7 @@
   command: |
     bash -lc 'which ndenv'
   register: which_ndenv
+  changed_when: False
   ignore_errors: yes
 
 - name: install ndenv
@@ -12,6 +13,7 @@
 - name: get installed versions
   command: |
     bash -lc 'ndenv versions'
+  changed_when: False
   register: installed_versions
 
 - name: install nodejs
@@ -21,10 +23,16 @@
     nodejs.versions and installed_versions.stdout.find(item) == -1
   with_items: '{{ nodejs.versions }}'
 
+- name: get global version
+  command: |
+    bash -lc 'ndenv global'
+  register: global_node
+  changed_when: False
+
 - name: set global nodejs
   command: |
     bash -lc 'ndenv global {{ nodejs.versions[0] | quote }}'
-  when: nodejs.versions
+  when: global_node.stdout != nodejs.versions[0]
 
 - name: install npm packages
   npm:
