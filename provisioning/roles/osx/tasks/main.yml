@@ -293,7 +293,7 @@
     domain: com.apple.dock
     key:    tilesize
     type:   float
-    value:  16.0
+    value:  48.0
 
 - name: dock | minimize windows into their application's icon
   osx_defaults:
