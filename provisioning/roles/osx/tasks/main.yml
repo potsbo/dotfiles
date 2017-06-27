@@ -5,7 +5,7 @@
     domain: NSGlobalDomain
     key:    NSTableViewDefaultSizeMode
     type:   int
-    value:  1
+    value:  2
 
 - name: general | increase window resize speed
   osx_defaults:
