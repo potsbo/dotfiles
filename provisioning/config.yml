@@ -25,6 +25,7 @@ homebrew:
     - bettertouchtool
     - quitter
     - dash
+    - quicklook-json
 
   packages:
     - peco
@@ -53,6 +54,8 @@ mas:
 ruby:
   versions:
     - 2.4.1
+    - 2.3.3
+    - 2.3.0
   plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
   plugins:
     - github.com/sstephenson/rbenv-default-gems
@@ -69,6 +72,7 @@ python:
 nodejs:
   versions:
     - 7.9.0
+    - 7.2.1
   packages:
     - yarn
 

@@ -12,6 +12,8 @@
 	<string>49B0967F-FD5D-4804-BB26-56B3DB7F103E</string>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
+	<key>NSFontPanelAttributes</key>
+	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/Documents</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -48,13 +50,11 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>935 112 679 235 0 0 1680 1050 </string>
+	<string>1475 33 445 342 0 0 1920 1080 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>-888 437 796 473 -1600 109 1600 900 </string>
+	<string>474 188 796 473 0 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1447 280 490 352 -1600 109 1600 877 </string>
-	<key>NSWindow Frame iTerm Window 1</key>
-	<string>457 234 570 452 0 0 1680 1050 </string>
+	<string>226 205 570 377 0 0 1920 1058 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -584,7 +584,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>RictyDiminishedDiscordForPowerline-Regular 13</string>
+			<string>RictyDiscordForPowerline-Regular 13</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -654,19 +654,11 @@
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
-	<string>CEA8C5A0-6781-4124-9189-BD3D18C20DD7</string>
-	<key>NoSyncLastTipTime</key>
-	<real>517833864.92594302</real>
+	<string>D71B1849-FFFA-49CC-A433-A21B98AF1E76</string>
 	<key>NoSyncPermissionToShowTip</key>
-	<true/>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>517395112.94761401</real>
-	<key>NoSyncTipsDisabled</key>
-	<true/>
-	<key>NoSyncTipsToNotShow</key>
-	<array>
-		<string>000</string>
-	</array>
+	<real>519325883.587942</real>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -707,11 +699,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/final.xml?shard=65</string>
+	<string>https://iterm2.com/appcasts/final.xml?shard=13</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-06-17T07:34:27Z</date>
+	<date>2017-06-23T17:27:41Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>WordCharacters</key>

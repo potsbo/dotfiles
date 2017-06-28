@@ -62,7 +62,7 @@ setopt auto_pushd
 # dont push dups
 setopt pushd_ignore_dups 
 # ls just after cd
-function chpwd() { ls }
+function chpwd() { ls -FG }
 
 ## ls 
 alias ls='/bin/ls -FG'
@@ -93,6 +93,14 @@ alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
 alias globalip='curl http://httpbin.org/ip | grep .'
+
+function list-all-files {
+  if git rev-parse 2> /dev/null; then
+    git ls-files
+  else
+    find . -type f
+  fi
+}
 
 ### Utility function
 function man {
