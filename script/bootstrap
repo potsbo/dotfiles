@@ -59,10 +59,5 @@ fi
 echo "  + Tools"
 brew_check ansible
 
-echo "  + Rust"
-if test ! $(which rustc); then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y
-fi
-
 # ansible
 provisioning/run.sh
