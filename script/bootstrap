@@ -76,4 +76,4 @@ if test ! $(which rustc); then
 fi
 
 # ansible
-provisioning/run.sh
+provisioning/run.sh ${ARGS[@]}
