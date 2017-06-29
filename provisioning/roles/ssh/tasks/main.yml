@@ -30,6 +30,7 @@
   git:
     repo: 'git@github.com:{{ ssh.dotssh }}'
     dest: '{{ src_path }}/github.com/{{ ssh.dotssh }}'
+    key_file: '{{ home_path }}/.ssh/id_rsa'
     update: no
 
 - name: install dotssh
