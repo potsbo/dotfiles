@@ -17,4 +17,4 @@ before_install:
   - chmod 0600 ~/.ssh/id_rsa
 
 script:
-  - bash script/bootstrap
+  - bash script/bootstrap -vvvv
