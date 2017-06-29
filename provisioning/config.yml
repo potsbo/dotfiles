@@ -26,7 +26,6 @@ homebrew:
     - quitter
     - dash
     - quicklook-json
-    - mas
 
   packages:
     - peco
@@ -36,6 +35,7 @@ homebrew:
     - envchain
     - tmux
     - reattach-to-user-namespace
+    - mas
 
 ssh:
   dotssh: potsbo/dotssh
