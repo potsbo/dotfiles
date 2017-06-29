@@ -31,6 +31,9 @@
     - role: golang
       tags: ['language', 'golang']
 
+    - role: rust
+      tags: ['language', 'rust']
+
     - role: tmux
       tags: ['install', 'tmux']
 
