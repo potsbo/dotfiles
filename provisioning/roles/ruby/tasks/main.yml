@@ -7,7 +7,7 @@
 
 - name: install rbenv
   command: |
-    bash -lc 'anyenv install rbenv'
+    bash -lc 'echo $PATH; echo $HOME; ls -la ~/.anyenv/; anyenv install rbenv'
   when: which_rbenv.rc > 0
 
 - name: install plugins
