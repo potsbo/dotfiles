@@ -3,6 +3,11 @@
     dest:    '{{ src_path }}'
     state:   directory
 
+- name: create .go
+  file:
+    dest:    '{{ golang.path }}'
+    state:   directory
+
 - name: link src
   file:
     src:   '{{ src_path }}'
