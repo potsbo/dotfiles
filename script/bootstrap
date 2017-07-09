@@ -7,13 +7,22 @@ for a in "$@"; do
   ARGS=(${ARGS[@]} "$a")
 done
 
-brew_check() {
-  if brew info $1 | grep "Not installed" > /dev/null 2>&1
+ansible_check() {
+  if brew info ansible | grep "Not installed" > /dev/null 2>&1
   then
-    echo "    + Installing $1..."
-    brew install $1
+    echo "    + Installing ansible..."
+    brew install ansible
   else
-    echo "    + $1 found."
+    echo "    + ansible found."
+  fi
+}
+
+install_brew() {
+  echo "  + Homebrew"
+  if test ! $(which brew); then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    echo "    + Homebrew found."
   fi
 }
 
@@ -23,18 +32,19 @@ link_check() {
   fi
 }
 
-# Config
-echo "  + Machine Name"
-MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
-if [[ $MACHINE =~ ^[a-z]+$ ]]; then
-  echo "    + $MACHINE is valid."
-else
-  echo "    + $MACHINE is not valid."
-  exit 1
-fi
+check_name() {
+  echo "  + Machine Name"
+  MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
+  if [[ $MACHINE =~ ^[a-z]+$ ]]; then
+    echo "    + $MACHINE is valid."
+  else
+    echo "    + $MACHINE is not valid."
+    exit 1
+  fi
+}
 
-echo "  + Permission"
 fix_permission() {
+  echo "  + Permission"
   [ -d /usr/local ] || mkdir -p /usr/local
   [ "$(stat -f '%Su' /usr/local)" = "$(whoami)" ] && echo '    + ok' && return  # GNU: stat -c '%U'
 
@@ -42,38 +52,27 @@ fix_permission() {
   sudo chown -R $(whoami) /usr/local
   echo '      + done'
 }
+
+set_ssh_key() {
+  echo "  + SSH key"
+
+  KEYS=($MACHINE $MACHINE.github)
+  for name in ${KEYS[@]}; do
+    path=~/.ssh/$name
+    if [[ ! -f "$path" && ! -L "$path" ]]; then
+      ssh-keygen -f $path -t rsa -N ''
+    else
+      echo "      + $name exists."
+    fi
+    link_check $path ~/.ssh/$name
+  done
+}
+
+check_name
+set_ssh_key
 fix_permission
-
-echo "  + SSH key"
-echo "    + general key"
-KEY_PATH=~/.ssh/$MACHINE
-if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-  ssh-keygen -f $KEY_PATH -t rsa -N ''
-else
-  echo "      + $KEY_PATH exists."
-fi
-link_check $KEY_PATH ~/.ssh/id_rsa
-
-echo "    + GitHub key"
-KEY_PATH=~/.ssh/$MACHINE.github
-if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-  ssh-keygen -f $KEY_PATH -t rsa -N ''
-else
-  echo "      + $KEY_PATH exists."
-fi
-link_check $KEY_PATH ~/.ssh/id_rsa.github
-
-# Install brew
-echo "  + Homebrew"
-if test ! $(which brew); then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-else
-  echo "    + Homebrew found."
-fi
-
-# Tools
-echo "  + Tools"
-brew_check ansible
+install_brew
+ansible_check
 
 # ansible
 provisioning/run.sh ${ARGS[@]}
