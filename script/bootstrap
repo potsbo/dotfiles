@@ -43,16 +43,6 @@ check_name() {
   fi
 }
 
-fix_permission() {
-  echo "  + Permission"
-  [ -d /usr/local ] || mkdir -p /usr/local
-  [ "$(stat -f '%Su' /usr/local)" = "$(whoami)" ] && echo '    + ok' && return  # GNU: stat -c '%U'
-
-  echo '    + Fixing permission of /usr/local...'
-  sudo chown -R $(whoami) /usr/local
-  echo '      + done'
-}
-
 set_ssh_key() {
   echo "  + SSH key"
 
@@ -70,7 +60,6 @@ set_ssh_key() {
 
 check_name
 set_ssh_key
-fix_permission
 install_brew
 ansible_check
 
