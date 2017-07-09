@@ -74,10 +74,5 @@ fix_permission
 install_brew
 ansible_check
 
-echo "  + Rust"
-if test ! $(which rustc); then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y
-fi
-
 # ansible
 provisioning/run.sh ${ARGS[@]}
