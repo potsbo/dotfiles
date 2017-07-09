@@ -5,6 +5,13 @@
   changed_when: False
   ignore_errors: yes
 
+- name: allocate parent directory
+  file:
+    dest:    '{{ anyenv.envs_dir }}'
+    state:   directory
+    recurse: yes
+  when: which_rbenv.rc > 0
+
 - name: install rbenv
   command: |
     bash -lc 'anyenv install rbenv'
