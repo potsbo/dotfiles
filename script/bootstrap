@@ -75,11 +75,8 @@ set_ssh_key() {
 }
 
 check_name
+set_ssh_key
 fix_permission
-
-
-# Install rew
-
 install_brew
 ansible_check
 
