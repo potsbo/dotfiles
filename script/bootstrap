@@ -32,18 +32,19 @@ link_check() {
   fi
 }
 
-# Config
-echo "  + Machine Name"
-MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
-if [[ $MACHINE =~ ^[a-z]+$ ]]; then
-  echo "    + $MACHINE is valid."
-else
-  echo "    + $MACHINE is not valid."
-  exit 1
-fi
+check_name() {
+  echo "  + Machine Name"
+  MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
+  if [[ $MACHINE =~ ^[a-z]+$ ]]; then
+    echo "    + $MACHINE is valid."
+  else
+    echo "    + $MACHINE is not valid."
+    exit 1
+  fi
+}
 
-echo "  + Permission"
 fix_permission() {
+  echo "  + Permission"
   [ -d /usr/local ] || mkdir -p /usr/local
   [ "$(stat -f '%Su' /usr/local)" = "$(whoami)" ] && echo '    + ok' && return  # GNU: stat -c '%U'
 
@@ -51,6 +52,8 @@ fix_permission() {
   sudo chown -R $(whoami) /usr/local
   echo '      + done'
 }
+
+check_name
 fix_permission
 
 echo "  + SSH key"
