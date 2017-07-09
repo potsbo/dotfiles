@@ -17,6 +17,15 @@ ansible_check() {
   fi
 }
 
+install_brew() {
+  echo "  + Homebrew"
+  if test ! $(which brew); then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    echo "    + Homebrew found."
+  fi
+}
+
 link_check() {
   if [[ ! -f "$2" && ! -d "$2" && ! -L "$2" ]]; then
     ln -s $1 $2
@@ -64,14 +73,6 @@ fi
 link_check $KEY_PATH ~/.ssh/id_rsa.github
 
 # Install rew
-install_brew() {
-  echo "  + Homebrew"
-  if test ! $(which brew); then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  else
-    echo "    + Homebrew found."
-  fi
-}
 
 install_brew
 ansible_check
