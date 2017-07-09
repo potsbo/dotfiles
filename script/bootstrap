@@ -2,6 +2,11 @@
 
 set -eu
 
+ARGS=('')
+for a in "$@"; do
+  ARGS=(${ARGS[@]} "$a")
+done
+
 brew_check() {
   if brew info $1 | grep "Not installed" > /dev/null 2>&1
   then
@@ -20,7 +25,7 @@ link_check() {
 
 # Config
 echo "  + Machine Name"
-MACHINE=$(hostname | sed -e 's/\.local//g')
+MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
 if [[ $MACHINE =~ ^[a-z]+$ ]]; then
   echo "    + $MACHINE is valid."
 else
@@ -28,11 +33,22 @@ else
   exit 1
 fi
 
+echo "  + Permission"
+fix_permission() {
+  [ -d /usr/local ] || mkdir -p /usr/local
+  [ "$(stat -f '%Su' /usr/local)" = "$(whoami)" ] && echo '    + ok' && return  # GNU: stat -c '%U'
+
+  echo '    + Fixing permission of /usr/local...'
+  sudo chown -R $(whoami) /usr/local
+  echo '      + done'
+}
+fix_permission
+
 echo "  + SSH key"
 echo "    + general key"
 KEY_PATH=~/.ssh/$MACHINE
 if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-  ssh-keygen -f $KEY_PATH -t rsa
+  ssh-keygen -f $KEY_PATH -t rsa -N ''
 else
   echo "      + $KEY_PATH exists."
 fi
@@ -41,7 +57,7 @@ link_check $KEY_PATH ~/.ssh/id_rsa
 echo "    + GitHub key"
 KEY_PATH=~/.ssh/$MACHINE.github
 if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-  ssh-keygen -f $KEY_PATH -t rsa
+  ssh-keygen -f $KEY_PATH -t rsa -N ''
 else
   echo "      + $KEY_PATH exists."
 fi
@@ -60,4 +76,4 @@ echo "  + Tools"
 brew_check ansible
 
 # ansible
-provisioning/run.sh
+provisioning/run.sh ${ARGS[@]}

@@ -13,7 +13,7 @@
 
 - name: install plugin
   git:
-    repo: '{{ item }}'
+    repo: 'https://{{ item }}'
     dest: '{{ src_path }}/{{ item }}'
     update: no
   with_items: '{{ zsh.plugins }}'

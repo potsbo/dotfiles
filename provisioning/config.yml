@@ -35,9 +35,10 @@ homebrew:
     - envchain
     - tmux
     - reattach-to-user-namespace
+    - mas
 
 ssh:
-  dotssh: github.com/potsbo/dotssh
+  dotssh: potsbo/dotssh
 
 mas:
   appstore_id: potsbo@gmail.com
@@ -60,6 +61,8 @@ ruby:
   plugins:
     - github.com/sstephenson/rbenv-default-gems
     - github.com/sstephenson/rbenv-gem-rehash
+  links:
+    ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems
 
 python:
   versions:
@@ -110,7 +113,6 @@ link:
   .gitignore_global:       .gitignore_global
   .tmux.conf:              .tmux.conf
   .tmux-powerlinerc:       .tmux-powerlinerc
-  ruby/rbenv/default-gems: .anyenv/envs/rbenv/default-gems
   .bash_profile:           .bash_profile
 
 clone:

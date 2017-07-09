@@ -6,18 +6,21 @@
     dotfiles_path: '{{ home_path }}/.dotfiles'
     src_path: '{{ home_path }}/src'
 
+  environment:
+    PATH: '/usr/local/bin:{{ anyenv.directory }}/bin:{{ anyenv.envs_dir }}/rbenv/shims:{{ anyenv.envs_dir }}/ndenv/shims:{{ anyenv.envs_dir }}/pyenv/shims:{{ anyenv.envs_dir }}/goenv/shims:{{ lookup("env", "PATH") }}'
+
   vars_files:
     - config.yml
 
   roles:
+    - role: link
+      tags: ['link']
+
     - role: anyenv
       tags: ['install', 'anyenv']
 
     - role: ssh
       tags: ['ssh']
-
-    - role: link
-      tags: ['link']
 
     - role: homebrew
       tags: ['install', 'homebrew']
