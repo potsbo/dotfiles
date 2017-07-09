@@ -14,13 +14,13 @@
 
   roles:
     - role: link
-      tags: ['link']
+      tags: ['basic', 'link']
+
+    - role: ssh
+      tags: ['basic', 'ssh']
 
     - role: anyenv
       tags: ['install', 'anyenv']
-
-    - role: ssh
-      tags: ['ssh']
 
     - role: homebrew
       tags: ['install', 'homebrew']
@@ -34,20 +34,20 @@
     - role: golang
       tags: ['language', 'golang']
 
-    - role: tmux
-      tags: ['install', 'tmux']
-
-    - role: zsh
-      tags: ['install', 'zsh']
-
     - role: python
       tags: ['language', 'python']
 
     - role: nodejs
       tags: ['language', 'nodejs']
 
+    - role: tmux
+      tags: ['install', 'tmux']
+
+    - role: zsh
+      tags: ['install', 'zsh']
+
     - role: vim
-      tags: ['vim']
+      tags: ['install', 'vim']
 
     - role: osx
       tags: ['osx']
