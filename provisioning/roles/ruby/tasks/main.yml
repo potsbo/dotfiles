@@ -35,6 +35,10 @@
     label: '{{ item.value }}'
   with_dict: '{{ ruby.links }}'
 
+- name: rehash
+  shell: |
+    bash -lc 'pyenv rehash'
+
 - name: get installed versions
   command: |
     bash -lc 'rbenv versions'
