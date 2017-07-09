@@ -8,7 +8,7 @@ for a in "$@"; do
 done
 
 ansible_check() {
-  if brew info asible | grep "Not installed" > /dev/null 2>&1
+  if brew info ansible | grep "Not installed" > /dev/null 2>&1
   then
     echo "    + Installing ansible..."
     brew install ansible
