@@ -55,23 +55,17 @@ fix_permission() {
 
 set_ssh_key() {
   echo "  + SSH key"
-  echo "    + general key"
-  KEY_PATH=~/.ssh/$MACHINE
-  if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-    ssh-keygen -f $KEY_PATH -t rsa -N ''
-  else
-    echo "      + $KEY_PATH exists."
-  fi
-  link_check $KEY_PATH ~/.ssh/id_rsa
 
-  echo "    + GitHub key"
-  KEY_PATH=~/.ssh/$MACHINE.github
-  if [[ ! -f "$KEY_PATH" && ! -L "$KEY_PATH" ]]; then
-    ssh-keygen -f $KEY_PATH -t rsa -N ''
-  else
-    echo "      + $KEY_PATH exists."
-  fi
-  link_check $KEY_PATH ~/.ssh/id_rsa.github
+  KEYS=($MACHINE $MACHINE.github)
+  for name in ${KEYS[@]}; do
+    path=~/.ssh/$name
+    if [[ ! -f "$path" && ! -L "$path" ]]; then
+      ssh-keygen -f $path -t rsa -N ''
+    else
+      echo "      + $name exists."
+    fi
+    link_check $path ~/.ssh/$name
+  done
 }
 
 check_name
