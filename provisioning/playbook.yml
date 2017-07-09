@@ -34,20 +34,20 @@
     - role: golang
       tags: ['language', 'golang']
 
-    - role: tmux
-      tags: ['install', 'tmux']
-
-    - role: zsh
-      tags: ['install', 'zsh']
-
     - role: python
       tags: ['language', 'python']
 
     - role: nodejs
       tags: ['language', 'nodejs']
 
+    - role: tmux
+      tags: ['install', 'tmux']
+
+    - role: zsh
+      tags: ['install', 'zsh']
+
     - role: vim
-      tags: ['vim']
+      tags: ['install', 'vim']
 
     - role: osx
       tags: ['osx']
