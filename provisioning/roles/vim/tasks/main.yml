@@ -10,6 +10,12 @@
     dest: '{{ src_path }}/{{ vim.manager }}'
     update: no
 
+- name: check vim directory
+  file:
+    dest:    '{{ vim.bundle_dir }}'
+    state:   directory
+    recurse: yes
+
 - name: create manager symlink
   file:
     src:   '{{ src_path }}/{{ vim.manager }}'
