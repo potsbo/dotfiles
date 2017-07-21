@@ -10,21 +10,21 @@ homebrew:
 
   applications:
     - alfred
-    - iterm2
-    - sourcetree
-    - skype
     - atom
-    - postgres
-    - spotify
-    - dropbox
+    - bettertouchtool
+    - dash
     - docker
-    - jetbrains-toolbox
+    - dropbox
     - google-chrome
     - google-japanese-ime
+    - iterm2
+    - jetbrains-toolbox
     - keytype
-    - bettertouchtool
+    - postgres
+    - skype
+    - spotify
+    - sourcetree
     - quitter
-    - dash
     - quicklook-json
 
   packages:
