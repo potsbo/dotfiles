@@ -37,7 +37,7 @@
 
 - name: rehash
   shell: |
-    bash -lc 'pyenv rehash'
+    bash -lc 'rbenv rehash'
 
 - name: get installed versions
   command: |
