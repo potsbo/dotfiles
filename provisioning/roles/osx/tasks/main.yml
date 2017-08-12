@@ -103,7 +103,7 @@
     domain: NSGlobalDomain
     key:    AppleEnableSwipeNavigateWithScrolls
     type:   bool
-    value:  false
+    value:  true
 
 - name: general | skin (4/4)
   osx_defaults:
