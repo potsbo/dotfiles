@@ -102,6 +102,10 @@ function list-all-files {
   fi
 }
 
+function list-all-directories {
+  find . -type d | grep -v './.git'
+}
+
 ### Utility function
 function man {
 	# vim <(/usr/bin/man $1)
@@ -159,6 +163,7 @@ alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s
 alias -g LB='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 alias -g RB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)//"`'
 alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
+alias -g D='`list-all-directories | peco --prompt "DIRECTORIES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 # zsh
 ZSH_THEME="xxf"
