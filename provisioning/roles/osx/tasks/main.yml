@@ -1,12 +1,5 @@
 #=== General
 #==============================================================================================
-- name: general | set sidebar icon size to small
-  osx_defaults:
-    domain: NSGlobalDomain
-    key:    NSTableViewDefaultSizeMode
-    type:   int
-    value:  2
-
 - name: general | increase window resize speed
   osx_defaults:
     domain: NSGlobalDomain
