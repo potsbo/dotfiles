@@ -41,7 +41,7 @@
     force: yes
     mode: 0600
   with_fileglob:
-    - '{{ src_path }}/{{ ssh.dotssh }}/config.d/_*'
+    - '{{ src_path }}/github.com/{{ ssh.dotssh }}/config.d/_*'
 
 # reassemble
 - name: assemble config.d
