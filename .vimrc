@@ -39,6 +39,7 @@ source ~/.dotfiles/move.vimrc
 autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.cap set filetype=ruby
+autocmd BufNewFile,BufRead *.plot set filetype=gnuplot
 
 nnoremap <silent> <Space>sp :<C-u>setlocal spell! spelllang=en_us<CR>:setlocal spell?<CR>
 
