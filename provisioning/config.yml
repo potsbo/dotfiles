@@ -36,6 +36,7 @@ homebrew:
     - tmux
     - reattach-to-user-namespace
     - mas
+    - autoenv
 
 ssh:
   dotssh: potsbo/dotssh
