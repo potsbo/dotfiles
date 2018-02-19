@@ -158,6 +158,7 @@ function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
 function CAM { git add -A && git commit -am "$*" }
 function be { bundle exec "$*" }
+function pr { pipenv run "$*" }
 
 alias s='cd $(ghq list -p | peco)'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
