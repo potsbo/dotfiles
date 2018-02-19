@@ -7,6 +7,7 @@ export EDITOR=vim
 export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
 export ZSH=$HOME/.oh-my-zsh
+export LC_ALL=$LANG
 
 # PATH
 export PATH=~/.anyenv/bin

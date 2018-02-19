@@ -33,6 +33,7 @@ set splitright
 set vb
 set timeoutlen=200 ttimeoutlen=0
 set mouse=a
+set ambiwidth=double
 
 source ~/.dotfiles/move.vimrc
 
@@ -55,5 +56,6 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 hi Visual ctermbg=White guibg=White
 let g:jsx_ext_required = 0
+let g:go_version_warning = 0
 
 colorscheme molokai
