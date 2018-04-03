@@ -169,9 +169,9 @@ alias -g D='`list-all-directories | peco --prompt "DIRECTORIES>" | head -n 1 | s
 
 # zsh
 ZSH_THEME="xxf"
-plugins=(git zsh-syntax-highlighting)
-
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 source $ZSH/oh-my-zsh.sh
+autoload -U compinit && compinit
 
 
 #  Anyenv
