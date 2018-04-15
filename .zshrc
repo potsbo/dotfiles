@@ -7,6 +7,7 @@ export EDITOR=vim
 export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
 export ZSH=$HOME/.oh-my-zsh
+export LC_ALL=$LANG
 
 # PATH
 export PATH=~/.anyenv/bin
@@ -157,6 +158,7 @@ function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
 function CAM { git add -A && git commit -am "$*" }
 function be { bundle exec "$*" }
+function pr { pipenv run "$*" }
 
 alias s='cd $(ghq list -p | peco)'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
@@ -167,9 +169,9 @@ alias -g D='`list-all-directories | peco --prompt "DIRECTORIES>" | head -n 1 | s
 
 # zsh
 ZSH_THEME="xxf"
-plugins=(git zsh-syntax-highlighting)
-
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 source $ZSH/oh-my-zsh.sh
+autoload -U compinit && compinit
 
 
 #  Anyenv

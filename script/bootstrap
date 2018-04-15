@@ -35,7 +35,7 @@ link_check() {
 check_name() {
   echo "  + Machine Name"
   MACHINE=${MACHINE:-$(hostname | sed -e 's/\.local//g')}
-  if [[ $MACHINE =~ ^[a-z]+$ ]]; then
+  if [[ $MACHINE =~ ^[a-z\-]+$ ]]; then
     echo "    + $MACHINE is valid."
   else
     echo "    + $MACHINE is not valid."

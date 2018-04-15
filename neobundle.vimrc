@@ -47,6 +47,7 @@ NeoBundle "pangloss/vim-javascript"
 NeoBundle "mxw/vim-jsx"
 NeoBundle 'rust-lang/rust.vim'
 NeoBundle 'vim-scripts/gnuplot.vim'
+NeoBundle 'hashivim/vim-terraform'
 NeoBundleCheck
 call neobundle#end()
 """End of Neobundle""""

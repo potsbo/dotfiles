@@ -36,6 +36,7 @@ homebrew:
     - tmux
     - reattach-to-user-namespace
     - mas
+    - autoenv
 
 ssh:
   dotssh: potsbo/dotssh
@@ -103,6 +104,8 @@ zsh:
   manager: github.com/robbyrussell/oh-my-zsh
   plugins:
     - github.com/zsh-users/zsh-syntax-highlighting
+    - github.com/zsh-users/zsh-completions
+    - github.com/zsh-users/zsh-autosuggestions
   themes:
     - https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
 
