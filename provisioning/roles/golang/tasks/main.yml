@@ -10,8 +10,8 @@
 
 - name: link src
   file:
-    src:   '{{ src_path }}'
-    dest:  '{{ golang.path }}/src'
+    src:  '{{ golang.path }}/src'
+    dest:   '{{ home_path }}/src'
     state: link
     force: yes
 
