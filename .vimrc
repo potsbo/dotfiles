@@ -58,5 +58,6 @@ match OverLength /\%81v.\+/
 hi Visual ctermbg=White guibg=White
 let g:jsx_ext_required = 0
 let g:go_version_warning = 0
+let g:go_fmt_command = "goimports"
 
 colorscheme molokai

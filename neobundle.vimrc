@@ -14,7 +14,7 @@ NeoBundle 'Shougo/neocomplcache.vim' 	"neo-completion with cache
 " NeoBundle 'Shougo/neocomplete.vim' 	"neo-completion with cache
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim', { 'build': { 'mac': 'make' } }
-NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'vim-perl/vim-perl'
 NeoBundle 'itchyny/lightline.vim'
 " NeoBundle 'itchyny/dictionary.vim'
@@ -36,15 +36,15 @@ NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'osyo-manga/vim-monster'
 NeoBundle 'powerman/vim-plugin-viewdoc'
-NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'burnettk/vim-angular'
+" NeoBundle 'derekwyatt/vim-scala'
+" NeoBundle 'burnettk/vim-angular'
 NeoBundle 'wakatime/vim-wakatime'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'google/vim-ft-go'
 NeoBundle 'fatih/vim-go'
-NeoBundle "pangloss/vim-javascript"
-NeoBundle "mxw/vim-jsx"
+" NeoBundle "pangloss/vim-javascript"
+" NeoBundle "mxw/vim-jsx"
 NeoBundle 'rust-lang/rust.vim'
 NeoBundle 'vim-scripts/gnuplot.vim'
 NeoBundle 'hashivim/vim-terraform'

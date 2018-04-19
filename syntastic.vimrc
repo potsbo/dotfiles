@@ -11,6 +11,10 @@ let g:syntastic_check_on_wq = 1
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
+let g:syntastic_go_checkers = ['golint', 'govet', 'gometalinter']
+let g:syntastic_go_gometalinter_args = ['--disable-all', '--enable=errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
 let g:cpp_class_scope_highlight = 1
 let g:syntastic_html_tidy_ignore_errors = [
 	\  '<html> attribute "lang" lacks value',
