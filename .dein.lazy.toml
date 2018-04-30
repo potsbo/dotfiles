@@ -14,6 +14,10 @@ on_cmd = ['Commentary']
 repo = 'tpope/vim-fugitive'
 on_cmd = ['Gdiff']
 
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_i = 1
+
 # filetype
 [[plugins]]
 repo = 'fatih/vim-go'
