@@ -121,6 +121,7 @@ link:
   .bash_profile:           .bash_profile
   .dein.toml:              .dein.toml
   .dein.lazy.toml:         .dein.lazy.toml
+  init.vim:                .config/nvim/init.vim
 
 clone:
   - github.com/edihbrandon/RictyDiminished
