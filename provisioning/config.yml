@@ -37,6 +37,7 @@ homebrew:
     - reattach-to-user-namespace
     - mas
     - autoenv
+    - neovim
 
 ssh:
   dotssh: potsbo/dotssh
