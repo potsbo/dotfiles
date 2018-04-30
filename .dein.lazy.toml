@@ -10,6 +10,10 @@ on_cmd = ['QuickRun']
 repo = 'tpope/vim-commentary'
 on_cmd = ['Commentary']
 
+[[plugins]]
+'tpope/vim-fugitive'
+on_cmd = ['Gdiff']
+
 # filetype
 [[plugins]]
 repo = 'fatih/vim-go'
