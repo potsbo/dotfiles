@@ -11,7 +11,7 @@ repo = 'tpope/vim-commentary'
 on_cmd = ['Commentary']
 
 [[plugins]]
-'tpope/vim-fugitive'
+repo = 'tpope/vim-fugitive'
 on_cmd = ['Gdiff']
 
 # filetype
