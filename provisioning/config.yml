@@ -119,6 +119,8 @@ link:
   .tmux.conf:              .tmux.conf
   .tmux-powerlinerc:       .tmux-powerlinerc
   .bash_profile:           .bash_profile
+  .dein.toml:              .dein.toml
+  .dein.lazy.toml:         .dein.lazy.toml
 
 clone:
   - github.com/edihbrandon/RictyDiminished
