@@ -175,6 +175,14 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
 
+function peco-history-selection() {
+    BUFFER=`fc -ln 0 | tail -r  | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/'`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
 
 #  Anyenv
 #-----------------------------------------------
