@@ -18,6 +18,10 @@ on_cmd = ['Gdiff']
 repo = 'cohama/lexima.vim'
 on_i = 1
 
+[[plugins]]
+repo = 'powerman/vim-plugin-viewdoc'
+on_cmd = ['ViewDocMan']
+
 # filetype
 [[plugins]]
 repo = 'fatih/vim-go'
