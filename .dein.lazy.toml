@@ -12,7 +12,7 @@ on_cmd = ['Commentary']
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-on_cmd = ['Gdiff']
+on_cmd = ['Gdiff', 'Gblame']
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
