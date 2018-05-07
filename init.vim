@@ -64,6 +64,7 @@ set vb
 set timeoutlen=200 ttimeoutlen=0
 set mouse=a
 set ambiwidth=double
+let g:go_fmt_command = "goimports"
 
 source ~/.dotfiles/move.vimrc
 source ~/.dotfiles/quickrun.vimrc
