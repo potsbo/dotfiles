@@ -161,6 +161,7 @@ function CAM { git add -A && git commit -am "$*" }
 function be { bundle exec "$*" }
 function pr { pipenv run "$*" }
 
+alias vim='nvim'
 alias s='cd $(ghq list -p | peco)'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 alias -g LB='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
@@ -174,6 +175,14 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
 
+function peco-history-selection() {
+    BUFFER=`fc -ln 0 | tail -r  | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/'`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
 
 #  Anyenv
 #-----------------------------------------------

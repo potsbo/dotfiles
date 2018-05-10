@@ -37,6 +37,7 @@ homebrew:
     - reattach-to-user-namespace
     - mas
     - autoenv
+    - neovim
 
 ssh:
   dotssh: potsbo/dotssh
@@ -116,6 +117,9 @@ link:
   .tmux.conf:              .tmux.conf
   .tmux-powerlinerc:       .tmux-powerlinerc
   .bash_profile:           .bash_profile
+  .dein.toml:              .dein.toml
+  .dein.lazy.toml:         .dein.lazy.toml
+  init.vim:                .config/nvim/init.vim
 
 clone:
   - github.com/edihbrandon/RictyDiminished
