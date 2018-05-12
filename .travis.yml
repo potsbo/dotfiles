@@ -13,9 +13,5 @@ env:
     MACHINE='travis'
     SKIP_TAGS='mas,ruby,golang,nodejs,vim'
 
-before_install:
-  - mv travis.github ~/.ssh/id_rsa
-  - chmod 0600 ~/.ssh/id_rsa
-
 script:
   - bash script/bootstrap --skip-tags="$SKIP_TAGS" -vvvv
