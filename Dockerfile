@@ -1,6 +1,4 @@
-FROM alpine:3.7
-
-RUN apk add --no-cache bash git openssh curl ruby
+FROM linuxbrew/alpine
 
 ENV MACHINE docker-machine
 ENV USERNAME potsbo
