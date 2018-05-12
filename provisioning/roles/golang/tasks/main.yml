@@ -28,7 +28,7 @@
 
 - name: get installed versions
   command: |
-    bash -lc 'goenv versions'
+    bash -lc 'goenv versions || true'
   register: installed_versions
 
 - name: install golang
