@@ -32,6 +32,7 @@
     dest: '{{ src_path }}/github.com/{{ ssh.dotssh }}'
     key_file: '{{ home_path }}/.ssh/id_rsa'
     update: no
+  when: ansible_os_family == "Darwin"
 
 - name: install dotssh
   file:
@@ -42,6 +43,7 @@
     mode: 0600
   with_fileglob:
     - '{{ src_path }}/github.com/{{ ssh.dotssh }}/config.d/_*'
+  when: ansible_os_family == "Darwin"
 
 # reassemble
 - name: assemble config.d

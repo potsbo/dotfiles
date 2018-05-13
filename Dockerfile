@@ -4,7 +4,7 @@ ENV MACHINE docker-machine
 ENV USERNAME potsbo
 
 RUN apk update \
-        && apk --no-cache add bash curl file git libc6-compat make ruby ruby-irb ruby-json ruby-test-unit sudo \
+        && apk --no-cache add bash curl file git gcc libc6-compat linux-headers make musl-dev ruby ruby-irb ruby-json ruby-test-unit sudo \
         && adduser -D -s /bin/bash $USERNAME \
         && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
@@ -21,5 +21,5 @@ RUN ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/ma
 RUN brew install ansible
 
 COPY . /home/potsbo/.dotfiles
-RUN $HOME/.dotfiles/script/bootstrap
+RUN $HOME/.dotfiles/script/bootstrap --skip-tags=osx
 CMD ['zsh']

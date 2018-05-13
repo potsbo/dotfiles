@@ -32,11 +32,10 @@ homebrew:
     - hub
     - jq
     - wget
-    - envchain
+    #- envchain
     - tmux
-    - reattach-to-user-namespace
-    - mas
-    - autoenv
+    #- reattach-to-user-namespace
+    #- mas
     - neovim
 
 ssh:
