@@ -1,6 +1,16 @@
 language: bash
-os: osx
-osx_image: xcode8.3  # OS X 10.12 (https://docs.travis-ci.com/user/osx-ci-environment/#OS-X-Version)
+
+matrix:
+  include:
+    # https://docs.travis-ci.com/user/reference/osx/#OS-X-Version
+    - os: osx
+      osx_image: xcode9   # macOS 10.12 Sierra
+    - os: linux
+      env:
+        - PATH=/home/travis/.linuxbrew/bin:$PATH
+
+services:
+  - docker
 
 sudo: required
 
@@ -19,4 +29,4 @@ before_install:
   - chmod 0600 ~/.ssh/id_rsa
 
 script:
-  - bash script/bootstrap --skip-tags="$SKIP_TAGS" -vvvv
+  - script/ci-test
