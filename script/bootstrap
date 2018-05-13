@@ -98,8 +98,12 @@ clone_or_update_repo() {
 }
 
 clone_or_update_repo
-check_name
-set_ssh_key
+if [[ `uname` == "Darwin" ]]; then
+  check_name
+  set_ssh_key
+else
+  export PATH=/home/$USER/.linuxbrew/bin:/home/$USER/.linuxbrew/sbin:$PATH
+fi
 install_brew
 ansible_check
 
