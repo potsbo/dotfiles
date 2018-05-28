@@ -1,6 +1,7 @@
 # export
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
+export WANTEDLY_HOME=$HOME/.wantedly
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
@@ -14,6 +15,7 @@ export AWS_REGION=ap-northeast-1
 export PATH=~/.anyenv/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$WANTEDLY_HOME/bin
 export PATH=$PATH:/bin
 export PATH=$PATH:/usr
 export PATH=$PATH:/usr/bin
