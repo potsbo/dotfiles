@@ -27,6 +27,10 @@ on_cmd = ['ViewDocMan']
 repo = 'fatih/vim-go'
 on_ft = 'go'
 
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_ft = 'go'
+
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
