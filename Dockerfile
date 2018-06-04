@@ -21,5 +21,5 @@ RUN ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/ma
 RUN brew install ansible
 
 COPY . /home/potsbo/.dotfiles
-RUN $HOME/.dotfiles/script/bootstrap --skip-tags=osx
+RUN $HOME/.dotfiles/script/bootstrap --skip-tags=osx,ruby
 CMD ['zsh']
