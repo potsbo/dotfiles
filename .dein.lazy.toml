@@ -34,3 +34,11 @@ on_ft = 'go'
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
+
+[[plugins]]
+repo = 'uarun/vim-protobuf'
+on_ft = 'proto'
+
+[[plugins]]
+repo = 'fishbullet/deoplete-ruby'
+on_ft = 'ruby'
