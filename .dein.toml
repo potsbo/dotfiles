@@ -2,6 +2,9 @@
 repo = 'Shougo/denite.nvim'
 
 [[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
 repo = 'flazz/vim-colorschemes'
 
 [[plugins]]
