@@ -65,6 +65,9 @@ set timeoutlen=200 ttimeoutlen=0
 set mouse=a
 set ambiwidth=double
 let g:go_fmt_command = "goimports"
+let g:deoplete#enable_at_startup = 1
+let g:go_auto_sameids = 1
+set completeopt-=preview
 
 source ~/.dotfiles/move.vimrc
 source ~/.dotfiles/quickrun.vimrc
