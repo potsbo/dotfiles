@@ -15,3 +15,6 @@ repo =  'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
+
+[[plugins]]
+repo = 'wakatime/vim-wakatime'
