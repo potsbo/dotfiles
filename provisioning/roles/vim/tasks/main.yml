@@ -4,27 +4,8 @@
     state:   directory
     recurse: yes
 
-- name: install manager
-  git:
-    repo: 'https://{{ vim.manager }}'
-    dest: '{{ src_path }}/{{ vim.manager }}'
-    update: no
-
-- name: check vim directory
-  file:
-    dest:    '{{ vim.bundle_dir }}'
-    state:   directory
-    recurse: yes
-
-- name: create manager symlink
-  file:
-    src:   '{{ src_path }}/{{ vim.manager }}'
-    dest:  '{{ vim.bundle_dir }}/{{ vim.manager | basename }}'
-    state: link
-    force: yes
-
 - name: install plugins
-  shell: vim -u {{ dotfiles_path }}/neobundle.vimrc +NeoBundleInstall +qa
+  shell: vim +"UpdateRemotePlugins" +q
 
 - name: create symlinks
   file:
