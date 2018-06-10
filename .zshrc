@@ -172,7 +172,7 @@ alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*
 alias -g D='`list-all-directories | peco --prompt "DIRECTORIES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 # zsh
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="xxf"
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
