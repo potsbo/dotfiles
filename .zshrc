@@ -114,8 +114,6 @@ function list-all-directories {
 
 ### Utility function
 function man {
-	# vim <(/usr/bin/man $1)
-	# /usr/bin/man $1 | vim -
 	vim -c ViewDocMan\ $1
 }
 function pdftopng {
