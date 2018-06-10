@@ -1,15 +1,17 @@
 # export
-export VIMHOME=$HOME/.vim
-export MYVIMRC=$HOME/.vimrc
-export WANTEDLY_HOME=$HOME/.wantedly
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
-export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
-export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=$LANG
 export AWS_REGION=ap-northeast-1
+
+# HOME
+export VIMHOME=$HOME/.vim
+export MYVIMRC=$HOME/.vimrc
+export WANTEDLY_HOME=$HOME/.wantedly
+export GOPATH=$HOME/.go
+export ZSH=$HOME/.oh-my-zsh
 
 # PATH
 export PATH=~/.anyenv/bin
@@ -58,6 +60,8 @@ setopt no_beep
 setopt interactive_comments
 # =command is equal to which command
 setopt equals
+
+setopt share_history
 
 ### Usual Commands
 ## cd
