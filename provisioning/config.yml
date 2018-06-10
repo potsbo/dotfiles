@@ -103,6 +103,7 @@ zsh:
     - github.com/zsh-users/zsh-syntax-highlighting
     - github.com/zsh-users/zsh-completions
     - github.com/zsh-users/zsh-autosuggestions
+    - github.com/bric3/nice-exit-code
   themes:
     - github.com/bhilburn/powerlevel9k
     - github.com/xfanwu/oh-my-zsh-custom-xxf
