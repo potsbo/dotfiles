@@ -91,8 +91,6 @@ tmux:
 
 vim:
   directory:  '{{ home_path }}/.vim'
-  bundle_dir: '{{ home_path }}/.vim/bundle'
-  manager: github.com/Shougo/neobundle.vim
   links:
     vim/indent: .vim/indent
     .vimrc:     .ideavimrc
@@ -104,8 +102,10 @@ zsh:
     - github.com/zsh-users/zsh-syntax-highlighting
     - github.com/zsh-users/zsh-completions
     - github.com/zsh-users/zsh-autosuggestions
+    - github.com/bric3/nice-exit-code
   themes:
-    - https://gist.githubusercontent.com/xfanwu/18fd7c24360c68bab884/raw/f09340ac2b0ca790b6059695de0873da8ca0c5e5/xxf.zsh-theme
+    - github.com/bhilburn/powerlevel9k
+    - github.com/xfanwu/oh-my-zsh-custom-xxf
 
 link:
   bin: bin
