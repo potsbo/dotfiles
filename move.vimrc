@@ -50,7 +50,7 @@ noremap <Space>t  gg
 noremap <Space>n  $
 noremap j d
 noremap k t
-noremap K T
+" noremap K T " save for VimManDoc
 noremap l n
 noremap L N 
 nnoremap D ,
