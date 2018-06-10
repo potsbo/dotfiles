@@ -4,7 +4,7 @@ ENV MACHINE docker-machine
 ENV USERNAME potsbo
 
 RUN apk update \
-        && apk --no-cache add bash curl file git gcc libc6-compat linux-headers make musl-dev ruby ruby-irb ruby-json ruby-test-unit sudo \
+        && apk --no-cache add bash curl file git gcc glibc libc6-compat linux-headers make musl-dev ruby ruby-irb ruby-json ruby-test-unit sudo \
         && adduser -D -s /bin/bash $USERNAME \
         && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
