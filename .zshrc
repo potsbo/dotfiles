@@ -116,9 +116,6 @@ function list-all-directories {
 function man {
 	vim -c ViewDocMan\ $1
 }
-function pdftopng {
-	convert $1 ${1:r}.png
-}
 
 # extract
 function extract() {
