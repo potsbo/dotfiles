@@ -98,7 +98,7 @@ alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A
 alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
-alias globalip='curl http://httpbin.org/ip | grep .'
+alias globalip='curl -sL http://httpbin.org/ip | jq -r ".origin"'
 
 function list-all-files {
   if git rev-parse 2> /dev/null; then
