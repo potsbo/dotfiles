@@ -87,8 +87,6 @@ alias nna='lla'
 alias mkdir='mkdir -p'
 
 ### Utility alias
-alias battery="pmset -g ps"
-alias stig="cd /etc; sudo tig"
 alias zshrc='vim ~/.zshrc'
 alias sourcerc='source ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
