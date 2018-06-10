@@ -92,8 +92,6 @@ tmux:
 
 vim:
   directory:  '{{ home_path }}/.vim'
-  bundle_dir: '{{ home_path }}/.vim/bundle'
-  manager: github.com/Shougo/neobundle.vim
   links:
     vim/indent: .vim/indent
     .vimrc:     .ideavimrc
