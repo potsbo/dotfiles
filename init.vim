@@ -66,6 +66,10 @@ let g:deoplete#enable_at_startup = 1
 let g:go_auto_sameids = 1
 set completeopt-=preview
 
+" For Japanese input https://hori-ryota.com/blog/neovim-fix-input-broken-ttimeout/
+set ttimeout
+set ttimeoutlen=20
+
 source ~/.dotfiles/move.vimrc
 source ~/.dotfiles/quickrun.vimrc
 source ~/.dotfiles/lightline.vimrc
