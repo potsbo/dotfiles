@@ -21,7 +21,14 @@ ansible_check() {
 install_brew() {
   echo "  + Homebrew"
   if test ! $(which brew); then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    if [[ `uname` == "Darwin" ]]; then
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    elif [[ `uname` == "Linux" ]]; then
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    else
+      echo "Unknown os (`uname`)"
+      exit 1
+    fi
   else
     echo "    + Homebrew found."
   fi
@@ -91,8 +98,12 @@ clone_or_update_repo() {
 }
 
 clone_or_update_repo
-check_name
-set_ssh_key
+if [[ `uname` == "Darwin" ]]; then
+  check_name
+  set_ssh_key
+else
+  export PATH=/home/$USER/.linuxbrew/bin:/home/$USER/.linuxbrew/sbin:$PATH
+fi
 install_brew
 ansible_check
 

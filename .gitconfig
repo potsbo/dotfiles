@@ -45,8 +45,6 @@
   cl = "!f() { mkdir -p ~/src/github.com/$1 && hub clone $1/$2 ~/src/github.com/$1/$2; }; f"
 [push]
   default = current
-[url "git@github.com:"]
-      insteadOf = https://github.com/
 [ghq]
 	root = ~/src
 [github]

@@ -1,4 +1,5 @@
 export PATH=$PATH:~/.anyenv/bin
+export PATH=$PATH:$HOME/.linuxbrew/bin
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
