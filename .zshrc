@@ -1,15 +1,17 @@
 # export
-export VIMHOME=$HOME/.vim
-export MYVIMRC=$HOME/.vimrc
-export WANTEDLY_HOME=$HOME/.wantedly
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
 export EDITOR=vim
-export GOPATH=$HOME/.go
 export PGDATA=/usr/local/var/postgres
-export ZSH=$HOME/.oh-my-zsh
 export LC_ALL=$LANG
 export AWS_REGION=ap-northeast-1
+
+# HOME
+export VIMHOME=$HOME/.vim
+export MYVIMRC=$HOME/.vimrc
+export WANTEDLY_HOME=$HOME/.wantedly
+export GOPATH=$HOME/.go
+export ZSH=$HOME/.oh-my-zsh
 
 # PATH
 export PATH=~/.anyenv/bin
@@ -59,6 +61,8 @@ setopt interactive_comments
 # =command is equal to which command
 setopt equals
 
+setopt share_history
+
 ### Usual Commands
 ## cd
 # auto push when cd
@@ -83,8 +87,6 @@ alias nna='lla'
 alias mkdir='mkdir -p'
 
 ### Utility alias
-alias battery="pmset -g ps"
-alias stig="cd /etc; sudo tig"
 alias zshrc='vim ~/.zshrc'
 alias sourcerc='source ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
@@ -96,7 +98,7 @@ alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A
 alias wfscan='airport scan'
 alias wfset='networksetup -setairportnetwork en0'
 alias wfname='networksetup -getairportnetwork en0'
-alias globalip='curl http://httpbin.org/ip | grep .'
+alias globalip='curl -sL http://httpbin.org/ip | jq -r ".origin"'
 
 function list-all-files {
   if git rev-parse 2> /dev/null; then
@@ -112,12 +114,7 @@ function list-all-directories {
 
 ### Utility function
 function man {
-	# vim <(/usr/bin/man $1)
-	# /usr/bin/man $1 | vim -
 	vim -c ViewDocMan\ $1
-}
-function pdftopng {
-	convert $1 ${1:r}.png
 }
 
 # extract

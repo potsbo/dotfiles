@@ -26,9 +26,17 @@
     force: yes
   with_items: '{{ zsh.plugins }}'
 
-- name: install theme
-  get_url:
-    url:  '{{ item }}'
-    dest: '{{ zsh.directory }}/themes/{{ item | basename }}'
-    mode: 0640
+- name: install themes
+  git:
+    repo: 'https://{{ item }}'
+    dest: '{{ src_path }}/{{ item }}'
+    update: no
+  with_items: '{{ zsh.themes }}'
+
+- name: link themes
+  file:
+    src:   '{{ src_path }}/{{ item }}'
+    dest:  '{{ zsh.directory }}/custom/themes/{{ item | basename }}'
+    state: link
+    force: yes
   with_items: '{{ zsh.themes }}'
