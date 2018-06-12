@@ -51,7 +51,7 @@ set smartcase
 set hidden "TODO"
 set history=5000
 set autoindent
-setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab"タブ幅の設定です
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab"タブ幅の設定です
 set helplang=en
 set laststatus=2
 " set cursorline
