@@ -19,7 +19,7 @@ homebrew:
     - google-japanese-ime
     - iterm2
     - jetbrains-toolbox
-    - keytype
+    - karabiner-elements
     - postgres
     - skype
     - spotify
