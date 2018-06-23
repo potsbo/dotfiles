@@ -28,6 +28,7 @@ homebrew:
     - quicklook-json
 
   packages:
+    - ag
     - peco
     - hub
     - jq
