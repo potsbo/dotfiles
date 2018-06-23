@@ -120,6 +120,7 @@ link:
   .dein.toml:              .dein.toml
   .dein.lazy.toml:         .dein.lazy.toml
   init.vim:                .config/nvim/init.vim
+  karabiner:               .config/karabiner
 
 clone:
   - github.com/edihbrandon/RictyDiminished
