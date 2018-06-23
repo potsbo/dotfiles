@@ -91,7 +91,7 @@ clone_or_update_repo() {
     echo 'done'
   elif ! [ -d "$DOTFILES_PATH" ]; then
     echo 'Cloning repo...'
-    git clone --recursive git://github.com/potsbo/dotfiles.git --branch master $DOTFILES_PATH
+    git clone --recursive https://github.com/potsbo/dotfiles.git --branch master $DOTFILES_PATH
     echo 'done'
   fi
 }
