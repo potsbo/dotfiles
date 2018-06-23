@@ -2,9 +2,6 @@
 repo = 'Shougo/denite.nvim'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
 repo = 'flazz/vim-colorschemes'
 
 [[plugins]]
@@ -18,3 +15,6 @@ repo =  'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
+
+[[plugins]]
+repo = 'wakatime/vim-wakatime'
