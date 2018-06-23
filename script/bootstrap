@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -eu
-: ${DOTFILES_PATH:="$HOME/.dotfiles"}
+: ${DOTFILES_PATH:="$HOME/.go/src/github.com/potsbo/dotfiles"}
 
 ARGS=('')
 for a in "$@"; do
@@ -63,6 +63,7 @@ set_ssh_key() {
 
 clone_or_update_repo() {
   local git_dir="$DOTFILES_PATH/.git"
+  link_check $DOTFILES_PATH ~/.dotfiles
 
   if [ -d "$git_dir" ]; then
     echo 'Updating repo...'
