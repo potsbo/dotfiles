@@ -55,7 +55,9 @@ set_ssh_key() {
     else
       echo "      + $name exists."
     fi
-    link_check $path ~/.ssh/$name
+    common_name=$(echo $name | sed "s/^$MACHINE/id_rsa/")
+    echo "      + link ~/.ssh/$common_name to ~/.ssh/$name"
+    link_check ~/.ssh/$common_name ~/.ssh/$name
   done
 }
 
