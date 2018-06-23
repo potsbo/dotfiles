@@ -35,6 +35,7 @@ homebrew:
     - wget
     - envchain
     - tmux
+    - tree
     - reattach-to-user-namespace
     - mas
     - autoenv
