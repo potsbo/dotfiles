@@ -44,6 +44,8 @@
   when: golang.versions
 
 - name: install packages
+  environment:
+    GOPATH: '{{ golang.path }}'
   command: |
     bash -lc 'go get -u {{ item | quote }}'
   with_items: '{{ golang.packages }}'
