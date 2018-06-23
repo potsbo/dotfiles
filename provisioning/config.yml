@@ -125,5 +125,5 @@ link:
   karabiner:               .config/karabiner
 
 clone:
-  - github.com/edihbrandon/RictyDiminished
-  - github.com/mzyy94/RictyDiminished-for-Powerline
+  repo: github.com/mzyy94/RictyDiminished-for-Powerline
+  dest: '{{ home_path }}/Library/Fonts'

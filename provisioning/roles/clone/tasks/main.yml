@@ -1,6 +1,11 @@
 - name: clone
   git:
-    repo: 'https://{{ anyenv.repository }}'
-    dest: '{{ src_path }}/{{ anyenv.repository }}'
+    repo: 'https://{{ clone.repo }}'
+    dest: '{{ src_path }}/{{ clone.repo }}'
     update: no
-  with_items: '{{ clone }}'
+
+- name: install
+  copy:
+    src: '{{ item }}'
+    dest: '{{ clone.dest }}/{{ item | basename }}'
+  with_fileglob: '{{ src_path }}/{{ clone.repo }}/*/*.ttf '
