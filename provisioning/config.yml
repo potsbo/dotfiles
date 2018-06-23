@@ -57,7 +57,7 @@ mas:
 
 ruby:
   versions:
-    - 2.4.1
+    - 2.5.1
   plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
   plugins:
     - github.com/sstephenson/rbenv-default-gems
