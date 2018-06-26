@@ -33,6 +33,12 @@
     update: no
   with_items: '{{ zsh.themes }}'
 
+- name: allocate parent directories
+  file:
+    dest:    '{{ zsh.directory }}/custom/themes/'
+    state:   directory
+    recurse: yes
+
 - name: link themes
   file:
     src:   '{{ src_path }}/{{ item }}'
