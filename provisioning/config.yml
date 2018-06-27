@@ -29,18 +29,18 @@ homebrew:
 
   packages:
     - ag
-    - peco
+    - autoenv
+    - envchain
     - hub
     - jq
-    - wget
-    - envchain
+    - mas
+    - neovim
+    - peco
+    - reattach-to-user-namespace
     - tmux
     - tig
     - tree
-    - reattach-to-user-namespace
-    - mas
-    - autoenv
-    - neovim
+    - wget
     - watch
 
 ssh:
