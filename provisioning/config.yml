@@ -35,11 +35,13 @@ homebrew:
     - wget
     - envchain
     - tmux
+    - tig
     - tree
     - reattach-to-user-namespace
     - mas
     - autoenv
     - neovim
+    - watch
 
 ssh:
   dotssh: potsbo/dotssh
