@@ -29,17 +29,19 @@ homebrew:
 
   packages:
     - ag
-    - peco
+    - autoenv
+    - envchain
     - hub
     - jq
-    - wget
-    - envchain
-    - tmux
-    - tree
-    - reattach-to-user-namespace
     - mas
-    - autoenv
     - neovim
+    - peco
+    - reattach-to-user-namespace
+    - tmux
+    - tig
+    - tree
+    - wget
+    - watch
 
 ssh:
   dotssh: potsbo/dotssh
