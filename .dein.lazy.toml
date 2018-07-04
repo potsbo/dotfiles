@@ -44,5 +44,13 @@ repo = 'fishbullet/deoplete-ruby'
 on_ft = 'ruby'
 
 [[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = 'ruby'
+
+[[plugins]]
 repo = 'leafgarland/typescript-vim'
 on_ft = 'typescript'
+
+[[plugins]]
+repo = 'chr4/nginx.vim'
+on_ft = 'nginx'
