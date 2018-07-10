@@ -25,7 +25,6 @@
   mergelog = log --merges --pretty=format:'%C(yellow)%h %Cgreen%ci %Cblue%cn%Cred%d %Creset%s %C(cyan)%b'
   history = log --graph --date=short --decorate=short --pretty=format:'%C(yellow)%h %Cgreen%cd %Cblue%cn%Cred%d %Creset%s'
   unmerged = !git --no-pager diff --name-only --diff-filter=U
-  sync = !git checkout master && git pull origin master && git fetch -p origin && git branch --merged | grep -v master | grep -v '*' | xargs git branch -d
   graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
 
   fok = checkout-origin
@@ -39,7 +38,7 @@
   openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
   dif = --no-pager diff
   difpr = !git diff $(git merge-base --fork-point master)
-  new = "!f() { git sync; git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
+  new = "!f() { git sync; git checkout master; git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
   orebase = "!f() { branch=`git rev-parse --abbrev-ref HEAD` && git sync; git checkout $branch && git rebase master; }; f"
   omerge  = "!f() { branch=`git rev-parse --abbrev-ref HEAD` && git sync; git checkout $branch && git merge master; }; f"
   cl = "!f() { mkdir -p ~/src/github.com/$1 && hub clone $1/$2 ~/src/github.com/$1/$2; }; f"
