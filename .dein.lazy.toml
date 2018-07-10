@@ -52,5 +52,9 @@ repo = 'leafgarland/typescript-vim'
 on_ft = 'typescript'
 
 [[plugins]]
+repo = 'kchmck/vim-coffee-script'
+on_ft = 'coffee'
+
+[[plugins]]
 repo = 'chr4/nginx.vim'
 on_ft = 'nginx'
