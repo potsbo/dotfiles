@@ -2157,7 +2157,7 @@
                         ]
                     },
                     {
-                        "description": "",
+                        "description": "Right Shift only to Alt+space to invoke Alfred",
                         "manipulators": [
                             {
                                 "from": {
