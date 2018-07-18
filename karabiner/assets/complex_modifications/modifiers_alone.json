@@ -1,0 +1,35 @@
+{
+  "title": "Modifiers Alone for potsbo",
+  "rules": [
+    {
+      "description": "Right Shift only to Alt+space to invoke Alfred",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_shift",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_shift",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "option"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
