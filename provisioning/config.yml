@@ -12,6 +12,7 @@ homebrew:
     - alfred
     - atom
     - bettertouchtool
+    - caffeine
     - dash
     - docker
     - dropbox
