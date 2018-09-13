@@ -58,3 +58,8 @@ on_ft = 'coffee'
 [[plugins]]
 repo = 'chr4/nginx.vim'
 on_ft = 'nginx'
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+
