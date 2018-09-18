@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git checkout master
+hub sync
+# Remove local fully merged branches
+git branch --merged master | grep -v 'master$' | xargs git branch -d

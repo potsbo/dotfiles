@@ -38,14 +38,13 @@
   openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
   dif = --no-pager diff
   difpr = !git diff $(git merge-base --fork-point master)
-  new = "!f() { hub sync && git checkout master && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
+  new = "!f() { hub sync && git checkout master && git remove-branches && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
   orebase = "!f() { hub sync && git rebase master; }; f"
   omerge  = "!f() { hub sync && git merge master; }; f"
-  cl = "!f() { mkdir -p ~/src/github.com/$1 && hub clone $1/$2 ~/src/github.com/$1/$2; }; f"
 [push]
   default = current
 [url "git@github.com:"]
-      insteadOf = https://github.com/
+  insteadOf = https://github.com/
 [ghq]
 	root = ~/src
 [github]
