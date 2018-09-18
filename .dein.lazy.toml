@@ -63,3 +63,6 @@ on_ft = 'nginx'
 repo = 'rust-lang/rust.vim'
 on_ft = 'rust'
 
+[[plugins]]
+repo = 'magicalbanana/sql-syntax-vim'
+on_ft = 'sql'
