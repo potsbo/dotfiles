@@ -7,3 +7,5 @@ export PATH=$PATH:~/.anyenv/bin
 if [ -d $HOME/.anyenv ]; then
   eval "$(anyenv init -)"
 fi
+
+export PATH="$HOME/.cargo/bin:$PATH"

@@ -60,5 +60,13 @@ repo = 'chr4/nginx.vim'
 on_ft = 'nginx'
 
 [[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+
+[[plugins]]
+repo = 'magicalbanana/sql-syntax-vim'
+on_ft = 'sql'
+
+[[plugins]]
 repo = 'keith/swift.vim'
 on_ft = 'swift'
