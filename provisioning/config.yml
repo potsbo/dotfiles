@@ -129,6 +129,7 @@ link:
   .dein.lazy.toml:         .dein.lazy.toml
   init.vim:                .config/nvim/init.vim
   karabiner:               .config/karabiner
+  alacritty:               .config/alacritty
 
 clone:
   repo: github.com/mzyy94/RictyDiminished-for-Powerline
