@@ -8,6 +8,7 @@ homebrew:
   repositories:
     - potsbo/tools 
     - genkiroid/homebrew-cert
+    - mscharley/homebrew
 
   applications:
     - alfred
@@ -28,6 +29,7 @@ homebrew:
     - sourcetree
     - quitter
     - quicklook-json
+    - alacritty
 
   packages:
     - ag
