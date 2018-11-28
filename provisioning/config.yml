@@ -89,7 +89,7 @@ nodejs:
 golang:
   path: '{{ home_path }}/.go'
   versions:
-    - 1.10.1
+    - 1.11.1
   packages:
     - github.com/motemen/ghq
     - github.com/mdempsky/gocode
