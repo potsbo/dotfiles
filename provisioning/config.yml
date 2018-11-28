@@ -92,6 +92,7 @@ golang:
     - 1.10.1
   packages:
     - github.com/motemen/ghq
+    - github.com/mdempsky/gocode
 
 tmux:
   directory: '{{ home_path }}/.tmux'
