@@ -27,6 +27,8 @@
   command: |
     bash -lc 'pyenv global {{ python.versions[0] | quote }}'
   when: python.versions
+  when: |
+    python.versions and installed_versions.stdout.find( '* ' + python.versions[0]) == -1
 
 - name: rehash
   shell: |
