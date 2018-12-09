@@ -38,6 +38,8 @@
     bash -lc 'pyenv rehash'
   environment:
     DOTSHIM_FILE: '{{ anyenv.envs_dir }}/pyenv/.pyenv-shim'
+  when: |
+    python.versions and installed_versions.stdout.find( '* ' + python.versions[0]) == -1
 
 - name: install packages
   pip:
