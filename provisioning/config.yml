@@ -21,14 +21,12 @@ homebrew:
     - google-chrome
     - google-japanese-ime
     - iterm2
-    - jetbrains-toolbox
     - karabiner-elements
     - postgres
     - skype
     - spotify
     - sourcetree
     - quitter
-    - quicklook-json
     - alacritty
 
   packages:
