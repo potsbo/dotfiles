@@ -11,6 +11,7 @@ homebrew:
     - mscharley/homebrew
 
   applications:
+    - alacritty
     - alfred
     - atom
     - bettertouchtool
@@ -24,9 +25,7 @@ homebrew:
     - postgres
     - skype
     - spotify
-    - sourcetree
     - quitter
-    - alacritty
 
   packages:
     - ag
