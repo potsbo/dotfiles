@@ -20,7 +20,6 @@ homebrew:
     - dropbox
     - google-chrome
     - google-japanese-ime
-    - iterm2
     - karabiner-elements
     - postgres
     - skype
