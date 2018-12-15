@@ -21,14 +21,12 @@ homebrew:
     - google-chrome
     - google-japanese-ime
     - iterm2
-    - jetbrains-toolbox
     - karabiner-elements
     - postgres
     - skype
     - spotify
     - sourcetree
     - quitter
-    - quicklook-json
     - alacritty
 
   packages:
@@ -89,9 +87,10 @@ nodejs:
 golang:
   path: '{{ home_path }}/.go'
   versions:
-    - 1.10.1
+    - 1.11.1
   packages:
     - github.com/motemen/ghq
+    - github.com/mdempsky/gocode
 
 tmux:
   directory: '{{ home_path }}/.tmux'

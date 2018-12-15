@@ -20,6 +20,7 @@
     bash -lc 'which goenv'
   register: which_goenv
   ignore_errors: yes
+  changed_when: False
 
 - name: install goenv
   command: |
@@ -30,6 +31,14 @@
   command: |
     bash -lc 'goenv versions || true'
   register: installed_versions
+  changed_when: False
+
+- name: update goenv
+  command: |
+    bash -lc 'cd ~/.anyenv/envs/goenv/ && git pull && cd -'
+  when: |
+    golang.versions and installed_versions.stdout.find(item) == -1
+  with_items: '{{ golang.versions }}'
 
 - name: install golang
   command: |
@@ -41,7 +50,8 @@
 - name: set global golang
   command: |
     bash -lc 'goenv global {{ golang.versions[0] | quote }}'
-  when: golang.versions
+  when: |
+    golang.versions and installed_versions.stdout.find( '* ' + golang.versions[0]) == -1
 
 - name: install packages
   environment:
@@ -50,3 +60,4 @@
     bash -lc 'go get -u {{ item | quote }}'
   with_items: '{{ golang.packages }}'
   when: golang.packages
+  changed_when: False
