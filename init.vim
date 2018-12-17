@@ -75,3 +75,4 @@ source ~/.dotfiles/quickrun.vimrc
 source ~/.dotfiles/lightline.vimrc
 source ~/.dotfiles/latex.vimrc
 source ~/.dotfiles/neomake.vimrc
+source ~/.dotfiles/vim-plugin-viewdoc.vimrc
