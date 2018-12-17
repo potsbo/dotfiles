@@ -35,10 +35,6 @@ let g:lightline = {
     \     'syntastic': 'error'
     \   }
   \ }
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
 function! s:syntastic()
   SyntasticCheck
   call lightline#update()
