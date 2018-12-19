@@ -99,6 +99,7 @@ vim:
   directory:  '{{ home_path }}/.vim'
   links:
     vim/indent: .vim/indent
+    vim/rc:     .vim/rc
     .vimrc:     .ideavimrc
 
 zsh:
