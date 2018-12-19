@@ -70,9 +70,9 @@ set completeopt-=preview
 set ttimeout
 set ttimeoutlen=20
 
-source ~/.dotfiles/move.vimrc
-source ~/.dotfiles/quickrun.vimrc
-source ~/.dotfiles/lightline.vimrc
-source ~/.dotfiles/latex.vimrc
-source ~/.dotfiles/neomake.vimrc
-source ~/.dotfiles/vim-plugin-viewdoc.vimrc
+source ~/.vim/rc/move.vimrc
+source ~/.vim/rc/quickrun.vimrc
+source ~/.vim/rc/lightline.vimrc
+source ~/.vim/rc/latex.vimrc
+source ~/.vim/rc/neomake.vimrc
+source ~/.vim/rc/vim-plugin-viewdoc.vimrc
