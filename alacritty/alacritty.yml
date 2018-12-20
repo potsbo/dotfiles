@@ -114,10 +114,6 @@ font:
     x: 0
     y: 0
 
-  # Scale the font size based on the monitor's DPI. This will lead to bigger text on HiDPI
-  # screens and make reading text a little easier.
-  scale_with_dpi: true
-
   # Thin stroke font rendering (OS X only)
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
@@ -126,11 +122,6 @@ font:
 
 # Display the time it takes to redraw each frame.
 render_timer: false
-
-# Use custom cursor colors. If `true`, the `colors.cursor.foreground` and
-# `colors.cursor.background` colors will be used to display the cursor.
-# Otherwise the cell colors are inverted for the cursor.
-custom_cursor_colors: true
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
@@ -281,19 +272,18 @@ selection:
 
 dynamic_title: true
 
-hide_cursor_when_typing: false
+cursor:
+  # Cursor style
+  #
+  # Values for 'style':
+  #   - Block
+  #   - Underline
+  #   - Beam
+  style: Block
 
-# Cursor style
-#
-# Values for 'cursor_style':
-#   - Block
-#   - Underline
-#   - Beam
-cursor_style: Block
-
-# If this is `true`, the cursor will be rendered as a hollow box when the
-# window is not focused.
-unfocused_hollow_cursor: true
+  # If this is `true`, the cursor will be rendered as a hollow box when the
+  # window is not focused.
+  unfocused_hollow: true
 
 # Live config reload (changes require restart)
 live_config_reload: true
