@@ -129,6 +129,7 @@ link:
   init.vim:                .config/nvim/init.vim
   karabiner:               .config/karabiner
   alacritty:               .config/alacritty
+  .rubocop.yml:            rubocop.yml
 
 clone:
   repo: github.com/mzyy94/RictyDiminished-for-Powerline
