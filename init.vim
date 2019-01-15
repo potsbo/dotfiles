@@ -76,3 +76,4 @@ source ~/.vim/rc/lightline.vimrc
 source ~/.vim/rc/latex.vimrc
 source ~/.vim/rc/neomake.vimrc
 source ~/.vim/rc/vim-plugin-viewdoc.vimrc
+source ~/.vim/rc/lsp.vimrc

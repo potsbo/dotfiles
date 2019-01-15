@@ -21,3 +21,9 @@ repo = 'wakatime/vim-wakatime'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
