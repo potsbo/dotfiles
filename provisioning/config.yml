@@ -62,6 +62,7 @@ mas:
 
 ruby:
   versions:
+    - 2.6.0
     - 2.5.1
   plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
   plugins:
@@ -128,6 +129,7 @@ link:
   init.vim:                .config/nvim/init.vim
   karabiner:               .config/karabiner
   alacritty:               .config/alacritty
+  .rubocop.yml:            rubocop.yml
 
 clone:
   repo: github.com/mzyy94/RictyDiminished-for-Powerline
