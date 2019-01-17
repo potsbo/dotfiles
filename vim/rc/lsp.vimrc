@@ -1,11 +1,11 @@
 if executable('golsp')
-  augroup LspGo
-    au!
-    autocmd User lsp_setup call lsp#register_server({
-          \ 'name': 'go-lang',
-          \ 'cmd': {server_info->['golsp', '-mode', 'stdio']},
-          \ 'whitelist': ['go'],
-          \ })
-    autocmd FileType go setlocal omnifunc=lsp#complete
-  augroup END
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'golsp',
+        \ 'cmd': {server_info->['golsp', '-mode', 'stdio']},
+        \ 'whitelist': ['go'],
+        \ })
 endif
+
+let g:lsp_async_completion = 1
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1

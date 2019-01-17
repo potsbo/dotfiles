@@ -1,8 +1,4 @@
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_i = 1
-
-[[plugins]]
 repo = 'thinca/vim-quickrun'
 on_cmd = ['QuickRun']
  
@@ -31,10 +27,6 @@ on_cmd = ['Dash']
 repo = 'fatih/vim-go'
 on_ft = 'go'
 
-[[plugins]]
-repo = 'zchee/deoplete-go'
-on_ft = 'go'
-
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
@@ -42,10 +34,6 @@ on_ft = 'toml'
 [[plugins]]
 repo = 'uarun/vim-protobuf'
 on_ft = 'proto'
-
-[[plugins]]
-repo = 'fishbullet/deoplete-ruby'
-on_ft = 'ruby'
 
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
