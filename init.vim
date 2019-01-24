@@ -63,6 +63,8 @@ set mouse=a
 set ambiwidth=double
 let g:go_fmt_command = "goimports"
 let g:go_auto_sameids = 1
+set completeopt-=preview
+set noswapfile
 
 " For Japanese input https://hori-ryota.com/blog/neovim-fix-input-broken-ttimeout/
 set ttimeout
