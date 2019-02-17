@@ -6,9 +6,8 @@ anyenv:
 
 homebrew:
   repositories:
-    - potsbo/tools 
-    - genkiroid/homebrew-cert
-    - mscharley/homebrew
+    - genkiroid/homebrew-cert # for cert
+    - mscharley/homebrew      # for alacritty
 
   applications:
     - alacritty
