@@ -41,6 +41,7 @@
   new = "!f() { hub sync && git checkout master && git remove-branches && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
   orebase = "!f() { hub sync && git rebase master; }; f"
   omerge  = "!f() { hub sync && git merge master; }; f"
+  view  = "!f() { hub browse -- blob/$(git show -s --format=%H)/$1; }; f"
 [push]
   default = current
 [url "git@github.com:"]

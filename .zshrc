@@ -187,5 +187,6 @@ bindkey '^R' peco-history-selection
 if [ -d $HOME/.anyenv ]; then
   eval "$(anyenv init -)"
 fi
+eval "$(direnv hook zsh)"
 
 export PATH=$HOME/bin:$PATH
