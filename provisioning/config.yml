@@ -6,9 +6,8 @@ anyenv:
 
 homebrew:
   repositories:
-    - potsbo/tools 
-    - genkiroid/homebrew-cert
-    - mscharley/homebrew
+    - genkiroid/homebrew-cert # for cert
+    - mscharley/homebrew      # for alacritty
 
   applications:
     - alacritty
@@ -89,7 +88,7 @@ golang:
     - 1.11.1
   packages:
     - github.com/motemen/ghq
-    - github.com/mdempsky/gocode
+    - golang.org/x/tools/cmd/golsp
 
 tmux:
   directory: '{{ home_path }}/.tmux'

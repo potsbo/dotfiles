@@ -1,3 +1,4 @@
+# Basic
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 
@@ -21,3 +22,17 @@ repo = 'wakatime/vim-wakatime'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+
+# LSP
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
