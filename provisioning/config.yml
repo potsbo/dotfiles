@@ -32,6 +32,7 @@ homebrew:
     - envchain
     - cert
     - hub
+    - insomnia
     - jq
     - mas
     - neovim
