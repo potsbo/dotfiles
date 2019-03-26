@@ -90,7 +90,7 @@ golang:
     - 1.11.1
   packages:
     - github.com/motemen/ghq
-    - golang.org/x/tools/cmd/golsp
+    - golang.org/x/tools/cmd/gopls
 
 tmux:
   directory: '{{ home_path }}/.tmux'
