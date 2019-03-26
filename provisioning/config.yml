@@ -20,6 +20,7 @@ homebrew:
     - dropbox
     - google-chrome
     - google-japanese-ime
+    - insomnia
     - karabiner-elements
     - postgres
     - skype
@@ -32,7 +33,6 @@ homebrew:
     - envchain
     - cert
     - hub
-    - insomnia
     - jq
     - mas
     - neovim
