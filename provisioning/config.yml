@@ -30,8 +30,9 @@ homebrew:
   packages:
     - ag
     - autoenv
-    - envchain
     - cert
+    - direnv
+    - envchain
     - hub
     - jq
     - mas
