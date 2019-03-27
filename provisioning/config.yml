@@ -31,6 +31,8 @@ homebrew:
     - ag
     - autoenv
     - cert
+    - creasty/tools/rid
+    - dep
     - direnv
     - envchain
     - hub
