@@ -40,6 +40,7 @@ homebrew:
     - mas
     - neovim
     - peco
+    - protobuf
     - reattach-to-user-namespace
     - tmux
     - tig
@@ -91,6 +92,7 @@ golang:
   versions:
     - 1.11.1
   packages:
+    - github.com/izumin5210/gex/cmd/gex
     - github.com/motemen/ghq
     - golang.org/x/tools/cmd/gopls
 
