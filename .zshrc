@@ -10,7 +10,6 @@ export AWS_REGION=ap-northeast-1
 export VIMHOME=$HOME/.vim
 export MYVIMRC=$HOME/.vimrc
 export WANTEDLY_HOME=$HOME/.wantedly
-export GOPATH=$HOME/.go
 export ZSH=$HOME/.oh-my-zsh
 
 # PATH
