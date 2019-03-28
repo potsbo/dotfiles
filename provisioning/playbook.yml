@@ -8,6 +8,7 @@
 
   environment:
     PATH: '/usr/local/bin:{{ anyenv.directory }}/bin:{{ anyenv.envs_dir }}/rbenv/shims:{{ anyenv.envs_dir }}/ndenv/shims:{{ anyenv.envs_dir }}/pyenv/shims:{{ anyenv.envs_dir }}/goenv/shims:{{ lookup("env", "PATH") }}'
+    GOPATH: '{{ golang.path }}'
 
   vars_files:
     - config.yml
