@@ -88,7 +88,7 @@ nodejs:
     - yarn
 
 golang:
-  path: '{{ home_path }}/.go'
+  path: '{{ home_path }}/go/1.11.1'
   versions:
     - 1.11.1
   packages:
