@@ -343,3 +343,16 @@
     key:    showhidden
     type:   bool
     value:  true
+
+- name: menu bar
+  osx_defaults:
+    domain: com.apple.systemuiserver
+    key: menuExtras
+    type: array
+    value:
+      - /System/Library/CoreServices/Menu Extras/Clock.menu
+      - /System/Library/CoreServices/Menu Extras/Battery.menu
+      - /System/Library/CoreServices/Menu Extras/AirPort.menu
+      - /System/Library/CoreServices/Menu Extras/TextInput.menu
+      - /System/Library/CoreServices/Menu Extras/Displays.menu
+      - /System/Library/CoreServices/Menu Extras/Volume.menu
