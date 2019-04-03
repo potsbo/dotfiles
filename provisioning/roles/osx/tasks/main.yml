@@ -344,6 +344,13 @@
     type:   bool
     value:  true
 
+- name: dock | enable App Expose
+  osx_defaults:
+    domain: com.apple.dock
+    key:    showAppExposeGestureEnabled
+    type:   int
+    value:  1
+
 - name: menu bar
   osx_defaults:
     domain: com.apple.systemuiserver
