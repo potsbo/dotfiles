@@ -351,6 +351,13 @@
     type:   int
     value:  1
 
+- name: dock | group windotws by application
+  osx_defaults:
+    domain: com.apple.dock
+    key:    expose-group-apps
+    type:   int
+    value:  1
+
 - name: menu bar
   osx_defaults:
     domain: com.apple.systemuiserver
