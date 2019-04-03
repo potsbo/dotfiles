@@ -356,3 +356,17 @@
       - /System/Library/CoreServices/Menu Extras/TextInput.menu
       - /System/Library/CoreServices/Menu Extras/Displays.menu
       - /System/Library/CoreServices/Menu Extras/Volume.menu
+
+- name: trackpad | tap to click
+  osx_defaults:
+    domain: com.apple.AppleMultitouchTrackpad
+    key:    Clicking
+    type:   int
+    value:  1
+
+- name: trackpad | tap to click
+  osx_defaults:
+    domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+    key:    Clicking
+    type:   int
+    value:  1
