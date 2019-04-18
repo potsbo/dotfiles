@@ -39,6 +39,7 @@ homebrew:
     - jq
     - mas
     - neovim
+    - nodejs
     - peco
     - protobuf
     - reattach-to-user-namespace
