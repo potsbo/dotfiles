@@ -1,37 +1,37 @@
-- name: check ndenv
+- name: check nodenv
   command: |
-    bash -lc 'which ndenv'
-  register: which_ndenv
+    bash -lc 'which nodenv'
+  register: which_nodenv
   changed_when: False
   ignore_errors: yes
 
-- name: install ndenv
+- name: install nodenv
   command: |
-    bash -lc 'anyenv install ndenv'
-  when: which_ndenv.rc > 0
+    bash -lc 'anyenv install nodenv'
+  when: which_nodenv.rc > 0
 
 - name: get installed versions
   command: |
-    bash -lc 'ndenv versions'
+    bash -lc 'nodenv versions'
   changed_when: False
   register: installed_versions
 
 - name: install nodejs
   command: |
-    bash -lc 'ndenv install {{ item | quote }}'
+    bash -lc 'nodenv install {{ item | quote }}'
   when: |
     nodejs.versions and installed_versions.stdout.find(item) == -1
   with_items: '{{ nodejs.versions }}'
 
 - name: get global version
   command: |
-    bash -lc 'ndenv global'
+    bash -lc 'nodenv global'
   register: global_node
   changed_when: False
 
 - name: set global nodejs
   command: |
-    bash -lc 'ndenv global {{ nodejs.versions[0] | quote }}'
+    bash -lc 'nodenv global {{ nodejs.versions[0] | quote }}'
   when: global_node.stdout != nodejs.versions[0]
 
 - name: install npm packages
