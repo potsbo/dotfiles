@@ -35,6 +35,7 @@ homebrew:
     - dep
     - direnv
     - envchain
+    - gnu-sed
     - hub
     - jq
     - mas
