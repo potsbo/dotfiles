@@ -36,7 +36,7 @@
   pbrowse = !git push && hub browse
   showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
   openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
-  dif = --no-pager diff
+  dif = !git --no-pager diff
   difpr = !git diff $(git merge-base --fork-point master)
   new = "!f() { hub sync && git checkout master && git remove-branches && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
   orebase = "!f() { hub sync && git rebase master; }; f"
