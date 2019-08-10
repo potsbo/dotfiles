@@ -135,6 +135,8 @@ function man {
 # 	esac
 # }
 
+function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
+
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 
 # tmux
