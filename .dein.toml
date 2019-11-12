@@ -23,6 +23,9 @@ repo = 'wakatime/vim-wakatime'
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
+[[plugins]]
+repo = 'powerman/vim-plugin-viewdoc'
+on_cmd = ['ViewDocMan']
 
 # LSP
 [[plugins]]
