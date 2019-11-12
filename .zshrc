@@ -118,26 +118,7 @@ function man {
 	vim -c ViewDocMan\ $1
 }
 
-# # extract
-# function extract() {
-# 	case $1 in
-# 		*.tar.gz|*.tgz) tar xzvf $1;;
-# 		*.tar.xz) tar Jxvf $1;;
-# 		*.zip) unzip $1;;
-# 		*.lzh) lha e $1;;
-# 		*.tar.bz2|*.tbz) tar xjvf $1;;
-# 		*.tar.Z) tar zxvf $1;;
-# 		*.gz) gzip -d $1;;
-# 		*.bz2) bzip2 -dc $1;;
-# 		*.Z) uncompress $1;;
-# 		*.tar) tar xvf $1;;
-# 		*.arj) unarj $1;;
-# 	esac
-# }
-
 function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
-
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 
 # tmux
 if [ ! -z `which tmux` ]; then
@@ -169,7 +150,6 @@ alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s
 alias -g LB='`git branch | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 alias -g RB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)//"`'
 alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
-alias -g D='`list-all-directories | peco --prompt "DIRECTORIES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 # zsh
 ZSH_THEME="oh-my-zsh-custom-xxf/themes/xxf"

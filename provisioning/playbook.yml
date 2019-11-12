@@ -41,8 +41,8 @@
     - role: python
       tags: ['language', 'python']
 
-    - role: nodejs
-      tags: ['language', 'nodejs']
+    # - role: nodejs
+    #   tags: ['language', 'nodejs']
 
     - role: tmux
       tags: ['install', 'tmux']
