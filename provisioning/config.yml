@@ -67,6 +67,7 @@ mas:
 
 ruby:
   versions:
+    - 2.6.5
     - 2.6.0
     - 2.5.1
   plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
