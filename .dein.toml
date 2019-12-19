@@ -1,12 +1,5 @@
-# Basic
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-
 [[plugins]]
 repo = 'flazz/vim-colorschemes'
-
-[[plugins]]
-repo = 'neomake/neomake'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -15,27 +8,6 @@ repo = 'airblade/vim-gitgutter'
 repo =  'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-
-[[plugins]]
-repo = 'wakatime/vim-wakatime'
-
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-[[plugins]]
-repo = 'powerman/vim-plugin-viewdoc'
-on_cmd = ['ViewDocMan']
-
-# LSP
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
+repo = 'neoclide/coc.nvim'
+build = './install.sh nightly'
+hook_add = 'source ~/.vim/rc/coc.vim'

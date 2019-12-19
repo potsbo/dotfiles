@@ -114,10 +114,6 @@ function list-all-directories {
 }
 
 ### Utility function
-function man {
-	vim -c ViewDocMan\ $1
-}
-
 function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
 
 # tmux
