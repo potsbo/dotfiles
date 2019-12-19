@@ -137,6 +137,7 @@ link:
   init.vim:                .config/nvim/init.vim
   karabiner:               .config/karabiner
   alacritty:               .config/alacritty
+  coc-settings.json:       .config/nvim/coc-settings.json
   .rubocop.yml:            rubocop.yml
 
 clone:
