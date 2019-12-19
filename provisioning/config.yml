@@ -92,6 +92,7 @@ nodejs:
 golang:
   path: '{{ home_path }}/.go'
   versions:
+    - 1.13.5
     - 1.12.6
     - 1.11.1
   packages:
