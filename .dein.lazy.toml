@@ -48,3 +48,8 @@ on_ft = 'sql'
 [[plugins]]
 repo = 'keith/swift.vim'
 on_ft = 'swift'
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+build = 'yarn install --frozen-lockfile'
+on_ft = 'json'
