@@ -95,6 +95,7 @@ nodejs:
 golang:
   path: '{{ home_path }}/.go'
   versions:
+    - 1.13.5
     - 1.12.6
     - 1.11.1
   packages:
@@ -140,6 +141,7 @@ link:
   init.vim:                .config/nvim/init.vim
   karabiner:               .config/karabiner
   alacritty:               .config/alacritty
+  ./coc-settings.json:     .config/coc-settings.json
   .rubocop.yml:            rubocop.yml
 
 clone:

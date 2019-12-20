@@ -1,8 +1,4 @@
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-on_cmd = ['QuickRun']
- 
-[[plugins]]
 repo = 'tpope/vim-commentary'
 on_cmd = ['Commentary']
 
@@ -14,15 +10,9 @@ on_cmd = ['Gdiff', 'Gblame']
 repo = 'cohama/lexima.vim'
 on_i = 1
 
-[[plugins]]
-repo = 'rizzatti/dash.vim'
-on_cmd = ['Dash']
-
-# filetype
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = 'go'
-
+##
+## filetype
+##
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'

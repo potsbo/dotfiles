@@ -4,10 +4,6 @@
     state:   directory
     recurse: yes
 
-- name: install plugins
-  shell: vim +UpdateRemotePlugins +q
-  changed_when: False
-
 - name: create symlinks
   file:
     src:   '{{ dotfiles_path }}/{{ item.key }}'
