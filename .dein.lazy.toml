@@ -13,6 +13,10 @@ on_i = 1
 ##
 ## filetype
 ##
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+
 [[plugins]] # toml syntax
 repo = 'cespare/vim-toml'
 on_ft = 'toml'
