@@ -71,3 +71,6 @@ set ttimeoutlen=20
 
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
+
+" Delete trailing spaces before save
+autocmd BufWritePre * %s/\s\+$//e
