@@ -33,14 +33,14 @@ export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 
-### completion 
+### completion
 autoload -Uz compinit
 compinit
 # ignore case
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # don't complete current directory after ../
 zstyle ':completion:*' ignore-parents parent pwd ..
-# complete commands after sudo 
+# complete commands after sudo
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 # complete processes when using ps command
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
@@ -51,7 +51,7 @@ setopt dvorak
 ###setting
 #changing colors
 export LSCOLORS=gxfxcxdxbxegedabagacad
-# color setting like %{${fg[red]}%} 
+# color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
 # support Japanese Letters
 setopt print_eight_bit
@@ -69,11 +69,11 @@ setopt share_history
 # auto push when cd
 setopt auto_pushd
 # dont push dups
-setopt pushd_ignore_dups 
+setopt pushd_ignore_dups
 # ls just after cd
 function chpwd() { ls -FG }
 
-## ls 
+## ls
 alias ls='/bin/ls -FG'
 alias la='ls -FA'
 alias ll='ls -Fl'
@@ -172,7 +172,7 @@ eval "$(direnv hook zsh)"
 export PATH=$HOME/bin:$PATH
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then . '~/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.inc; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then . '~/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi

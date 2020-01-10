@@ -30,7 +30,6 @@ endif
 colorscheme molokai
 set clipboard=unnamed
 set encoding=utf-8
-set nocompatible
 set fileencodings=utf-8,ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 
 filetype off "TODO
@@ -72,3 +71,6 @@ set ttimeoutlen=20
 
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
+
+" Delete trailing spaces before save
+autocmd BufWritePre * %s/\s\+$//e
