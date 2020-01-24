@@ -38,6 +38,7 @@ homebrew:
     - hub
     - jq
     - mas
+    - moreutils
     - neovim
     - nodejs
     - peco
