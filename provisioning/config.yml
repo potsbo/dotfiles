@@ -137,12 +137,9 @@ link:
   .tmux.conf:              .tmux.conf
   .tmux-powerlinerc:       .tmux-powerlinerc
   .bash_profile:           .bash_profile
-  .dein.toml:              .dein.toml
-  .dein.lazy.toml:         .dein.lazy.toml
   init.vim:                .config/nvim/init.vim
   karabiner:               .config/karabiner
   alacritty:               .config/alacritty
-  vim/coc-settings.json:   .config/nvim/coc-settings.json
   .rubocop.yml:            rubocop.yml
 
 clone:
