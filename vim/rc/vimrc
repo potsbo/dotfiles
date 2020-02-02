@@ -1,0 +1,38 @@
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
+" vim-plug
+call plug#begin('~/.vim/plug')
+" LSP
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-lsp-icons'
+
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'flazz/vim-colorschemes'
+Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
+Plug 'cohama/lexima.vim'
+Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Gblame'] }
+
+" TOML
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+call plug#end()
+
+" Editor
+set clipboard=unnamed
+syntax enable
+colorscheme molokai
+set number
+set tabstop=2 shiftwidth=2 softtabstop=2
+
+" Config
+set noswapfile
+
+" Source
+source ~/.vim/rc/move.vimrc
+source ~/.vim/rc/lightline.vimrc
