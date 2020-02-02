@@ -8,6 +8,7 @@ repo = 'airblade/vim-gitgutter'
 repo =  'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'neoclide/coc.nvim'
-build = './install.sh nightly'
-hook_post_source = 'source ~/.vim/rc/coc.vim'
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
