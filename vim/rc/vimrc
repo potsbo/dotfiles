@@ -21,6 +21,7 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Gblame'] }
 
 " TOML
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'mattn/vim-goimports', { 'for': 'go' }
 call plug#end()
 
 " Editor
