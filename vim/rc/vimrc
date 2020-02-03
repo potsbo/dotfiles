@@ -19,6 +19,9 @@ Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
 Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Gblame'] }
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 " TOML
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 call plug#end()
