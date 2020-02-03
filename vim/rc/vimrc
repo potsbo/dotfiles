@@ -18,6 +18,10 @@ Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
 Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Gblame'] }
+Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " TOML
 Plug 'cespare/vim-toml', { 'for': 'toml' }
@@ -40,3 +44,4 @@ set noswapfile
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
 source ~/.vim/rc/lsp.vim
+source ~/.vim/rc/fzf.vim
