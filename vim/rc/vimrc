@@ -25,6 +25,7 @@ Plug 'junegunn/fzf.vim'
 
 " TOML
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'mattn/vim-goimports', { 'for': 'go' }
 call plug#end()
 
 " Editor
@@ -33,6 +34,8 @@ syntax enable
 colorscheme molokai
 set number
 set tabstop=2 shiftwidth=2 softtabstop=2
+set ignorecase
+set smartcase
 
 " Config
 set noswapfile
@@ -40,4 +43,5 @@ set noswapfile
 " Source
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
+source ~/.vim/rc/lsp.vim
 source ~/.vim/rc/fzf.vim
