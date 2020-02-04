@@ -29,6 +29,8 @@ Plug 'cespare/vim-toml', { 'for': 'toml' }
 " Protocol Buffers
 Plug 'uber/prototool', { 'for': 'proto', 'rtp': 'vim/prototool' }
 
+" Golang
+Plug 'mattn/vim-goimports', { 'for': 'go' }
 call plug#end()
 
 " Editor
@@ -37,6 +39,8 @@ syntax enable
 colorscheme molokai
 set number
 set tabstop=2 shiftwidth=2 softtabstop=2
+set ignorecase
+set smartcase
 
 " Config
 set noswapfile
@@ -44,4 +48,5 @@ set noswapfile
 " Source
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
+source ~/.vim/rc/lsp.vim
 source ~/.vim/rc/fzf.vim
