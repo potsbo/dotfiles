@@ -25,6 +25,10 @@ Plug 'junegunn/fzf.vim'
 
 " TOML
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+
+" Protocol Buffers
+Plug 'uber/prototool', { 'for': 'proto', 'rtp': 'vim/prototool' }
+
 call plug#end()
 
 " Editor
