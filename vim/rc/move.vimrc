@@ -12,12 +12,12 @@ noremap k t
 noremap l n
 noremap L N 
 nnoremap D ,
-nnoremap H }
-nnoremap T {
+nnoremap H J
+nnoremap T K
 nnoremap N ;
 vnoremap D ,
-vnoremap H }
-vnoremap T {
+vnoremap H J
+vnoremap T K
 vnoremap N ;
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
