@@ -143,7 +143,7 @@ function pr { pipenv run "$*" }
 alias vim='nvim'
 alias s='cd $(ghq list -p | peco)'
 alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | peco --prompt 'GIT BRANCH>' --on-cancel error | cut -d$'\t' -f2\`"
-alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | peco --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>' --on-cancel error| cut -d$'\t' -f2\`"
+alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | peco --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>' --on-cancel error| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 alias -g F='`list-all-files | peco --prompt "FILES>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 
 # zsh
