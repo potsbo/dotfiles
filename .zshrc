@@ -89,29 +89,7 @@ alias mkdir='mkdir -p'
 
 ### Utility alias
 alias zshrc='vim ~/.zshrc'
-alias sourcerc='source ~/.zshrc'
 alias vimrc='vim ~/.vimrc'
-alias tmuxrc='vim ~/.tmux.conf'
-alias wfstatus='networksetup -getairportpower en0'
-alias wfon='networksetup -setairportpower en0 on'
-alias wfoff='networksetup -setairportpower en0 off'
-alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
-alias wfscan='airport scan'
-alias wfset='networksetup -setairportnetwork en0'
-alias wfname='networksetup -getairportnetwork en0'
-alias globalip='curl -sL http://httpbin.org/ip | jq -r ".origin"'
-
-function list-all-files {
-  if git rev-parse 2> /dev/null; then
-    git ls-files
-  else
-    find . -type f
-  fi
-}
-
-function list-all-directories {
-  find . -type d | grep -v './.git'
-}
 
 ### Utility function
 function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
@@ -151,15 +129,6 @@ ZSH_THEME="oh-my-zsh-custom-xxf/themes/xxf"
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-completions)
 source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
-
-function peco-history-selection() {
-    BUFFER=`fc -ln 0 | tail -r  | awk '!a[$0]++' | peco --query "$LBUFFER" | sed 's/\\n/\n/'`
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
 
 #  Anyenv
 #-----------------------------------------------
