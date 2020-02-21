@@ -31,6 +31,10 @@ Plug 'uber/prototool', { 'for': 'proto', 'rtp': 'vim/prototool' }
 
 " Golang
 Plug 'mattn/vim-goimports', { 'for': 'go' }
+
+" TypeScript
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript' }
 call plug#end()
 
 " Editor
