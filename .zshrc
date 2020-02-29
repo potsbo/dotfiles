@@ -32,6 +32,7 @@ export PATH=$PATH:/Library/TeX/texbin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:$PATH
 
 ### completion
 autoload -Uz compinit
@@ -135,8 +136,6 @@ if [ -d $HOME/.anyenv ]; then
   eval "$(anyenv init -)"
 fi
 eval "$(direnv hook zsh)"
-
-export PATH=$HOME/bin:$PATH
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.inc; fi
