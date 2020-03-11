@@ -51,3 +51,5 @@
 [github]
 	user = potsbo
 	privatekey = ~/.ssh/id_rsa.github
+[merge]
+	conflictstyle = diff3
