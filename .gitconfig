@@ -14,8 +14,6 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
-[commit]
-	template = ~/.stCommitMsg
 [color]
   ui = auto
 [alias]
@@ -51,3 +49,5 @@
 [github]
 	user = potsbo
 	privatekey = ~/.ssh/id_rsa.github
+[merge]
+	conflictstyle = diff3
