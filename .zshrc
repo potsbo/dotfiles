@@ -32,6 +32,7 @@ export PATH=$PATH:/Library/TeX/texbin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
 
 ### completion
