@@ -1,7 +1,7 @@
 # export
 export LANG=en_US.UTF-8
 export TERM="screen-256color"
-export EDITOR=vim
+export EDITOR=nvim
 export PGDATA=/usr/local/var/postgres
 export LC_ALL=$LANG
 export AWS_REGION=ap-northeast-1
@@ -138,10 +138,10 @@ if [ -d $HOME/.anyenv ]; then
 fi
 eval "$(direnv hook zsh)"
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.inc; fi
+if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

@@ -4,3 +4,5 @@
 db/sqlite3
 bower_rails.rb
 .idea
+telepresence.log
+project.xcworkspace
