@@ -42,6 +42,8 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 " Re:View
 Plug 'tokorom/vim-review', { 'for': 're' }
 
+Plug 'keith/swift.vim', { 'for': 'swift' }
+
 call plug#end()
 
 " Editor
