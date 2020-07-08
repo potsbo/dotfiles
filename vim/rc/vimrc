@@ -44,6 +44,8 @@ Plug 'tokorom/vim-review', { 'for': 're' }
 
 Plug 'keith/swift.vim', { 'for': 'swift' }
 
+Plug 'udalov/kotlin-vim', { 'for': 'kotolin' }
+
 call plug#end()
 
 " Editor
