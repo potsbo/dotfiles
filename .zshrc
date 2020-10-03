@@ -203,7 +203,7 @@ _prompt_git_info() {
 	[ -n "$GIT_STATUS" ] && GIT_INFO+=( "$GIT_STATUS" )
 	[[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)DIVERGENCES}" )
 	[[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)FLAGS}" )
-	GIT_INFO+=( "%{$fg_bold[grey]%}$GIT_LOCATION%{$reset_color%}" )
+	GIT_INFO+=( "%{$fg_bold[cyan]%}$GIT_LOCATION%{$reset_color%}" )
 	echo "${(j: :)GIT_INFO}"
 }
 
