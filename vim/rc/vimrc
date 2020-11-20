@@ -46,6 +46,8 @@ Plug 'keith/swift.vim', { 'for': 'swift' }
 
 Plug 'udalov/kotlin-vim', { 'for': 'kotolin' }
 
+Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
+
 call plug#end()
 
 " Editor
