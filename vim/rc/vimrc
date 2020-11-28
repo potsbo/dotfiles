@@ -42,10 +42,13 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 " Re:View
 Plug 'tokorom/vim-review', { 'for': 're' }
 
+" Swift
 Plug 'keith/swift.vim', { 'for': 'swift' }
 
+" Kotlin
 Plug 'udalov/kotlin-vim', { 'for': 'kotolin' }
 
+" Ocaml
 Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 
 call plug#end()
