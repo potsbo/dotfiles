@@ -46,6 +46,7 @@ Plug 'keith/swift.vim', { 'for': 'swift' }
 
 Plug 'udalov/kotlin-vim', { 'for': 'kotolin' }
 
+Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 call plug#end()
 
 " Editor
