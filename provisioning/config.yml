@@ -68,7 +68,7 @@ mas:
 
 ruby:
   versions:
-    - 2.6.6
+    - 2.7.2
   plugins_dir: '{{ anyenv.envs_dir }}/rbenv/plugins'
   plugins:
     - github.com/sstephenson/rbenv-default-gems
@@ -91,7 +91,7 @@ nodejs:
 golang:
   path: '{{ home_path }}/.go'
   versions:
-    - 1.14.1
+    - 1.14.3
   packages:
     - github.com/izumin5210/gex/cmd/gex
     - github.com/motemen/ghq
@@ -125,6 +125,7 @@ link:
   bin: bin
   .zshrc:                  .zshrc
   .vimrc:                  .vimrc
+  .tigrc:                  .tigrc
   .gitconfig:              .gitconfig
   .gitignore_global:       .gitignore_global
   .tmux.conf:              .tmux.conf
