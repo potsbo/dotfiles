@@ -244,3 +244,6 @@ add-zsh-hook precmd _update_prompt
 RPROMPT='%F{6}%D %*%f'
 TMOUT=1
 TRAPALRM() { zle -N reset-prompt }
+export CGO_ENABLED=0
+setopt HIST_IGNORE_ALL_DUPS
+export HISTSIZE 100000

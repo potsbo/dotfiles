@@ -65,6 +65,8 @@ set smartcase
 " Config
 set noswapfile
 
+nnoremap <silent> ;r :<C-u>QuickRun<CR>
+
 " Source
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
