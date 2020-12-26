@@ -48,6 +48,9 @@ Plug 'keith/swift.vim', { 'for': 'swift' }
 " Kotlin
 Plug 'udalov/kotlin-vim', { 'for': 'kotolin' }
 
+" Terraform
+Plug 'hashivim/vim-terraform', { 'for': 'tf' }
+
 " Ocaml
 Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 
