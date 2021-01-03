@@ -78,7 +78,7 @@ ruby:
 
 python:
   versions:
-    - 3.8.2
+    - 3.9.1
   packages:
     - numpy
 
