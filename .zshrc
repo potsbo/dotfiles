@@ -246,4 +246,4 @@ TMOUT=1
 TRAPALRM() { zle -N reset-prompt }
 export CGO_ENABLED=0
 setopt HIST_IGNORE_ALL_DUPS
-export HISTSIZE 100000
+export HISTSIZE=100000
