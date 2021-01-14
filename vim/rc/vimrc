@@ -19,6 +19,7 @@ Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
 Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Gblame'] }
 Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
+Plug 'k0kubun/vim-open-github', { 'on': ['OpenGithub'] }
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -69,11 +70,13 @@ set smartcase
 set noswapfile
 
 nnoremap <silent> ;r :<C-u>QuickRun<CR>
-nnoremap <silent> ;v :<C-u>! git view %<CR>
-
+nnoremap <silent> ;v :<C-u>OpenGithub<CR>
+vnoremap <silent> ;v :<C-u>'<,'>OpenGithub<CR>
 
 " Source
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
 source ~/.vim/rc/lsp.vim
 source ~/.vim/rc/fzf.vim
+
+let g:ruby_host_prog = '~/.anyenv/envs/rbenv/versions/2.7.2/bin/neovim-ruby-host'
