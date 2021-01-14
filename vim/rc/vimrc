@@ -69,6 +69,8 @@ set smartcase
 set noswapfile
 
 nnoremap <silent> ;r :<C-u>QuickRun<CR>
+nnoremap <silent> ;v :<C-u>! git view %<CR>
+
 
 " Source
 source ~/.vim/rc/move.vimrc
