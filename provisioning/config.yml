@@ -12,15 +12,13 @@ homebrew:
   applications:
     - alacritty
     - alfred
-    - atom
     - bettertouchtool
     - caffeine
     - dash
     - docker
-    - dropbox
+    # - dropbox
     - google-chrome
     - google-japanese-ime
-    - insomnia
     - karabiner-elements
     # - omnifocus
     - postgres
@@ -32,7 +30,6 @@ homebrew:
     - autoenv
     - cert
     - creasty/tools/rid
-    - dep
     - direnv
     - envchain
     - gnu-sed
@@ -61,10 +58,8 @@ mas:
     Fantastical 2.app: '975937182'
     Magnet.app:        '441258766'
     PopClip.app:       '445189367'
-    Quiver.app:        '866773894'
     Slack.app:         '803453959'
-    Spark.app:         '1176895641'
-    Xcode.app:         '497799835'
+    # Xcode.app:         '497799835'
 
 ruby:
   versions:
@@ -95,7 +90,7 @@ golang:
   packages:
     - github.com/izumin5210/gex/cmd/gex
     - github.com/motemen/ghq
-    - golang.org/x/tools/cmd/gopls
+    - golang.org/x/tools/gopls
 
 tmux:
   directory: '{{ home_path }}/.tmux'
