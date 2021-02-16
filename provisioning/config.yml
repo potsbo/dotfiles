@@ -45,6 +45,7 @@ homebrew:
     - peco
     - protobuf
     - reattach-to-user-namespace
+    - rlwrap
     - tmux
     - tig
     - tree
