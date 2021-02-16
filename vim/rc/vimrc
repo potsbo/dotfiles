@@ -74,7 +74,7 @@ nnoremap <silent> ;v :<C-u>OpenGithub<CR>
 vnoremap <silent> ;v :<C-u>'<,'>OpenGithub<CR>
 
 function! OcamlFmt()
-  silent execute "!ocamlformat --enable-outside-detected-project --module-item-spacing=compact --inplace %"
+  silent execute "!ocamlformat --enable-outside-detected-project --module-item-spacing=preserve --inplace %"
   edit!
 endfunction
 
