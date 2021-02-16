@@ -73,6 +73,16 @@ nnoremap <silent> ;r :<C-u>QuickRun<CR>
 nnoremap <silent> ;v :<C-u>OpenGithub<CR>
 vnoremap <silent> ;v :<C-u>'<,'>OpenGithub<CR>
 
+function! OcamlFmt()
+  silent execute "!ocamlformat --enable-outside-detected-project --module-item-spacing=compact --inplace %"
+  edit!
+endfunction
+
+command! OcamlFmt call OcamlFmt()
+augroup ocaml_autocmd
+  autocmd BufWritePost *.ml OcamlFmt
+augroup END
+
 " Source
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
