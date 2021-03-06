@@ -371,6 +371,13 @@
       - /System/Library/CoreServices/Menu Extras/Displays.menu
       - /System/Library/CoreServices/Menu Extras/Volume.menu
 
+- name: hide menu bar
+  osx_defaults:
+    domain: NSGlobalDomain
+    key: _HIHideMenuBar
+    type: bool
+    value: true
+
 - name: trackpad | tap to click
   osx_defaults:
     domain: com.apple.AppleMultitouchTrackpad
