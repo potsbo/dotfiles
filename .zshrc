@@ -248,4 +248,7 @@ TRAPALRM() { zle -N reset-prompt }
 export CGO_ENABLED=0
 setopt HIST_IGNORE_ALL_DUPS
 export HISTSIZE=100000
-eval "$(opam env)"
+if command -v opam &> /dev/null
+then
+	eval "$(opam env)"
+fi
