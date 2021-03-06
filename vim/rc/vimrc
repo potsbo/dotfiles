@@ -55,6 +55,8 @@ Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 " Ocaml
 Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 
+Plug 'rizzatti/dash.vim'
+
 call plug#end()
 
 " Editor
@@ -81,6 +83,7 @@ endfunction
 command! OcamlFmt call OcamlFmt()
 augroup ocaml_autocmd
   autocmd BufWritePost *.ml OcamlFmt
+  autocmd BufWritePost *.mli OcamlFmt
 augroup END
 
 " Source
