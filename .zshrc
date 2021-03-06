@@ -31,6 +31,7 @@ export PATH=$PATH:/Library/TeX/texbin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.poetry/bin:$PATH
 export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
 
@@ -247,3 +248,4 @@ TRAPALRM() { zle -N reset-prompt }
 export CGO_ENABLED=0
 setopt HIST_IGNORE_ALL_DUPS
 export HISTSIZE=100000
+eval "$(opam env)"
