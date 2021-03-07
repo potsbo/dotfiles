@@ -215,12 +215,15 @@ _update_prompt() {
 	local line_1
 	local line_2
 
+	local host=${$(hostname)%".local"}
+	line_1="%{$fg_bold[blue]%}${host}:%{$reset_color%}"
+
 	if git rev-parse 2> /dev/null; then
 		local repo=$(git rev-parse --show-toplevel | sed -e "s,$(ghq root)/,," | sed -e "s,^github.com/,,")
 		local path=$(git rev-parse --show-prefix | sed -e "s,/$,,")
-		line_1="%{$fg_bold[blue]%}${repo}%{$reset_color%} %{$fg[blue]%}/${path}%{$reset_color%} ${gitinfo} "
+		line_1="${line_1}%{$fg_bold[blue]%}${repo}%{$reset_color%} %{$fg[blue]%}/${path}%{$reset_color%} ${gitinfo} "
 	else
-		line_1="%{$fg[blue]%}${cwd}%{$reset_color%} "
+		line_1="${line_1}%{$fg[blue]%}${cwd}%{$reset_color%} "
 	fi
 
 	if [ -n "$(jobs)" ]; then
