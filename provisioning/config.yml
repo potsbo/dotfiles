@@ -91,6 +91,7 @@ golang:
     - github.com/izumin5210/gex/cmd/gex
     - github.com/motemen/ghq
     - golang.org/x/tools/gopls
+    - golang.org/x/tools/cmd/goimports
 
 tmux:
   directory: '{{ home_path }}/.tmux'
