@@ -13,11 +13,13 @@ noremap l n
 noremap L N 
 nnoremap D ,
 nnoremap H J
-nnoremap T K
+"allow remap to use lsp-hover with conventional configuration
+nmap T K
 nnoremap N ;
 vnoremap D ,
 vnoremap H J
-vnoremap T K
+"allow remap to use lsp-hover with conventional configuration
+vmap T K
 vnoremap N ;
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>

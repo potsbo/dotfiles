@@ -42,6 +42,7 @@ homebrew:
     - peco
     - protobuf
     - reattach-to-user-namespace
+    - rlwrap
     - tmux
     - tig
     - tree
@@ -73,7 +74,7 @@ ruby:
 
 python:
   versions:
-    - 3.8.2
+    - 3.9.1
   packages:
     - numpy
 
@@ -90,8 +91,8 @@ golang:
   packages:
     - github.com/izumin5210/gex/cmd/gex
     - github.com/motemen/ghq
-    - golang.org/x/tools/gopls
     - golang.org/x/tools/cmd/goimports
+    - golang.org/x/tools/gopls
 
 tmux:
   directory: '{{ home_path }}/.tmux'

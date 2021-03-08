@@ -64,6 +64,39 @@
       ]
     },
     {
+      "description": "Right Option only to Alt+Shift+Ctrl+Command+space to launch Toggl",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_option",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_option",
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "option",
+                "shift",
+                "control",
+                "command"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "description": "Command key only to invoke lang keys",
       "manipulators": [
         {

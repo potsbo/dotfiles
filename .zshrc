@@ -30,6 +30,7 @@ export PATH=$PATH:/Library/TeX/texbin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.poetry/bin:$PATH
 export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
 
@@ -220,12 +221,15 @@ _update_prompt() {
 	local line_1
 	local line_2
 
+	local host=${$(hostname)%".local"}
+	line_1="%{$fg_bold[blue]%}${host}:%{$reset_color%}"
+
 	if git rev-parse 2> /dev/null; then
 		local repo=$(git rev-parse --show-toplevel | sed -e "s,$(ghq root)/,," | sed -e "s,^github.com/,,")
 		local path=$(git rev-parse --show-prefix | sed -e "s,/$,,")
-		line_1="%{$fg_bold[blue]%}${repo}%{$reset_color%} %{$fg[blue]%}/${path}%{$reset_color%} ${gitinfo} "
+		line_1="${line_1}%{$fg_bold[blue]%}${repo}%{$reset_color%} %{$fg[blue]%}/${path}%{$reset_color%} ${gitinfo} "
 	else
-		line_1="%{$fg[blue]%}${cwd}%{$reset_color%} "
+		line_1="${line_1}%{$fg[blue]%}${cwd}%{$reset_color%} "
 	fi
 
 	if [ -n "$(jobs)" ]; then
@@ -253,3 +257,10 @@ TRAPALRM() { zle -N reset-prompt }
 
 # https://github.com/golang/go/issues/42700
 export GODEBUG=asyncpreemptoff=1
+export CGO_ENABLED=0
+setopt HIST_IGNORE_ALL_DUPS
+export HISTSIZE=100000
+if command -v opam &> /dev/null
+then
+	eval "$(opam env)"
+fi
