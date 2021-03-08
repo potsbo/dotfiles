@@ -22,7 +22,6 @@ export PATH=$PATH:/bin
 export PATH=$PATH:/usr
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/sbin
-export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
@@ -33,6 +32,13 @@ export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bi
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
+
+FOOOO=$(arch)
+if [ "$FOOOO" = "arm64" ]; then
+	export PATH=/opt/homebrew/bin:$PATH
+else
+	export PATH=$PATH:/usr/local/bin
+fi
 
 bindkey -e
 ### completion
@@ -97,7 +103,7 @@ alias vimrc='vim ~/.vimrc'
 function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
 
 # tmux
-if [ ! -z `which tmux` ]; then
+if [ ! -z "`which tmux`" ]; then
 	if [ $SHLVL = 1 ]; then
 		if [ $(( `ps aux | grep tmux | grep $USER | grep -v grep | wc -l` )) != 0 ]; then
 			echo -n 'Attach tmux session? [Y/n]'
@@ -244,3 +250,6 @@ add-zsh-hook precmd _update_prompt
 RPROMPT='%F{6}%D %*%f'
 TMOUT=1
 TRAPALRM() { zle -N reset-prompt }
+
+# https://github.com/golang/go/issues/42700
+export GODEBUG=asyncpreemptoff=1
