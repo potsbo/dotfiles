@@ -62,11 +62,15 @@ call plug#end()
 " Editor
 set clipboard=unnamed
 syntax enable
-colorscheme molokai
 set number
 set tabstop=2 shiftwidth=2 softtabstop=2
 set ignorecase
 set smartcase
+
+" Color
+colorscheme molokai
+" Swap fg and bg
+highlight MatchParen ctermfg=208 ctermbg=none cterm=bold
 
 " Config
 set noswapfile
