@@ -55,6 +55,9 @@ Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 " Ocaml
 Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 
+" Python
+Plug 'bennyyip/vim-yapf', { 'for': 'python' }
+
 Plug 'rizzatti/dash.vim'
 
 call plug#end()
@@ -88,6 +91,10 @@ command! OcamlFmt call OcamlFmt()
 augroup ocaml_autocmd
   autocmd BufWritePost *.ml OcamlFmt
   autocmd BufWritePost *.mli OcamlFmt
+augroup END
+
+augroup python_autocmd
+  autocmd BufWritePost *.py Yapf
 augroup END
 
 " Source
