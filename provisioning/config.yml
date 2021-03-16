@@ -132,6 +132,7 @@ link:
   karabiner:               .config/karabiner
   alacritty:               .config/alacritty
   .rubocop.yml:            rubocop.yml
+  .clipper.json:           .clipper.json
 
 clone:
   repo: github.com/mzyy94/RictyDiminished-for-Powerline
