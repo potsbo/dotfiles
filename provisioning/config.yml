@@ -29,6 +29,7 @@ homebrew:
     - ag
     - autoenv
     - cert
+    - clipper
     - creasty/tools/rid
     - direnv
     - envchain
