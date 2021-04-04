@@ -55,9 +55,6 @@ Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 " Ocaml
 Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 
-" Python
-Plug 'bennyyip/vim-yapf', { 'for': 'python' }
-
 Plug 'rizzatti/dash.vim'
 
 call plug#end()
@@ -82,6 +79,11 @@ nnoremap <silent> ;r :<C-u>QuickRun<CR>
 nnoremap <silent> ;v :<C-u>OpenGithub<CR>
 vnoremap <silent> ;v :<C-u>'<,'>OpenGithub<CR>
 
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
+" let g:syntastic_python_flake8_args = '--max-line-length=120'
+" let g:syntastic_python_mypy_args = '--ignore-missing-imports'
+
 function! OcamlFmt()
   silent execute "!ocamlformat --enable-outside-detected-project --module-item-spacing=preserve --inplace %"
   edit!
@@ -93,9 +95,6 @@ augroup ocaml_autocmd
   autocmd BufWritePost *.mli OcamlFmt
 augroup END
 
-augroup python_autocmd
-  autocmd BufWritePost *.py Yapf
-augroup END
 
 " Source
 source ~/.vim/rc/move.vimrc
