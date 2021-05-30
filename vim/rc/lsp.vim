@@ -1,16 +1,8 @@
-"  vim-lsp-settings
-"--------------------------------
-let g:lsp_settings = {
-      \  'gopls': {'workspace_config': {
-      \     'staticcheck': v:true,
-      \     'completeUnimported': v:true,
-      \     'caseSensitiveCompletion': v:true,
-      \     'usePlaceholders': v:true,
-      \     'completionDocumentation': v:true,
-      \     'watchFileChanges': v:true,
-      \     'hoverKind': 'SingleLine',
-      \  }}
-      \}
+let g:lsp_settings_filetype_python = ['pyls-all', 'pyright-langserver']
+augroup LspAutoFormatting
+	autocmd!
+	autocmd BufWritePre *.py LspDocumentFormatSync
+augroup END
 
 "  vim-lsp
 "--------------------------------
