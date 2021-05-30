@@ -57,6 +57,8 @@ Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 
 Plug 'rizzatti/dash.vim'
 
+Plug 'chr4/nginx.vim', { 'for': 'nginx' }
+
 call plug#end()
 
 " Editor
