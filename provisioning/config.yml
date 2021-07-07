@@ -12,6 +12,7 @@ homebrew:
   applications:
     - alacritty
     - alfred
+    - bat
     - bettertouchtool
     - caffeine
     - dash
