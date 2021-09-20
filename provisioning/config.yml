@@ -12,6 +12,7 @@ homebrew:
   applications:
     - alacritty
     - alfred
+    - bat
     - bettertouchtool
     - caffeine
     - dash
@@ -81,7 +82,7 @@ python:
 
 nodejs:
   versions:
-    - 12.15.0
+    - 14.16.1
   packages:
     - yarn
 
