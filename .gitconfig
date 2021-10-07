@@ -8,7 +8,6 @@
 	email = potsbo@gmail.com
   privatekey = ~/.ssh/avalon.github
 [core]
-	excludesfile = ~/.gitignore_global
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
