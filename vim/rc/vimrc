@@ -17,7 +17,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
 Plug 'cohama/lexima.vim'
-Plug 'tpope/vim-fugitive', { 'on': ['Gdiff', 'Gblame'] }
+Plug 'tpope/vim-fugitive', { 'on': ['Git'] }
 Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
 Plug 'k0kubun/vim-open-github', { 'on': ['OpenGithub'] }
 
