@@ -41,6 +41,9 @@ else
 	export PATH=$PATH:/usr/local/bin
 fi
 
+# M1 Mac で amd64 の docker image を動かすため
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
 bindkey -e
 ### completion
 autoload -Uz compinit
