@@ -125,8 +125,8 @@ link:
   .zshrc:                  .zshrc
   .vimrc:                  .vimrc
   .tigrc:                  .tigrc
-  .gitconfig:              .gitconfig
-  .gitignore_global:       .gitignore_global
+  .gitconfig:              .config/git/config
+  .gitignore_global:       .config/git/ignore
   .tmux.conf:              .tmux.conf
   .tmux-powerlinerc:       .tmux-powerlinerc
   .bash_profile:           .bash_profile
