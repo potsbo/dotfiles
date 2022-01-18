@@ -149,8 +149,6 @@ if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/User
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
-
 autoload -Uz add-zsh-hook
 
 _prompt_git_info() {
