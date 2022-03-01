@@ -24,10 +24,6 @@ Plug 'k0kubun/vim-open-github', { 'on': ['OpenGithub'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ }
-
 " TOML
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 
@@ -62,6 +58,10 @@ Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 Plug 'rizzatti/dash.vim'
 
 Plug 'chr4/nginx.vim', { 'for': 'nginx' }
+
+Plug 'jparise/vim-graphql', { 'for': 'graphql' }
+
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 call plug#end()
 
@@ -102,13 +102,13 @@ augroup ocaml_autocmd
 augroup END
 
 
+autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
+
 " Source
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lightline.vimrc
 source ~/.vim/rc/lsp.vim
 source ~/.vim/rc/fzf.vim
 
-let g:prettier#autoformat_require_pragma = 0
-let g:prettier#autoformat_config_present = 1
-
 let g:ruby_host_prog = '~/.anyenv/envs/rbenv/versions/2.7.2/bin/neovim-ruby-host'
+let g:rustfmt_autosave = 1

@@ -34,9 +34,12 @@ export PATH=$HOME/.poetry/bin:$PATH
 export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
 
-FOOOO=$(arch)
-if [ "$FOOOO" = "arm64" ]; then
+ARCH=$(arch)
+if [ "$ARCH" = "arm64" ]; then
 	export PATH=/opt/homebrew/bin:$PATH
+	export RUSTUP_HOME=$HOME/arm64/.rustup
+	export CARGO_HOME=$HOME/arm64/.cargo
+	source /Users/potsbo/arm64/.cargo/env
 else
 	export PATH=$PATH:/usr/local/bin
 fi
