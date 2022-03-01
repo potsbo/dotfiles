@@ -259,6 +259,8 @@ RPROMPT='%F{6}%D %*%f'
 TMOUT=1
 TRAPALRM() { zle -N reset-prompt }
 
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
+
 # https://github.com/golang/go/issues/42700
 export GODEBUG=asyncpreemptoff=1
 export CGO_ENABLED=0

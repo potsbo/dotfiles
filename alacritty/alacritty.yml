@@ -547,7 +547,7 @@ colors:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # at once.
-#key_bindings:
+key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
@@ -631,6 +631,8 @@ colors:
   #- { key: W,      mods: Command,            action: Quit             }
   #- { key: N,      mods: Command,            action: SpawnNewInstance }
   #- { key: F,      mods: Command|Control,    action: ToggleFullscreen }
+  - { key: P,      mods: Command|Shift, mode: ~Vi, chars: "\x1b:Commands\x0d"      }
+  - { key: P,      mods: Command, mode: ~Vi, chars: "\x1b:GFiles\x0d"      }
 
 #debug:
   # Display the time it takes to redraw each frame.

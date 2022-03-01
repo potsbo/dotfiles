@@ -112,3 +112,12 @@ source ~/.vim/rc/fzf.vim
 
 let g:ruby_host_prog = '~/.anyenv/envs/rbenv/versions/2.7.2/bin/neovim-ruby-host'
 let g:rustfmt_autosave = 1
+let g:lsp_preview_max_width = 80
+set wildmode=longest:full
+
+" Shift-Option-F
+noremap Ï :LspDocumentFormat<CR>
+
+cnoremap <C-A> <Home>
+inoremap <c-k> <c-o>D
+cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
