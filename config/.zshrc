@@ -139,10 +139,11 @@ alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate
 
 autoload -U compinit && compinit
 
-#  Anyenv
-#-----------------------------------------------
-if [ -d $HOME/.anyenv ]; then
-  eval "$(anyenv init -)"
+if [ -d $HOME/.rbenv ]; then
+	eval "$(rbenv init - zsh)"
+fi
+if [ -d $HOME/.nodenv ]; then
+	eval "$(nodenv init -)"
 fi
 eval "$(direnv hook zsh)"
 

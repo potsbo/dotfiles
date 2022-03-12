@@ -9,3 +9,4 @@ if [ -d $HOME/.anyenv ]; then
 fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
+. "/Users/potsbo/arm64/.cargo/env"
