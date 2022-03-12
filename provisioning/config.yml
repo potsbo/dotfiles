@@ -7,7 +7,6 @@ anyenv:
 homebrew:
   repositories:
     - genkiroid/homebrew-cert # for cert
-    - mscharley/homebrew      # for alacritty
 
   applications:
     - bettertouchtool
@@ -130,7 +129,6 @@ link:
   .bash_profile:           .bash_profile
   init.vim:                .config/nvim/init.vim
   karabiner:               .config/karabiner
-  alacritty:               .config/alacritty
   .rubocop.yml:            rubocop.yml
   .clipper.json:           .clipper.json
 
