@@ -35,8 +35,8 @@
     - role: golang
       tags: ['language', 'golang']
 
-    # - role: rust
-    #   tags: ['language', 'rust']
+    - role: rust
+      tags: ['language', 'rust']
 
     - role: python
       tags: ['language', 'python']

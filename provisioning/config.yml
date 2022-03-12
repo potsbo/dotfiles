@@ -10,9 +10,6 @@ homebrew:
     - mscharley/homebrew      # for alacritty
 
   applications:
-    - alacritty
-    - alfred
-    - bat
     - bettertouchtool
     - caffeine
     - dash
@@ -29,6 +26,7 @@ homebrew:
   packages:
     - ag
     - autoenv
+    - bat
     - cert
     - clipper
     - creasty/tools/rid
