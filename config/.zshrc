@@ -126,7 +126,6 @@ if [ ! -z "`which tmux`" ]; then
 fi
 
 # Git
-function git { hub "$@" }
 function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
 function CAM { git add -A && git commit -am "$*" }

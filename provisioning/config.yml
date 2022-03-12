@@ -22,32 +22,6 @@ homebrew:
     # - spotify
     - quitter
 
-  packages:
-    - ag
-    - autoenv
-    - bat
-    - cert
-    - clipper
-    - creasty/tools/rid
-    - direnv
-    - envchain
-    - gnu-sed
-    - hub
-    - jq
-    - mas
-    - moreutils
-    - neovim
-    - nodejs
-    - peco
-    - protobuf
-    - reattach-to-user-namespace
-    - rlwrap
-    - tmux
-    - tig
-    - tree
-    - wget
-    - watch
-
 ssh:
   dotssh: potsbo/dotssh
 
