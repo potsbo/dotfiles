@@ -33,6 +33,7 @@ package 'ghq'
 package 'tmux'
 package 'tree'
 package 'go'
+package 'diff-so-fancy'
 
 dotfile '.zshrc'
 dotfile '.config/nvim'
