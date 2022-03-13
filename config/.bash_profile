@@ -1,12 +1,6 @@
-export PATH=$PATH:~/.anyenv/bin
-
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
-
-#  Anyenv
-#-----------------------------------------------
-if [ -d $HOME/.anyenv ]; then
-  eval "$(anyenv init -)"
+if [ -d $HOME/.rbenv ]; then
+	eval "$(rbenv init - zsh)"
 fi
-
-export PATH="$HOME/.cargo/bin:$PATH"
-. "/Users/potsbo/arm64/.cargo/env"
+if [ -d $HOME/.nodenv ]; then
+	eval "$(nodenv init -)"
+fi

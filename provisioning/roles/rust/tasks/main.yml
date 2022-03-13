@@ -7,5 +7,5 @@
 
 - name: install rust
   command: |
-    bash -lc 'curl https://sh.rustup.rs -sSf | sh -s -- -y'
+    bash -lc "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
   when: rustc.rc > 0
