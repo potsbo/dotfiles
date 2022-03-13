@@ -31,16 +31,14 @@
   g = graph
   br = branch
   pr = pull-request
-  pprb = !git push && hub pull-request && hub browse
-  pbrowse = !git push && hub browse
+  pbrowse = !git push && gh browse
   showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
-  openpr = "!f() { hub browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
+  openpr = "!f() { gh browse -- `git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
   dif = !git --no-pager diff
   difpr = !git diff $(git merge-base --fork-point master)
-  new = "!f() { hub sync && git checkout master || git checkout main && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
-  orebase = "!f() { hub sync && git rebase master; }; f"
-  omerge  = "!f() { hub sync && git merge main || git merge master; }; f"
-  view  = "!f() { hub browse -- blob/$(git show -s --format=%H)/$1; }; f"
+  new = "!f() { gh repo sync && git checkout master || git checkout main && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
+  omerge  = "!f() { gh repo sync && git merge main || git merge master; }; f"
+  view  = "!f() { gh browse -- blob/$(git show -s --format=%H)/$1; }; f"
 [push]
   default = current
 [url "git@github.com:"]
