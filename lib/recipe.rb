@@ -1,5 +1,16 @@
 # NOTE: make it work, refactor later
 
+MItamae::RecipeContext.class_eval do
+  def brew_prefix
+    arch = `uname -m`.chomp
+    case arch
+    when 'x86_64'; '/usr/local'
+    when 'arm64';  '/opt/homebrew'
+    else fail "unknown arch: #{arch}"
+    end
+  end
+end
+
 define :dotfile, source: nil do
   source = params[:source] || params[:name]
   link File.join(ENV['HOME'], params[:name]) do
@@ -14,6 +25,16 @@ dotfile '.config/alacritty'
 execute 'Install Homebrew' do
   command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
   not_if "test $(which brew)"
+end
+
+
+
+define :cask do
+  caskname = params[:name]
+  prefix = brew_prefix
+  execute "brew install --cask #{caskname}" do
+    not_if "ls -1 #{prefix}/Caskroom/ | grep '#{caskname}'"
+  end
 end
 
 execute 'Install Rust' do
@@ -34,6 +55,8 @@ package 'tmux'
 package 'tree'
 package 'go'
 package 'diff-so-fancy'
+cask 'visual-studio-code'
+cask 'coqide'
 
 dotfile '.zshrc'
 dotfile '.config/nvim'
