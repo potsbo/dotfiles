@@ -27,14 +27,10 @@ execute 'Install Homebrew' do
   not_if "test $(which brew)"
 end
 
-
-
-define :cask do
-  caskname = params[:name]
-  prefix = brew_prefix
-  execute "brew install --cask #{caskname}" do
-    not_if "ls -1 #{prefix}/Caskroom/ | grep '#{caskname}'"
-  end
+dotfile 'Brewfile'
+execute 'Install Homebrew packages' do
+  command "brew bundle --file ~/Brewfile"
+  command "brew bundle cleanup --file ~/Brewfile"
 end
 
 execute 'Install Rust' do
@@ -42,21 +38,6 @@ execute 'Install Rust' do
   not_if "test $(which rustc)"
 end
 
-package 'direnv'
-package 'neovim'
-package 'peco'
-package 'bat'
-package 'the_silver_searcher'
-package 'gh'
-package 'jq'
-package 'reattach-to-user-namespace'
-package 'ghq'
-package 'tmux'
-package 'tree'
-package 'go'
-package 'diff-so-fancy'
-cask 'visual-studio-code'
-cask 'coqide'
 
 dotfile '.zshrc'
 dotfile '.config/nvim'
@@ -68,7 +49,6 @@ dotfile '.tmux-powerlinerc'
 dotfile '.bash_profile'
 dotfile 'karabiner'
 dotfile '.clipper.json'
-
 
 define :install_env_version, version: nil do
   cmd = "#{params[:name]} install #{params[:version]}"
@@ -107,16 +87,12 @@ end
 
 rbenv_root = "#{ENV["HOME"]}/.rbenv"
 
-package 'rbenv'
-
 install_env_versions 'rbenv' do
   versions '3.1.1'
 end
 
 
 nodenv_root = "#{ENV['HOME']}/.nodenv"
-
-package 'nodenv'
 
 install_env_versions 'nodenv' do
   versions '16.14.0'
