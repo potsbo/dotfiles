@@ -29,8 +29,10 @@ end
 
 dotfile 'Brewfile'
 execute 'Install Homebrew packages' do
-  command "brew bundle --file ~/Brewfile"
-  command "brew bundle cleanup --file ~/Brewfile"
+  command "brew bundle install --file ~/Brewfile"
+end
+execute 'Cleanup Homebrew packages' do
+  command "brew bundle cleanup --file ~/Brewfile --force"
 end
 
 execute 'Install Rust' do
