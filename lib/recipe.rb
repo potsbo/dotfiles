@@ -43,6 +43,7 @@ end
 
 dotfile '.zshrc'
 dotfile '.config/nvim'
+dotfile '.vim'
 dotfile '.tigrc'
 dotfile '.gitconfig'
 dotfile '.gitignore_global'
