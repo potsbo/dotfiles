@@ -48,6 +48,7 @@ dotfile '.tmux.conf'
 dotfile '.tmux-powerlinerc'
 dotfile '.bash_profile'
 dotfile 'karabiner'
+dotfile 'bin'
 dotfile '.clipper.json'
 
 define :install_env_version, version: nil do
