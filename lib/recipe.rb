@@ -20,8 +20,6 @@ define :dotfile, source: nil do
   end
 end
 
-dotfile '.config/alacritty'
-
 execute 'Install Homebrew' do
   command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
   not_if "test $(which brew)"
@@ -40,13 +38,12 @@ execute 'Install Rust' do
   not_if "test $(which rustc)"
 end
 
-
+dotfile '.config/alacritty'
 dotfile '.zshrc'
 dotfile '.config/nvim'
+dotfile '.config/git'
 dotfile '.vim'
 dotfile '.tigrc'
-dotfile '.gitconfig'
-dotfile '.gitignore_global'
 dotfile '.tmux.conf'
 dotfile '.tmux-powerlinerc'
 dotfile '.bash_profile'
