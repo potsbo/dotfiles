@@ -18,6 +18,7 @@ brew "tmux"
 brew "tree"
 brew "ocaml"
 brew "opam"
+cask "karabiner-elements"
 cask "coqide"
 cask "visual-studio-code"
 mas "1Password 7", id: 1333542190
