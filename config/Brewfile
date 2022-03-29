@@ -23,6 +23,7 @@ cask "coqide"
 cask "visual-studio-code"
 cask "google-japanese-ime"
 cask "google-chrome"
+cask "raycast"
 mas "1Password 7", id: 1333542190
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
