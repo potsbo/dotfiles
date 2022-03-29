@@ -21,7 +21,7 @@ Plug 'tpope/vim-fugitive', { 'on': ['Git'] }
 Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
 Plug 'k0kubun/vim-open-github', { 'on': ['OpenGithub'] }
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " TOML
