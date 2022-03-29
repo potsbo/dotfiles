@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# ref
+# - http://qiita.com/b4b4r07/items/24872cdcbec964ce2178#deploy
+# - https://github.com/izumin5210/dotfiles/blob/438d5d82378b684500abfded0e92362a0cd500e0/install
+
+set -eu
+
+has() {
+  return `type $1 > /dev/null 2>&1`
+}
+
+REPO="github.com/potsbo/dotfiles"
+DOTPATH="${HOME}/.go/src/${REPO}"
+
+download() {
+  local github_url="https://${REPO}"
+
+  if has "git"; then
+    git clone --recursive "${github_url}" "${DOTPATH}"
+  elif has "curl" || has "wget"; then
+    tarball="${github_url}/archive/master.tar.gz"
+
+    if has "curl"; then
+      curl -L "${tarball}"
+    elif has "wget"; then
+      wget -O - "${tarball}"
+    fi | tar xv -
+
+    mv -f dotfiles-main "${dotpath}"
+  else
+    exit 1
+  fi
+}
+
+if [ ! -d $DOTPATH ]; then
+  download
+fi
+
+cd $DOTPATH
+
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+bin/setup_mitamae
+
+if [ "$(uname)" = "Linux" ]; then
+  if [ "${CODESPACES:-"false"}" = "true" ]; then
+    sudo apt update
+  fi
+  sudo -E bin/mitamae local lib/recipe.rb
+else
+  bin/mitamae local lib/recipe.rb
+fi

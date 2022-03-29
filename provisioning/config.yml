@@ -1,18 +1,8 @@
-anyenv:
-  directory: '{{ home_path }}/.anyenv'
-  repository: github.com/riywo/anyenv
-  plugins_dir: '{{ home_path }}/.anyenv/plugins'
-  envs_dir:    '{{ home_path }}/.anyenv/envs'
-
 homebrew:
   repositories:
     - genkiroid/homebrew-cert # for cert
-    - mscharley/homebrew      # for alacritty
 
   applications:
-    - alacritty
-    - alfred
-    - bat
     - bettertouchtool
     - caffeine
     - dash
@@ -26,31 +16,6 @@ homebrew:
     # - spotify
     - quitter
 
-  packages:
-    - ag
-    - autoenv
-    - cert
-    - clipper
-    - creasty/tools/rid
-    - direnv
-    - envchain
-    - gnu-sed
-    - hub
-    - jq
-    - mas
-    - moreutils
-    - neovim
-    - nodejs
-    - peco
-    - protobuf
-    - reattach-to-user-namespace
-    - rlwrap
-    - tmux
-    - tig
-    - tree
-    - wget
-    - watch
-
 ssh:
   dotssh: potsbo/dotssh
 
@@ -58,7 +23,6 @@ mas:
   appstore_id: potsbo@gmail.com
   applications:
     1Password 7.app:   '1333542190'
-    Fantastical 2.app: '975937182'
     Magnet.app:        '441258766'
     PopClip.app:       '445189367'
     Slack.app:         '803453959'
@@ -101,13 +65,6 @@ tmux:
   deps:
     - github.com/potsbo/tmux-powerline
 
-vim:
-  directory:  '{{ home_path }}/.vim'
-  links:
-    vim/indent: .vim/indent
-    vim/rc:     .vim/rc
-    .vimrc:     .ideavimrc
-
 zsh:
   directory: '{{ home_path }}/.oh-my-zsh'
   manager: github.com/robbyrussell/oh-my-zsh
@@ -119,22 +76,6 @@ zsh:
   themes:
     - github.com/bhilburn/powerlevel9k
     - github.com/xfanwu/oh-my-zsh-custom-xxf
-
-link:
-  bin: bin
-  .zshrc:                  .zshrc
-  .vimrc:                  .vimrc
-  .tigrc:                  .tigrc
-  .gitconfig:              .config/git/config
-  .gitignore_global:       .config/git/ignore
-  .tmux.conf:              .tmux.conf
-  .tmux-powerlinerc:       .tmux-powerlinerc
-  .bash_profile:           .bash_profile
-  init.vim:                .config/nvim/init.vim
-  karabiner:               .config/karabiner
-  alacritty:               .config/alacritty
-  .rubocop.yml:            rubocop.yml
-  .clipper.json:           .clipper.json
 
 clone:
   repo: github.com/mzyy94/RictyDiminished-for-Powerline

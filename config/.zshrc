@@ -34,12 +34,18 @@ export PATH=$HOME/.poetry/bin:$PATH
 export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
 
-FOOOO=$(arch)
-if [ "$FOOOO" = "arm64" ]; then
+ARCH=$(arch)
+if [ "$ARCH" = "arm64" ]; then
 	export PATH=/opt/homebrew/bin:$PATH
+	export RUSTUP_HOME=$HOME/arm64/.rustup
+	export CARGO_HOME=$HOME/arm64/.cargo
+	source /Users/potsbo/arm64/.cargo/env
 else
 	export PATH=$PATH:/usr/local/bin
 fi
+
+# M1 Mac で amd64 の docker image を動かすため
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 bindkey -e
 ### completion
@@ -120,7 +126,6 @@ if [ ! -z "`which tmux`" ]; then
 fi
 
 # Git
-function git { hub "$@" }
 function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
 function CAM { git add -A && git commit -am "$*" }
@@ -134,10 +139,11 @@ alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate
 
 autoload -U compinit && compinit
 
-#  Anyenv
-#-----------------------------------------------
-if [ -d $HOME/.anyenv ]; then
-  eval "$(anyenv init -)"
+if [ -d $HOME/.rbenv ]; then
+	eval "$(rbenv init - zsh)"
+fi
+if [ -d $HOME/.nodenv ]; then
+	eval "$(nodenv init -)"
 fi
 eval "$(direnv hook zsh)"
 
@@ -148,8 +154,6 @@ if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/User
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
-export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
 
 autoload -Uz add-zsh-hook
 
@@ -254,6 +258,8 @@ add-zsh-hook precmd _update_prompt
 RPROMPT='%F{6}%D %*%f'
 TMOUT=1
 TRAPALRM() { zle -N reset-prompt }
+
+export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 # https://github.com/golang/go/issues/42700
 export GODEBUG=asyncpreemptoff=1

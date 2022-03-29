@@ -1,0 +1,26 @@
+#!/bin/sh
+# Ref https://github.com/k0kubun/dotfiles/blob/e6d0153b1cfe3feb8f7e82155dfbc558c41ac5a3/bin/setup
+
+set -e
+
+mitamae_version="1.12.9"
+architecture=aarch64
+if [ "$(arch)" = "i386" ];
+then
+	architecture=x86_64;
+fi
+
+# TODO: support intel
+mitamae_cache="mitamae-${architecture}-${mitamae_version}"
+if ! [ -f "bin/${mitamae_cache}" ]; then
+	mitamae_bin="mitamae-${architecture}-darwin"
+
+	curl -o "bin/${mitamae_bin}.tar.gz" -fL "https://github.com/itamae-kitchen/mitamae/releases/download/v${mitamae_version}/${mitamae_bin}.tar.gz"
+	# TODO: checksum
+  tar xvzf "bin/${mitamae_bin}.tar.gz"
+
+  rm "bin/${mitamae_bin}.tar.gz"
+  mv "${mitamae_bin}" "bin/${mitamae_cache}"
+  chmod +x "bin/${mitamae_cache}"
+fi
+ln -sf "${mitamae_cache}" bin/mitamae

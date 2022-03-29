@@ -1,0 +1,28 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+brew "bat"
+brew "diff-so-fancy"
+brew "direnv"
+brew "gh"
+brew "ghq"
+brew "go"
+brew "jq"
+brew "neovim"
+brew "nodenv"
+brew "peco"
+brew "rbenv"
+brew "reattach-to-user-namespace"
+brew "the_silver_searcher"
+brew "tmux"
+brew "tree"
+brew "ocaml"
+brew "opam"
+cask "karabiner-elements"
+cask "coqide"
+cask "visual-studio-code"
+cask "google-japanese-ime"
+mas "1Password 7", id: 1333542190
+mas "Magnet", id: 441258766
+mas "PopClip", id: 445189367
+mas "Slack", id: 803453959
