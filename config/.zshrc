@@ -270,3 +270,8 @@ if command -v opam &> /dev/null
 then
 	eval "$(opam env)"
 fi
+
+if command -v wdotw &> /dev/null
+then
+	wdotw
+fi
