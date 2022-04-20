@@ -86,14 +86,9 @@ define :env_global, version: nil do
   end
 end
 
-rbenv_root = "#{ENV["HOME"]}/.rbenv"
-
 install_env_versions 'rbenv' do
   versions '3.1.1'
 end
-
-
-nodenv_root = "#{ENV['HOME']}/.nodenv"
 
 install_env_versions 'nodenv' do
   versions '16.14.0'

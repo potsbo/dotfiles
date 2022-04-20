@@ -21,7 +21,7 @@ Plug 'tpope/vim-fugitive', { 'on': ['Git'] }
 Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
 Plug 'k0kubun/vim-open-github', { 'on': ['OpenGithub'] }
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " TOML
@@ -58,6 +58,7 @@ Plug 'ocaml/vim-ocaml', { 'for': 'ocaml' }
 Plug 'rizzatti/dash.vim'
 
 Plug 'chr4/nginx.vim', { 'for': 'nginx' }
+Plug 'chrismaher/vim-lookml'
 
 Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
