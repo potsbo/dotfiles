@@ -271,7 +271,11 @@ then
 	eval "$(opam env)"
 fi
 
-if command -v wdotw &> /dev/null
+# without this, VSCode hangs up
+if [ "$__CFBundleIdentifier" != "com.microsoft.VSCode" ]
 then
-	wdotw
+	if command -v wdotw &> /dev/null
+	then
+		wdotw
+	fi
 fi
