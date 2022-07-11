@@ -27,6 +27,7 @@ cask "raycast"
 cask "keyboard-cleaner"
 cask "zoom"
 cask "notion"
+cask "docker"
 mas "1Password 7", id: 1333542190
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
