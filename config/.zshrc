@@ -271,6 +271,11 @@ then
 	eval "$(opam env)"
 fi
 
+if command -v kube &> /dev/null
+then
+	source <(kube completion zsh)
+fi
+
 # without this, VSCode hangs up
 if [ "$__CFBundleIdentifier" != "com.microsoft.VSCode" ]
 then
