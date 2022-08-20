@@ -20,10 +20,8 @@ define :dotfile, source: nil do
   end
 end
 
-dotfile '.config/alacritty'
+dotfile '.config'
 dotfile '.zshrc'
-dotfile '.config/nvim'
-dotfile '.config/git'
 dotfile '.vim'
 dotfile '.tigrc'
 dotfile '.tmux.conf'
