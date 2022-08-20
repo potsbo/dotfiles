@@ -21,6 +21,7 @@ define :dotfile, source: nil do
 end
 
 dotfile '.config'
+dotfile '.ssh'
 dotfile '.zshrc'
 dotfile '.vim'
 dotfile '.tigrc'
