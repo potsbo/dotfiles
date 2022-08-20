@@ -33,6 +33,7 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.poetry/bin:$PATH
 export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
+export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 
 ARCH=$(arch)
 if [ "$ARCH" = "arm64" ]; then
