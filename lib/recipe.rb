@@ -20,6 +20,19 @@ define :dotfile, source: nil do
   end
 end
 
+dotfile '.config/alacritty'
+dotfile '.zshrc'
+dotfile '.config/nvim'
+dotfile '.config/git'
+dotfile '.vim'
+dotfile '.tigrc'
+dotfile '.tmux.conf'
+dotfile '.tmux-powerlinerc'
+dotfile '.bash_profile'
+dotfile 'karabiner'
+dotfile 'bin'
+dotfile '.clipper.json'
+
 execute 'Hide dock' do
   command 'defaults write com.apple.dock autohide -bool true'
 end
@@ -42,18 +55,6 @@ execute 'Install Rust' do
   not_if "test $(which rustc)"
 end
 
-dotfile '.config/alacritty'
-dotfile '.zshrc'
-dotfile '.config/nvim'
-dotfile '.config/git'
-dotfile '.vim'
-dotfile '.tigrc'
-dotfile '.tmux.conf'
-dotfile '.tmux-powerlinerc'
-dotfile '.bash_profile'
-dotfile 'karabiner'
-dotfile 'bin'
-dotfile '.clipper.json'
 
 define :install_env_version, version: nil do
   cmd = "#{params[:name]} install #{params[:version]}"
