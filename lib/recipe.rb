@@ -20,6 +20,10 @@ define :dotfile, source: nil do
   end
 end
 
+execute 'Hide dock' do
+  command 'defaults write com.apple.dock autohide -bool true'
+end
+
 execute 'Install Homebrew' do
   command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
   not_if "test $(which brew)"
