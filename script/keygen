@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+ID_PATH=~/.ssh/keys/id
+if [[ -f "$ID_PATH" || -L "$ID_PATH" ]]; then
+	exit 0
+fi
+
+ssh-keygen -t ed25519 -p $ID_PATH -N ''

@@ -51,5 +51,7 @@ if [ "$(uname)" = "Linux" ]; then
   fi
   sudo -E bin/mitamae local lib/recipe.rb
 else
+  script/force_valid_name
+  script/keygen
   bin/mitamae local lib/recipe.rb
 fi
