@@ -23,7 +23,7 @@ force_publickey_shared() {
 	fi
 
 	mkdir -p "$UPLOAD_DIR"
-	cp "$LOCAL_PATH" "$UPLOAD_PATH"
+	cp "$LOCAL_PATH.pub" "$UPLOAD_PATH"
 }
 
 force_key_existence
