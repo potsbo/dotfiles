@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-ID_PATH=~/.ssh/keys/id
+DIR=~/.local/ssh
+ID_PATH=$DIR/id
 if [[ -f "$ID_PATH" || -L "$ID_PATH" ]]; then
 	exit 0
 fi
 
+mkdir -p $DIR
 ssh-keygen -t ed25519 -f $ID_PATH -N ''
