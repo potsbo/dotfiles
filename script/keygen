@@ -1,10 +1,30 @@
 #!/usr/bin/env bash
 
-DIR=~/.local/ssh
-ID_PATH=$DIR/id
-if [[ -f "$ID_PATH" || -L "$ID_PATH" ]]; then
-	exit 0
-fi
+ICLOUD_DRIVE=~/Library/Mobile\ Documents/com~apple~CloudDocs
 
-mkdir -p $DIR
-ssh-keygen -t ed25519 -f $ID_PATH -N ''
+UPLOAD_DIR="$ICLOUD_DRIVE/publickeys"
+UPLOAD_PATH="${UPLOAD_DIR}/$(hostname -s).pub"
+
+LOCAL_DIR=~/.local/ssh
+LOCAL_PATH=$LOCAL_DIR/id
+
+force_key_existence() {
+	if [[ -f "$LOCAL_PATH" ]]; then
+		return
+	fi
+
+	mkdir -p "$LOCAL_DIR"
+	ssh-keygen -t ed25519 -f "$LOCAL_PATH" -N ''
+}
+
+force_publickey_shared() {
+	if [[ -f "$UPLOAD_PATH" ]]; then
+		return
+	fi
+
+	mkdir -p "$UPLOAD_DIR"
+	cp "$LOCAL_PATH" "$UPLOAD_PATH"
+}
+
+force_key_existence
+force_publickey_shared
