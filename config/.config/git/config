@@ -50,7 +50,7 @@
 [url "git@github.com:"]
   insteadOf = https://github.com/
 [ghq]
-	root = ~/src
+	root = ~/.go/src
 [github]
 	user = potsbo
 	privatekey = ~/.ssh/id_rsa.github
