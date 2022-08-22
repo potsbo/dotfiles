@@ -18,10 +18,6 @@ force_key_existence() {
 }
 
 force_publickey_shared() {
-	if [[ -f "$UPLOAD_PATH" ]]; then
-		return
-	fi
-
 	mkdir -p "$UPLOAD_DIR"
 	cp "$LOCAL_PATH.pub" "$UPLOAD_PATH"
 }
