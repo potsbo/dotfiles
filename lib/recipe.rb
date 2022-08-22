@@ -13,7 +13,15 @@ end
 
 define :dotfile, source: nil do
   source = params[:source] || params[:name]
-  link File.join(ENV['HOME'], params[:name]) do
+  link_path = File.join(ENV['HOME'], params[:name])
+
+  # "ln -sf" doesn't override existing directory
+  execute "Cleanup existing directory at #{link_path}" do
+    command "rm -rf #{link_path}"
+    only_if "test -d #{link_path} && ! test -L #{link_path}"
+  end
+
+  link link_path do
     to File.expand_path("../../config/#{source}", __FILE__)
     user node[:user]
     force true
