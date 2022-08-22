@@ -32,6 +32,19 @@ link File.join(ENV['HOME'], 'iCloudDrive')do
   to File.join(ENV['HOME'], 'Library/Mobile Documents/com~apple~CloudDocs')
 end
 
+japanese_input_db_path = File.join(ENV['HOME'], 'Library/Application Support/Google/JapaneseInput')
+directory File.dirname(japanese_input_db_path)
+
+# "ln -sf" doesn't override existing directory
+execute "Cleanup existing directory at #{japanese_input_db_path}" do
+  command "rm -rf \"#{japanese_input_db_path}\""
+  only_if "test -d \"#{japanese_input_db_path}\" && ! test -L \"#{japanese_input_db_path}\""
+end
+
+link File.join(ENV['HOME'], 'Library/Application Support/Google/JapaneseInput') do
+  to File.join(ENV['HOME'], 'iCloudDrive/Library/ApplicationSupport/Google/JapaneseInput')
+end
+
 vim_plug_path = "#{ENV['HOME']}/.local/share/nvim/site/autoload/plug.vim"
 directory File.dirname(vim_plug_path)
 http_request vim_plug_path do
