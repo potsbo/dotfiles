@@ -66,6 +66,30 @@ execute 'Hide dock' do
   command 'defaults write com.apple.dock autohide -bool true'
 end
 
+execute 'Key repeat' do
+  command 'defaults write NSGlobalDomain KeyRepeat -int 1'
+end
+execute 'Key repeat' do
+  command 'defaults write NSGlobalDomain InitialKeyRepeat -int 15'
+end
+
+execute 'Install Rust' do
+  command "bash -lc 'curl https://sh.rustup.rs -sSf | sh -s -- -y'"
+  not_if "test $(which rustc)"
+end
+
+git "#{ENV['HOME']}/.go/src/github.com/alacritty/alacritty" do
+  repository "https://github.com/alacritty/alacritty"
+end
+
+execute 'Build alacritty' do
+  command "cd #{ENV['HOME']}/.go/src/github.com/alacritty/alacritty; make app"
+end
+
+execute 'Install alacritty' do
+  command "cp -r #{ENV['HOME']}/.go/src/github.com/alacritty/alacritty/target/release/osx/Alacritty.app /Applications"
+end
+
 execute 'Install Homebrew' do
   command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
   not_if "test $(which brew)"
@@ -78,12 +102,6 @@ end
 execute 'Cleanup Homebrew packages' do
   command "brew bundle cleanup --file ~/Brewfile --force"
 end
-
-execute 'Install Rust' do
-  command "bash -lc 'curl https://sh.rustup.rs -sSf | sh -s -- -y'"
-  not_if "test $(which rustc)"
-end
-
 
 define :install_env_version, version: nil do
   cmd = "#{params[:name]} install #{params[:version]}"
