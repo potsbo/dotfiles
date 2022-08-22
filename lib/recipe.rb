@@ -20,6 +20,12 @@ define :dotfile, source: nil do
   end
 end
 
+vim_plug_path = "#{ENV['HOME']}/.local/share/nvim/site/autoload/plug.vim"
+directory File.dirname(vim_plug_path)
+http_request vim_plug_path do
+  url "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+end
+
 dotfile '.config'
 dotfile '.ssh'
 dotfile '.zshrc'
