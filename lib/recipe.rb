@@ -28,6 +28,10 @@ define :dotfile, source: nil do
   end
 end
 
+link File.join(ENV['HOME'], 'iCloudDrive')do
+  to File.join(ENV['HOME'], 'Library/Mobile Documents/com~apple~CloudDocs')
+end
+
 vim_plug_path = "#{ENV['HOME']}/.local/share/nvim/site/autoload/plug.vim"
 directory File.dirname(vim_plug_path)
 http_request vim_plug_path do
