@@ -103,6 +103,11 @@ execute 'Cleanup Homebrew packages' do
   command "brew bundle cleanup --file ~/Brewfile --force"
 end
 
+execute 'Install fzf binding' do
+  command "$(brew --prefix)/opt/fzf/install --key-bindings --no-completion --no-update-rc --xdg"
+  not_if "test -f ~/.fzf.zsh"
+end
+
 define :install_env_version, version: nil do
   cmd = "#{params[:name]} install #{params[:version]}"
   execute cmd do

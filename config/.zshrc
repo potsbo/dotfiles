@@ -148,7 +148,7 @@ if [ -d $HOME/.nodenv ]; then
 fi
 eval "$(direnv hook zsh)"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc'; fi
