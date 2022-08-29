@@ -40,7 +40,9 @@ if [ "$ARCH" = "arm64" ]; then
 	export PATH=/opt/homebrew/bin:$PATH
 	export RUSTUP_HOME=$HOME/arm64/.rustup
 	export CARGO_HOME=$HOME/arm64/.cargo
-	source /Users/potsbo/arm64/.cargo/env
+	if [ -f /Users/potsbo/arm64/.cargo/env ]; then
+		source /Users/potsbo/arm64/.cargo/env
+	fi
 else
 	export PATH=$PATH:/usr/local/bin
 fi
