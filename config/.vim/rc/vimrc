@@ -19,7 +19,8 @@ Plug 'tpope/vim-commentary', { 'on': 'Commentary' }
 Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-fugitive', { 'on': ['Git'] }
 Plug 'thinca/vim-quickrun', { 'on': ['QuickRun'] }
-Plug 'k0kubun/vim-open-github', { 'on': ['OpenGithub'] }
+Plug 'tyru/open-browser.vim'
+Plug 'tyru/open-browser-github.vim', { 'on': ['OpenGithubFile'] }
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -83,8 +84,8 @@ highlight MatchParen ctermfg=208 ctermbg=none cterm=bold
 set noswapfile
 
 nnoremap <silent> ;r :<C-u>QuickRun<CR>
-nnoremap <silent> ;v :<C-u>OpenGithub<CR>
-vnoremap <silent> ;v :<C-u>'<,'>OpenGithub<CR>
+nnoremap <silent> ;v :<C-u>OpenGithubFile<CR>
+vnoremap <silent> ;v :<C-u>'<,'>OpenGithubFile<CR>
 
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
@@ -111,7 +112,6 @@ source ~/.vim/rc/lightline.vimrc
 source ~/.vim/rc/lsp.vim
 source ~/.vim/rc/fzf.vim
 
-let g:ruby_host_prog = '~/.anyenv/envs/rbenv/versions/2.7.2/bin/neovim-ruby-host'
 let g:rustfmt_autosave = 1
 let g:lsp_preview_max_width = 80
 set wildmode=longest:full
