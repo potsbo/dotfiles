@@ -2,13 +2,13 @@
 
 MACHINE_NAME=$(hostname -s)
 
-if [[ $MACHINE_NAME =~ ^[a-z\-]+$ ]]; then
+if [[ $MACHINE_NAME =~ ^[a-z0-9\-]+$ ]]; then
 	exit 0
 fi
 
 new_maiche_name=$MACHINE_NAME
 
-while ! [[ $new_maiche_name =~ ^[a-z\-]+$ ]]; do
+while ! [[ $new_maiche_name =~ ^[a-z0-9\-]+$ ]]; do
 	echo -n "Name this computer (current: $MACHINE_NAME) : "
 	read new_maiche_name;
 done
