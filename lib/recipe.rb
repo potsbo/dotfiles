@@ -105,7 +105,7 @@ end
 
 execute 'Install fzf binding' do
   command "$(brew --prefix)/opt/fzf/install --key-bindings --no-completion --no-update-rc --xdg"
-  not_if "test -f ~/.fzf.zsh"
+  not_if "test -f ~/.config/fzf/fzf.zsh"
 end
 
 define :install_env_version, version: nil do
