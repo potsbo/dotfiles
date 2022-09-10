@@ -90,7 +90,7 @@ function chpwd() { ls -FG }
 ## ls
 if command -v gls &> /dev/null
 then
-	alias ls='gls --color'
+	alias ls='gls --color --hyperlink=auto'
 fi
 alias la='ls -FA'
 alias ll='ls -Fl'
