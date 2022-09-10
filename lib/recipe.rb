@@ -148,5 +148,9 @@ install_env_versions 'rbenv' do
 end
 
 install_env_versions 'nodenv' do
-  versions '16.14.0'
+  versions '18.9.0'
+end
+
+env_global 'nodenv' do
+  version '18.9.0'
 end
