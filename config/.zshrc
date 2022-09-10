@@ -146,6 +146,9 @@ fi
 if [ -d $HOME/.nodenv ]; then
 	eval "$(nodenv init -)"
 fi
+if [ -d $HOME/.pyenv ]; then
+	eval "$(pyenv init -)"
+fi
 eval "$(direnv hook zsh)"
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh

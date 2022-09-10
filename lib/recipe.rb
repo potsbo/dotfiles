@@ -116,26 +116,9 @@ define :install_env_version, version: nil do
   end
 end
 
-define :install_env_versions, versions: [] do
-  Array(params[:versions]).each do |v|
-    install_env_version params[:name] do
-      version v
-    end
-  end
-end
-
 define :env_global, version: nil do
-  vers = []
-  if params[:version].is_a? Array
-    vers = params[:version]
-    ver = vers.join(" ")
-  else
-    ver = params[:version]
-    vers = [ver]
-  end
-
-  cmd = "#{params[:name]} global #{ver} && #{params[:name]} rehash"
-  check_cmd = vers.map { |v| "#{params[:name]} global | grep '#{v}'" }.join(" && ")
+  cmd = "#{params[:name]} global #{params[:version]} && #{params[:name]} rehash"
+  check_cmd = "#{params[:name]} global | grep '#{params[:version]}'"
 
   execute cmd do
     command cmd
@@ -143,14 +126,32 @@ define :env_global, version: nil do
   end
 end
 
-install_env_versions 'rbenv' do
+define :langenv, { versions: [], global: '' } do
+  versions = Array(params[:versions])
+  versions.each do |v|
+    install_env_version params[:name] do
+      version v
+    end
+  end
+
+  global_v = params[:global] || versions[0]
+
+  env_global params[:name] do
+    version global_v
+  end
+end
+
+langenv 'rbenv' do
   versions '3.1.1'
+  global '3.1.1'
 end
 
-install_env_versions 'nodenv' do
+langenv 'nodenv' do
   versions '18.9.0'
+  global '18.9.0'
 end
 
-env_global 'nodenv' do
-  version '18.9.0'
+langenv 'pyenv' do
+  versions '3.10.6'
+  global '3.10.6'
 end
