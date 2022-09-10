@@ -84,8 +84,6 @@ setopt share_history
 setopt auto_pushd
 # dont push dups
 setopt pushd_ignore_dups
-# ls just after cd
-function chpwd() { ls -FG }
 
 ## ls
 if command -v gls &> /dev/null
@@ -95,6 +93,9 @@ fi
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
+
+# ls just after cd
+function chpwd() { ls -FG }
 
 ## mkdir
 alias mkdir='mkdir -p'
