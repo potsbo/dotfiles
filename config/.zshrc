@@ -110,22 +110,6 @@ alias vimrc='vim ~/.config/nvim/init.vim'
 ### Utility function
 function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
 
-# tmux
-if [ ! -z "`which tmux`" ]; then
-	if [ $SHLVL = 1 ]; then
-		if [ $(( `ps aux | grep tmux | grep $USER | grep -v grep | wc -l` )) != 0 ]; then
-			echo -n 'Attach tmux session? [Y/n]'
-			read YN
-			[[ $YN = '' ]] && YN=y
-			[[ $YN = y ]] && tmux attach
-		fi
-		echo -n 'No tmux session, create new? [Y/n]'
-		read YN
-		[[ $YN = '' ]] && YN=y
-		[[ $YN = y ]] && tmux
-	fi
-fi
-
 # Git
 function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
