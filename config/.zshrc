@@ -7,8 +7,6 @@ export LC_ALL=$LANG
 export AWS_REGION=ap-northeast-1
 
 # HOME
-export VIMHOME=$HOME/.vim
-export MYVIMRC=$HOME/.vimrc
 export WANTEDLY_HOME=$HOME/.wantedly
 export GOENV_DISABLE_GOROOT=1
 export GOENV_DISABLE_GOPATH=1
@@ -107,7 +105,7 @@ alias mkdir='mkdir -p'
 
 ### Utility alias
 alias zshrc='vim ~/.zshrc'
-alias vimrc='vim ~/.vimrc'
+alias vimrc='vim ~/.config/nvim/init.vim'
 
 ### Utility function
 function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
