@@ -65,8 +65,6 @@ setopt correct
 setopt dvorak
 
 ###setting
-#changing colors
-export LSCOLORS=gxfxcxdxbxegedabagacad
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
 # support Japanese Letters
@@ -90,15 +88,13 @@ setopt pushd_ignore_dups
 function chpwd() { ls -FG }
 
 ## ls
-alias ls='/bin/ls -FG'
+if command -v gls &> /dev/null
+then
+	alias ls='gls --color'
+fi
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
-# for dvorak
-alias no='ls'
-alias na='la'
-alias nn='ll'
-alias nna='lla'
 
 ## mkdir
 alias mkdir='mkdir -p'
