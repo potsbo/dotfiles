@@ -65,7 +65,12 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
+Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
+
+" TODO: consider switching to neotest
+let g:ultest_deprecation_notice = 0
 
 " Editor
 set clipboard=unnamed
