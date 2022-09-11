@@ -78,18 +78,6 @@ execute 'Install Rust' do
   not_if "test $(which rustc)"
 end
 
-git "#{ENV['HOME']}/.go/src/github.com/alacritty/alacritty" do
-  repository "https://github.com/alacritty/alacritty"
-end
-
-execute 'Build alacritty' do
-  command "cd #{ENV['HOME']}/.go/src/github.com/alacritty/alacritty; make app"
-end
-
-execute 'Install alacritty' do
-  command "cp -r #{ENV['HOME']}/.go/src/github.com/alacritty/alacritty/target/release/osx/Alacritty.app /Applications"
-end
-
 execute 'Install Homebrew' do
   command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
   not_if "test $(which brew)"
