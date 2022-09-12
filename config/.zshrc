@@ -7,8 +7,6 @@ export LC_ALL=$LANG
 export AWS_REGION=ap-northeast-1
 
 # HOME
-export VIMHOME=$HOME/.vim
-export MYVIMRC=$HOME/.vimrc
 export WANTEDLY_HOME=$HOME/.wantedly
 export GOENV_DISABLE_GOROOT=1
 export GOENV_DISABLE_GOPATH=1
@@ -67,8 +65,6 @@ setopt correct
 setopt dvorak
 
 ###setting
-#changing colors
-export LSCOLORS=gxfxcxdxbxegedabagacad
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
 # support Japanese Letters
@@ -88,45 +84,28 @@ setopt share_history
 setopt auto_pushd
 # dont push dups
 setopt pushd_ignore_dups
-# ls just after cd
-function chpwd() { ls -FG }
 
 ## ls
-alias ls='/bin/ls -FG'
+if command -v gls &> /dev/null
+then
+	alias ls='gls --color --hyperlink=auto'
+fi
 alias la='ls -FA'
 alias ll='ls -Fl'
 alias lla='ls -FlA'
-# for dvorak
-alias no='ls'
-alias na='la'
-alias nn='ll'
-alias nna='lla'
+
+# ls just after cd
+function chpwd() { ls -FG }
 
 ## mkdir
 alias mkdir='mkdir -p'
 
 ### Utility alias
 alias zshrc='vim ~/.zshrc'
-alias vimrc='vim ~/.vimrc'
+alias vimrc='vim ~/.config/nvim/init.vim'
 
 ### Utility function
 function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
-
-# tmux
-if [ ! -z "`which tmux`" ]; then
-	if [ $SHLVL = 1 ]; then
-		if [ $(( `ps aux | grep tmux | grep $USER | grep -v grep | wc -l` )) != 0 ]; then
-			echo -n 'Attach tmux session? [Y/n]'
-			read YN
-			[[ $YN = '' ]] && YN=y
-			[[ $YN = y ]] && tmux attach
-		fi
-		echo -n 'No tmux session, create new? [Y/n]'
-		read YN
-		[[ $YN = '' ]] && YN=y
-		[[ $YN = y ]] && tmux
-	fi
-fi
 
 # Git
 function cam { git commit -am "$*" }
@@ -147,6 +126,9 @@ if [ -d $HOME/.rbenv ]; then
 fi
 if [ -d $HOME/.nodenv ]; then
 	eval "$(nodenv init -)"
+fi
+if [ -d $HOME/.pyenv ]; then
+	eval "$(pyenv init -)"
 fi
 eval "$(direnv hook zsh)"
 
