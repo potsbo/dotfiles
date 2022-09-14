@@ -70,8 +70,6 @@ setopt print_eight_bit
 setopt no_beep
 # '#' to comment
 setopt interactive_comments
-# =command is equal to which command
-setopt equals
 
 setopt share_history
 
@@ -92,10 +90,7 @@ alias ll='ls -Fl'
 alias lla='ls -FlA'
 
 # ls just after cd
-function chpwd() { ls -FG }
-
-## mkdir
-alias mkdir='mkdir -p'
+function chpwd() { ls }
 
 ### Utility alias
 alias zshrc='vim ~/.zshrc'
@@ -108,8 +103,6 @@ function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
 function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
 function CAM { git add -A && git commit -am "$*" }
-function be { bundle exec "$*" }
-function pr { pipenv run "$*" }
 
 alias vim='nvim'
 alias s='cd $(ghq list -p | peco)'
@@ -130,12 +123,6 @@ fi
 eval "$(direnv hook zsh)"
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 autoload -Uz add-zsh-hook
 
