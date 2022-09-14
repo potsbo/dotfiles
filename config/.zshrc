@@ -4,12 +4,9 @@ export TERM="screen-256color"
 export EDITOR=nvim
 export PGDATA=/usr/local/var/postgres
 export LC_ALL=$LANG
-export AWS_REGION=ap-northeast-1
 
 # HOME
 export WANTEDLY_HOME=$HOME/.wantedly
-export GOENV_DISABLE_GOROOT=1
-export GOENV_DISABLE_GOPATH=1
 export GOPATH=$HOME/.go
 
 # PATH
@@ -83,11 +80,11 @@ setopt pushd_ignore_dups
 ## ls
 if command -v gls &> /dev/null
 then
-	alias ls='gls --color --hyperlink=auto'
+	alias ls='gls --color --hyperlink=auto --classify'
 fi
-alias la='ls -FA'
-alias ll='ls -Fl'
-alias lla='ls -FlA'
+alias la='ls -A'
+alias ll='ls -l'
+alias lla='ls -lA'
 
 # ls just after cd
 function chpwd() { ls }
