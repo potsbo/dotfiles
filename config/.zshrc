@@ -13,20 +13,17 @@ export GOENV_DISABLE_GOPATH=1
 export GOPATH=$HOME/.go
 
 # PATH
-export PATH=~/.anyenv/bin
-export PATH=$PATH:$GOPATH/bin
+export PATH=$GOPATH/bin
 export PATH=$PATH:$WANTEDLY_HOME/bin
 export PATH=$PATH:/bin
 export PATH=$PATH:/usr
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/usr/local/sbin
-export PATH=$PATH:/usr/texbin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/opt/X11/bin
 export PATH=$PATH:/Library/TeX/texbin
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
-export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/.poetry/bin:$PATH
 export PATH=$HOME/libexec:$PATH
