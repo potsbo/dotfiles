@@ -113,7 +113,6 @@ autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
 
 " Source
 source ~/.vim/rc/move.vimrc
-source ~/.vim/rc/lightline.vimrc
 source ~/.vim/rc/lsp.vim
 source ~/.vim/rc/fzf.vim
 
