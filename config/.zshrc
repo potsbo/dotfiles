@@ -11,19 +11,12 @@ export GOPATH=$HOME/.go
 
 # PATH
 export PATH=$GOPATH/bin
-export PATH=$PATH:$WANTEDLY_HOME/bin
-export PATH=$PATH:/bin
-export PATH=$PATH:/usr
-export PATH=$PATH:/usr/bin
-export PATH=$PATH:/usr/sbin
-export PATH=$PATH:/usr/local/sbin
-export PATH=$PATH:/sbin
-export PATH=$PATH:/opt/X11/bin
-export PATH=$PATH:/Library/TeX/texbin
-export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
+export PATH=$PATH:$WANTEDLY_HOME/bin # kube
+export PATH=$PATH:/bin               # cat, cp, ...
+export PATH=$PATH:/usr/bin           # arch, top, ...
+export PATH=$PATH:/usr/sbin          # chown, chroot, ...
+export PATH=$PATH:/sbin              # ping, ifconfig, ...
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/.poetry/bin:$PATH
-export PATH=$HOME/libexec:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 
