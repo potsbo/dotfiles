@@ -65,8 +65,6 @@ Plug 'jparise/vim-graphql', { 'for': 'graphql' }
 
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
-Plug 'vim-test/vim-test'
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install --frozen-lockfile --production',
