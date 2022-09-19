@@ -573,7 +573,8 @@
                                             "^org\\.macosforge\\.xquartz\\.X11$",
                                             "^org\\.macports\\.X11$",
                                             "^com\\.microsoft\\.VSCode$",
-                                            "^io\\.alacritty$"
+                                            "^io\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
