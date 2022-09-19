@@ -46,23 +46,9 @@ setopt correct
 setopt dvorak
 
 ###setting
-# color setting like %{${fg[red]}%}
-autoload -Uz colors && colors
-# support Japanese Letters
-setopt print_eight_bit
-# no beep
 setopt no_beep
-# '#' to comment
 setopt interactive_comments
-
 setopt share_history
-
-### Usual Commands
-## cd
-# auto push when cd
-setopt auto_pushd
-# dont push dups
-setopt pushd_ignore_dups
 
 ## ls
 if command -v gls &> /dev/null
@@ -102,6 +88,7 @@ eval "$(direnv hook zsh)"
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
+# color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
 _prompt_git_info() {
 	# ref: https://joshdick.net/2017/06/08/my_git_prompt_for_zsh_revisited.html
