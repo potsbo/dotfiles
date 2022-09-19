@@ -42,10 +42,9 @@ fi
 # M1 Mac で amd64 の docker image を動かすため
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-bindkey -e
-### completion
-autoload -Uz compinit
-compinit
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit
+
 # ignore case
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # don't complete current directory after ../
