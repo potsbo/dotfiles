@@ -93,9 +93,6 @@ function chpwd() { ls }
 alias zshrc='vim ~/.zshrc'
 alias vimrc='vim ~/.config/nvim/init.vim'
 
-### Utility function
-function sedall() { ag -l $1 $3 | xargs sed -Ei '' s/$1/$2/g }
-
 # Git
 function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
