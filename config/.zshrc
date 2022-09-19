@@ -121,7 +121,6 @@ eval "$(direnv hook zsh)"
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
-autoload -Uz add-zsh-hook
 
 _prompt_git_info() {
 	# ref: https://joshdick.net/2017/06/08/my_git_prompt_for_zsh_revisited.html
@@ -216,7 +215,8 @@ _update_prompt() {
 	PROMPT=$'\n'${line_1}$'\n'${line_2}
 }
 
-add-zsh-hook precmd _update_prompt
+autoload -Uz add-zsh-hook && add-zsh-hook precmd _update_prompt
+
 
 # %* Current time of day in 24-hour format, with seconds.
 # %D The date in yy-mm-dd format.
