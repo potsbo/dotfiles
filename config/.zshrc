@@ -42,18 +42,13 @@ fi
 # M1 Mac で amd64 の docker image を動かすため
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-autoload -Uz colors && colors
 autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # ignore case 
+zstyle ':completion:*' ignore-parents parent pwd .. # don't complete current directory after ../
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin # complete commands after sudo
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args' # complete processes when using ps command
 
-# ignore case
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# don't complete current directory after ../
-zstyle ':completion:*' ignore-parents parent pwd ..
-# complete commands after sudo
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
-# complete processes when using ps command
-zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-#Spell check
+# Spell check
 setopt correct
 setopt dvorak
 
@@ -101,8 +96,6 @@ alias vim='nvim'
 alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --prompt 'GIT BRANCH>' | cut -d$'\t' -f2\`"
 alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>'| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 
-autoload -U compinit && compinit
-
 if [ -d $HOME/.rbenv ]; then
 	eval "$(rbenv init - zsh)"
 fi
@@ -116,7 +109,7 @@ eval "$(direnv hook zsh)"
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 
-
+autoload -Uz colors && colors
 _prompt_git_info() {
 	# ref: https://joshdick.net/2017/06/08/my_git_prompt_for_zsh_revisited.html
 
