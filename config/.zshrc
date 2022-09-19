@@ -241,3 +241,16 @@ if command -v kube &> /dev/null
 then
 	source <(kube completion zsh)
 fi
+
+_register_keycommand() {
+  zle -N $2
+  bindkey "$1" $2
+}
+
+_ghq_fzf() {
+  BUFFER="cd $(ghq root)/$(ghq list | fzf --query="$LBUFFER")"
+  zle accept-line
+  zle reset-prompt
+}
+
+_register_keycommand "^]" _ghq_fzf
