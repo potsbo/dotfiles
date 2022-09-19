@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-ec2c list | peco $1 | cut -f4
