@@ -67,6 +67,10 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'editorconfig/editorconfig-vim'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'on': ['PrettierAsync'] }
 call plug#end()
 
 " TODO: consider switching to neotest
@@ -122,6 +126,7 @@ set wildmode=longest:full
 
 " Shift-Option-F
 noremap Ï :LspDocumentFormat<CR>
+autocmd BufNewFile,BufRead *.ts,*.tsx :noremap Ï :PrettierAsync<CR>
 
 cnoremap <C-A> <Home>
 inoremap <c-k> <c-o>D
