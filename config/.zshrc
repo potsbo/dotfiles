@@ -99,9 +99,8 @@ function com { git commit -m "$*" }
 function CAM { git add -A && git commit -am "$*" }
 
 alias vim='nvim'
-alias s='cd $(ghq list -p | peco)'
-alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | peco --prompt 'GIT BRANCH>' --on-cancel error | cut -d$'\t' -f2\`"
-alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | peco --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>' --on-cancel error| cut -d$'\t' -f2 | sed 's/origin\///' \`"
+alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --prompt 'GIT BRANCH>' | cut -d$'\t' -f2\`"
+alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>'| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 
 autoload -U compinit && compinit
 
