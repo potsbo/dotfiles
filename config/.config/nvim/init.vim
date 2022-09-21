@@ -1,9 +1,5 @@
-augroup MyAutoCmd
-  autocmd!
-augroup END
-
 " vim-plug
-call plug#begin('~/.vim/plug')
+call plug#begin()
 " LSP
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -71,10 +67,8 @@ Plug 'prettier/vim-prettier', {
   \ 'on': ['PrettierAsync'] }
 call plug#end()
 
-" TODO: consider switching to neotest
-let g:ultest_deprecation_notice = 0
-
-" Editor
+" Config
+set noswapfile
 set clipboard=unnamed
 syntax enable
 set number
@@ -84,32 +78,10 @@ set smartcase
 
 " Color
 colorscheme molokai
-" Swap fg and bg
-highlight MatchParen ctermfg=208 ctermbg=none cterm=bold
-
-" Config
-set noswapfile
 
 nnoremap <silent> ;r :<C-u>QuickRun<CR>
 nnoremap <silent> ;v :<C-u>OpenGithubFile<CR>
 vnoremap <silent> ;v :<C-u>'<,'>OpenGithubFile<CR>
-
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_python_checkers = ['flake8', 'pep257', 'mypy']
-" let g:syntastic_python_flake8_args = '--max-line-length=120'
-" let g:syntastic_python_mypy_args = '--ignore-missing-imports'
-
-function! OcamlFmt()
-  silent execute "!ocamlformat --enable-outside-detected-project --module-item-spacing=preserve --inplace %"
-  edit!
-endfunction
-
-command! OcamlFmt call OcamlFmt()
-augroup ocaml_autocmd
-  autocmd BufWritePost *.ml OcamlFmt
-  autocmd BufWritePost *.mli OcamlFmt
-augroup END
-
 
 autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
 
@@ -118,14 +90,6 @@ source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lsp.vim
 source ~/.vim/rc/fzf.vim
 
-let g:rustfmt_autosave = 1
-let g:lsp_preview_max_width = 80
-set wildmode=longest:full
-
 " Shift-Option-F
 noremap Ï :LspDocumentFormat<CR>
 autocmd BufNewFile,BufRead *.ts,*.tsx :noremap Ï :PrettierAsync<CR>
-
-cnoremap <C-A> <Home>
-inoremap <c-k> <c-o>D
-cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>

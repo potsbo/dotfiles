@@ -1,8 +1,4 @@
 let g:lsp_settings_filetype_python = ['pyls-all', 'pyright-langserver']
-augroup LspAutoFormatting
-	autocmd!
-	autocmd BufWritePre *.py LspDocumentFormatSync
-augroup END
 
 "  vim-lsp
 "--------------------------------
