@@ -1,12 +1,9 @@
-# export
-export LANG=en_US.UTF-8
-export TERM="screen-256color"
-export EDITOR=nvim
-export PGDATA=/usr/local/var/postgres
+# Basic Config
+export LANG=C
 export LC_ALL=$LANG
+export EDITOR=nvim
 
-
-# HOME
+# PATH Base
 export WANTEDLY_HOME=$HOME/.wantedly
 export GOPATH=$HOME/.go
 
