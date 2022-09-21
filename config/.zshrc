@@ -206,10 +206,6 @@ export GODEBUG=asyncpreemptoff=1
 export CGO_ENABLED=0
 setopt HIST_IGNORE_ALL_DUPS
 export HISTSIZE=100000
-if command -v opam &> /dev/null
-then
-	eval "$(opam env)"
-fi
 
 if command -v kube &> /dev/null
 then
