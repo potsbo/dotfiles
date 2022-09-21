@@ -1,5 +1,5 @@
 # Basic Config
-export LANG=C
+export LANG=en_US.UTF-8 # kitty 上での日本語の表示のため
 export LC_ALL=$LANG
 export EDITOR=nvim
 
