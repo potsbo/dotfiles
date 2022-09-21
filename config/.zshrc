@@ -5,20 +5,26 @@ export EDITOR=nvim
 export PGDATA=/usr/local/var/postgres
 export LC_ALL=$LANG
 
+
 # HOME
 export WANTEDLY_HOME=$HOME/.wantedly
 export GOPATH=$HOME/.go
 
+
 # PATH
-export PATH=$GOPATH/bin
+## Override
+export PATH=$HOME/bin
+## Build
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$WANTEDLY_HOME/bin # kube
+## System
 export PATH=$PATH:/bin               # cat, cp, ...
+export PATH=$PATH:/sbin              # ping, ifconfig, ...
 export PATH=$PATH:/usr/bin           # arch, top, ...
 export PATH=$PATH:/usr/sbin          # chown, chroot, ...
-export PATH=$PATH:/sbin              # ping, ifconfig, ...
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
+
 
 ARCH=$(arch)
 if [ "$ARCH" = "arm64" ]; then
@@ -216,7 +222,10 @@ _register_keycommand() {
 }
 
 _ghq_fzf() {
-  BUFFER="cd $(ghq root)/$(ghq list | fzf --query="$LBUFFER")"
+  local repo=$(ghq list | fzf --query="$LBUFFER")
+  [ -z "$repo" ] && return
+
+  BUFFER="cd $(ghq root)/$repo"
   zle accept-line
   zle reset-prompt
 }

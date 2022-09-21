@@ -78,7 +78,7 @@ let g:ultest_deprecation_notice = 0
 set clipboard=unnamed
 syntax enable
 set number
-set tabstop=2 shiftwidth=2 softtabstop=2
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set ignorecase
 set smartcase
 
