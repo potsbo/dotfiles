@@ -21,12 +21,10 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 
-
-
-" Short cut command
 if system("git rev-parse --is-inside-work-tree 2> /dev/null ; echo $?") == 0
-  nnoremap <silent> <Leader><Leader> :<C-u>GFiles --cached --others --exclude-standard<CR>
+  command CommandShiftP GFiles --cached --others --exclude-standard
 else
-  nnoremap <silent> <Leader><Leader> :<C-u>Files<CR>
+  command CommandShiftP Files
 endif
-nnoremap <silent> <Leader>g :<C-u>Ag<CR>
+
+command CommandShiftF Ag
