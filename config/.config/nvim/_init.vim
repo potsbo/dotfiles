@@ -7,8 +7,15 @@ autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
 " Source
 source ~/.vim/rc/move.vimrc
 source ~/.vim/rc/lsp.vim
-source ~/.vim/rc/fzf.vim
 
 " Shift-Option-F
 noremap Ï :LspDocumentFormat<CR>
 autocmd BufNewFile,BufRead *.ts,*.tsx :noremap Ï :PrettierAsync<CR>
+
+if system("git rev-parse --is-inside-work-tree 2> /dev/null ; echo $?") == 0
+  command CommandShiftP GFiles --cached --others --exclude-standard
+else
+  command CommandShiftP Files
+endif
+
+command CommandShiftF Ag
