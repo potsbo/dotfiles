@@ -45,12 +45,6 @@ link File.join(ENV['HOME'], 'Library/Application Support/Google/JapaneseInput') 
   to File.join(ENV['HOME'], 'iCloudDrive/Library/ApplicationSupport/Google/JapaneseInput')
 end
 
-vim_plug_path = "#{ENV['HOME']}/.local/share/nvim/site/autoload/plug.vim"
-directory File.dirname(vim_plug_path)
-http_request vim_plug_path do
-  url "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-end
-
 dotfile '.config'
 dotfile '.ssh'
 dotfile '.zshrc'
