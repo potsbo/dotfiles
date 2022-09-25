@@ -67,18 +67,6 @@ Plug 'prettier/vim-prettier', {
   \ 'on': ['PrettierAsync'] }
 call plug#end()
 
-" Config
-set noswapfile
-set clipboard=unnamed
-syntax enable
-set number
-set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-set ignorecase
-set smartcase
-
-" Color
-colorscheme molokai
-
 nnoremap <silent> ;r :<C-u>QuickRun<CR>
 nnoremap <silent> ;v :<C-u>OpenGithubFile<CR>
 vnoremap <silent> ;v :<C-u>'<,'>OpenGithubFile<CR>
