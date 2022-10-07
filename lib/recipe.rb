@@ -81,6 +81,11 @@ execute 'Tap to click' do
   not_if '[ "$(defaults read com.apple.AppleMultitouchTrackpad Clicking)" = "1" ]'
 end
 
+execute 'Tracking speed 2' do
+  command 'defaults write .GlobalPreferences com.apple.trackpad.scaling -int 2'
+  not_if '[ "$(defaults read .GlobalPreferences com.apple.trackpad.scaling)" = "2" ]'
+end
+
 execute 'Install Rust' do
   command "bash -lc 'curl https://sh.rustup.rs -sSf | sh -s -- -y'"
   not_if "test $(which rustc)"
