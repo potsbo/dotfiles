@@ -6,5 +6,5 @@ id=$1
 tmp_path=/tmp/$id.json
 
 plutil -convert json ~/Library/Preferences/$id.plist -o $tmp_path
-jq < $tmp_path > lib/$id.json
+jq < $tmp_path > ~/.go/src/github.com/potsbo/dotfiles/lib/$id.json
 rm $tmp_path
