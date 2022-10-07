@@ -88,10 +88,8 @@ end
 
 dotfile 'Brewfile'
 execute 'Install Homebrew packages' do
-  command "brew bundle install --file ~/Brewfile"
-end
-execute 'Cleanup Homebrew packages' do
-  command "brew bundle cleanup --file ~/Brewfile --force"
+  command "brew bundle install --file ~/Brewfile --cleanup"
+  not_if "brew bundle check --file ~/Brewfile"
 end
 
 execute 'Install fzf binding' do
