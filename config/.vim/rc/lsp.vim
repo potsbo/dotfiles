@@ -1,4 +1,9 @@
 let g:lsp_settings_filetype_python = ['pyls-all', 'pyright-langserver']
+let g:lsp_settings = {
+\  'typeprof': {
+\    'disabled': 1,
+\   }
+\}
 
 "  vim-lsp
 "--------------------------------
