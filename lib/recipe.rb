@@ -69,9 +69,11 @@ end
 
 execute 'Key repeat' do
   command 'defaults write NSGlobalDomain KeyRepeat -int 1'
+  not_if '[ "$(defaults read NSGlobalDomain KeyRepeat)" = "1" ]'
 end
 execute 'Key repeat' do
   command 'defaults write NSGlobalDomain InitialKeyRepeat -int 15'
+  not_if '[ "$(defaults read NSGlobalDomain InitialKeyRepeat)" = "15" ]'
 end
 
 execute 'Install Rust' do
