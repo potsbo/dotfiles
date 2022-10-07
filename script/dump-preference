@@ -3,8 +3,4 @@
 set -eu
 
 id=$1
-tmp_path=/tmp/$id.json
-
-plutil -convert json ~/Library/Preferences/$id.plist -o $tmp_path
-jq < $tmp_path > ~/.go/src/github.com/potsbo/dotfiles/lib/$id.json
-rm $tmp_path
+plutil -convert json ~/Library/Preferences/$id.plist -o - | jq > ~/.go/src/github.com/potsbo/dotfiles/lib/$id.json
