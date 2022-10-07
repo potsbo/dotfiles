@@ -76,6 +76,11 @@ execute 'Key repeat' do
   not_if '[ "$(defaults read NSGlobalDomain InitialKeyRepeat)" = "15" ]'
 end
 
+execute 'Tap to click' do
+  command 'defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true'
+  not_if '[ "$(defaults read com.apple.AppleMultitouchTrackpad Clicking)" = "1" ]'
+end
+
 execute 'Install Rust' do
   command "bash -lc 'curl https://sh.rustup.rs -sSf | sh -s -- -y'"
   not_if "test $(which rustc)"
