@@ -86,10 +86,10 @@ execute 'Install Homebrew' do
   not_if "test $(which brew)"
 end
 
-dotfile 'Brewfile'
+dotfile '.Brewfile'
 execute 'Install Homebrew packages' do
-  command "brew bundle install --file ~/Brewfile --cleanup"
-  not_if "brew bundle check --file ~/Brewfile"
+  command "brew bundle install --global --cleanup"
+  not_if "brew bundle check --global"
 end
 
 execute 'Install fzf binding' do
