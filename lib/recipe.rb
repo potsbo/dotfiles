@@ -63,7 +63,8 @@ dotfile 'bin'
 dotfile '.clipper.json'
 
 execute 'Hide dock' do
-  command 'defaults write com.apple.dock autohide -bool true'
+  command 'defaults write com.apple.dock autohide -bool true && killall Dock'
+  not_if '[ "$(defaults read com.apple.dock autohide)" = "1" ]'
 end
 
 execute 'Key repeat' do
