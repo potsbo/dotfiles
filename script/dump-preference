@@ -3,4 +3,4 @@
 set -eu
 
 id=$1
-plutil -convert json ~/Library/Preferences/$id.plist -o - | jq > ~/.go/src/github.com/potsbo/dotfiles/lib/$id.json
+plutil -convert json ~/Library/Preferences/$id.plist -o - | jq

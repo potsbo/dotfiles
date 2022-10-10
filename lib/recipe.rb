@@ -11,6 +11,8 @@ MItamae::RecipeContext.class_eval do
   end
 end
 
+DOTFILE_REPO = File.expand_path("../..", __FILE__)
+
 define :dotfile, source: nil do
   source = params[:source] || params[:name]
   link_path = File.join(ENV['HOME'], params[:name])
@@ -25,6 +27,16 @@ define :dotfile, source: nil do
     to File.expand_path("../../config/#{source}", __FILE__)
     user node[:user]
     force true
+  end
+end
+
+define :preferences do
+  execute "sync #{params[:name]}" do
+    target = File.join(ENV['HOME'], "Library/Preferences/#{params[:name]}.plist")
+    source = "#{DOTFILE_REPO}/lib/#{params[:name]}.json"
+
+    command "plutil -convert binary1 #{source} -o #{target}"
+    not_if "[ \"$(plutil -convert json #{source} -o -)\" = \"$(plutil -convert json #{target} -o -)\" ]"
   end
 end
 
@@ -61,6 +73,8 @@ dotfile '.tmux-powerlinerc'
 dotfile '.bash_profile'
 dotfile 'bin'
 dotfile '.clipper.json'
+
+preferences 'com.apple.inputsources'
 
 execute 'Hide dock' do
   command 'defaults write com.apple.dock autohide -bool true && killall Dock'
