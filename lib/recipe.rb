@@ -11,6 +11,8 @@ MItamae::RecipeContext.class_eval do
   end
 end
 
+DOTFILE_REPO = File.expand_path("../..", __FILE__)
+
 define :dotfile, source: nil do
   source = params[:source] || params[:name]
   link_path = File.join(ENV['HOME'], params[:name])
@@ -25,6 +27,16 @@ define :dotfile, source: nil do
     to File.expand_path("../../config/#{source}", __FILE__)
     user node[:user]
     force true
+  end
+end
+
+define :preferences do
+  execute "sync #{params[:name]}" do
+    target = File.join(ENV['HOME'], "Library/Preferences/#{params[:name]}.plist")
+    source = "#{DOTFILE_REPO}/lib/#{params[:name]}.json"
+
+    command "plutil -convert binary1 #{source} -o #{target}"
+    not_if "[ \"$(plutil -convert json #{source} -o -)\" = \"$(plutil -convert json #{target} -o -)\" ]"
   end
 end
 
@@ -62,15 +74,30 @@ dotfile '.bash_profile'
 dotfile 'bin'
 dotfile '.clipper.json'
 
+preferences 'com.apple.inputsources'
+
 execute 'Hide dock' do
-  command 'defaults write com.apple.dock autohide -bool true'
+  command 'defaults write com.apple.dock autohide -bool true && killall Dock'
+  not_if '[ "$(defaults read com.apple.dock autohide)" = "1" ]'
 end
 
 execute 'Key repeat' do
   command 'defaults write NSGlobalDomain KeyRepeat -int 1'
+  not_if '[ "$(defaults read NSGlobalDomain KeyRepeat)" = "1" ]'
 end
 execute 'Key repeat' do
   command 'defaults write NSGlobalDomain InitialKeyRepeat -int 15'
+  not_if '[ "$(defaults read NSGlobalDomain InitialKeyRepeat)" = "15" ]'
+end
+
+execute 'Tap to click' do
+  command 'defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true'
+  not_if '[ "$(defaults read com.apple.AppleMultitouchTrackpad Clicking)" = "1" ]'
+end
+
+execute 'Tracking speed 2' do
+  command 'defaults write .GlobalPreferences com.apple.trackpad.scaling -int 2'
+  not_if '[ "$(defaults read .GlobalPreferences com.apple.trackpad.scaling)" = "2" ]'
 end
 
 execute 'Install Rust' do
@@ -83,12 +110,10 @@ execute 'Install Homebrew' do
   not_if "test $(which brew)"
 end
 
-dotfile 'Brewfile'
+dotfile '.Brewfile'
 execute 'Install Homebrew packages' do
-  command "brew bundle install --file ~/Brewfile"
-end
-execute 'Cleanup Homebrew packages' do
-  command "brew bundle cleanup --file ~/Brewfile --force"
+  command "brew bundle install --global --cleanup"
+  not_if "brew bundle check --global"
 end
 
 execute 'Install fzf binding' do
