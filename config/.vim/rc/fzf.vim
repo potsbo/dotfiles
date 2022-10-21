@@ -22,9 +22,9 @@ function! FloatingFZF()
 endfunction
 
 if system("git rev-parse --is-inside-work-tree 2> /dev/null ; echo $?") == 0
-  command CommandShiftP GFiles --cached --others --exclude-standard
+  command CommandP GFiles --cached --others --exclude-standard
 else
-  command CommandShiftP Files
+  command CommandP Files
 endif
 
 command CommandShiftF Ag
