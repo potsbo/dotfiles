@@ -28,7 +28,7 @@ cask "zoom"
 cask "docker"
 cask "1password"
 cask "kitty"
-cask "warp"
+cask "notion"
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
 mas "Slack", id: 803453959
