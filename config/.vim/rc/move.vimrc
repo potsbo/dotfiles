@@ -24,8 +24,7 @@ vnoremap N ;
 
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
-nnoremap ;c  :<C-u>Commentary<CR>
-vnoremap ;c  :<C-u>'<,'>Commentary<CR>
+command! -range CommandSlash <line1>,<line2>Commentary
 
 " panes
 let g:mapleader = 'z'

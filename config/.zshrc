@@ -67,7 +67,7 @@ function chpwd() { ls }
 
 ### Utility alias
 alias zshrc='vim ~/.zshrc'
-alias vimrc='vim ~/.config/nvim/init.vim'
+alias vimrc='vim ~/.config/nvim/init.lua'
 
 # Git
 function cam { git commit -am "$*" }
