@@ -224,3 +224,6 @@ _ghq_fzf() {
 }
 
 _register_keycommand "^]" _ghq_fzf
+
+# for `go test -race ...`
+export CGO_ENABLED=1
