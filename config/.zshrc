@@ -225,6 +225,9 @@ _ghq_fzf() {
 
 _register_keycommand "^]" _ghq_fzf
 
+# for `go test -race ...`
+export CGO_ENABLED=1
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/potsbo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/google-cloud-sdk/path.zsh.inc'; fi
 
