@@ -32,8 +32,8 @@
   br = branch
   pr = pull-request
   pbrowse = !git push && gh browse
-  showpr = !"f() { git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1; }; f"
-  openpr = "!f() { gh browse -- `git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' ' | sed -e 's%#%pull/%'`; }; f"
+  viewpr = !"f() { gh pr view -- `git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' '`; }; f"
+  openpr = !"f() { gh pr view --web -- `git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' '`; }; f"
   dif = !git --no-pager diff
   difpr = !git diff $(git merge-base --fork-point $(git default-branch))
   new = "!f() { gh repo sync && git checkout $(git default-branch) && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
