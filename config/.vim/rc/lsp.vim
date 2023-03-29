@@ -5,6 +5,8 @@ let g:lsp_settings = {
 \   }
 \}
 
+let g:lsp_semantic_enabled = 1
+
 "  vim-lsp
 "--------------------------------
 function! s:on_lsp_buffer_enabled() abort

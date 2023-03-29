@@ -227,3 +227,9 @@ _register_keycommand "^]" _ghq_fzf
 
 # for `go test -race ...`
 export CGO_ENABLED=1
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/potsbo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/potsbo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'; fi
