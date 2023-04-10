@@ -12,6 +12,7 @@ brew "go"
 brew "jq"
 brew "neovim"
 brew "nodenv"
+brew "postgresql" # for Rails dev
 brew "pyenv"
 brew "rbenv"
 brew "reattach-to-user-namespace"
