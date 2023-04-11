@@ -10,6 +10,7 @@ brew "gh"
 brew "ghq"
 brew "go"
 brew "jq"
+brew "ijq"
 brew "neovim"
 brew "nodenv"
 brew "postgresql" # for Rails dev
