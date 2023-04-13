@@ -34,3 +34,4 @@ mas "PopClip", id: 445189367
 mas "Slack", id: 803453959
 mas "OmniFocus", id: 1346203938
 mas "Keynote", id: 409183694
+mas "Toggl", id: 1291898086
