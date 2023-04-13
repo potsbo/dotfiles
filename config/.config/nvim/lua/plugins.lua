@@ -76,6 +76,7 @@ return require('packer').startup(function(use)
 
   use {'editorconfig/editorconfig-vim'}
   use {'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production', cmd = {'PrettierAsync'} }
+  use { 'preservim/nerdtree' }
 
   if packer_bootstrap then
     require('packer').sync()
