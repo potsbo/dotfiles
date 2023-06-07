@@ -68,7 +68,7 @@ dotfile '.bash_profile'
 dotfile 'bin'
 dotfile '.clipper.json'
 
-preferences 'com.apple.inputsources'
+# preferences 'com.apple.inputsources'
 
 execute 'Hide dock' do
   command 'defaults write com.apple.dock autohide -bool true && killall Dock'

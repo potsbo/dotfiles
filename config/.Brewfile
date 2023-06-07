@@ -10,13 +10,16 @@ brew "gh"
 brew "ghq"
 brew "go"
 brew "jq"
+brew "ijq"
 brew "neovim"
 brew "nodenv"
+brew "postgresql" # for Rails dev
 brew "pyenv"
 brew "rbenv"
 brew "reattach-to-user-namespace"
 brew "stack"
 brew "the_silver_searcher"
+brew "tokei"
 brew "tree"
 cask "karabiner-elements"
 cask "visual-studio-code"
@@ -26,6 +29,7 @@ cask "raycast"
 cask "keyboard-cleaner"
 cask "karabiner-elements"
 cask "zoom"
+cask "dash"
 cask "docker"
 cask "1password"
 cask "kitty"
@@ -36,3 +40,4 @@ mas "PopClip", id: 445189367
 mas "Slack", id: 803453959
 mas "OmniFocus", id: 1346203938
 mas "Keynote", id: 409183694
+mas "Toggl", id: 1291898086
