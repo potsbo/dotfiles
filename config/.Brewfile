@@ -35,6 +35,7 @@ cask "docker"
 cask "1password"
 cask "kitty"
 cask "notion"
+cask "swiftformat-for-xcode"
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
 mas "Slack", id: 803453959
