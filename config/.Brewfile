@@ -11,6 +11,7 @@ brew "ghq"
 brew "go"
 brew "jq"
 brew "ijq"
+brew "libyaml" # for ruby-build
 brew "neovim"
 brew "nodenv"
 brew "postgresql" # for Rails dev
