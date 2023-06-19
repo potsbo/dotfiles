@@ -14,6 +14,7 @@ brew "ijq"
 brew "libyaml" # for ruby-build
 brew "neovim"
 brew "nodenv"
+brew "pixman" # for canvas
 brew "postgresql" # for Rails dev
 brew "pyenv"
 brew "rbenv"
