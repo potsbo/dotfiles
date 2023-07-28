@@ -1,0 +1,3 @@
+--colors=path:fg:cyan
+--colors=match:bg:yellow
+--colors=match:fg:black
