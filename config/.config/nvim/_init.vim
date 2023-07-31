@@ -18,4 +18,4 @@ else
   command CommandP Files
 endif
 
-command CommandShiftF Ag
+command CommandShiftF Rg
