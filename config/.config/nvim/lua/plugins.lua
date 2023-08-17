@@ -65,6 +65,9 @@ return require('packer').startup(function(use)
   -- Ocaml
   use {'ocaml/vim-ocaml', ft = 'ocaml' }
 
+  -- Haskell
+  use {'alx741/vim-hindent', ft = 'haskell'}
+
   use {'rizzatti/dash.vim'}
 
   use {'chr4/nginx.vim', ft = 'nginx' }
