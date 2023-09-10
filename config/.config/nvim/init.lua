@@ -1,5 +1,11 @@
--- TODO: Remove this line after migrating everything to lua
+-- TODO: Remove these lines after migrating everything to lua
 vim.cmd('source ~/.config/nvim/_init.vim')
+vim.cmd('source ~/.vim/rc/move.vimrc')
+vim.cmd('source ~/.vim/rc/lsp.vim')
+
+vim.api.nvim_set_keymap('n', ';r', ':<C-u>QuickRun<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', ';v', ':<C-u>OpenGithubFile<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', ';v', ":<C-u>'<,'>OpenGithubFile<CR>", { noremap = true, silent = true })
 
 local custom = {
   -- basic
