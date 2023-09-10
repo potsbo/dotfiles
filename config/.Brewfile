@@ -7,6 +7,7 @@ brew "diff-so-fancy"
 brew "direnv"
 brew "fzf"
 brew "gh"
+brew "ghcup"
 brew "ghq"
 brew "go"
 brew "jq"
@@ -15,11 +16,10 @@ brew "libyaml" # for ruby-build
 brew "neovim"
 brew "nodenv"
 brew "pixman" # for canvas
-brew "postgresql" # for Rails dev
+# brew "postgresql" # for Rails dev
 brew "pyenv"
 brew "rbenv"
 brew "reattach-to-user-namespace"
-brew "stack"
 brew "ripgrep"
 brew "tokei"
 brew "tree"

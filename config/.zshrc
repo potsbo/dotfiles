@@ -234,3 +234,6 @@ if [ -f '/Users/potsbo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/g
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/potsbo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="$HOME/.ghcup/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$PATH"
