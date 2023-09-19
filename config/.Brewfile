@@ -43,3 +43,12 @@ mas "Slack", id: 803453959
 mas "OmniFocus", id: 1346203938
 mas "Keynote", id: 409183694
 mas "Toggl", id: 1291898086
+
+# for canvas
+brew "cairo"
+brew "pkg-config"
+brew "pango"
+brew "libpng"
+brew "jpeg"
+brew "giflib"
+brew "librsvg"
