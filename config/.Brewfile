@@ -20,6 +20,7 @@ brew "pixman" # for canvas
 brew "pyenv"
 brew "rbenv"
 brew "reattach-to-user-namespace"
+brew "redis" # for codecrafters
 brew "ripgrep"
 brew "tokei"
 brew "tree"
