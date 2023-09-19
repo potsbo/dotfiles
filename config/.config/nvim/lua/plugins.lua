@@ -73,7 +73,7 @@ return require('packer').startup(function(use)
   use {'chr4/nginx.vim', ft = 'nginx' }
   use {'chrismaher/vim-lookml'}
 
-  use {'jparise/vim-graphql', ft = 'graphql' }
+  use {'jparise/vim-graphql', ft = {'typescript', 'graphql'} }
 
   use {'rust-lang/rust.vim', ft = 'rust' }
 
