@@ -53,3 +53,7 @@ brew "libpng"
 brew "jpeg"
 brew "giflib"
 brew "librsvg"
+
+# for https://operating-system-in-1000-lines.vercel.app/ja/setting-up-development-environment
+brew "llvm"
+brew "qemu"
