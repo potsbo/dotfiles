@@ -26,12 +26,13 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
 
 ARCH=$(arch)
 if [ "$ARCH" = "arm64" ]; then
-	export PATH=/opt/homebrew/bin:$PATH
-	export RUSTUP_HOME=$HOME/arm64/.rustup
-	export CARGO_HOME=$HOME/arm64/.cargo
-	if [ -f /Users/potsbo/arm64/.cargo/env ]; then
-		source /Users/potsbo/arm64/.cargo/env
-	fi
+  export PATH=/opt/homebrew/bin:$PATH
+  export RUSTUP_HOME=$HOME/arm64/.rustup
+  export CARGO_HOME=$HOME/arm64/.cargo
+  if [ -f /Users/potsbo/arm64/.cargo/env ]; then
+    source /Users/potsbo/arm64/.cargo/env
+  fi
+  export PATH=$CARGO_HOME/bin:$PATH
 else
 	export PATH=$PATH:/usr/local/bin
 fi
