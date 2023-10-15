@@ -1,4 +1,4 @@
-autocmd BufNewFile,BufRead *.jbuilder set filetype=ruby
+autocmd BufNewFile,BufRead *.jbuilder,Podfile set filetype=ruby
 
 " Shift-Option-F
 noremap Ï :LspDocumentFormat<CR>
