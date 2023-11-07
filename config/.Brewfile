@@ -24,6 +24,7 @@ brew "redis" # for codecrafters
 brew "ripgrep"
 brew "tokei"
 brew "tree"
+brew "watchman" # jest:watch
 cask "karabiner-elements"
 cask "visual-studio-code"
 cask "google-japanese-ime"
