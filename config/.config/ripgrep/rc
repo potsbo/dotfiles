@@ -2,3 +2,4 @@
 --colors=match:bg:yellow
 --colors=match:fg:black
 --hidden
+--glob=!.git/

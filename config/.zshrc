@@ -83,9 +83,9 @@ alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate
 if [ -d $HOME/.rbenv ]; then
 	eval "$(rbenv init - zsh)"
 fi
-if [ -d $HOME/.nodenv ]; then
-	eval "$(nodenv init -)"
-fi
+# if [ -d $HOME/.nodenv ]; then
+# 	eval "$(nodenv init -)"
+# fi
 if [ -d $HOME/.pyenv ]; then
 	eval "$(pyenv init -)"
 fi
@@ -238,3 +238,5 @@ if [ -f '/Users/potsbo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/po
 
 export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

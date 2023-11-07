@@ -1,4 +1,5 @@
 autocmd BufNewFile,BufRead *.jbuilder,Podfile set filetype=ruby
+autocmd BufNewFile,BufRead *.ejs set filetype=html
 
 " Shift-Option-F
 noremap Ï :LspDocumentFormat<CR>
