@@ -60,7 +60,7 @@ return require('packer').startup(function(use)
   use {'udalov/kotlin-vim', ft = 'kotolin' }
 
   -- Terraform
-  use {'hashivim/vim-terraform', ft = 'tf' }
+  use {'hashivim/vim-terraform', ft = 'terraform' }
 
   -- Ocaml
   use {'ocaml/vim-ocaml', ft = 'ocaml' }
