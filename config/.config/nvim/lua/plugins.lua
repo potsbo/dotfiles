@@ -60,7 +60,7 @@ return require('packer').startup(function(use)
   use {'udalov/kotlin-vim', ft = 'kotolin' }
 
   -- Terraform
-  use {'hashivim/vim-terraform', ft = 'tf' }
+  use {'hashivim/vim-terraform', ft = 'terraform' }
 
   -- Ocaml
   use {'ocaml/vim-ocaml', ft = 'ocaml' }
@@ -79,7 +79,8 @@ return require('packer').startup(function(use)
 
   use {'editorconfig/editorconfig-vim'}
   use {'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production', cmd = {'PrettierAsync'} }
-  use { 'preservim/nerdtree' }
+  use {'preservim/nerdtree'}
+  use {'github/copilot.vim'}
 
   if packer_bootstrap then
     require('packer').sync()

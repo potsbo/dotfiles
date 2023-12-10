@@ -1,8 +1,10 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+brew "awscli"
 brew "bat"
 brew "coreutils"
+brew "devutils"
 brew "diff-so-fancy"
 brew "direnv"
 brew "fzf"
@@ -22,6 +24,7 @@ brew "rbenv"
 brew "reattach-to-user-namespace"
 brew "redis" # for codecrafters
 brew "ripgrep"
+brew "terraform"
 brew "tokei"
 brew "tree"
 brew "watchman" # jest:watch
@@ -39,6 +42,7 @@ cask "1password"
 cask "kitty"
 cask "notion"
 cask "swiftformat-for-xcode"
+cask "google-cloud-sdk"
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
 mas "Slack", id: 803453959
