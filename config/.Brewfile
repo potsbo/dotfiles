@@ -28,6 +28,7 @@ brew "terraform"
 brew "tokei"
 brew "tree"
 brew "watchman" # jest:watch
+brew "yq"
 cask "karabiner-elements"
 cask "visual-studio-code"
 cask "google-japanese-ime"
