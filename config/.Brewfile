@@ -24,6 +24,7 @@ brew "rbenv"
 brew "reattach-to-user-namespace"
 brew "redis" # for codecrafters
 brew "ripgrep"
+brew "sqlfluff"
 brew "terraform"
 brew "tokei"
 brew "tree"
