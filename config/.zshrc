@@ -83,9 +83,9 @@ alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate
 if [ -d $HOME/.rbenv ]; then
 	eval "$(rbenv init - zsh)"
 fi
-# if [ -d $HOME/.nodenv ]; then
-# 	eval "$(nodenv init -)"
-# fi
+if [ -d $HOME/.nodenv ]; then
+	eval "$(nodenv init -)"
+fi
 if [ -d $HOME/.pyenv ]; then
 	eval "$(pyenv init -)"
 fi
