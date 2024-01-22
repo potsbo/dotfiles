@@ -40,6 +40,7 @@ cask "docker"
 cask "1password"
 cask "kitty"
 cask "notion"
+cask "notion-calendar"
 cask "swiftformat-for-xcode"
 cask "google-cloud-sdk"
 mas "Magnet", id: 441258766
