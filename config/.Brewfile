@@ -15,6 +15,7 @@ brew "ijq"
 brew "libyaml" # for ruby-build
 brew "neovim"
 brew "nodenv"
+brew "pipx"
 brew "pixman" # for canvas
 brew "postgresql" # for Rails dev
 brew "pyenv"
@@ -47,7 +48,7 @@ cask "google-cloud-sdk"
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
 mas "Slack", id: 803453959
-mas "OmniFocus", id: 1346203938
+mas "OmniFocus", id: 1542143627 # OmniFocus 4
 mas "Keynote", id: 409183694
 mas "Toggl", id: 1291898086
 
