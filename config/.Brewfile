@@ -15,7 +15,7 @@ brew "ijq"
 brew "libyaml" # for ruby-build
 brew "neovim"
 brew "nodenv"
-brew "pipx"
+brew "pipx" # to intell poetry
 brew "pixman" # for canvas
 brew "postgresql" # for Rails dev
 brew "pyenv"
