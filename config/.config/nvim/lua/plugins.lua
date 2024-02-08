@@ -44,7 +44,7 @@ return require('packer').startup(function(use)
   use {'mattn/vim-goimports', ft = 'go' }
 
   -- TypeScript
-  use {'leafgarland/typescript-vim', ft = 'typescript' }
+  -- use {'leafgarland/typescript-vim', ft = 'typescript' }
   use {'peitalin/vim-jsx-typescript', ft = 'typescript' }
 
   -- Coffee
