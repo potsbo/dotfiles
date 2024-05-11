@@ -5,15 +5,22 @@ set -e
 
 mitamae_version="1.12.9"
 architecture=aarch64
-if [ "$(arch)" = "i386" ];
-then
+if [ "$(arch)" = "x86_64" ]; then
 	architecture=x86_64;
+fi
+if [ "$(arch)" = "i386" ]; then
+	architecture=x86_64;
+fi
+
+os="darwin"
+if [ "$(uname)" = "Linux" ]; then
+  os="linux";
 fi
 
 # TODO: support intel
 mitamae_cache="mitamae-${architecture}-${mitamae_version}"
 if ! [ -f "bin/${mitamae_cache}" ]; then
-	mitamae_bin="mitamae-${architecture}-darwin"
+	mitamae_bin="mitamae-${architecture}-${os}"
 
 	curl -o "bin/${mitamae_bin}.tar.gz" -fL "https://github.com/itamae-kitchen/mitamae/releases/download/v${mitamae_version}/${mitamae_bin}.tar.gz"
 	# TODO: checksum
