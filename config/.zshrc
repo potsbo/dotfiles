@@ -92,7 +92,9 @@ if [ -d $HOME/.pyenv ]; then
 fi
 eval "$(direnv hook zsh)"
 
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
+if type fzf &> /dev/null; then
+  eval "$(fzf --zsh)"
+fi
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
