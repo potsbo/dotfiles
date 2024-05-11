@@ -25,7 +25,7 @@ define :dotfile, source: nil do
 
   link link_path do
     to File.expand_path("../../config/#{source}", __FILE__)
-    user node[:user]
+    # 昔ここに user を設定していたが、codespaces で nil になっている様子なので外した
     force true
   end
 end
