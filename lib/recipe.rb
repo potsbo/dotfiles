@@ -31,6 +31,11 @@ define :dotfile, source: nil do
 end
 
 dotfile '.config'
+link File.join(ENV['HOME'], '.config/git/os') do
+  to File.join(ENV['HOME'], ".config/git/#{node[:platform]}")
+  force true
+end
+
 dotfile '.ssh'
 dotfile '.zshrc'
 dotfile '.vim'

@@ -6,15 +6,8 @@
 [user]
 	name = Shimpei Otsubo
 	email = potsbo@gmail.com
-  privatekey = ~/.ssh/avalon.github
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [color]
 	ui = true
 [alias]
@@ -47,13 +40,10 @@
   default-branch = "!f() { git get-branch-cache default || (git refresh-default-branch; git get-branch-cache default); }; f"
 [push]
   default = current
-[url "git@github.com:"]
-  insteadOf = https://github.com/
-[ghq]
-	root = ~/.go/src
+[include]
+	path = os
 [github]
 	user = potsbo
-	privatekey = ~/.ssh/id_rsa.github
 [merge]
 	conflictstyle = diff3
 [color "diff-highlight"]
@@ -70,3 +60,5 @@
 	whitespace = red reverse
 [init]
 	defaultBranch = main
+[ghq]
+	root = ~/.go/src
