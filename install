@@ -47,6 +47,8 @@ bin/setup_mitamae
 
 if [ "$(uname)" = "Linux" ]; then
   if [ "${CODESPACES:-"false"}" = "true" ]; then
+    # codespaces で sudo が command not found になったため入れていない
+    # もしかしたら codespaces の環境によっては必要かもしれない
     apt update
   fi
   bin/mitamae local lib/recipe.rb
