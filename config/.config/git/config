@@ -29,7 +29,7 @@
   openpr = !"f() { gh pr view --web -- `git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' '`; }; f"
   dif = !git --no-pager diff
   difpr = !git diff $(git merge-base --fork-point $(git default-branch))
-  new = "!f() { gh repo sync && git checkout $(git default-branch) && git checkout -b $USER/$(echo $@ | sed 's/\\ /-/g'); }; f"
+  new = "!f() { gh repo sync && git checkout $(git default-branch) && git checkout -b potsbo/$(echo $@ | sed 's/\\ /-/g'); }; f"
   omerge = "!f() { gh repo sync && git merge $(git default-branch); }; f"
   view  = "!f() { gh browse -- blob/$(git show -s --format=%H)/$1; }; f"
   # https://medium.com/@jmatsu.drm/avoid-direct-value-of-default-branch-name-f24ec6e6b52
