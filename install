@@ -53,7 +53,14 @@ if [ "$(uname)" = "Linux" ]; then
 
     # ghq のために workspace 自体もリンクする
     mkdir -p "${HOME}/.go/src/github.com/$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)"
-    ln -s $CODESPACE_VSCODE_FOLDER "${HOME}/.go/src/github.com/${GITHUB_REPOSITORY}"
+    TARGET_REPO_PATH="${HOME}/.go/src/github.com/${GITHUB_REPOSITORY}"
+    if [ ! -e "${TARGET_REPO_PATH}" ]; then
+      # 起動時は CODESPACE_VSCODE_FOLDER が使えなかったので手動で構築
+      ln -s "/workspaces/$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" "${TARGET_REPO_PATH}"
+    fi
+
+    # 任意の場所から aqua が使えるようにしておく
+    ln -s "$HOME/aqua.yaml" /aqua.yaml
   fi
   bin/mitamae local lib/recipe.rb
 else
