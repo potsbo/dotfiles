@@ -36,6 +36,10 @@ link File.join(ENV['HOME'], '.config/git/os') do
   force true
 end
 
+dotfile 'aqua.yaml'
+execute 'Install aqua links' do
+  command 'aqua install --only-link'
+end
 dotfile '.ssh'
 dotfile '.zshrc'
 dotfile '.vim'

@@ -1,0 +1,22 @@
+---
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+# checksum:
+#   enabled: true
+#   require_checksum: true
+#   supported_envs:
+#   - all
+registries:
+- type: standard
+  ref: v4.140.0 # renovate: depName=aquaproj/aqua-registry
+packages:
+- name: denoland/deno@v1.41.0
+- name: twistedpair/google-cloud-sdk@475.0.0
+- name: junegunn/fzf@0.52.0
+- name: BurntSushi/ripgrep@14.1.0
+- name: x-motemen/ghq@v1.6.1
+- name: sharkdp/bat@v0.24.0
+- name: jqlang/jq@jq-1.7.1
+- name: direnv/direnv@v2.34.0
+- name: neovim/neovim@v0.9.5
+- name: mikefarah/yq@v4.44.1

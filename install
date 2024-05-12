@@ -50,6 +50,10 @@ if [ "$(uname)" = "Linux" ]; then
     # codespaces で sudo が command not found になったため入れていない
     # もしかしたら codespaces の環境によっては必要かもしれない
     apt update
+
+    # ghq のために workspace 自体もリンクする
+    mkdir -p "${HOME}/.go/src/github.com/$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)"
+    ln -s $CODESPACE_VSCODE_FOLDER "${HOME}/.go/src/github.com/${GITHUB_REPOSITORY}"
   fi
   bin/mitamae local lib/recipe.rb
 else
