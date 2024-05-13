@@ -36,10 +36,6 @@ link File.join(ENV['HOME'], '.config/git/os') do
   force true
 end
 
-dotfile 'aqua.yaml'
-execute 'Install aqua links' do
-  command 'aqua install --only-link'
-end
 dotfile '.ssh'
 dotfile '.zshrc'
 dotfile '.vim'
@@ -49,6 +45,25 @@ dotfile '.tmux-powerlinerc'
 dotfile '.bash_profile'
 dotfile 'bin'
 dotfile '.clipper.json'
+
+dotfile 'aqua.yaml'
+if node[:platform] == 'darwin'
+  execute 'Install Homebrew' do
+    command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
+    not_if "test $(which brew)"
+  end
+
+  dotfile '.Brewfile'
+  execute 'Install Homebrew packages' do
+    command "brew bundle install --global --cleanup"
+    not_if "brew bundle check --global"
+  end
+end
+# aqua が brew の install に依存するのでこの順で書く
+execute 'Install aqua links' do
+  command 'aqua install --only-link'
+  only_if 'command -v aqua'
+end
 
 if node[:platform] == 'darwin'
   define :preferences do
@@ -107,16 +122,6 @@ if node[:platform] == 'darwin'
     not_if "test $(which rustc)"
   end
 
-  execute 'Install Homebrew' do
-    command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
-    not_if "test $(which brew)"
-  end
-
-  dotfile '.Brewfile'
-  execute 'Install Homebrew packages' do
-    command "brew bundle install --global --cleanup"
-    not_if "brew bundle check --global"
-  end
 
   define :install_env_version, version: nil do
     cmd = "#{params[:name]} install #{params[:version]}"
