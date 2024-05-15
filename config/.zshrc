@@ -13,6 +13,7 @@ export GOPATH=$HOME/.go
 export PATH=$HOME/bin
 ## Build
 export PATH=$PATH:$HOME/.local/bin # Created by `pipx`
+if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$WANTEDLY_HOME/bin # kube
