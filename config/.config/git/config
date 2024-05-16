@@ -6,9 +6,6 @@
 [user]
 	name = Shimpei Otsubo
 	email = potsbo@gmail.com
-[diff]
-  tool = difftastic
-  external = difft
 [difftool]
   prompt = false
 [difftool "difftastic"]
