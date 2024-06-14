@@ -3,7 +3,6 @@ autocmd BufNewFile,BufRead *.ejs set filetype=html
 
 " Shift-Option-F
 noremap Ï :LspDocumentFormat<CR>
-autocmd BufNewFile,BufRead *.ts,*.tsx,*.json :noremap Ï :PrettierAsync<CR>
 autocmd BufNewFile,BufRead *.hs :noremap Ï :Hindent<CR>
 
 if system("git rev-parse --is-inside-work-tree 2> /dev/null ; echo $?") == 0

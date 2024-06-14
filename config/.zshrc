@@ -246,3 +246,6 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+# VSCode で emacs キーバインドを使うため
+bindkey -e

@@ -43,7 +43,7 @@
   refresh-default-branch= "!f() { git set-branch-cache default $(git fetch-default-branch); }; f"
   default-branch = "!f() { git get-branch-cache default || (git refresh-default-branch; git get-branch-cache default); }; f"
 [push]
-  default = current
+	default = current
 [include]
 	path = os
 [github]
