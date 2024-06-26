@@ -1,0 +1,8 @@
+{
+  "diagnostics": {
+    // 明示的に定義されていない vim モジュールをよしとする場合
+    "globals": ["vim"],
+    // 細かい助言がいらない場合
+    "hint.enable": false
+  }
+}
