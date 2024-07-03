@@ -4,9 +4,13 @@
 
 -- move for dvorak
 vim.keymap.set("n", "d", "h", { noremap = true })
+vim.keymap.set("v", "d", "h", { noremap = true })
 vim.keymap.set("n", "h", "gj", { noremap = true })
+vim.keymap.set("v", "h", "gj", { noremap = true })
 vim.keymap.set("n", "t", "gk", { noremap = true })
+vim.keymap.set("v", "t", "gk", { noremap = true })
 vim.keymap.set("n", "n", "l", { noremap = true })
+vim.keymap.set("v", "n", "l", { noremap = true })
 vim.keymap.set("n", "<Space>d", "^", { noremap = true })
 vim.keymap.set("n", "<Space>h", "G", { noremap = true })
 vim.keymap.set("n", "<Space>t", "gg", { noremap = true })
