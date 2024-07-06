@@ -15,6 +15,16 @@
         "patch"
       ],
       "automerge": true
+    },
+    {
+      "matchFileNames": [
+        "aqua.yaml"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
     }
   ]
 }
