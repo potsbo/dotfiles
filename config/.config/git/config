@@ -42,6 +42,7 @@
   fetch-default-branch = "!f() { git ls-remote --symref $(git remote get-url origin) HEAD | grep 'refs/heads' | awk '$0=$2' | sed 's/refs\\/heads\\///'; }; f"
   refresh-default-branch= "!f() { git set-branch-cache default $(git fetch-default-branch); }; f"
   default-branch = "!f() { git get-branch-cache default || (git refresh-default-branch; git get-branch-cache default); }; f"
+  set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
 [push]
 	default = current
 [include]
