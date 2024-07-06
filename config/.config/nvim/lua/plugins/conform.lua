@@ -8,6 +8,8 @@ return {
       formatters_by_ft = {
         sql = { "sqlfmt", "trim_newlines" },
         typescript = { "prettier" },
+        python = { "isort", "black" },
+        json = { "fixjson", "jq" },
       },
     },
   },
