@@ -57,3 +57,6 @@ vim.keymap.set("n", "zv", ":vs<CR>", { noremap = true })
 
 -- emacs keybind in command mode
 vim.keymap.set("c", "<C-a>", "<Home>", { noremap = true })
+vim.keymap.set("c", "<C-e>", "<End>", { noremap = true })
+vim.keymap.set("i", "<C-a>", "<Home>", { noremap = true })
+vim.keymap.set("i", "<C-e>", "<End>", { noremap = true })
