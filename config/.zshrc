@@ -9,8 +9,7 @@ export GOPATH=$HOME/.go
 
 
 # PATH
-## Override
-export PATH=$HOME/bin
+export PATH=$HOME/bin:$PATH
 ## Build
 export PATH=$PATH:$HOME/.local/bin # Created by `pipx`
 if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
