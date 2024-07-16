@@ -98,6 +98,10 @@ if type fzf &> /dev/null; then
   eval "$(fzf --zsh)"
 fi
 
+if type deno &> /dev/null; then
+  eval "$(deno completions zsh)"
+fi
+
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
 _prompt_git_info() {
