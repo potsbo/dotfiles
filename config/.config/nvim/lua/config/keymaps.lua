@@ -60,3 +60,7 @@ vim.keymap.set("c", "<C-a>", "<Home>", { noremap = true })
 vim.keymap.set("c", "<C-e>", "<End>", { noremap = true })
 vim.keymap.set("i", "<C-a>", "<Home>", { noremap = true })
 vim.keymap.set("i", "<C-e>", "<End>", { noremap = true })
+
+-- https://superuser.com/questions/846854/in-vim-how-do-you-delete-to-end-of-line-while-in-command-mode
+vim.keymap.set("c", "<C-k>", "<C-\\>estrpart(getcmdline(),0,getcmdpos()-1)<CR>", { noremap = true })
+-- imap <C-k> <C-r>=<SID>kill()<CR>
