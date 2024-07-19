@@ -8,6 +8,7 @@ return {
         ["t"] = "",
         ["h"] = "",
         ["z"] = "",
+        ["d"] = "close_node",
         ["n"] = "open",
         -- VSCode like
         ["<cr>"] = "rename",
