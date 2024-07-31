@@ -12,7 +12,7 @@ registries:
 packages:
 - name: denoland/deno@v1.45.4
 - name: twistedpair/google-cloud-sdk@483.0.0
-- name: junegunn/fzf@v0.54.2
+- name: junegunn/fzf@v0.54.3
 - name: BurntSushi/ripgrep@14.1.0
 - name: x-motemen/ghq@v1.6.2
 - name: sharkdp/bat@v0.24.0
