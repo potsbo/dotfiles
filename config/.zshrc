@@ -15,7 +15,6 @@ export PATH=$PATH:$HOME/.local/bin # Created by `pipx`
 if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.cargo/bin
-export PATH=$PATH:$WANTEDLY_HOME/bin # kube
 ## System
 export PATH=$PATH:/bin               # cat, cp, ...
 export PATH=$PATH:/sbin              # ping, ifconfig, ...
@@ -187,11 +186,6 @@ _update_prompt() {
 		line_1="${line_1}  %(1j,%{$fg[red]%}%j job%(2j,s,)%{$reset_color%},)"
 	fi
 
-	# Wantedly
-	if [ -n "${KUBE_FORK_TARGET_ENV}" ]; then
-		line_1="${line_1}  %{$fg[yellow]%}(fork: ${KUBE_FORK_TARGET_ENV})%{$reset_color%}"
-	fi
-
 	line_2="%(?.%{$fg[green]%}:).%{$fg[red]%}:()%{$reset_color%} %# "
 
 	PROMPT=$'\n'${line_1}$'\n'${line_2}
@@ -214,11 +208,6 @@ export GODEBUG=asyncpreemptoff=1
 export CGO_ENABLED=0
 setopt HIST_IGNORE_ALL_DUPS
 export HISTSIZE=100000
-
-if command -v kube &> /dev/null
-then
-	source <(kube completion zsh)
-fi
 
 _register_keycommand() {
   zle -N $2
@@ -249,6 +238,7 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="/opt/homebrew/anaconda3/bin:$PATH"
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e
