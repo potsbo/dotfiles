@@ -234,18 +234,6 @@ if [ -f '/Users/potsbo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/g
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/potsbo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'; fi
 
-export PATH="$HOME/.ghcup/bin:$PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
-if [ -f "$HOME/.rye/env" ]; then source "$HOME/.rye/env"; fi
-
-# export PATH="/opt/homebrew/anaconda3/bin:$PATH"  # commented out by conda initialize
-
-# VSCode で emacs キーバインドを使うため
-bindkey -e
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -261,3 +249,14 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+export PATH="$HOME/.ghcup/bin:$PATH"
+export PATH="$HOME/.cabal/bin:$PATH"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+if [ -f "$HOME/.rye/env" ]; then source "$HOME/.rye/env"; fi
+
+# export PATH="/opt/homebrew/anaconda3/bin:$PATH"  # commented out by conda initialize
+
+# VSCode で emacs キーバインドを使うため
+bindkey -e
