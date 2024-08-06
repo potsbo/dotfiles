@@ -238,6 +238,9 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+
+if [ -f "$HOME/.rye/env" ]; then source "$HOME/.rye/env"; fi
+
 # export PATH="/opt/homebrew/anaconda3/bin:$PATH"  # commented out by conda initialize
 
 # VSCode で emacs キーバインドを使うため
