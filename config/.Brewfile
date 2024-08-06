@@ -6,7 +6,6 @@ brew "ijq"
 brew "libyaml" # for ruby-build
 brew "nodenv"
 brew "pipx" # to intell poetry
-brew "pyenv"
 brew "rbenv"
 brew "reattach-to-user-namespace"
 brew "tree"

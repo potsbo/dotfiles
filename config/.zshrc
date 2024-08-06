@@ -88,9 +88,6 @@ fi
 if [ -d $HOME/.nodenv ]; then
 	eval "$(nodenv init -)"
 fi
-if [ -d $HOME/.pyenv ]; then
-	eval "$(pyenv init -)"
-fi
 eval "$(direnv hook zsh)"
 
 if type fzf &> /dev/null; then
