@@ -1,0 +1,4 @@
+[tools]
+usage = "latest"
+node = "latest"
+ruby = "3.2"

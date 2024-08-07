@@ -70,9 +70,6 @@ alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate
 
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 
-if [ -d $HOME/.rbenv ]; then
-	eval "$(rbenv init - zsh)"
-fi
 eval "$(direnv hook zsh)"
 
 if type fzf &> /dev/null; then
@@ -209,7 +206,10 @@ _register_keycommand "^]" _ghq_fzf
 # for `go test -race ...`
 export CGO_ENABLED=1
 
-eval "$(mise activate zsh)"
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+  eval "$(mise completion zsh)"
+fi
 
 if [ -f "$HOME/.rye/env" ]; then source "$HOME/.rye/env"; fi
 if command -v rye &> /dev/null; then
