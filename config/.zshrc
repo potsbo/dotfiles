@@ -79,9 +79,6 @@ if type fzf &> /dev/null; then
   eval "$(fzf --zsh)"
 fi
 
-if command -v fnm &> /dev/null; then; eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"; fi
-if command -v fnm &> /dev/null; then; eval "$(fnm completions --shell zsh)"; fi
-
 if type deno &> /dev/null; then
   eval "$(deno completions zsh)"
 fi
@@ -211,6 +208,8 @@ _register_keycommand "^]" _ghq_fzf
 
 # for `go test -race ...`
 export CGO_ENABLED=1
+
+eval "$(mise activate zsh)"
 
 if [ -f "$HOME/.rye/env" ]; then source "$HOME/.rye/env"; fi
 if command -v rye &> /dev/null; then
