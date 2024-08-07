@@ -4,7 +4,6 @@ export LC_ALL=$LANG
 export EDITOR=nvim
 
 # PATH Base
-export WANTEDLY_HOME=$HOME/.wantedly
 export GOPATH=$HOME/.go
 
 
@@ -23,18 +22,8 @@ export PATH=$PATH:/usr/sbin          # chown, chroot, ...
 export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
 
-
-ARCH=$(arch)
-if [ "$ARCH" = "arm64" ]; then
-  export PATH=/opt/homebrew/bin:$PATH
-  export RUSTUP_HOME=$HOME/arm64/.rustup
-  export CARGO_HOME=$HOME/arm64/.cargo
-  if [ -f /Users/potsbo/arm64/.cargo/env ]; then
-    source /Users/potsbo/arm64/.cargo/env
-  fi
-  export PATH=$CARGO_HOME/bin:$PATH
-else
-	export PATH=$PATH:/usr/local/bin
+if [ -f "/opt/homebrew/bin/brew" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # M1 Mac で amd64 の docker image を動かすため
@@ -68,15 +57,14 @@ alias lla='ls -lA'
 function chpwd() { ls }
 
 ### Utility alias
-alias zshrc='vim ~/.zshrc'
-alias vimrc='vim ~/.config/nvim/init.lua'
+alias zshrc='nvim ~/.zshrc'
+alias vimrc='nvim ~/.config/nvim/init.lua'
 
 # Git
 function cam { git commit -am "$*" }
 function com { git commit -m "$*" }
 function CAM { git add -A && git commit -am "$*" }
 
-alias vim='nvim'
 alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --prompt 'GIT BRANCH>' | cut -d$'\t' -f2\`"
 alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>'| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 
@@ -85,14 +73,14 @@ export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua
 if [ -d $HOME/.rbenv ]; then
 	eval "$(rbenv init - zsh)"
 fi
-if [ -d $HOME/.nodenv ]; then
-	eval "$(nodenv init -)"
-fi
 eval "$(direnv hook zsh)"
 
 if type fzf &> /dev/null; then
   eval "$(fzf --zsh)"
 fi
+
+if command -v fnm &> /dev/null; then; eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"; fi
+if command -v fnm &> /dev/null; then; eval "$(fnm completions --shell zsh)"; fi
 
 if type deno &> /dev/null; then
   eval "$(deno completions zsh)"
@@ -202,7 +190,6 @@ export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 # https://github.com/golang/go/issues/42700
 export GODEBUG=asyncpreemptoff=1
-export CGO_ENABLED=0
 setopt HIST_IGNORE_ALL_DUPS
 export HISTSIZE=100000
 
@@ -225,35 +212,10 @@ _register_keycommand "^]" _ghq_fzf
 # for `go test -race ...`
 export CGO_ENABLED=1
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/potsbo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/potsbo/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/potsbo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/potsbo/google-cloud-sdk/completion.zsh.inc'; fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-export PATH="$HOME/.ghcup/bin:$PATH"
-export PATH="$HOME/.cabal/bin:$PATH"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 if [ -f "$HOME/.rye/env" ]; then source "$HOME/.rye/env"; fi
-
-# export PATH="/opt/homebrew/anaconda3/bin:$PATH"  # commented out by conda initialize
+if command -v rye &> /dev/null; then
+  eval "$(rye self completion -s zsh)"
+fi
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e
