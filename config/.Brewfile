@@ -19,6 +19,7 @@ cask "notion"
 cask "notion-calendar"
 cask "google-cloud-sdk"
 cask "font-monaspace-nerd-font"
+cask "tailscale"
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
 mas "Slack", id: 803453959

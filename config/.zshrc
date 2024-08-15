@@ -209,6 +209,7 @@ export CGO_ENABLED=1
 if command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
   eval "$(mise completion zsh)"
+  eval "$(mise hook-env -s zsh)"
 fi
 
 if [ -f "$HOME/.rye/env" ]; then source "$HOME/.rye/env"; fi
@@ -218,3 +219,5 @@ fi
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e
+
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"

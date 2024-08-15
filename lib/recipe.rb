@@ -45,6 +45,7 @@ dotfile '.tmux-powerlinerc'
 dotfile '.bash_profile'
 dotfile 'bin'
 dotfile '.clipper.json'
+dotfile '.default-npm-packages'
 
 dotfile 'aqua.yaml'
 if node[:platform] == 'darwin'
