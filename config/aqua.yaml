@@ -8,7 +8,7 @@
 #   - all
 registries:
   - type: standard
-    ref: v4.213.1 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.214.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: denoland/deno@v1.45.5
   - name: twistedpair/google-cloud-sdk@483.0.0
@@ -22,8 +22,8 @@ packages:
   - name: mikefarah/yq@v4.44.3
   - name: YS-L/csvlens@v0.10.0
   - name: golang/go@go1.23.0
-  - name: cli/cli@v2.54.0
+  - name: cli/cli@v2.55.0
   - name: Wilfred/difftastic@0.60.0
   - name: astral-sh/rye@0.38.0
   - name: Schniz/fnm@v1.37.1
-  - name: jdx/mise@v2024.8.6
+  - name: jdx/mise@v2024.8.12
