@@ -9,6 +9,12 @@ MItamae::RecipeContext.class_eval do
     else fail "unknown arch: #{arch}"
     end
   end
+
+  def wsl_environment?
+    File.open("/proc/version") do |file|
+      file.each_line.any? { |line| line =~ /(Microsoft|WSL2)/i }
+    end
+  end
 end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
@@ -117,58 +123,11 @@ if node[:platform] == 'darwin'
     command 'defaults write .GlobalPreferences com.apple.trackpad.scaling -int 2'
     not_if '[ "$(defaults read .GlobalPreferences com.apple.trackpad.scaling)" = "2" ]'
   end
+end
 
-  execute 'Install Rust' do
-    command "bash -lc 'curl https://sh.rustup.rs -sSf | sh -s -- -y'"
-    not_if "test $(which rustc)"
-  end
-
-
-  define :install_env_version, version: nil do
-    cmd = "#{params[:name]} install #{params[:version]}"
-    execute cmd do
-      command cmd
-      not_if "#{params[:name]} versions --bare | grep '^#{params[:version]}$'"
-    end
-  end
-
-  define :env_global, version: nil do
-    cmd = "#{params[:name]} global #{params[:version]} && #{params[:name]} rehash"
-    check_cmd = "#{params[:name]} global | grep '#{params[:version]}'"
-
-    execute cmd do
-      command cmd
-      not_if check_cmd
-    end
-  end
-
-  define :langenv, { versions: [], global: '' } do
-    versions = Array(params[:versions])
-    versions.each do |v|
-      install_env_version params[:name] do
-        version v
-      end
-    end
-
-    global_v = params[:global] || versions[0]
-
-    env_global params[:name] do
-      version global_v
-    end
-  end
-
-  langenv 'rbenv' do
-    versions '3.1.1'
-    global '3.1.1'
-  end
-
-  langenv 'nodenv' do
-    versions '18.9.0'
-    global '18.9.0'
-  end
-
-  langenv 'pyenv' do
-    versions '3.10.6'
-    global '3.10.6'
+if wsl_environment?
+  link File.join(ENV['HOME'], "win") do
+    to "/mnt/c/Users/potsb"
+    force true
   end
 end
