@@ -233,3 +233,6 @@ fi
 bindkey -e
 
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
+if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
