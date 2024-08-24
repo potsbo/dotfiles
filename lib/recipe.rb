@@ -135,6 +135,18 @@ if wsl_environment?
     to File.join(ENV['HOME'], "win/.ssh/id")
     force true
   end
+  file File.join(ENV['HOME'], ".local/share/applications/file-protocol-handler.desktop") do
+    action :create
+    content <<-EOF
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=File Protocol Handler
+NoDisplay=true
+Exec=rundll32.exe url.dll,FileProtocolHandler
+MimeType=x-scheme-handler/unknown;x-scheme-handler/about;x-scheme-handler/https;x-scheme-handler/http;text/html;
+EOF
+  end
 end
 
 if node[:platform] == "ubuntu"
