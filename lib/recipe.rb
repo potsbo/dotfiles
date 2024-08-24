@@ -1,17 +1,15 @@
 # NOTE: make it work, refactor later
 
 MItamae::RecipeContext.class_eval do
-  def brew_prefix
-    arch = `uname -m`.chomp
-    case arch
-    when 'x86_64'; '/usr/local'
-    when 'arm64';  '/opt/homebrew'
-    else fail "unknown arch: #{arch}"
+  def wsl_environment?
+    File.open("/proc/version") do |file|
+      file.each_line.any? { |line| line =~ /(Microsoft|WSL2)/i }
     end
   end
 end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
+AQUA = "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua"
 
 define :dotfile, source: nil do
   source = params[:source] || params[:name]
@@ -60,10 +58,18 @@ if node[:platform] == 'darwin'
     not_if "brew bundle check --global"
   end
 end
+
+if node[:platform] == "ubuntu"
+  execute "aqua install" do
+    command "curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer | bash"
+    not_if "command -v #{AQUA}"
+  end
+end
+
 # aqua が brew の install に依存するのでこの順で書く
 execute 'Install aqua links' do
-  command 'aqua install --only-link'
-  only_if 'command -v aqua'
+  command "#{AQUA} install --only-link"
+  only_if "command -v #{AQUA}"
 end
 
 if node[:platform] == 'darwin'
@@ -117,58 +123,69 @@ if node[:platform] == 'darwin'
     command 'defaults write .GlobalPreferences com.apple.trackpad.scaling -int 2'
     not_if '[ "$(defaults read .GlobalPreferences com.apple.trackpad.scaling)" = "2" ]'
   end
+end
 
-  execute 'Install Rust' do
-    command "bash -lc 'curl https://sh.rustup.rs -sSf | sh -s -- -y'"
-    not_if "test $(which rustc)"
+if wsl_environment?
+  link File.join(ENV['HOME'], "win") do
+    to "/mnt/c/Users/potsb"
+    force true
   end
+  directory File.join(ENV['HOME'], ".local/ssh")
+  link File.join(ENV['HOME'], ".local/ssh/id") do
+    to File.join(ENV['HOME'], "win/.ssh/id")
+    force true
+  end
+  file File.join(ENV['HOME'], ".local/share/applications/file-protocol-handler.desktop") do
+    action :create
+    content <<-EOF
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=File Protocol Handler
+NoDisplay=true
+Exec=rundll32.exe url.dll,FileProtocolHandler
+MimeType=x-scheme-handler/unknown;x-scheme-handler/about;x-scheme-handler/https;x-scheme-handler/http;text/html;
+EOF
+  end
+end
 
+if node[:platform] == "ubuntu"
+  execute "apt update" do
+    command "apt update"
+    user 'root'
+  end
+  packages = [
+    "zsh",
+    "gcc",
+    "wl-clipboard",
+    "make",
+    "locales-all",
+    "unzip",
 
-  define :install_env_version, version: nil do
-    cmd = "#{params[:name]} install #{params[:version]}"
-    execute cmd do
-      command cmd
-      not_if "#{params[:name]} versions --bare | grep '^#{params[:version]}$'"
+    # ruby build
+    "zlib1g-dev",
+    "libssl-dev",
+    "libreadline-dev",
+    "libyaml-dev",
+  ]
+  packages.each do |pkg|
+    package pkg do
+      user 'root'
     end
   end
-
-  define :env_global, version: nil do
-    cmd = "#{params[:name]} global #{params[:version]} && #{params[:name]} rehash"
-    check_cmd = "#{params[:name]} global | grep '#{params[:version]}'"
-
-    execute cmd do
-      command cmd
-      not_if check_cmd
-    end
+  execute "login with zsh " do
+    command "sudo chsh -s $(which zsh) $(whoami)"
+    not_if '[ "$(getent passwd $(whoami) | cut -d: -f7)" = "$(which zsh)" ]'
   end
+end
 
-  define :langenv, { versions: [], global: '' } do
-    versions = Array(params[:versions])
-    versions.each do |v|
-      install_env_version params[:name] do
-        version v
-      end
-    end
+execute 'mise' do
+  command "#{AQUA} exec mise install"
+end
 
-    global_v = params[:global] || versions[0]
-
-    env_global params[:name] do
-      version global_v
-    end
-  end
-
-  langenv 'rbenv' do
-    versions '3.1.1'
-    global '3.1.1'
-  end
-
-  langenv 'nodenv' do
-    versions '18.9.0'
-    global '18.9.0'
-  end
-
-  langenv 'pyenv' do
-    versions '3.10.6'
-    global '3.10.6'
+if node[:platform] == "ubuntu"
+  execute "install tailscale" do
+    command "curl -fsSL https://tailscale.com/install.sh | sh"
+    not_if "command -v tailscale"
   end
 end

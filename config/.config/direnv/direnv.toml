@@ -1,0 +1,2 @@
+[whitelist]
+prefix = ["~/.go/src/github.com/medicu-inc", "~/.go/src/github.com/potsbo"]

@@ -42,7 +42,21 @@ setopt dvorak
 ###setting
 setopt no_beep
 setopt interactive_comments
+
+# history
+setopt append_history
 setopt share_history
+setopt inc_append_history
+setopt inc_append_history_time
+setopt hist_ignore_all_dups
+unsetopt hist_no_store
+unsetopt hist_ignore_dups
+unsetopt hist_find_no_dups
+
+export HISTFILE="${HOME}/.zsh_history"
+export SAVEHIST=100000
+export HISTSIZE=100000
+
 
 ## ls
 if command -v gls &> /dev/null
@@ -184,8 +198,6 @@ export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
 # https://github.com/golang/go/issues/42700
 export GODEBUG=asyncpreemptoff=1
-setopt HIST_IGNORE_ALL_DUPS
-export HISTSIZE=100000
 
 _register_keycommand() {
   zle -N $2
@@ -220,4 +232,6 @@ fi
 # VSCode で emacs キーバインドを使うため
 bindkey -e
 
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"; fi
+if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
+if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
