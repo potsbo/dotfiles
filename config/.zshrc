@@ -53,6 +53,7 @@ unsetopt hist_no_store
 unsetopt hist_ignore_dups
 unsetopt hist_find_no_dups
 
+export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=100000
 export HISTSIZE=100000
 
