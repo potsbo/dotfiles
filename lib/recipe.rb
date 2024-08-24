@@ -77,7 +77,7 @@ end
 
 # aqua が brew の install に依存するのでこの順で書く
 execute 'Install aqua links' do
-  command 'aqua install --only-link'
+  command "#{AQUA} install --only-link"
   only_if "command -v #{AQUA}"
 end
 
@@ -157,6 +157,7 @@ if node[:platform] == "ubuntu"
     "wl-clipboard",
     "make",
     "locales-all",
+    "unzip",
 
     # ruby build
     "zlib1g-dev",
@@ -176,5 +177,5 @@ if node[:platform] == "ubuntu"
 end
 
 execute 'mise' do
-  command 'mise install'
+  command "#{AQUA} exec mise install"
 end
