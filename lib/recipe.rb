@@ -1,15 +1,6 @@
 # NOTE: make it work, refactor later
 
 MItamae::RecipeContext.class_eval do
-  def brew_prefix
-    arch = `uname -m`.chomp
-    case arch
-    when 'x86_64'; '/usr/local'
-    when 'arm64';  '/opt/homebrew'
-    else fail "unknown arch: #{arch}"
-    end
-  end
-
   def wsl_environment?
     File.open("/proc/version") do |file|
       file.each_line.any? { |line| line =~ /(Microsoft|WSL2)/i }
@@ -178,4 +169,11 @@ end
 
 execute 'mise' do
   command "#{AQUA} exec mise install"
+end
+
+if node[:platform] == "ubuntu"
+  execute "install tailscale" do
+    command "curl -fsSL https://tailscale.com/install.sh | sh"
+    not_if "command -v tailscale"
+  end
 end

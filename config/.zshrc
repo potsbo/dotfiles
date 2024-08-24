@@ -232,7 +232,6 @@ fi
 # VSCode で emacs キーバインドを使うため
 bindkey -e
 
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-
+if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"; fi
 if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
 if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
