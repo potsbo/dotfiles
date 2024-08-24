@@ -18,6 +18,7 @@ MItamae::RecipeContext.class_eval do
 end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
+AQUA = "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua"
 
 define :dotfile, source: nil do
   source = params[:source] || params[:name]
@@ -66,10 +67,18 @@ if node[:platform] == 'darwin'
     not_if "brew bundle check --global"
   end
 end
+
+if node[:platform] == "ubuntu"
+  execute "aqua install" do
+    command "curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer | bash"
+    not_if "command -v #{AQUA}"
+  end
+end
+
 # aqua が brew の install に依存するのでこの順で書く
 execute 'Install aqua links' do
   command 'aqua install --only-link'
-  only_if 'command -v aqua'
+  only_if "command -v #{AQUA}"
 end
 
 if node[:platform] == 'darwin'
@@ -130,4 +139,42 @@ if wsl_environment?
     to "/mnt/c/Users/potsb"
     force true
   end
+  directory File.join(ENV['HOME'], ".local/ssh")
+  link File.join(ENV['HOME'], ".local/ssh/id") do
+    to File.join(ENV['HOME'], "win/.ssh/id")
+    force true
+  end
+end
+
+if node[:platform] == "ubuntu"
+  execute "apt update" do
+    command "apt update"
+    user 'root'
+  end
+  packages = [
+    "zsh",
+    "gcc",
+    "wl-clipboard",
+    "make",
+    "locales-all",
+
+    # ruby build
+    "zlib1g-dev",
+    "libssl-dev",
+    "libreadline-dev",
+    "libyaml-dev",
+  ]
+  packages.each do |pkg|
+    package pkg do
+      user 'root'
+    end
+  end
+  execute "login with zsh " do
+    command "sudo chsh -s $(which zsh) $(whoami)"
+    not_if '[ "$(getent passwd $(whoami) | cut -d: -f7)" = "$(which zsh)" ]'
+  end
+end
+
+execute 'mise' do
+  command 'mise install'
 end

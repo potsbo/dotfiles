@@ -7,7 +7,7 @@
 set -eu
 
 has() {
-  return `type $1 > /dev/null 2>&1`
+  return $(type $1 >/dev/null 2>&1)
 }
 
 REPO="github.com/potsbo/dotfiles"
@@ -32,6 +32,11 @@ download() {
     exit 1
   fi
 }
+
+if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
+  pattern='%sudo ALL=(ALL) NOPASSWD:ALL'
+  sudo grep -qxF "$pattern" /etc/sudoers || echo "$pattern" | sudo tee -a /etc/sudoers >/dev/null
+fi
 
 if [ ! -d $DOTPATH ]; then
   download
