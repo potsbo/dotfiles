@@ -66,4 +66,4 @@
 [init]
 	defaultBranch = main
 [ghq]
-	root = ~/.go/src
+	root = ~/src

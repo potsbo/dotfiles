@@ -2,6 +2,8 @@
 
 MItamae::RecipeContext.class_eval do
   def wsl_environment?
+    return false unless File.exist?("/proc/version")
+
     File.open("/proc/version") do |file|
       file.each_line.any? { |line| line =~ /(Microsoft|WSL2)/i }
     end
@@ -9,7 +11,7 @@ MItamae::RecipeContext.class_eval do
 end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
-AQUA = "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua"
+AQUA = node[:platform] == "darwin" ? "/opt/homebrew/bin/aqua" : "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua"
 
 define :dotfile, source: nil do
   source = params[:source] || params[:name]
@@ -44,6 +46,11 @@ dotfile '.bash_profile'
 dotfile 'bin'
 dotfile '.clipper.json'
 dotfile '.default-npm-packages'
+
+directory File.join(ENV['HOME'], 'go')
+link File.join(ENV['HOME'], 'go/src')do
+  to File.join(ENV['HOME'], 'src')
+end
 
 dotfile 'aqua.yaml'
 if node[:platform] == 'darwin'
