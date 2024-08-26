@@ -60,9 +60,6 @@ if command -v gls &> /dev/null
 then
 	alias ls='gls --color --hyperlink=auto --classify'
 fi
-alias la='ls -A'
-alias ll='ls -l'
-alias lla='ls -lA'
 
 # ls just after cd
 function chpwd() { ls }
