@@ -2298,6 +2298,7 @@
                         "vendor_id": 1278
                     },
                     "ignore": false,
+                    "mouse_flip_horizontal_wheel": true,
                     "mouse_flip_vertical_wheel": true
                 }
             ],
