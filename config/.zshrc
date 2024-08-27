@@ -3,16 +3,13 @@ export LANG=en_US.UTF-8 # kitty 上での日本語の表示のため
 export LC_ALL=$LANG
 export EDITOR=nvim
 
-# PATH Base
-export GOPATH=$HOME/.go
-
 
 # PATH
 export PATH=$HOME/bin:$PATH
 ## Build
 export PATH=$PATH:$HOME/.local/bin # Created by `pipx`
 if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.cargo/bin
 ## System
 export PATH=$PATH:/bin               # cat, cp, ...

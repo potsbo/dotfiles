@@ -11,7 +11,7 @@ has() {
 }
 
 REPO="github.com/potsbo/dotfiles"
-DOTPATH="${HOME}/.go/src/${REPO}"
+DOTPATH="${HOME}/src/${REPO}"
 
 download() {
   local github_url="https://${REPO}"
@@ -39,6 +39,7 @@ if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
 fi
 
 if [ ! -d $DOTPATH ]; then
+  echo "$DOTPATH not found. Cloning..."
   download
 fi
 
@@ -57,8 +58,8 @@ if [ "$(uname)" = "Linux" ]; then
     apt update
 
     # ghq のために workspace 自体もリンクする
-    mkdir -p "${HOME}/.go/src/github.com/$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)"
-    TARGET_REPO_PATH="${HOME}/.go/src/github.com/${GITHUB_REPOSITORY}"
+    mkdir -p "${HOME}/src/github.com/$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)"
+    TARGET_REPO_PATH="${HOME}/src/github.com/${GITHUB_REPOSITORY}"
     if [ ! -e "${TARGET_REPO_PATH}" ]; then
       # 起動時は CODESPACE_VSCODE_FOLDER が使えなかったので手動で構築
       ln -s "/workspaces/$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" "${TARGET_REPO_PATH}"

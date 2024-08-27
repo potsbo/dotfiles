@@ -569,6 +569,38 @@
                         ]
                     },
                     {
+                        "description": "Right Option only to Alt+shift+space to invoke Todoist",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.vmware\\.fusion$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "right_option",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_option",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "spacebar",
+                                        "modifiers": ["option", "shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Remap keys to use Anpan keyboard layout",
                         "manipulators": [
                             {
@@ -2117,7 +2149,7 @@
                         },
                         {
                             "from": { "key_code": "right_command" },
-                            "to": [{ "key_code": "left_option" }]
+                            "to": [{ "key_code": "right_option" }]
                         },
                         {
                             "from": { "key_code": "right_option" },
@@ -2298,6 +2330,7 @@
                         "vendor_id": 1278
                     },
                     "ignore": false,
+                    "mouse_flip_horizontal_wheel": true,
                     "mouse_flip_vertical_wheel": true
                 }
             ],
