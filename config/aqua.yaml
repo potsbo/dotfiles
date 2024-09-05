@@ -8,11 +8,11 @@
 #   - all
 registries:
   - type: standard
-    ref: v4.218.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.219.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: denoland/deno@v1.46.1
+  - name: denoland/deno@v1.46.3
   - name: twistedpair/google-cloud-sdk@483.0.0
-  - name: junegunn/fzf@v0.54.3
+  - name: junegunn/fzf@v0.55.0
   - name: BurntSushi/ripgrep@14.1.0
   - name: x-motemen/ghq@v1.6.2
   - name: sharkdp/bat@v0.24.0
@@ -26,5 +26,5 @@ packages:
   - name: Wilfred/difftastic@0.60.0
   - name: astral-sh/rye@0.39.0
   - name: Schniz/fnm@v1.37.1
-  - name: jdx/mise@v2024.8.12
+  - name: jdx/mise@v2024.9.0
   - name: git-lfs/git-lfs@v3.5.1

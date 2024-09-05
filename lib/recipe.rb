@@ -168,6 +168,8 @@ if node[:platform] == "ubuntu"
     "make",
     "locales-all",
     "unzip",
+    "tldr",
+    "wslu",
 
     # ruby build
     "zlib1g-dev",
