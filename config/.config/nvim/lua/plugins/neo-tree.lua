@@ -10,6 +10,7 @@ return {
         ["z"] = "",
         ["d"] = "close_node",
         ["n"] = "open",
+        ["j"] = "delete",
         -- VSCode like
         ["<cr>"] = "rename",
       },

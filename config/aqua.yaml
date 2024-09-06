@@ -10,7 +10,7 @@ registries:
   - type: standard
     ref: v4.219.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: denoland/deno@v1.46.2
+  - name: denoland/deno@v1.46.3
   - name: twistedpair/google-cloud-sdk@483.0.0
   - name: junegunn/fzf@v0.55.0
   - name: BurntSushi/ripgrep@14.1.0
@@ -21,10 +21,10 @@ packages:
   - name: neovim/neovim@v0.10.1
   - name: mikefarah/yq@v4.44.3
   - name: YS-L/csvlens@v0.10.0
-  - name: golang/go@go1.23.0
+  - name: golang/go@go1.23.1
   - name: cli/cli@v2.55.0
   - name: Wilfred/difftastic@0.60.0
   - name: astral-sh/rye@0.39.0
   - name: Schniz/fnm@v1.37.1
-  - name: jdx/mise@v2024.8.15
+  - name: jdx/mise@v2024.9.0
   - name: git-lfs/git-lfs@v3.5.1
