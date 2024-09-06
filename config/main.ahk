@@ -1,5 +1,9 @@
 ﻿#Requires AutoHotkey v2.0
 
+; これがないとタイピングが早すぎると途中で固まってしまう
+SendMode "Event"
+A_MaxHotkeysPerInterval := 200
+
 ; 共通設定
 ~LControl up::
 {
