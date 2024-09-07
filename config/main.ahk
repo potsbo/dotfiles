@@ -1,5 +1,9 @@
 ﻿#Requires AutoHotkey v2.0
 
+; これがないとタイピングが早すぎると途中で固まってしまう
+SendMode "Event"
+A_MaxHotkeysPerInterval := 200
+
 ; 共通設定
 ~LControl up::
 {
@@ -69,8 +73,38 @@ RWin Up::
 
 #HotIf (not WinActive("ahk_exe FlightSimulator.exe")) and (not WinActive("ahk_exe FactoryGame-Win64-Shipping.exe"))
 
+
+; Dvorak
+; row 1
+`::+4
+1::!
+2::[
+3::+[
+4::+9
+5::=
+6::+
+7::)
+8::+]
+9::]
+0::+8
+-::+7
+=::`
+
++`::+`
++1::1
++2::2
++3::3
++4::4
++5::5
++6::6
++7::7
++8::8
++9::9
++0::0
++-::+5
+
+; row 2
 q::'
-+q::"
 w::,
 e::.
 r::p
@@ -82,11 +116,11 @@ o::r
 p::l
 [::/
 ]::@
+
 +]::+6
-=::`
 +=::+3
 
-
+; row 3
 ;a::a
 s::o
 d::e
@@ -99,11 +133,8 @@ l::n
 `;::s
 '::-
 
+; row 4
 z::;
-+z::
-{
-    Send ":"
-}
 x::q
 c::j
 v::k
@@ -114,6 +145,7 @@ n::b
 .::v
 /::z
 
+; emac keybinding
 #HotIf not WinActive("ahk_exe WindowsTerminal.exe")
 ^a::Home
 ^e::End
@@ -149,33 +181,18 @@ n::b
 !Enter::^Enter
 !/::^/
 !=::!=
-
-1::!
-2::[
-3::+[
-4::+9
-5::=
-6::+
-7::)
-8::+]
-9::]
-0::+8
--::+7
-
-+1::1
-+2::2
-+3::3
-+4::4
-+5::5
-+6::6
-+7::7
-+8::8
-+9::9
-+0::0
-+-::+5
-+`::+`
-`::+4
-`;::s
+!1::^1
+!2::^2
+!3::^3
+!4::^4
+!5::^5
+!6::^6
+!7::^7
+!8::^8
+!9::^9
+!0::^0
+!=::^=
+!-::^-
 
 #HotIf WinActive("ahk_exe slack.exe")
 !k::^t
