@@ -169,6 +169,7 @@ if node[:platform] == "ubuntu"
     "unzip",
     "tldr",
     "wslu",
+    "openssh-server",
 
     # ruby build
     "zlib1g-dev",

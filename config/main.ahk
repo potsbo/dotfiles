@@ -146,11 +146,8 @@ n::b
 /::z
 
 ; emac keybinding
-#HotIf not WinActive("ahk_exe WindowsTerminal.exe")
 ^a::Home
 ^e::End
-#HotIf
-
 ^f::Right
 ^b::Left
 ^n::Down
