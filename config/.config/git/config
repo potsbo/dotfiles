@@ -67,3 +67,5 @@
 	defaultBranch = main
 [ghq]
 	root = ~/src
+[pull]
+	rebase = false
