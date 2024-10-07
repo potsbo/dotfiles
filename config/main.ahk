@@ -173,8 +173,8 @@ n::b
 !8::^8
 !9::^9
 !0::^0
-!=::^- ; Notion の zoom down
-!-::^+ ; Notion の zoom up
+!=::^+ ; Notion の zoom down
+!-::^- ; Notion の zoom up
 
 !q::!F4
 !w::^w
@@ -198,6 +198,8 @@ n::b
 !Enter::^Enter
 !/::^/
 !=::!=
+
+#f::!f
 
 #HotIf WinActive("ahk_exe slack.exe")
 !k::^t
