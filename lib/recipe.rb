@@ -166,6 +166,7 @@ if node[:platform] == "ubuntu"
     "wl-clipboard",
     "make",
     "locales-all",
+    "zip",
     "unzip",
     "tldr",
     "wslu",
