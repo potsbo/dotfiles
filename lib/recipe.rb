@@ -171,6 +171,7 @@ if node[:platform] == "ubuntu"
     "tldr",
     "wslu",
     "openssh-server",
+    "nkf",
 
     # ruby build
     "zlib1g-dev",
