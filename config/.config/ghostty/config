@@ -1,0 +1,5 @@
+theme = Monokai Remastered
+
+keybind = super+p=text:\x1b:CommandP\x0d
+keybind = super+shift+f=text:\x1b:CommandShiftF\x0d
+keybind = super+s=text:\x1b:w\x0d
