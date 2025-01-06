@@ -26,6 +26,6 @@ packages:
   - name: Wilfred/difftastic@0.62.0
   - name: astral-sh/rye@0.43.0
   - name: Schniz/fnm@v1.38.1
-  - name: jdx/mise@v2025.1.0
+  - name: jdx/mise@v2025.1.1
   - name: git-lfs/git-lfs@v3.6.0
   - name: nodejs/node@v23.5.0
