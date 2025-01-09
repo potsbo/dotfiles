@@ -10,18 +10,6 @@
 [color]
 	ui = true
 [alias]
-  amend = commit --amend -C HEAD
-  co = checkout
-  logg = log --stat --decorate=short --pretty=format:'%C(yellow)%h %Cgreen%cr %Cblue%cn%Cred%d %Creset%s %C(cyan)%b'
-  mergelog = log --merges --pretty=format:'%C(yellow)%h %Cgreen%ci %Cblue%cn%Cred%d %Creset%s %C(cyan)%b'
-  history = log --graph --date=short --decorate=short --pretty=format:'%C(yellow)%h %Cgreen%cd %Cblue%cn%Cred%d %Creset%s'
-  unmerged = !git --no-pager diff --name-only --diff-filter=U
-  graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
-
-  fok = checkout-origin
-
-  g = graph
-  br = branch
   pr = pull-request
   pbrowse = !git push && gh browse
   viewpr = !"f() { gh pr view -- `git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' '`; }; f"
