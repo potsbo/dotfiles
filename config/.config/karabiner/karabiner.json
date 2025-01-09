@@ -2306,6 +2306,10 @@
                     },
                     "simple_modifications": [
                         {
+                            "from": { "key_code": "delete_forward" },
+                            "to": [{ "key_code": "delete_or_backspace" }]
+                        },
+                        {
                             "from": { "key_code": "left_command" },
                             "to": [{ "key_code": "left_option" }]
                         },
@@ -2320,10 +2324,6 @@
                         {
                             "from": { "key_code": "right_option" },
                             "to": [{ "key_code": "right_command" }]
-                        },
-                        {
-                            "from": { "key_code": "delete_forward" },
-                            "to": [{ "key_code": "delete_or_backspace" }]
                         }
                     ]
                 },
@@ -2363,6 +2363,10 @@
                         {
                             "from": { "key_code": "right_option" },
                             "to": [{ "key_code": "right_command" }]
+                        },
+                        {
+                            "from": { "key_code": "delete_forward" },
+                            "to": [{ "key_code": "delete_or_backspace" }]
                         }
                     ]
                 }
@@ -2421,7 +2425,8 @@
             "selected": true,
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
-                "keyboard_type": "ansi"
+                "keyboard_type": "ansi",
+                "keyboard_type_v2": "ansi"
             }
         }
     ]
