@@ -30,3 +30,4 @@ packages:
   - name: git-lfs/git-lfs@v3.6.0
   - name: nodejs/node@v23.6.0
   - name: XAMPPRocky/tokei@v12.1.2
+  - name: sharkdp/fd@v10.2.0
