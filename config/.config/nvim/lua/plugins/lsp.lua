@@ -4,8 +4,6 @@ return {
     opts = {
       ensure_installed = {
         "ruff",
-        "lua-language-server",
-        "terraform-ls",
         "tflint",
         "vtsls",
       },
