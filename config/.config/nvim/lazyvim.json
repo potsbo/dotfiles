@@ -3,7 +3,8 @@
     "lazyvim.plugins.extras.ai.copilot",
     "lazyvim.plugins.extras.formatting.prettier",
     "lazyvim.plugins.extras.lang.terraform",
-    "lazyvim.plugins.extras.lang.typescript"
+    "lazyvim.plugins.extras.lang.typescript",
+    "lazyvim.plugins.extras.util.gitui"
   ],
   "news": {
     "NEWS.md": "10960"

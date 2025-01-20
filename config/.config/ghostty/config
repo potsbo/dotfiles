@@ -5,5 +5,7 @@ font-feature = -liga
 font-feature = -dlig
 
 keybind = super+p=text:\x1b:CommandP\x0d
-keybind = super+shift+f=text:\x1b:CommandShiftF\x0d
+# VSCode like save in neovim
 keybind = super+s=text:\x1b:w\x0d
+# VSCode like split in neovim
+keybind = super+\=text:\x1b:vsplit\x0d

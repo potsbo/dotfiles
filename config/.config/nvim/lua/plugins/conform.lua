@@ -9,7 +9,7 @@ return {
         sql = { "sqlfmt", "trim_newlines" },
         typescript = { "prettier" },
         astro = { "prettier" },
-        python = { "isort", "black" },
+        python = { "isort", "ruff-fix", "ruff-format" },
         json = { "fixjson", "jq" },
       },
     },
