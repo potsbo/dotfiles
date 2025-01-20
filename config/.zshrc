@@ -117,21 +117,6 @@ _prompt_git_info() {
 	local -a DIVERGENCES
 	local -a FLAGS
 
-	local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
-	if [ "$NUM_AHEAD" -gt 0 ]; then
-		DIVERGENCES+=( "${AHEAD//NUM/$NUM_AHEAD}" )
-	fi
-
-	local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
-	if [ "$NUM_BEHIND" -gt 0 ]; then
-		DIVERGENCES+=( "${BEHIND//NUM/$NUM_BEHIND}" )
-	fi
-
-	local NUM_STASHED="$(git stash list 2> /dev/null | wc -l | tr -d ' ')"
-	if [ "$NUM_STASHED" -gt 0 ]; then
-		FLAGS+=( "$STASHED" )
-	fi
-
 	if ! git diff --cached --quiet 2> /dev/null; then
 		FLAGS+=( "$STAGED" )
 	fi

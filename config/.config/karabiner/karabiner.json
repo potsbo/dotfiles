@@ -1,4 +1,5 @@
 {
+    "global": { "show_in_menu_bar": false },
     "profiles": [
         {
             "complex_modifications": {
@@ -2349,6 +2350,10 @@
                     "mouse_flip_vertical_wheel": true,
                     "simple_modifications": [
                         {
+                            "from": { "key_code": "delete_forward" },
+                            "to": [{ "key_code": "delete_or_backspace" }]
+                        },
+                        {
                             "from": { "key_code": "left_command" },
                             "to": [{ "key_code": "left_option" }]
                         },
@@ -2363,10 +2368,6 @@
                         {
                             "from": { "key_code": "right_option" },
                             "to": [{ "key_code": "right_command" }]
-                        },
-                        {
-                            "from": { "key_code": "delete_forward" },
-                            "to": [{ "key_code": "delete_or_backspace" }]
                         }
                     ]
                 }
