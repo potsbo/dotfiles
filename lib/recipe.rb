@@ -137,10 +137,7 @@ if wsl_environment?
     force true
   end
   directory File.join(ENV['HOME'], ".local/ssh")
-  link File.join(ENV['HOME'], ".local/ssh/id") do
-    to File.join(ENV['HOME'], "win/.ssh/id")
-    force true
-  end
+  directory File.join(ENV['HOME'], ".local/share/applications")
   file File.join(ENV['HOME'], ".local/share/applications/file-protocol-handler.desktop") do
     action :create
     content <<-EOF
