@@ -3,6 +3,7 @@ export LANG=en_US.UTF-8 # kitty 上での日本語の表示のため
 export LC_ALL=$LANG
 export EDITOR=nvim
 export TERM=xterm-256color
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # PATH
 export PATH=$HOME/bin:$PATH

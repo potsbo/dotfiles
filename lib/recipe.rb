@@ -40,8 +40,6 @@ dotfile '.ssh'
 dotfile '.zshrc'
 dotfile '.vim'
 dotfile '.tigrc'
-dotfile '.tmux.conf'
-dotfile '.tmux-powerlinerc'
 dotfile 'bin'
 dotfile '.clipper.json'
 dotfile '.default-npm-packages'
@@ -169,6 +167,7 @@ if node[:platform] == "ubuntu"
     "wslu",
     "openssh-server",
     "nkf",
+    "tmux",
 
     # ruby build
     "zlib1g-dev",
