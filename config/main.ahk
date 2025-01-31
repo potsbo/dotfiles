@@ -206,7 +206,7 @@ n::b
 #HotIf WinActive("ahk_exe slack.exe")
 !k::^t
 !+h::^+h
-#HotIf not WinActive("ahk_exe slack.exe")
+#HotIf not WinActive("ahk_exe slack.exe") and not WinActive("ahk_exe Cursor.exe")
 !k::^k
 ^e::^e
 #HotIf WinActive("ahk_exe WindowsTerminal.exe") or WinActive("ahk_exe Cursor.exe")
