@@ -188,7 +188,8 @@ export GODEBUG=asyncpreemptoff=1
 
 _register_keycommand() {
   zle -N $2
-  bindkey "$1" $2
+  # mode を明示的に指定しないと C-] が tmux 環境で動かなかった
+  bindkey -M emacs "$1" $2
 }
 
 _ghq_fzf() {
