@@ -1,0 +1,30 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jinja-sql]": {
+    "editor.defaultFormatter": "yassun7010.vscode-shandy-sqlfmt"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "yassun7010.vscode-shandy-sqlfmt"
+  },
+  "files.insertFinalNewline": true,
+  "vim.enableNeovim": true,
+  "vim.neovimUseConfigFile": true,
+  "vim.neovimConfigPath": "~/.config/nvim/init.lua",
+  "editor.tabCompletion": "on",
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "vscode-neovim.neovimExecutablePaths.darwin": "/Users/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.10.4/nvim-macos-arm64.tar.gz/nvim-macos-arm64/bin/nvim",
+  "workbench.colorTheme": "Monokai"
+}
