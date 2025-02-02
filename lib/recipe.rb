@@ -148,6 +148,16 @@ Exec=rundll32.exe url.dll,FileProtocolHandler
 MimeType=x-scheme-handler/unknown;x-scheme-handler/about;x-scheme-handler/https;x-scheme-handler/http;text/html;
 EOF
   end
+
+  if node[:hostname] == "raptorlake"
+    file File.join(ENV['HOME'], 'win', '.wslconfig') do
+      content <<-EOF
+[wsl2]
+memory=28GB
+EOF
+      atomic_update true # to avoid `-p` option, which is not supported on Windows file system
+    end
+  end
 end
 
 if node[:platform] == "ubuntu"
