@@ -8,6 +8,9 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[jinja-sql]": {
     "editor.defaultFormatter": "yassun7010.vscode-shandy-sqlfmt"
   },
@@ -26,6 +29,5 @@
     "asvetliakov.vscode-neovim": 1
   },
   "vscode-neovim.neovimExecutablePaths.darwin": "/Users/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.10.4/nvim-macos-arm64.tar.gz/nvim-macos-arm64/bin/nvim",
-  "workbench.colorTheme": "Monokai",
-  "terminal.integrated.defaultProfile.osx": "tmux"
+  "workbench.colorTheme": "Monokai"
 }
