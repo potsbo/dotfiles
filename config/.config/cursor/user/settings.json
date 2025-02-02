@@ -37,5 +37,6 @@
       "args": ["-c", "tm \"$PWD\""]
     }
   },
-  "terminal.integrated.defaultProfile.osx": "tmux"
+  "terminal.integrated.defaultProfile.osx": "tmux",
+  "editor.fontFamily": "MonaspiceNe Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace"
 }
