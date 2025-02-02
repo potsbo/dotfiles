@@ -3,15 +3,20 @@
 
 set -euo pipefail
 
+getSessionName() {
+  echo "$1" | awk -F/ '{ print $NF }'
+}
+
 changeSession() {
   local change
   [[ -n "${TMUX:-""}" ]] && change="switch-client" || change="attach-session"
-  tmux $change -t "$1"
+  tmux $change -t "$(getSessionName $1)"
 }
 
 createSessionIfNeeded() {
-  local name=$1
-  [[ -n "$2" ]] && dir=$2 || dir=$(pwd)
+  local dir=$1
+  local name=$(getSessionName $1)
+
   tmux list-sessions -F "#{session_name}" |
     grep -q -E "^${name}$" ||
     tmux new-session -d -c "${dir}" -s "${name}"
@@ -22,17 +27,11 @@ selectRepo() {
 }
 
 main() {
-  if [ $# -eq 1 ]; then
-    createSessionIfNeeded $1
-    changeSession $1
-    exit
-  fi
+  local repo="${1:-$(selectRepo)}"
+  local session=$(getSessionName $repo)
 
-  local repo="$(selectRepo)"
-  local session="$(echo "$repo" | awk -F/ '{ print $NF }')"
-
-  createSessionIfNeeded $session $repo
-  changeSession $session
+  createSessionIfNeeded $repo
+  changeSession $repo
 }
 
-main
+main "$@"
