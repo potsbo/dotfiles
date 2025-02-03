@@ -222,4 +222,4 @@ if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; 
 
 # 自動で tmux に入ったり出たりする
 alias ssh=tmux-detach-and-ssh
-tm .
+tm "$(ghq root)/github.com/potsbo/dotfiles"
