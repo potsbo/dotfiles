@@ -96,6 +96,22 @@ if type deno &> /dev/null; then
   eval "$(deno completions zsh)"
 fi
 
+
+case $(hostname) in
+"tigerlake")
+thm_main=yellow
+;;
+"raptorlake")
+thm_main=white
+;;
+"staten.local")
+thm_main=blue
+;;
+*)
+thm_main=gray
+;;
+esac
+
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
 _prompt_git_info() {
@@ -107,8 +123,6 @@ _prompt_git_info() {
 	# Git branch/tag, or name-rev if on detached head
 	local GIT_LOCATION=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
 
-	local AHEAD="%{$fg[red]%}⇡NUM%{$reset_color%}"
-	local BEHIND="%{$fg[cyan]%}⇣NUM%{$reset_color%}"
 	local MERGING="%{$fg[magenta]%}✖ %{$reset_color%}"
 	local UNTRACKED="%{$fg[red]%}… %{$reset_color%}"
 	local MODIFIED="%{$fg[yellow]%}✚ %{$reset_color%}"
@@ -140,7 +154,7 @@ _prompt_git_info() {
 	[ -n "$GIT_STATUS" ] && GIT_INFO+=( "$GIT_STATUS" )
 	[[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)DIVERGENCES}" )
 	[[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)FLAGS}" )
-	GIT_INFO+=( "%{$fg_bold[cyan]%}$GIT_LOCATION%{$reset_color%}" )
+	GIT_INFO+=( "%{$fg_bold[$thm_main]%}$GIT_LOCATION%{$reset_color%}" )
 	echo "${(j: :)GIT_INFO}"
 }
 
@@ -151,15 +165,16 @@ _update_prompt() {
 	local line_1
 	local line_2
 
+
 	local host=${$(hostname)%".local"}
-	line_1="%{$fg_bold[blue]%}${host}:%{$reset_color%}"
+	line_1="%{$fg_bold[$thm_main]%}${host}:%{$reset_color%}"
 
 	if git rev-parse 2> /dev/null; then
 		local repo=$(git rev-parse --show-toplevel | sed -e "s,$(ghq root)/,," | sed -e "s,^github.com/,,")
 		local path=$(git rev-parse --show-prefix | sed -e "s,/$,,")
-		line_1="${line_1}%{$fg_bold[blue]%}${repo}%{$reset_color%} %{$fg[blue]%}/${path}%{$reset_color%} ${gitinfo} "
+		line_1="${line_1}%{$fg_bold[$thm_main]%}${repo}%{$reset_color%} %{$fg[$thm_main]%}/${path}%{$reset_color%} ${gitinfo} "
 	else
-		line_1="${line_1}%{$fg[blue]%}${cwd}%{$reset_color%} "
+		line_1="${line_1}%{$fg[$thm_main]%}${cwd}%{$reset_color%} "
 	fi
 
 	if [ -n "$(jobs)" ]; then
@@ -177,7 +192,7 @@ autoload -Uz add-zsh-hook && add-zsh-hook precmd _update_prompt
 # %* Current time of day in 24-hour format, with seconds.
 # %D The date in yy-mm-dd format.
 
-RPROMPT='%F{6}%D %*%f'
+RPROMPT="%F{$thm_main}%D %*%f"
 TMOUT=1
 TRAPALRM() { zle -N reset-prompt }
 
