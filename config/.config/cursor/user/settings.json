@@ -34,9 +34,16 @@
     "tmux": {
       "overrideName": true,
       "path": "bash",
-      "args": ["-c", "tm \"$PWD\""]
+      "args": [
+        "-c",
+        "tm \"$PWD\""
+      ]
     }
   },
   "terminal.integrated.defaultProfile.osx": "tmux",
+  "window.commandCenter": 1,
+  "vscode-neovim.neovimExecutablePaths.linux": "/home/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.10.3/nvim-linux64.tar.gz/nvim-linux64/bin/nvim",
+  "vscode-neovim.useWSL": true,
+  "terminal.integrated.rightClickBehavior": "default",
   "editor.fontFamily": "MonaspiceNe Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace"
 }

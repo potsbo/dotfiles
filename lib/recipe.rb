@@ -61,6 +61,13 @@ if File.exist?(cursor_target)
   end
 end
 
+if wsl_environment?
+  cursor_target = File.join(ENV['HOME'], 'win/AppData/Roaming/Cursor/User/settings.json')
+  file cursor_target do
+    content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))
+  end
+end
+
 dotfile 'aqua.yaml'
 if node[:platform] == 'darwin'
   execute 'Install Homebrew' do
