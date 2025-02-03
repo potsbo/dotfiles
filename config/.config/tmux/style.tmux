@@ -3,10 +3,19 @@
 set -eu
 
 main() {
-  # https://gist.github.com/r-malon/8fc669332215c8028697a0bbfbfbb32a
-  thm_gray="#797979"
-  thm_fg="#9e86c8"
   thm_black="#2e2e2e"
+  thm_gray="#797979"
+
+  # https://www.color-hex.com/color-palette/59231
+  thm_red="#f92672"
+  thm_green="#a6e22e"
+  thm_blue="#66d9ef"
+  thm_yellow="#fd971f"
+  thm_purple="#ae81ff"
+  thm_white="#f8f8f2"
+
+  thm_main=$thm_purple
+  thm_sub=$thm_black
 
   separator="#[fg=${thm_gray},bg=default,none]▕#[default]"
 
@@ -14,20 +23,21 @@ main() {
   # ================================================
   tmux set -g status "on"
   tmux set -g status-position "top"
-  tmux set -g status-style "none"
+  tmux set -g status-style "none,bg=${thm_main},fg=${thm_sub}"
+  tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
   # left panel
   tmux set -g status-left-length 20
-  tmux set -g status-left " #h ${separator}"
+  tmux set -g status-left "  #h ${separator}"
 
   # right panel
-  tmux set -g status-right " #S"
+  tmux set -g status-right " #S "
   tmux set -g status-right-style "none"
 
   # window
   # ================================================
-  tmux setw -g window-status-current-style "bold,fg=${thm_fg}"
-  tmux setw -g window-status-activity-style "none,fg=${thm_black}"
+  tmux setw -g window-status-current-style "bold,fg=${thm_main},bg=${thm_sub}"
+  tmux setw -g window-status-activity-style "none,bg=${thm_sub}"
   tmux setw -g window-status-style "none,fg=${thm_black}"
   tmux setw -g window-status-current-format "  #I #W ${separator}"
   tmux setw -g window-status-format "  #I #W ${separator}"
