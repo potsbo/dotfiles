@@ -23,7 +23,7 @@ main() {
     thm_main=$thm_white
     thm_sub=$thm_black
     ;;
-  "staten")
+  "staten.local")
     thm_main=$thm_purple
     thm_sub=$thm_black
     ;;
