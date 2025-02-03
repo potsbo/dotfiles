@@ -43,11 +43,11 @@ main() {
   tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
   # left panel
-  tmux set -g status-left-length 20
-  tmux set -g status-left "  #h ${separator}"
+  tmux set -g status-left-length 40
+  tmux set -g status-left " #S@#h ${separator}"
 
   # right panel
-  tmux set -g status-right " #S "
+  tmux set -g status-right ""
   tmux set -g status-right-style "none"
 
   # window
