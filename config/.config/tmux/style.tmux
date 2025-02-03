@@ -17,7 +17,8 @@ main() {
   tmux set -g status-style "none"
 
   # left panel
-  tmux set -g status-left "#h ${separator}"
+  tmux set -g status-left-length 20
+  tmux set -g status-left " #h ${separator}"
 
   # right panel
   tmux set -g status-right " #S"
@@ -31,6 +32,7 @@ main() {
   tmux setw -g window-status-current-format "  #I #W ${separator}"
   tmux setw -g window-status-format "  #I #W ${separator}"
   tmux setw -g window-status-separator ""
+  tmux setw -g status-justify left
 }
 
 main
