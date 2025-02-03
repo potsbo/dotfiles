@@ -14,10 +14,26 @@ main() {
   thm_purple="#ae81ff"
   thm_white="#f8f8f2"
 
-  thm_main=$thm_purple
-  thm_sub=$thm_black
+  case $(hostname) in
+  "tigerlake")
+    thm_main=$thm_yellow
+    thm_sub=$thm_black
+    ;;
+  "raptorlake")
+    thm_main=$thm_white
+    thm_sub=$thm_black
+    ;;
+  "staten")
+    thm_main=$thm_purple
+    thm_sub=$thm_black
+    ;;
+  *)
+    thm_main=$thm_gray
+    thm_sub=$thm_black
+    ;;
+  esac
 
-  separator="#[fg=${thm_gray},bg=default,none]▕#[default]"
+  separator="#[fg=${thm_sub},bg=default,none]▕#[default]"
 
   # status bar
   # ================================================
