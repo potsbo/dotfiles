@@ -39,7 +39,7 @@ main() {
   # ================================================
   tmux set -g status "on"
   tmux set -g status-position "top"
-  tmux set -g status-style "none,bg=${thm_main},fg=${thm_sub}"
+  tmux set -g status-style "bold,bg=${thm_main},fg=${thm_sub}"
   tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
   # left panel
