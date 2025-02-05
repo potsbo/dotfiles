@@ -179,7 +179,7 @@ n::b
 !-::^- ; Notion の zoom up
 
 !q::!F4
-!w::^w
+!w::!w
 ![::^[
 !]::^]
 
@@ -218,3 +218,4 @@ n::b
     Send "{Shift down}{End}{Shift up}{Delete}"
 }
 !p::^p
+!w::^w
