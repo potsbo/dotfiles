@@ -236,5 +236,4 @@ if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; al
 if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
 
 # 自動で tmux に入ったり出たりする
-alias ssh=tmux-detach-and-ssh
 tm "$(ghq root)/github.com/potsbo/dotfiles"

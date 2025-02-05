@@ -41,11 +41,14 @@ link File.join(ENV['HOME'], '.ssh/identity') do
   to File.join(ENV['HOME'], ".local/share/ssh/identity")
   force true
 end
-
 link File.join(ENV['HOME'], '.ssh/identity.pub') do
   to File.join(ENV['HOME'], ".local/share/ssh/identity.pub")
   force true
 end
+file File.join(ENV['HOME'], '.ssh/authorized_keys') do
+  mode '0600'
+end
+
 
 dotfile '.zshrc'
 dotfile '.vim'
@@ -61,11 +64,6 @@ end
 
 cursor_target = File.join(ENV['HOME'], "Library/Application Support/Cursor/User/settings.json")
 if File.exist?(cursor_target)
-  file cursor_target do
-    action :delete
-    only_if "test -f '#{cursor_target}'"
-  end
-
   link cursor_target do
     to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
   end
@@ -225,8 +223,9 @@ if node[:platform] == "ubuntu"
   end
 end
 
-execute 'mise' do
-  command "#{AQUA} exec mise install"
+# network が必要なものはできるだけ最後に行う
+execute "Update authorized_keys" do
+  command "curl -s https://github.com/potsbo.keys >> #{ENV['HOME']}/.ssh/authorized_keys"
 end
 
 if node[:platform] == "ubuntu"
@@ -234,4 +233,8 @@ if node[:platform] == "ubuntu"
     command "curl -fsSL https://tailscale.com/install.sh | sh"
     not_if "command -v tailscale"
   end
+end
+
+execute 'mise' do
+  command "#{AQUA} exec mise install"
 end
