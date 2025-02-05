@@ -1,5 +1,6 @@
 theme = Monokai Remastered
 
+font-family = "MonaspiceAr NFM"
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
