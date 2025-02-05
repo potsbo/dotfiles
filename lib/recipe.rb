@@ -184,6 +184,10 @@ memory=28GB
 EOF
       atomic_update true # to avoid `-p` option, which is not supported on Windows file system
     end
+
+    execute 'Update wsl.conf' do
+      command "sudo cp #{DOTFILE_REPO}/lib/wsl.conf /etc/wsl.conf"
+    end
   end
 end
 
