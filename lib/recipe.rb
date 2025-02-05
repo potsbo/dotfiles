@@ -37,6 +37,16 @@ link File.join(ENV['HOME'], '.config/git/os') do
 end
 
 dotfile '.ssh'
+link File.join(ENV['HOME'], '.ssh/identity') do
+  to File.join(ENV['HOME'], ".local/share/ssh/identity")
+  force true
+end
+
+link File.join(ENV['HOME'], '.ssh/identity.pub') do
+  to File.join(ENV['HOME'], ".local/share/ssh/identity.pub")
+  force true
+end
+
 dotfile '.zshrc'
 dotfile '.vim'
 dotfile '.tigrc'
@@ -153,7 +163,7 @@ if wsl_environment?
     to "/mnt/c/Users/potsb"
     force true
   end
-  directory File.join(ENV['HOME'], ".local/ssh")
+  directory File.join(ENV['HOME'], ".local/share/ssh")
   directory File.join(ENV['HOME'], ".local/share/applications")
   file File.join(ENV['HOME'], ".local/share/applications/file-protocol-handler.desktop") do
     action :create
