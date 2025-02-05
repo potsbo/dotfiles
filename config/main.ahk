@@ -179,7 +179,6 @@ n::b
 !-::^- ; Notion の zoom up
 
 !q::!F4
-!w::!w
 ![::^[
 !]::^]
 
@@ -212,6 +211,7 @@ n::b
 #HotIf WinActive("ahk_exe WindowsTerminal.exe") or WinActive("ahk_exe Cursor.exe")
 ^k::^k
 !p::^p
+!w::!w
 #HotIf not WinActive("ahk_exe WindowsTerminal.exe") and not WinActive("ahk_exe Cursor.exe")
 ^k::
 {
