@@ -184,6 +184,44 @@ EOF
 end
 
 if node[:platform] == "ubuntu"
+  execute "Install docker dependencies" do
+    command "apt-get install -y ca-certificates curl gnupg"
+    user 'root'
+    not_if "dpkg -l | grep -q ca-certificates"
+  end
+
+  execute "Add Docker's official GPG key" do
+    command <<-EOF
+      install -m 0755 -d /etc/apt/keyrings
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      chmod a+r /etc/apt/keyrings/docker.gpg
+    EOF
+    user 'root'
+    not_if "test -f /etc/apt/keyrings/docker.gpg"
+  end
+
+  execute "Set up Docker repository" do
+    command <<-EOF
+      echo \
+        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+        tee /etc/apt/sources.list.d/docker.list > /dev/null
+    EOF
+    user 'root'
+    not_if "test -f /etc/apt/sources.list.d/docker.list"
+  end
+
+  execute "Install Docker Engine" do
+    command "apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
+    user 'root'
+    not_if "command -v docker"
+  end
+
+  execute "Add user to docker group" do
+    command "usermod -aG docker $(whoami)"
+    user 'root'
+    not_if "groups $(whoami) | grep -q docker"
+  end
   execute "apt update" do
     command "apt update"
     user 'root'
