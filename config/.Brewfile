@@ -7,6 +7,7 @@ brew "tree"
 brew "watch"
 brew "coreutils"
 brew "tmux"
+brew "libyaml" # for ruby build
 cask "akiflow"
 cask "karabiner-elements"
 cask "visual-studio-code"

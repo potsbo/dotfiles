@@ -207,16 +207,11 @@ _register_keycommand() {
   bindkey -M emacs "$1" $2
 }
 
-_ghq_fzf() {
-  local repo=$(ghq list | fzf --query="$LBUFFER")
-  [ -z "$repo" ] && return
-
-  BUFFER="cd $(ghq root)/$repo"
-  zle accept-line
-  zle reset-prompt
+_tm() {
+  tm
 }
 
-_register_keycommand "^]" _ghq_fzf
+_register_keycommand "^]" _tm
 
 # for `go test -race ...`
 export CGO_ENABLED=1
@@ -236,5 +231,7 @@ if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; al
 if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
 
 # 自動で tmux に入ったり出たりする
-alias ssh=tmux-detach-and-ssh
-tm "$(ghq root)/github.com/potsbo/dotfiles"
+# if TMUX is empty
+if [ -z "$TMUX" ]; then
+  tm "$(ghq root)/github.com/potsbo/dotfiles"
+fi
