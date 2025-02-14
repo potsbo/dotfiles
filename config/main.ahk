@@ -202,6 +202,9 @@ n::b
 
 #f::!f
 
+!+^4::PrintScreen
+
+
 #HotIf WinActive("ahk_exe slack.exe")
 !k::^t
 !+h::^+h
