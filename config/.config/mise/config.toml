@@ -2,3 +2,4 @@
 usage = "latest"
 node = "latest"
 ruby = "latest"
+poetry = "latest"

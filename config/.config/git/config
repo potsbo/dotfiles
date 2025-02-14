@@ -18,7 +18,6 @@
   difpr = !git diff $(git merge-base --fork-point $(git default-branch))
   new = "!f() { gh repo sync && git switch $(git default-branch) && git switch --create potsbo/$(echo $@ | sed 's/\\ /-/g'); }; f"
   queue = "!f() { git switch --create potsbo/$(echo $@ | sed 's/\\ /-/g'); }; f"
-  omerge = "!f() { gh repo sync && git merge $(git default-branch); }; f"
   view  = "!f() { gh browse -- blob/$(git show -s --format=%H)/$1; }; f"
   # https://medium.com/@jmatsu.drm/avoid-direct-value-of-default-branch-name-f24ec6e6b52
   get-branch-cache = "!f() { git config --local misc.$1-branch; }; f"

@@ -56,5 +56,11 @@
   "vscode-neovim.useWSL": true,
   "terminal.integrated.rightClickBehavior": "default",
   "editor.fontFamily": "MonaspiceAr Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
-  "terminal.integrated.defaultProfile.linux": "tmux"
+  "terminal.integrated.defaultProfile.linux": "tmux",
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
