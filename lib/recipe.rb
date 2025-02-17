@@ -37,14 +37,6 @@ link File.join(ENV['HOME'], '.config/git/os') do
 end
 
 dotfile '.ssh'
-link File.join(ENV['HOME'], '.ssh/identity') do
-  to File.join(ENV['HOME'], ".local/share/ssh/identity")
-  force true
-end
-link File.join(ENV['HOME'], '.ssh/identity.pub') do
-  to File.join(ENV['HOME'], ".local/share/ssh/identity.pub")
-  force true
-end
 file File.join(ENV['HOME'], '.ssh/authorized_keys') do
   mode '0600'
 end
