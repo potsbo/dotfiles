@@ -2,7 +2,7 @@
 
 ; これがないとタイピングが早すぎると途中で固まってしまう
 SendMode "Event"
-A_MaxHotkeysPerInterval := 200
+A_MaxHotkeysPerInterval := 100
 
 ; 共通設定
 ~LControl up::
@@ -72,6 +72,9 @@ RWin Up::
 
 
 #HotIf (not WinActive("ahk_exe FlightSimulator.exe")) and (not WinActive("ahk_exe FactoryGame-Win64-Shipping.exe"))
+
+; Chrome の profile 切り替え
+!+m::^+m
 
 
 ; Dvorak
