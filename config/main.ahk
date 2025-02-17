@@ -190,6 +190,7 @@ n::b
 !c::^c
 !v::^v
 !n::^n
+!b::!b
 
 !f::^f
 !l::^l
@@ -204,6 +205,8 @@ n::b
 
 !+^4::PrintScreen
 
+^vkF3:: Send "^{F22}"
+^vkF4:: Send "^{F22}"
 
 #HotIf WinActive("ahk_exe slack.exe")
 !k::^t
