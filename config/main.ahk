@@ -208,6 +208,8 @@ n::b
 
 !+^4::PrintScreen
 
+^vkF3:: Send "^{F22}"
+^vkF4:: Send "^{F22}"
 
 #HotIf WinActive("ahk_exe slack.exe")
 !k::^t
