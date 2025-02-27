@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # https://zenn.dev/junkor/articles/cf64671f4fc637
-set -eux
+set -eu
 
 if [ ! -S /tmp/.X11-unix/X0 ]; then
   ln -s /mnt/wslg/.X11-unix/X0 /tmp/.X11-unix/

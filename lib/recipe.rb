@@ -172,7 +172,7 @@ EOF
     file File.join(ENV['HOME'], 'win', '.wslconfig') do
       content <<-EOF
 [wsl2]
-memory=48GB
+memory=96GB
 EOF
       atomic_update true # to avoid `-p` option, which is not supported on Windows file system
     end
