@@ -69,11 +69,6 @@ function chpwd() { ls }
 alias zshrc='nvim ~/.zshrc'
 alias vimrc='nvim ~/.config/nvim/init.lua'
 
-# Git
-function cam { git commit -am "$*" }
-function com { git commit -m "$*" }
-function CAM { git add -A && git commit -am "$*" }
-
 alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --prompt 'GIT BRANCH>' | cut -d$'\t' -f2\`"
 alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>'| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 
