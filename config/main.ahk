@@ -180,6 +180,7 @@ n::b
 !0::^0
 !=::^+ ; Notion の zoom down
 !-::^- ; Notion の zoom up
+!\::^\
 
 !q::!F4
 ![::^[
