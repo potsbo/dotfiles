@@ -10,7 +10,7 @@ registries:
   - type: standard
     ref: v4.326.1 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: denoland/deno@v2.2.3
+  - name: denoland/deno@v2.2.4
   - name: twistedpair/google-cloud-sdk@504.0.1
   - name: junegunn/fzf@v0.60.3
   - name: BurntSushi/ripgrep@14.1.1
