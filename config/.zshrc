@@ -224,7 +224,11 @@ bindkey -e
 if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"; fi
 if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
 if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
-"$(ghq root)/github.com/potsbo/dotfiles/script/fix-wl-copy.sh"
+
+
+if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
+  "$(ghq root)/github.com/potsbo/dotfiles/script/fix-wl-copy.sh"
+fi
 
 # 自動で tmux に入ったり出たりする
 # if TMUX is empty
