@@ -54,8 +54,9 @@ link File.join(ENV['HOME'], 'go/src')do
   to File.join(ENV['HOME'], 'src')
 end
 
-cursor_target = File.join(ENV['HOME'], "Library/Application Support/Cursor/User/settings.json")
-if File.exist?(cursor_target)
+VSCODES = ["Cursor", "Code"]
+VSCODES.each do |name|
+  cursor_target = File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json")
   link cursor_target do
     to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
   end
