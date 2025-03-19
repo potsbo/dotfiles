@@ -1,2 +1,10 @@
 git:
   branchPrefix: "potsbo/"
+keybinding:
+  universal:
+    prevItem-alt: t
+    nextItem-alt: h
+    prevBlock-alt: d
+    nextBlock-alt: n
+    remove: j
+    new: l
