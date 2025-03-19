@@ -56,16 +56,18 @@ end
 
 VSCODES = ["Cursor", "Code"]
 VSCODES.each do |name|
-  cursor_target = File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json")
-  link cursor_target do
-    to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
+  if node[:platform] == 'darwin'
+    cursor_target = File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json")
+    link cursor_target do
+      to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
+    end
   end
-end
 
-if wsl_environment?
-  cursor_target = File.join(ENV['HOME'], 'win/AppData/Roaming/Cursor/User/settings.json')
-  file cursor_target do
-    content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))
+  if wsl_environment?
+    cursor_target = File.join(ENV['HOME'], 'win/AppData/Roaming/Cursor/User/settings.json')
+    file cursor_target do
+      content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))
+    end
   end
 end
 
