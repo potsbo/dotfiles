@@ -215,14 +215,14 @@ n::b
 #HotIf WinActive("ahk_exe slack.exe")
 !k::^t
 !+h::^+h
-#HotIf not WinActive("ahk_exe slack.exe") and not WinActive("ahk_exe Cursor.exe")
+#HotIf not WinActive("ahk_exe slack.exe") and not WinActive("ahk_exe Cursor.exe") and not WinActive("ahk_exe Code.exe")
 !k::^k
 ^e::^e
-#HotIf WinActive("ahk_exe WindowsTerminal.exe") or WinActive("ahk_exe Cursor.exe")
+#HotIf WinActive("ahk_exe WindowsTerminal.exe") or WinActive("ahk_exe Cursor.exe") or WinActive("ahk_exe Code.exe")
 ^k::^k
 !p::^p
 !w::!w
-#HotIf not WinActive("ahk_exe WindowsTerminal.exe") and not WinActive("ahk_exe Cursor.exe")
+#HotIf not WinActive("ahk_exe WindowsTerminal.exe") and not WinActive("ahk_exe Cursor.exe") and not WinActive("ahk_exe Code.exe")
 ^k::
 {
     Send "{Shift down}{End}{Shift up}{Delete}"
