@@ -14,7 +14,7 @@ packages:
   - name: twistedpair/google-cloud-sdk@504.0.1
   - name: junegunn/fzf@v0.60.3
   - name: BurntSushi/ripgrep@14.1.1
-  - name: x-motemen/ghq@v1.7.1
+  - name: x-motemen/ghq@v1.8.0
   - name: sharkdp/bat@v0.25.0
   - name: jqlang/jq@jq-1.7.1
   - name: direnv/direnv@v2.35.0
