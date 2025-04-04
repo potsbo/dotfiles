@@ -66,5 +66,6 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "git.autofetch": true
+  "git.autofetch": true,
+  "mypy-type-checker.cwd": "${workspaceFolder}/dbt"
 }
