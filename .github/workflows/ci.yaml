@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install aqua
-        uses: aquaproj/aqua-installer@v3.1.1
+        uses: aquaproj/aqua-installer@v3.1.2
         with:
-          aqua_version: v2.47.0
+          aqua_version: v2.50.0
       - run: ./install
       - run: aqua install
