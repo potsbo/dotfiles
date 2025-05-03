@@ -30,4 +30,4 @@ packages:
   - name: nodejs/node@v23.11.0
   - name: XAMPPRocky/tokei@v12.1.2
   - name: sharkdp/fd@v10.2.0
-  - name: jesseduffield/lazygit@v0.49.0
+  - name: jesseduffield/lazygit@v0.50.0
