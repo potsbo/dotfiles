@@ -4,3 +4,6 @@ node = "latest"
 ruby = "latest"
 poetry = "latest"
 rust = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = []
