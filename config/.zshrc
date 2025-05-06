@@ -84,6 +84,10 @@ if type deno &> /dev/null; then
   eval "$(deno completions zsh)"
 fi
 
+if type task &> /dev/null; then
+  eval "$(task --completion zsh)"
+fi
+
 
 case $(hostname) in
 "tigerlake")
@@ -199,7 +203,12 @@ _tm() {
   tm
 }
 
+_lazygit() {
+  lazygit
+}
+
 _register_keycommand "^]" _tm
+_register_keycommand "^g" _lazygit
 
 # for `go test -race ...`
 export CGO_ENABLED=1

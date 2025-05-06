@@ -28,7 +28,7 @@
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
-  "vscode-neovim.neovimExecutablePaths.darwin": "/Users/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.10.4/nvim-macos-arm64.tar.gz/nvim-macos-arm64/bin/nvim",
+  "vscode-neovim.neovimExecutablePaths.darwin": "/Users/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.11.1/nvim-macos-arm64.tar.gz/nvim-macos-arm64/bin/nvim",
   "workbench.colorTheme": "Monokai",
   "terminal.integrated.profiles.osx": {
     "tmux": {
@@ -52,7 +52,7 @@
   },
   "terminal.integrated.defaultProfile.osx": "tmux",
   "window.commandCenter": 1,
-  "vscode-neovim.neovimExecutablePaths.linux": "/home/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.10.3/nvim-linux64.tar.gz/nvim-linux64/bin/nvim",
+  "vscode-neovim.neovimExecutablePaths.linux": "/home/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.11.1/nvim-linux64.tar.gz/nvim-linux64/bin/nvim",
   "vscode-neovim.useWSL": true,
   "terminal.integrated.rightClickBehavior": "default",
   "editor.fontFamily": "MonaspiceAr Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
@@ -67,5 +67,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "git.autofetch": true,
-  "mypy-type-checker.cwd": "${nearestConfig}"
+  "mypy-type-checker.cwd": "${nearestConfig}",
+  "altimate.onboardedMcpServer": true,
+  "dbt.enableMcpDataSourceQueryTools": true,
+  "[dockercompose]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
