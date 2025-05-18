@@ -219,6 +219,28 @@ if node[:platform] == "ubuntu"
     not_if "test -f /etc/apt/sources.list.d/docker.list"
   end
 
+  execute "Import Microsoft GPG key" do
+    command <<-EOF
+      mkdir -p /etc/apt/keyrings
+      curl -sSL https://packages.microsoft.com/keys/microsoft.asc \
+        | gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
+    EOF
+    user  'root'
+    not_if "test -f /etc/apt/keyrings/microsoft.gpg"
+  end
+
+  execute "Set up Microsoft SQL Server repository" do
+    command <<-EOF
+      echo \
+        "deb [arch=\"$(dpkg --print-architecture)\" signed-by=/etc/apt/keyrings/microsoft.gpg] \
+        https://packages.microsoft.com/ubuntu/$(lsb_release -rs)/prod \
+        $(lsb_release -cs) main" | \
+        tee /etc/apt/sources.list.d/mssql-release.list > /dev/null
+    EOF
+    user  'root'
+    not_if "test -f /etc/apt/sources.list.d/mssql-release.list"
+  end
+
   execute "Install Docker Engine" do
     command "apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
     user 'root'
