@@ -52,7 +52,7 @@
   },
   "terminal.integrated.defaultProfile.osx": "tmux",
   "window.commandCenter": 1,
-  "vscode-neovim.neovimExecutablePaths.linux": "/home/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.11.1/nvim-linux64.tar.gz/nvim-linux64/bin/nvim",
+  "vscode-neovim.neovimExecutablePaths.linux": "/home/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.11.1/nvim-linux-x86_64.tar.gz/nvim-linux-x86_64/bin/nvim",
   "vscode-neovim.useWSL": true,
   "terminal.integrated.rightClickBehavior": "default",
   "editor.fontFamily": "MonaspiceAr Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
