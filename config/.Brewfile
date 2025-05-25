@@ -1,4 +1,3 @@
-tap "homebrew/bundle"
 tap "aquaproj/aqua"
 brew "aquaproj/aqua/aqua"
 brew "ijq"
