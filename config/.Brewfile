@@ -29,6 +29,4 @@ cask "zotero"
 mas "Magnet", id: 441258766
 mas "PopClip", id: 445189367
 mas "Slack", id: 803453959
-mas "OmniFocus", id: 1542143627 # OmniFocus 4
 mas "Keynote", id: 409183694
-mas "Toggl", id: 1291898086
