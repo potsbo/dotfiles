@@ -58,6 +58,7 @@ VSCODES = ["Cursor", "Code"]
 VSCODES.each do |name|
   if node[:platform] == 'darwin'
     cursor_target = File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json")
+    directory File.dirname(cursor_target)
     link cursor_target do
       to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
     end
