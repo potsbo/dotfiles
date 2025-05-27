@@ -32,3 +32,4 @@ packages:
   - name: sharkdp/fd@v10.2.0
   - name: jesseduffield/lazygit@v0.50.0
   - name: go-task/task@v3.43.3
+  - name: aws/aws-cli@2.27.19
