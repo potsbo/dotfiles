@@ -32,3 +32,4 @@ packages:
   - name: sharkdp/fd@v10.2.0
   - name: jesseduffield/lazygit@v0.51.1
   - name: go-task/task@v3.43.3
+  - name: astral-sh/uv@0.7.11
