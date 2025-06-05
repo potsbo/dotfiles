@@ -2429,6 +2429,10 @@
                 "keyboard_type": "ansi",
                 "keyboard_type_v2": "ansi"
             }
+        },
+        {
+            "name": "New profile",
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
 }
