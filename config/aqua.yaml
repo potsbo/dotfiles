@@ -33,4 +33,4 @@ packages:
   - name: jesseduffield/lazygit@v0.51.1
   - name: go-task/task@v3.43.3
   - name: aws/aws-cli@2.27.30
-  - name: astral-sh/uv@0.7.11
+  - name: astral-sh/uv@0.7.12
