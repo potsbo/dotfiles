@@ -73,5 +73,12 @@
   "[dockercompose]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "crashReporting.enabled": "off"
+  "crashReporting.enabled": "off",
+  "cursor.cpp.disabledLanguages": [
+    "plaintext"
+  ],
+  "remote.SSH.remotePlatform": {
+    "raptorlake-windows": "linux",
+    "raptorlake": "linux"
+  }
 }
