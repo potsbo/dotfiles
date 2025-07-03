@@ -71,7 +71,7 @@ RWin Up::
 ^#Enter::#Up
 
 
-#HotIf (not WinActive("ahk_exe FlightSimulator.exe")) and (not WinActive("ahk_exe FactoryGame-Win64-Shipping.exe"))
+#HotIf (not WinActive("ahk_exe FlightSimulator.exe")) and (not WinActive("ahk_exe FactoryGame-Win64-Shipping.exe")) and (not WinActive("ahk_exe anki.exe"))
 
 ; Chrome の profile 切り替え
 !+m::^+m
