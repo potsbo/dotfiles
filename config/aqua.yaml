@@ -8,29 +8,29 @@
 #   - all
 registries:
   - type: standard
-    ref: v4.383.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.396.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: denoland/deno@v2.4.0
+  - name: denoland/deno@v2.4.2
   - name: twistedpair/google-cloud-sdk@504.0.1
-  - name: junegunn/fzf@v0.64.0
+  - name: junegunn/fzf@v0.65.0
   - name: BurntSushi/ripgrep@14.1.1
   - name: x-motemen/ghq@v1.8.0
   - name: sharkdp/bat@v0.25.0
   - name: jqlang/jq@jq-1.8.1
-  - name: direnv/direnv@v2.37.0
-  - name: neovim/neovim@v0.11.2
-  - name: mikefarah/yq@v4.45.4
+  - name: direnv/direnv@v2.37.1
+  - name: neovim/neovim@v0.11.3
+  - name: mikefarah/yq@v4.47.1
   - name: YS-L/csvlens@v0.13.0
-  - name: golang/go@go1.24.4
-  - name: cli/cli@v2.74.2
+  - name: golang/go@go1.24.5
+  - name: cli/cli@v2.76.1
   - name: Wilfred/difftastic@0.64.0
   - name: Schniz/fnm@v1.38.1
-  - name: jdx/mise@v2025.7.1
+  - name: jdx/mise@v2025.7.31
   - name: git-lfs/git-lfs@v3.7.0
   - name: nodejs/node@v23.11.1
   - name: XAMPPRocky/tokei@v12.1.2
   - name: sharkdp/fd@v10.2.0
   - name: jesseduffield/lazygit@v0.53.0
-  - name: go-task/task@v3.44.0
-  - name: aws/aws-cli@2.27.49
-  - name: astral-sh/uv@0.7.19
+  - name: go-task/task@v3.44.1
+  - name: aws/aws-cli@2.27.62
+  - name: astral-sh/uv@0.8.3
