@@ -605,6 +605,23 @@
                         "description": "Remap keys to use Anpan keyboard layout",
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "grave_accent_and_tilde",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -618,6 +635,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "1" },
                                 "to": [
                                     {
@@ -628,6 +662,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "2" },
                                 "to": [
                                     {
@@ -638,6 +689,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "3" },
                                 "to": [
                                     {
@@ -648,6 +716,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "4" },
                                 "to": [
                                     {
@@ -658,6 +743,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "5" },
                                 "to": [
                                     {
@@ -668,6 +770,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "6" },
                                 "to": [
                                     {
@@ -678,6 +797,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "7" },
                                 "to": [
                                     {
@@ -688,6 +824,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "8" },
                                 "to": [
                                     {
@@ -698,6 +851,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "9" },
                                 "to": [
                                     {
@@ -708,6 +878,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": { "key_code": "0" },
                                 "to": [
                                     {
@@ -718,6 +905,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "hyphen",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -731,6 +935,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "equal_sign",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -744,6 +965,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "q",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -757,6 +995,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "w",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -770,6 +1025,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "e",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -783,6 +1055,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "r",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -791,6 +1080,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "t",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -799,6 +1105,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "y",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -807,6 +1130,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "u",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -815,6 +1155,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "i",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -823,6 +1180,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "o",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -831,6 +1205,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "p",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -839,6 +1230,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "open_bracket",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -852,6 +1260,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "close_bracket",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -865,6 +1290,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "backslash",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -878,6 +1320,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "a",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -886,6 +1345,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "s",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -894,6 +1370,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "d",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -902,6 +1395,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "f",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -910,6 +1420,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "g",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -918,6 +1445,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -926,6 +1470,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -934,6 +1495,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -942,6 +1520,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -950,6 +1545,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "semicolon",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -958,6 +1570,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "quote",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -971,6 +1600,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "z",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -984,6 +1630,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "x",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -992,6 +1655,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "c",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1000,6 +1680,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "v",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1008,6 +1705,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "b",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1016,6 +1730,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "n",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1024,6 +1755,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "m",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1032,6 +1780,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "comma",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1040,6 +1805,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "period",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1048,6 +1830,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "slash",
                                     "modifiers": { "optional": ["caps_lock"] }
@@ -1056,6 +1855,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "grave_accent_and_tilde",
                                     "modifiers": {
@@ -1072,6 +1888,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "1",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1080,6 +1913,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "2",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1088,6 +1938,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "3",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1096,6 +1963,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "4",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1104,6 +1988,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "5",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1112,6 +2013,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "6",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1120,6 +2038,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "7",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1128,6 +2063,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "8",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1136,6 +2088,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "9",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1144,6 +2113,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "0",
                                     "modifiers": { "mandatory": ["shift"] }
@@ -1152,6 +2138,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "hyphen",
                                     "modifiers": {
@@ -1168,6 +2171,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "equal_sign",
                                     "modifiers": {
@@ -1184,6 +2204,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "q",
                                     "modifiers": {
@@ -1200,6 +2237,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "w",
                                     "modifiers": {
@@ -1216,6 +2270,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "e",
                                     "modifiers": {
@@ -1232,6 +2303,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "r",
                                     "modifiers": {
@@ -1248,6 +2336,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "t",
                                     "modifiers": {
@@ -1264,6 +2369,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "y",
                                     "modifiers": {
@@ -1280,6 +2402,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "u",
                                     "modifiers": {
@@ -1296,6 +2435,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "i",
                                     "modifiers": {
@@ -1312,6 +2468,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "o",
                                     "modifiers": {
@@ -1328,6 +2501,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "p",
                                     "modifiers": {
@@ -1344,6 +2534,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "open_bracket",
                                     "modifiers": {
@@ -1360,6 +2567,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "close_bracket",
                                     "modifiers": {
@@ -1376,6 +2600,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "backslash",
                                     "modifiers": {
@@ -1392,6 +2633,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "a",
                                     "modifiers": {
@@ -1408,6 +2666,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "s",
                                     "modifiers": {
@@ -1424,6 +2699,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "d",
                                     "modifiers": {
@@ -1440,6 +2732,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "f",
                                     "modifiers": {
@@ -1456,6 +2765,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "g",
                                     "modifiers": {
@@ -1472,6 +2798,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
@@ -1488,6 +2831,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": {
@@ -1504,6 +2864,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
@@ -1520,6 +2897,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
@@ -1536,6 +2930,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "semicolon",
                                     "modifiers": {
@@ -1552,6 +2963,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "quote",
                                     "modifiers": {
@@ -1568,6 +2996,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "z",
                                     "modifiers": {
@@ -1584,6 +3029,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "x",
                                     "modifiers": {
@@ -1600,6 +3062,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "c",
                                     "modifiers": {
@@ -1616,6 +3095,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "v",
                                     "modifiers": {
@@ -1632,6 +3128,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "b",
                                     "modifiers": {
@@ -1648,6 +3161,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "n",
                                     "modifiers": {
@@ -1664,6 +3194,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "m",
                                     "modifiers": {
@@ -1680,6 +3227,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "comma",
                                     "modifiers": {
@@ -1696,6 +3260,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "period",
                                     "modifiers": {
@@ -1712,6 +3293,23 @@
                                 "type": "basic"
                             },
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "product_id": 36897,
+                                                "vendor_id": 11720
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    },
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.microsoft\\.rdc\\.macos$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "slash",
                                     "modifiers": {
@@ -2368,6 +3966,63 @@
                         {
                             "from": { "key_code": "right_option" },
                             "to": [{ "key_code": "right_command" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 36897,
+                        "vendor_id": 11720
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "c" },
+                            "to": [{ "key_code": "left_arrow" }]
+                        },
+                        {
+                            "from": { "key_code": "d" },
+                            "to": [{ "key_code": "right_arrow" }]
+                        },
+                        {
+                            "from": { "key_code": "e" },
+                            "to": [{ "key_code": "down_arrow" }]
+                        },
+                        {
+                            "from": { "key_code": "f" },
+                            "to": [{ "key_code": "up_arrow" }]
+                        },
+                        {
+                            "from": { "key_code": "g" },
+                            "to": [{ "key_code": "2" }]
+                        },
+                        {
+                            "from": { "key_code": "h" },
+                            "to": [{ "key_code": "1" }]
+                        },
+                        {
+                            "from": { "key_code": "i" },
+                            "to": [{ "key_code": "return_or_enter" }]
+                        },
+                        {
+                            "from": { "key_code": "j" },
+                            "to": [{ "key_code": "4" }]
+                        },
+                        {
+                            "from": { "key_code": "m" },
+                            "to": [{ "key_code": "return_or_enter" }]
+                        },
+                        {
+                            "from": { "key_code": "n" },
+                            "to": [{ "key_code": "d" }]
+                        },
+                        {
+                            "from": { "key_code": "o" },
+                            "to": [{ "key_code": "slash" }]
+                        },
+                        {
+                            "from": { "key_code": "s" },
+                            "to": [{ "key_code": "y" }]
                         }
                     ]
                 }

@@ -21,6 +21,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -35,6 +52,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -45,8 +79,23 @@
           "to": [
             {
               "key_code": "open_bracket",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -63,6 +112,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -77,6 +143,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -87,8 +170,23 @@
           "to": [
             {
               "key_code": "equal_sign",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -105,6 +203,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -117,6 +232,23 @@
               "key_code": "0",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -133,6 +265,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -143,8 +292,23 @@
           "to": [
             {
               "key_code": "close_bracket",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -159,6 +323,23 @@
               "key_code": "8",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -180,6 +361,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -195,8 +393,23 @@
           "to": [
             {
               "key_code": "grave_accent_and_tilde",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -214,8 +427,23 @@
           "to": [
             {
               "key_code": "quote",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -233,8 +461,23 @@
           "to": [
             {
               "key_code": "comma",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -252,8 +495,23 @@
           "to": [
             {
               "key_code": "period",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -272,6 +530,23 @@
             {
               "key_code": "p"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -287,6 +562,23 @@
           "to": [
             {
               "key_code": "y"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -304,6 +596,23 @@
             {
               "key_code": "f"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -319,6 +628,23 @@
           "to": [
             {
               "key_code": "g"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -336,6 +662,23 @@
             {
               "key_code": "c"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -351,6 +694,23 @@
           "to": [
             {
               "key_code": "r"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -368,6 +728,23 @@
             {
               "key_code": "l"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -383,8 +760,23 @@
           "to": [
             {
               "key_code": "slash",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -406,6 +798,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -421,8 +830,23 @@
           "to": [
             {
               "key_code": "backslash",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -441,6 +865,23 @@
             {
               "key_code": "a"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -456,6 +897,23 @@
           "to": [
             {
               "key_code": "o"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -473,6 +931,23 @@
             {
               "key_code": "e"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -488,6 +963,23 @@
           "to": [
             {
               "key_code": "u"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -505,6 +997,23 @@
             {
               "key_code": "i"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -520,6 +1029,23 @@
           "to": [
             {
               "key_code": "d"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -537,6 +1063,23 @@
             {
               "key_code": "h"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -552,6 +1095,23 @@
           "to": [
             {
               "key_code": "t"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -569,6 +1129,23 @@
             {
               "key_code": "n"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -585,6 +1162,23 @@
             {
               "key_code": "s"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -600,8 +1194,23 @@
           "to": [
             {
               "key_code": "hyphen",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -619,8 +1228,23 @@
           "to": [
             {
               "key_code": "semicolon",
-              "modifiers": [
-
+              "modifiers": []
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -639,6 +1263,23 @@
             {
               "key_code": "q"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -654,6 +1295,23 @@
           "to": [
             {
               "key_code": "j"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -671,6 +1329,23 @@
             {
               "key_code": "k"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -686,6 +1361,23 @@
           "to": [
             {
               "key_code": "x"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -703,6 +1395,23 @@
             {
               "key_code": "b"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -718,6 +1427,23 @@
           "to": [
             {
               "key_code": "m"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -735,6 +1461,23 @@
             {
               "key_code": "w"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -751,6 +1494,23 @@
             {
               "key_code": "v"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -766,6 +1526,23 @@
           "to": [
             {
               "key_code": "z"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -789,6 +1566,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -804,6 +1598,23 @@
           "to": [
             {
               "key_code": "1"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -821,6 +1632,23 @@
             {
               "key_code": "2"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -836,6 +1664,23 @@
           "to": [
             {
               "key_code": "3"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -853,6 +1698,23 @@
             {
               "key_code": "4"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -868,6 +1730,23 @@
           "to": [
             {
               "key_code": "5"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -885,6 +1764,23 @@
             {
               "key_code": "6"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -900,6 +1796,23 @@
           "to": [
             {
               "key_code": "7"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -917,6 +1830,23 @@
             {
               "key_code": "8"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -933,6 +1863,23 @@
             {
               "key_code": "9"
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -948,6 +1895,23 @@
           "to": [
             {
               "key_code": "0"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
             }
           ]
         },
@@ -969,6 +1933,23 @@
               "key_code": "5",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -993,6 +1974,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1013,6 +2011,23 @@
               "key_code": "quote",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1037,6 +2052,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1057,6 +2089,23 @@
               "key_code": "period",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1081,6 +2130,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1101,6 +2167,23 @@
               "key_code": "y",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1125,6 +2208,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1145,6 +2245,23 @@
               "key_code": "g",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1169,6 +2286,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1189,6 +2323,23 @@
               "key_code": "r",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1213,6 +2364,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1233,6 +2401,23 @@
               "key_code": "slash",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1257,6 +2442,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1277,6 +2479,23 @@
               "key_code": "backslash",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1301,6 +2520,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1321,6 +2557,23 @@
               "key_code": "o",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1345,6 +2598,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1365,6 +2635,23 @@
               "key_code": "u",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1389,6 +2676,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1409,6 +2713,23 @@
               "key_code": "d",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1433,6 +2754,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1453,6 +2791,23 @@
               "key_code": "t",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1477,6 +2832,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1497,6 +2869,23 @@
               "key_code": "s",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1521,6 +2910,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1541,6 +2947,23 @@
               "key_code": "semicolon",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1565,6 +2988,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1585,6 +3025,23 @@
               "key_code": "j",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1609,6 +3066,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1629,6 +3103,23 @@
               "key_code": "x",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1653,6 +3144,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1673,6 +3181,23 @@
               "key_code": "m",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
@@ -1697,6 +3222,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1719,6 +3261,23 @@
                 "shift"
               ]
             }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
+              ]
+            }
           ]
         },
         {
@@ -1739,6 +3298,23 @@
               "key_code": "z",
               "modifiers": [
                 "shift"
+              ]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "device_unless",
+              "identifiers": [
+                {
+                  "product_id": 36897,
+                  "vendor_id": 11720
+                }
+              ]
+            },
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.microsoft\\.rdc\\.macos$"
               ]
             }
           ]
