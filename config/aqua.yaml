@@ -18,7 +18,7 @@ packages:
   - name: sharkdp/bat@v0.25.0
   - name: jqlang/jq@jq-1.8.1
   - name: direnv/direnv@v2.37.1
-  - name: neovim/neovim@v0.11.3
+  - name: neovim/neovim@v0.11.4
   - name: mikefarah/yq@v4.47.1
   - name: YS-L/csvlens@v0.13.0
   - name: golang/go@go1.25.0
