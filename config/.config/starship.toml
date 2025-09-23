@@ -10,3 +10,6 @@ disabled = true
 
 [time]
 disabled = false
+
+[gcloud]
+disabled = true
