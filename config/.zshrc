@@ -107,87 +107,8 @@ esac
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
-_prompt_git_info() {
-	# ref: https://joshdick.net/2017/06/08/my_git_prompt_for_zsh_revisited.html
 
-	# Exit if not inside a Git repository
-	! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
-
-	# Git branch/tag, or name-rev if on detached head
-	local GIT_LOCATION=${$(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD)#(refs/heads/|tags/)}
-
-	local MERGING="%{$fg[magenta]%}✖ %{$reset_color%}"
-	local UNTRACKED="%{$fg[red]%}… %{$reset_color%}"
-	local MODIFIED="%{$fg[yellow]%}✚ %{$reset_color%}"
-	local STAGED="%{$fg[green]%}● %{$reset_color%}"
-	local STASHED="%{$fg[cyan]%}⚑ %{$reset_color%}"
-
-	local -a DIVERGENCES
-	local -a FLAGS
-
-	if ! git diff --cached --quiet 2> /dev/null; then
-		FLAGS+=( "$STAGED" )
-	fi
-
-	if ! git diff --quiet 2> /dev/null; then
-		FLAGS+=( "$MODIFIED" )
-	fi
-
-	if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-		FLAGS+=( "$UNTRACKED" )
-	fi
-
-	local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
-	if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-		FLAGS+=( "$MERGING" )
-	fi
-
-	local -a GIT_INFO
-	GIT_INFO+=( "%{$fg[grey]%}-" )
-	[ -n "$GIT_STATUS" ] && GIT_INFO+=( "$GIT_STATUS" )
-	[[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)DIVERGENCES}" )
-	[[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)FLAGS}" )
-	GIT_INFO+=( "%{$fg_bold[$thm_main]%}$GIT_LOCATION%{$reset_color%}" )
-	echo "${(j: :)GIT_INFO}"
-}
-
-_update_prompt() {
-	local cwd=$(pwd | sed -e "s,^$HOME,~,")
-	local gitinfo=$(_prompt_git_info)
-
-	local line_1
-	local line_2
-
-
-	local host=${$(hostname)%".local"}
-	line_1="%{$fg_bold[$thm_main]%}${host}:%{$reset_color%}"
-
-	if git rev-parse 2> /dev/null; then
-		local repo=$(git rev-parse --show-toplevel | sed -e "s,$(ghq root)/,," | sed -e "s,^github.com/,,")
-		local path=$(git rev-parse --show-prefix | sed -e "s,/$,,")
-		line_1="${line_1}%{$fg_bold[$thm_main]%}${repo}%{$reset_color%} %{$fg[$thm_main]%}/${path}%{$reset_color%} ${gitinfo} "
-	else
-		line_1="${line_1}%{$fg[$thm_main]%}${cwd}%{$reset_color%} "
-	fi
-
-	if [ -n "$(jobs)" ]; then
-		line_1="${line_1}  %(1j,%{$fg[red]%}%j job%(2j,s,)%{$reset_color%},)"
-	fi
-
-	line_2="%(?.%{$fg[green]%}:).%{$fg[red]%}:()%{$reset_color%} %# "
-
-	PROMPT=$'\n'${line_1}$'\n'${line_2}
-}
-
-autoload -Uz add-zsh-hook && add-zsh-hook precmd _update_prompt
-
-
-# %* Current time of day in 24-hour format, with seconds.
-# %D The date in yy-mm-dd format.
-
-RPROMPT="%F{$thm_main}%D %*%f"
-TMOUT=1
-TRAPALRM() { zle -N reset-prompt }
+eval "$(starship init zsh)"
 
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
