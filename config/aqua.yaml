@@ -32,6 +32,6 @@ packages:
   - name: sharkdp/fd@v10.3.0
   - name: jesseduffield/lazygit@v0.55.1
   - name: go-task/task@v3.45.4
-  - name: aws/aws-cli@2.31.6
+  - name: aws/aws-cli@2.31.7
   - name: astral-sh/uv@0.8.22
   - name: starship/starship@v1.23.0
