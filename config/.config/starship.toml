@@ -13,3 +13,12 @@ disabled = false
 
 [gcloud]
 disabled = true
+
+[deno]
+disabled = true
+
+[python]
+disabled = true
+
+[nodejs]
+disabled = true

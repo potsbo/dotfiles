@@ -80,5 +80,6 @@
   "remote.SSH.remotePlatform": {
     "raptorlake-windows": "linux",
     "raptorlake": "linux"
-  }
+  },
+  "extensions.ignoreRecommendations": true
 }
