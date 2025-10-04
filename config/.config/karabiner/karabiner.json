@@ -538,7 +538,7 @@
                         ]
                     },
                     {
-                        "description": "Right Shift only to Alt+space to invoke Alfred",
+                        "description": "Right Shift only to Command+space to invoke Spotlight",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -562,7 +562,7 @@
                                 "to_if_alone": [
                                     {
                                         "key_code": "spacebar",
-                                        "modifiers": ["option"]
+                                        "modifiers": ["command"]
                                     }
                                 ],
                                 "type": "basic"
