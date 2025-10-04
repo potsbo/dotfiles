@@ -48,6 +48,7 @@ dotfile '.tigrc'
 dotfile 'bin'
 dotfile '.clipper.json'
 dotfile '.default-npm-packages'
+dotfile 'aqua-checksums.json'
 
 directory File.join(ENV['HOME'], 'go')
 link File.join(ENV['HOME'], 'go/src')do
