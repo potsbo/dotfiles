@@ -6,6 +6,7 @@ return {
         "ruff",
         "tflint",
         "vtsls",
+        "copilot",
       },
     },
   },
