@@ -136,6 +136,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/astral-sh/uv/0.8.24/uv-aarch64-apple-darwin.tar.gz",
+      "checksum": "5F0D9D14B17BA3F0AF4602A7A5A2E4FAECECF0A9463736CF8E6269C49569B2FA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.8.24/uv-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "2B8F7383B19D408C680A74A6DBD41C70976516922234EB0075FD2DE67413CF29",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.8.24/uv-x86_64-apple-darwin.tar.gz",
+      "checksum": "B75CCF924654AD168EFAC2EC6934704B3D6B9CBFF1650B35E17FA3D26D2BEA1F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.8.24/uv-x86_64-pc-windows-msvc.zip",
+      "checksum": "5055BE7909A844F703C54E8846D14AB676C34BE6EA0D969EE74C5747FEAEDDA0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.8.24/uv-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "B38CE629A8653A6B444B7C1BFF2D8B99BDAFD274E66A4900C5838051E3D99D26",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/cli/cli/v2.81.0/gh_2.81.0_linux_amd64.tar.gz",
       "checksum": "D507C82E3AE47AF875B93472F39E01CBF9F85808EC0A69751E0932A43514D7FF",
       "algorithm": "sha256"
@@ -298,6 +323,26 @@
     {
       "id": "github_release/github.com/jdx/mise/v2025.10.1/mise-v2025.10.1-macos-x64.tar.gz",
       "checksum": "DD785DF76C9886273A0662E8D808D1ABF677DAD04432D68E6C20A2F82FFC2B65",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.4/mise-v2025.10.4-linux-arm64-musl.tar.gz",
+      "checksum": "23B2B16372D3311B49E0187F59CE3B166238D2CADAD961369B44FC50B41FA2E6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.4/mise-v2025.10.4-linux-x64-musl.tar.gz",
+      "checksum": "1F16907245ADA75245695629CD82A5EE6469273F33F80F0A6069A217219CFF72",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.4/mise-v2025.10.4-macos-arm64.tar.gz",
+      "checksum": "CE1ABAA96AF4645B95C7310EA605862C095B5337E9ACCEC71CB83D894DDF04C5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.4/mise-v2025.10.4-macos-x64.tar.gz",
+      "checksum": "FF40C92E8A1C8C9D59182776AF24EE284CA68BFCE16D67FCE34155C3999D0C88",
       "algorithm": "sha256"
     },
     {
@@ -571,13 +616,28 @@
       "algorithm": "sha256"
     },
     {
+      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.31.9.pkg",
+      "checksum": "9ED6AC73B07E21862D8E3018C0581C68DCDA5630E545A54D6093CE454D540A5C",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.31.8.zip",
       "checksum": "8F08B2152CCB73B0B4713686E72C6F645A37CCDA21BBBAB296A8EDA9F73EE112",
       "algorithm": "sha256"
     },
     {
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.31.9.zip",
+      "checksum": "12C347C73CB150E96CB6450974B1A2998760A882740CD04A39426634A957F27F",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.31.8.zip",
       "checksum": "E0A2F495D50F058706954F36B26674FC2D2E37965EE03D47B934981F0D7732A7",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.31.9.zip",
+      "checksum": "BF1150AC34672EBEC370F724578C85F6A49F72390670022A06B9CF0F68B6D36E",
       "algorithm": "sha256"
     },
     {
@@ -659,6 +719,11 @@
       "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.419.0/registry.yaml",
       "checksum": "015FCF0BC87EB881A1895AA9CD75CFC9F0BF7D23363E4B39041E5728D0F3DF80",
       "algorithm": "sha256"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.423.0/registry.yaml",
+      "checksum": "E3E17F4054E6584411CDA0921B3D04FCE3B444CC18CA5F90692E3D9F2A6F78C00E10EF93EC625EC8D3FDD4F5E4805777673225BB36F2F98575C1F9384A7239DD",
+      "algorithm": "sha512"
     }
   ]
 }
