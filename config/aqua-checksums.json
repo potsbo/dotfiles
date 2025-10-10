@@ -186,6 +186,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/astral-sh/uv/0.9.1/uv-aarch64-apple-darwin.tar.gz",
+      "checksum": "CC84B5C86FBDE176C0E1908ABD65CEC6E989FF755B6E68A912652BEB1311DE31",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.9.1/uv-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "A171E7335FC2E05767FE0D151DB5A6AF7D1BA93DEBFC8C91721763EFF457D0A3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.9.1/uv-x86_64-apple-darwin.tar.gz",
+      "checksum": "DF530FC06D2FD51ED2EFEB75B1EA5EEB77A631EB945EFE5F9D90EF5969CD3672",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.9.1/uv-x86_64-pc-windows-msvc.zip",
+      "checksum": "8DBA20107EBCD38F3A8E4ACFEB7B209D594E112A3BE8D1CEA69FE6D501A69FDF",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/astral-sh/uv/0.9.1/uv-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "104BBD393104F09F84DB474310B0FC0327C5F6566BD903C9A9CAC00D137208B7",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/cli/cli/v2.81.0/gh_2.81.0_linux_amd64.tar.gz",
       "checksum": "D507C82E3AE47AF875B93472F39E01CBF9F85808EC0A69751E0932A43514D7FF",
       "algorithm": "sha256"
@@ -238,6 +263,31 @@
     {
       "id": "github_release/github.com/denoland/deno/v2.5.3/deno-x86_64-unknown-linux-gnu.zip",
       "checksum": "421ADD1FBC9616BF0A6DEE0E330804122043AB2BF8CD884FA9AB9AFDDF2AEA67",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/denoland/deno/v2.5.4/deno-aarch64-apple-darwin.zip",
+      "checksum": "FF301A55E9F51306C02EB6DA76CEBA6AC98109FD11DBD7A1F5B71F5794AD725C",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/denoland/deno/v2.5.4/deno-aarch64-unknown-linux-gnu.zip",
+      "checksum": "32A9F397221EFD12E9C07534ECBF22AF17D610294B9636D4151793D6B7412B29",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/denoland/deno/v2.5.4/deno-x86_64-apple-darwin.zip",
+      "checksum": "BDA20C2EDB39D614830B9DC4A7DCBFAA0043AE5C246BAE2F90B82E943A735E66",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/denoland/deno/v2.5.4/deno-x86_64-pc-windows-msvc.zip",
+      "checksum": "1C40C73193960FCBED9341764D43BBD35E381EDDBCF7D6CBA7C2F3C0CABE96FB",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/denoland/deno/v2.5.4/deno-x86_64-unknown-linux-gnu.zip",
+      "checksum": "8A04BB02A1DCD56ED060E55281DF4B306CA4553A0D02B53B666063F465F2193A",
       "algorithm": "sha256"
     },
     {
@@ -388,6 +438,26 @@
     {
       "id": "github_release/github.com/jdx/mise/v2025.10.6/mise-v2025.10.6-macos-x64.tar.gz",
       "checksum": "9750847121FB2AF54AA2F100E260AB95C5AC1778466F17B94FF92EA91E9C60E7",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.7/mise-v2025.10.7-linux-arm64-musl.tar.gz",
+      "checksum": "56FF22F9C831C6FCCD976C12968E4E1C575F98ECC0859B0EE4226947FA9401B6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.7/mise-v2025.10.7-linux-x64-musl.tar.gz",
+      "checksum": "FEA8790DA1275BC67F9D37099FCACE9CB67AFAA254BB47D2009E8113C3E13B1E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.7/mise-v2025.10.7-macos-arm64.tar.gz",
+      "checksum": "88CFE7B464C5BB9ABA5D9A9F1E3DD3E27E4664FF6629226740CE522D7387884B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jdx/mise/v2025.10.7/mise-v2025.10.7-macos-x64.tar.gz",
+      "checksum": "91EC5073FD90955052CCD8B8E511D19882D31B46334B249CE30038B1D594E04F",
       "algorithm": "sha256"
     },
     {
@@ -661,6 +731,11 @@
       "algorithm": "sha256"
     },
     {
+      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.31.12.pkg",
+      "checksum": "C0F189EE23175ECE4F79FA87EDDA4FB97D357A7E0F1C6EA7953C02360633BAF8",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/awscli.amazonaws.com/AWSCLIV2-2.31.8.pkg",
       "checksum": "0DB8D6403450A1E1E49A25FAB11020C573C0BAE3D8D687E8E5A37EE4DBCF1E0E",
       "algorithm": "sha256"
@@ -676,6 +751,11 @@
       "algorithm": "sha256"
     },
     {
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.31.12.zip",
+      "checksum": "22A1A58F8D456D7BB22D510D01B3C50904D101D7CBDB4BF3288BB0BAF3777FA0",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.31.8.zip",
       "checksum": "8F08B2152CCB73B0B4713686E72C6F645A37CCDA21BBBAB296A8EDA9F73EE112",
       "algorithm": "sha256"
@@ -688,6 +768,11 @@
     {
       "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.31.11.zip",
       "checksum": "E114C8B83BD4011BDD246F5D135B46152804A58EE4214584EDF25FB1B5472209",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.31.12.zip",
+      "checksum": "E1434BB4E301AAD3B3D34084CA4D0F83DBBC1554935F628AD32224AC71139BE3",
       "algorithm": "sha256"
     },
     {
