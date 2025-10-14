@@ -421,6 +421,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/johnkerl/miller/v6.15.0/miller-6.15.0-darwin-amd64.tar.gz",
+      "checksum": "A12EDB74F6DAB1CE5577D70461BF6284A929D04243D6B7B5F7918F13596718AF",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/johnkerl/miller/v6.15.0/miller-6.15.0-darwin-arm64.tar.gz",
+      "checksum": "34D17164B387B77F6946CEA313026825719455FD05EA2E03930114B3EA396C63",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/johnkerl/miller/v6.15.0/miller-6.15.0-linux-amd64.tar.gz",
+      "checksum": "9A2F0A2957FDD2EACE2EA872DAD2C3C3E0BEE40E1042AAD0996F03B1D7ABC7CC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/johnkerl/miller/v6.15.0/miller-6.15.0-linux-arm64.tar.gz",
+      "checksum": "AE3846B502F386E12FE6372563391B9EE5C0068659E4C1F8B6FE14A9C16E4DD2",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/johnkerl/miller/v6.15.0/miller-6.15.0-windows-amd64.zip",
+      "checksum": "A9C4E00DCD81C4BB934DF4ED68005B1768058E4211FD66DBBDF675D7B42035A6",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/jqlang/jq/jq-1.8.1/jq-linux-amd64",
       "checksum": "020468DE7539CE70EF1BCEAF7CDE2E8C4F2CA6C3AFB84642AABC5C97D9FC2A0D",
       "algorithm": "sha256"
