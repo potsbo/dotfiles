@@ -1,0 +1,20 @@
+---
+name: autofix.ci
+on: pull_request
+permissions: {}
+jobs:
+  autofix:
+    runs-on: ubuntu-24.04
+    permissions: {}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+      - uses: aquaproj/aqua-installer@ea518c135a02fc11ff8024364510c181a5c6b342 # v4.0.3
+        with:
+          aqua_version: v2.55.0
+          aqua_opts: "--working-dir config"
+      - run: aqua upc -prune
+        working-directory: config
+      - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27 # v1.3.2
