@@ -1,8 +1,7 @@
 [tools]
 usage = "latest"
-node = "latest"
+node = "24"
 ruby = "latest"
-poetry = "latest"
 rust = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 
