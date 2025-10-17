@@ -27,7 +27,7 @@ packages:
   - name: Schniz/fnm@v1.38.1
   - name: jdx/mise@v2025.10.10
   - name: git-lfs/git-lfs@v3.7.0
-  - name: nodejs/node@v23.11.1
+  - name: nodejs/node@v25.0.0
   - name: XAMPPRocky/tokei@v12.1.2
   - name: sharkdp/fd@v10.3.0
   - name: jesseduffield/lazygit@v0.55.1
