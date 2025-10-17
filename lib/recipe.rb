@@ -194,65 +194,70 @@ EOF
 end
 
 if node[:platform] == "ubuntu"
-  execute "Install docker dependencies" do
-    command "apt-get install -y ca-certificates curl gnupg"
-    user 'root'
-    not_if "dpkg -l | grep -q ca-certificates"
-  end
+  # Skip Docker and Microsoft repository setup in CI environments
+  is_ci = ENV['CI'] == 'true' || ENV['GITHUB_ACTIONS'] == 'true'
 
-  execute "Add Docker's official GPG key" do
-    command <<-EOF
-      install -m 0755 -d /etc/apt/keyrings
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-      chmod a+r /etc/apt/keyrings/docker.gpg
-    EOF
-    user 'root'
-    not_if "test -f /etc/apt/keyrings/docker.gpg"
-  end
+  unless is_ci
+    execute "Install docker dependencies" do
+      command "apt-get install -y ca-certificates curl gnupg"
+      user 'root'
+      not_if "dpkg -l | grep -q ca-certificates"
+    end
 
-  execute "Set up Docker repository" do
-    command <<-EOF
-      echo \
-        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-        tee /etc/apt/sources.list.d/docker.list > /dev/null
-    EOF
-    user 'root'
-    not_if "test -f /etc/apt/sources.list.d/docker.list"
-  end
+    execute "Add Docker's official GPG key" do
+      command <<-EOF
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        chmod a+r /etc/apt/keyrings/docker.gpg
+      EOF
+      user 'root'
+      not_if "test -f /etc/apt/keyrings/docker.gpg"
+    end
 
-  execute "Import Microsoft GPG key" do
-    command <<-EOF
-      mkdir -p /etc/apt/keyrings
-      curl -sSL https://packages.microsoft.com/keys/microsoft.asc \
-        | gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
-    EOF
-    user  'root'
-    not_if "test -f /etc/apt/keyrings/microsoft.gpg"
-  end
+    execute "Set up Docker repository" do
+      command <<-EOF
+        echo \
+          "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+          "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+          tee /etc/apt/sources.list.d/docker.list > /dev/null
+      EOF
+      user 'root'
+      not_if "test -f /etc/apt/sources.list.d/docker.list"
+    end
 
-  execute "Set up Microsoft SQL Server repository" do
-    command <<-EOF
-      echo \
-        "deb [arch=\"$(dpkg --print-architecture)\" signed-by=/etc/apt/keyrings/microsoft.gpg] \
-        https://packages.microsoft.com/ubuntu/$(lsb_release -rs)/prod \
-        $(lsb_release -cs) main" | \
-        tee /etc/apt/sources.list.d/mssql-release.list > /dev/null
-    EOF
-    user  'root'
-    not_if "test -f /etc/apt/sources.list.d/mssql-release.list"
-  end
+    execute "Import Microsoft GPG key" do
+      command <<-EOF
+        mkdir -p /etc/apt/keyrings
+        curl -sSL https://packages.microsoft.com/keys/microsoft.asc \
+          | gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
+      EOF
+      user  'root'
+      not_if "test -f /etc/apt/keyrings/microsoft.gpg"
+    end
 
-  execute "Install Docker Engine" do
-    command "apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
-    user 'root'
-    not_if "command -v docker"
-  end
+    execute "Set up Microsoft SQL Server repository" do
+      command <<-EOF
+        echo \
+          "deb [arch=\"$(dpkg --print-architecture)\" signed-by=/etc/apt/keyrings/microsoft.gpg] \
+          https://packages.microsoft.com/ubuntu/$(lsb_release -rs)/prod \
+          $(lsb_release -cs) main" | \
+          tee /etc/apt/sources.list.d/mssql-release.list > /dev/null
+      EOF
+      user  'root'
+      not_if "test -f /etc/apt/sources.list.d/mssql-release.list"
+    end
 
-  execute "Add user to docker group" do
-    command "usermod -aG docker $(whoami)"
-    user 'root'
-    not_if "groups $(whoami) | grep -q docker"
+    execute "Install Docker Engine" do
+      command "apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
+      user 'root'
+      not_if "command -v docker"
+    end
+
+    execute "Add user to docker group" do
+      command "usermod -aG docker $(whoami)"
+      user 'root'
+      not_if "groups $(whoami) | grep -q docker"
+    end
   end
   execute "apt update" do
     command "apt update"
