@@ -89,6 +89,10 @@ if type task &> /dev/null; then
   eval "$(task --completion zsh)"
 fi
 
+if type gh &> /dev/null; then
+  eval "$(gh completion --shell zsh)"
+fi
+
 
 case $(hostname) in
 "tigerlake")
@@ -156,6 +160,6 @@ fi
 
 # 自動で tmux に入ったり出たりする
 # if TMUX is empty
-if [ -z "$TMUX" ]; then
+if [ -z "$TMUX" ] && command -v tm &> /dev/null; then
   tm "$(ghq root)/github.com/potsbo/dotfiles"
 fi
