@@ -55,56 +55,6 @@ link File.join(ENV['HOME'], 'go/src')do
   to File.join(ENV['HOME'], 'src')
 end
 
-VSCODES = ["Cursor", "Code"]
-VSCODES.each do |name|
-  if node[:platform] == 'darwin'
-    cursor_target = File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json")
-    directory File.dirname(cursor_target)
-    link cursor_target do
-      to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
-    end
-  end
-
-  if wsl_environment?
-    cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/settings.json")
-    file cursor_target do
-      content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))
-    end
-
-    cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/keybindings.json")
-    file cursor_target do
-      content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/keybindings.win.json"))
-    end
-  end
-end
-
-dotfile 'aqua.yaml'
-if node[:platform] == 'darwin'
-  execute 'Install Homebrew' do
-    command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
-    not_if "test $(which brew)"
-  end
-
-  dotfile '.Brewfile'
-  execute 'Install Homebrew packages' do
-    command "brew bundle install --global --cleanup"
-    not_if "brew bundle check --global"
-  end
-end
-
-if node[:platform] == "ubuntu"
-  execute "aqua install" do
-    command "curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer | bash"
-    not_if "command -v #{AQUA}"
-  end
-end
-
-# aqua が brew の install に依存するのでこの順で書く
-execute 'Install aqua links' do
-  command "#{AQUA} install --only-link"
-  only_if "command -v #{AQUA}"
-end
-
 if node[:platform] == 'darwin'
   define :preferences do
     execute "sync #{params[:name]}" do
@@ -157,6 +107,57 @@ if node[:platform] == 'darwin'
     not_if '[ "$(defaults read .GlobalPreferences com.apple.trackpad.scaling)" = "2" ]'
   end
 end
+
+VSCODES = ["Cursor", "Code"]
+VSCODES.each do |name|
+  if node[:platform] == 'darwin'
+    cursor_target = File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json")
+    directory File.dirname(cursor_target)
+    link cursor_target do
+      to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
+    end
+  end
+
+  if wsl_environment?
+    cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/settings.json")
+    file cursor_target do
+      content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))
+    end
+
+    cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/keybindings.json")
+    file cursor_target do
+      content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/keybindings.win.json"))
+    end
+  end
+end
+
+dotfile 'aqua.yaml'
+if node[:platform] == 'darwin'
+  execute 'Install Homebrew' do
+    command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
+    not_if "test $(which brew)"
+  end
+
+  dotfile '.Brewfile'
+  execute 'Install Homebrew packages' do
+    command "brew bundle install --global --cleanup"
+    not_if "brew bundle check --global"
+  end
+end
+
+if node[:platform] == "ubuntu"
+  execute "aqua install" do
+    command "curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer | bash"
+    not_if "command -v #{AQUA}"
+  end
+end
+
+# aqua が brew の install に依存するのでこの順で書く
+execute 'Install aqua links' do
+  command "#{AQUA} install --only-link"
+  only_if "command -v #{AQUA}"
+end
+
 
 if wsl_environment?
   link File.join(ENV['HOME'], "win") do
