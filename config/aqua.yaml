@@ -34,6 +34,6 @@ packages:
   - name: go-task/task@v3.45.4
   - name: aws/aws-cli@2.31.17
   - name: astral-sh/uv@0.9.3
-  - name: starship/starship@v1.23.0
+  - name: starship/starship@v1.24.0
   - name: zellij-org/zellij@v0.43.1
   - name: johnkerl/miller@v6.15.0
