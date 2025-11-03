@@ -1,3 +1,4 @@
 *.retry
 karabiner/automatic_backups/
 /bin/mitamae*
+config/.config/.copilot/logs/
