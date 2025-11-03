@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PRESETS=(
+  'lazygit'
+  'nvim'
+  'vim'
+  'gitui'
+  'tig'
+  'less'
+  'man'
+  'htop'
+  'btop'
+  'watch'
+)
+
+patterns=("$@")
+if [[ ${#patterns[@]} -eq 0 ]]; then
+  patterns=("${PRESETS[@]}")
+fi
+
+for pat in "${patterns[@]}"; do
+  echo "[redflag] ${pat}" >&2
+  blueflag -a "${pat}" || true
+done

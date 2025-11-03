@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: $(basename "$0") [-a] <program-regex> [tty]" >&2
+  echo "  -a : disable TTY filter (search all TTYs)" >&2
+  exit 1
+}
+
+all_ttys=false
+while getopts ":a" opt; do
+  case "$opt" in
+  a) all_ttys=true ;;
+  *) usage ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+[[ $# -ge 1 ]] || usage
+pattern="$1"
+shift
+
+use_tty=1
+tty_filter=""
+if $all_ttys; then
+  use_tty=0
+else
+  if [[ $# -ge 1 ]]; then
+    tty_filter="${1#/dev/}"
+  else
+    tty_path="$(tty || true)"
+    if [[ -n "$tty_path" && "$tty_path" != "not a tty" ]]; then
+      tty_filter="${tty_path#/dev/}"
+    else
+      echo "TTYが不明です。TTYを指定するか -a を使ってください。" >&2
+      exit 1
+    fi
+  fi
+fi
+
+# tpgid は Linux では使えるが macOS では多くの環境で不可
+has_tpgid=0
+if ps -o tpgid= -p "$$" >/dev/null 2>&1; then
+  has_tpgid=1
+fi
+
+# BSD互換のため -o を繰り返す
+PS_CMD=(ps -ax)
+PS_CMD+=(-o user= -o pid= -o tty= -o stat= -o pgid=)
+if ((has_tpgid)); then
+  PS_CMD+=(-o tpgid=)
+fi
+PS_CMD+=(-o command=)
+
+pids="$(
+  "${PS_CMD[@]}" |
+    awk -v me="$(id -un)" -v re="$pattern" -v use_tty="$use_tty" -v ttyf="$tty_filter" -v has_tpgid="$has_tpgid" -v self="$$" '
+      {
+        user=$1; pid=$2; tty=$3; stat=$4; pgid=$5;
+        if (has_tpgid==1) { tpgid=$6; start=7; } else { tpgid=""; start=6; }
+        cmd="";
+        for (i=start;i<=NF;i++) { cmd = cmd $i (i<NF?" ":"") }
+        if (user!=me) next;
+        if (pid==self) next;       # 自分自身は除外
+        if (use_tty==1 && tty!=ttyf) next;
+        if (tty=="?") next;        # 端末無しは対象外
+        # 背景判定
+        bg=0;
+        if (has_tpgid==1) { if (pgid!=tpgid) bg=1; }
+        else { if (index(stat,"+")==0) bg=1; }
+        if (!bg) next;
+        if (cmd ~ re) print pid;
+      }
+    '
+)"
+
+if [[ -z "$pids" ]]; then
+  echo "対象なし。" >&2
+  exit 0
+fi
+
+echo "blueflag: $pids" >&2
+kill -TERM $pids 2>/dev/null || true
+sleep 1
+for pid in $pids; do
+  if kill -0 "$pid" 2>/dev/null; then
+    kill -KILL "$pid" 2>/dev/null || true
+  fi
+done
