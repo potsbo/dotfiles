@@ -81,5 +81,6 @@
     "raptorlake-windows": "linux",
     "raptorlake": "linux"
   },
-  "extensions.ignoreRecommendations": true
+  "extensions.ignoreRecommendations": true,
+  "github.copilot.nextEditSuggestions.enabled": true
 }
