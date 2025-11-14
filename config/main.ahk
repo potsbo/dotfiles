@@ -4,78 +4,38 @@
 SendMode "Event"
 A_MaxHotkeysPerInterval := 100
 
-; 共通設定
-~LControl up::
+; 物理的にはスペースキーの左, Mac の標準では Left Command
+LControl::
+{
+    Send "{LControl down}"
+}
+LControl Up::
 {
     if (A_PriorKey = "LControl") {
-        Send "{Escape}"
-    }
-}
-~RShift up::{
-    if (A_PriorKey = "RShift") {
-        Send "!{Space}"
-    }
-}
-~LShift up::{
-    if (A_PriorKey = "LShift") {
-        Send "!^+{Space}"
-    }
-}
-
-LAlt::
-{
-    Send "{LAlt down}"
-}
-LAlt Up::
-{
-    if (A_PriorKey = "LAlt") {
         Send "{vkF2sc070}{vkF3sc029}"
     }
-    Send "{LAlt Up}"
+    Send "{LControl Up}"
 }
 
-RAlt::
+; 物理的にはスペースキーの右, Mac の標準では Right Command
+RControl::
 {
-    Send "{RAlt down}"
+    Send "{RControl down}"
 }
-RAlt Up::
+RControl Up::
 {
-    if (A_PriorKey = "RAlt") {
+    if (A_PriorKey = "RControl") {
         Send "{vkF2sc070}"
     }
-    Send "{RAlt Up}"
+    Send "{RControl Up}"
 }
-RWin Up::
-{
-    if (A_PriorKey = "RWin") {
-        Send "^!{Space}"
-    }
-}
-
-^#Up::
-{
-    Send "#{Up}"
-}
-^#Left::
-{
-    Send "#{Left}"
-}
-^#Right::
-{
-    Send "#{Right}"
-}
-^#Down::
-{
-    Send "#{Down}"
-}
-^#Enter::#Up
-
-
-#HotIf (not WinActive("ahk_exe FlightSimulator.exe")) and (not WinActive("ahk_exe FactoryGame-Win64-Shipping.exe")) and (not WinActive("ahk_exe anki.exe"))
-
-; Chrome の profile 切り替え
-!+m::^+m
-
+; ─────────────────────────────
+; Ctrl / Alt / Win が押されていない時だけ Dvorak を有効化
+; ─────────────────────────────
+#HotIf !GetKeyState("Ctrl", "P")      ; 左右どちらの Ctrl でも
+    && !GetKeyState("Alt", "P")       ; 左右どちらの Alt でも
+    && !GetKeyState("LWin", "P")
+    && !GetKeyState("RWin", "P")
 
 ; Dvorak
 ; row 1
@@ -148,84 +108,40 @@ n::b
 .::v
 /::z
 
-; emac keybinding
-^a::Home
-^e::End
-^f::Right
-^b::Left
-^n::Down
-^p::Up
-^h::Backspace
-^d::Delete
-^m::Enter
+#HotIf
 
-^x::^x
-^c::^c
-^z::^z
-^r::^r
-^o::^o
-^]::^]
-^w::^w
-^q::^q
-
-!1::^1
-!2::^2
-!3::^3
-!4::^4
-!5::^5
-!6::^6
-!7::^7
-!8::^8
-!9::^9
-!0::^0
-!=::^+ ; Notion の zoom down
-!-::^- ; Notion の zoom up
-!\::^\
-
-!q::!F4
-![::^[
-!]::^]
-
-!a::^a
-!s::^s 
-!f::^f
-
-!z::^z
-!x::^x
-!c::^c
-!v::^v
-!b::!b
-!n::^n
-
-!l::^l
-!t::^t
-!,::^,
-!r::F5
-!Enter::^Enter
-!/::^/
-!=::!=
-
-#f::!f
-
-!+^4::PrintScreen
-
-^vkF3:: Send "^{F22}"
-^vkF4:: Send "^{F22}"
-
-#HotIf WinActive("ahk_exe slack.exe")
-!k::^t
-!+h::^+h
-#HotIf not WinActive("ahk_exe slack.exe") and not WinActive("ahk_exe Cursor.exe") and not WinActive("ahk_exe Code.exe")
-!k::^k
-^e::^e
-#HotIf WinActive("ahk_exe WindowsTerminal.exe") or WinActive("ahk_exe Cursor.exe") or WinActive("ahk_exe Code.exe")
-^k::^k
-!p::^p
-!w::!w
+;; emac keybinding
+!a::Home
+!e::End
+!f::Right
+!b::Left
+!n::Down
+!p::Up
+!h::Backspace
+!d::Delete
+!m::Enter
 #HotIf not WinActive("ahk_exe WindowsTerminal.exe") and not WinActive("ahk_exe Cursor.exe") and not WinActive("ahk_exe Code.exe")
-^k::
+!k::
 {
     Send "{Shift down}{End}{Shift up}{Delete}"
 }
-!p::^p
-!w::^w
+#HotIf 
+
+; mac のエミュレーション
+^q::!F4         ; ⌘Q
+<^Tab::AltTab   ; ⌘Tab
+!Tab::^Tab      ; Control+Tab
+!+^4::PrintScreen
+
+
+; Utility
+~RShift up::{
+   if (A_PriorKey = "RShift") {
+       Send "!{Space}"
+   }
+}
+~LShift up::{
+   if (A_PriorKey = "LShift") {
+       Send "!^+{Space}"
+   }
+}
