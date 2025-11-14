@@ -3,6 +3,7 @@ set -euo pipefail
 
 PRESETS=(
   'lazygit'
+  'claude',
   'nvim'
   'vim'
   'gitui'
