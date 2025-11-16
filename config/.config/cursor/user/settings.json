@@ -30,26 +30,6 @@
   },
   "vscode-neovim.neovimExecutablePaths.darwin": "/Users/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.11.4/nvim-macos-arm64.tar.gz/nvim-macos-arm64/bin/nvim",
   "workbench.colorTheme": "Monokai",
-  "terminal.integrated.profiles.osx": {
-    "tmux": {
-      "overrideName": true,
-      "path": "bash",
-      "args": [
-        "-c",
-        "tm \"$PWD\""
-      ]
-    }
-  },
-  "terminal.integrated.profiles.linux": {
-    "tmux": {
-      "overrideName": true,
-      "path": "bash",
-      "args": [
-        "-c",
-        "tm \"$PWD\""
-      ]
-    }
-  },
   "terminal.integrated.defaultProfile.osx": "tmux",
   "window.commandCenter": true,
   "vscode-neovim.neovimExecutablePaths.linux": "/home/potsbo/.local/share/aquaproj-aqua/pkgs/github_release/github.com/neovim/neovim/v0.11.4/nvim-linux-x86_64.tar.gz/nvim-linux-x86_64/bin/nvim",
