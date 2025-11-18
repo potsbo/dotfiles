@@ -4,7 +4,7 @@
 # https://www.gnu.org/software/gettext/manual/html_node/Locale-Environment-Variables.html
 export LANG=C # default に寄せる
 unset LC_ALL # LC_* が override されるのを防ぐ
-export LC_CTYPE=C
+export LC_CTYPE=ja_JP.UTF-8 # 日本語表示には C 以外が必要, ja_JP.UTF-8 vs en_US.UTF-8 は真剣に考えてない
 export LC_NUMERIC=C
 export LC_TIME=en_CA.UTF-8 # 英語系で Y->M->D の順に並ぶおそらく唯一の format
 export LC_COLLATE=C # en_US.UTF-8 だと日本語が文字数以外全て同一視された。CTYPE と同様の理由で default に寄せる
