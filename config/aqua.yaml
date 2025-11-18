@@ -8,11 +8,11 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.435.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.436.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: denoland/deno@v2.5.6
   - name: twistedpair/google-cloud-sdk@543.0.0
-  - name: junegunn/fzf@v0.66.1
+  - name: junegunn/fzf@v0.67.0
   - name: BurntSushi/ripgrep@15.1.0
   - name: x-motemen/ghq@v1.8.0
   - name: sharkdp/bat@v0.26.0
@@ -23,9 +23,9 @@ packages:
   - name: YS-L/csvlens@v0.14.0
   - name: golang/go@go1.25.4
   - name: cli/cli@v2.83.1
-  - name: Wilfred/difftastic@0.65.0
+  - name: Wilfred/difftastic@0.67.0
   - name: Schniz/fnm@v1.38.1
-  - name: jdx/mise@v2025.11.5
+  - name: jdx/mise@v2025.11.6
   - name: git-lfs/git-lfs@v3.7.1
   - name: nodejs/node@v23.11.1
   - name: XAMPPRocky/tokei@v12.1.2
@@ -34,6 +34,6 @@ packages:
   - name: go-task/task@v3.45.5
   - name: aws/aws-cli@2.31.17
   - name: astral-sh/uv@0.9.3
-  - name: starship/starship@v1.24.0
+  - name: starship/starship@v1.24.1
   - name: zellij-org/zellij@v0.43.1
   - name: johnkerl/miller@v6.15.0

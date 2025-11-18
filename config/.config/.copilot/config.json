@@ -4,6 +4,8 @@
   "screen_reader": false,
   "theme": "auto",
   "trusted_folders": [
-    "/Users/potsbo/src/github.com/medicu-inc"
+    "/Users/potsbo/src/github.com/medicu-inc",
+    "/home/potsbo/src/github.com/medicu-inc"
   ]
 }
+
