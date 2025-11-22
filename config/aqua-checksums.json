@@ -281,23 +281,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.6/mise-v2025.11.6-linux-arm64-musl.tar.gz",
-      "checksum": "8AE6938C7BB4D139BCE9BB50578DF148BF5BCC690349CDF5A429413228DB9CEC",
+      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-linux-arm64-musl.tar.gz",
+      "checksum": "62232FB42991EB83FE2CFB6E55098CEFA44878BE85B49E872DCEBDACCA9B5D6F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.6/mise-v2025.11.6-linux-x64-musl.tar.gz",
-      "checksum": "1C3CC35CDB9D8341594F7190A5510269B2CCD4750C3206CB9F635491C21FA072",
+      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-linux-x64-musl.tar.gz",
+      "checksum": "8F39D0C3608AA6BDF2091709FB7E901042A6F9CDDE0DE1F551F6E195A171A9CE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.6/mise-v2025.11.6-macos-arm64.tar.gz",
-      "checksum": "F201ED6CC425CA06C8817873ED64BA79B5AAEF34B0BD81F905CF529646AE3568",
+      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-macos-arm64.tar.gz",
+      "checksum": "2B04D69DCFCE59B26D3BE39A6B844E39026BCD6443A354D6867BCD985091C0D1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.6/mise-v2025.11.6-macos-x64.tar.gz",
-      "checksum": "94EC5A8FBFDECA20B4C83E469C58F43A3C1F224E256C90AB3775F8A58D09F9F3",
+      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-macos-x64.tar.gz",
+      "checksum": "E5A353CB53C55E2029C768FA9D08B2A6902361D39BC708C55243D75FBDE877E2",
       "algorithm": "sha256"
     },
     {
@@ -681,8 +681,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.436.0/registry.yaml",
-      "checksum": "D10A9E3D8F3D28C8A75E536FD30C8B1C2E91C92637DF4BC97B61E375E133DDF271E277F9F7F628DBC8A1CA2C5F03CD4CAADB338EEB549B3C00C4BA9F5E444BEB",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.438.0/registry.yaml",
+      "checksum": "F32DFCC376785AA0DB7D0FCC4C471FAD661AC4630DD8767F33776ADF73C43CFA0EF2DD4B0C96FAC744042058DA0916C87721B35B08168FFC0BD6031BE6D9D2B1",
       "algorithm": "sha512"
     }
   ]
