@@ -10,7 +10,7 @@ export LC_CTYPE=en_US.UTF-8
 # 英語系で Y->M->D の順に並ぶおそらく唯一の format
 export LC_TIME=en_CA.UTF-8
 
-if "$OSTYPE" == "linux-gnu" ]; then
+if [ "$OSTYPE" = "linux-gnu" ]; then
   export LC_CTYPE=en_US.utf8
   export LC_TIME=en_CA.utf8
 fi
