@@ -1,5 +1,6 @@
 {
   "banner": "never",
+  "model": "claude-sonnet-4.5",
   "render_markdown": true,
   "screen_reader": false,
   "theme": "auto",
@@ -8,4 +9,3 @@
     "/home/potsbo/src/github.com/medicu-inc"
   ]
 }
-
