@@ -281,23 +281,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-linux-arm64-musl.tar.gz",
-      "checksum": "62232FB42991EB83FE2CFB6E55098CEFA44878BE85B49E872DCEBDACCA9B5D6F",
+      "id": "github_release/github.com/jdx/mise/v2025.12.0/mise-v2025.12.0-linux-arm64-musl.tar.gz",
+      "checksum": "530550DA634D5AE82CF6D51AC0400BA8D9BA3197940841CC8B2F47DB4411C95C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-linux-x64-musl.tar.gz",
-      "checksum": "8F39D0C3608AA6BDF2091709FB7E901042A6F9CDDE0DE1F551F6E195A171A9CE",
+      "id": "github_release/github.com/jdx/mise/v2025.12.0/mise-v2025.12.0-linux-x64-musl.tar.gz",
+      "checksum": "D1E8969EA5339E4849F8F39C72039C44FE76ED40E1D9E2F4358FA861A1833F94",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-macos-arm64.tar.gz",
-      "checksum": "2B04D69DCFCE59B26D3BE39A6B844E39026BCD6443A354D6867BCD985091C0D1",
+      "id": "github_release/github.com/jdx/mise/v2025.12.0/mise-v2025.12.0-macos-arm64.tar.gz",
+      "checksum": "4D69455CD35FF28C0A74C072F2DAAD895742CD0FB847DE57F986668C05B8BB14",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jdx/mise/v2025.11.7/mise-v2025.11.7-macos-x64.tar.gz",
-      "checksum": "E5A353CB53C55E2029C768FA9D08B2A6902361D39BC708C55243D75FBDE877E2",
+      "id": "github_release/github.com/jdx/mise/v2025.12.0/mise-v2025.12.0-macos-x64.tar.gz",
+      "checksum": "A9F6819FF1431975063C9726C19D873738423D57C9485912F4E216A2D6E922D2",
       "algorithm": "sha256"
     },
     {
@@ -461,28 +461,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.0/bat-v0.26.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "0B66666577B551E2ADBA9CDCF35A265AE595C5B8D4B500ACB85817C4678D2F85",
+      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-aarch64-apple-darwin.tar.gz",
+      "checksum": "E30BEFF26779C9BF60BB541E1D79046250CB74378F2757F8EB250AFDDB19E114",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.0/bat-v0.26.0-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "6EE11BD8A520C514E230669156D9298F0DD2B5AFC788C0952A4B14FCEC51EAEE",
+      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "6369242C584065F195FB20CB36FBD7CB63AE690605BBE89868A7596B596C2C23",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.0/bat-v0.26.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "24D5A93D50CBAEEB977484C63CE88208DD0436B6AAA751562ADD1DAA9B295F21",
+      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-x86_64-apple-darwin.tar.gz",
+      "checksum": "830D63B0BBA1FA040542EC569E3CF77F60D3356B9DE75116A344B061E0894245",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.0/bat-v0.26.0-x86_64-pc-windows-msvc.zip",
-      "checksum": "A8A6862F14698B45E101B0932C69BC47A007F4C0456F3A129FDCEF54D443D501",
+      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-x86_64-pc-windows-msvc.zip",
+      "checksum": "0F729B4B6F5F28D395C641EACC2E9FF68D0096B85AA0EEC344AA62425144B69B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.0/bat-v0.26.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "26A683B038FBC526C6DF4166DB693DDC9E431E5BDC285D45CCD6B72F3CFF5FFD",
+      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "0DCD8AC79732C0D5B136F11F4EE00E581440E16A44EAB5B3105B611BBF2CF191",
       "algorithm": "sha256"
     },
     {
@@ -626,33 +626,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/golang.org/dl/go1.25.4.darwin-amd64.tar.gz",
-      "checksum": "33BA03FF9973F5BD26D516EEA35328832A9525ECC4D169B15937FFE2CE66A7D8",
+      "id": "http/golang.org/dl/go1.25.5.darwin-amd64.tar.gz",
+      "checksum": "B69D51BCE599E5381A94CE15263AE644EC84667A5CE23D58DC2E63E2C12A9F56",
       "algorithm": "sha256"
     },
     {
-      "id": "http/golang.org/dl/go1.25.4.darwin-arm64.tar.gz",
-      "checksum": "C1B04E74251FE1DFBC5382E73D0C6D96F49642D8AEBB7EE10A7ECD4CAE36EBD2",
+      "id": "http/golang.org/dl/go1.25.5.darwin-arm64.tar.gz",
+      "checksum": "BED8EBE824E3D3B27E8471D1307F803FC6AB8E1D0EB7A4AE196979BD9B801DD3",
       "algorithm": "sha256"
     },
     {
-      "id": "http/golang.org/dl/go1.25.4.linux-amd64.tar.gz",
-      "checksum": "9FA5FFEDA4170DE60F67F3AA0F824E426421BA724C21E133C1E35D6159CA1BEC",
+      "id": "http/golang.org/dl/go1.25.5.linux-amd64.tar.gz",
+      "checksum": "9E9B755D63B36ACF30C12A9A3FC379243714C1C6D3DD72861DA637F336EBB35B",
       "algorithm": "sha256"
     },
     {
-      "id": "http/golang.org/dl/go1.25.4.linux-arm64.tar.gz",
-      "checksum": "A68E86D4B72C2C2FECF7DFED667680B6C2A071221BBDB6913CF83CE3F80D9FF0",
+      "id": "http/golang.org/dl/go1.25.5.linux-arm64.tar.gz",
+      "checksum": "B00B694903D126C588C378E72D3545549935D3982635BA3F7A964C9FA23FE3B9",
       "algorithm": "sha256"
     },
     {
-      "id": "http/golang.org/dl/go1.25.4.windows-amd64.zip",
-      "checksum": "6DAD204D42719795F22067553B2B042C0E710B32C5A00F6C67892865167FDFD0",
+      "id": "http/golang.org/dl/go1.25.5.windows-amd64.zip",
+      "checksum": "AE756CCE1CB80C819B4FE01B0353807178F532211B47F72D7FA77949DE054EBB",
       "algorithm": "sha256"
     },
     {
-      "id": "http/golang.org/dl/go1.25.4.windows-arm64.zip",
-      "checksum": "138AA10A6808B4CFF8657478BE14772A05335BC8D7E51955E7A6D9AC335AF3E4",
+      "id": "http/golang.org/dl/go1.25.5.windows-arm64.zip",
+      "checksum": "55A94A423A6B8F3AC2AC4D05A6E44D7760C6520A2C6DCEF7425F6BAC79C4EECE",
       "algorithm": "sha256"
     },
     {
@@ -681,8 +681,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.438.0/registry.yaml",
-      "checksum": "F32DFCC376785AA0DB7D0FCC4C471FAD661AC4630DD8767F33776ADF73C43CFA0EF2DD4B0C96FAC744042058DA0916C87721B35B08168FFC0BD6031BE6D9D2B1",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.444.0/registry.yaml",
+      "checksum": "529A890C667CFC10A3F567D92D381DF66219ADD4BA587BE3EFFBA12D390A1B43AC8051BEBFCC6DCC0E7F84DC40A72F8897764E186F49C3D72B2059E9EE1B1A24",
       "algorithm": "sha512"
     }
   ]
