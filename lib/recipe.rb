@@ -134,7 +134,7 @@ end
 
 if node[:platform] == "ubuntu"
   execute "aqua install" do
-    command "curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer | bash"
+    command "curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v4.0.2/aqua-installer | bash"
     not_if "command -v #{AQUA}"
   end
 end
