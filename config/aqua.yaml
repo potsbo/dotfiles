@@ -31,7 +31,7 @@ packages:
   - name: XAMPPRocky/tokei@v13.0.0
   - name: sharkdp/fd@v10.3.0
   - name: jesseduffield/lazygit@v0.57.0
-  - name: go-task/task@v3.45.5
+  - name: go-task/task@v3.46.1
   - name: aws/aws-cli@2.31.17
   - name: astral-sh/uv@0.9.3
   - name: starship/starship@v1.24.1
