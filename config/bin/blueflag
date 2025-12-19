@@ -3,7 +3,7 @@ set -euo pipefail
 
 usage() {
   echo "Usage: $(basename "$0") [-a] <program-regex> [tty]" >&2
-  echo "  -a : disable TTY filter (search all TTYs)" >&2
+  echo "  -a : race on all tracks (disable TTY filter)" >&2
   exit 1
 }
 
@@ -32,7 +32,7 @@ else
     if [[ -n "$tty_path" && "$tty_path" != "not a tty" ]]; then
       tty_filter="${tty_path#/dev/}"
     else
-      echo "TTYが不明です。TTYを指定するか -a を使ってください。" >&2
+      echo "Track unknown. Specify TTY or use -a for all tracks." >&2
       exit 1
     fi
   fi
@@ -75,11 +75,11 @@ pids="$(
 )"
 
 if [[ -z "$pids" ]]; then
-  echo "対象なし。" >&2
+  echo "No cars on track." >&2
   exit 0
 fi
 
-echo "blueflag: $pids" >&2
+echo "Waving blue flag for: $pids" >&2
 kill -TERM $pids 2>/dev/null || true
 sleep 1
 for pid in $pids; do

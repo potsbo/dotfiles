@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+usage() {
+  echo "Usage: $(basename "$0") [-a] [pattern...]" >&2
+  echo "  -a : race on all tracks (default: current TTY only)" >&2
+  exit 1
+}
+
 PRESETS=(
   'lazygit'
   'claude',
@@ -15,12 +21,45 @@ PRESETS=(
   'watch'
 )
 
+all_ttys=false
+while getopts ":ah" opt; do
+  case "$opt" in
+  a) all_ttys=true ;;
+  h) usage ;;
+  *) usage ;;
+  esac
+done
+shift $((OPTIND - 1))
+
 patterns=("$@")
 if [[ ${#patterns[@]} -eq 0 ]]; then
   patterns=("${PRESETS[@]}")
 fi
 
+# TTYが取得できない場合は全TTYを対象にする
+if ! $all_ttys; then
+  tty_path="$(tty 2>/dev/null || true)"
+  if [[ -z "$tty_path" || "$tty_path" == "not a tty" ]]; then
+    all_ttys=true
+  fi
+fi
+
+found_any=false
 for pat in "${patterns[@]}"; do
+  # 事前チェック: パターンにマッチするプロセスが存在するか
+  if ! pgrep -u "$(id -un)" -f "$pat" >/dev/null 2>&1; then
+    continue
+  fi
+
+  found_any=true
   echo "[redflag] ${pat}" >&2
-  blueflag -a "${pat}" || true
+  if $all_ttys; then
+    blueflag -a "${pat}" || true
+  else
+    blueflag "${pat}" || true
+  fi
 done
+
+if ! $found_any; then
+  echo "No cars on track." >&2
+fi
