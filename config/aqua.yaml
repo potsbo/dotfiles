@@ -37,3 +37,4 @@ packages:
   - name: starship/starship@v1.24.1
   - name: zellij-org/zellij@v0.43.1
   - name: johnkerl/miller@v6.15.0
+  - name: tldr-pages/tlrc@v1.12.0
