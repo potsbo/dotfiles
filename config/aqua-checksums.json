@@ -521,6 +521,21 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/tldr-pages/tlrc/v1.12.0/tlrc-v1.12.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "2B53E92B7D747F2ECB4EB9633EAC1C28DA456FD869038A2E370DFDC1FFBC9205",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/tldr-pages/tlrc/v1.12.0/tlrc-v1.12.0-x86_64-pc-windows-msvc.zip",
+      "checksum": "2DE760AFEBA2D9CF1CC999714942263098D93C4E56FD4260F7C64E5A50956B7E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/tldr-pages/tlrc/v1.12.0/tlrc-v1.12.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "41D9FDBA00AEC9C582C23F604CA4E0B304A5D63A45B3084AD10BFFBE81D66AB3",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/x-motemen/ghq/v1.8.0/ghq_darwin_amd64.zip",
       "checksum": "F50A794201BAC18DF1AC8D00E863E9635576AA94",
       "algorithm": "sha1"
