@@ -42,7 +42,7 @@ format = "[$symbol$branch(:$remote_branch)]($style) "
 [custom.git_subdir]
 command = "git rev-parse --show-prefix 2>/dev/null | sed 's#/$##'"
 when = "git rev-parse --is-inside-work-tree 2>/dev/null"
-format = "[$output]($style) "
+format = " [/$output]($style) "
 style = "cyan"
 
 [custom.non_git_dir]
