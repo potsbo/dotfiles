@@ -38,3 +38,4 @@ packages:
   - name: zellij-org/zellij@v0.43.1
   - name: johnkerl/miller@v6.15.0
   - name: tldr-pages/tlrc@v1.12.0
+  - name: k1LoW/git-wt@v0.15.0

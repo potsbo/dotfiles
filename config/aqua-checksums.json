@@ -391,6 +391,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.15.0/git-wt_v0.15.0_darwin_amd64.zip",
+      "checksum": "2C8E1E7FF6F9CA44B550F743BD2246CFCD4B6236D9DC089C22E37D1874CCB35B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.15.0/git-wt_v0.15.0_darwin_arm64.zip",
+      "checksum": "A6C07C6338BCB31A8D71DEC9FB961D01716E1FF7F54A6DC5846551335AB9E571",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.15.0/git-wt_v0.15.0_linux_amd64.tar.gz",
+      "checksum": "C13442FEF2BA65E43B57374311709CCD50EE20C9C15B5F76FC02C406AE553F88",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.15.0/git-wt_v0.15.0_linux_arm64.tar.gz",
+      "checksum": "269E6FF231C84AD139B1350A8838DD6BF32D5262B48C04B6751E5C306597E2BA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.15.0/git-wt_v0.15.0_windows_amd64.tar.gz",
+      "checksum": "77F3D5F31C1D3BD3BB017360F64E249A8E770BC9874AF827449DE3CA8C01D638",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/mikefarah/yq/v4.48.1/yq_darwin_amd64",
       "checksum": "C93D5E5880C78E22AEC4EFC1D719751B60F9ADC49B2735A8009916581B8457C2",
       "algorithm": "sha256"
@@ -679,6 +704,11 @@
       "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.445.0/registry.yaml",
       "checksum": "AEC9F10EF0D8DD8CB3A3DC7AAC1655FF182432BDCB18811469B59C18E7316CC9BE6EB99DC850AA4E761B4570111DFD4439C46D24436A0ACF458EBD2ED6C058AE",
       "algorithm": "sha512"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.462.0/registry.yaml",
+      "checksum": "B94C71292668AD3DE42A91AB744D4A68D9AE8F218872A5939F2CFAF00D3807C7",
+      "algorithm": "sha256"
     }
   ]
 }
