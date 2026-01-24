@@ -54,3 +54,5 @@
 	rebase = false
 [url "https://github.com/"]
 	insteadOf = git@github.com:
+[wt]
+	basedir = .worktrees
