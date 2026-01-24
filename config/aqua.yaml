@@ -20,7 +20,7 @@ packages:
   - name: direnv/direnv@v2.37.1
   - name: neovim/neovim@v0.11.5
   - name: mikefarah/yq@v4.48.1
-  - name: YS-L/csvlens@v0.14.0
+  - name: YS-L/csvlens@v0.15.1
   - name: golang/go@go1.25.6
   - name: cli/cli@v2.86.0
   - name: Wilfred/difftastic@0.67.0
@@ -30,12 +30,12 @@ packages:
   - name: nodejs/node@v23.11.1
   - name: XAMPPRocky/tokei@v13.0.0
   - name: sharkdp/fd@v10.3.0
-  - name: jesseduffield/lazygit@v0.57.0
+  - name: jesseduffield/lazygit@v0.58.1
   - name: go-task/task@v3.45.5
   - name: aws/aws-cli@2.31.17
   - name: astral-sh/uv@0.9.3
   - name: starship/starship@v1.24.1
   - name: zellij-org/zellij@v0.43.1
-  - name: johnkerl/miller@v6.15.0
+  - name: johnkerl/miller@v6.16.0
   - name: tldr-pages/tlrc@v1.12.0
   - name: k1LoW/git-wt@v0.15.0
