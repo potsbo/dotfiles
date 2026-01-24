@@ -416,6 +416,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_darwin_amd64.zip",
+      "checksum": "E0970B111E2872D237E8B95BF600A2F8EC3965047499C0E228E0D18D4C32185D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_darwin_arm64.zip",
+      "checksum": "7D658C375CBC331D075B18FCAB15CF24147046B9C88D5587886F6E2E545B8B2A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_linux_amd64.tar.gz",
+      "checksum": "F67112927422B18E72BA5827A5E42E6E4CA771127EF65BF89DAA6B03AE23DE55",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_linux_arm64.tar.gz",
+      "checksum": "B5EC1D449CF33066DFCCD280DDB4D7748F1AD655974620DB1C96841A60EC9F1E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_windows_amd64.tar.gz",
+      "checksum": "D8574108D21E9FB77CFDE97F2D288710F36BBF627C1CD478D35513D38B95EEF1",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/mikefarah/yq/v4.48.1/yq_darwin_amd64",
       "checksum": "C93D5E5880C78E22AEC4EFC1D719751B60F9ADC49B2735A8009916581B8457C2",
       "algorithm": "sha256"
