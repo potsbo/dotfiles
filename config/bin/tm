@@ -23,7 +23,7 @@ createSessionIfNeeded() {
 }
 
 selectRepo() {
-  echo "$(ghq root)/$(ghq list | fzf)"
+  echo "$(ghq list --full-path | roots --depth 4 --root-file .git | fzf)"
 }
 
 main() {
