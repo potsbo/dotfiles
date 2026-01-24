@@ -2,6 +2,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Inserts a blank line between shell prompts
+format = """$custom$git_branch$git_status$line_break$character"""
 right_format = """$time"""
 
 # Disable the package module, hiding it from the prompt completely
@@ -21,4 +22,47 @@ disabled = true
 disabled = true
 
 [nodejs]
+disabled = true
+
+[custom.git_repo_name]
+command = "git remote get-url origin 2>/dev/null | sed -E 's#.*/([^/]+)(\\.git)?$#\\1#' | sed 's#\\.git$##'"
+when = "git rev-parse --is-inside-work-tree 2>/dev/null"
+format = "[$output]($style)"
+style = "bold cyan"
+
+[custom.git_worktree]
+command = "echo '🌳'"
+when = "git rev-parse --git-dir 2>/dev/null | grep -q worktrees"
+format = " [$output]($style) "
+style = "green"
+
+[custom.git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[custom.git_subdir]
+command = "git rev-parse --show-prefix 2>/dev/null | sed 's#/$##'"
+when = "git rev-parse --is-inside-work-tree 2>/dev/null"
+format = " [/$output]($style) "
+style = "cyan"
+
+[custom.non_git_dir]
+command = "pwd | sed \"s#^$HOME#~#\""
+when = "! git rev-parse --is-inside-work-tree 2>/dev/null"
+format = "[$output]($style) "
+style = "bold cyan"
+
+[directory]
+truncation_length = 8
+truncate_to_repo = true
+repo_root_format = ""
+style = "cyan"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+[username]
+disabled = true
+
+[hostname]
 disabled = true
