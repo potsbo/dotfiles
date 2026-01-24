@@ -1,68 +1,78 @@
-# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Inserts a blank line between shell prompts
-format = """$custom$git_branch$git_status$line_break$character"""
-right_format = """$time"""
+format = """
+[ ](bg:lavender)\
+${custom.git_worktree}\
+${custom.git_repo_name}\
+[](fg:lavender bg:yellow)\
+$git_branch\
+$git_status\
+[](bg:peach fg:yellow)\
+${custom.directory}\
+[ ](fg:peach)\
+$cmd_duration\
+$line_break\
+$character"""
 
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+right_format = """[](fg:lavender)$time"""
+
+palette = 'monokai'
+
+[custom.git_worktree]
+command = "echo '\uef81'"
+when = "git rev-parse --git-dir 2>/dev/null | grep -q worktrees"
+format = "[ $output ]($style)"
+style = "bg:lavender fg:crust"
+
+[custom.git_repo_name]
+style = "bg:lavender fg:crust"
+command = "git remote get-url origin 2>/dev/null | sed -E 's#.*/([^/]+)(\\.git)?$#\\1#' | sed 's#\\.git$##'"
+when = "git rev-parse --is-inside-work-tree 2>/dev/null"
+format = "[$output ]($style)"
+
+[custom.directory]
+style = "bg:peach fg:white"
+command = "git rev-parse --show-prefix 2>/dev/null | sed 's#/$##'"
+when = "git rev-parse --is-inside-work-tree 2>/dev/null"
+format = "[ /$output ]($style)"
+
+[git_branch]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
+
+[git_status]
+style = "bg:yellow"
+format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
 
 [time]
 disabled = false
+time_format = "%R"
+style = "bg:lavender"
+format = '[[  $time ](fg:crust bg:lavender)]($style)'
 
-[gcloud]
-disabled = true
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:green)'
+vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
+vimcmd_replace_symbol = '[❮](bold fg:lavender)'
+vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
-[deno]
-disabled = true
+[cmd_duration]
+show_milliseconds = true
+format = " in $duration "
+style = "bg:lavender"
+disabled = false
+show_notifications = true
+min_time_to_notify = 45000
 
-[python]
-disabled = true
-
-[nodejs]
-disabled = true
-
-[custom.git_repo_name]
-command = "git remote get-url origin 2>/dev/null | sed -E 's#.*/([^/]+)(\\.git)?$#\\1#' | sed 's#\\.git$##'"
-when = "git rev-parse --is-inside-work-tree 2>/dev/null"
-format = "[$output]($style)"
-style = "bold cyan"
-
-[custom.git_worktree]
-command = "echo '🌳'"
-when = "git rev-parse --git-dir 2>/dev/null | grep -q worktrees"
-format = " [$output]($style) "
-style = "green"
-
-[custom.git_branch]
-format = "[$symbol$branch(:$remote_branch)]($style) "
-
-[custom.git_subdir]
-command = "git rev-parse --show-prefix 2>/dev/null | sed 's#/$##'"
-when = "git rev-parse --is-inside-work-tree 2>/dev/null"
-format = " [/$output]($style) "
-style = "cyan"
-
-[custom.non_git_dir]
-command = "pwd | sed \"s#^$HOME#~#\""
-when = "! git rev-parse --is-inside-work-tree 2>/dev/null"
-format = "[$output]($style) "
-style = "bold cyan"
-
-[directory]
-truncation_length = 8
-truncate_to_repo = true
-repo_root_format = ""
-style = "cyan"
-format = "[$path]($style)[$read_only]($read_only_style) "
-
-[git_branch]
-format = "[$symbol$branch(:$remote_branch)]($style) "
-
-[username]
-disabled = true
-
-[hostname]
-disabled = true
+[palettes.monokai]
+red = "#f38ba8"
+peach = "#ff0087"
+yellow = "#AFD760"
+green = "#a6e3a1"
+lavender = "#ae81ff"
+crust = "#11111b"
+white = "#1f1f1f"
