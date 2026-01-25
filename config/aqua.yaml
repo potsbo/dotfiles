@@ -40,3 +40,4 @@ packages:
   - name: tldr-pages/tlrc@v1.12.0
   - name: k1LoW/git-wt@v0.15.0
   - name: k1LoW/roots@v0.4.1
+  - name: rust-lang/rustup@1.28.2
