@@ -113,6 +113,10 @@ if type gh &> /dev/null; then
   eval "$(gh completion --shell zsh)"
 fi
 
+if type git-wt &> /dev/null; then
+  eval "$(git wt --init zsh)"
+fi
+
 
 case $(hostname) in
 "tigerlake")
