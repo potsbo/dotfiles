@@ -146,7 +146,8 @@ _register_keycommand() {
 }
 
 _tm() {
-  tm
+  BUFFER="tm"
+  zle accept-line
 }
 
 _lazygit() {
