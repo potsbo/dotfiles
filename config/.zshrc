@@ -150,15 +150,11 @@ _register_keycommand() {
 }
 
 _tm() {
-  tm
-}
-
-_lazygit() {
-  lazygit
+  BUFFER="tm"
+  zle accept-line
 }
 
 _register_keycommand "^]" _tm
-_register_keycommand "^g" _lazygit
 
 # for `go test -race ...`
 export CGO_ENABLED=1
