@@ -2,6 +2,8 @@
 
 format = """
 [ ](bg:lavender)\
+$os\
+[ ](bg:lavender)\
 ${custom.git_worktree}\
 ${custom.git_repo_name}\
 [](fg:lavender bg:yellow)\
@@ -17,6 +19,32 @@ $character"""
 right_format = """[](fg:lavender)$time"""
 
 palette = 'monokai'
+
+[os]
+disabled = false
+style = "bg:lavender fg:crust"
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
 
 [custom.git_worktree]
 command = "echo '\uef81'"
