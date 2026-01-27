@@ -183,3 +183,4 @@ fi
 if [ -z "$TMUX" ] && command -v tm &> /dev/null; then
   tm "$(ghq root)/github.com/potsbo/dotfiles"
 fi
+export ANTHROPIC_MODEL=opus
