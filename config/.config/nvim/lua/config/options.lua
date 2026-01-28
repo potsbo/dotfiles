@@ -1,6 +1,9 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
+
+-- Use copilot.lua inline ghost text instead of blink-copilot popup
+vim.g.ai_cmp = false
 vim.api.nvim_create_user_command("CommandShiftF", function()
   require("conform").format({ async = true, lsp_format = "fallback" })
 end, { range = true })
