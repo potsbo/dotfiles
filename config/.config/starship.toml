@@ -49,7 +49,7 @@ RedHatEnterprise = "󱄛"
 [custom.git_worktree]
 command = "echo '\uef81'"
 when = "git rev-parse --git-dir 2>/dev/null | grep -q worktrees"
-format = "[ $output ]($style)"
+format = "[$output ]($style)"
 style = "bg:lavender fg:crust"
 
 [custom.git_repo_name]
