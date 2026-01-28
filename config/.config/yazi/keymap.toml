@@ -1,0 +1,26 @@
+# Dvorak-friendly keybindings (dhtn instead of hjkl)
+
+[[mgr.prepend_keymap]]
+on = "d"
+run = "leave"
+desc = "Go to parent directory"
+
+[[mgr.prepend_keymap]]
+on = "h"
+run = "arrow 1"
+desc = "Move cursor down"
+
+[[mgr.prepend_keymap]]
+on = "t"
+run = "arrow -1"
+desc = "Move cursor up"
+
+[[mgr.prepend_keymap]]
+on = "n"
+run = "enter"
+desc = "Enter directory"
+
+[[mgr.prepend_keymap]]
+on = "j"
+run = "remove"
+desc = "Move file to trash"

@@ -44,3 +44,4 @@ packages:
   - name: joshmedeski/sesh@v2.21.0
   - name: ajeetdsouza/zoxide@v0.9.8
   - name: junegunn/fzf/fzf-tmux@v0.67.0
+  - name: sxyazi/yazi@v26.1.22
