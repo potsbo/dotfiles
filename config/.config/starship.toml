@@ -14,6 +14,7 @@ ${custom.directory}\
 [ ](fg:peach)\
 $cmd_duration\
 $line_break\
+$jobs\
 $character"""
 
 right_format = """[](fg:lavender)$time"""
@@ -79,14 +80,12 @@ time_format = "%R"
 style = "bg:lavender"
 format = '[[  $time ](fg:crust bg:lavender)]($style)'
 
-[character]
+[jobs]
 disabled = false
-success_symbol = '[❯](bold fg:green)'
-error_symbol = '[❯](bold fg:red)'
-vimcmd_symbol = '[❮](bold fg:green)'
-vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
-vimcmd_replace_symbol = '[❮](bold fg:lavender)'
-vimcmd_visual_symbol = '[❮](bold fg:yellow)'
+symbol = '+'
+number_threshold = 2
+symbol_threshold = 0
+style = "fg:lavender"
 
 [cmd_duration]
 show_milliseconds = true
