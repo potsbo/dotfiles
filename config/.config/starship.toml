@@ -81,10 +81,9 @@ style = "bg:lavender"
 format = '[[  $time ](fg:crust bg:lavender)]($style)'
 
 [jobs]
-disabled = false
 symbol = '+'
 number_threshold = 2
-symbol_threshold = 0
+symbol_threshold = 1
 style = "fg:lavender"
 
 [cmd_duration]
