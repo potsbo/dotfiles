@@ -1,6 +1,16 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
+
+-- Cursor 的な体験を再現するための設定:
+--   1. インライン ghost text が表示され、Tab で accept できる (Cursor の inline completion)
+--   2. sidekick.nvim (lazyvim.plugins.extras.ai.sidekick) で、編集後に Tab で次の修正箇所へジャンプできる (Cursor の Next Edit Suggestions)
+--
+-- ai_cmp = false にすると copilot.lua のインライン suggestion が有効になり、
+-- blink-copilot (ポップアップ補完) が無効になる。
+-- folke は本来 lazyvim.plugins.extras.ai.copilot-native (Neovim 0.12+) でこの体験を提供する予定。
+-- Neovim 0.12 がリリースされたら copilot → copilot-native に切り替え、この行を削除すること。
+vim.g.ai_cmp = false
 vim.api.nvim_create_user_command("CommandShiftF", function()
   require("conform").format({ async = true, lsp_format = "fallback" })
 end, { range = true })
