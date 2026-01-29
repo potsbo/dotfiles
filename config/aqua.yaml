@@ -45,3 +45,5 @@ packages:
   - name: ajeetdsouza/zoxide@v0.9.8
   - name: junegunn/fzf/fzf-tmux@v0.67.0
   - name: sxyazi/yazi@v26.1.22
+  - name: github/copilot-cli@v0.0.396
+  - name: anthropics/claude-code@v2.1.22

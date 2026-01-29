@@ -266,6 +266,36 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.396/copilot-darwin-arm64.tar.gz",
+      "checksum": "EC74C17FD788C66D139D21F3D57EA576AA292660ABDA990DA2B90F23A8A2D5AD",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.396/copilot-darwin-x64.tar.gz",
+      "checksum": "2B08E98A3A452CC846F67AD137C7BA8C619EDD725278818EA7F7153A317835F9",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.396/copilot-linux-arm64.tar.gz",
+      "checksum": "778ECEFCD1BAE0214D63354B7D9DF4D42B55E7CD9BA82EF9AB8265AABC28D241",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.396/copilot-linux-x64.tar.gz",
+      "checksum": "6E877F6758792D98965EB1B6F2C7E3BB2D65401419F6C146860E86E641273EBC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.396/copilot-win32-arm64.zip",
+      "checksum": "88F8D1BE93CEE39EBBD77480993513CA48DBE9623F38194DC1CA5993265D8E96",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.396/copilot-win32-x64.zip",
+      "checksum": "7EA5534F6C37BCABD149BE8975D057FE06B697155637B46D5A4AB76DDD78884E",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/go-task/task/v3.45.5/task_darwin_amd64.tar.gz",
       "checksum": "5A06E2266B4C4A679C48582922EC06A25F81365B5F65298EF11DCAFB9D379C2B",
       "algorithm": "sha256"
@@ -843,6 +873,26 @@
     {
       "id": "http/static.rust-lang.org/rustup/archive/1.28.2/x86_64-unknown-linux-gnu/rustup-init",
       "checksum": "20A06E644B0D9BD2FBDBFD52D42540BDDE820EA7DF86E92E533C073DA0CDD43C",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.22/darwin-arm64/claude",
+      "checksum": "DD07B877EA3213AE7FD1DF5536DE3B441FBF7B11F93A0C20078540A6BD69033E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.22/darwin-x64/claude",
+      "checksum": "3B16C67EF7D9EDC6139CFF1C73FC55B630DBEAA72FB7853FC0748309FC6529A0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.22/linux-arm64/claude",
+      "checksum": "3750CEBFF6C8D7664FDFFEF578B14B962AF8E29DAA7CE53C0A6BD0A317CE973E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.22/linux-x64/claude",
+      "checksum": "F7BA63E4D72EA8394998DEC8B25CF94BA17FAEC434DB17885218C0884103B5E9",
       "algorithm": "sha256"
     },
     {
