@@ -19,15 +19,16 @@ download() {
   if has "git"; then
     git clone --recursive "${github_url}" "${DOTPATH}"
   elif has "curl" || has "wget"; then
-    tarball="${github_url}/archive/master.tar.gz"
+    tarball="${github_url}/archive/main.tar.gz"
 
     if has "curl"; then
       curl -L "${tarball}"
     elif has "wget"; then
       wget -O - "${tarball}"
-    fi | tar xv -
+    fi | tar xzv
 
-    mv -f dotfiles-main "${dotpath}"
+    mkdir -p "$(dirname "${DOTPATH}")"
+    mv -f dotfiles-main "${DOTPATH}"
   else
     exit 1
   fi

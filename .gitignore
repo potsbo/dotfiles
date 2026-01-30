@@ -2,3 +2,5 @@
 karabiner/automatic_backups/
 /bin/mitamae*
 config/.config/.copilot/logs/
+nixos/hosts/phoenix/hardware-configuration.nix
+config/.config/mozilla/firefox

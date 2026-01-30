@@ -46,6 +46,7 @@ CentOS = ""
 Debian = "󰣚"
 Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
+NixOS = ""
 
 [custom.git_worktree]
 command = "echo '\uef81'"
