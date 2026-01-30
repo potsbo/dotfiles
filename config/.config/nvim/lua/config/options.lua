@@ -18,6 +18,17 @@ vim.api.nvim_create_user_command("CommandShiftF", function()
   require("conform").format({ async = true, lsp_format = "fallback" })
 end, { range = true })
 vim.api.nvim_create_user_command("CommandP", "Telescope find_files", {})
+vim.g.clipboard = {
+  name = "OSC52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+  },
+}
+
+vim.opt.clipboard = "unnamedplus"
 
 -- https://stackoverflow.com/questions/75548458/copy-into-system-clipboard-from-neovim
 if vim.fn.has("wsl") == 1 then
