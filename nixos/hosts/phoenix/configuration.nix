@@ -55,13 +55,14 @@
   users.users.potsbo = {
     isNormalUser = true;
     description = "Shimpei Otsubo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
       tmux
       unzip
     ];
   };
+  virtualisation.docker.enable = true;
 
   # Install firefox.
   programs.firefox.enable = true;
