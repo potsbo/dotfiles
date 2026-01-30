@@ -9,3 +9,5 @@ config/.config/ibus/bus
 config/.config/pulse
 config/.config/gnome-initial-setup-done
 config/.config/.gsd-keyboard.settings-ported
+config/.config/environment.d
+config/.config/systemd/user
