@@ -65,7 +65,6 @@
   virtualisation.docker.enable = true;
 
   # Install firefox.
-  programs.firefox.enable = true;
   programs.zsh.enable = true;
   programs.nix-ld.enable = true; # node を動作させたい
 
