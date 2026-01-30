@@ -59,6 +59,7 @@
     shell = pkgs.zsh;
     packages = with pkgs; [
       tmux
+      unzip
     ];
   };
 
