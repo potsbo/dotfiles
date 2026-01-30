@@ -4,3 +4,6 @@ karabiner/automatic_backups/
 config/.config/.copilot/logs/
 nixos/hosts/phoenix/hardware-configuration.nix
 config/.config/mozilla/firefox
+config/.config/evolution/sources
+config/.config/ibus/bus
+config/.config/pulse
