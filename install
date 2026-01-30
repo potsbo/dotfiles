@@ -25,9 +25,10 @@ download() {
       curl -L "${tarball}"
     elif has "wget"; then
       wget -O - "${tarball}"
-    fi | tar xv -
+    fi | tar xzv
 
-    mv -f dotfiles-main "${dotpath}"
+    mkdir -p "$(dirname "${DOTPATH}")"
+    mv -f dotfiles-main "${DOTPATH}"
   else
     exit 1
   fi
