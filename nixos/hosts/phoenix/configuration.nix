@@ -108,7 +108,25 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  environment.etc."ssh/gh-authorized-keys".text = ''
+    #!/bin/sh
+    exec ${pkgs.curl}/bin/curl -fsSL "https://github.com/$1.keys"
+  '';
+  environment.etc."ssh/gh-authorized-keys".mode = "0555";
+  environment.etc."ssh/gh-authorized-keys".user = "root";
+  environment.etc."ssh/gh-authorized-keys".group = "root";
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PubkeyAuthentication = true;
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+
+      AuthorizedKeysCommand = "/etc/ssh/gh-authorized-keys %u";
+      AuthorizedKeysCommandUser = "nobody";
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
