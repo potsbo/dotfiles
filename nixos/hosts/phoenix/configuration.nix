@@ -93,6 +93,8 @@
   # Install firefox.
   programs.firefox.enable = true;
   programs.zsh.enable = true;
+  programs.nix-ld.enable = true; # node を動作させたい
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -158,6 +160,7 @@
       IdleAction = "ignore";
     };
   };
+  powerManagement.enable = false;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
