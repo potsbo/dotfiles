@@ -128,6 +128,28 @@
     };
   };
 
+  # 常時稼働サーバ用途のため、勝手に suspend しないように設定
+  services.logind = {
+    settings.Login = {
+      # 物理サスペンドキー（Sleep ボタン）を無効化
+      HandleSuspendKey = "ignore";
+      HandleLidSwitchDocked = "ignore";
+
+      # ハイバネートキーを無効化
+      HandleHibernateKey = "ignore";
+
+      # 蓋クローズイベントを完全に無視
+      HandleLidSwitch = "ignore";
+
+      # 外部電源接続時の蓋クローズも無視
+      HandleLidSwitchExternalPower = "ignore";
+
+      # アイドル状態になっても何もしない
+      # （デフォルトの自動 suspend を防ぐ）
+      IdleAction = "ignore";
+    };
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
