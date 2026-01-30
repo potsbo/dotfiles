@@ -16,7 +16,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "phoenix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -138,6 +138,7 @@
       AuthorizedKeysCommandUser = "nobody";
     };
   };
+  services.tailscale.enable = true;
 
   # 常時稼働サーバ用途のため、勝手に suspend しないように設定
   systemd.targets = {
