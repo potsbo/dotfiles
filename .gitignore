@@ -7,3 +7,5 @@ config/.config/mozilla/firefox
 config/.config/evolution/sources
 config/.config/ibus/bus
 config/.config/pulse
+config/.config/gnome-initial-setup-done
+config/.config/.gsd-keyboard.settings-ported
