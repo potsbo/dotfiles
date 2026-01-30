@@ -19,7 +19,7 @@ download() {
   if has "git"; then
     git clone --recursive "${github_url}" "${DOTPATH}"
   elif has "curl" || has "wget"; then
-    tarball="${github_url}/archive/master.tar.gz"
+    tarball="${github_url}/archive/main.tar.gz"
 
     if has "curl"; then
       curl -L "${tarball}"
