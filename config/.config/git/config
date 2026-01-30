@@ -56,3 +56,5 @@
 	insteadOf = git@github.com:
 [wt]
 	basedir = .worktrees
+[credential "https://github.com"]
+	helper = !gh auth git-credential
