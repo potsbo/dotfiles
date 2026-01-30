@@ -1,29 +1,33 @@
 #!/bin/sh
-# Ref https://github.com/k0kubun/dotfiles/blob/e6d0153b1cfe3feb8f7e82155dfbc558c41ac5a3/bin/setup
-
 set -e
 
 mitamae_version="1.12.9"
-architecture=aarch64
-if [ "$(arch)" = "x86_64" ]; then
-	architecture=x86_64;
+
+# arch が無い環境（NixOSなど）に備えて uname -m を使う
+machine="$(uname -m)"
+# macOS では arm64 表記なので aarch64 に寄せる
+if [ "$machine" = "arm64" ]; then
+  machine="aarch64"
 fi
-if [ "$(arch)" = "i386" ]; then
-	architecture=x86_64;
+
+architecture=aarch64
+if [ "$machine" = "x86_64" ]; then
+  architecture=x86_64
+fi
+if [ "$machine" = "i386" ]; then
+  architecture=x86_64
 fi
 
 os="darwin"
 if [ "$(uname)" = "Linux" ]; then
-  os="linux";
+  os="linux"
 fi
 
-# TODO: support intel
 mitamae_cache="mitamae-${architecture}-${mitamae_version}"
 if ! [ -f "bin/${mitamae_cache}" ]; then
-	mitamae_bin="mitamae-${architecture}-${os}"
+  mitamae_bin="mitamae-${architecture}-${os}"
 
-	curl -o "bin/${mitamae_bin}.tar.gz" -fL "https://github.com/itamae-kitchen/mitamae/releases/download/v${mitamae_version}/${mitamae_bin}.tar.gz"
-	# TODO: checksum
+  curl -o "bin/${mitamae_bin}.tar.gz" -fL "https://github.com/itamae-kitchen/mitamae/releases/download/v${mitamae_version}/${mitamae_bin}.tar.gz"
   tar xvzf "bin/${mitamae_bin}.tar.gz"
 
   rm "bin/${mitamae_bin}.tar.gz"
