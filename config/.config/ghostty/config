@@ -12,3 +12,5 @@ keybind = super+s=text:\x1b:w\x0d
 keybind = super+\=text:\x1b:vsplit\x0d
 # Reload current buffer in neovim
 keybind = super+r=text:\x1b:e!\x0d
+
+clipboard-read = allow
