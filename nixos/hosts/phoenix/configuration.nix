@@ -57,10 +57,7 @@
     description = "Shimpei Otsubo";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [
-      tmux
-      unzip
-    ];
+    packages = with pkgs; [];
   };
   virtualisation.docker.enable = true;
 
@@ -73,7 +70,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
-    gcc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
