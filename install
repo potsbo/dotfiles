@@ -11,7 +11,8 @@ has() {
 }
 
 SYSTEM=$(uname -s)
-HOSTNAME=$(hostname | sed 's/\.local$//')
+HOSTNAME="${HOSTNAME:-$(hostname)}"
+HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
@@ -19,8 +20,9 @@ DOTPATH="${HOME}/src/${REPO}"
 case "$HOSTNAME" in
 staten | tigerlake | raptorlake | phoenix) CONFIG="$HOSTNAME" ;;
 *)
-  if [[ "$SYSTEM" == "Darwin" ]]; then
+  if [[ "$SYSTEM" == "Darwin" ]] || [[ -e /etc/NIXOS ]]; then
     echo "Unknown hostname: $HOSTNAME"
+    echo "Hint: HOSTNAME=<hostname> curl ... | bash"
     exit 1
   fi
   CONFIG="linux"
@@ -58,10 +60,13 @@ if [[ "$USER" == "potsbo" ]]; then
 
   # nixos-rebuild (NixOS only)
   if [[ -e /etc/NIXOS ]]; then
-    if [[ ! -L /etc/nixos/configuration.nix ]]; then
-      sudo rm -f /etc/nixos/configuration.nix
-      sudo ln -s "${DOTPATH}/nixos/hosts/${CONFIG}/configuration.nix" /etc/nixos/configuration.nix
+    NIXOS_CONFIG="${DOTPATH}/nixos/hosts/${CONFIG}/configuration.nix"
+    if [[ ! -e "$NIXOS_CONFIG" ]]; then
+      echo "Error: NixOS configuration not found: $NIXOS_CONFIG"
+      echo "Hint: HOSTNAME=<hostname> curl ... | bash"
+      exit 1
     fi
+    sudo ln -sf "$NIXOS_CONFIG" /etc/nixos/configuration.nix
     sudo nixos-rebuild switch
   fi
 
