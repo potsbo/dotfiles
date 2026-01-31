@@ -84,7 +84,7 @@ if has "nix"; then
       *) DARWIN_CONFIG="darwin" ;;
     esac
     echo "nix-darwin: Using configuration: $DARWIN_CONFIG"
-    sudo nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$DARWIN_CONFIG"
+    sudo -H nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$DARWIN_CONFIG"
   fi
 fi
 
