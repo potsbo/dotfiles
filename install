@@ -36,12 +36,15 @@ download() {
   fi
 }
 
-# hostname を検証
+# 設定名を決定
 case "$HOSTNAME" in
-staten | tigerlake | raptorlake | phoenix) ;;
+staten | tigerlake | raptorlake | phoenix) CONFIG="$HOSTNAME" ;;
 *)
-  echo "Unknown hostname: $HOSTNAME"
-  exit 1
+  if [[ "$SYSTEM" == "Darwin" ]]; then
+    echo "Unknown hostname: $HOSTNAME"
+    exit 1
+  fi
+  CONFIG="linux"
   ;;
 esac
 
@@ -63,9 +66,16 @@ if [ -d "$HOME/.config" ] && [ ! -L "$HOME/.config" ]; then
 fi
 ln -sfn "${DOTPATH}/config/.config" "$HOME/.config"
 
-# nix configuration
-if has "nix"; then
-  nix run home-manager -- switch --flake "${DOTPATH}/nix#$HOSTNAME"
+# nix configuration (potsbo ユーザーのみ)
+if [[ "$USER" == "potsbo" ]]; then
+  if ! has "nix"; then
+    echo "Installing Nix..."
+    curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
+    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+  fi
+
+  export NIX_CONFIG="experimental-features = nix-command flakes"
+  nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
 
   # nix-darwin (macOS only)
   if [[ "$SYSTEM" == "Darwin" ]]; then
@@ -75,14 +85,9 @@ if has "nix"; then
       NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
-    echo "nix-darwin: Using configuration: $HOSTNAME"
-    sudo -H nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$HOSTNAME"
+    echo "nix-darwin: Using configuration: $CONFIG"
+    sudo -H nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$CONFIG"
   fi
-fi
-
-# aqua でインストールしたツールのリンクを作成
-if has "aqua"; then
-  aqua install --only-link
 fi
 
 bin/setup_mitamae
@@ -106,6 +111,11 @@ if [ "$(uname)" = "Linux" ]; then
   fi
 fi
 bin/mitamae local lib/recipe.rb
+
+# aqua でインストールしたツールのリンクを作成（mitamae で aqua.yaml がリンクされた後）
+if has "aqua"; then
+  aqua install --only-link
+fi
 
 if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
   pattern='%sudo ALL=(ALL) NOPASSWD:ALL'

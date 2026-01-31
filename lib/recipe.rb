@@ -12,6 +12,45 @@ end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
+# シンボリックリンク
+[
+  ".ssh",
+  ".zshrc",
+  ".vim",
+  ".tigrc",
+  "bin",
+  ".clipper.json",
+  ".default-npm-packages",
+  "aqua-checksums.json",
+  "aqua.yaml",
+].each do |name|
+  link File.join(ENV['HOME'], name) do
+    to File.join(DOTFILE_REPO, "config", name)
+    force true
+  end
+end
+
+# go/src -> ~/src
+directory File.join(ENV['HOME'], "go")
+link File.join(ENV['HOME'], "go/src") do
+  to File.join(ENV['HOME'], "src")
+  force true
+end
+
+if node[:platform] == "darwin"
+  link File.join(ENV['HOME'], "iCloudDrive") do
+    to File.join(ENV['HOME'], "Library/Mobile Documents/com~apple~CloudDocs")
+    force true
+  end
+
+  ["Cursor", "Code"].each do |name|
+    link File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json") do
+      to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
+      force true
+    end
+  end
+end
+
 if wsl_environment?
   ["Cursor", "Code"].each do |name|
     cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/settings.json")
@@ -62,71 +101,6 @@ EOF
 end
 
 if node[:platform] == "ubuntu"
-  # Skip Docker and Microsoft repository setup in CI environments
-  is_ci = ENV['CI'] == 'true' || ENV['GITHUB_ACTIONS'] == 'true'
-
-  unless is_ci
-    execute "Install docker dependencies" do
-      command "apt-get install -y ca-certificates curl gnupg"
-      user 'root'
-      not_if "dpkg -l | grep -q ca-certificates"
-    end
-
-    execute "Add Docker's official GPG key" do
-      command <<-EOF
-        install -m 0755 -d /etc/apt/keyrings
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-        chmod a+r /etc/apt/keyrings/docker.gpg
-      EOF
-      user 'root'
-      not_if "test -f /etc/apt/keyrings/docker.gpg"
-    end
-
-    execute "Set up Docker repository" do
-      command <<-EOF
-        echo \
-          "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-          "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-          tee /etc/apt/sources.list.d/docker.list > /dev/null
-      EOF
-      user 'root'
-      not_if "test -f /etc/apt/sources.list.d/docker.list"
-    end
-
-    execute "Import Microsoft GPG key" do
-      command <<-EOF
-        mkdir -p /etc/apt/keyrings
-        curl -sSL https://packages.microsoft.com/keys/microsoft.asc \
-          | gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg
-      EOF
-      user  'root'
-      not_if "test -f /etc/apt/keyrings/microsoft.gpg"
-    end
-
-    execute "Set up Microsoft SQL Server repository" do
-      command <<-EOF
-        echo \
-          "deb [arch=\"$(dpkg --print-architecture)\" signed-by=/etc/apt/keyrings/microsoft.gpg] \
-          https://packages.microsoft.com/ubuntu/$(lsb_release -rs)/prod \
-          $(lsb_release -cs) main" | \
-          tee /etc/apt/sources.list.d/mssql-release.list > /dev/null
-      EOF
-      user  'root'
-      not_if "test -f /etc/apt/sources.list.d/mssql-release.list"
-    end
-
-    execute "Install Docker Engine" do
-      command "apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
-      user 'root'
-      not_if "command -v docker"
-    end
-
-    execute "Add user to docker group" do
-      command "usermod -aG docker $(whoami)"
-      user 'root'
-      not_if "groups $(whoami) | grep -q docker"
-    end
-  end
   execute "apt update" do
     command "apt update"
     user 'root'

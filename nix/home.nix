@@ -1,7 +1,6 @@
-{ config, pkgs, lib, accentColor ? "#797979", hostname ? "unknown", dotfilesPath ? "", ... }:
+{ config, pkgs, lib, accentColor ? "#797979", hostname ? "unknown", ... }:
 
 let
-  link = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/${path}";
 
   aqua =
     let
@@ -90,21 +89,5 @@ in
     opener
   ];
 
-  # .config は install スクリプトでリンクするので、ここでは設定しない
-  home.file = {
-    ".ssh".source = link ".ssh";
-    ".zshrc".source = link ".zshrc";
-    ".vim".source = link ".vim";
-    ".tigrc".source = link ".tigrc";
-    "bin".source = link "bin";
-    ".clipper.json".source = link ".clipper.json";
-    ".default-npm-packages".source = link ".default-npm-packages";
-    "aqua-checksums.json".source = link "aqua-checksums.json";
-    "aqua.yaml".source = link "aqua.yaml";
-    "go/src".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/src";
-  } // lib.optionalAttrs pkgs.stdenv.isDarwin {
-    "iCloudDrive".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Mobile Documents/com~apple~CloudDocs";
-    "Library/Application Support/Cursor/User/settings.json".source = link ".config/cursor/user/settings.json";
-    "Library/Application Support/Code/User/settings.json".source = link ".config/cursor/user/settings.json";
-  };
+  # リンクは mitamae で管理
 }

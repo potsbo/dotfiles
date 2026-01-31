@@ -49,6 +49,7 @@
     in
     {
       homeConfigurations = {
+        "linux" = mkHome { system = "x86_64-linux"; hostname = "default"; };
         "tigerlake" = mkHome { system = "x86_64-linux"; hostname = "tigerlake"; };
         "raptorlake" = mkHome { system = "x86_64-linux"; hostname = "raptorlake"; };
         "phoenix" = mkHome { system = "x86_64-linux"; hostname = "phoenix"; };
