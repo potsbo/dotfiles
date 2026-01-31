@@ -88,6 +88,11 @@ if has "nix"; then
   nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
 fi
 
+# aqua でインストールしたツールのリンクを作成
+if has "aqua"; then
+  aqua install --only-link
+fi
+
 bin/setup_mitamae
 
 if [ "$(uname)" = "Linux" ]; then

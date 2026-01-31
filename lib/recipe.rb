@@ -92,13 +92,6 @@ if node[:platform] == 'darwin'
   end
 end
 
-# aqua は nix で管理。リンクのみ実行
-execute 'Install aqua links' do
-  command "aqua install --only-link"
-  only_if "command -v aqua"
-end
-
-
 if wsl_environment?
   link File.join(ENV['HOME'], "win") do
     to "/mnt/c/Users/potsb"
