@@ -10,4 +10,12 @@ return {
     "nvim-lualine/lualine.nvim",
     enabled = false,
   },
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        always_show_bufferline = true,
+      },
+    },
+  },
 }
