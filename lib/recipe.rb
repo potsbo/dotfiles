@@ -14,6 +14,8 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
 # シンボリックリンク
 [
+  # .config は中身を個別にリンクせず全体をリンクする
+  # 知らないファイルが追加されたときに気づけるようにするため
   ".config",
   ".ssh",
   ".zshrc",
@@ -25,8 +27,21 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   "aqua-checksums.json",
   "aqua.yaml",
 ].each do |name|
-  link File.join(ENV['HOME'], name) do
-    to File.join(DOTFILE_REPO, "config", name)
+  home_path = File.join(ENV['HOME'], name)
+  dotfiles_path = File.join(DOTFILE_REPO, "config", name)
+
+  # home_path が実ディレクトリなら中身をマージして削除
+  if File.directory?(home_path) && !File.symlink?(home_path)
+    Dir.children(home_path).each do |name|
+      src = File.join(home_path, name)
+      dest = File.join(dotfiles_path, name)
+      File.rename(src, dest) unless File.exist?(dest)
+    end
+    Dir.rmdir(home_path)
+  end
+
+  link home_path do
+    to dotfiles_path
     force true
   end
 end
