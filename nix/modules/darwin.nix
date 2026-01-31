@@ -4,6 +4,10 @@
   nix.enable = false;
   system.primaryUser = "potsbo";
 
+  environment.etc."sudoers.d/potsbo".text = ''
+    potsbo ALL=(ALL) NOPASSWD: ALL
+  '';
+
   system.defaults = {
     dock.autohide = true;
 
