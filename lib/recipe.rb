@@ -12,19 +12,6 @@ end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
-if node[:platform] == 'darwin'
-  define :preferences do
-    execute "sync #{params[:name]}" do
-      target = File.join(ENV['HOME'], "Library/Preferences/#{params[:name]}.plist")
-      source = "#{DOTFILE_REPO}/lib/#{params[:name]}.json"
-
-      command "plutil -convert binary1 #{source} -o #{target}"
-      not_if "[ \"$(plutil -convert json #{source} -o -)\" = \"$(plutil -convert json #{target} -o -)\" ]"
-    end
-  end
-
-end
-
 VSCODES = ["Cursor", "Code"]
 VSCODES.each do |name|
   if node[:platform] == 'darwin'
