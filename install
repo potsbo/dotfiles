@@ -10,6 +10,8 @@ has() {
   return $(type $1 >/dev/null 2>&1)
 }
 
+SYSTEM=$(uname -s)
+HOSTNAME=$(hostname | sed 's/\.local$//')
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
@@ -34,10 +36,14 @@ download() {
   fi
 }
 
-if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
-  pattern='%sudo ALL=(ALL) NOPASSWD:ALL'
-  sudo grep -qxF "$pattern" /etc/sudoers || echo "$pattern" | sudo tee -a /etc/sudoers >/dev/null
-fi
+# hostname を検証
+case "$HOSTNAME" in
+staten | tigerlake | raptorlake | phoenix) ;;
+*)
+  echo "Unknown hostname: $HOSTNAME"
+  exit 1
+  ;;
+esac
 
 if [ ! -d $DOTPATH ]; then
   echo "$DOTPATH not found. Cloning..."
@@ -59,23 +65,7 @@ ln -sfn "${DOTPATH}/config/.config" "$HOME/.config"
 
 # nix configuration
 if has "nix"; then
-  HOSTNAME=$(hostname | sed 's/\.local$//')
-  SYSTEM=$(uname -s)
-
-  # home-manager
-  if [[ "$SYSTEM" == "Darwin" ]]; then
-    case "$HOSTNAME" in
-      staten) HM_CONFIG="potsbo@staten" ;;
-      *) HM_CONFIG="potsbo@darwin" ;;
-    esac
-  else
-    case "$HOSTNAME" in
-      tigerlake|raptorlake|phoenix) HM_CONFIG="potsbo@$HOSTNAME" ;;
-      *) HM_CONFIG="potsbo@linux" ;;
-    esac
-  fi
-  echo "home-manager: Using configuration: $HM_CONFIG"
-  nix run home-manager -- switch --flake "${DOTPATH}/nix#$HM_CONFIG"
+  nix run home-manager -- switch --flake "${DOTPATH}/nix#$HOSTNAME"
 
   # nix-darwin (macOS only)
   if [[ "$SYSTEM" == "Darwin" ]]; then
@@ -85,12 +75,8 @@ if has "nix"; then
       NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
-    case "$HOSTNAME" in
-      staten) DARWIN_CONFIG="staten" ;;
-      *) DARWIN_CONFIG="darwin" ;;
-    esac
-    echo "nix-darwin: Using configuration: $DARWIN_CONFIG"
-    sudo -H nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$DARWIN_CONFIG"
+    echo "nix-darwin: Using configuration: $HOSTNAME"
+    sudo -H nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$HOSTNAME"
   fi
 fi
 
@@ -118,9 +104,10 @@ if [ "$(uname)" = "Linux" ]; then
     # 任意の場所から aqua が使えるようにしておく
     ln -s "$HOME/aqua.yaml" /aqua.yaml
   fi
-  bin/mitamae local lib/recipe.rb
-else
-  script/force_valid_name
-  script/keygen
-  bin/mitamae local lib/recipe.rb
+fi
+bin/mitamae local lib/recipe.rb
+
+if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
+  pattern='%sudo ALL=(ALL) NOPASSWD:ALL'
+  sudo grep -qxF "$pattern" /etc/sudoers || echo "$pattern" | sudo tee -a /etc/sudoers >/dev/null
 fi

@@ -49,12 +49,10 @@
     in
     {
       homeConfigurations = {
-        "potsbo@linux" = mkHome { system = "x86_64-linux"; hostname = "default"; };
-        "potsbo@tigerlake" = mkHome { system = "x86_64-linux"; hostname = "tigerlake"; };
-        "potsbo@raptorlake" = mkHome { system = "x86_64-linux"; hostname = "raptorlake"; };
-        "potsbo@phoenix" = mkHome { system = "x86_64-linux"; hostname = "phoenix"; };
-        "potsbo@darwin" = mkHome { system = "aarch64-darwin"; hostname = "default"; };
-        "potsbo@staten" = mkHome { system = "aarch64-darwin"; hostname = "staten"; };
+        "tigerlake" = mkHome { system = "x86_64-linux"; hostname = "tigerlake"; };
+        "raptorlake" = mkHome { system = "x86_64-linux"; hostname = "raptorlake"; };
+        "phoenix" = mkHome { system = "x86_64-linux"; hostname = "phoenix"; };
+        "staten" = mkHome { system = "aarch64-darwin"; hostname = "staten"; };
       };
 
       darwinConfigurations = {
