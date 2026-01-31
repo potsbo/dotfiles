@@ -50,6 +50,37 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# home-manager (if nix is available)
+if has "nix"; then
+  HOSTNAME=$(hostname | sed 's/\.local$//')
+  SYSTEM=$(uname -s)
+  ARCH=$(uname -m)
+
+  # デフォルト設定（OS/アーキテクチャベース）
+  if [[ "$SYSTEM" == "Darwin" ]]; then
+    if [[ "$ARCH" == "arm64" ]]; then
+      DEFAULT="potsbo@darwin-arm"
+    else
+      DEFAULT="potsbo@darwin-x86"
+    fi
+  else
+    DEFAULT="potsbo@linux"
+  fi
+
+  # 既知のホストならそれを使う
+  case "$HOSTNAME" in
+    staten|tigerlake|raptorlake|phoenix)
+      CONFIG="potsbo@$HOSTNAME"
+      ;;
+    *)
+      CONFIG="$DEFAULT"
+      ;;
+  esac
+
+  echo "home-manager: Using configuration: $CONFIG"
+  nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
+fi
+
 bin/setup_mitamae
 
 if [ "$(uname)" = "Linux" ]; then
