@@ -76,13 +76,6 @@ export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=100000
 export HISTSIZE=100000
 
-
-## ls
-if command -v gls &> /dev/null
-then
-	alias ls='gls --color --hyperlink=auto --classify'
-fi
-
 # ls just after cd
 function chpwd() { ls }
 
