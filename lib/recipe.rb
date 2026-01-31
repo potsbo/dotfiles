@@ -99,6 +99,12 @@ EOF
       command "sudo cp #{DOTFILE_REPO}/lib/wsl.conf /etc/wsl.conf"
     end
   end
+
+  execute 'Add NOPASSWD to sudoers' do
+    pattern = '%sudo ALL=(ALL) NOPASSWD:ALL'
+    command "echo '#{pattern}' | sudo tee -a /etc/sudoers"
+    not_if "sudo grep -qxF '#{pattern}' /etc/sudoers"
+  end
 end
 
 if node[:platform] == "ubuntu"
