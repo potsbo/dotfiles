@@ -101,7 +101,14 @@
       AuthorizedKeysCommandUser = "nobody";
     };
   };
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";  # exit node として動作させる（IP forwarding 自動有効化）
+    extraUpFlags = [ "--advertise-exit-node" ];
+  };
+
+  # Tailscale インターフェースを信頼
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   # 常時稼働サーバ用途のため、勝手に suspend しないように設定
   systemd.targets = {
