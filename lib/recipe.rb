@@ -212,24 +212,13 @@ if node[:platform] == "ubuntu"
     command "apt update"
     user 'root'
   end
+  # nix で管理できないもの
   packages = [
-    "zsh",
-    "gcc",
-    "wl-clipboard",
-    "make",
     "locales-all",
-    "zip",
-    "unzip",
-    "tldr",
     "wslu",
     "openssh-server",
-    "nkf",
-    "tmux",
-    "rclone",
-    "whois",
-    "dnsutils",
 
-    # ruby build
+    # ruby build (TODO: nix-shell で管理するか検討)
     "zlib1g-dev",
     "libssl-dev",
     "libreadline-dev",
@@ -244,11 +233,6 @@ if node[:platform] == "ubuntu"
     command "sudo chsh -s $(which zsh) $(whoami)"
     not_if '[ "$(getent passwd $(whoami) | cut -d: -f7)" = "$(which zsh)" ]'
   end
-end
-
-# network が必要なものはできるだけ最後に行う
-execute "Update authorized_keys" do
-  command "curl -s https://github.com/potsbo.keys >> #{ENV['HOME']}/.ssh/authorized_keys"
 end
 
 if node[:platform] == "ubuntu"

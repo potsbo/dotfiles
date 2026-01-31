@@ -13,7 +13,23 @@ in
   # home-manager が .config に書き込まないようにする
   targets.genericLinux.enable = false;
 
-  # .config は mitamae でリンクするので、ここでは設定しない
+  home.packages = with pkgs; [
+    zsh
+    gcc
+    gnumake
+    zip
+    unzip
+    tldr
+    nkf
+    tmux
+    rclone
+    whois
+    dnsutils
+  ] ++ lib.optionals stdenv.isLinux [
+    wl-clipboard
+  ];
+
+  # .config は install スクリプトでリンクするので、ここでは設定しない
   home.file = {
     ".ssh".source = link ".ssh";
     ".zshrc".source = link ".zshrc";
