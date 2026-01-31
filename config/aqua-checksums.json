@@ -126,6 +126,16 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/aristocratos/btop/v1.4.6/btop-aarch64-unknown-linux-musl.tbz",
+      "checksum": "7902578C0439332573148CAF6B3515DF2B158D163BAEEFF046028E428EC3295A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/aristocratos/btop/v1.4.6/btop-x86_64-unknown-linux-musl.tbz",
+      "checksum": "9BF7ED170423BB3709A8020767BD2CA529C5632AF478F229DCE7CDFD32B25691",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/astral-sh/uv/0.9.3/uv-aarch64-apple-darwin.tar.gz",
       "checksum": "D6B2EAA1025B24B4779602763AD92F20112CBF19732FC6E0C72BB57A6A592C6C",
       "algorithm": "sha256"
