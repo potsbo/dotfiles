@@ -5,4 +5,9 @@ return {
       colorscheme = "tokyonight-night",
     },
   },
+  -- ステータスラインを無効化
+  {
+    "nvim-lualine/lualine.nvim",
+    enabled = false,
+  },
 }

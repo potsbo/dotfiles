@@ -30,6 +30,10 @@ vim.g.clipboard = {
 
 vim.opt.clipboard = "unnamedplus"
 
+-- ステータスライン（一番下の行）を完全に非表示にする
+vim.opt.showmode = false
+vim.opt.laststatus = 0
+
 -- https://stackoverflow.com/questions/75548458/copy-into-system-clipboard-from-neovim
 if vim.fn.has("wsl") == 1 then
   if vim.fn.executable("wl-copy") == 0 then
