@@ -23,29 +23,6 @@ if node[:platform] == 'darwin'
     end
   end
 
-  execute 'Hide dock' do
-    command 'defaults write com.apple.dock autohide -bool true && killall Dock'
-    not_if '[ "$(defaults read com.apple.dock autohide)" = "1" ]'
-  end
-
-  execute 'Key repeat' do
-    command 'defaults write NSGlobalDomain KeyRepeat -int 1'
-    not_if '[ "$(defaults read NSGlobalDomain KeyRepeat)" = "1" ]'
-  end
-  execute 'Key repeat' do
-    command 'defaults write NSGlobalDomain InitialKeyRepeat -int 15'
-    not_if '[ "$(defaults read NSGlobalDomain InitialKeyRepeat)" = "15" ]'
-  end
-
-  execute 'Tap to click' do
-    command 'defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true'
-    not_if '[ "$(defaults read com.apple.AppleMultitouchTrackpad Clicking)" = "1" ]'
-  end
-
-  execute 'Tracking speed 2' do
-    command 'defaults write .GlobalPreferences com.apple.trackpad.scaling -int 2'
-    not_if '[ "$(defaults read .GlobalPreferences com.apple.trackpad.scaling)" = "2" ]'
-  end
 end
 
 VSCODES = ["Cursor", "Code"]

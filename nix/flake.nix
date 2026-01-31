@@ -7,9 +7,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, ... }:
     let
       colors = {
         gray = "#797979";
@@ -49,9 +53,19 @@
         "potsbo@tigerlake" = mkHome { system = "x86_64-linux"; hostname = "tigerlake"; };
         "potsbo@raptorlake" = mkHome { system = "x86_64-linux"; hostname = "raptorlake"; };
         "potsbo@phoenix" = mkHome { system = "x86_64-linux"; hostname = "phoenix"; };
-        "potsbo@darwin-arm" = mkHome { system = "aarch64-darwin"; hostname = "default"; };
+        "potsbo@darwin" = mkHome { system = "aarch64-darwin"; hostname = "default"; };
         "potsbo@staten" = mkHome { system = "aarch64-darwin"; hostname = "staten"; };
-        "potsbo@darwin-x86" = mkHome { system = "x86_64-darwin"; hostname = "default"; };
+      };
+
+      darwinConfigurations = {
+        "darwin" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [ ./modules/darwin.nix ];
+        };
+        "staten" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [ ./modules/darwin.nix ];
+        };
       };
     };
 }

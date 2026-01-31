@@ -57,35 +57,35 @@ if [ -d "$HOME/.config" ] && [ ! -L "$HOME/.config" ]; then
 fi
 ln -sfn "${DOTPATH}/config/.config" "$HOME/.config"
 
-# home-manager (if nix is available)
+# nix configuration
 if has "nix"; then
   HOSTNAME=$(hostname | sed 's/\.local$//')
   SYSTEM=$(uname -s)
-  ARCH=$(uname -m)
 
-  # デフォルト設定（OS/アーキテクチャベース）
+  # home-manager
   if [[ "$SYSTEM" == "Darwin" ]]; then
-    if [[ "$ARCH" == "arm64" ]]; then
-      DEFAULT="potsbo@darwin-arm"
-    else
-      DEFAULT="potsbo@darwin-x86"
-    fi
+    case "$HOSTNAME" in
+      staten) HM_CONFIG="potsbo@staten" ;;
+      *) HM_CONFIG="potsbo@darwin" ;;
+    esac
   else
-    DEFAULT="potsbo@linux"
+    case "$HOSTNAME" in
+      tigerlake|raptorlake|phoenix) HM_CONFIG="potsbo@$HOSTNAME" ;;
+      *) HM_CONFIG="potsbo@linux" ;;
+    esac
   fi
+  echo "home-manager: Using configuration: $HM_CONFIG"
+  nix run home-manager -- switch --flake "${DOTPATH}/nix#$HM_CONFIG"
 
-  # 既知のホストならそれを使う
-  case "$HOSTNAME" in
-    staten|tigerlake|raptorlake|phoenix)
-      CONFIG="potsbo@$HOSTNAME"
-      ;;
-    *)
-      CONFIG="$DEFAULT"
-      ;;
-  esac
-
-  echo "home-manager: Using configuration: $CONFIG"
-  nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
+  # nix-darwin (macOS only)
+  if [[ "$SYSTEM" == "Darwin" ]]; then
+    case "$HOSTNAME" in
+      staten) DARWIN_CONFIG="staten" ;;
+      *) DARWIN_CONFIG="darwin" ;;
+    esac
+    echo "nix-darwin: Using configuration: $DARWIN_CONFIG"
+    sudo nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$DARWIN_CONFIG"
+  fi
 fi
 
 # aqua でインストールしたツールのリンクを作成
