@@ -14,6 +14,7 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
 # シンボリックリンク
 [
+  ".config",
   ".ssh",
   ".zshrc",
   ".vim",
