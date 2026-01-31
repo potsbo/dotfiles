@@ -79,6 +79,12 @@ if has "nix"; then
 
   # nix-darwin (macOS only)
   if [[ "$SYSTEM" == "Darwin" ]]; then
+    # Install Homebrew if not present (required for nix-darwin homebrew module)
+    if ! has "brew"; then
+      echo "Installing Homebrew..."
+      NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
     case "$HOSTNAME" in
       staten) DARWIN_CONFIG="staten" ;;
       *) DARWIN_CONFIG="darwin" ;;

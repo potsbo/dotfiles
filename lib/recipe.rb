@@ -26,18 +26,6 @@ if wsl_environment?
   end
 end
 
-if node[:platform] == 'darwin'
-  execute 'Install Homebrew' do
-    command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
-    not_if "test $(which brew)"
-  end
-
-  execute 'Install Homebrew packages' do
-    command "brew bundle install --global --cleanup"
-    not_if "brew bundle check --global"
-  end
-end
-
 if wsl_environment?
   link File.join(ENV['HOME'], "win") do
     to "/mnt/c/Users/potsb"
