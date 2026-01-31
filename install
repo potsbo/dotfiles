@@ -15,18 +15,7 @@ HOSTNAME=$(hostname | sed 's/\.local$//')
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-clone() {
-  local github_url="https://${REPO}"
-
-  if has "git"; then
-    git clone --recursive "${github_url}" "${DOTPATH}"
-  else
-    echo "git is required"
-    exit 1
-  fi
-}
-
-# 設定名を決定
+# Step 0 validation
 case "$HOSTNAME" in
 staten | tigerlake | raptorlake | phoenix) CONFIG="$HOSTNAME" ;;
 *)
@@ -38,9 +27,10 @@ staten | tigerlake | raptorlake | phoenix) CONFIG="$HOSTNAME" ;;
   ;;
 esac
 
+# Step 1 clone
 if [ ! -d $DOTPATH ]; then
   echo "$DOTPATH not found. Cloning..."
-  clone
+  git clone --recursive "https://${REPO}" "${DOTPATH}"
 fi
 
 cd $DOTPATH
