@@ -1,5 +1,0 @@
-Host bitbucket.org
-  User git
-  Port 22
-  Hostname bitbucket.org
-  Identityfile "~/.ssh/id_rsa"

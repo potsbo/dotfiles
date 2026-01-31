@@ -1,5 +1,0 @@
-- name: fetch anyenv repo
-  git:
-    repo: 'https://{{ anyenv.repository }}'
-    dest: '{{ home_path }}/.anyenv'
-    update: no
