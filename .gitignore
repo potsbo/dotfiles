@@ -11,3 +11,4 @@ config/.config/gnome-initial-setup-done
 config/.config/.gsd-keyboard.settings-ported
 config/.config/environment.d
 config/.config/systemd/user
+config/.config/starship.toml
