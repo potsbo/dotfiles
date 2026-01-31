@@ -32,7 +32,8 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
   # home_path が実ディレクトリなら中身をマージして削除
   if File.directory?(home_path) && !File.symlink?(home_path)
-    Dir.children(home_path).each do |name|
+    Dir.entries(home_path).each do |name|
+      next if %w[. ..].include?(name)
       src = File.join(home_path, name)
       dest = File.join(dotfiles_path, name)
       File.rename(src, dest) unless File.exist?(dest)
