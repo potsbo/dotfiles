@@ -11,7 +11,6 @@ MItamae::RecipeContext.class_eval do
 end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
-AQUA = node[:platform] == "darwin" ? "/opt/homebrew/bin/aqua" : "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua"
 
 link File.join(ENV['HOME'], '.config/git/os') do
   to File.join(ENV['HOME'], ".config/git/#{node[:platform]}")
@@ -93,17 +92,10 @@ if node[:platform] == 'darwin'
   end
 end
 
-if node[:platform] == "ubuntu"
-  execute "aqua install" do
-    command "curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v4.0.2/aqua-installer | bash"
-    not_if "command -v #{AQUA}"
-  end
-end
-
-# aqua が brew の install に依存するのでこの順で書く
+# aqua は nix で管理。リンクのみ実行
 execute 'Install aqua links' do
-  command "#{AQUA} install --only-link"
-  only_if "command -v #{AQUA}"
+  command "aqua install --only-link"
+  only_if "command -v aqua"
 end
 
 
