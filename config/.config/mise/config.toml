@@ -1,7 +1,6 @@
 [tools]
 usage = "latest"
 node = "24"
-"npm:@anthropic-ai/claude-code" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = []
