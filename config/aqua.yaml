@@ -48,3 +48,4 @@ packages:
   - name: github/copilot-cli@v0.0.396
   - name: anthropics/claude-code@v2.1.22
   - name: aristocratos/btop@v1.4.6
+  - name: itamae-kitchen/mitamae@v1.14.4

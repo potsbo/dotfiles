@@ -336,6 +336,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-aarch64-darwin.tar.gz",
+      "checksum": "DB5B2D3AC75E444DFB12AAA1B1074CC820F234B1071BFA08D7328B26D9BCDE0F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-aarch64-linux.tar.gz",
+      "checksum": "E84F7B00070C6FC64B8FD0242182D4913180764DEA699BE4ADDA2CFA2E8D0683",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-x86_64-darwin.tar.gz",
+      "checksum": "E55073F6DA72D08EA2289431B5ED7951689BDA7151A2A479C409B84454770DE3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-x86_64-linux.tar.gz",
+      "checksum": "A4B80EB74E796B453916DFFF739C3EAA8D3D794244A0805A423B22292AFA7165",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/jdx/mise/v2025.12.1/mise-v2025.12.1-linux-arm64-musl.tar.gz",
       "checksum": "C6405751686A986E8560866411C3B1EAC3695CC937DA7434C351AF41A70500CA",
       "algorithm": "sha256"
