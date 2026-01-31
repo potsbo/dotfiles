@@ -1,8 +1,3 @@
-brew "ijq"
-brew "reattach-to-user-namespace"
-brew "watch"
-brew "coreutils"
-brew "libyaml" # for ruby build
 cask "akiflow"
 cask "karabiner-elements"
 cask "visual-studio-code"

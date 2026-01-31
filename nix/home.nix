@@ -65,8 +65,14 @@ in
     rclone
     whois
     dnsutils
+    ijq
+    watch
+    libyaml
   ] ++ lib.optionals stdenv.isLinux [
     wl-clipboard
+  ] ++ lib.optionals stdenv.isDarwin [
+    reattach-to-user-namespace
+    coreutils
   ];
 
   # .config は install スクリプトでリンクするので、ここでは設定しない
