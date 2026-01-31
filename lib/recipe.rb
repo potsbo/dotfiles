@@ -12,17 +12,8 @@ end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
-VSCODES = ["Cursor", "Code"]
-VSCODES.each do |name|
-  if node[:platform] == 'darwin'
-    cursor_target = File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json")
-    directory File.dirname(cursor_target)
-    link cursor_target do
-      to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
-    end
-  end
-
-  if wsl_environment?
+if wsl_environment?
+  ["Cursor", "Code"].each do |name|
     cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/settings.json")
     file cursor_target do
       content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))

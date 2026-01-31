@@ -90,5 +90,7 @@ in
   } // lib.optionalAttrs pkgs.stdenv.isDarwin {
     ".Brewfile".source = link ".Brewfile";
     "iCloudDrive".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Mobile Documents/com~apple~CloudDocs";
+    "Library/Application Support/Cursor/User/settings.json".source = link ".config/cursor/user/settings.json";
+    "Library/Application Support/Code/User/settings.json".source = link ".config/cursor/user/settings.json";
   };
 }
