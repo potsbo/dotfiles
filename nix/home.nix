@@ -41,6 +41,20 @@ let
         cp aqua $out/bin/
       '';
     };
+
+  opener = pkgs.buildGoModule {
+    pname = "opener";
+    version = "0.1.6";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "superbrothers";
+      repo = "opener";
+      rev = "v0.1.6";
+      hash = "sha256-rYeQ45skFXWxdxMj0dye8IBEYcQCRqdt9nLVXF36od8=";
+    };
+
+    vendorHash = "sha256-lju+QlWxUb11UV9NvXSgQ+ZG37WhyZVahJTM5voDEfw=";
+  };
 in
 {
   home.username = "potsbo";
@@ -73,6 +87,7 @@ in
   ] ++ lib.optionals stdenv.isDarwin [
     reattach-to-user-namespace
     coreutils
+    opener
   ];
 
   # .config は install スクリプトでリンクするので、ここでは設定しない

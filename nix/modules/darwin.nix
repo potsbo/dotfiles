@@ -34,12 +34,6 @@
       autoUpdate = true;
       upgrade = true;
     };
-    taps = [
-      "superbrothers/opener"
-    ];
-    brews = [
-      "opener"
-    ];
     casks = [
       "akiflow"
       "karabiner-elements"
