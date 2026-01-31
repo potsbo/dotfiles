@@ -28,7 +28,9 @@
   homebrew = {
     enable = true;
     onActivation = {
-      cleanup = "uninstall";
+      # zap: 宣言から外したアプリを削除する際に設定ファイルも一緒に削除
+      # uninstall: アプリのみ削除、設定は残る
+      cleanup = "zap";
       autoUpdate = true;
       upgrade = true;
     };
