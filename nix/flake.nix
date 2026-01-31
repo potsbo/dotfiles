@@ -31,6 +31,8 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           accentColor = hostColors.${hostname} or hostColors.default;
+          homeDir = if pkgs.stdenv.isDarwin then "/Users/potsbo" else "/home/potsbo";
+          dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
         in
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -38,7 +40,7 @@
             ./home.nix
             ./modules/starship.nix
           ];
-          extraSpecialArgs = { inherit accentColor hostname; };
+          extraSpecialArgs = { inherit accentColor hostname dotfilesPath; };
         };
     in
     {

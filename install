@@ -50,6 +50,13 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# .config のリンクを作成（home-manager より先に実行）
+if [ -d "$HOME/.config" ] && [ ! -L "$HOME/.config" ]; then
+  echo "Removing existing .config directory..."
+  rm -rf "$HOME/.config"
+fi
+ln -sfn "${DOTPATH}/config/.config" "$HOME/.config"
+
 # home-manager (if nix is available)
 if has "nix"; then
   HOSTNAME=$(hostname | sed 's/\.local$//')

@@ -13,46 +13,13 @@ end
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 AQUA = node[:platform] == "darwin" ? "/opt/homebrew/bin/aqua" : "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin/aqua"
 
-define :dotfile, source: nil do
-  source = params[:source] || params[:name]
-  link_path = File.join(ENV['HOME'], params[:name])
-
-  # "ln -sf" doesn't override existing directory
-  execute "Cleanup existing directory at #{link_path}" do
-    command "rm -rf #{link_path}"
-    only_if "test -d #{link_path} && ! test -L #{link_path}"
-  end
-
-  link link_path do
-    to File.expand_path("../../config/#{source}", __FILE__)
-    # 昔ここに user を設定していたが、codespaces で nil になっている様子なので外した
-    force true
-  end
-end
-
-dotfile '.config'
 link File.join(ENV['HOME'], '.config/git/os') do
   to File.join(ENV['HOME'], ".config/git/#{node[:platform]}")
   force true
 end
 
-dotfile '.ssh'
 file File.join(ENV['HOME'], '.ssh/authorized_keys') do
   mode '0600'
-end
-
-
-dotfile '.zshrc'
-dotfile '.vim'
-dotfile '.tigrc'
-dotfile 'bin'
-dotfile '.clipper.json'
-dotfile '.default-npm-packages'
-dotfile 'aqua-checksums.json'
-
-directory File.join(ENV['HOME'], 'go')
-link File.join(ENV['HOME'], 'go/src')do
-  to File.join(ENV['HOME'], 'src')
 end
 
 if node[:platform] == 'darwin'
@@ -64,10 +31,6 @@ if node[:platform] == 'darwin'
       command "plutil -convert binary1 #{source} -o #{target}"
       not_if "[ \"$(plutil -convert json #{source} -o -)\" = \"$(plutil -convert json #{target} -o -)\" ]"
     end
-  end
-
-  link File.join(ENV['HOME'], 'iCloudDrive')do
-    to File.join(ENV['HOME'], 'Library/Mobile Documents/com~apple~CloudDocs')
   end
 
   execute 'Hide dock' do
@@ -118,14 +81,12 @@ VSCODES.each do |name|
   end
 end
 
-dotfile 'aqua.yaml'
 if node[:platform] == 'darwin'
   execute 'Install Homebrew' do
     command "export NONINTERACTIVE=true && /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\" < /dev/null"
     not_if "test $(which brew)"
   end
 
-  dotfile '.Brewfile'
   execute 'Install Homebrew packages' do
     command "brew bundle install --global --cleanup"
     not_if "brew bundle check --global"
@@ -295,8 +256,4 @@ if node[:platform] == "ubuntu"
     command "curl -fsSL https://tailscale.com/install.sh | sh"
     not_if "command -v tailscale"
   end
-end
-
-execute 'mise' do
-  command "#{AQUA} exec mise install"
 end
