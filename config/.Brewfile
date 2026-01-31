@@ -1,10 +1,7 @@
-brew "aqua"
 brew "ijq"
 brew "reattach-to-user-namespace"
-brew "tree"
 brew "watch"
 brew "coreutils"
-brew "tmux"
 brew "libyaml" # for ruby build
 cask "akiflow"
 cask "karabiner-elements"
