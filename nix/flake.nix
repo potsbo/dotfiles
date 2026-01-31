@@ -12,18 +12,19 @@
   outputs = { nixpkgs, home-manager, ... }:
     let
       colors = {
-        gray   = "#797979";
+        gray = "#797979";
         yellow = "#fd971f";
         purple = "#ae81ff";
-        white  = "#f8f8f2";
+        white = "#f8f8f2";
+        orange = "#d7875f";
       };
 
       hostColors = {
-        tigerlake  = colors.yellow;
+        tigerlake = colors.yellow;
         raptorlake = colors.white;
-        staten     = colors.purple;
-        phoenix    = colors.purple;
-        default    = colors.gray;
+        staten = colors.purple;
+        phoenix = colors.orange;
+        default = colors.gray;
       };
 
       mkHome = { system, hostname }:
@@ -42,13 +43,13 @@
     in
     {
       homeConfigurations = {
-        "potsbo@linux"      = mkHome { system = "x86_64-linux";   hostname = "default"; };
-        "potsbo@tigerlake"  = mkHome { system = "x86_64-linux";   hostname = "tigerlake"; };
-        "potsbo@raptorlake" = mkHome { system = "x86_64-linux";   hostname = "raptorlake"; };
-        "potsbo@phoenix"    = mkHome { system = "x86_64-linux";   hostname = "phoenix"; };
+        "potsbo@linux" = mkHome { system = "x86_64-linux"; hostname = "default"; };
+        "potsbo@tigerlake" = mkHome { system = "x86_64-linux"; hostname = "tigerlake"; };
+        "potsbo@raptorlake" = mkHome { system = "x86_64-linux"; hostname = "raptorlake"; };
+        "potsbo@phoenix" = mkHome { system = "x86_64-linux"; hostname = "phoenix"; };
         "potsbo@darwin-arm" = mkHome { system = "aarch64-darwin"; hostname = "default"; };
-        "potsbo@staten"     = mkHome { system = "aarch64-darwin"; hostname = "staten"; };
-        "potsbo@darwin-x86" = mkHome { system = "x86_64-darwin";  hostname = "default"; };
+        "potsbo@staten" = mkHome { system = "aarch64-darwin"; hostname = "staten"; };
+        "potsbo@darwin-x86" = mkHome { system = "x86_64-darwin"; hostname = "default"; };
       };
     };
 }

@@ -13,6 +13,7 @@ main() {
   thm_yellow="#fd971f"
   thm_purple="#ae81ff"
   thm_white="#f8f8f2"
+  thm_orange="#d7875f"
 
   case $(hostname) in
   "tigerlake")
@@ -27,6 +28,10 @@ main() {
     thm_main=$thm_purple
     thm_sub=$thm_black
     ;;
+  "phoenix")
+    thm_main=$thm_orange
+    thm_sub=$thm_black
+    ;;
   *)
     thm_main=$thm_gray
     thm_sub=$thm_black
@@ -38,7 +43,7 @@ main() {
   # status bar
   # ================================================
   tmux set -g status "on"
-  tmux set -g status-position "bottom"
+  tmux set -g status-position "top"
   tmux set -g status-style "bold,bg=${thm_main},fg=${thm_sub}"
   tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
