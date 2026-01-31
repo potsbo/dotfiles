@@ -24,6 +24,3 @@ cask "tailscale"
 cask "ghostty"
 cask "cursor"
 cask "zotero"
-mas "Magnet", id: 441258766
-mas "Slack", id: 803453959
-mas "Keynote", id: 409183694
