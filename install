@@ -50,6 +50,16 @@ if [[ "$USER" == "potsbo" ]]; then
   fi
 
   export NIX_CONFIG="experimental-features = nix-command flakes"
+
+  # nixos-rebuild (NixOS only)
+  if [[ -e /etc/NIXOS ]]; then
+    if [[ ! -L /etc/nixos/configuration.nix ]]; then
+      sudo rm -f /etc/nixos/configuration.nix
+      sudo ln -s "${DOTPATH}/nixos/hosts/${CONFIG}/configuration.nix" /etc/nixos/configuration.nix
+    fi
+    sudo nixos-rebuild switch
+  fi
+
   nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
 
   # nix-darwin (macOS only)
