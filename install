@@ -15,23 +15,13 @@ HOSTNAME=$(hostname | sed 's/\.local$//')
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-download() {
+clone() {
   local github_url="https://${REPO}"
 
   if has "git"; then
     git clone --recursive "${github_url}" "${DOTPATH}"
-  elif has "curl" || has "wget"; then
-    tarball="${github_url}/archive/main.tar.gz"
-
-    if has "curl"; then
-      curl -L "${tarball}"
-    elif has "wget"; then
-      wget -O - "${tarball}"
-    fi | tar xzv
-
-    mkdir -p "$(dirname "${DOTPATH}")"
-    mv -f dotfiles-main "${DOTPATH}"
   else
+    echo "git is required"
     exit 1
   fi
 }
@@ -50,7 +40,7 @@ esac
 
 if [ ! -d $DOTPATH ]; then
   echo "$DOTPATH not found. Cloning..."
-  download
+  clone
 fi
 
 cd $DOTPATH
