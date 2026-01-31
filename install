@@ -30,7 +30,12 @@ esac
 # Step 1 clone
 if [ ! -d $DOTPATH ]; then
   echo "$DOTPATH not found. Cloning..."
-  git clone --recursive "https://${REPO}" "${DOTPATH}"
+
+  if [[ -e /etc/NIXOS ]]; then
+    nix-shell -p git --run "git clone --recursive https://${REPO} ${DOTPATH}"
+  else
+    git clone --recursive $REPO $DOTPATH
+  fi
 fi
 
 cd $DOTPATH
