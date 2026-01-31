@@ -1,4 +1,0 @@
-[url "git@github.com:"]
-  insteadOf = https://github.com/
-[github]
-	privatekey = ~/.ssh/id_rsa.github

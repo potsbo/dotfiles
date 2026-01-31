@@ -12,15 +12,6 @@ end
 
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
-link File.join(ENV['HOME'], '.config/git/os') do
-  to File.join(ENV['HOME'], ".config/git/#{node[:platform]}")
-  force true
-end
-
-file File.join(ENV['HOME'], '.ssh/authorized_keys') do
-  mode '0600'
-end
-
 if node[:platform] == 'darwin'
   define :preferences do
     execute "sync #{params[:name]}" do
