@@ -34,7 +34,15 @@
       autoUpdate = true;
       upgrade = true;
     };
+    taps = [
+      "nikitabobko/tap"
+      "felixkratz/formulae"
+    ];
+    brews = [
+      "felixkratz/formulae/borders"
+    ];
     casks = [
+      "nikitabobko/tap/aerospace"
       "akiflow"
       "karabiner-elements"
       "visual-studio-code"
