@@ -44,12 +44,12 @@ main() {
   # ================================================
   tmux set -g status "on"
   tmux set -g status-position "top"
-  tmux set -g status-style "bold,bg=${thm_main},fg=${thm_sub}"
+  tmux set -g status-style "bg=${thm_main},fg=${thm_sub}"
   tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
   # left panel
   tmux set -g status-left-length 100
-  tmux set -g status-left '#{?client_prefix,s:sesh r:reload SPC:menu c:win, #S@#h ▕}'
+  tmux set -g status-left '#{?client_prefix, s:  w:  n/p:  c:  &:  %:  ":, #S@#h  ▕}'
 
   # right panel
   tmux set -g status-right ""
