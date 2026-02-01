@@ -85,6 +85,11 @@ in
   programs.home-manager.enable = true;
   programs.starship.enable = true;
 
+  # home-manager 内部で builtins.toFile が store path を参照する際の警告を回避
+  # 原因は home-manager が nixpkgs の meta.nix を参照する実装にあり、このコードベースでは修正不可
+  # https://github.com/nix-community/home-manager/issues/7935
+  manual.manpages.enable = false;
+
   # home-manager が .config に書き込まないようにする
   targets.genericLinux.enable = false;
 
