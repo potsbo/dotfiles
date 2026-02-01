@@ -174,7 +174,7 @@ fi
 
 # 自動で tmux に入ったり出たりする
 # if TMUX is empty
-if [ -z "$TMUX" ] && command -v tm &> /dev/null; then
-  tm "$(ghq root)/github.com/potsbo/dotfiles"
+if [ -z "$TMUX" ] && command -v sesh &> /dev/null; then
+  ~/.config/tmux/sesh-connect.sh
 fi
 export ANTHROPIC_MODEL=opus
