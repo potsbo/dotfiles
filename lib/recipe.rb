@@ -165,7 +165,7 @@ TMUX_PLUGINS = [
 TMUX_PLUGINS.each do |plugin|
   plugin_path = File.join(GHQ_ROOT, "github.com", plugin)
   execute "ghq get #{plugin}" do
-    command "ghq get https://github.com/#{plugin}"
+    command "aqua exec -- ghq get https://github.com/#{plugin}"
     not_if "test -d #{plugin_path}"
   end
 end
