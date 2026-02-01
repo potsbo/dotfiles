@@ -145,6 +145,12 @@
   };
   powerManagement.enable = false;
 
+  # rclone mount (FUSE) support
+  programs.fuse.userAllowOther = true;
+
+  # Keep user services running after logout (for rclone mount)
+  users.users.potsbo.linger = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
