@@ -36,7 +36,7 @@ if [ ! -d $DOTPATH ]; then
   if [[ -e /etc/NIXOS ]]; then
     nix-shell -p git --run "git clone --recursive https://${REPO} ${DOTPATH}"
   else
-    git clone --recursive $REPO $DOTPATH
+    git clone --recursive https://${REPO} ${DOTPATH}
   fi
 fi
 
