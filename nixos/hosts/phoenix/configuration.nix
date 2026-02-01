@@ -69,6 +69,7 @@
   # Install firefox.
   programs.zsh.enable = true;
   programs.nix-ld.enable = true; # node を動作させたい
+  programs.mosh.enable = true;
 
 
   # List packages installed in system profile. To search, run:
