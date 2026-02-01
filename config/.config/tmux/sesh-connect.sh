@@ -91,12 +91,12 @@ list_all() {
 
 selected=$(
   list_all | shorten_path | fzf-tmux -p 100%,100% \
-    --no-sort --ansi --border-label " $(hostname) " --prompt '⚡  ' \
+    --no-sort --ansi --layout=reverse --border-label " $(hostname) " --prompt '⚡  ' \
     --color="border:$COLOR_MAIN,label:$COLOR_MAIN,prompt:$COLOR_MAIN,pointer:$COLOR_MAIN,marker:$COLOR_MAIN,spinner:$COLOR_MAIN,header:$COLOR_MAIN,hl:$COLOR_MAIN,hl+:$COLOR_MAIN" \
     --header '^q tmux kill' \
     --bind 'tab:down,btab:up' \
     --bind 'ctrl-q:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons --hide-duplicates)' \
-    --preview-window 'right:50%' \
+    --preview-window 'down:50%' \
     --preview 'sesh preview {}'
 ) || exit 0
 
