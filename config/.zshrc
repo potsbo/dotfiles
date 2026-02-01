@@ -143,12 +143,12 @@ _register_keycommand() {
   bindkey -M emacs "$1" $2
 }
 
-_tm() {
-  BUFFER="tm"
+_sesh_connect() {
+  BUFFER="~/.config/tmux/sesh-connect.sh"
   zle accept-line
 }
 
-_register_keycommand "^]" _tm
+_register_keycommand "^]" _sesh_connect
 
 # for `go test -race ...`
 export CGO_ENABLED=1

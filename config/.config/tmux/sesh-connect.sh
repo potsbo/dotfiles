@@ -86,9 +86,12 @@ selected=$(
     --header '^q tmux kill' \
     --bind 'tab:down,btab:up' \
     --bind 'ctrl-q:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons --hide-duplicates)' \
-    --preview-window 'right:70%' \
+    --preview-window 'right:50%' \
     --preview 'sesh preview {}'
-)
+) || exit 0
+
+# Exit if cancelled
+[[ -z "$selected" ]] && exit 0
 
 if [[ "$selected" == *"Exit SSH"* ]]; then
   # Signal to zshrc that we want to exit SSH
