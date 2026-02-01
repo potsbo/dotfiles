@@ -34,6 +34,12 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.showmode = false
 vim.opt.laststatus = 0
 
+-- winbar（ウィンドウ上部のファイル名表示）を非表示にする
+vim.opt.winbar = ""
+
+-- tabline（上部のバッファ/タブリスト）を非表示にする
+vim.opt.showtabline = 0
+
 -- https://stackoverflow.com/questions/75548458/copy-into-system-clipboard-from-neovim
 if vim.fn.has("wsl") == 1 then
   if vim.fn.executable("wl-copy") == 0 then
