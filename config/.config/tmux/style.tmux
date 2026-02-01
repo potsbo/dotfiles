@@ -56,6 +56,13 @@ main() {
   tmux set -g status-right-style "none"
   tmux set -g status-right-style "none"
 
+  # copy-mode (text selection)
+  # ================================================
+  tmux set -g mode-style "bg=${thm_main},fg=${thm_sub}"
+  tmux set -g copy-mode-current-match-style "bg=${thm_main},fg=${thm_sub}"
+  tmux set -g copy-mode-match-style "bg=${thm_main},fg=${thm_sub}"
+  tmux set -g cursor-colour "${thm_main}"
+
   # window
   # ================================================
   tmux setw -g window-status-current-style "bold,fg=${thm_main},bg=${thm_sub}"
