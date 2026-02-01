@@ -16,3 +16,7 @@ keybind = super+\=text:\x1b:vsplit\x0d
 keybind = super+r=text:\x1b:e!\x0d
 
 clipboard-read = allow
+
+# macOS specific settings
+macos-option-as-alt = left
+macos-titlebar-style = hidden
