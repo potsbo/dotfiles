@@ -14,8 +14,6 @@
     NSGlobalDomain = {
       KeyRepeat = 1;
       InitialKeyRepeat = 15;
-      AppleLanguages = [ "en-US" "ja-JP" ];
-      AppleLocale = "en_US";
     };
 
     trackpad.Clicking = true;
@@ -36,7 +34,15 @@
       autoUpdate = true;
       upgrade = true;
     };
+    taps = [
+      "nikitabobko/tap"
+      "felixkratz/formulae"
+    ];
+    brews = [
+      "felixkratz/formulae/borders"
+    ];
     casks = [
+      "nikitabobko/tap/aerospace"
       "akiflow"
       "karabiner-elements"
       "visual-studio-code"
