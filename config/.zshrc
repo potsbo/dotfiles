@@ -176,5 +176,27 @@ fi
 # if TMUX is empty
 if [ -z "$TMUX" ] && command -v sesh &> /dev/null; then
   ~/.config/tmux/sesh-connect.sh
+  # Check if user chose "Exit SSH"
+  if [ -f /tmp/sesh-exit-ssh ]; then
+    rm -f /tmp/sesh-exit-ssh
+    exit 0
+  fi
 fi
+
+# tmux detach 後に pending SSH があれば実行
+_check_pending_ssh() {
+  if [ -z "$TMUX" ] && [ -f /tmp/sesh-ssh-pending ]; then
+    local host
+    host=$(cat /tmp/sesh-ssh-pending)
+    rm -f /tmp/sesh-ssh-pending
+    if [ -n "$host" ]; then
+      ssh "$host"
+      # SSH 終了後、再度 sesh-connect.sh を呼ぶ
+      if command -v sesh &> /dev/null; then
+        ~/.config/tmux/sesh-connect.sh
+      fi
+    fi
+  fi
+}
+precmd_functions+=(_check_pending_ssh)
 export ANTHROPIC_MODEL=opus
