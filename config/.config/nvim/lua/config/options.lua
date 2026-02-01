@@ -34,6 +34,10 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.showmode = false
 vim.opt.laststatus = 0
 
+-- コマンドラインの高さを0にする（noice.nvim がフローティングで表示する）
+vim.opt.cmdheight = 0
+
+
 -- winbar（ウィンドウ上部のファイル名表示）を非表示にする
 vim.opt.winbar = ""
 
