@@ -1,5 +1,0 @@
-bind main    !      ?git revert %(commit)
-bind generic G none
-bind generic g move-first-line
-bind generic G move-last-line
-bind diff C ?git checkout %(commit)
