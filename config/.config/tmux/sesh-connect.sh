@@ -2,6 +2,19 @@
 
 set -eu
 
+# ghq repos that don't have a tmux session yet
+ghq_repos_without_session() {
+  local existing_sessions
+  existing_sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null || true)
+
+  ghq list --full-path | roots --depth 4 --root-file .git 2>/dev/null | while read -r repo; do
+    local name="${repo##*/}"
+    if ! echo "$existing_sessions" | grep -q -E "^${name}$"; then
+      echo "📁  GHQ: $repo"
+    fi
+  done
+}
+
 # SSH hosts from config (exclude github.com, *.github.com, etc.)
 ssh_hosts() {
   {
@@ -45,6 +58,7 @@ list_all() {
     echo "🚪  Exit SSH"
   fi
   sesh list --icons --hide-duplicates
+  ghq_repos_without_session
   all_ssh_hosts
 }
 
@@ -62,6 +76,18 @@ if [[ "$selected" == *"Exit SSH"* ]]; then
   # Signal to zshrc that we want to exit SSH
   touch /tmp/sesh-exit-ssh
   exit 0
+elif [[ "$selected" == *"GHQ:"* ]]; then
+  # Extract repo path from "📁  GHQ: /path/to/repo"
+  repo=$(echo "$selected" | sed 's/.*GHQ: //')
+  name="${repo##*/}"
+
+  # Create session and connect
+  tmux new-session -d -c "$repo" -s "$name"
+  if [ -n "${TMUX:-}" ]; then
+    tmux switch-client -t "$name"
+  else
+    tmux attach-session -t "$name"
+  fi
 elif [[ "$selected" == *"SSH:"* ]]; then
   # Extract hostname from "🖥️  SSH: hostname"
   host=$(echo "$selected" | sed 's/.*SSH: //')
