@@ -96,7 +96,7 @@ selected=$(
     --header '^q tmux kill' \
     --bind 'tab:down,btab:up' \
     --bind 'ctrl-q:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons --hide-duplicates)' \
-    --preview-window 'down:50%' \
+    --preview-window 'down:50%:follow' \
     --preview 'sesh preview {}'
 ) || exit 0
 
