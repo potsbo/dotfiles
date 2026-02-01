@@ -14,6 +14,8 @@
     NSGlobalDomain = {
       KeyRepeat = 1;
       InitialKeyRepeat = 15;
+      AppleLanguages = [ "en-US" "ja-JP" ];
+      AppleLocale = "en_US";
     };
 
     trackpad.Clicking = true;
