@@ -7,6 +7,15 @@ ICON_GHQ=$(printf '\uEAC4')
 ICON_SSH=$(printf '\uEB3A')
 ICON_GITHUB=$(printf '\uF09B')
 
+# Host-specific color (same as style.tmux)
+case $(hostname) in
+"tigerlake")    COLOR_MAIN="#fd971f" ;;  # yellow
+"raptorlake")   COLOR_MAIN="#f8f8f2" ;;  # white
+"staten.local") COLOR_MAIN="#ae81ff" ;;  # purple
+"phoenix")      COLOR_MAIN="#d7875f" ;;  # orange
+*)              COLOR_MAIN="#797979" ;;  # gray
+esac
+
 # Shorten path for display
 shorten_path() {
   sed "s|$HOME|~|g" | sed "s|~/src/github.com|$ICON_GITHUB |g"
@@ -82,7 +91,8 @@ list_all() {
 
 selected=$(
   list_all | shorten_path | fzf-tmux -p 100%,100% \
-    --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
+    --no-sort --ansi --border-label " $(hostname) " --prompt '⚡  ' \
+    --color="border:$COLOR_MAIN,label:$COLOR_MAIN" \
     --header '^q tmux kill' \
     --bind 'tab:down,btab:up' \
     --bind 'ctrl-q:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons --hide-duplicates)' \
