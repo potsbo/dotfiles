@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -eu
-
-id=$1
-plutil -convert json ~/Library/Preferences/$id.plist -o - | jq
