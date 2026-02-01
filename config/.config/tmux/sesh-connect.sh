@@ -14,7 +14,7 @@ ghq_repos_without_session() {
   ghq list --full-path | roots --depth 4 --root-file .git 2>/dev/null | while read -r repo; do
     local name="${repo##*/}"
     if ! echo "$existing_sessions" | grep -q -E "^${name}$"; then
-      echo "$ICON_GHQ  $repo"
+      echo "$ICON_GHQ $(echo "$repo" | sed "s|^$HOME|~|")"
     fi
   done
 }
@@ -29,7 +29,7 @@ ssh_hosts() {
     | grep -v '\*' \
     | grep -v 'github\.com' \
     | sort -u \
-    | while read -r host; do echo "$ICON_SSH  $host"; done
+    | while read -r host; do echo "$ICON_SSH $host"; done
 }
 
 # Recent SSH hosts from history (last 3 months)
@@ -47,7 +47,7 @@ ssh_history() {
       done \
     | grep -v '^-' \
     | sort -u \
-    | while read -r host; do echo "$ICON_SSH  $host"; done
+    | while read -r host; do echo "$ICON_SSH $host"; done
 }
 
 # Combine and dedupe SSH hosts
@@ -81,8 +81,8 @@ if [[ "$selected" == *"Exit SSH"* ]]; then
   touch /tmp/sesh-exit-ssh
   exit 0
 elif [[ "$selected" == *"$ICON_GHQ"* ]]; then
-  # Extract repo path from "$ICON_GHQ  /path/to/repo"
-  repo=$(echo "$selected" | sed "s/.*$ICON_GHQ  //")
+  # Extract repo path from "$ICON_GHQ  ~/path/to/repo"
+  repo=$(echo "$selected" | sed "s/.*$ICON_GHQ //" | sed "s|^~|$HOME|")
   name="${repo##*/}"
 
   # Create session and connect
@@ -94,7 +94,7 @@ elif [[ "$selected" == *"$ICON_GHQ"* ]]; then
   fi
 elif [[ "$selected" == *"$ICON_SSH"* ]]; then
   # Extract hostname from "$ICON_SSH  hostname"
-  host=$(echo "$selected" | sed "s/.*$ICON_SSH  //")
+  host=$(echo "$selected" | sed "s/.*$ICON_SSH //")
 
   if [ -n "${TMUX:-}" ]; then
     # Inside tmux: write host to temp file, then detach
