@@ -48,11 +48,12 @@ main() {
   tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
   # left panel
-  tmux set -g status-left-length 40
-  tmux set -g status-left " #S@#h ${separator}"
+  tmux set -g status-left-length 100
+  tmux set -g status-left '#{?client_prefix,s:sesh r:reload SPC:menu c:win, #S@#h ▕}'
 
   # right panel
   tmux set -g status-right ""
+  tmux set -g status-right-style "none"
   tmux set -g status-right-style "none"
 
   # window
@@ -60,8 +61,8 @@ main() {
   tmux setw -g window-status-current-style "bold,fg=${thm_main},bg=${thm_sub}"
   tmux setw -g window-status-activity-style "none,bg=${thm_sub}"
   tmux setw -g window-status-style "none,fg=${thm_black}"
-  tmux setw -g window-status-current-format "  #I #W ${separator}"
-  tmux setw -g window-status-format "  #I #W ${separator}"
+  tmux setw -g window-status-current-format '#{?client_prefix,,  #I #W ▕}'
+  tmux setw -g window-status-format '#{?client_prefix,,  #I #W ▕}'
   tmux setw -g window-status-separator ""
   tmux setw -g status-justify left
 }

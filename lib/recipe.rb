@@ -157,3 +157,28 @@ if node[:platform] == "ubuntu"
     not_if "command -v tailscale"
   end
 end
+
+# tmux plugins (ghq で管理し、~/.tmux/plugins/ にシンボリックリンク)
+GHQ_ROOT = File.join(ENV['HOME'], "src")
+TMUX_PLUGINS = [
+  "tmux-plugins/tpm",
+  "alexwforsythe/tmux-which-key",
+]
+
+TMUX_PLUGINS.each do |plugin|
+  plugin_path = File.join(GHQ_ROOT, "github.com", plugin)
+  execute "ghq get #{plugin}" do
+    command "ghq get https://github.com/#{plugin}"
+    not_if "test -d #{plugin_path}"
+  end
+end
+
+directory File.join(ENV['HOME'], ".tmux/plugins")
+
+TMUX_PLUGINS.each do |plugin|
+  plugin_name = plugin.split("/").last
+  link File.join(ENV['HOME'], ".tmux/plugins", plugin_name) do
+    to File.join(GHQ_ROOT, "github.com", plugin)
+    force true
+  end
+end
