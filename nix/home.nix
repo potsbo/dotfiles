@@ -90,6 +90,7 @@ in
 
   home.packages = with pkgs; [
     aqua
+    btop
     zsh
     gcc
     gnumake
