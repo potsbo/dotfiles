@@ -3,8 +3,19 @@
 set -eu
 
 # Icons (nerdfont)
-ICON_GHQ=$(printf '\uEA84')
+ICON_GHQ=$(printf '\uEAC4')
 ICON_SSH=$(printf '\uEB3A')
+ICON_GITHUB=$(printf '\uF09B')
+
+# Shorten path for display
+shorten_path() {
+  sed "s|$HOME|~|g" | sed "s|~/src/github.com|$ICON_GITHUB |g"
+}
+
+# Restore shortened path
+restore_path() {
+  sed "s|$ICON_GITHUB |~/src/github.com|g" | sed "s|~|$HOME|g"
+}
 
 # ghq repos that don't have a tmux session yet
 ghq_repos_without_session() {
@@ -14,7 +25,7 @@ ghq_repos_without_session() {
   ghq list --full-path | roots --depth 4 --root-file .git 2>/dev/null | while read -r repo; do
     local name="${repo##*/}"
     if ! echo "$existing_sessions" | grep -q -E "^${name}$"; then
-      echo "$ICON_GHQ $(echo "$repo" | sed "s|^$HOME|~|")"
+      echo "$ICON_GHQ $repo"
     fi
   done
 }
@@ -24,12 +35,12 @@ ssh_hosts() {
   {
     cat ~/.ssh/config 2>/dev/null
     cat ~/.ssh/config.d/* 2>/dev/null
-  } | grep '^Host ' \
-    | awk '{print $2}' \
-    | grep -v '\*' \
-    | grep -v 'github\.com' \
-    | sort -u \
-    | while read -r host; do echo "$ICON_SSH $host"; done
+  } | grep '^Host ' |
+    awk '{print $2}' |
+    grep -v '\*' |
+    grep -v 'github\.com' |
+    sort -u |
+    while read -r host; do echo "$ICON_SSH $host"; done
 }
 
 # Recent SSH hosts from history (last 3 months)
@@ -38,21 +49,24 @@ ssh_history() {
   three_months_ago=$(date -v-3m +%s 2>/dev/null || date -d '3 months ago' +%s)
 
   # zsh history format: ": timestamp:0;command"
-  grep -a '^: [0-9]*:0;ssh ' ~/.zsh_history 2>/dev/null \
-    | while IFS= read -r line; do
-        ts=$(echo "$line" | cut -d':' -f2 | tr -d ' ')
-        if [ "$ts" -ge "$three_months_ago" ] 2>/dev/null; then
-          echo "$line" | sed 's/^: [0-9]*:0;ssh //' | awk '{print $1}'
-        fi
-      done \
-    | grep -v '^-' \
-    | sort -u \
-    | while read -r host; do echo "$ICON_SSH $host"; done
+  grep -a '^: [0-9]*:0;ssh ' ~/.zsh_history 2>/dev/null |
+    while IFS= read -r line; do
+      ts=$(echo "$line" | cut -d':' -f2 | tr -d ' ')
+      if [ "$ts" -ge "$three_months_ago" ] 2>/dev/null; then
+        echo "$line" | sed 's/^: [0-9]*:0;ssh //' | awk '{print $1}'
+      fi
+    done |
+    grep -v '^-' |
+    sort -u |
+    while read -r host; do echo "$ICON_SSH $host"; done
 }
 
 # Combine and dedupe SSH hosts
 all_ssh_hosts() {
-  { ssh_hosts; ssh_history; } | sort -u
+  {
+    ssh_hosts
+    ssh_history
+  } | sort -u
 }
 
 # List everything
@@ -67,7 +81,7 @@ list_all() {
 }
 
 selected=$(
-  list_all | fzf-tmux -p 100%,100% \
+  list_all | shorten_path | fzf-tmux -p 100%,100% \
     --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
     --header '^q tmux kill' \
     --bind 'tab:down,btab:up' \
@@ -82,7 +96,7 @@ if [[ "$selected" == *"Exit SSH"* ]]; then
   exit 0
 elif [[ "$selected" == *"$ICON_GHQ"* ]]; then
   # Extract repo path from "$ICON_GHQ  ~/path/to/repo"
-  repo=$(echo "$selected" | sed "s/.*$ICON_GHQ //" | sed "s|^~|$HOME|")
+  repo=$(echo "$selected" | sed "s/.*$ICON_GHQ //" | restore_path)
   name="${repo##*/}"
 
   # Create session and connect
@@ -99,12 +113,12 @@ elif [[ "$selected" == *"$ICON_SSH"* ]]; then
   if [ -n "${TMUX:-}" ]; then
     # Inside tmux: write host to temp file, then detach
     # zshrc will pick this up and ssh after detach
-    echo "$host" > /tmp/sesh-ssh-pending
+    echo "$host" >/tmp/sesh-ssh-pending
     tmux detach-client
   else
     # Outside tmux: just ssh directly
     exec ssh "$host"
   fi
 else
-  sesh connect "$selected"
+  sesh connect "$(echo "$selected" | restore_path)"
 fi
