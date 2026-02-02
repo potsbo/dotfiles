@@ -106,6 +106,15 @@
 
       AuthorizedKeysCommand = "/etc/ssh/gh-authorized-keys %u";
       AuthorizedKeysCommandUser = "nobody";
+
+      # Mosh アプリ等 etm 非対応の SSH クライアント向けに etm なしの MAC も許可
+      Macs = [
+        "hmac-sha2-512-etm@openssh.com"
+        "hmac-sha2-256-etm@openssh.com"
+        "umac-128-etm@openssh.com"
+        "hmac-sha2-512"
+        "hmac-sha2-256"
+      ];
     };
   };
   services.tailscale = {
