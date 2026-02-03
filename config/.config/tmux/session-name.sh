@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
-# Generate tmux session name from repo path and optional branch
-# Usage: session-name.sh <repo_path> [<branch>]
+# Generate tmux session name from a path
+# Usage: session-name.sh <path>
 #
 # Examples (ghq root = ~/src):
-#   session-name.sh ~/src/github.com/potsbo/dotfiles          →  dotfiles
-#   session-name.sh ~/src/github.com/potsbo/dotfiles fix-bug   →  dotfiles@fix-bug
-#   session-name.sh ~/src/github.com/kubernetes/kubernetes fix  →  kubernetes/kubernetes@fix
-#   session-name.sh ~/src/gitlab.com/org/repo feature           →  org/repo@feature
+#   session-name.sh ~/src/github.com/potsbo/dotfiles                          →  dotfiles
+#   session-name.sh ~/src/github.com/potsbo/dotfiles/.worktrees/fix-bug        →  dotfiles/<wt>/fix-bug
+#   session-name.sh ~/src/github.com/kubernetes/kubernetes/.worktrees/fix       →  kubernetes/kubernetes/<wt>/fix
+#   session-name.sh ~/src/gitlab.com/org/repo                                  →  org/repo
 set -eu
 
-repo_path="$1"
-branch="${2:-}"
+target_path="$1"
 
 ghq_root=$(ghq root)
-rel="${repo_path#"$ghq_root"/}"
+rel="${target_path#"$ghq_root"/}"
 
-# Split: host/owner/repo...
+# Split: host/owner/rest...
 host="${rel%%/*}"
 after_host="${rel#*/}"
 owner="${after_host%%/*}"
-repo="${after_host#*/}"
+rest="${after_host#*/}"
 
 # Host -> nerd font icon
 ICON_GITHUB=$(printf '\uea84')
 ICON_GITLAB=$(printf '\ue7eb')
+ICON_WORKTREE=$(printf '\uef81')
 
 case "$host" in
   "github.com") host_part="$ICON_GITHUB" ;;
@@ -33,16 +33,11 @@ esac
 
 # Skip owner if potsbo or medicu-inc
 case "$owner" in
-  "potsbo"|"medicu-inc") name="$repo" ;;
-  *) name="$owner/$repo" ;;
+  "potsbo"|"medicu-inc") name="$rest" ;;
+  *) name="$owner/$rest" ;;
 esac
 
-session_name="$host_part $name"
+# Replace /.worktrees/ with worktree icon (with spacing)
+name="${name/\/.worktrees\///$ICON_WORKTREE }"
 
-# Append @branch if provided
-if [ -n "$branch" ]; then
-  branch_part="${branch##*/}"
-  session_name="${session_name}@${branch_part}"
-fi
-
-echo "$session_name"
+echo "$host_part $name"

@@ -85,23 +85,5 @@ else
 fi
 
 # 4. Create/connect tmux session
-branch_for_session="${branch_name:-$local_branch}"
-session_name=$(~/.config/tmux/session-name.sh "$repo" "$branch_for_session")
-
-# Get worktree path
 worktree_path=$(git wt | grep "${branch_name:-$local_branch}" | awk '{print $1}')
-
-if tmux has-session -t "$session_name" 2>/dev/null; then
-  if [ -n "${TMUX:-}" ]; then
-    tmux switch-client -t "$session_name"
-  else
-    tmux attach-session -t "$session_name"
-  fi
-else
-  tmux new-session -d -c "$worktree_path" -s "$session_name"
-  if [ -n "${TMUX:-}" ]; then
-    tmux switch-client -t "$session_name"
-  else
-    tmux attach-session -t "$session_name"
-  fi
-fi
+exec ~/.config/tmux/tmux-session-connect.sh "$worktree_path"

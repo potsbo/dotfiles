@@ -114,15 +114,7 @@ elif [[ "$selected" == *"New worktree"* ]]; then
 elif [[ "$selected" == *"$ICON_GHQ"* ]]; then
   # Extract repo path from "$ICON_GHQ  ~/path/to/repo"
   repo=$(echo "$selected" | sed "s/.*$ICON_GHQ //" | restore_path)
-  name=$(~/.config/tmux/session-name.sh "$repo")
-
-  # Create session and connect
-  tmux new-session -d -c "$repo" -s "$name"
-  if [ -n "${TMUX:-}" ]; then
-    tmux switch-client -t "$name"
-  else
-    tmux attach-session -t "$name"
-  fi
+  ~/.config/tmux/tmux-session-connect.sh "$repo"
 elif [[ "$selected" == *"$ICON_SSH"* ]]; then
   # Extract hostname from "$ICON_SSH  hostname"
   host=$(echo "$selected" | sed "s/.*$ICON_SSH //")
@@ -137,5 +129,13 @@ elif [[ "$selected" == *"$ICON_SSH"* ]]; then
     exec ssh "$host"
   fi
 else
-  sesh connect "$(echo "$selected" | restore_path)"
+  target="$(echo "$selected" | restore_path)"
+  if [[ "$target" == *"$HOME"* ]]; then
+    # Contains a path — extract it and create session with consistent naming
+    path=$(echo "$target" | grep -o "$HOME.*")
+    ~/.config/tmux/tmux-session-connect.sh "$path"
+  else
+    # Existing session name — let sesh handle connection
+    sesh connect "$target"
+  fi
 fi
