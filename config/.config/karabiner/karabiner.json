@@ -1,5 +1,5 @@
 {
-    "global": { "show_in_menu_bar": false },
+    "global": { "show_profile_name_in_menu_bar": true },
     "profiles": [
         {
             "complex_modifications": {
@@ -8160,7 +8160,7 @@
                     "to": [{ "key_code": "volume_increment" }]
                 }
             ],
-            "name": "Default profile (copy)",
+            "name": "LDovorak",
             "selected": true,
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
