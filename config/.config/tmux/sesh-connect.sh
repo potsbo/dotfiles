@@ -84,6 +84,7 @@ list_all() {
   if [ -n "${SSH_CONNECTION:-}" ] && [ -z "${TMUX:-}" ]; then
     echo "🚪  Exit SSH"
   fi
+  echo "🌿  New worktree"
   sesh list --icons --hide-duplicates
   ghq_repos_without_session
   all_ssh_hosts
@@ -107,6 +108,8 @@ if [[ "$selected" == *"Exit SSH"* ]]; then
   # Signal to zshrc that we want to exit SSH
   touch /tmp/sesh-exit-ssh
   exit 0
+elif [[ "$selected" == *"New worktree"* ]]; then
+  exec ~/.config/tmux/worktree-new.sh
 elif [[ "$selected" == *"$ICON_GHQ"* ]]; then
   # Extract repo path from "$ICON_GHQ  ~/path/to/repo"
   repo=$(echo "$selected" | sed "s/.*$ICON_GHQ //" | restore_path)
