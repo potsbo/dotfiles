@@ -32,8 +32,9 @@ ghq_repos_without_session() {
   existing_sessions=$(tmux list-sessions -F "#{session_name}" 2>/dev/null || true)
 
   ghq list --full-path | roots --depth 4 --root-file .git 2>/dev/null | while read -r repo; do
-    local name="${repo##*/}"
-    if ! echo "$existing_sessions" | grep -q -E "^${name}$"; then
+    local name
+    name=$(~/.config/tmux/session-name.sh "$repo")
+    if ! echo "$existing_sessions" | grep -qF "$name"; then
       echo "$ICON_GHQ $repo"
     fi
   done
@@ -113,7 +114,7 @@ elif [[ "$selected" == *"New worktree"* ]]; then
 elif [[ "$selected" == *"$ICON_GHQ"* ]]; then
   # Extract repo path from "$ICON_GHQ  ~/path/to/repo"
   repo=$(echo "$selected" | sed "s/.*$ICON_GHQ //" | restore_path)
-  name="${repo##*/}"
+  name=$(~/.config/tmux/session-name.sh "$repo")
 
   # Create session and connect
   tmux new-session -d -c "$repo" -s "$name"

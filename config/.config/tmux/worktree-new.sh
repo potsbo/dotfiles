@@ -85,9 +85,8 @@ else
 fi
 
 # 4. Create/connect tmux session
-# potsbo/fix-bug -> fix-bug
-session_name="${branch_name:-$local_branch}"
-session_name="${session_name##*/}"
+branch_for_session="${branch_name:-$local_branch}"
+session_name=$(~/.config/tmux/session-name.sh "$repo" "$branch_for_session")
 
 # Get worktree path
 worktree_path=$(git wt | grep "${branch_name:-$local_branch}" | awk '{print $1}')
