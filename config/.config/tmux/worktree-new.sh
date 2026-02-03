@@ -13,12 +13,34 @@ esac
 FZF_COLOR="border:$COLOR_MAIN,label:$COLOR_MAIN,prompt:$COLOR_MAIN,pointer:$COLOR_MAIN,marker:$COLOR_MAIN,spinner:$COLOR_MAIN,header:$COLOR_MAIN,hl:$COLOR_MAIN,hl+:$COLOR_MAIN"
 
 # 1. Select repository
-repo=$(ghq list --full-path | fzf-tmux -p 80%,60% \
-  --ansi --layout=reverse \
+repo=$(ghq list --full-path | while read -r d; do
+  t=$(stat -c %Y "$d/.git/index" 2>/dev/null || stat -f %m "$d/.git/index" 2>/dev/null || echo 0)
+  # Convert epoch to relative time
+  now=$(date +%s)
+  diff=$((now - t))
+  if [ "$diff" -lt 60 ]; then
+    rel="just now"
+  elif [ "$diff" -lt 3600 ]; then
+    rel="$((diff / 60)) minutes ago"
+  elif [ "$diff" -lt 86400 ]; then
+    rel="$((diff / 3600)) hours ago"
+  elif [ "$diff" -lt 604800 ]; then
+    rel="$((diff / 86400)) days ago"
+  elif [ "$diff" -lt 2592000 ]; then
+    rel="$((diff / 604800)) weeks ago"
+  else
+    rel="$((diff / 2592000)) months ago"
+  fi
+  printf '%s\t%s  %s\n' "$t" "$d" "$rel"
+done | sort -rn | cut -f2- | fzf-tmux -p 80%,60% \
+  --ansi --layout=reverse --no-sort \
   --prompt "Repository: " \
   --color="$FZF_COLOR") || exit 0
 
 [[ -z "$repo" ]] && exit 0
+
+# Strip relative time from selection
+repo=$(echo "$repo" | sed 's/  [0-9].*$//')
 
 # 2. Select branch
 cd "$repo"
