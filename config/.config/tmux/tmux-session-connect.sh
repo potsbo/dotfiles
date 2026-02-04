@@ -6,7 +6,7 @@
 set -eu
 
 dir="$1"
-session_name=$(~/.config/tmux/session-name.sh "$dir")
+session_name=$(~/.config/tmux/dirmux/path-to-name.sh "$dir")
 
 if ! tmux has-session -t "=$session_name" 2>/dev/null; then
   tmux new-session -d -c "$dir" -s "$session_name"
