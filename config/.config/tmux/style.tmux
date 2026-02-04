@@ -49,7 +49,7 @@ main() {
 
   # left panel
   tmux set -g status-left-length 100
-  tmux set -g status-left '#{?client_prefix, s:  w:  n/p:  c:  &:  %%%%:  ":, #S@#h  ▕}'
+  tmux set -g status-left '#{?client_prefix, s:  w:  n/p:  c:  &:  %%%%:  ":, #S  ▕}'
 
   # right panel
   tmux set -g status-right ""

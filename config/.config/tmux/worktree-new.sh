@@ -1,24 +1,26 @@
 #!/usr/bin/env bash
 set -eu
 
-# Host-specific color (same as sesh-connect.sh)
-case $(hostname) in
-"tigerlake")    COLOR_MAIN="#fd971f" ;;  # yellow
-"raptorlake")   COLOR_MAIN="#f8f8f2" ;;  # white
-"staten.local") COLOR_MAIN="#ae81ff" ;;  # purple
-"phoenix")      COLOR_MAIN="#d7875f" ;;  # orange
-*)              COLOR_MAIN="#797979" ;;  # gray
-esac
+COLOR_MAIN=$(~/.config/tmux/dirmux/config/color.sh)
 
 FZF_COLOR="border:$COLOR_MAIN,label:$COLOR_MAIN,prompt:$COLOR_MAIN,pointer:$COLOR_MAIN,marker:$COLOR_MAIN,spinner:$COLOR_MAIN,header:$COLOR_MAIN,hl:$COLOR_MAIN,hl+:$COLOR_MAIN"
 
-# 1. Select repository
-repo=$(ghq list --full-path | fzf-tmux -p 80%,60% \
-  --ansi --layout=reverse \
+# 1. Select repository (displayed as session names)
+selected_repo=$(ghq list --full-path | while read -r d; do
+  t=$(stat -c %Y "$d/.git/index" 2>/dev/null || stat -f %m "$d/.git/index" 2>/dev/null || echo 0)
+  name=$(~/.config/tmux/dirmux/path-to-name.sh "$d")
+  rel=$(~/.config/tmux/dirmux/relative-time.sh "$t")
+  printf '%s\t%s  %s\n' "$t" "$name" "$rel"
+done | sort -rn | cut -f2- | fzf-tmux -p 80%,60% \
+  --ansi --layout=reverse --no-sort \
   --prompt "Repository: " \
   --color="$FZF_COLOR") || exit 0
 
-[[ -z "$repo" ]] && exit 0
+[[ -z "$selected_repo" ]] && exit 0
+
+# Strip relative time and resolve back to path
+repo_name=$(echo "$selected_repo" | sed 's/  .*$//')
+repo=$(~/.config/tmux/dirmux/name-to-path.sh "$repo_name")
 
 # 2. Select branch
 cd "$repo"
@@ -63,24 +65,5 @@ else
 fi
 
 # 4. Create/connect tmux session
-# potsbo/fix-bug -> fix-bug
-session_name="${branch_name:-$local_branch}"
-session_name="${session_name##*/}"
-
-# Get worktree path
 worktree_path=$(git wt | grep "${branch_name:-$local_branch}" | awk '{print $1}')
-
-if tmux has-session -t "$session_name" 2>/dev/null; then
-  if [ -n "${TMUX:-}" ]; then
-    tmux switch-client -t "$session_name"
-  else
-    tmux attach-session -t "$session_name"
-  fi
-else
-  tmux new-session -d -c "$worktree_path" -s "$session_name"
-  if [ -n "${TMUX:-}" ]; then
-    tmux switch-client -t "$session_name"
-  else
-    tmux attach-session -t "$session_name"
-  fi
-fi
+exec ~/.config/tmux/tmux-session-connect.sh "$worktree_path"
