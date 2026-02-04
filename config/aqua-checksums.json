@@ -876,36 +876,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/static.rust-lang.org/rustup/archive/1.28.2/aarch64-apple-darwin/rustup-init",
-      "checksum": "20EF5516C31B1AC2290084199BA77DBBCAA1406C45C1D978CA68558EF5964EF5",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/static.rust-lang.org/rustup/archive/1.28.2/aarch64-pc-windows-msvc/rustup-init.exe",
-      "checksum": "DE9F7D29CCD39EFA59A3DDA3EC363B396E09B92681229B9B8F6AAA4C84285E9C",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/static.rust-lang.org/rustup/archive/1.28.2/aarch64-unknown-linux-gnu/rustup-init",
-      "checksum": "E3853C5A252FCA15252D07CB23A1BDD9377A8C6F3EFA01531109281AE47F841C",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/static.rust-lang.org/rustup/archive/1.28.2/x86_64-apple-darwin/rustup-init",
-      "checksum": "9C331076F62B4D0EDEAE63D9D1C9442D5FE39B37B05025EC8D41C5ED35486496",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/static.rust-lang.org/rustup/archive/1.28.2/x86_64-pc-windows-msvc/rustup-init.exe",
-      "checksum": "88D8258DCF6AE4F7A80C7D1088E1F36FA7025A1CFD1343731B4EE6F385121FC0",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/static.rust-lang.org/rustup/archive/1.28.2/x86_64-unknown-linux-gnu/rustup-init",
-      "checksum": "20A06E644B0D9BD2FBDBFD52D42540BDDE820EA7DF86E92E533C073DA0CDD43C",
-      "algorithm": "sha256"
-    },
-    {
       "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.22/darwin-arm64/claude",
       "checksum": "DD07B877EA3213AE7FD1DF5536DE3B441FBF7B11F93A0C20078540A6BD69033E",
       "algorithm": "sha256"
