@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-# Host-specific color (same as sesh-connect.sh)
-case $(hostname) in
-"tigerlake")    COLOR_MAIN="#fd971f" ;;  # yellow
-"raptorlake")   COLOR_MAIN="#f8f8f2" ;;  # white
-"staten.local") COLOR_MAIN="#ae81ff" ;;  # purple
-"phoenix")      COLOR_MAIN="#d7875f" ;;  # orange
-*)              COLOR_MAIN="#797979" ;;  # gray
-esac
+COLOR_MAIN=$(~/.config/tmux/dirmux/config/color.sh)
 
 FZF_COLOR="border:$COLOR_MAIN,label:$COLOR_MAIN,prompt:$COLOR_MAIN,pointer:$COLOR_MAIN,marker:$COLOR_MAIN,spinner:$COLOR_MAIN,header:$COLOR_MAIN,hl:$COLOR_MAIN,hl+:$COLOR_MAIN"
 

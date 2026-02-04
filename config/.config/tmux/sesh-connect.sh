@@ -5,14 +5,7 @@ set -eu
 # Icons (nerdfont)
 ICON_SSH=$(printf '\uEB3A')
 
-# Host-specific color (same as style.tmux)
-case $(hostname) in
-"tigerlake")    COLOR_MAIN="#fd971f" ;;  # yellow
-"raptorlake")   COLOR_MAIN="#f8f8f2" ;;  # white
-"staten.local") COLOR_MAIN="#ae81ff" ;;  # purple
-"phoenix")      COLOR_MAIN="#d7875f" ;;  # orange
-*)              COLOR_MAIN="#797979" ;;  # gray
-esac
+COLOR_MAIN=$(~/.config/tmux/dirmux/config/color.sh)
 
 # ghq repos that don't have a tmux session yet (displayed as session names)
 ghq_repos_without_session() {
