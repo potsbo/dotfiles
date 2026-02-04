@@ -40,6 +40,7 @@
     ];
     brews = [
       "felixkratz/formulae/borders"
+      "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
     ];
     casks = [
       "nikitabobko/tap/aerospace"
