@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -eu
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: warm <directory> [parallel_jobs]"
+  echo "Recursively read all files to warm up cache"
+  exit 1
+fi
+
+dir="$1"
+default_jobs=$(( $(nproc) / 2 ))
+[[ "$default_jobs" -lt 1 ]] && default_jobs=1
+jobs="${2:-$default_jobs}"
+
+if [[ ! -d "$dir" ]]; then
+  echo "Error: '$dir' is not a directory"
+  exit 1
+fi
+
+echo "Counting files..."
+total=$(find "$dir" -type f | wc -l)
+echo "Found $total files, warming with $jobs parallel jobs..."
+
+if command -v pv > /dev/null; then
+  find "$dir" -type f -print0 | xargs -0 -P "$jobs" -I {} sh -c 'cat "$1" > /dev/null && printf ".\n"' -- {} | pv -l -s "$total" > /dev/null
+else
+  find "$dir" -type f -print0 | xargs -0 -P "$jobs" cat > /dev/null
+fi

@@ -113,6 +113,7 @@ in
     nkf
     watch
     libyaml
+    pv
   ] ++ lib.optionals stdenv.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.isDarwin [
