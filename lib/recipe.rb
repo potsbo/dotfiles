@@ -18,6 +18,8 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   # 知らないファイルが追加されたときに気づけるようにするため
   ".config",
   ".ssh",
+  ".zshenv",
+  ".zprofile",
   ".zshrc",
   "bin",
   ".default-npm-packages",
