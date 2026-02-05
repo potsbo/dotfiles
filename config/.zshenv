@@ -23,6 +23,7 @@ export LC_MESSAGES=C
 export EDITOR=nvim
 export TERM=xterm-256color
 export XDG_CONFIG_HOME="$HOME/.config"
+export GHQ_ROOT="$HOME/src"
 
 # PATH
 export PATH=$HOME/.local/state/nix/profiles/home-manager/home-path/bin:$PATH

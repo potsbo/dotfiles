@@ -48,8 +48,6 @@
 	whitespace = red reverse
 [init]
 	defaultBranch = main
-[ghq]
-	root = ~/src
 [pull]
 	rebase = false
 [url "https://github.com/"]
