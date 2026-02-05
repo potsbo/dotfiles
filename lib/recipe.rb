@@ -179,3 +179,17 @@ TMUX_PLUGINS.each do |plugin|
     force true
   end
 end
+
+# zsh plugins (ghq で管理、.zshrc から直接 source)
+ZSH_PLUGINS = [
+  "romkatv/zsh-defer",
+  "mroth/evalcache",
+]
+
+ZSH_PLUGINS.each do |plugin|
+  plugin_path = File.join(GHQ_ROOT, "github.com", plugin)
+  execute "ghq get #{plugin}" do
+    command "aqua exec -- ghq get https://github.com/#{plugin}"
+    not_if "test -d #{plugin_path}"
+  end
+end

@@ -1,5 +1,12 @@
+# ~/.zshrc - 対話シェル用設定
+
+# zsh-defer と evalcache で起動高速化
+source ~/src/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh
+source ~/src/github.com/mroth/evalcache/evalcache.plugin.zsh
+
+# brew (defer + cache)
 if [ -f "/opt/homebrew/bin/brew" ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  zsh-defer _evalcache brew shellenv
 fi
 
 # compinit: zsh 補完システムの初期化
@@ -39,10 +46,12 @@ alias vimrc='nvim ~/.config/nvim/init.lua'
 alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --prompt 'GIT BRANCH>' | cut -d$'\t' -f2\`"
 alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>'| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 
-eval "$(direnv hook zsh)"
+# direnv (defer + cache)
+zsh-defer _evalcache direnv hook zsh
 
+# fzf (defer + cache)
 if type fzf &> /dev/null; then
-  eval "$(fzf --zsh)"
+  zsh-defer _evalcache fzf --zsh
 fi
 
 # 補完の遅延ロード: 初回 Tab 時に eval される（起動時間短縮のため）
@@ -76,7 +85,8 @@ esac
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
 
-eval "$(starship init zsh)"
+# starship (cache のみ、プロンプト表示に必要なので defer 不可)
+_evalcache starship init zsh
 
 _register_keycommand() {
   zle -N $2
@@ -91,9 +101,9 @@ _sesh_connect() {
 
 _register_keycommand "^]" _sesh_connect
 
-# mise activate には hook-env も含まれる。completion は遅延ロード
+# mise (defer + cache)
 if command -v mise &> /dev/null; then
-  eval "$(mise activate zsh)"
+  zsh-defer _evalcache mise activate zsh
 fi
 
 # VSCode で emacs キーバインドを使うため
