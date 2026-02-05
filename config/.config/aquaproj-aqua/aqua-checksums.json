@@ -766,6 +766,31 @@
       "algorithm": "sha1"
     },
     {
+      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-aarch64-apple-darwin.tar.xz",
+      "checksum": "C78BCA8DFD2FF2E760CE45AA97063A3A530991F9C9ED5088E7278231564F2CF6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-aarch64-unknown-linux-gnu.tar.xz",
+      "checksum": "FDF882848471F227F3112C85CF9C690A93CC12234CE8077BDEC86D3CB8292BD5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-apple-darwin.tar.xz",
+      "checksum": "9C936BB2C6CCA510318231CC817469B89D7E93D8A34481BFEA66FA678EA19BD0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-pc-windows-msvc.zip",
+      "checksum": "4DB561002EDFFC458A1FB2BF0208F6E8800BDCF929156E01C4CCE22C52ECB0FE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-unknown-linux-musl.tar.xz",
+      "checksum": "EDAC8AEEF3812C021CF1FFB97BA95B1CA32C7E40A38CF2EC47D28C3C9E72E66F",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/zellij-org/zellij/v0.43.1/zellij-aarch64-apple-darwin.tar.gz",
       "checksum": "A09EA51F3D98427253DE2B889BB04F1AA0850FBB034911C7A01B8F0194EDBA66",
       "algorithm": "sha256"
