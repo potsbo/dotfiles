@@ -57,5 +57,9 @@
 [wt]
 	basedir = .worktrees
 	nocd = create
+	copyignored = true
+	nocopy = node_modules/
+	nocopy = .venv/
+	nocopy = __pycache__/
 [credential "https://github.com"]
 	helper = !gh auth git-credential

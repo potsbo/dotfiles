@@ -21,6 +21,7 @@
     CustomUserPreferences = {
       ".GlobalPreferences" = {
         "com.apple.trackpad.scaling" = 2;
+        AppleLanguages = [ "en-US" "ja-JP" ];
       };
     };
   };
