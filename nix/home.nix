@@ -99,19 +99,18 @@ in
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
     cargo
-    btop
-    zsh
+    btop # aqua では macos 用のバイナリが提供されていない
+    whois
+    dnsutils
+    rclone
+
+    # 以下 aqua 未提供
+    tmux
     gcc
     gnumake
     zip
     unzip
-    tldr
     nkf
-    tmux
-    rclone
-    whois
-    dnsutils
-    ijq
     watch
     libyaml
   ] ++ lib.optionals stdenv.isLinux [
