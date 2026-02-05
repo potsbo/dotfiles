@@ -1,0 +1,459 @@
+#!/usr/bin/env bash
+
+set -eu
+
+GDRIVE_BASE="$HOME/gdrive"
+SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
+RCLONE_BIN="${RCLONE_BIN:-rclone}"
+
+# Sanitize name for filesystem/rclone remote (replace problematic chars)
+sanitize_name() {
+  echo "$1" | tr ' ' '_' | tr '/' '-' | tr '@' '-' | tr -cd '[:alnum:]._-'
+}
+
+# Get rclone remote name for an account
+remote_name() {
+  local email="$1"
+  echo "gdrive-${email}"
+}
+
+# Generate systemd service content
+generate_service() {
+  local remote="$1"
+  local mount_path="$2"
+  local description="$3"
+
+  # Find paths for NixOS compatibility
+  local mkdir_bin
+  mkdir_bin=$(command -v mkdir)
+  local rclone_bin
+  rclone_bin=$(command -v rclone)
+
+  cat <<EOF
+[Unit]
+Description=Mount ${description}
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=PATH=/run/wrappers/bin:/run/current-system/sw/bin
+ExecStartPre=${mkdir_bin} -p "${mount_path}"
+ExecStart=${rclone_bin} mount ${remote}: "${mount_path}" --vfs-cache-mode full --vfs-cache-max-age 87600h --vfs-cache-max-size 500G
+ExecStop=/run/wrappers/bin/fusermount -u "${mount_path}"
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=default.target
+EOF
+}
+
+# Setup a new Google Drive account
+cmd_setup() {
+  local email="${1:-}"
+
+  if [[ -z "$email" ]]; then
+    echo "Usage: gdrive-manager setup <email>"
+    echo "Example: gdrive-manager setup user@gmail.com"
+    exit 1
+  fi
+
+  local remote
+  remote=$(remote_name "$email")
+
+  echo "Setting up Google Drive for: $email"
+  echo "Remote name: $remote"
+  echo ""
+  echo "=== Headless Authentication ==="
+  echo ""
+  echo "Since this is a headless environment, you need to authorize on another machine."
+  echo ""
+  echo "On a machine WITH a browser, run:"
+  echo ""
+  echo "  rclone authorize \"drive\""
+  echo ""
+  echo "After authorizing, you'll get a token JSON. Paste it below."
+  echo ""
+  read -r -p "Paste the token JSON (starts with {\"access_token\":...): " token
+
+  if [[ -z "$token" ]]; then
+    echo "Error: No token provided"
+    exit 1
+  fi
+
+  # Create the remote with the provided token
+  $RCLONE_BIN config create "$remote" drive token="$token" --non-interactive
+
+  echo ""
+  echo "Setup complete!"
+  echo ""
+
+  # Verify
+  echo "Verifying connection..."
+  if $RCLONE_BIN lsd "${remote}:" &>/dev/null; then
+    echo "Success! Connected to Google Drive."
+    echo ""
+    # Auto refresh and mount
+    cmd_refresh "$email"
+    cmd_mount "$email"
+  else
+    echo "Warning: Could not verify connection. You may need to re-run setup."
+  fi
+}
+
+# Refresh Shared Drives for an account
+cmd_refresh() {
+  local email="${1:-}"
+
+  if [[ -z "$email" ]]; then
+    echo "Usage: gdrive-manager refresh <email>"
+    exit 1
+  fi
+
+  local remote
+  remote=$(remote_name "$email")
+
+  # Check if remote exists
+  if ! $RCLONE_BIN listremotes | grep -q "^${remote}:$"; then
+    echo "Error: Remote '$remote' not found. Run 'gdrive-manager setup $email' first."
+    exit 1
+  fi
+
+  echo "Refreshing Shared Drives for: $email"
+
+  # Get token from base remote
+  local token
+  token=$($RCLONE_BIN config dump | jq -r ".\"${remote}\".token")
+
+  if [[ -z "$token" || "$token" == "null" ]]; then
+    echo "Error: Could not get token for $remote"
+    exit 1
+  fi
+
+  # Stop all services for this account first
+  echo "Stopping existing services..."
+  for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+    [[ -e "$service" ]] || continue
+    local name
+    name=$(basename "$service")
+    systemctl --user stop "$name" 2>/dev/null || true
+  done
+
+  # Unmount all mount points for this account
+  echo "Unmounting existing mounts..."
+  local mount_base="${GDRIVE_BASE}/${email}"
+  if [[ -d "$mount_base/shared-drives" ]]; then
+    for d in "$mount_base"/shared-drives/*/; do
+      [[ -d "$d" ]] && fusermount -u "$d" 2>/dev/null || true
+    done
+  fi
+  [[ -d "$mount_base/my-drive" ]] && fusermount -u "$mount_base/my-drive" 2>/dev/null || true
+
+  # Remove old shared drive remotes for this account
+  echo "Removing old Shared Drive remotes..."
+  while read -r old_remote; do
+    [[ -z "$old_remote" ]] && continue
+    local name="${old_remote%:}"
+    $RCLONE_BIN config delete "$name" 2>/dev/null || true
+  done < <($RCLONE_BIN listremotes | grep "^${remote}-sd-" || true)
+
+  # Remove old systemd services for this account
+  echo "Removing old systemd services..."
+  rm -f "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-sd-*.service 2>/dev/null || true
+
+  # Remove old mount directories
+  echo "Removing old mount directories..."
+  rm -rf "${mount_base}/shared-drives" 2>/dev/null || true
+
+  # Create My Drive service
+  echo "Creating My Drive service..."
+  mkdir -p "$SYSTEMD_USER_DIR"
+  local my_drive_service="${SYSTEMD_USER_DIR}/gdrive-${email}-my-drive.service"
+  local my_drive_path="${GDRIVE_BASE}/${email}/my-drive"
+  generate_service "$remote" "$my_drive_path" "Google Drive ($email)" >"$my_drive_service"
+
+  # Get Shared Drives and create remotes/services
+  echo "Fetching Shared Drives..."
+  local drives
+  drives=$($RCLONE_BIN backend drives "${remote}:" 2>/dev/null || echo "[]")
+
+  local count
+  count=$(echo "$drives" | jq 'length')
+  echo "Found $count Shared Drives"
+
+  if [[ "$count" -gt 0 ]]; then
+    local config_file tmpfile
+    config_file=$($RCLONE_BIN config file | tail -1)
+    tmpfile=$(mktemp)
+    echo "$drives" | jq -c '.[]' >"$tmpfile"
+
+    local idx=0
+    while IFS= read -r drive; do
+      idx=$((idx + 1))
+      local drive_id drive_name safe_name sd_remote service_name service_path mount_path id_prefix
+      drive_id=$(echo "$drive" | jq -r '.id')
+      drive_name=$(echo "$drive" | jq -r '.name')
+      safe_name=$(sanitize_name "$drive_name")
+      # Use full drive_id to ensure uniqueness
+      id_prefix="${drive_id}"
+      sd_remote="${remote}-sd-${id_prefix}-${safe_name}"
+
+      echo "  [$idx/$count] Creating: $drive_name -> $sd_remote"
+
+      # Create rclone remote for this Shared Drive by writing directly to config
+      cat >>"$config_file" <<RCLONE_CONFIG
+
+[${sd_remote}]
+type = drive
+token = ${token}
+team_drive = ${drive_id}
+RCLONE_CONFIG
+
+      # Create systemd service
+      service_name="gdrive-${email}-sd-${id_prefix}-${safe_name}.service"
+      service_path="${SYSTEMD_USER_DIR}/${service_name}"
+      mount_path="${GDRIVE_BASE}/${email}/shared-drives/${drive_name}"
+
+      generate_service "$sd_remote" "$mount_path" "Shared Drive: $drive_name ($email)" >"$service_path"
+    done <"$tmpfile"
+
+    rm -f "$tmpfile"
+  fi
+
+  echo ""
+  echo "Reloading systemd..."
+  systemctl --user daemon-reload
+
+  echo ""
+  echo "Done. Run 'gdrive-manager mount $email' to mount drives."
+}
+
+# Mount drives
+cmd_mount() {
+  local email="${1:-}"
+
+  if [[ -z "$email" ]]; then
+    # Mount all
+    echo "Mounting all Google Drives..."
+    for service in "${SYSTEMD_USER_DIR}"/gdrive-*.service; do
+      [[ -e "$service" ]] || continue
+      local name
+      name=$(basename "$service")
+      echo "  Starting: $name"
+      systemctl --user enable --now "$name" 2>/dev/null || true
+    done
+  else
+    # Mount specific account
+    echo "Mounting drives for: $email"
+    for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+      [[ -e "$service" ]] || continue
+      local name
+      name=$(basename "$service")
+      echo "  Starting: $name"
+      systemctl --user enable --now "$name" 2>/dev/null || true
+    done
+  fi
+
+  echo ""
+  echo "Done. Check status with 'gdrive-manager status'"
+}
+
+# Unmount drives
+cmd_umount() {
+  local email="${1:-}"
+
+  if [[ -z "$email" ]]; then
+    # Unmount all
+    echo "Unmounting all Google Drives..."
+    for service in "${SYSTEMD_USER_DIR}"/gdrive-*.service; do
+      [[ -e "$service" ]] || continue
+      local name
+      name=$(basename "$service")
+      echo "  Stopping: $name"
+      systemctl --user stop "$name" 2>/dev/null || true
+    done
+  else
+    # Unmount specific account
+    echo "Unmounting drives for: $email"
+    for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+      [[ -e "$service" ]] || continue
+      local name
+      name=$(basename "$service")
+      echo "  Stopping: $name"
+      systemctl --user stop "$name" 2>/dev/null || true
+    done
+  fi
+}
+
+# Show status
+cmd_status() {
+  echo "=== Google Drive Mounts ==="
+  echo ""
+
+  # List accounts
+  local accounts
+  accounts=$($RCLONE_BIN listremotes | grep "^gdrive-" | grep -v "\-sd-" | sed 's/^gdrive-//' | sed 's/:$//' | sort -u)
+
+  if [[ -z "$accounts" ]]; then
+    echo "No accounts configured."
+    echo "Run 'gdrive-manager setup <email>' to add an account."
+    exit 0
+  fi
+
+  for email in $accounts; do
+    echo "Account: $email"
+
+    # My Drive status
+    local my_drive_service="gdrive-${email}-my-drive.service"
+    local status
+    if systemctl --user is-active "$my_drive_service" &>/dev/null; then
+      status="active"
+    else
+      status="inactive"
+    fi
+    echo "  my-drive: $status"
+
+    # Shared Drives status
+    local sd_count=0
+    local sd_active=0
+    for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-sd-*.service; do
+      [[ -e "$service" ]] || continue
+      ((sd_count++))
+      local name
+      name=$(basename "$service")
+      if systemctl --user is-active "$name" &>/dev/null; then
+        ((sd_active++))
+      fi
+    done
+
+    if [[ "$sd_count" -gt 0 ]]; then
+      echo "  shared-drives: $sd_active/$sd_count active"
+    else
+      echo "  shared-drives: none configured"
+    fi
+
+    echo ""
+  done
+
+  echo "Mount point: $GDRIVE_BASE"
+}
+
+# List configured accounts
+cmd_list() {
+  echo "Configured accounts:"
+  $RCLONE_BIN listremotes | grep "^gdrive-" | grep -v "\-sd-" | sed 's/^gdrive-//' | sed 's/:$//'
+}
+
+# Delete an account
+cmd_delete() {
+  local email="${1:-}"
+
+  if [[ -z "$email" ]]; then
+    echo "Usage: gdrive-manager delete <email>"
+    exit 1
+  fi
+
+  local remote
+  remote=$(remote_name "$email")
+
+  echo "Deleting Google Drive configuration for: $email"
+  echo ""
+
+  # Stop and disable services
+  echo "Stopping services..."
+  for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+    [[ -e "$service" ]] || continue
+    local name
+    name=$(basename "$service")
+    systemctl --user stop "$name" 2>/dev/null || true
+    systemctl --user disable "$name" 2>/dev/null || true
+  done
+
+  # Remove service files
+  echo "Removing service files..."
+  rm -f "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service 2>/dev/null || true
+  systemctl --user daemon-reload
+
+  # Remove rclone remotes
+  echo "Removing rclone remotes..."
+  # Remove shared drive remotes
+  while read -r r; do
+    [[ -z "$r" ]] && continue
+    $RCLONE_BIN config delete "${r%:}" 2>/dev/null || true
+  done < <($RCLONE_BIN listremotes | grep "^${remote}-sd-" || true)
+  # Remove main remote
+  $RCLONE_BIN config delete "$remote" 2>/dev/null || true
+
+  # Remove mount point
+  local mount_path="${GDRIVE_BASE}/${email}"
+  if [[ -d "$mount_path" ]]; then
+    echo "Removing mount point: $mount_path"
+    rm -rf "$mount_path"
+  fi
+
+  echo ""
+  echo "Done. Account '$email' has been removed."
+}
+
+# Show help
+cmd_help() {
+  cat <<EOF
+gdrive-manager - Manage Google Drive mounts via rclone
+
+Usage:
+  gdrive-manager <command> [arguments]
+
+Commands:
+  setup <email>     Setup a new Google Drive account
+  refresh <email>   Refresh Shared Drives for an account
+  mount [email]     Mount drives (all if no email specified)
+  umount [email]    Unmount drives (all if no email specified)
+  delete <email>    Delete an account and all its configuration
+  status            Show mount status
+  list              List configured accounts
+  help              Show this help
+
+Examples:
+  gdrive-manager setup user@gmail.com
+  gdrive-manager refresh user@gmail.com
+  gdrive-manager mount
+  gdrive-manager status
+
+Mount structure:
+  ~/gdrive/<email>/my-drive/
+  ~/gdrive/<email>/shared-drives/<drive-name>/
+EOF
+}
+
+# Main
+case "${1:-help}" in
+setup)
+  shift
+  cmd_setup "$@"
+  ;;
+refresh)
+  shift
+  cmd_refresh "$@"
+  ;;
+mount)
+  shift
+  cmd_mount "$@"
+  ;;
+umount)
+  shift
+  cmd_umount "$@"
+  ;;
+delete)
+  shift
+  cmd_delete "$@"
+  ;;
+status) cmd_status ;;
+list) cmd_list ;;
+help | --help | -h) cmd_help ;;
+*)
+  echo "Unknown command: $1"
+  echo "Run 'gdrive-manager help' for usage."
+  exit 1
+  ;;
+esac
