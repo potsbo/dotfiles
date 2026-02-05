@@ -55,28 +55,6 @@ let
     vendorHash = "sha256-lju+QlWxUb11UV9NvXSgQ+ZG37WhyZVahJTM5voDEfw=";
   };
 
-  # Google Drive remotes (rclone config names)
-  rcloneMounts = [ "atlantis" "challenger" "columbia" ];
-
-  mkRcloneService = name: {
-    Unit = {
-      Description = "Mount ${name} via rclone";
-      After = [ "network-online.target" ];
-      Wants = [ "network-online.target" ];
-    };
-    Service = {
-      Type = "simple";
-      Environment = [ "PATH=/run/wrappers/bin:${pkgs.coreutils}/bin" ];
-      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %h/${name}";
-      ExecStart = "${pkgs.rclone}/bin/rclone mount ${name}: %h/${name} --vfs-cache-mode full --vfs-cache-max-age 87600h --vfs-cache-max-size 200G";
-      ExecStop = "/run/wrappers/bin/fusermount -u %h/${name}";
-      Restart = "on-failure";
-      RestartSec = "10s";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
 in
 {
   home.username = "potsbo";
@@ -121,12 +99,4 @@ in
     coreutils
     opener
   ];
-
-  # Google Drive mounts via rclone (Linux only)
-  systemd.user.services = lib.mkIf pkgs.stdenv.isLinux (
-    builtins.listToAttrs (map (name: {
-      name = "rclone-${name}";
-      value = mkRcloneService name;
-    }) rcloneMounts)
-  );
 }
