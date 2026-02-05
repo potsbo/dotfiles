@@ -48,7 +48,10 @@ fi
 # M1 Mac で amd64 の docker image を動かすため
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-autoload -Uz compinit && compinit
+# compinit: zsh 補完システムの初期化
+# -C: キャッシュ (~/.zcompdump) を使用し compaudit をスキップ（0.4秒→0.02秒）
+# 新しい補完を追加した時は `compinit` を手動実行してキャッシュ再生成
+autoload -Uz compinit && compinit -C
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # ignore case 
 zstyle ':completion:*' ignore-parents parent pwd .. # don't complete current directory after ../
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin # complete commands after sudo
@@ -95,21 +98,17 @@ if type fzf &> /dev/null; then
   eval "$(fzf --zsh)"
 fi
 
-if type deno &> /dev/null; then
-  eval "$(deno completions zsh)"
-fi
-
-if type task &> /dev/null; then
-  eval "$(task --completion zsh)"
-fi
-
-if type gh &> /dev/null; then
-  eval "$(gh completion --shell zsh)"
-fi
-
-if type git-wt &> /dev/null; then
-  eval "$(git wt --init zsh)"
-fi
+# 補完の遅延ロード: 初回 Tab 時に eval される（起動時間短縮のため）
+# 各コマンドの補完関数を空で定義し、呼ばれた時に本物をロード
+_lazy_load_completion() {
+  local cmd=$1; shift
+  eval "_${cmd}() { unfunction _${cmd}; $@; _${cmd} \"\$@\" }"
+  compdef _${cmd} ${cmd}
+}
+if type deno &> /dev/null; then _lazy_load_completion deno 'eval "$(deno completions zsh)"'; fi
+if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --completion zsh)"'; fi
+if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
+if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 
 
 case $(hostname) in
