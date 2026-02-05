@@ -105,7 +105,7 @@ fi
 
 # mitamae が ~/aqua.yaml をリンクするが、mitamae 自体が aqua 経由で動くため
 # 先に aqua.yaml の場所を環境変数で指定して循環参照を断ち切る
-export AQUA_GLOBAL_CONFIG="${DOTPATH}/config/aqua.yaml"
+export AQUA_GLOBAL_CONFIG="${DOTPATH}/config/.config/aquaproj-aqua/aqua.yaml"
 
 if has "aqua"; then
   aqua install --only-link
