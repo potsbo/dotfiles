@@ -56,6 +56,7 @@ if type deno &> /dev/null; then _lazy_load_completion deno 'eval "$(deno complet
 if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --completion zsh)"'; fi
 if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
+if type mise &> /dev/null; then _lazy_load_completion mise 'eval "$(mise completion zsh)"'; fi
 
 case $(hostname) in
 "tigerlake")
@@ -90,10 +91,9 @@ _sesh_connect() {
 
 _register_keycommand "^]" _sesh_connect
 
+# mise activate には hook-env も含まれる。completion は遅延ロード
 if command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
-  eval "$(mise completion zsh)"
-  eval "$(mise hook-env -s zsh)"
 fi
 
 # VSCode で emacs キーバインドを使うため
