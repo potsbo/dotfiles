@@ -21,8 +21,6 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   ".zshrc",
   "bin",
   ".default-npm-packages",
-  "aqua-checksums.json",
-  "aqua.yaml",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
   dotfiles_path = File.join(DOTFILE_REPO, "config", name)
