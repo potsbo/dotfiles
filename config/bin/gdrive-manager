@@ -2,7 +2,7 @@
 
 set -eu
 
-GDRIVE_BASE="$HOME/gdrive"
+GDRIVE_BASE="$HOME/var/drive"
 SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
 RCLONE_BIN="${RCLONE_BIN:-rclone}"
 
@@ -421,8 +421,8 @@ Examples:
   gdrive-manager status
 
 Mount structure:
-  ~/gdrive/<email>/my-drive/
-  ~/gdrive/<email>/shared-drives/<drive-name>/
+  ~/var/drive/<email>/my-drive/
+  ~/var/drive/<email>/shared-drives/<drive-name>/
 EOF
 }
 
