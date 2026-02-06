@@ -17,11 +17,11 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   # .config は中身を個別にリンクせず全体をリンクする
   # 知らないファイルが追加されたときに気づけるようにするため
   ".config",
+  ".local/bin",
   ".ssh",
   ".zshenv",
   ".zprofile",
   ".zshrc",
-  "bin",
   ".default-npm-packages",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
