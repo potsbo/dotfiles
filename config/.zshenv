@@ -60,3 +60,5 @@ export SAVEHIST=100000
 export HISTSIZE=100000
 
 export ANTHROPIC_MODEL=opus
+
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
