@@ -13,3 +13,4 @@ config/.config/environment.d
 config/.config/systemd/user
 config/.config/starship.toml
 config/.config/cagent
+config/.local/bin/claude
