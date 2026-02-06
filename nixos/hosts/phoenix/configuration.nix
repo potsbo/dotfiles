@@ -69,6 +69,10 @@
   # Install firefox.
   programs.zsh.enable = true;
   programs.nix-ld.enable = true; # node を動作させたい
+  programs.nix-ld.libraries = with pkgs; [
+    readline
+    krb5.lib
+  ];
   programs.mosh.enable = true;
 
 

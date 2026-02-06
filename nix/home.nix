@@ -71,10 +71,6 @@ in
   # home-manager が .config に書き込まないようにする
   targets.genericLinux.enable = false;
 
-  home.sessionVariables = {
-    LD_LIBRARY_PATH = "${pkgs.readline}/lib";
-  };
-
   home.packages = with pkgs; [
     aqua
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
@@ -85,7 +81,6 @@ in
     whois
     dnsutils
     rclone
-    readline # aqua の psql が依存
 
     # 以下 aqua 未提供
     tmux
