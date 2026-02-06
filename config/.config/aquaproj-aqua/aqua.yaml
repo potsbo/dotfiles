@@ -49,3 +49,4 @@ packages:
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.6.1
+  - name: theseus-rs/postgresql-binaries@18.1.0
