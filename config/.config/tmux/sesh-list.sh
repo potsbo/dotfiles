@@ -13,7 +13,7 @@ ghq_repos_without_session() {
   ghq list --full-path | roots --depth 4 --root-file .git 2>/dev/null | while read -r repo; do
     local name
     name=$(~/.config/tmux/dirmux/path-to-name.sh "$repo")
-    if ! echo "$existing_sessions" | grep -qF "$name"; then
+    if ! echo "$existing_sessions" | grep --quiet --line-regexp --fixed-strings "$name"; then
       echo "$name"
     fi
   done
