@@ -66,6 +66,7 @@ if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --compl
 if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 if type mise &> /dev/null; then _lazy_load_completion mise 'eval "$(mise completion zsh)"'; fi
+if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
 
 case $(hostname) in
 "tigerlake")
