@@ -3,8 +3,108 @@
 set -eu
 
 GDRIVE_BASE="$HOME/var/drive"
-SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
 RCLONE_BIN="${RCLONE_BIN:-rclone}"
+
+# OS detection
+OS="$(uname -s)"
+case "$OS" in
+  Linux)  SERVICE_DIR="$HOME/.config/systemd/user"; SERVICE_EXT=".service" ;;
+  Darwin) SERVICE_DIR="$HOME/Library/LaunchAgents"; SERVICE_EXT=".plist" ;;
+  *)      echo "Unsupported OS: $OS"; exit 1 ;;
+esac
+
+# --- Service management helpers ---
+
+# Get the launchd label from a plist filename (basename without .plist)
+_launchd_label() {
+  basename "$1" .plist
+}
+
+svc_start() {
+  local service_path="$1"
+  local name
+  name=$(basename "$service_path")
+  case "$OS" in
+    Linux)
+      systemctl --user enable --now "$name" 2>/dev/null || true
+      ;;
+    Darwin)
+      local label uid
+      label=$(_launchd_label "$service_path")
+      uid=$(id -u)
+      launchctl bootout "gui/${uid}/${label}" 2>/dev/null || true
+      launchctl bootstrap "gui/${uid}" "$service_path" 2>/dev/null || true
+      ;;
+  esac
+}
+
+svc_stop() {
+  local service_path="$1"
+  local name
+  name=$(basename "$service_path")
+  case "$OS" in
+    Linux)
+      systemctl --user stop "$name" 2>/dev/null || true
+      ;;
+    Darwin)
+      local label uid
+      label=$(_launchd_label "$service_path")
+      uid=$(id -u)
+      launchctl bootout "gui/${uid}/${label}" 2>/dev/null || true
+      ;;
+  esac
+}
+
+svc_disable() {
+  local service_path="$1"
+  local name
+  name=$(basename "$service_path")
+  case "$OS" in
+    Linux)
+      systemctl --user stop "$name" 2>/dev/null || true
+      systemctl --user disable "$name" 2>/dev/null || true
+      ;;
+    Darwin)
+      local label uid
+      label=$(_launchd_label "$service_path")
+      uid=$(id -u)
+      launchctl bootout "gui/${uid}/${label}" 2>/dev/null || true
+      ;;
+  esac
+}
+
+svc_is_active() {
+  local service_path="$1"
+  local name
+  name=$(basename "$service_path")
+  case "$OS" in
+    Linux)
+      systemctl --user is-active "$name" &>/dev/null
+      ;;
+    Darwin)
+      local label
+      label=$(_launchd_label "$service_path")
+      launchctl list "$label" &>/dev/null
+      ;;
+  esac
+}
+
+svc_reload() {
+  case "$OS" in
+    Linux)  systemctl --user daemon-reload ;;
+    Darwin) : ;; # no-op
+  esac
+}
+
+do_unmount() {
+  local mount_path="$1"
+  case "$OS" in
+    Linux)  fusermount -u "$mount_path" 2>/dev/null || true ;;
+    Darwin) umount "$mount_path" 2>/dev/null || true ;;
+  esac
+}
+
+# --- End helpers ---
 
 # Sanitize name for filesystem/rclone remote (replace problematic chars)
 sanitize_name() {
@@ -17,19 +117,22 @@ remote_name() {
   echo "gdrive-${email}"
 }
 
-# Generate systemd service content
+# Generate service file content (systemd unit or launchd plist)
 generate_service() {
   local remote="$1"
   local mount_path="$2"
   local description="$3"
+  local label="${4:-}"
 
-  # Find paths for NixOS compatibility
-  local mkdir_bin
-  mkdir_bin=$(command -v mkdir)
   local rclone_bin
   rclone_bin=$(command -v rclone)
 
-  cat <<EOF
+  case "$OS" in
+    Linux)
+      local mkdir_bin
+      mkdir_bin=$(command -v mkdir)
+
+      cat <<EOF
 [Unit]
 Description=Mount ${description}
 After=network-online.target
@@ -47,6 +150,40 @@ RestartSec=10s
 [Install]
 WantedBy=default.target
 EOF
+      ;;
+    Darwin)
+      local log_dir="$HOME/Library/Logs/gdrive-manager"
+      cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>${label}</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-c</string>
+    <string>mkdir -p "${mount_path}" "${log_dir}" &amp;&amp; exec "${rclone_bin}" mount "${remote}:" "${mount_path}" --vfs-cache-mode full --vfs-cache-max-age 87600h --vfs-cache-max-size 500G</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+  <key>StandardOutPath</key>
+  <string>${log_dir}/${label}.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>${log_dir}/${label}.err.log</string>
+</dict>
+</plist>
+EOF
+      ;;
+  esac
 }
 
 # Setup a new Google Drive account
@@ -133,11 +270,9 @@ cmd_refresh() {
 
   # Stop all services for this account first
   echo "Stopping existing services..."
-  for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+  for service in "${SERVICE_DIR}"/gdrive-"${email}"-*"${SERVICE_EXT}"; do
     [[ -e "$service" ]] || continue
-    local name
-    name=$(basename "$service")
-    systemctl --user stop "$name" 2>/dev/null || true
+    svc_stop "$service"
   done
 
   # Unmount all mount points for this account
@@ -145,10 +280,10 @@ cmd_refresh() {
   local mount_base="${GDRIVE_BASE}/${email}"
   if [[ -d "$mount_base/shared-drives" ]]; then
     for d in "$mount_base"/shared-drives/*/; do
-      [[ -d "$d" ]] && fusermount -u "$d" 2>/dev/null || true
+      [[ -d "$d" ]] && do_unmount "$d"
     done
   fi
-  [[ -d "$mount_base/my-drive" ]] && fusermount -u "$mount_base/my-drive" 2>/dev/null || true
+  [[ -d "$mount_base/my-drive" ]] && do_unmount "$mount_base/my-drive"
 
   # Remove old shared drive remotes for this account
   echo "Removing old Shared Drive remotes..."
@@ -158,9 +293,9 @@ cmd_refresh() {
     $RCLONE_BIN config delete "$name" 2>/dev/null || true
   done < <($RCLONE_BIN listremotes | grep "^${remote}-sd-" || true)
 
-  # Remove old systemd services for this account
-  echo "Removing old systemd services..."
-  rm -f "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-sd-*.service 2>/dev/null || true
+  # Remove old service files for this account
+  echo "Removing old service files..."
+  rm -f "${SERVICE_DIR}"/gdrive-"${email}"-sd-*"${SERVICE_EXT}" 2>/dev/null || true
 
   # Remove old mount directories
   echo "Removing old mount directories..."
@@ -168,10 +303,11 @@ cmd_refresh() {
 
   # Create My Drive service
   echo "Creating My Drive service..."
-  mkdir -p "$SYSTEMD_USER_DIR"
-  local my_drive_service="${SYSTEMD_USER_DIR}/gdrive-${email}-my-drive.service"
+  mkdir -p "$SERVICE_DIR"
+  local my_drive_label="gdrive-${email}-my-drive"
+  local my_drive_service="${SERVICE_DIR}/${my_drive_label}${SERVICE_EXT}"
   local my_drive_path="${GDRIVE_BASE}/${email}/my-drive"
-  generate_service "$remote" "$my_drive_path" "Google Drive ($email)" >"$my_drive_service"
+  generate_service "$remote" "$my_drive_path" "Google Drive ($email)" "$my_drive_label" >"$my_drive_service"
 
   # Get Shared Drives and create remotes/services
   echo "Fetching Shared Drives..."
@@ -191,7 +327,7 @@ cmd_refresh() {
     local idx=0
     while IFS= read -r drive; do
       idx=$((idx + 1))
-      local drive_id drive_name safe_name sd_remote service_name service_path mount_path id_prefix
+      local drive_id drive_name safe_name sd_remote service_label service_path mount_path id_prefix
       drive_id=$(echo "$drive" | jq -r '.id')
       drive_name=$(echo "$drive" | jq -r '.name')
       safe_name=$(sanitize_name "$drive_name")
@@ -210,20 +346,20 @@ token = ${token}
 team_drive = ${drive_id}
 RCLONE_CONFIG
 
-      # Create systemd service
-      service_name="gdrive-${email}-sd-${id_prefix}-${safe_name}.service"
-      service_path="${SYSTEMD_USER_DIR}/${service_name}"
+      # Create service file
+      service_label="gdrive-${email}-sd-${id_prefix}-${safe_name}"
+      service_path="${SERVICE_DIR}/${service_label}${SERVICE_EXT}"
       mount_path="${GDRIVE_BASE}/${email}/shared-drives/${drive_name}"
 
-      generate_service "$sd_remote" "$mount_path" "Shared Drive: $drive_name ($email)" >"$service_path"
+      generate_service "$sd_remote" "$mount_path" "Shared Drive: $drive_name ($email)" "$service_label" >"$service_path"
     done <"$tmpfile"
 
     rm -f "$tmpfile"
   fi
 
   echo ""
-  echo "Reloading systemd..."
-  systemctl --user daemon-reload
+  echo "Reloading services..."
+  svc_reload
 
   echo ""
   echo "Done. Run 'gdrive-manager mount $email' to mount drives."
@@ -236,22 +372,22 @@ cmd_mount() {
   if [[ -z "$email" ]]; then
     # Mount all
     echo "Mounting all Google Drives..."
-    for service in "${SYSTEMD_USER_DIR}"/gdrive-*.service; do
+    for service in "${SERVICE_DIR}"/gdrive-*"${SERVICE_EXT}"; do
       [[ -e "$service" ]] || continue
       local name
       name=$(basename "$service")
       echo "  Starting: $name"
-      systemctl --user enable --now "$name" 2>/dev/null || true
+      svc_start "$service"
     done
   else
     # Mount specific account
     echo "Mounting drives for: $email"
-    for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+    for service in "${SERVICE_DIR}"/gdrive-"${email}"-*"${SERVICE_EXT}"; do
       [[ -e "$service" ]] || continue
       local name
       name=$(basename "$service")
       echo "  Starting: $name"
-      systemctl --user enable --now "$name" 2>/dev/null || true
+      svc_start "$service"
     done
   fi
 
@@ -266,22 +402,22 @@ cmd_umount() {
   if [[ -z "$email" ]]; then
     # Unmount all
     echo "Unmounting all Google Drives..."
-    for service in "${SYSTEMD_USER_DIR}"/gdrive-*.service; do
+    for service in "${SERVICE_DIR}"/gdrive-*"${SERVICE_EXT}"; do
       [[ -e "$service" ]] || continue
       local name
       name=$(basename "$service")
       echo "  Stopping: $name"
-      systemctl --user stop "$name" 2>/dev/null || true
+      svc_stop "$service"
     done
   else
     # Unmount specific account
     echo "Unmounting drives for: $email"
-    for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+    for service in "${SERVICE_DIR}"/gdrive-"${email}"-*"${SERVICE_EXT}"; do
       [[ -e "$service" ]] || continue
       local name
       name=$(basename "$service")
       echo "  Stopping: $name"
-      systemctl --user stop "$name" 2>/dev/null || true
+      svc_stop "$service"
     done
   fi
 }
@@ -305,9 +441,9 @@ cmd_status() {
     echo "Account: $email"
 
     # My Drive status
-    local my_drive_service="gdrive-${email}-my-drive.service"
+    local my_drive_service="${SERVICE_DIR}/gdrive-${email}-my-drive${SERVICE_EXT}"
     local status
-    if systemctl --user is-active "$my_drive_service" &>/dev/null; then
+    if svc_is_active "$my_drive_service"; then
       status="active"
     else
       status="inactive"
@@ -317,12 +453,10 @@ cmd_status() {
     # Shared Drives status
     local sd_count=0
     local sd_active=0
-    for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-sd-*.service; do
+    for service in "${SERVICE_DIR}"/gdrive-"${email}"-sd-*"${SERVICE_EXT}"; do
       [[ -e "$service" ]] || continue
       ((sd_count++))
-      local name
-      name=$(basename "$service")
-      if systemctl --user is-active "$name" &>/dev/null; then
+      if svc_is_active "$service"; then
         ((sd_active++))
       fi
     done
@@ -362,18 +496,15 @@ cmd_delete() {
 
   # Stop and disable services
   echo "Stopping services..."
-  for service in "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service; do
+  for service in "${SERVICE_DIR}"/gdrive-"${email}"-*"${SERVICE_EXT}"; do
     [[ -e "$service" ]] || continue
-    local name
-    name=$(basename "$service")
-    systemctl --user stop "$name" 2>/dev/null || true
-    systemctl --user disable "$name" 2>/dev/null || true
+    svc_disable "$service"
   done
 
   # Remove service files
   echo "Removing service files..."
-  rm -f "${SYSTEMD_USER_DIR}"/gdrive-"${email}"-*.service 2>/dev/null || true
-  systemctl --user daemon-reload
+  rm -f "${SERVICE_DIR}"/gdrive-"${email}"-*"${SERVICE_EXT}" 2>/dev/null || true
+  svc_reload
 
   # Remove rclone remotes
   echo "Removing rclone remotes..."
@@ -400,6 +531,8 @@ cmd_delete() {
 cmd_help() {
   cat <<EOF
 gdrive-manager - Manage Google Drive mounts via rclone
+
+Supported platforms: Linux (systemd), macOS (launchd)
 
 Usage:
   gdrive-manager <command> [arguments]
