@@ -86,6 +86,7 @@ in
     tmux
     gcc
     gnumake
+    cmake
     zip
     unzip
     nkf
