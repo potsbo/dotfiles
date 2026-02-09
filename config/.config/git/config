@@ -59,5 +59,6 @@
 	nocopy = node_modules/
 	nocopy = .venv/
 	nocopy = __pycache__/
+	nocopy = dist
 [credential "https://github.com"]
 	helper = !gh auth git-credential
