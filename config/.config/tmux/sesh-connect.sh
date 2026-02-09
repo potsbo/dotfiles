@@ -9,7 +9,7 @@ COLOR_MAIN=$(~/.config/tmux/dirmux/config/color.sh)
 
 selected=$(
   ~/.config/tmux/sesh-list.sh | fzf-tmux -p 100%,100% \
-    --no-sort --ansi --layout=reverse --border-label " $(hostname) " --prompt '⚡  ' \
+    --ansi --layout=reverse --tiebreak=index --border-label " $(hostname) " --prompt '⚡  ' \
     --color="border:$COLOR_MAIN,label:$COLOR_MAIN,prompt:$COLOR_MAIN,pointer:$COLOR_MAIN,marker:$COLOR_MAIN,spinner:$COLOR_MAIN,header:$COLOR_MAIN,hl:$COLOR_MAIN,hl+:$COLOR_MAIN" \
     --header '^q tmux kill' \
     --bind 'tab:down,btab:up' \
