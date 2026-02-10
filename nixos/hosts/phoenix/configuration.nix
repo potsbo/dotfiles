@@ -4,6 +4,9 @@
 
 { config, pkgs, ... }:
 
+let
+  registryPort = 5000;
+in
 {
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -64,7 +67,10 @@
     shell = pkgs.zsh;
     packages = with pkgs; [];
   };
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings.insecure-registries = [ "phoenix:${toString registryPort}" ];
+  };
 
   # Install firefox.
   programs.zsh.enable = true;
@@ -123,12 +129,29 @@
   };
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "server";  # exit node として動作させる（IP forwarding 自動有効化）
+    useRoutingFeatures = "server";
     extraUpFlags = [ "--advertise-exit-node" ];
   };
 
-  # Tailscale インターフェースを信頼
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
+  # Docker Registry（Tailscale 経由のみアクセス可）
+  # tailscale0 が trustedInterfaces にあり、port が allowedTCPPorts にないことで制限される
+  services.dockerRegistry = {
+    enable = true;
+    port = registryPort;
+  };
+
+  assertions = [
+    {
+      assertion = builtins.elem "tailscale0" config.networking.firewall.trustedInterfaces;
+      message = "Docker Registry は tailscale0 が trustedInterfaces にある前提で Tailscale 限定にしている";
+    }
+    {
+      assertion = !(builtins.elem registryPort config.networking.firewall.allowedTCPPorts);
+      message = "Docker Registry の port 5000 を allowedTCPPorts に追加すると全インターフェースに公開されてしまう";
+    }
+  ];
 
   # 常時稼働サーバ用途のため、勝手に suspend しないように設定
   systemd.targets = {
