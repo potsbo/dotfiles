@@ -82,7 +82,7 @@ if [[ "$USER" == "potsbo" ]]; then
     fi
 
     echo "nix-darwin: Using configuration: $CONFIG"
-    sudo -H nix run nix-darwin -- switch --flake "${DOTPATH}/nix#$CONFIG"
+    sudo -H nix run "${DOTPATH}/nix" -- switch --flake "${DOTPATH}/nix#$CONFIG" --verbose
   fi
 fi
 
