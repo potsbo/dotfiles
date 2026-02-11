@@ -58,6 +58,7 @@ if node[:platform] == "darwin"
   end
 
   ["Cursor", "Code"].each do |name|
+    directory File.join(ENV['HOME'], "Library/Application Support/#{name}/User")
     link File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json") do
       to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
       force true
