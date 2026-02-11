@@ -4,9 +4,9 @@
 source ~/src/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh
 source ~/src/github.com/mroth/evalcache/evalcache.plugin.zsh
 
-# brew (defer + cache)
+# brew
 if [ -f "/opt/homebrew/bin/brew" ]; then
-  zsh-defer _evalcache brew shellenv
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # compinit: zsh 補完システムの初期化
