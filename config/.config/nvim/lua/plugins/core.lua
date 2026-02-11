@@ -1,8 +1,14 @@
 return {
   {
+    "loctvl842/monokai-pro.nvim",
+    opts = {
+      filter = "classic",
+    },
+  },
+  {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight-night",
+      colorscheme = "monokai-pro",
     },
   },
   -- ステータスラインを無効化
