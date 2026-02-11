@@ -23,6 +23,7 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   ".zprofile",
   ".zshrc",
   ".default-npm-packages",
+  ".docker/config.json",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
   dotfiles_path = File.join(DOTFILE_REPO, "config", name)
