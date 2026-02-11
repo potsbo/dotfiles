@@ -101,11 +101,6 @@ _sesh_connect() {
 
 _register_keycommand "^]" _sesh_connect
 
-# mise (defer + cache)
-if command -v mise &> /dev/null; then
-  zsh-defer _evalcache mise activate zsh
-fi
-
 # VSCode で emacs キーバインドを使うため
 bindkey -e
 

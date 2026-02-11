@@ -71,6 +71,12 @@ in
   # home-manager が .config に書き込まないようにする
   targets.genericLinux.enable = false;
 
+  # Nix の gcc は macOS SDK のライブラリパスを検索しないため、
+  # cargo crate (tokei 等) のビルド時に -liconv が見つからずリンクエラーになる。
+  home.sessionVariables = lib.optionalAttrs pkgs.stdenv.isDarwin {
+    LIBRARY_PATH = "${pkgs.libiconv}/lib";
+  };
+
   home.packages = with pkgs; [
     aqua
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
