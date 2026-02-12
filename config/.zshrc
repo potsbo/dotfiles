@@ -4,9 +4,9 @@
 source ~/src/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh
 source ~/src/github.com/mroth/evalcache/evalcache.plugin.zsh
 
-# brew (defer + cache)
+# brew
 if [ -f "/opt/homebrew/bin/brew" ]; then
-  zsh-defer _evalcache brew shellenv
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # compinit: zsh 補完システムの初期化
@@ -65,7 +65,6 @@ if type deno &> /dev/null; then _lazy_load_completion deno 'eval "$(deno complet
 if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --completion zsh)"'; fi
 if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
-if type mise &> /dev/null; then _lazy_load_completion mise 'eval "$(mise completion zsh)"'; fi
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
 
 case $(hostname) in
@@ -101,11 +100,6 @@ _sesh_connect() {
 }
 
 _register_keycommand "^]" _sesh_connect
-
-# mise (defer + cache)
-if command -v mise &> /dev/null; then
-  zsh-defer _evalcache mise activate zsh
-fi
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e

@@ -66,5 +66,7 @@
           modules = [ ./modules/darwin.nix ];
         };
       };
+
+      packages.aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
     };
 }

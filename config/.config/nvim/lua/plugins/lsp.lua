@@ -12,13 +12,19 @@ return {
         "ruff",
         "tflint",
         "vtsls",
-        "copilot",
       },
     },
   },
   {
     "neovim/nvim-lspconfig",
     opts = {
+      inlay_hints = {
+        enabled = false,
+      },
+      diagnostics = {
+        virtual_text = true,
+        virtual_lines = false,
+      },
       servers = {
         vtsls = {
           root_dir = function(bufnr, on_dir)

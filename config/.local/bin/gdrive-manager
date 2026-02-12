@@ -164,7 +164,7 @@ EOF
   <array>
     <string>/bin/bash</string>
     <string>-c</string>
-    <string>mkdir -p "${mount_path}" "${log_dir}" &amp;&amp; exec "${rclone_bin}" mount "${remote}:" "${mount_path}" --vfs-cache-mode full --vfs-cache-max-age 87600h --vfs-cache-max-size 500G</string>
+    <string>mkdir -p "${mount_path}" "${log_dir}" &amp;&amp; exec "${rclone_bin}" nfsmount "${remote}:" "${mount_path}" --vfs-cache-mode full --vfs-cache-max-age 87600h --vfs-cache-max-size 500G --drive-export-formats link.html</string>
   </array>
   <key>RunAtLoad</key>
   <true/>

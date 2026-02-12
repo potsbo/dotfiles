@@ -12,8 +12,6 @@
 -- Neovim 0.12 がリリースされたら copilot → copilot-native に切り替え、この行を削除すること。
 vim.g.ai_cmp = false
 
--- LSP の inlay hints を無効化 (関数の型などのゴーストテキスト表示を消す)
-vim.lsp.inlay_hint.enable(false)
 vim.api.nvim_create_user_command("CommandShiftF", function()
   require("conform").format({ async = true, lsp_format = "fallback" })
 end, { range = true })
@@ -22,9 +20,11 @@ vim.g.clipboard = {
   name = "OSC52",
   copy = {
     ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("+"),
   },
   paste = {
     ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("+"),
   },
 }
 
