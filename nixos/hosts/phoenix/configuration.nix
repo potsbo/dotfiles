@@ -139,6 +139,7 @@ in
   # tailscale0 が trustedInterfaces にあり、port が allowedTCPPorts にないことで制限される
   services.dockerRegistry = {
     enable = true;
+    listenAddress = "0.0.0.0";
     port = registryPort;
   };
 
