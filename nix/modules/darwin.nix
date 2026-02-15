@@ -80,6 +80,8 @@
       "ghostty"
       "cursor"
       "zotero"
+      "chatgpt"
+      "claude"
     ];
   };
 
