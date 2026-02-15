@@ -126,6 +126,36 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-aarch64-apple-darwin.tar.gz",
+      "checksum": "57E733D0436309DAE2ED97E46BBA43937209395298E1D88812D4E893900CB40A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-aarch64-pc-windows-msvc.zip",
+      "checksum": "58C55EF6F0EAD099FBB31ED69566118D7C7C7A4E16C858BBDB4F7DEF40CD534B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "96E6EA2E47A71DB42CB7AD5A36E9209C8CB3708F8AE00F6945573D0D93315CB0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-x86_64-apple-darwin.tar.gz",
+      "checksum": "364249CFF18354397C72EBB6B8F7358404C051C486E0F2F7A46E36C86C16F8C7",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-x86_64-pc-windows-msvc.zip",
+      "checksum": "5AF00D0916F05631E3030537289EAC56605E7C1733318C4D525C8E847F12496D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ajeetdsouza/zoxide/v0.9.9/zoxide-0.9.9-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "4FF057D3C4D957946937274C2B8BE7AF2A9BBAE7F90A1B5E9BAAA7CB65A20CAA",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/aristocratos/btop/v1.4.6/btop-aarch64-unknown-linux-musl.tbz",
       "checksum": "7902578C0439332573148CAF6B3515DF2B158D163BAEEFF046028E428EC3295A",
       "algorithm": "sha256"
@@ -303,6 +333,36 @@
     {
       "id": "github_release/github.com/github/copilot-cli/v0.0.396/copilot-win32-x64.zip",
       "checksum": "7EA5534F6C37BCABD149BE8975D057FE06B697155637B46D5A4AB76DDD78884E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.409/copilot-darwin-arm64.tar.gz",
+      "checksum": "BA7723F8526E40C48E92A5AB40BC2DBC3FE94EF00725AD44AE1A4AAA26FB3729",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.409/copilot-darwin-x64.tar.gz",
+      "checksum": "B74E33753A7EFA9DCE32AA393FDD5D8E2EC0F1B1A631CD1EA7DB2055FE692557",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.409/copilot-linux-arm64.tar.gz",
+      "checksum": "8CBB887881CF9E9EE9BA5673592AEA57A61D3F10E556764E885A13E0D9A355D1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.409/copilot-linux-x64.tar.gz",
+      "checksum": "DCE3EC244A7A12EB3145FAECE4EEFAFB7FA913C75012F9E8E9A9A0FDBC36FC03",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.409/copilot-win32-arm64.zip",
+      "checksum": "311C457CF2529675BD2EFA0F8CA62E8DFCBB4B42020C2D84D813448106CEEE1A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.409/copilot-win32-x64.zip",
+      "checksum": "3645144708380E388B0790ABF4CFAFF90C1A8BE15E5A7C36A76CE509339FA94E",
       "algorithm": "sha256"
     },
     {
@@ -791,6 +851,36 @@
       "algorithm": "sha1"
     },
     {
+      "id": "github_release/github.com/x-motemen/ghq/v1.8.1/ghq_darwin_amd64.zip",
+      "checksum": "FA984CB1D7CAC14F04AFC2D2FED754D14503FA21",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.8.1/ghq_darwin_arm64.zip",
+      "checksum": "D3620447336CABA325453989EC6DA82E11F43E89",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.8.1/ghq_linux_amd64.zip",
+      "checksum": "78E80E312BB9DB433E2C49AAB7B0C2512D4D0C14",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.8.1/ghq_linux_arm64.zip",
+      "checksum": "D28F7A76F1FED98B2050E2EFAE3BCE5A1F56ECB3",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.8.1/ghq_windows_amd64.zip",
+      "checksum": "76CE6CF72393BB9C08E27E8DA542F88FC5E4C16B",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.8.1/ghq_windows_arm64.zip",
+      "checksum": "43B5E6C26A58C046F151601744CEECB4494A0039",
+      "algorithm": "sha1"
+    },
+    {
       "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-aarch64-apple-darwin.tar.xz",
       "checksum": "C78BCA8DFD2FF2E760CE45AA97063A3A530991F9C9ED5088E7278231564F2CF6",
       "algorithm": "sha256"
@@ -993,6 +1083,26 @@
     {
       "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.34/linux-x64/claude",
       "checksum": "3665F12F67A1159B31005DCCE11CA1DE41D49759BAE3D01ED853940FE7C4A21F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.41/darwin-arm64/claude",
+      "checksum": "9E23CFDE9AE65F656304CCD7513C22E50F73C7AD7C8924441236512DC67C3543",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.41/darwin-x64/claude",
+      "checksum": "8CAE92A6EFD136AD27A6F320761DF7FA33C617CDC8037DE90D513155B512C64F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.41/linux-arm64/claude",
+      "checksum": "DABC602584E89747D04945764E12B1BA050E58279421D8DB4C0B2EFC96A1B62A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.41/linux-x64/claude",
+      "checksum": "37D223EC9B54020DB8570238BD7726B3DF78D350C4CAD3084F892F4B58F052BC",
       "algorithm": "sha256"
     },
     {
