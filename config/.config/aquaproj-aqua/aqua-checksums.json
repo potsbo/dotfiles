@@ -191,6 +191,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "E09B0D24B5DA0FA06AECF1561849C13AE41EF055C1CE7077E35E9A46744B16AF",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-x86_64-apple-darwin.tar.gz",
+      "checksum": "BF84D3FF7F58E325D3EB5BB7696DF6B22EF1E01FEC80C2D8F7C9D3E611BE66F4",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-x86_64-pc-windows-msvc.zip",
+      "checksum": "EB08D642F016787BB9FC918A4DC5F34665463657FDDF83A40F2441CBF020FB4C",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "4E313F9F854017E58A2ADA4C0D1774677B8CF53D63AB55A991D5871D5F504452",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/cli/cli/v2.86.0/gh_2.86.0_linux_amd64.tar.gz",
       "checksum": "F3B08BD6A28420CC2229B0A1A687FA25F2B838D3F04B297414C1041CA68103C7",
       "algorithm": "sha256"
@@ -1053,6 +1073,16 @@
     {
       "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.31.17.zip",
       "checksum": "1222943E395CABB2A6B987CD75D0F59D566AA40BBDBAB6E55232EE7272900D7F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/dev.yorhel.nl/download/ncdu-2.9.1-linux-aarch64.tar.gz",
+      "checksum": "5BF4A37E8B5E1ECC6863475DC800C6A0D73B9CD1452E37D744EDD3DF0B58DAC0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/dev.yorhel.nl/download/ncdu-2.9.1-linux-x86_64.tar.gz",
+      "checksum": "0C6C84B3F763C33BAA051C8327F0E736F46F33A8CC061BB951D24517A8C5D73E",
       "algorithm": "sha256"
     },
     {
