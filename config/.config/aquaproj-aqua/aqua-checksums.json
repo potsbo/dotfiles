@@ -366,6 +366,36 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.410/copilot-darwin-arm64.tar.gz",
+      "checksum": "81BB230BC848CE4D64049ABD493C5E98A38CE1BE36DCB35F77223AFDE22E85FE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.410/copilot-darwin-x64.tar.gz",
+      "checksum": "9A6DF041980825FC7D4F2C1692A0B514BA71C9A13F18EF053F67AFD74F4F938A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.410/copilot-linux-arm64.tar.gz",
+      "checksum": "77D346C275B4E7D14B683A2560CD3545C8A895B5DA730737E7895B26BD8939DA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.410/copilot-linux-x64.tar.gz",
+      "checksum": "2523BA92C87D8D2CDD81F9F0F9954794BC169BC42A94969FBB87FC7E9F461B09",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.410/copilot-win32-arm64.zip",
+      "checksum": "BBFAAF985EE02595A6E2B01E352C6D0131F81B08E8494FA0DB3BFEC2948C10EA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/github/copilot-cli/v0.0.410/copilot-win32-x64.zip",
+      "checksum": "1DAC0D32F1954881E95849EB4975EC9D1E422342F59264959038C8CDAF9F6440",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/go-task/task/v3.45.5/task_darwin_amd64.tar.gz",
       "checksum": "5A06E2266B4C4A679C48582922EC06A25F81365B5F65298EF11DCAFB9D379C2B",
       "algorithm": "sha256"
@@ -463,6 +493,36 @@
     {
       "id": "github_release/github.com/jesseduffield/lazygit/v0.58.1/lazygit_0.58.1_windows_x86_64.zip",
       "checksum": "81F6F925E7EB97B32F89DD9C3597FED245F26FE81C7162A2470D501051F996DD",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_darwin_arm64.tar.gz",
+      "checksum": "CDD42E86B16B3BC21EC5CBE4BE92D688E39F3806B53B63C54D1AF4F498302ED8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_darwin_x86_64.tar.gz",
+      "checksum": "365DB34A92D017F7E77FE03AA461A921C6A31832FA9D427A7B06C86732821F55",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_linux_arm64.tar.gz",
+      "checksum": "A334A6C125169F21942F1A8B02043932575547A6250A1A734D62111EFD92AA8F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_linux_x86_64.tar.gz",
+      "checksum": "264283F40A40C899D702A338B20622F690221F753F03BAC827C1F34E91F516C2",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_windows_arm64.zip",
+      "checksum": "67C9250EEA6B2CD26BC87063E7C477969BA4D7AB75FCD838D2C5AD3C3A865156",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_windows_x86_64.zip",
+      "checksum": "3F2C43D4596498CA4E1C31C0430E4A2E015624D82EA25BB306C8695E6613D912",
       "algorithm": "sha256"
     },
     {
@@ -991,6 +1051,36 @@
       "algorithm": "sha256"
     },
     {
+      "id": "http/golang.org/dl/go1.26.0.darwin-amd64.tar.gz",
+      "checksum": "1CA28B7703CBEA05A65B2A1D92D6B308610EF92F8824578A0874F2E60C9D5A22",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.26.0.darwin-arm64.tar.gz",
+      "checksum": "B1640525DFE68F066D56F200BEF7BF4DCE955A1A893BD061DE6754C211431023",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.26.0.linux-amd64.tar.gz",
+      "checksum": "AAC1B08A0FB0C4E0A7C1555BEB7B59180B05DFC5A3D62E40E9DE90CD42F88235",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.26.0.linux-arm64.tar.gz",
+      "checksum": "BD03B743EB6EB4193EA3C3FD3956546BF0E3CA5B7076C8226334AFE6B75704CD",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.26.0.windows-amd64.zip",
+      "checksum": "9BBE0FC64236B2B51F6255C05C4232532B8ECC0E6D2E00950BD3021D8A4D07D4",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.26.0.windows-arm64.zip",
+      "checksum": "73BDBB9F64AA152758024485C5243A1098182BB741FCC603B6FB664EE5E0FE35",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/nodejs.org/dist/v23.11.1/node-v23.11.1-darwin-arm64.tar.gz",
       "checksum": "255509D2C4FE8E1D6FEFB950AD8DB285ED75BA543E18744D83DC139F978E404D",
       "algorithm": "sha256"
@@ -1103,6 +1193,26 @@
     {
       "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.41/linux-x64/claude",
       "checksum": "37D223EC9B54020DB8570238BD7726B3DF78D350C4CAD3084F892F4B58F052BC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.42/darwin-arm64/claude",
+      "checksum": "6908152BF1A4BABB13DE86640F3795349005069B541D4B8A3996802B863A02FD",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.42/darwin-x64/claude",
+      "checksum": "1A4E1D2F99B6D9B294607BDE402B6746134FFA913B22767EE45FBF820DFCC1B4",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.42/linux-arm64/claude",
+      "checksum": "5A75D0713287B636636A06CE9103FF54F5788170F2E9312FC7559121F649D36F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.42/linux-x64/claude",
+      "checksum": "51785BD26D2896396819832BC23A18A6C0CA39B7B761193FA7B6E990A17F27D8",
       "algorithm": "sha256"
     },
     {
