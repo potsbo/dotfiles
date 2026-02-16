@@ -48,7 +48,7 @@ packages:
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.6.1
-  - name: theseus-rs/postgresql-binaries@18.1.0
+  - name: theseus-rs/postgresql-binaries@18.2.0
   - name: bootandy/dust@v1.2.4
   - name: dev.yorhel.nl/ncdu
     version: 2.9.1
