@@ -581,6 +581,36 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/joshmedeski/sesh/v2.22.0/sesh_Darwin_arm64.tar.gz",
+      "checksum": "831A375ED140BBB79DE0CAF237A88300260823FBC713CA7AB4D0C7D636BFAC67",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/joshmedeski/sesh/v2.22.0/sesh_Darwin_x86_64.tar.gz",
+      "checksum": "BE217574B849ED32ACC719C38DBD7EAC1A6665905176E3342E8F3F46FED539F6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/joshmedeski/sesh/v2.22.0/sesh_Linux_arm64.tar.gz",
+      "checksum": "744D8CB510E9881D4D5AB15D4A373C84938D99BA799D513BC16431B30CBA90C7",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/joshmedeski/sesh/v2.22.0/sesh_Linux_x86_64.tar.gz",
+      "checksum": "CA1F5530E0B6099F0F69FF4015A38F346D1E3E22D83E92D4806795E440967FE8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/joshmedeski/sesh/v2.22.0/sesh_Windows_arm64.zip",
+      "checksum": "7E040A26772F5BA77840F5B9A2BEE79D40BE3EEFE8DA368153D851401373FF75",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/joshmedeski/sesh/v2.22.0/sesh_Windows_x86_64.zip",
+      "checksum": "EC7559AC02BE8B93573A8760B5BD3E5891C41F152336786B0EE6A2822521BA44",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/jqlang/jq/jq-1.8.1/jq-linux-amd64",
       "checksum": "020468DE7539CE70EF1BCEAF7CDE2E8C4F2CA6C3AFB84642AABC5C97D9FC2A0D",
       "algorithm": "sha256"
@@ -658,6 +688,31 @@
     {
       "id": "github_release/github.com/k1LoW/git-wt/v0.16.1/git-wt_v0.16.1_windows_amd64.tar.gz",
       "checksum": "DCCC9FC39EBEA1D0C038533BB83C252B5170CCA5AB856A2203F9A8E7FCD6610E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.22.0/git-wt_v0.22.0_darwin_amd64.zip",
+      "checksum": "8783131A0173C16B5DA3E09EC15A2306C2E3F586AD87248F2431E4C694DFCBBC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.22.0/git-wt_v0.22.0_darwin_arm64.zip",
+      "checksum": "560333AF08CD6BA503FD19A4B79F306C9E0805FA46EEBEAD7470C222538DE526",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.22.0/git-wt_v0.22.0_linux_amd64.tar.gz",
+      "checksum": "C94E4F11CD60782DE6E5C651EC3F81F9701EC1CA127741211B7346239F5BBFCD",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.22.0/git-wt_v0.22.0_linux_arm64.tar.gz",
+      "checksum": "2D823DD32844860DF8928211E6B80317063C5D34FB6E8777792D5A710C3E4257",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/k1LoW/git-wt/v0.22.0/git-wt_v0.22.0_windows_amd64.tar.gz",
+      "checksum": "348F5EE82133FC4DCBDB0D84B783D83DAE7DEF0623BB9DB4B50C310F25F7023F",
       "algorithm": "sha256"
     },
     {
