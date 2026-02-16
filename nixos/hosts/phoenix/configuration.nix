@@ -113,6 +113,7 @@ in
       PubkeyAuthentication = true;
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      StreamLocalBindUnlink = true;
 
       AuthorizedKeysCommand = "/etc/ssh/gh-authorized-keys %u";
       AuthorizedKeysCommandUser = "nobody";
@@ -182,6 +183,16 @@ in
     };
   };
   powerManagement.enable = false;
+
+  # OOM 対策: カーネル OOM キラーが発動する前にプロアクティブにプロセスを kill する
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 5;
+    freeSwapThreshold = 5;
+    extraArgs = [
+      "--avoid" "^(sshd|tailscaled|systemd)"
+    ];
+  };
 
   # rclone mount (FUSE) support
   programs.fuse.userAllowOther = true;
