@@ -2,6 +2,15 @@
 
 set -eu
 
+# History file for sorting ghq repos by recent usage
+SESH_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/sesh-connect/history"
+
+record_history() {
+  local name="$1"
+  mkdir -p "$(dirname "$SESH_HISTORY")"
+  printf '%s\t%s\n' "$(date +%s)" "$name" >> "$SESH_HISTORY"
+}
+
 # Icons (nerdfont)
 ICON_SSH=$(printf '\uEB3A')
 
@@ -42,6 +51,9 @@ elif [[ "$selected" == *"$ICON_SSH"* ]]; then
   fi
 else
   # Everything else: existing session or new ghq repo
+  # Record history before connecting — the tmux session switch
+  # may destroy the popup and kill this script process.
+  record_history "$selected"
   # Try sesh first (handles existing sessions with sesh icons),
   # then resolve via dirmux
   sesh connect "$selected" 2>/dev/null || {
