@@ -941,6 +941,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.2.0/postgresql-18.2.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "17D14F8E9FAEAA2A12ED5A5639ECE6C097E2A9E2114AE370F65ED7BA40A83544",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.2.0/postgresql-18.2.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "8B415A11C7A5484E5FBF7A57FCA71554D2D1D7ACD34FAF066606D2FEE1261854",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.2.0/postgresql-18.2.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "B6A6CAAF8EAECE39D7360408EB8A81E67F0B38C87746DDF9E8A7AD4C6DFC0792",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.2.0/postgresql-18.2.0-x86_64-pc-windows-msvc.tar.gz",
+      "checksum": "0828D270CBD8F4C6D50A11C3C52C4207E78BD386542923356E5FA7EA311B97FC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.2.0/postgresql-18.2.0-x86_64-unknown-linux-gnu.tar.gz",
+      "checksum": "CC2674E1641AA2A62B478971A22C131A768EB783F313E6A3385888F58A604074",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/tldr-pages/tlrc/v1.12.0/tlrc-v1.12.0-x86_64-apple-darwin.tar.gz",
       "checksum": "2B53E92B7D747F2ECB4EB9633EAC1C28DA456FD869038A2E370DFDC1FFBC9205",
       "algorithm": "sha256"
@@ -1013,6 +1038,36 @@
     {
       "id": "github_release/github.com/x-motemen/ghq/v1.8.1/ghq_windows_arm64.zip",
       "checksum": "43B5E6C26A58C046F151601744CEECB4494A0039",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_darwin_amd64.zip",
+      "checksum": "F65A14DF3A1379F8D98C5520D5E7A4B35D688AF4",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_darwin_arm64.zip",
+      "checksum": "D81661D465961CBEB896F7F5188D37302D92D8DD",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_linux_amd64.zip",
+      "checksum": "E8EF09DAAB0A28E983E2B9EA5BA02128B39BC73B",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_linux_arm64.zip",
+      "checksum": "6C4A755A755F5B40238B8D6E964E5594881836A7",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_windows_amd64.zip",
+      "checksum": "C69B551CE8794E2C81D08ABFB49E72D420556331",
+      "algorithm": "sha1"
+    },
+    {
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_windows_arm64.zip",
+      "checksum": "23A4118155E459AEA28EE5147F6C5AFD7F10B7ED",
       "algorithm": "sha1"
     },
     {
