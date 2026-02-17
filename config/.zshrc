@@ -128,3 +128,9 @@ _check_pending_ssh() {
   fi
 }
 precmd_functions+=(_check_pending_ssh)
+
+# aqua: prompt 毎にパッケージをインストール（~50ms, バックグラウンド実行）
+_aqua_install() {
+  aqua install --all --only-link &>/dev/null &!
+}
+precmd_functions+=(_aqua_install)
