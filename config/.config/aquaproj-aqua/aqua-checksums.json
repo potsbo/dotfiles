@@ -636,28 +636,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_darwin_amd64.zip",
-      "checksum": "72B1C798A099884B06434FA0EB20553E9FEF86C09C960E5EB56343F69185B3ED",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_darwin_amd64.zip",
+      "checksum": "CCA6F4E9DB63894B9EC8DE4551B290D68BF73B475A1FAC5F43F9D666D017FF62",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_darwin_arm64.zip",
-      "checksum": "6ABE27B182A40EC9FE5D330F2F5550D615F99EE61055D7DC84D4D3ED43B89675",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_darwin_arm64.zip",
+      "checksum": "E2D93B66BD24053EBD8C31EEE5D0C52BAC1B900AEBCBCB8907A12B82980B703E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_linux_amd64.tar.gz",
-      "checksum": "EA26CFE207133A99695DA4AA5DCBE271B6435AB227280817D3530D4B9AFDD3D9",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_linux_amd64.tar.gz",
+      "checksum": "E0FBBABC4AA64C62A1FF24138C1A09D3F3C5B60BD5342F043C61AA24A5A0DBEE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_linux_arm64.tar.gz",
-      "checksum": "99B9C2EF5D543CF686EB85F5E7E2D38D92937A0EFEFD388E8DF82A713C954E89",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_linux_arm64.tar.gz",
+      "checksum": "BB1554B8806123E32BD354A70832B342B9A60DDBD5FCD2B0BBE4DABEAAF7FF33",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_windows_amd64.tar.gz",
-      "checksum": "E6D59BE0BF4DC74B47272E3CB6D83C0FA0F30FAAB05C1BE7646E96410A5A3D9C",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_windows_amd64.tar.gz",
+      "checksum": "DAC5C509973C109EFD5055536D13A209C1B4D73A6F4759C8BF586E209CACDCD1",
       "algorithm": "sha256"
     },
     {
@@ -1031,33 +1031,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_darwin_amd64.zip",
-      "checksum": "F65A14DF3A1379F8D98C5520D5E7A4B35D688AF4",
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.4/ghq_darwin_amd64.zip",
+      "checksum": "48A46820F3DE2D3C84FE3B3958A4216D2724B87F",
       "algorithm": "sha1"
     },
     {
-      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_darwin_arm64.zip",
-      "checksum": "D81661D465961CBEB896F7F5188D37302D92D8DD",
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.4/ghq_darwin_arm64.zip",
+      "checksum": "5711AA22C59C81AA8FE2CDAF4312F2AC3001D4F0",
       "algorithm": "sha1"
     },
     {
-      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_linux_amd64.zip",
-      "checksum": "E8EF09DAAB0A28E983E2B9EA5BA02128B39BC73B",
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.4/ghq_linux_amd64.zip",
+      "checksum": "9078DAD07754E4AD8F293CE843DEFEBA0D7730E5",
       "algorithm": "sha1"
     },
     {
-      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_linux_arm64.zip",
-      "checksum": "6C4A755A755F5B40238B8D6E964E5594881836A7",
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.4/ghq_linux_arm64.zip",
+      "checksum": "5BF9A3542B1BDF1F411440BEFC09860A984C3309",
       "algorithm": "sha1"
     },
     {
-      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_windows_amd64.zip",
-      "checksum": "C69B551CE8794E2C81D08ABFB49E72D420556331",
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.4/ghq_windows_amd64.zip",
+      "checksum": "E48898253291AC35D0588D3A83609B055E2CC3A2",
       "algorithm": "sha1"
     },
     {
-      "id": "github_release/github.com/x-motemen/ghq/v1.9.3/ghq_windows_arm64.zip",
-      "checksum": "23A4118155E459AEA28EE5147F6C5AFD7F10B7ED",
+      "id": "github_release/github.com/x-motemen/ghq/v1.9.4/ghq_windows_arm64.zip",
+      "checksum": "82E54A7C0A8C63C6B32B0C8E42C7BB79DE2F315A",
       "algorithm": "sha1"
     },
     {
@@ -1226,8 +1226,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.471.0/registry.yaml",
-      "checksum": "B21B667613946DDF78CAE7C829314E3EE0DE29366427DDA7E3C821489DC8F92288DFC7EA795DA7F9E4CFA13182E4CE8D5B4B8FCE9DA2D5945B74E74375B8EE6B",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.472.0/registry.yaml",
+      "checksum": "7A29908B6548025F1767BF89C69B0D80991C00FCDDB5DC7D441D5705C007D17B0CBA647BAC58D54B7E845753E13FD10466B663B7595E3E8731389B3E1D312F23",
       "algorithm": "sha512"
     }
   ]
