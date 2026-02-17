@@ -811,6 +811,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-linux-arm64.tar.gz",
+      "checksum": "88654024E8DE21B41AEE6F4B6BECA1C786EADB4614B2E89E16D3823EA6040755",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-linux-x86_64.tar.gz",
+      "checksum": "F5500A69D7299358B537D5D01EF7D30831F2801299D29C23601FA506A2A7061B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-macos-arm64.tar.gz",
+      "checksum": "4B06276180AE713970E1D729F0AA2E9C0C1F4818074D14F76A26DF69283582F5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-macos-x86_64.tar.gz",
+      "checksum": "375049B30E5211D43A410ACF8A160D0C14038C8C3ED08D044BFE181ED770B62A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-windows-x86_64.tar.gz",
+      "checksum": "5111869984D0CB12C2F0764BAFA83159B2B011FC00EFC32024E21B8AD1C0F7F0",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-aarch64-apple-darwin.tar.gz",
       "checksum": "E30BEFF26779C9BF60BB541E1D79046250CB74378F2757F8EB250AFDDB19E114",
       "algorithm": "sha256"
