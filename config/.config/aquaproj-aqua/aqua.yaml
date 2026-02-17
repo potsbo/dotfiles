@@ -52,3 +52,13 @@ packages:
   - name: bootandy/dust@v1.2.4
   - name: dev.yorhel.nl/ncdu
     version: 2.9.1
+  - name: dalance/procs@v0.14.10
+  - name: muesli/duf@v0.9.1
+  - name: chmln/sd@v1.0.0
+  - name: mr-karan/doggo@v1.1.4
+  - name: orf/gping@gping-v1.20.1
+  - name: fujiapple852/trippy@0.13.0
+  - name: sharkdp/hexyl@v0.17.0
+  - name: ducaale/xh@v0.25.3
+  - name: sharkdp/hyperfine@v1.20.0
+  - name: imsnif/bandwhich@v0.23.1
