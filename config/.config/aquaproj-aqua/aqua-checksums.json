@@ -636,28 +636,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_darwin_amd64.zip",
-      "checksum": "72B1C798A099884B06434FA0EB20553E9FEF86C09C960E5EB56343F69185B3ED",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_darwin_amd64.zip",
+      "checksum": "CCA6F4E9DB63894B9EC8DE4551B290D68BF73B475A1FAC5F43F9D666D017FF62",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_darwin_arm64.zip",
-      "checksum": "6ABE27B182A40EC9FE5D330F2F5550D615F99EE61055D7DC84D4D3ED43B89675",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_darwin_arm64.zip",
+      "checksum": "E2D93B66BD24053EBD8C31EEE5D0C52BAC1B900AEBCBCB8907A12B82980B703E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_linux_amd64.tar.gz",
-      "checksum": "EA26CFE207133A99695DA4AA5DCBE271B6435AB227280817D3530D4B9AFDD3D9",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_linux_amd64.tar.gz",
+      "checksum": "E0FBBABC4AA64C62A1FF24138C1A09D3F3C5B60BD5342F043C61AA24A5A0DBEE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_linux_arm64.tar.gz",
-      "checksum": "99B9C2EF5D543CF686EB85F5E7E2D38D92937A0EFEFD388E8DF82A713C954E89",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_linux_arm64.tar.gz",
+      "checksum": "BB1554B8806123E32BD354A70832B342B9A60DDBD5FCD2B0BBE4DABEAAF7FF33",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.23.0/git-wt_v0.23.0_windows_amd64.tar.gz",
-      "checksum": "E6D59BE0BF4DC74B47272E3CB6D83C0FA0F30FAAB05C1BE7646E96410A5A3D9C",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_windows_amd64.tar.gz",
+      "checksum": "DAC5C509973C109EFD5055536D13A209C1B4D73A6F4759C8BF586E209CACDCD1",
       "algorithm": "sha256"
     },
     {
