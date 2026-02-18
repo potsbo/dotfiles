@@ -54,13 +54,15 @@ if [[ "$branch" == "✨ Create new branch" ]]; then
   if [[ "$branch_name" != */* ]]; then
     branch_name="potsbo/$branch_name"
   fi
-  git wt "$branch_name"
+  wait
+  git wt "$branch_name" "origin/$(git default-branch)"
 else
   # Extract branch name (remove date part)
   # "origin/potsbo/fix  3 days ago" -> "origin/potsbo/fix"
   branch=$(echo "$branch" | awk '{print $1}')
   # origin/potsbo/fix -> potsbo/fix
   local_branch="${branch#origin/}"
+  wait
   git wt "$local_branch" "$branch"
 fi
 
