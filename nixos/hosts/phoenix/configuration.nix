@@ -8,10 +8,6 @@ let
   registryPort = 5000;
 in
 {
-  imports = [
-    /etc/nixos/hardware-configuration.nix
-  ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
@@ -35,6 +31,18 @@ in
     "C.UTF-8/UTF-8"
   ];
 
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        fcitx5-mozc
+        fcitx5-gtk
+      ];
+    };
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -56,8 +64,10 @@ in
     wheelNeedsPassword = false;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # Enable the X11/Wayland display server and GNOME desktop environment.
+  services.xserver.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.potsbo = {
