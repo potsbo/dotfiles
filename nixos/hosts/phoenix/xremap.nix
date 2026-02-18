@@ -1,6 +1,14 @@
 { ... }:
 
 {
+  # xremap を HHKB 抜き差し・起動順序に関係なく自動復旧させる
+  systemd.services.xremap = {
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+  };
+
   services.xremap = {
     enable = true;
     withGnome = false;

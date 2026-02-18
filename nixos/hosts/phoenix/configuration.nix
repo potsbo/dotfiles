@@ -67,6 +67,7 @@ in
   # Enable the X11/Wayland display server and GNOME desktop environment.
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
+  services.displayManager.gdm.autoSuspend = false;
   services.desktopManager.gnome.enable = true;
 
   # GTK Emacs keybindings (Ctrl+A/E/K/D/H etc.) — like macOS Cocoa
