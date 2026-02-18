@@ -69,6 +69,9 @@ in
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  # GTK Emacs keybindings (Ctrl+A/E/K/D/H etc.) — like macOS Cocoa
+  environment.sessionVariables.GTK_KEY_THEME = "Emacs";
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.potsbo = {
     isNormalUser = true;

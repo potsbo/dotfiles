@@ -3,7 +3,7 @@
 {
   services.xremap = {
     enable = true;
-    withGnome = true;
+    withGnome = false;
     userName = "potsbo";
 
     config = {
@@ -11,12 +11,11 @@
         {
           name = "Key remaps";
           remap = {
-            CapsLock = {
+            Ctrl_L = {
               held = "Ctrl_L";
               alone = "Esc";
               alone_timeout_millis = 150;
             };
-            Ctrl_L = "CapsLock";
             Alt_L = {
               held = "Alt_L";
               alone = "Muhenkan";
@@ -32,35 +31,29 @@
       ];
 
       keymap = [
-        # === Emacs keybindings (excluding terminals/editors) ===
+        # === Super shortcuts for all apps (Cmd-like) ===
         {
-          name = "Emacs keybindings";
-          application = {
-            not = [
-              "org.gnome.Terminal"
-              "kitty"
-              "Alacritty"
-              "com.mitchellh.ghostty"
-              "Emacs"
-              "code"
-              "Cursor"
-            ];
-          };
+          name = "Super shortcuts";
           remap = {
-            C-b = "left";
-            C-f = "right";
-            C-n = "down";
-            C-p = "up";
-            C-d = "delete";
-            C-h = "backspace";
-            C-i = "tab";
-            C-m = "enter";
+            Super-c = "C-c";
+            Super-v = "C-v";
+            Super-x = "C-x";
+            Super-a = "C-a";
+            Super-z = "C-z";
+            Super-Shift-z = "C-Shift-z";
+            Super-s = "C-s";
+            Super-w = "C-w";
+            Super-t = "C-t";
+            Super-f = "C-f";
+            Super-r = "C-r";
+            Super-l = "C-l";
           };
         }
 
         # === Anpan layout (bare keys + Shift only) ===
         {
           name = "Anpan letter remaps";
+          exact_match = true;
           remap = {
             # Left hand - top row
             q = "apostrophe";
@@ -142,6 +135,7 @@
         }
         {
           name = "Anpan number/symbol row";
+          exact_match = true;
           remap = {
             # Number row remaps
             grave = "Shift-4";  # $
