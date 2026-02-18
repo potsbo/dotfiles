@@ -63,44 +63,44 @@
             e = "dot";
             Shift-e = "Shift-dot";  # >
             r = "p";
-            Shift-r = "P";
+            Shift-r = "Shift-p";
             t = "y";
-            Shift-t = "Y";
+            Shift-t = "Shift-y";
 
             # Right hand - top row
             y = "f";
-            Shift-y = "F";
+            Shift-y = "Shift-f";
             u = "g";
-            Shift-u = "G";
+            Shift-u = "Shift-g";
             i = "c";
-            Shift-i = "C";
+            Shift-i = "Shift-c";
             o = "r";
-            Shift-o = "R";
+            Shift-o = "Shift-r";
             p = "l";
-            Shift-p = "L";
+            Shift-p = "Shift-l";
 
             # Left hand - home row
             # a stays as a
             s = "o";
-            Shift-s = "O";
+            Shift-s = "Shift-o";
             d = "e";
-            Shift-d = "E";
+            Shift-d = "Shift-e";
             f = "u";
-            Shift-f = "U";
+            Shift-f = "Shift-u";
             g = "i";
-            Shift-g = "I";
+            Shift-g = "Shift-i";
 
             # Right hand - home row
             h = "d";
-            Shift-h = "D";
+            Shift-h = "Shift-d";
             j = "h";
-            Shift-j = "H";
+            Shift-j = "Shift-h";
             k = "t";
-            Shift-k = "T";
+            Shift-k = "Shift-t";
             l = "n";
-            Shift-l = "N";
+            Shift-l = "Shift-n";
             semicolon = "s";
-            Shift-semicolon = "S";
+            Shift-semicolon = "Shift-s";
             apostrophe = "minus";
             Shift-apostrophe = "Shift-minus";  # _
 
@@ -108,23 +108,23 @@
             z = "semicolon";
             Shift-z = "Shift-semicolon";  # :
             x = "q";
-            Shift-x = "Q";
+            Shift-x = "Shift-q";
             c = "j";
-            Shift-c = "J";
+            Shift-c = "Shift-j";
             v = "k";
-            Shift-v = "K";
+            Shift-v = "Shift-k";
             b = "x";
-            Shift-b = "X";
+            Shift-b = "Shift-x";
 
             # Right hand - bottom row
             n = "b";
-            Shift-n = "B";
+            Shift-n = "Shift-b";
             comma = "w";
-            Shift-comma = "W";
+            Shift-comma = "Shift-w";
             dot = "v";
-            Shift-dot = "V";
+            Shift-dot = "Shift-v";
             slash = "z";
-            Shift-slash = "Z";
+            Shift-slash = "Shift-z";
 
             # Brackets
             leftbrace = "slash";

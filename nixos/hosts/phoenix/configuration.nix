@@ -70,7 +70,13 @@ in
   services.desktopManager.gnome.enable = true;
 
   # GTK Emacs keybindings (Ctrl+A/E/K/D/H etc.) — like macOS Cocoa
-  environment.sessionVariables.GTK_KEY_THEME = "Emacs";
+  environment.sessionVariables = {
+    GTK_KEY_THEME = "Emacs";
+    # fcitx5 input method
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.potsbo = {
