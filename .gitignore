@@ -14,3 +14,6 @@ config/.config/systemd/user
 config/.config/starship.toml
 config/.config/cagent
 config/.local/bin/claude
+/config/.config/monitors.xml
+/config/.config/odbc/odbcinst.ini
+/config/.config/fcitx5/conf/cached_layouts

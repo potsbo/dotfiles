@@ -73,9 +73,22 @@ in
 
   # Nix の gcc は macOS SDK のライブラリパスを検索しないため、
   # cargo crate (tokei 等) のビルド時に -liconv が見つからずリンクエラーになる。
-  home.sessionVariables = lib.optionalAttrs pkgs.stdenv.isDarwin {
+  home.sessionVariables = {
+    # arrow-odbc が libodbc.so.2 を見つけるために必要
+    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.unixODBC pkgs.freetds ];
+    # odbcinst.ini の検索先ディレクトリ
+    ODBCSYSINI = "${config.home.homeDirectory}/.config/odbc";
+  } // lib.optionalAttrs pkgs.stdenv.isDarwin {
     LIBRARY_PATH = "${pkgs.libiconv}/lib";
   };
+
+  # FreeTDS ODBC ドライバの登録
+  home.file.".config/odbc/odbcinst.ini".text = ''
+    [FreeTDS]
+    Description=FreeTDS ODBC Driver
+    Driver=${pkgs.freetds}/lib/libtdsodbc.so
+    UsageCount=1
+  '';
 
   home.packages = with pkgs; [
     aqua
@@ -87,6 +100,10 @@ in
     whois
     dnsutils
     rclone
+
+    # ODBC (arrow-odbc + FreeTDS で SQL Server から Arrow ネイティブ読み取り)
+    unixODBC
+    freetds
 
     # 以下 aqua 未提供
     tmux
