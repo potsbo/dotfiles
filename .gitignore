@@ -17,3 +17,6 @@ config/.local/bin/claude
 /config/.config/monitors.xml
 /config/.config/odbc/odbcinst.ini
 /config/.config/fcitx5/conf/cached_layouts
+config/.config/dleyna-server-service.conf
+config/.config/user-dirs.dirs
+config/.config/user-dirs.locale
