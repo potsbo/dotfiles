@@ -68,8 +68,8 @@ main() {
   tmux setw -g window-status-current-style "bold,fg=${thm_main},bg=${thm_sub}"
   tmux setw -g window-status-activity-style "none,bg=${thm_sub}"
   tmux setw -g window-status-style "none,fg=${thm_gray}"
-  tmux setw -g window-status-current-format '#{?client_prefix,,  #I #W ▕}'
-  tmux setw -g window-status-format '#{?client_prefix,,  #I #W ▕}'
+  tmux setw -g window-status-current-format ' #I #W '
+  tmux setw -g window-status-format ' #I #W '
   tmux setw -g window-status-separator ""
   tmux setw -g status-justify left
 }
