@@ -8,7 +8,7 @@ SESH_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/sesh-connect/history"
 record_history() {
   local name="$1"
   mkdir -p "$(dirname "$SESH_HISTORY")"
-  printf '%s\t%s\n' "$(date +%s)" "$name" >> "$SESH_HISTORY"
+  printf '%s\t%s\n' "$(date +%s)" "$name" >>"$SESH_HISTORY"
 }
 
 # Icons (nerdfont)
@@ -47,7 +47,7 @@ elif [[ "$selected" == *"$ICON_SSH"* ]]; then
     tmux detach-client
   else
     # Outside tmux: just ssh directly
-    exec mosh "$host"
+    exec ssh "$host"
   fi
 else
   # Everything else: existing session or new ghq repo
