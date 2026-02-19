@@ -3,7 +3,7 @@
 set -eu
 
 main() {
-  thm_black="#2e2e2e"
+  thm_black="#272822"
   thm_gray="#797979"
 
   # https://www.color-hex.com/color-palette/59231
@@ -53,7 +53,7 @@ main() {
 
   # line 1: window list
   # tmux 3.6+ defaults status-format[1] to pane list; override to window list
-  tmux set -g 'status-format[1]' "#[list=on align=left]#{W:#[range=window|#{window_index} #{E:window-status-style}]#[push-default]#{T:window-status-format}#[pop-default]#[norange default],#[range=window|#{window_index} list=focus #{E:window-status-current-style}]#[push-default]#{T:window-status-current-format}#[pop-default]#[norange list=on default]}"
+  tmux set -g 'status-format[1]' "#[list=on align=left fill=${thm_sub}]#{W:#[range=window|#{window_index} #{E:window-status-style}]#[push-default]#{T:window-status-format}#[pop-default]#[norange default],#[range=window|#{window_index} list=focus #{E:window-status-current-style}]#[push-default]#{T:window-status-current-format}#[pop-default]#[norange list=on default]}"
 
   # copy-mode (text selection)
   # ================================================
@@ -66,7 +66,7 @@ main() {
   # ================================================
   tmux setw -g window-status-current-style "bold,fg=${thm_main},bg=${thm_sub}"
   tmux setw -g window-status-activity-style "none,bg=${thm_sub}"
-  tmux setw -g window-status-style "none,fg=${thm_gray}"
+  tmux setw -g window-status-style "none,fg=${thm_gray},bg=${thm_sub}"
   tmux setw -g window-status-current-format ' #I #W '
   tmux setw -g window-status-format ' #I #W '
   tmux setw -g window-status-separator ""
