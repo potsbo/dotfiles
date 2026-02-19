@@ -30,6 +30,7 @@
       };
       "com.apple.dock" = {
         showAppExposeGestureEnabled = true;
+        expose-group-apps = true;
       };
     };
   };
@@ -82,6 +83,7 @@
       "zotero"
       "chatgpt"
       "claude"
+      "pgadmin4"
     ];
   };
 
