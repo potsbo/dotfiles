@@ -52,9 +52,7 @@ main() {
   tmux set -g 'status-format[0]' "#{?client_prefix,#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}]${cheatsheet},#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}] #S }"
 
   # line 1: window list
-  tmux set -g status-left ''
-  tmux set -g status-left-length 100
-  tmux set -g status-right ""
+  tmux set -g 'status-format[1]' "#[list=on align=left]#{W:#[range=window|#{window_index} #{E:window-status-style}]#[push-default]#{T:window-status-format}#[pop-default]#[norange default],#[range=window|#{window_index} list=focus #{E:window-status-current-style}]#[push-default]#{T:window-status-current-format}#[pop-default]#[norange list=on default]}"
 
   # copy-mode (text selection)
   # ================================================
