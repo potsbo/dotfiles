@@ -49,7 +49,7 @@ main() {
   tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
   # line 0: session name (or cheatsheet on prefix)
-  tmux set -g 'status-format[0]' "#{?client_prefix,#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}]${cheatsheet},#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}] #S }"
+  tmux set -g 'status-format[0]' "#{?client_prefix,#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}]${cheatsheet},#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}] #S #[align=right]#(~/.config/tmux/net-speed.sh)  #(/opt/homebrew/bin/tmux-mem-cpu-load -a 0 -g 0) }"
 
   # line 1: window list
   # tmux 3.6+ defaults status-format[1] to pane list; override to window list
