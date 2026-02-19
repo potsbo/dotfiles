@@ -4,8 +4,11 @@
   # xremap を HHKB 抜き差し・起動順序に関係なく自動復旧させる
   systemd.services.xremap = {
     serviceConfig = {
-      Restart = "on-failure";
+      Restart = "always";
       RestartSec = 3;
+      # キーボード未接続時に exit 1 で終了するが、これを失敗扱いしない
+      # switch 時の "the following units failed" 警告を防ぐ
+      SuccessExitStatus = "1";
     };
   };
 

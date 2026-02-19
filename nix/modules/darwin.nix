@@ -51,7 +51,7 @@
     brews = [
       "felixkratz/formulae/borders"
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
-      "tmux-mem-cpu-load"
+
     ];
     masApps = {
       "Amphetamine" = 937984704;

@@ -107,6 +107,7 @@ in
 
     # 以下 aqua 未提供
     tmux
+    tmux-mem-cpu-load
     gcc
     gnumake
     cmake
