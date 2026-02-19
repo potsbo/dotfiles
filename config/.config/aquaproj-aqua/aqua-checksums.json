@@ -206,33 +206,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.86.0/gh_2.86.0_linux_amd64.tar.gz",
-      "checksum": "F3B08BD6A28420CC2229B0A1A687FA25F2B838D3F04B297414C1041CA68103C7",
+      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_linux_amd64.tar.gz",
+      "checksum": "5F461C1DC2B80483EA5617F9253D591FB427B3ECFDD69C69089E1EE6156DC234",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.86.0/gh_2.86.0_linux_arm64.tar.gz",
-      "checksum": "83CF7A7962EA9DFCC2C123666695792916A87AF32CBA5F1F6E585DB08FA57547",
+      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_linux_arm64.tar.gz",
+      "checksum": "7F7FBAF65BAA1E438AE5B7134BFF014C0122944DD2E83BB5DB8088FE3888FE39",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.86.0/gh_2.86.0_macOS_amd64.zip",
-      "checksum": "CED7094D05702EB54A63542ABD8A1DC570B7E5AE94951844EB1626BA74BC2C60",
+      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_macOS_amd64.zip",
+      "checksum": "9CB05A2BC5438762707A25BF1586E438ED3DBADF0FC782F47CA0B057BB4093A4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.86.0/gh_2.86.0_macOS_arm64.zip",
-      "checksum": "BDE753978A352C5AE6C4ABEC47334D516E82807AF20C9DBBD45507A5A0AEDAAA",
+      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_macOS_arm64.zip",
+      "checksum": "B1E6E3AB764892A33A1FE464C239BE393E6BBD4220804692F919C4C805B1DBBF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.86.0/gh_2.86.0_windows_amd64.zip",
-      "checksum": "983C74A8C594366B198485187CD6D4D07638F0BF9A9948D51A2A81A5164D8BFD",
+      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_windows_amd64.zip",
+      "checksum": "0765688B92EDCA7F08A314317512DEBA00BAA3405001CE25B69D2580F8137C36",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.86.0/gh_2.86.0_windows_arm64.zip",
-      "checksum": "1CC4276108D4023BF0487F48401B69989222260A78910BB9F72DCB32680F725D",
+      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_windows_arm64.zip",
+      "checksum": "FDC9ECEAAAF8B01AAF80286E19F84C778B79F94ADBCE0CC82DBE4D449B73680D",
       "algorithm": "sha256"
     },
     {
@@ -1206,23 +1206,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.45/darwin-arm64/claude",
-      "checksum": "E65AF16B9B732CE01D6423C281F7E6A255B5BB8850780BECF999153386E37FD4",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.47/darwin-arm64/claude",
+      "checksum": "73795E6D8F0AA4E07D8F20D351E0F84E515DB2CE73B69770650BC3D5D582EF73",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.45/darwin-x64/claude",
-      "checksum": "D10D02E6BCDAE7CC8D51A083CB7E9333E792D36ED73C9496035EF955B394B6B9",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.47/darwin-x64/claude",
+      "checksum": "B62889B0D4D1F07BF76EBE89B6D1B1B85690977A939307BC896CD76748DF3031",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.45/linux-arm64/claude",
-      "checksum": "E678F0E8112E470A92723AD6883ECB1940D1411548F678F21EA4E9CC41057E7F",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.47/linux-arm64/claude",
+      "checksum": "9255D330DB19353D73B3975B0BC2EBADDD1CF002A62FA15B95A6BBFEC8A9BE18",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.45/linux-x64/claude",
-      "checksum": "E7E847383C4666994707741E8E56ABF84DD2430153620D3BA5FF5A849375E4DE",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.47/linux-x64/claude",
+      "checksum": "9C48BDE67BDA274D65C3D65DA4F78E21A458CE722A8955EDCC272D32C98C74A3",
       "algorithm": "sha256"
     },
     {

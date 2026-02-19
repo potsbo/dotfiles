@@ -116,6 +116,7 @@ in
     watch
     libyaml
     pv
+    mosh
   ] ++ lib.optionals stdenv.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.isDarwin [
