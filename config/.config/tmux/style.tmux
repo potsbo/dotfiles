@@ -38,23 +38,23 @@ main() {
     ;;
   esac
 
-  separator="#[fg=${thm_sub},bg=default,none]▕#[default]"
+  # cheatsheet shown on prefix key
+  cheatsheet=' s:  w:  n/p:  c:  &:  %%%%:  ":  z:  q:  ^:'
 
-  # status bar
+  # status bar (2 lines)
   # ================================================
-  tmux set -g status "on"
+  tmux set -g status 2
   tmux set -g status-position "top"
-  tmux set -g status-style "bg=${thm_main},fg=${thm_sub}"
+  tmux set -g status-style "bg=default"
   tmux set -g message-style "align=right,fg=${thm_sub},bg=${thm_main},align=centre"
 
-  # left panel
-  tmux set -g status-left-length 100
-  tmux set -g status-left '#{?client_prefix, s:  w:  n/p:  c:  &:  %%%%:  ":  z:  q:  ^:, #S  ▕}'
+  # line 0: session name (or cheatsheet on prefix)
+  tmux set -g 'status-format[0]' "#{?client_prefix,#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}]${cheatsheet},#[bg=${thm_main} fg=${thm_sub} bold fill=${thm_main}] #S }"
 
-  # right panel
+  # line 1: window list
+  tmux set -g status-left ''
+  tmux set -g status-left-length 100
   tmux set -g status-right ""
-  tmux set -g status-right-style "none"
-  tmux set -g status-right-style "none"
 
   # copy-mode (text selection)
   # ================================================
@@ -67,7 +67,7 @@ main() {
   # ================================================
   tmux setw -g window-status-current-style "bold,fg=${thm_main},bg=${thm_sub}"
   tmux setw -g window-status-activity-style "none,bg=${thm_sub}"
-  tmux setw -g window-status-style "none,fg=${thm_black}"
+  tmux setw -g window-status-style "none,fg=${thm_gray}"
   tmux setw -g window-status-current-format '#{?client_prefix,,  #I #W ▕}'
   tmux setw -g window-status-format '#{?client_prefix,,  #I #W ▕}'
   tmux setw -g window-status-separator ""
