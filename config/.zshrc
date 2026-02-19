@@ -119,7 +119,7 @@ _check_pending_ssh() {
     host=$(cat /tmp/sesh-ssh-pending)
     rm -f /tmp/sesh-ssh-pending
     if [ -n "$host" ]; then
-      ssh "$host"
+      mosh "$host"
       # SSH 終了後、再度 sesh-connect.sh を呼ぶ
       if command -v sesh &> /dev/null; then
         ~/.config/tmux/sesh-connect.sh

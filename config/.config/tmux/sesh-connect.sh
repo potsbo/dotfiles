@@ -47,7 +47,7 @@ elif [[ "$selected" == *"$ICON_SSH"* ]]; then
     tmux detach-client
   else
     # Outside tmux: just ssh directly
-    exec ssh "$host"
+    exec mosh "$host"
   fi
 else
   # Everything else: existing session or new ghq repo
