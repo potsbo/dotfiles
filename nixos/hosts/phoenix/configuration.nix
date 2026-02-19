@@ -77,6 +77,8 @@ in
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";
+    # Default to OCI buildx builder
+    BUILDX_BUILDER = "oci-builder";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -89,7 +91,46 @@ in
   };
   virtualisation.docker = {
     enable = true;
-    daemon.settings.insecure-registries = [ "phoenix:${toString registryPort}" ];
+    daemon.settings = {
+      insecure-registries = [ "phoenix:${toString registryPort}" ];
+      features.containerd-snapshotter = true;
+    };
+  };
+
+  # BuildKit config for OCI buildx builder (zstd compression + insecure registry)
+  environment.etc."buildkitd/oci-builder.toml".text = ''
+    [worker.oci]
+      gc = true
+      compression = "zstd"
+      force-compression = true
+
+    [registry."phoenix:${toString registryPort}"]
+      http = true
+      insecure = true
+  '';
+
+  # Buildx builder with docker-container driver for OCI output
+  systemd.services.docker-buildx-oci = {
+    description = "Setup Docker Buildx OCI builder";
+    after = [ "docker.service" ];
+    requires = [ "docker.service" ];
+    wantedBy = [ "multi-user.target" ];
+    path = [ config.virtualisation.docker.package ];
+    environment.HOME = "/home/potsbo";
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      User = "potsbo";
+      SupplementaryGroups = [ "docker" ];
+    };
+    script = ''
+      docker buildx rm oci-builder 2>/dev/null || true
+      docker buildx create \
+        --name oci-builder \
+        --driver docker-container \
+        --config /etc/buildkitd/oci-builder.toml \
+        --bootstrap
+    '';
   };
 
   # Install firefox.
