@@ -20,3 +20,4 @@ config/.local/bin/claude
 config/.config/dleyna-server-service.conf
 config/.config/user-dirs.dirs
 config/.config/user-dirs.locale
+/config/.docker/config.json

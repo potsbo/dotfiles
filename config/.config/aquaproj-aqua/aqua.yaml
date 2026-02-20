@@ -8,7 +8,7 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.472.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.472.1 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: denoland/deno@v2.6.0
   - name: twistedpair/google-cloud-sdk@543.0.0
@@ -43,8 +43,8 @@ packages:
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: junegunn/fzf/fzf-tmux@v0.67.0
   - name: sxyazi/yazi@v26.1.22
-  - name: github/copilot-cli@v0.0.411
-  - name: anthropics/claude-code@v2.1.47
+  - name: github/copilot-cli@v0.0.412
+  - name: anthropics/claude-code@v2.1.49
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.6.1
