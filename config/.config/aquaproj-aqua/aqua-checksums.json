@@ -331,6 +331,21 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/eza-community/eza/v0.23.4/eza.exe_x86_64-pc-windows-gnu.tar.gz",
+      "checksum": "4D4F87F6BC8E6EE176789C28BEE698234CE0275DA013709EB16B0F14819C1688",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/eza-community/eza/v0.23.4/eza_aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "366E8430225F9955C3DC659B452150C169894833CCFEF455E01765E265A3EDDA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/eza-community/eza/v0.23.4/eza_x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "D231BB3EE33B08C76279B5888845DCEB7034D055C42BB9BE46DBE0DAE39394DF",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/fujiapple852/trippy/0.13.0/trippy-0.13.0-aarch64-apple-darwin.tar.gz",
       "checksum": "5BB2C22822A8D301BD462DC35BEC865B9EAE1737E9180406B6EACDD46D44ADF2",
       "algorithm": "sha256"
