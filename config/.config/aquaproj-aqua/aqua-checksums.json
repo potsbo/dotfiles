@@ -1076,28 +1076,28 @@
       "algorithm": "sha1"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-aarch64-apple-darwin.tar.xz",
-      "checksum": "C78BCA8DFD2FF2E760CE45AA97063A3A530991F9C9ED5088E7278231564F2CF6",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-aarch64-apple-darwin.tar.xz",
+      "checksum": "17C1CEA1F28D21C00F2F2362AA0EB40F783072BC62A8B88EB1E340A7098A2B7C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-aarch64-unknown-linux-gnu.tar.xz",
-      "checksum": "FDF882848471F227F3112C85CF9C690A93CC12234CE8077BDEC86D3CB8292BD5",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-aarch64-unknown-linux-gnu.tar.xz",
+      "checksum": "58E4937F1F81240E6B2FD80306C3B2187BECFE8160B6781173BB49B41FA1AEE0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-apple-darwin.tar.xz",
-      "checksum": "9C936BB2C6CCA510318231CC817469B89D7E93D8A34481BFEA66FA678EA19BD0",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-x86_64-apple-darwin.tar.xz",
+      "checksum": "5EB2F01D50462C97986537E29249E0BF6C588DCFB519169087B350A22D81D5DD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-pc-windows-msvc.zip",
-      "checksum": "4DB561002EDFFC458A1FB2BF0208F6E8800BDCF929156E01C4CCE22C52ECB0FE",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-x86_64-pc-windows-msvc.zip",
+      "checksum": "5CB9616599E3FFFAD6385AC6B6E47BF5CFCFEDC0773B6588B6199D667C20084A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-unknown-linux-musl.tar.xz",
-      "checksum": "EDAC8AEEF3812C021CF1FFB97BA95B1CA32C7E40A38CF2EC47D28C3C9E72E66F",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-x86_64-unknown-linux-musl.tar.xz",
+      "checksum": "FB9A79A450D854949ACA2F4144C562AB39C9A6769FAF3155D20292089A757A25",
       "algorithm": "sha256"
     },
     {
