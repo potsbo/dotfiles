@@ -47,7 +47,7 @@ packages:
   - name: anthropics/claude-code@v2.1.49
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
-  - name: ynqa/jnv@v0.6.1
+  - name: ynqa/jnv@v0.6.2
   - name: theseus-rs/postgresql-binaries@18.2.0
   - name: bootandy/dust@v1.2.4
   - name: sachaos/viddy@v1.3.0
