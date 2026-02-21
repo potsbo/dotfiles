@@ -1,8 +1,8 @@
 {
   "checksums": [
     {
-      "id": "github_content/github.com/junegunn/fzf/v0.67.0/bin/fzf-tmux",
-      "checksum": "56C78C65A509F88D8F760E4CCBFB04FC452B79FF2D93341924323F143ADCBB59",
+      "id": "github_content/github.com/junegunn/fzf/v0.68.0/bin/fzf-tmux",
+      "checksum": "EA14943D739FC81952D5071A642591DF25ED8DAC166040A6D6036B3BE197CECD",
       "algorithm": "sha256"
     },
     {
