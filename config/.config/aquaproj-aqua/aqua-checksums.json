@@ -566,33 +566,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Darwin_arm64.tar.gz",
-      "checksum": "A455CE17160D263CEE429755D8119A5987E22F4DC692EBB7C981B65A17A24EE0",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Darwin_arm64.tar.gz",
+      "checksum": "A2678C2AD40EFEF4BEC7DAA39C370CAF04FA2FF48A511C6AA9CA1D73C422D331",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Darwin_x86_64.tar.gz",
-      "checksum": "7AF182C2DFDA7C398911EAB93A6D10F2F04CB6F1E7EF895042BA6C57B6DB2888",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Darwin_x86_64.tar.gz",
+      "checksum": "902867F37D45DB7F91F45A8949654C33E737BD504F55F4B6A83B943DCD024505",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Linux_arm64.tar.gz",
-      "checksum": "A944DC7574C887F7806B308E0DD99F2A453D83B90B2B2456A9053927535362AF",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Linux_arm64.tar.gz",
+      "checksum": "BC9D94C8E9E725219BF3D13D090E6C6652EE601E5C7A63F39F99950057EE70EF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Linux_x86_64.tar.gz",
-      "checksum": "8F6024A1D51B1B1B0710689C43C5F05D691ED0AF516D6D9F1342ABEC8A40A420",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Linux_x86_64.tar.gz",
+      "checksum": "9C9F3C9EB657D33FBC656C5925313681986CA89A6214D34C880A73760D30E236",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Windows_arm64.zip",
-      "checksum": "3B62675D9B178F591FF02A2D09EB7AE32D1C722126393A052EF311E3FFDBA854",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Windows_arm64.zip",
+      "checksum": "C82EF68150AA47236D4CDF6FC1FA04C99912EEF9E17F4706E8105B1C6144200F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Windows_x86_64.zip",
-      "checksum": "1B612414EC2B6B8531F8C68833E04C3FDF590070A33290433AF0E77ADA041BC2",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Windows_x86_64.zip",
+      "checksum": "9402239187C4797C791A0B4E25FD0145FEEF1ED39B4E4A6DF5DFE6EEAA29B091",
       "algorithm": "sha256"
     },
     {
