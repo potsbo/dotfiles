@@ -111,6 +111,11 @@
             C-Alt-Up = "Super-Up";         # 最大化
             C-Alt-Down = "Super-Down";     # 元に戻す
             C-Alt-Enter = "Super-Up";      # 最大化 (Magnet の Ctrl+Option+Enter)
+            # 四分割 (tiling-assistant 拡張が Super+U/I/J/K を処理)
+            C-Alt-u = "Super-u";           # 左上
+            C-Alt-i = "Super-i";           # 右上
+            C-Alt-j = "Super-j";           # 左下
+            C-Alt-k = "Super-k";           # 右下
           };
         }
 

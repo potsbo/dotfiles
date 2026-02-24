@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   registryPort = 5000;
@@ -116,6 +116,48 @@ in
   services.displayManager.gdm.autoSuspend = false;
   services.desktopManager.gnome.enable = true;
 
+  # GNOME Shell 拡張機能の有効化 & tiling-assistant 設定
+  programs.dconf = {
+    enable = true;
+    profiles.user.databases = [{
+      settings = {
+        "org/gnome/shell" = {
+          enabled-extensions = [
+            "xremap@k0kubun.com"
+            "tiling-assistant@leleat-on-github"
+          ];
+        };
+        "org/gnome/shell/extensions/tiling-assistant" = {
+          # Magnet 風四分割: Ctrl+Option+U/I/J/K → xremap が Super+U/I/J/K に変換
+          tile-topleft-quarter = [ "<Super>u" ];
+          tile-topright-quarter = [ "<Super>i" ];
+          tile-bottomleft-quarter = [ "<Super>j" ];
+          tile-bottomright-quarter = [ "<Super>k" ];
+        };
+        # xremap が Ctrl+Alt+Arrow を横取りするので、GNOME デフォルトのワークスペース
+        # 切り替えショートカットを無効化 (Ctrl+Alt+Up/Down/Left/Right の衝突を防ぐ)
+        "org/gnome/desktop/wm/keybindings" = let
+          noBinding = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
+        in {
+          switch-to-workspace-up = noBinding;
+          switch-to-workspace-down = noBinding;
+          switch-to-workspace-left = noBinding;
+          switch-to-workspace-right = noBinding;
+        };
+        "org/gnome/desktop/interface" = {
+          font-name = "Noto Sans CJK JP 11";
+          document-font-name = "Noto Sans CJK JP 12";
+          monospace-font-name = "JetBrains Mono 11";
+          font-antialiasing = "grayscale";
+          font-hinting = "none";
+        };
+        "org/gnome/desktop/wm/preferences" = {
+          titlebar-font = "Noto Sans CJK JP Bold 11";
+        };
+      };
+    }];
+  };
+
   # GTK Emacs keybindings (Ctrl+A/E/K/D/H etc.) — like macOS Cocoa
   environment.sessionVariables = {
     GTK_KEY_THEME = "Emacs";
@@ -187,6 +229,12 @@ in
     nerd-fonts.symbols-only
   ];
 
+  fonts.fontconfig.defaultFonts = {
+    sansSerif = [ "Noto Sans CJK JP" ];
+    serif = [ "Noto Serif CJK JP" ];
+    monospace = [ "JetBrains Mono" "Noto Sans Mono CJK JP" ];
+  };
+
   # Install firefox.
   programs.zsh.enable = true;
   programs.nix-ld.enable = true; # node を動作させたい
@@ -205,6 +253,14 @@ in
     google-chrome
     _1password-gui
     xremap-gnome-extension
+    gnomeExtensions.tiling-assistant
+    slack
+    zoom-us
+    vscode
+    notion-app-enhanced
+    code-cursor
+    zotero
+    pgadmin4-desktopmode
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
