@@ -17,6 +17,23 @@ let
     url = "https://raw.githubusercontent.com/google/mozc/2.30.5544.102/src/protocol/config.proto";
     sha256 = "0d6jms4hwhagfdskmgyyijpdbix6rhaxxiq4277zcnflpiv783yg";
   };
+  # xremap がフォーカス中のアプリを検出するための GNOME Shell 拡張機能
+  # アプリごとに Emacs Ctrl バインドの適用/除外を切り替えるために必要
+  xremap-gnome-extension = pkgs.stdenvNoCC.mkDerivation {
+    pname = "gnome-shell-extension-xremap";
+    version = "13";
+    src = pkgs.fetchFromGitHub {
+      owner = "xremap";
+      repo = "xremap-gnome";
+      rev = "9434933b430d466f8ea01a32cf5781e9b2cb75af";
+      hash = "sha256-gA7UlCoYB+avYi3BNXJ8P0cyDCDTpmqDRyY/iwQWbns=";
+    };
+    installPhase = ''
+      mkdir -p $out/share/gnome-shell/extensions/xremap@k0kubun.com
+      cp extension.js metadata.json $out/share/gnome-shell/extensions/xremap@k0kubun.com/
+    '';
+  };
+
   mozcConfigDb = pkgs.runCommand "mozc-config1-db" {
     nativeBuildInputs = [ pkgs.protobuf pkgs.python3 ];
   } ''
@@ -187,6 +204,7 @@ in
     ghostty
     google-chrome
     _1password-gui
+    xremap-gnome-extension
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

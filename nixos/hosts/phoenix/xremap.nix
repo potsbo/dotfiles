@@ -41,7 +41,7 @@
 
   services.xremap = {
     enable = true;
-    withGnome = false;
+    withGnome = true;
     userName = "potsbo";
 
     config = {
@@ -91,12 +91,34 @@
             Super-a = "C-a";
             Super-z = "C-z";
             Super-Shift-z = "C-Shift-z";
+            Super-Shift-m = "C-Shift-m";
             Super-s = "C-s";
             Super-w = "Alt-F4";
             Super-t = "C-t";
             Super-f = "C-f";
             Super-r = "C-r";
             Super-l = "C-l";
+          };
+        }
+
+        # === Emacs Ctrl バインド (ターミナル以外) ===
+        # macOS では Karabiner が frontmost_application_unless でターミナル等を除外して適用。
+        # Linux でも xremap + GNOME 拡張で同様にアプリ検出して除外する。
+        {
+          name = "Emacs Ctrl bindings (non-terminal)";
+          application = {
+            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+          };
+          remap = {
+            C-a = "Home";
+            C-e = "End";
+            C-f = "Right";
+            C-b = "Left";
+            C-d = "Delete";
+            C-h = "BackSpace";
+            C-m = "Enter";
+            C-n = "Down";
+            C-p = "Up";
           };
         }
 
