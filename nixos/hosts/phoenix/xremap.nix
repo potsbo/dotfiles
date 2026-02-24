@@ -93,11 +93,24 @@
             Super-Shift-z = "C-Shift-z";
             Super-Shift-m = "C-Shift-m";
             Super-s = "C-s";
-            Super-w = "Alt-F4";
+            Super-w = "C-w";
             Super-t = "C-t";
             Super-f = "C-f";
             Super-r = "C-r";
             Super-l = "C-l";
+          };
+        }
+
+        # === Magnet 風ウィンドウ操作 (Ctrl+Option → Ctrl+Alt) ===
+        # macOS の Magnet ショートカットを GNOME タイリングにマッピング
+        {
+          name = "Magnet window management";
+          remap = {
+            C-Alt-Left = "Super-Left";    # 左半分
+            C-Alt-Right = "Super-Right";   # 右半分
+            C-Alt-Up = "Super-Up";         # 最大化
+            C-Alt-Down = "Super-Down";     # 元に戻す
+            C-Alt-Enter = "Super-Up";      # 最大化 (Magnet の Ctrl+Option+Enter)
           };
         }
 
