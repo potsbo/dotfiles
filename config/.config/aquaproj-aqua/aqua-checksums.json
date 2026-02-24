@@ -1,8 +1,8 @@
 {
   "checksums": [
     {
-      "id": "github_content/github.com/junegunn/fzf/v0.67.0/bin/fzf-tmux",
-      "checksum": "56C78C65A509F88D8F760E4CCBFB04FC452B79FF2D93341924323F143ADCBB59",
+      "id": "github_content/github.com/junegunn/fzf/v0.68.0/bin/fzf-tmux",
+      "checksum": "EA14943D739FC81952D5071A642591DF25ED8DAC166040A6D6036B3BE197CECD",
       "algorithm": "sha256"
     },
     {
@@ -206,33 +206,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_linux_amd64.tar.gz",
-      "checksum": "5F461C1DC2B80483EA5617F9253D591FB427B3ECFDD69C69089E1EE6156DC234",
+      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_linux_amd64.tar.gz",
+      "checksum": "18360B2243E3BF9C1457035DB45F6400AE4CF957DCC2F674E69717B4E0B14D55",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_linux_arm64.tar.gz",
-      "checksum": "7F7FBAF65BAA1E438AE5B7134BFF014C0122944DD2E83BB5DB8088FE3888FE39",
+      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_linux_arm64.tar.gz",
+      "checksum": "E37EFDD8EC98425F44175040B5037C767BBD49F192AED1DE5AABC4B4EA9E22C5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_macOS_amd64.zip",
-      "checksum": "9CB05A2BC5438762707A25BF1586E438ED3DBADF0FC782F47CA0B057BB4093A4",
+      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_macOS_amd64.zip",
+      "checksum": "5CE4DA6DA0F29E6AA46E54EA6ADB2528243D2BB517A7098E75CCA16A5D983D28",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_macOS_arm64.zip",
-      "checksum": "B1E6E3AB764892A33A1FE464C239BE393E6BBD4220804692F919C4C805B1DBBF",
+      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_macOS_arm64.zip",
+      "checksum": "18D90C7AE5B462D47CC665D4C59DE61AF1E208EDB81A9ABEE1B5A82C94E91D94",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_windows_amd64.zip",
-      "checksum": "0765688B92EDCA7F08A314317512DEBA00BAA3405001CE25B69D2580F8137C36",
+      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_windows_amd64.zip",
+      "checksum": "8483C9F5E5F777E5D7994D5BA3562C5FACE6EA5046AF142B208EB4D6713F7749",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.87.0/gh_2.87.0_windows_arm64.zip",
-      "checksum": "FDC9ECEAAAF8B01AAF80286E19F84C778B79F94ADBCE0CC82DBE4D449B73680D",
+      "id": "github_release/github.com/cli/cli/v2.87.2/gh_2.87.2_windows_arm64.zip",
+      "checksum": "8BE40AD1CD67AF6132A807E55AD1FE48D4292F40E60C29888482E8C04ECF0F4A",
       "algorithm": "sha256"
     },
     {
@@ -406,33 +406,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.412/copilot-darwin-arm64.tar.gz",
-      "checksum": "D706F64A26630863D57E64E78A4048C1F85B7DF190F0762237221199032FF2DA",
+      "id": "github_release/github.com/github/copilot-cli/v0.0.414/copilot-darwin-arm64.tar.gz",
+      "checksum": "F51400136A8085F4A041FA5B09E51FFD63116218E2321DFF6611CC6A5317179B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.412/copilot-darwin-x64.tar.gz",
-      "checksum": "587B80744AC99E73D8DB076EBF840F8DDA40B0AF24DCB50077B00D51E75A7193",
+      "id": "github_release/github.com/github/copilot-cli/v0.0.414/copilot-darwin-x64.tar.gz",
+      "checksum": "3F15E4FC873FBD2302DD090C6F316180F43050DBD9D7B1E5AB576C34A0624784",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.412/copilot-linux-arm64.tar.gz",
-      "checksum": "F5B54BE87CB55CB75016E8909AFD411FD2FD729F502FCAC6B2A6972FDFB29B9A",
+      "id": "github_release/github.com/github/copilot-cli/v0.0.414/copilot-linux-arm64.tar.gz",
+      "checksum": "2805398CC82C762AFA7FBF487B8B7C46ACCC2FA059A593D7F45E951C9B81831E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.412/copilot-linux-x64.tar.gz",
-      "checksum": "7FDCEF0E1CDCFBC8BC88C7EFC621D6562B130BE56A3E80555617A8872B92335B",
+      "id": "github_release/github.com/github/copilot-cli/v0.0.414/copilot-linux-x64.tar.gz",
+      "checksum": "615AB942B968FDD3CC0609D974A4F9C00B485B8BAD30FB3252390A90F59BF42A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.412/copilot-win32-arm64.zip",
-      "checksum": "B47E8AE8C9CC8F997DE3B104D36BB02BC5281BE0699E0A656ABFBF1795DC5D37",
+      "id": "github_release/github.com/github/copilot-cli/v0.0.414/copilot-win32-arm64.zip",
+      "checksum": "919BDB13859A187BD1B4A9C312F2B3E63E378C0F6B850D6EF2EA9B51CA8DCDB0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.412/copilot-win32-x64.zip",
-      "checksum": "1175635E3A90361FD7C39FDF8649E217B9C8D74D2E05F020B82DC1E10EAE18B1",
+      "id": "github_release/github.com/github/copilot-cli/v0.0.414/copilot-win32-x64.zip",
+      "checksum": "874655BED75CCF525C4E6283089BE38BDD1DCFD8CABF2D19D97890C27061F6C9",
       "algorithm": "sha256"
     },
     {
@@ -541,58 +541,58 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.16.0/miller-6.16.0-darwin-amd64.tar.gz",
-      "checksum": "66C7F81F6E1043C5000B39C534489C0ADEEED77CA94D5956BF88D1381ADF3E6D",
+      "id": "github_release/github.com/johnkerl/miller/v6.17.0/miller-6.17.0-darwin-amd64.tar.gz",
+      "checksum": "54616C93014BEEA0B47CC02C3B00FC0D3D9417FE7B727EF4251E3640FF7A1706",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.16.0/miller-6.16.0-darwin-arm64.tar.gz",
-      "checksum": "C612596D2CE4EE0592E8A2C5F49FBA00C6BA53322ECA52CEB0C94A8619836449",
+      "id": "github_release/github.com/johnkerl/miller/v6.17.0/miller-6.17.0-darwin-arm64.tar.gz",
+      "checksum": "832A099C0E0835FFEF2CB3FA92FEFF9305F530E58643A345DDE51DC9DA9344D5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.16.0/miller-6.16.0-linux-amd64.tar.gz",
-      "checksum": "4512C5D9459C1D79D0EBC1A51AF36E7044F27D2798CD7FB6764DFB953210B607",
+      "id": "github_release/github.com/johnkerl/miller/v6.17.0/miller-6.17.0-linux-amd64.tar.gz",
+      "checksum": "5A3588754D42CEA7F46C5FE38CE1BF50C6043E8EEFE3656ACF5BBD2FD86C1EA4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.16.0/miller-6.16.0-linux-arm64.tar.gz",
-      "checksum": "068CCDE6097DDEB2228887951E9C2D4A4E230A8ECC2E2A93AE8ACFA7FD50E789",
+      "id": "github_release/github.com/johnkerl/miller/v6.17.0/miller-6.17.0-linux-arm64.tar.gz",
+      "checksum": "27B5EEC0C06DE51F08C4B6069C1F91A8BF2D5312F7E431E6C8DE044C64B9AFF8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.16.0/miller-6.16.0-windows-amd64.zip",
-      "checksum": "CE2BE93574CE6C29230C97C0C95A41E1E276948589D11C49F139567AC763FB7C",
+      "id": "github_release/github.com/johnkerl/miller/v6.17.0/miller-6.17.0-windows-amd64.zip",
+      "checksum": "97780A3D3A89798A6DCCED5A8930815FE44159A0FA47B9A355A0430E18C8ADF8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Darwin_arm64.tar.gz",
-      "checksum": "A455CE17160D263CEE429755D8119A5987E22F4DC692EBB7C981B65A17A24EE0",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Darwin_arm64.tar.gz",
+      "checksum": "A2678C2AD40EFEF4BEC7DAA39C370CAF04FA2FF48A511C6AA9CA1D73C422D331",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Darwin_x86_64.tar.gz",
-      "checksum": "7AF182C2DFDA7C398911EAB93A6D10F2F04CB6F1E7EF895042BA6C57B6DB2888",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Darwin_x86_64.tar.gz",
+      "checksum": "902867F37D45DB7F91F45A8949654C33E737BD504F55F4B6A83B943DCD024505",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Linux_arm64.tar.gz",
-      "checksum": "A944DC7574C887F7806B308E0DD99F2A453D83B90B2B2456A9053927535362AF",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Linux_arm64.tar.gz",
+      "checksum": "BC9D94C8E9E725219BF3D13D090E6C6652EE601E5C7A63F39F99950057EE70EF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Linux_x86_64.tar.gz",
-      "checksum": "8F6024A1D51B1B1B0710689C43C5F05D691ED0AF516D6D9F1342ABEC8A40A420",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Linux_x86_64.tar.gz",
+      "checksum": "9C9F3C9EB657D33FBC656C5925313681986CA89A6214D34C880A73760D30E236",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Windows_arm64.zip",
-      "checksum": "3B62675D9B178F591FF02A2D09EB7AE32D1C722126393A052EF311E3FFDBA854",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Windows_arm64.zip",
+      "checksum": "C82EF68150AA47236D4CDF6FC1FA04C99912EEF9E17F4706E8105B1C6144200F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.23.0/sesh_Windows_x86_64.zip",
-      "checksum": "1B612414EC2B6B8531F8C68833E04C3FDF590070A33290433AF0E77ADA041BC2",
+      "id": "github_release/github.com/joshmedeski/sesh/v2.24.1/sesh_Windows_x86_64.zip",
+      "checksum": "9402239187C4797C791A0B4E25FD0145FEEF1ED39B4E4A6DF5DFE6EEAA29B091",
       "algorithm": "sha256"
     },
     {
@@ -621,58 +621,58 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.67.0/fzf-0.67.0-darwin_amd64.tar.gz",
-      "checksum": "88DC853E0914793A2E7BE0D1ACFE6C922D9CCAD08E3302DF092399775B0279FF",
+      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-darwin_amd64.tar.gz",
+      "checksum": "DA3AAFC569BDD38C7CB30F992C54C4899C935D8B86B88C2A6831B0733B862CAF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.67.0/fzf-0.67.0-darwin_arm64.tar.gz",
-      "checksum": "B7F34C964D8E52C471C933CEF8EC43DC71997C266CAFAFD1B013BED10FC229A1",
+      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-darwin_arm64.tar.gz",
+      "checksum": "1817524989B3987EBC67D16ACBC5526CB51DFBC52CA62BABE37C96D9D09A227B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.67.0/fzf-0.67.0-linux_amd64.tar.gz",
-      "checksum": "4BE08018CA37B32518C608741933EA335A406DE3558242B60619E98F25BE2BE1",
+      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-linux_amd64.tar.gz",
+      "checksum": "545004A69EB65BB9ADF32000971105AC21AEA54BBECB618C55414D21B823FE95",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.67.0/fzf-0.67.0-linux_arm64.tar.gz",
-      "checksum": "7071F48C2AC0F2BC992D6D33CC36FD675A579A98CC976DDA699EEA07DD5E9C58",
+      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-linux_arm64.tar.gz",
+      "checksum": "DAD9CC3B617305D504DBBF8812C4C9970A6DC7EFDCE9B5EACBD130D1F1DBC05D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.67.0/fzf-0.67.0-windows_amd64.zip",
-      "checksum": "CAD95326ED416D14226A03425513B049F5BC9A41F30A355E5FE204A29E666867",
+      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-windows_amd64.zip",
+      "checksum": "4939ED89F3A75258EA47C55C34422B6B3F28E38B85DBD1E27DC4CF5839D5D310",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.67.0/fzf-0.67.0-windows_arm64.zip",
-      "checksum": "4A39934CC8F670048A7FB21DDE09096ADCBDA7ADC676010DD9CEC90780D3B9DF",
+      "id": "github_release/github.com/junegunn/fzf/v0.68.0/fzf-0.68.0-windows_arm64.zip",
+      "checksum": "12B8E6554CBDB7C2669BBBAAF6E53B988EA74FFCA5FF828D3A7FC80B9F028A6C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_darwin_amd64.zip",
-      "checksum": "CCA6F4E9DB63894B9EC8DE4551B290D68BF73B475A1FAC5F43F9D666D017FF62",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_darwin_amd64.zip",
+      "checksum": "D2D387C5DBAFD46D90DE7A6906D1EE3DF3ACFA83C8C9C7A945DB63D4E6E0F044",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_darwin_arm64.zip",
-      "checksum": "E2D93B66BD24053EBD8C31EEE5D0C52BAC1B900AEBCBCB8907A12B82980B703E",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_darwin_arm64.zip",
+      "checksum": "5C7FA79FE9C52A2617DE86F8F2D5B8EB43056C4C7BCD9341F5B44D90A70C7CA4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_linux_amd64.tar.gz",
-      "checksum": "E0FBBABC4AA64C62A1FF24138C1A09D3F3C5B60BD5342F043C61AA24A5A0DBEE",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_linux_amd64.tar.gz",
+      "checksum": "3D2740C22F7B0DDD469425D3656166C169BD5338688A05572E29D1399E1A945A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_linux_arm64.tar.gz",
-      "checksum": "BB1554B8806123E32BD354A70832B342B9A60DDBD5FCD2B0BBE4DABEAAF7FF33",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_linux_arm64.tar.gz",
+      "checksum": "7CAC03D1123C943833388CFD104EED2FA36CC76AE0AFCA7442480D3F827176CC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.24.0/git-wt_v0.24.0_windows_amd64.tar.gz",
-      "checksum": "DAC5C509973C109EFD5055536D13A209C1B4D73A6F4759C8BF586E209CACDCD1",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_windows_amd64.tar.gz",
+      "checksum": "57D283A4EF580BB2F03AA1616BA04B8FE9E3F7CB8C1CCC59DE3CEB94805EFC8A",
       "algorithm": "sha256"
     },
     {
@@ -1076,28 +1076,28 @@
       "algorithm": "sha1"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-aarch64-apple-darwin.tar.xz",
-      "checksum": "C78BCA8DFD2FF2E760CE45AA97063A3A530991F9C9ED5088E7278231564F2CF6",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-aarch64-apple-darwin.tar.xz",
+      "checksum": "17C1CEA1F28D21C00F2F2362AA0EB40F783072BC62A8B88EB1E340A7098A2B7C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-aarch64-unknown-linux-gnu.tar.xz",
-      "checksum": "FDF882848471F227F3112C85CF9C690A93CC12234CE8077BDEC86D3CB8292BD5",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-aarch64-unknown-linux-gnu.tar.xz",
+      "checksum": "58E4937F1F81240E6B2FD80306C3B2187BECFE8160B6781173BB49B41FA1AEE0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-apple-darwin.tar.xz",
-      "checksum": "9C936BB2C6CCA510318231CC817469B89D7E93D8A34481BFEA66FA678EA19BD0",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-x86_64-apple-darwin.tar.xz",
+      "checksum": "5EB2F01D50462C97986537E29249E0BF6C588DCFB519169087B350A22D81D5DD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-pc-windows-msvc.zip",
-      "checksum": "4DB561002EDFFC458A1FB2BF0208F6E8800BDCF929156E01C4CCE22C52ECB0FE",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-x86_64-pc-windows-msvc.zip",
+      "checksum": "5CB9616599E3FFFAD6385AC6B6E47BF5CFCFEDC0773B6588B6199D667C20084A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ynqa/jnv/v0.6.1/jnv-x86_64-unknown-linux-musl.tar.xz",
-      "checksum": "EDAC8AEEF3812C021CF1FFB97BA95B1CA32C7E40A38CF2EC47D28C3C9E72E66F",
+      "id": "github_release/github.com/ynqa/jnv/v0.6.2/jnv-x86_64-unknown-linux-musl.tar.xz",
+      "checksum": "FB9A79A450D854949ACA2F4144C562AB39C9A6769FAF3155D20292089A757A25",
       "algorithm": "sha256"
     },
     {
@@ -1221,28 +1221,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.49/darwin-arm64/claude",
-      "checksum": "2B984814350ED9A9B70506BCBC10B77DA46F5B3E06A9C6932F0731D042049B98",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.51/darwin-arm64/claude",
+      "checksum": "450ED08049FF085E48ADA3045880411A38968305A22276DF54E555D0E29B18B9",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.49/darwin-x64/claude",
-      "checksum": "3155C5A13E8FA9976038A4B955C3EC006AA17C2C12D8BB8A2DD3056661EEED25",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.51/darwin-x64/claude",
+      "checksum": "178521D4E6F957DE57F55DEC72A47F9CAEE6240AF57304274BCA67D78138298E",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.49/linux-arm64/claude",
-      "checksum": "E4E4EA8A9F8BCE5F8FBAAE7BAC7C7A1826EA7BA68B38B9C2951E8466BCA91331",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.51/linux-arm64/claude",
+      "checksum": "127D33A582633470B32639ECABAF47D29E60FAA1713CA6793AC441A5D32EC81B",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.49/linux-x64/claude",
-      "checksum": "E7A7565665ECBCCCA2C6912B2EF29DA2B137D260201B931C737B7DD3821C6E2F",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.51/linux-x64/claude",
+      "checksum": "874C8A92AE7D88381751E97E7D782B2A583641DA07AFC99328F785E4340455C7",
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.472.1/registry.yaml",
-      "checksum": "BEBFA2ACAD7F00F7BC687E466DDBDA2FCA1EAC1F8931AB526FBDEB291CF7FB67FCCF8D30EB81DA74B1C8A49F93CDEC426A67D23B10A9A6285C8C8FDB330BBCE4",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.474.0/registry.yaml",
+      "checksum": "016EF14665FC08BE9E471077E473DA2690F7EA9AEB2E5C157BEB502DD494A3D8DA7F10BDE4271EAFC4A878813ADEDA4BBB4648AD7D935435A59389FB95AEE856",
       "algorithm": "sha512"
     }
   ]

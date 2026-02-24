@@ -8,11 +8,11 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.472.1 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.474.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: denoland/deno@v2.6.0
   - name: twistedpair/google-cloud-sdk@543.0.0
-  - name: junegunn/fzf@v0.67.0
+  - name: junegunn/fzf@v0.68.0
   - name: BurntSushi/ripgrep@15.1.0
   - name: x-motemen/ghq@v1.9.4
   - name: sharkdp/bat@v0.26.1
@@ -22,7 +22,7 @@ packages:
   - name: mikefarah/yq@v4.48.1
   - name: YS-L/csvlens@v0.15.1
   - name: golang/go@go1.26.0
-  - name: cli/cli@v2.87.0
+  - name: cli/cli@v2.87.2
   - name: Wilfred/difftastic@0.67.0
   - name: Schniz/fnm@v1.38.1
   - name: git-lfs/git-lfs@v3.7.1
@@ -35,19 +35,19 @@ packages:
   - name: astral-sh/uv@0.9.3
   - name: starship/starship@v1.24.1
   - name: zellij-org/zellij@v0.43.1
-  - name: johnkerl/miller@v6.16.0
+  - name: johnkerl/miller@v6.17.0
   - name: tldr-pages/tlrc@v1.12.0
-  - name: k1LoW/git-wt@v0.24.0
+  - name: k1LoW/git-wt@v0.25.0
   - name: k1LoW/roots@v0.4.1
-  - name: joshmedeski/sesh@v2.23.0
+  - name: joshmedeski/sesh@v2.24.1
   - name: ajeetdsouza/zoxide@v0.9.9
-  - name: junegunn/fzf/fzf-tmux@v0.67.0
+  - name: junegunn/fzf/fzf-tmux@v0.68.0
   - name: sxyazi/yazi@v26.1.22
-  - name: github/copilot-cli@v0.0.412
-  - name: anthropics/claude-code@v2.1.49
+  - name: github/copilot-cli@v0.0.414
+  - name: anthropics/claude-code@v2.1.51
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
-  - name: ynqa/jnv@v0.6.1
+  - name: ynqa/jnv@v0.6.2
   - name: theseus-rs/postgresql-binaries@18.2.0
   - name: bootandy/dust@v1.2.4
   - name: sachaos/viddy@v1.3.0
