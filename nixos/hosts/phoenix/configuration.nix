@@ -166,6 +166,8 @@ in
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
     jetbrains-mono
+    biz-ud-gothic
+    nerd-fonts.symbols-only
   ];
 
   # Install firefox.

@@ -41,7 +41,7 @@
 
   services.xremap = {
     enable = true;
-    withGnome = true;
+    withGnome = false;
     userName = "potsbo";
 
     config = {
@@ -80,25 +80,10 @@
       ];
 
       keymap = [
-        # === ターミナル: コピー/ペーストのみ Ctrl+Shift に変換 ===
-        # その他の Super+key は変換せず Ghostty の keybind にそのまま渡す
+        # === Super → Ctrl (Cmd ショートカット再現、グローバル) ===
+        # ターミナルでの Ctrl+C/V 衝突は Ghostty 側の keybind で解決する
         {
-          name = "Terminal copy/paste";
-          application = {
-            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
-          };
-          remap = {
-            Super-c = "C-Shift-c";
-            Super-v = "C-Shift-v";
-          };
-        }
-
-        # === GUI アプリ: Super → Ctrl (Cmd ショートカット再現) ===
-        {
-          name = "Super shortcuts (non-terminal)";
-          application = {
-            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
-          };
+          name = "Super shortcuts";
           remap = {
             Super-c = "C-c";
             Super-v = "C-v";
@@ -112,27 +97,6 @@
             Super-f = "C-f";
             Super-r = "C-r";
             Super-l = "C-l";
-          };
-        }
-
-        # === GUI アプリ: Emacs Ctrl バインド ===
-        # macOS では Ctrl-A/E 等がシステム全体で動作するが、Linux では
-        # GTK_KEY_THEME=Emacs が効かないアプリ (Chrome 等) があるため xremap で補完。
-        # ターミナルでは Ctrl が SIGINT 等に使われるため除外。
-        {
-          name = "Emacs Ctrl bindings (non-terminal)";
-          application = {
-            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
-          };
-          remap = {
-            C-a = "Home";
-            C-e = "End";
-            C-f = "Right";
-            C-b = "Left";
-            C-d = "Delete";
-            C-h = "BackSpace";
-            C-n = "Down";
-            C-p = "Up";
           };
         }
 
