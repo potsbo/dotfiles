@@ -229,10 +229,15 @@ in
     nerd-fonts.symbols-only
   ];
 
-  fonts.fontconfig.defaultFonts = {
-    sansSerif = [ "Noto Sans CJK JP" ];
-    serif = [ "Noto Serif CJK JP" ];
-    monospace = [ "JetBrains Mono" "Noto Sans Mono CJK JP" ];
+  fonts.fontconfig = {
+    defaultFonts = {
+      sansSerif = [ "Noto Sans CJK JP" ];
+      serif = [ "Noto Serif CJK JP" ];
+      monospace = [ "JetBrains Mono" "Noto Sans Mono CJK JP" ];
+    };
+    # macOS 風レンダリング: ヒンティング無効、ビットマップフォント無効
+    hinting.enable = false;
+    subpixel.rgba = "none";
   };
 
   # Install firefox.
