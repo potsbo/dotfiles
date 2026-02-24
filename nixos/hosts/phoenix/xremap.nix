@@ -4,51 +4,27 @@
 # xremap 設計方針: macOS キーバインド再現
 # ============================================================================
 #
-# 目標: macOS の物理キー配列・修飾キーの役割分担をできる限り再現する
+# 目標: macOS の Cmd / Ctrl の役割分担を Linux で再現する
 #
-# --- macOS における Cmd と Ctrl の役割 ---
+# --- macOS のキー役割 ---
 #
-#   Cmd (⌘):  アプリケーションレベルのショートカット
-#     - Cmd-C/V/X: コピー/ペースト/カット
-#     - Cmd-W: ウィンドウ・タブを閉じる
-#     - Cmd-Q: アプリ終了
-#     - Cmd-T: 新規タブ
-#     - Cmd-S: 保存
-#     - Cmd-Z: Undo
-#     - Cmd-A: 全選択
-#     - Cmd-F: 検索
+#   Cmd (⌘):  アプリショートカット (Cmd-C/V/S/Z/W/T/F/R/L/A/X)
+#   Ctrl:     ターミナル・Emacs 操作 (Ctrl-C=SIGINT, Ctrl-A/E/K/D/H/F/B/N/P)
 #
-#   Ctrl:  テキスト編集・ターミナル操作 (Emacs 系)
-#     - Ctrl-A/E: 行頭/行末
-#     - Ctrl-K: 行末まで削除
-#     - Ctrl-D: 前方1文字削除
-#     - Ctrl-H: 後方1文字削除 (Backspace)
-#     - Ctrl-F/B: 前方/後方1文字移動
-#     - Ctrl-N/P: 次行/前行
-#     - Ctrl-C: SIGINT (ターミナル)
-#     - Ctrl-W: 単語削除 (readline)
+# --- Linux での問題 ---
 #
-# --- Linux (GNOME) での実現方法 ---
+#   Linux の Ctrl が両方の役割を担っているため、Super → Ctrl のグローバル変換では
+#   ターミナルで衝突する (例: Cmd+C → Ctrl+C = SIGINT、コピーにならない)
 #
-#   Linux では Ctrl がアプリショートカットとテキスト編集の両方を担っているため、
-#   xremap で Super (物理 Cmd キー) → Ctrl への変換を行い、macOS の Cmd 相当にする。
-#   物理 Ctrl キーはそのまま Ctrl として通し、Emacs 系操作に使う。
-#   GTK_KEY_THEME = "Emacs" (configuration.nix) と併用して Ctrl の Emacs バインドを有効化。
+# --- 解決: アプリ種別ごとに変換先を分ける (withGnome = true 必須) ---
 #
-#   現在の方針:
-#     Super-{key} → Ctrl-{key}  (アプリショートカット用、グローバル)
-#     Super-W     → Alt-F4      (ウィンドウクローズ。Ctrl-W は一部アプリでしか効かないため Alt-F4 を使う)
-#     Ctrl-{key}  → そのまま    (テキスト編集・ターミナル用)
-#
-# --- 既知の制約・TODO ---
-#
-#   [ ] ターミナルアプリ (Ghostty 等) では Ctrl-C = SIGINT なので、
-#       Super-C → Ctrl-C だとコピーではなくシグナルになる。
-#       macOS と同じにするにはターミナル専用ルールが必要:
-#         Super-C → Ctrl-Shift-C (ターミナルのコピー)
-#         Super-V → Ctrl-Shift-V (ターミナルのペースト)
-#   [ ] Super-Q (Cmd-Q = アプリ終了) は GNOME のデフォルトと競合する可能性あり
-#   [ ] GNOME 固有のショートカット (Super 単押し = Activities) との干渉に注意
+#   ┌─────────────────┬──────────────────────────────┬──────────────────────────────┐
+#   │ 物理キー         │ GUI アプリ (Chrome 等)         │ ターミナル (Ghostty)          │
+#   ├─────────────────┼──────────────────────────────┼──────────────────────────────┤
+#   │ Cmd + C/V       │ Ctrl+C/V (コピー/ペースト)      │ Ctrl+Shift+C/V (コピー/ペースト) │
+#   │ Cmd + その他     │ Ctrl+{key} (アプリ操作)        │ 変換しない → Ghostty keybind  │
+#   │ Ctrl + A/E/...  │ Home/End/... (Emacs 風)       │ そのまま通す (SIGINT 等)       │
+#   └─────────────────┴──────────────────────────────┴──────────────────────────────┘
 #
 # ============================================================================
 {
@@ -65,7 +41,7 @@
 
   services.xremap = {
     enable = true;
-    withGnome = false;
+    withGnome = true;
     userName = "potsbo";
 
     config = {
@@ -104,9 +80,25 @@
       ];
 
       keymap = [
-        # === Super shortcuts for all apps (Cmd-like) ===
+        # === ターミナル: コピー/ペーストのみ Ctrl+Shift に変換 ===
+        # その他の Super+key は変換せず Ghostty の keybind にそのまま渡す
         {
-          name = "Super shortcuts";
+          name = "Terminal copy/paste";
+          application = {
+            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+          };
+          remap = {
+            Super-c = "C-Shift-c";
+            Super-v = "C-Shift-v";
+          };
+        }
+
+        # === GUI アプリ: Super → Ctrl (Cmd ショートカット再現) ===
+        {
+          name = "Super shortcuts (non-terminal)";
+          application = {
+            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+          };
           remap = {
             Super-c = "C-c";
             Super-v = "C-v";
@@ -115,12 +107,32 @@
             Super-z = "C-z";
             Super-Shift-z = "C-Shift-z";
             Super-s = "C-s";
-            # Alt-F4 は GNOME の標準ウィンドウクローズ。Ctrl-W はブラウザ等の一部アプリでしか効かない。
             Super-w = "Alt-F4";
             Super-t = "C-t";
             Super-f = "C-f";
             Super-r = "C-r";
             Super-l = "C-l";
+          };
+        }
+
+        # === GUI アプリ: Emacs Ctrl バインド ===
+        # macOS では Ctrl-A/E 等がシステム全体で動作するが、Linux では
+        # GTK_KEY_THEME=Emacs が効かないアプリ (Chrome 等) があるため xremap で補完。
+        # ターミナルでは Ctrl が SIGINT 等に使われるため除外。
+        {
+          name = "Emacs Ctrl bindings (non-terminal)";
+          application = {
+            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+          };
+          remap = {
+            C-a = "Home";
+            C-e = "End";
+            C-f = "Right";
+            C-b = "Left";
+            C-d = "Delete";
+            C-h = "BackSpace";
+            C-n = "Down";
+            C-p = "Up";
           };
         }
 

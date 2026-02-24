@@ -162,6 +162,12 @@ in
     '';
   };
 
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    jetbrains-mono
+  ];
+
   # Install firefox.
   programs.zsh.enable = true;
   programs.nix-ld.enable = true; # node を動作させたい
@@ -178,6 +184,7 @@ in
     git
     ghostty
     google-chrome
+    _1password-gui
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
