@@ -26,3 +26,10 @@ config/.config/user-dirs.locale
 /config/.config/mozc
 /config/.config/fcitx/dbus
 /config/.config/1Password
+/config/.config/BraveSoftware/Brave-Browser/NativeMessagingHosts
+/config/.config/chromium/NativeMessagingHosts
+/config/.config/google-chrome-beta/NativeMessagingHosts
+/config/.config/google-chrome-unstable/NativeMessagingHosts
+/config/.config/microsoft-edge-dev/NativeMessagingHosts
+/config/.config/vivaldi/NativeMessagingHosts
+/config/.config/vivaldi-snapshot/NativeMessagingHosts
