@@ -18,6 +18,9 @@ keybind = super+r=text:\x1b:e!\x0d
 
 clipboard-read = allow
 
+# Linux 固有設定を読み込む (xremap 用のキーバインド等)
+config-file = config-linux
+
 # macOS specific settings
 macos-option-as-alt = left
 macos-titlebar-style = hidden

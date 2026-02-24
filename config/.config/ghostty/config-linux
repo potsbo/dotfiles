@@ -1,0 +1,5 @@
+# Linux 固有設定
+# xremap がターミナル向けに Super+C/V → Ctrl+Shift+C/V に変換するため、
+# Ghostty 側の追加設定は不要。
+# その他の Super+key は xremap で変換されずそのまま渡されるので、
+# Ghostty の super+* keybind (super+s, super+r 等) がそのまま動作する。
