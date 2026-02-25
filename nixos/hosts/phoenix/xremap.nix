@@ -48,8 +48,9 @@
 
   # USB キーボード接続時に xremap を自動復旧させる udev ルール
   # StartLimitBurst で停止した状態からでも reset-failed → restart で復帰する
+  # ID_BUS=="usb" で xremap 自身の仮想デバイス (uinput) を除外し、再起動ループを防ぐ
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", RUN+="${pkgs.systemd}/bin/systemctl reset-failed xremap.service", RUN+="${pkgs.systemd}/bin/systemctl restart xremap.service"
+    ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", ENV{ID_BUS}=="usb", RUN+="${pkgs.systemd}/bin/systemctl reset-failed xremap.service", RUN+="${pkgs.systemd}/bin/systemctl restart xremap.service"
   '';
 
   services.xremap = {
