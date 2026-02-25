@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 # ============================================================================
 # xremap 設計方針: macOS キーバインド再現
@@ -30,6 +30,13 @@
 {
   # xremap を HHKB 抜き差し・起動順序に関係なく自動復旧させる
   systemd.services.xremap = {
+    unitConfig = {
+      # キーボード未接続時の無限再起動ループを防止
+      # 30秒以内に3回失敗したら再起動を停止する
+      # キーボード接続時は udev ルールが reset-failed → restart する
+      StartLimitBurst = 3;
+      StartLimitIntervalSec = 30;
+    };
     serviceConfig = {
       Restart = "always";
       RestartSec = 3;
@@ -38,6 +45,12 @@
       SuccessExitStatus = "1";
     };
   };
+
+  # USB キーボード接続時に xremap を自動復旧させる udev ルール
+  # StartLimitBurst で停止した状態からでも reset-failed → restart で復帰する
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", RUN+="${pkgs.systemd}/bin/systemctl reset-failed xremap.service", RUN+="${pkgs.systemd}/bin/systemctl restart xremap.service"
+  '';
 
   services.xremap = {
     enable = true;
