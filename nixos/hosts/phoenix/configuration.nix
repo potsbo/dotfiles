@@ -144,6 +144,12 @@ in
           switch-to-workspace-left = noBinding;
           switch-to-workspace-right = noBinding;
         };
+        # SSH メインの運用のため GNOME の自動サスペンドを無効化
+        # (systemd 側は別途 sleep/suspend を disable 済み、gsd-power の独自判断を止める)
+        "org/gnome/settings-daemon/plugins/power" = {
+          sleep-inactive-ac-type = "nothing";
+          sleep-inactive-battery-type = "nothing";
+        };
         "org/gnome/desktop/interface" = {
           font-name = "Noto Sans CJK JP 11";
           document-font-name = "Noto Sans CJK JP 12";
