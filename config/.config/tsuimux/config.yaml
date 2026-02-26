@@ -1,0 +1,11 @@
+# tsuimux configuration
+# from_shell values are evaluated as POSIX shell ($VAR, $(command))
+abbreviations:
+  - from_shell: "$(ghq root)/github.com/"
+    to: " "
+  - from_shell: "$(ghq root)/gitlab.com/"
+    to: " "
+  - from_regex: "/\\.worktrees/"
+    to: "/ "
+  - from_shell: "$HOME"
+    to: "~"
