@@ -181,28 +181,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/chmln/sd/v1.0.0/sd-v1.0.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "A764AC9B966C6F0CFEAA66F2AD2D4945B08F8D93D973ED1A62BCBFBE1C27E981",
+      "id": "github_release/github.com/chmln/sd/v1.1.0/sd-v1.1.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "4BD3C09226376CA0A1D69589C91E86276FAE36C5FBAAEE669AFCE583F6682030",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/chmln/sd/v1.0.0/sd-v1.0.0-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "9E99F8E9DD70C7015B8C20E49270BDD99E9CAF966A41A11982F4D785F6A58C9E",
+      "id": "github_release/github.com/chmln/sd/v1.1.0/sd-v1.1.0-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "EC8C93C0533FF21F4851D11566808D4082544BAF063D9B96EA77C27E98B7CD99",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/chmln/sd/v1.0.0/sd-v1.0.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "8408EB83C7988CDC72AFC4D171795201999BA4D321C7728921FF85565915E75D",
+      "id": "github_release/github.com/chmln/sd/v1.1.0/sd-v1.1.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "1FCA1E9C91813A8AAC6821063C923107BA0F66A83309E095EDCD3B202F67F97E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/chmln/sd/v1.0.0/sd-v1.0.0-x86_64-pc-windows-msvc.zip",
-      "checksum": "B7CC9937EBC1F736C87D5929B9EA2280053AF10F8E320D9C20CA90C3AF46A5D5",
+      "id": "github_release/github.com/chmln/sd/v1.1.0/sd-v1.1.0-x86_64-pc-windows-msvc.zip",
+      "checksum": "59837C2E7C911099ACA1CC46B663BCDC5A949FD3E9FBBAF34FC73E5D5D71007C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/chmln/sd/v1.0.0/sd-v1.0.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "9F42E4FEC7848FA8D6EEAB7B1090F5C9C9E374C94A9974DB6FF33DF052C9E132",
+      "id": "github_release/github.com/chmln/sd/v1.1.0/sd-v1.1.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "02F00F4777D43E8E95B7B8D49E1A0D6E502FED4B8E79C1C8B8063857A30CAA2E",
       "algorithm": "sha256"
     },
     {
