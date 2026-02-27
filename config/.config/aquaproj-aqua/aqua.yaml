@@ -53,7 +53,7 @@ packages:
   - name: sachaos/viddy@v1.3.0
   - name: dev.yorhel.nl/ncdu
     version: 2.9.1
-  - name: dalance/procs@v0.14.10
+  - name: dalance/procs@v0.14.11
   - name: muesli/duf@v0.9.1
   - name: chmln/sd@v1.1.0
   - name: mr-karan/doggo@v1.1.5
