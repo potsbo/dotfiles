@@ -3,3 +3,9 @@
 # performable: テキスト選択時のみコピー、未選択時は SIGINT をそのまま通す
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
+# Linux: xremap が Super+N → Ctrl+N にグローバル変換するため、
+# Ghostty 側で Ctrl+N を新規ウィンドウとして処理する
+keybind = ctrl+n=new_window
+# Linux: xremap が Super+Q → Ctrl+Q にグローバル変換するため、
+# Ghostty 側で Ctrl+Q をアプリ終了として処理する
+keybind = ctrl+q=quit

@@ -112,6 +112,8 @@
             Super-f = "C-f";
             Super-r = "C-r";
             Super-l = "C-l";
+            Super-n = "C-n";
+            Super-q = "C-q";
           };
         }
 
