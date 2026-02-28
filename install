@@ -18,7 +18,7 @@ DOTPATH="${HOME}/src/${REPO}"
 
 # Step 0 validation
 case "$HOSTNAME" in
-staten | tigerlake | raptorlake | phoenix) CONFIG="$HOSTNAME" ;;
+staten | tigerlake | raptorlake | phoenix | blizzard) CONFIG="$HOSTNAME" ;;
 *)
   if [[ "$SYSTEM" == "Darwin" ]] || [[ -e /etc/NIXOS ]]; then
     echo "Unknown hostname: $HOSTNAME"

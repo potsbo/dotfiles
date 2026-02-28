@@ -1,13 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, lib, ... }:
 
 let
   registryPort = 5000;
 
-  # Mozc カスタムローマ字テーブル (potsbo/anpan)
+  # Mozc custom romantable (potsbo/anpan)
   anpanRelease = pkgs.fetchzip {
     url = "https://github.com/potsbo/anpan/releases/download/0.1.0/tables-0.1.0.zip";
     sha256 = "sha256-oyfVfoJppTUs0DFgwLStEykjePNnoIsYNng+qLYLJ8Q=";
@@ -17,8 +13,6 @@ let
     url = "https://raw.githubusercontent.com/google/mozc/2.30.5544.102/src/protocol/config.proto";
     sha256 = "0d6jms4hwhagfdskmgyyijpdbix6rhaxxiq4277zcnflpiv783yg";
   };
-  # xremap がフォーカス中のアプリを検出するための GNOME Shell 拡張機能
-  # アプリごとに Emacs Ctrl バインドの適用/除外を切り替えるために必要
   xremap-gnome-extension = pkgs.stdenvNoCC.mkDerivation {
     pname = "gnome-shell-extension-xremap";
     version = "13";
@@ -43,11 +37,10 @@ let
       < config.textproto > $out
   '';
 
-  # Web アプリを Chrome --app モードで起動する .desktop エントリを生成
-  webApp = { name, desktopName, url, icon ? "google-chrome" }:
+  webApp = { name, desktopName, url, icon ? "chromium-browser" }:
     pkgs.makeDesktopItem {
       inherit name desktopName icon;
-      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --app=${url}";
+      exec = "${pkgs.chromium}/bin/chromium --app=${url}";
       categories = [ "Network" ];
     };
 in
@@ -60,7 +53,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "phoenix";
+  networking.hostName = "blizzard";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -89,7 +82,6 @@ in
     };
   };
 
-  # Mozc に anpan ローマ字テーブルを適用
   system.activationScripts.mozcAnpanTable = {
     text = ''
       install -d -o potsbo -g users /home/potsbo/.config/mozc
@@ -103,14 +95,7 @@ in
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   security.sudo = {
@@ -124,7 +109,6 @@ in
   services.displayManager.gdm.autoSuspend = false;
   services.desktopManager.gnome.enable = true;
 
-  # GNOME Shell 拡張機能の有効化 & tiling-assistant 設定
   programs.dconf = {
     enable = true;
     profiles.user.databases = [{
@@ -138,16 +122,12 @@ in
           ];
         };
         "org/gnome/shell/extensions/tiling-assistant" = {
-          # スナップ時に反対側のウィンドウ候補を表示しない
           enable-tiling-popup = false;
-          # Magnet 風四分割: Ctrl+Option+U/I/J/K → xremap が Super+U/I/J/K に変換
           tile-topleft-quarter = [ "<Super>u" ];
           tile-topright-quarter = [ "<Super>i" ];
           tile-bottomleft-quarter = [ "<Super>j" ];
           tile-bottomright-quarter = [ "<Super>k" ];
         };
-        # xremap が Ctrl+Alt+Arrow を横取りするので、GNOME デフォルトのワークスペース
-        # 切り替えショートカットを無効化 (Ctrl+Alt+Up/Down/Left/Right の衝突を防ぐ)
         "org/gnome/desktop/wm/keybindings" = let
           noBinding = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
         in {
@@ -156,8 +136,6 @@ in
           switch-to-workspace-left = noBinding;
           switch-to-workspace-right = noBinding;
         };
-        # SSH メインの運用のため GNOME の自動サスペンドを無効化
-        # (systemd 側は別途 sleep/suspend を disable 済み、gsd-power の独自判断を止める)
         "org/gnome/settings-daemon/plugins/power" = {
           sleep-inactive-ac-type = "nothing";
           sleep-inactive-battery-type = "nothing";
@@ -176,18 +154,14 @@ in
     }];
   };
 
-  # GTK Emacs keybindings (Ctrl+A/E/K/D/H etc.) — like macOS Cocoa
   environment.sessionVariables = {
     GTK_KEY_THEME = "Emacs";
-    # fcitx5 input method
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";
-    # Default to OCI buildx builder
     BUILDX_BUILDER = "oci-builder";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.potsbo = {
     uid = 1000;
     isNormalUser = true;
@@ -199,24 +173,22 @@ in
   virtualisation.docker = {
     enable = true;
     daemon.settings = {
-      insecure-registries = [ "phoenix:${toString registryPort}" ];
+      insecure-registries = [ "blizzard:${toString registryPort}" ];
       features.containerd-snapshotter = true;
     };
   };
 
-  # BuildKit config for OCI buildx builder (zstd compression + insecure registry)
   environment.etc."buildkitd/oci-builder.toml".text = ''
     [worker.oci]
       gc = true
       compression = "zstd"
       force-compression = true
 
-    [registry."phoenix:${toString registryPort}"]
+    [registry."blizzard:${toString registryPort}"]
       http = true
       insecure = true
   '';
 
-  # Buildx builder with docker-container driver for OCI output
   systemd.services.docker-buildx-oci = {
     description = "Setup Docker Buildx OCI builder";
     after = [ "docker.service" ];
@@ -254,51 +226,32 @@ in
       serif = [ "Noto Serif CJK JP" ];
       monospace = [ "JetBrains Mono" "Noto Sans Mono CJK JP" ];
     };
-    # macOS 風レンダリング: ヒンティング無効、ビットマップフォント無効
     hinting.enable = false;
     subpixel.rgba = "none";
   };
 
-  # Install firefox.
   programs.zsh.enable = true;
-  programs.nix-ld.enable = true; # node を動作させたい
+  programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     readline
     krb5.lib
   ];
   programs.mosh.enable = true;
 
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
     ghostty
-    google-chrome
+    chromium
     _1password-gui
     xremap-gnome-extension
     gnomeExtensions.tiling-assistant
     gnomeExtensions.appindicator
     slack
-    zoom-us
     vscode
     (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
-    code-cursor
     zotero
-    pgadmin4-desktopmode
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
   environment.etc."ssh/gh-authorized-keys".text = ''
     #!/bin/sh
     exec ${pkgs.curl}/bin/curl -fsSL "https://github.com/$1.keys"
@@ -318,7 +271,6 @@ in
       AuthorizedKeysCommand = "/etc/ssh/gh-authorized-keys %u";
       AuthorizedKeysCommandUser = "nobody";
 
-      # Mosh アプリ等 etm 非対応の SSH クライアント向けに etm なしの MAC も許可
       Macs = [
         "hmac-sha2-512-etm@openssh.com"
         "hmac-sha2-256-etm@openssh.com"
@@ -331,13 +283,11 @@ in
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "server";
-    extraUpFlags = [ "--advertise-exit-node" "--advertise-routes=192.168.10.0/24" ];
+    extraUpFlags = [ "--advertise-exit-node" ];
   };
 
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
-  # Docker Registry（Tailscale 経由のみアクセス可）
-  # tailscale0 が trustedInterfaces にあり、port が allowedTCPPorts にないことで制限される
   services.dockerRegistry = {
     enable = true;
     listenAddress = "0.0.0.0";
@@ -355,7 +305,6 @@ in
     }
   ];
 
-  # 常時稼働サーバ用途のため、勝手に suspend しないように設定
   systemd.targets = {
     sleep.enable = false;
     suspend.enable = false;
@@ -364,27 +313,16 @@ in
   };
   services.logind = {
     settings.Login = {
-      # 物理サスペンドキー（Sleep ボタン）を無効化
       HandleSuspendKey = "ignore";
       HandleLidSwitchDocked = "ignore";
-
-      # ハイバネートキーを無効化
       HandleHibernateKey = "ignore";
-
-      # 蓋クローズイベントを完全に無視
       HandleLidSwitch = "ignore";
-
-      # 外部電源接続時の蓋クローズも無視
       HandleLidSwitchExternalPower = "ignore";
-
-      # アイドル状態になっても何もしない
-      # （デフォルトの自動 suspend を防ぐ）
       IdleAction = "ignore";
     };
   };
   powerManagement.enable = false;
 
-  # OOM 対策: カーネル OOM キラーが発動する前にプロアクティブにプロセスを kill する
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 5;
@@ -394,24 +332,10 @@ in
     ];
   };
 
-  # rclone mount (FUSE) support
   programs.fuse.userAllowOther = true;
 
-  # Keep user services running after logout (for rclone mount)
   users.users.potsbo.linger = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11";
 
 }
