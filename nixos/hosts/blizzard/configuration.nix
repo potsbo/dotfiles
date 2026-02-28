@@ -246,7 +246,6 @@ in
     xremap-gnome-extension
     gnomeExtensions.tiling-assistant
     gnomeExtensions.appindicator
-    slack
     vscode
     (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
     zotero
