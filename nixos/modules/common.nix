@@ -122,7 +122,6 @@ in
   # Enable the X11/Wayland display server and GNOME desktop environment.
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
-  services.displayManager.gdm.autoSuspend = false;
   services.desktopManager.gnome.enable = true;
 
   # GNOME Shell 拡張機能の有効化 & tiling-assistant 設定
@@ -157,12 +156,6 @@ in
           switch-to-workspace-down = noBinding;
           switch-to-workspace-left = noBinding;
           switch-to-workspace-right = noBinding;
-        };
-        # SSH メインの運用のため GNOME の自動サスペンドを無効化
-        # (systemd 側は別途 sleep/suspend を disable 済み、gsd-power の独自判断を止める)
-        "org/gnome/settings-daemon/plugins/power" = {
-          sleep-inactive-ac-type = "nothing";
-          sleep-inactive-battery-type = "nothing";
         };
         "org/gnome/desktop/peripherals/touchpad" = {
           speed = 0.5;
@@ -347,26 +340,6 @@ in
       message = "Docker Registry の port 5000 を allowedTCPPorts に追加すると全インターフェースに公開されてしまう";
     }
   ];
-
-  # 常時稼働サーバ用途のため、勝手に suspend しないように設定
-  systemd.targets = {
-    sleep.enable = false;
-    suspend.enable = false;
-    hibernate.enable = false;
-    hybrid-sleep.enable = false;
-  };
-  services.logind = {
-    settings.Login = {
-      HandleSuspendKey = "ignore";
-      HandleLidSwitchDocked = "ignore";
-      HandleHibernateKey = "ignore";
-      HandleLidSwitch = "ignore";
-      HandleLidSwitchExternalPower = "ignore";
-      IdleAction = "ignore";
-    };
-  };
-  powerManagement.enable = false;
-  services.upower.enable = lib.mkForce true;
 
   # OOM 対策: カーネル OOM キラーが発動する前にプロアクティブにプロセスを kill する
   services.earlyoom = {

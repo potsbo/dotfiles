@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 {
-  imports = [ ../../modules/common.nix ];
+  imports = [
+    ../../modules/common.nix
+    ../../modules/laptop.nix
+  ];
 
   networking.hostName = "blizzard";
 }
