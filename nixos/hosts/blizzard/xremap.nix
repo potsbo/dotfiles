@@ -111,7 +111,7 @@ in
           };
         }
 
-        # === 非HHKB: CapsLock → Ctrl (標準キーボードはCapsLockがCtrl位置にない) ===
+        # === 非HHKB: CapsLock → Ctrl, かなキー修正 ===
         {
           name = "Non-HHKB remaps";
           device = { not = [ hhkbDevice ]; };
@@ -121,6 +121,15 @@ in
               alone = "Esc";
               alone_timeout_millis = 150;
             };
+            # MacBook の ⌘/かなキーは Super を送信するため、
+            # 単押しで GNOME Activities が起動してしまう
+            # → 単押しは IME 切り替え、押しながらはショートカット用 Super として使う
+            Super_L = {
+              held = "Super_L";
+              alone = "Muhenkan";
+              alone_timeout_millis = 500;
+            };
+            Super_R = "Henkan";
           };
         }
       ];
