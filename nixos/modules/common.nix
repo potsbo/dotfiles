@@ -173,6 +173,7 @@ in
           monospace-font-name = "JetBrains Mono 11";
           font-antialiasing = "grayscale";
           font-hinting = "none";
+          show-battery-percentage = true;
         };
         "org/gnome/desktop/wm/preferences" = {
           titlebar-font = "Noto Sans CJK JP Bold 11";
@@ -365,6 +366,7 @@ in
     };
   };
   powerManagement.enable = false;
+  services.upower.enable = lib.mkForce true;
 
   # OOM 対策: カーネル OOM キラーが発動する前にプロアクティブにプロセスを kill する
   services.earlyoom = {
