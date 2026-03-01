@@ -161,9 +161,7 @@ in
             Super-n = "C-n";
             Super-q = "C-q";
             # macOS 風 Tab 切り替え
-            # Cmd+Tab → アプリ切り替え (GNOME の Alt+Tab)
-            Super-Tab = "Alt-Tab";
-            Super-Shift-Tab = "Alt-Shift-Tab";
+            # Cmd+Tab → GNOME が <Super>Tab を switch-applications として処理するため変換不要
             # Option+Tab → 同一アプリのウィンドウ切り替え (GNOME の Alt+`)
             Alt-Tab = "Alt-grave";
             Alt-Shift-Tab = "Alt-Shift-grave";
