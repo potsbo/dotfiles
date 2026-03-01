@@ -1,5 +1,10 @@
 { pkgs, config, ... }:
 
+let
+  # HHKB Studio USB vendor/product ID (PFU vendor 0x2DC8, product 0x9021)
+  hhkbDevice = "ids:0x2DC8:0x9021";
+in
+
 # ============================================================================
 # xremap 設計方針: macOS キーバインド再現
 # ============================================================================
@@ -65,18 +70,26 @@
 
     config = {
       modmap = [
+        # === 共通: すべてのキーボードで Ctrl_L を dual-purpose にする ===
         {
-          name = "Key remaps";
+          name = "Common remaps";
           remap = {
             Ctrl_L = {
               held = "Ctrl_L";
               alone = "Esc";
               alone_timeout_millis = 150;
             };
-            # HHKB Studio のファームウェア設定でスペース横のキーが Alt を送信するため、
-            # Alt ↔ Super を入れ替えて macOS の物理配列を再現する
+          };
+        }
+
+        # === HHKB 専用: Alt ↔ Super 入れ替え ===
+        # HHKB Studio のファームウェア設定でスペース横のキーが Alt を送信するため、
+        # Alt ↔ Super を入れ替えて macOS の物理配列を再現する
+        {
+          name = "HHKB remaps";
+          device = { only = [ hhkbDevice ]; };
+          remap = {
             # スペース横 (物理Cmd位置, HHKBはAlt送信) → Super (Cmd相当)
-            # その外側 (物理Option位置, HHKBはSuper送信) → Alt (Option相当)
             Alt_L = {
               held = "Super_L";
               alone = "Muhenkan";
@@ -87,12 +100,26 @@
               alone = "Henkan";
               alone_timeout_millis = 500;
             };
+            # その外側 (物理Option位置, HHKBはSuper送信) → Alt (Option相当)
             Super_L = "Alt_L";
             Super_R = "Alt_R";
             Shift_R = {
               held = "Shift_R";
               alone = "Super_L";
               alone_timeout_millis = 500;
+            };
+          };
+        }
+
+        # === 非HHKB: CapsLock → Ctrl (標準キーボードはCapsLockがCtrl位置にない) ===
+        {
+          name = "Non-HHKB remaps";
+          device = { not = [ hhkbDevice ]; };
+          remap = {
+            CapsLock = {
+              held = "Ctrl_L";
+              alone = "Esc";
+              alone_timeout_millis = 150;
             };
           };
         }
