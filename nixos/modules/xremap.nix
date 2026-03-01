@@ -33,40 +33,38 @@ in
 #
 # ============================================================================
 {
-  # xremap を HHKB 抜き差し・起動順序に関係なく自動復旧させる
-  systemd.services.xremap = {
-    unitConfig = {
-      # キーボード未接続時の無限再起動ループを防止
-      # 30秒以内に3回失敗したら再起動を停止する
-      # キーボード接続時は udev ルールが reset-failed → restart する
-      StartLimitBurst = 3;
-      StartLimitIntervalSec = 30;
-    };
-    # xremap はシステムサービス (root) で動くため、ユーザーセッションの
-    # D-Bus ソケットパスを明示しないと GNOME Shell 拡張に接続できない
-    environment.DBUS_SESSION_BUS_ADDRESS =
-      let uid = toString config.users.users.${config.services.xremap.userName}.uid;
-      in "unix:path=/run/user/${uid}/bus";
-    serviceConfig = {
-      Restart = "always";
-      RestartSec = 3;
-      # キーボード未接続時に exit 1 で終了するが、これを失敗扱いしない
-      # switch 時の "the following units failed" 警告を防ぐ
-      SuccessExitStatus = "1";
-    };
+  systemd.user.services.xremap.serviceConfig = {
+    Restart = "always";
+    RestartSec = 3;
   };
 
-  # USB キーボード接続時に xremap を自動復旧させる udev ルール
-  # StartLimitBurst で停止した状態からでも reset-failed → restart で復帰する
-  # ID_BUS=="usb" で xremap 自身の仮想デバイス (uinput) を除外し、再起動ループを防ぐ
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", ENV{ID_BUS}=="usb", RUN+="${pkgs.systemd}/bin/systemctl reset-failed xremap.service", RUN+="${pkgs.systemd}/bin/systemctl restart xremap.service"
-  '';
+  # nixos-rebuild switch 時に xremap の設定変更を検知して自動再起動する
+  # NixOS はユーザーサービスの自動再起動をしないため、activation script で対応
+  system.activationScripts.restartXremap = let
+    unitFile = "/etc/systemd/user/xremap.service";
+    stateFile = "/run/xremap-unit-hash";
+  in {
+    text = ''
+      if [ -f ${unitFile} ]; then
+        NEW_HASH=$(sha256sum ${unitFile} | cut -d' ' -f1)
+        OLD_HASH=""
+        if [ -f ${stateFile} ]; then
+          OLD_HASH=$(cat ${stateFile})
+        fi
+        echo "$NEW_HASH" > ${stateFile}
+        if [ -n "$OLD_HASH" ] && [ "$NEW_HASH" != "$OLD_HASH" ]; then
+          systemctl --user --machine=potsbo@ restart xremap.service 2>/dev/null || true
+        fi
+      fi
+    '';
+  };
 
   services.xremap = {
     enable = true;
     withGnome = true;
     userName = "potsbo";
+    serviceMode = "user";
+    watch = true;
 
     config = {
       modmap = [
@@ -139,6 +137,21 @@ in
       ];
 
       keymap = [
+        # === ターミナル用 Cmd ショートカット ===
+        # Wayland では Super+key が compositor に消費されアプリに届かないため、
+        # ターミナルでは Ctrl+Shift+key に変換して Ghostty keybind で処理する。
+        # グローバルの "Super shortcuts" より前に配置して先にマッチさせる。
+        {
+          name = "Terminal Cmd shortcuts";
+          application = {
+            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+          };
+          remap = {
+            Super-n = "C-Shift-n";   # Ghostty: new_window
+            Super-q = "C-Shift-q";   # Ghostty: quit
+          };
+        }
+
         # === Super → Ctrl (Cmd ショートカット再現、グローバル) ===
         # ターミナルでの Ctrl+C/V 衝突は Ghostty 側の keybind で解決する
         {
@@ -183,6 +196,28 @@ in
             C-Alt-i = "Super-i";           # 右上
             C-Alt-j = "Super-j";           # 左下
             C-Alt-k = "Super-k";           # 右下
+          };
+        }
+
+        # === Emacs Ctrl バインド (ターミナル以外) ===
+        # macOS の Cocoa テキストシステムと同じ挙動を再現。
+        # serviceMode = "user" により GNOME D-Bus のアプリ検出が機能するため、
+        # ターミナル (Ghostty) を除外して適用する。
+        {
+          name = "Emacs Ctrl bindings (non-terminal)";
+          application = {
+            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+          };
+          remap = {
+            C-a = "Home";
+            C-e = "End";
+            C-f = "Right";
+            C-b = "Left";
+            C-d = "Delete";
+            C-h = "BackSpace";
+            C-m = "Enter";
+            C-n = "Down";
+            C-p = "Up";
           };
         }
 
