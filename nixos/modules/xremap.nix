@@ -39,10 +39,12 @@ in
   };
 
   # nixos-rebuild switch 時に xremap の設定変更を検知して自動再起動する
-  # NixOS はユーザーサービスの自動再起動をしないため、activation script で対応
-  system.activationScripts.restartXremap = let
+  # NixOS はユーザーサービスの自動再起動をしないため、userActivationScripts で対応
+  # (system.activationScripts は switch-to-configuration より前に走るため、
+  #  古い unit で restart してしまう。userActivationScripts は daemon-reload 後に実行される)
+  system.userActivationScripts.restartXremap = let
     unitFile = "/etc/systemd/user/xremap.service";
-    stateFile = "/run/xremap-unit-hash";
+    stateFile = "\${XDG_RUNTIME_DIR}/xremap-unit-hash";
   in {
     text = ''
       if [ -f ${unitFile} ]; then
@@ -53,7 +55,7 @@ in
         fi
         echo "$NEW_HASH" > ${stateFile}
         if [ -n "$OLD_HASH" ] && [ "$NEW_HASH" != "$OLD_HASH" ]; then
-          systemctl --user --machine=potsbo@ restart xremap.service 2>/dev/null || true
+          systemctl --user restart xremap.service 2>/dev/null || true
         fi
       fi
     '';
@@ -103,7 +105,7 @@ in
             Super_R = "Alt_R";
             Shift_R = {
               held = "Shift_R";
-              alone = "Super_L";
+              alone = "F20";
               alone_timeout_millis = 500;
             };
           };
@@ -132,11 +134,24 @@ in
               alone = "Henkan";
               alone_timeout_millis = 500;
             };
+            Shift_R = {
+              held = "Shift_R";
+              alone = "F20";
+              alone_timeout_millis = 500;
+            };
           };
         }
       ];
 
       keymap = [
+        # === Vicinae ランチャー (右Shift 単押し → F20 経由) ===
+        {
+          name = "Vicinae toggle";
+          remap = {
+            F20 = { launch = ["${pkgs.vicinae}/bin/vicinae" "toggle"]; };
+          };
+        }
+
         # === ターミナル用 Cmd ショートカット ===
         # Wayland では Super+key が compositor に消費されアプリに届かないため、
         # ターミナルでは Ctrl+Shift+key に変換して Ghostty keybind で処理する。
@@ -149,6 +164,18 @@ in
           remap = {
             Super-n = "C-Shift-n";   # Ghostty: new_window
             Super-q = "C-Shift-q";   # Ghostty: quit
+            # Emacs Ctrl bindings の `not` フィルタが空文字 WMClass のため機能しないので、
+            # `only` フィルタで先にマッチさせて Ctrl キーをそのまま通す (identity mapping)
+            C-a = "C-a";
+            C-b = "C-b";
+            C-d = "C-d";
+            C-e = "C-e";
+            C-f = "C-f";
+            C-h = "C-h";
+            C-k = "C-k";
+            C-m = "C-m";
+            C-n = "C-n";
+            C-p = "C-p";
           };
         }
 

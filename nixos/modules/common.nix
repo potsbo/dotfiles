@@ -136,6 +136,7 @@ in
             "xremap@k0kubun.com"
             "tiling-assistant@leleat-on-github"
             "appindicatorsupport@rgcjonas.gmail.com"
+            "vicinae@dagimg-dot"
           ];
         };
         "org/gnome/shell/extensions/tiling-assistant" = {
@@ -279,6 +280,8 @@ in
     gnomeExtensions.tiling-assistant
     gnomeExtensions.appindicator
     vscode
+    vicinae
+    gnomeExtensions.vicinae
     (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
     zotero
   ] ++ lib.optionals isX86 (with pkgs; [
