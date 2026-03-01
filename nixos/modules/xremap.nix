@@ -157,6 +157,7 @@ in
             Super-f = "C-f";
             Super-r = "C-r";
             Super-l = "C-l";
+            Super-k = "C-k";
             Super-n = "C-n";
             Super-q = "C-q";
             # macOS 風 Tab 切り替え
@@ -199,11 +200,6 @@ in
             C-f = "Right";
             C-b = "Left";
             C-d = "Delete";
-            # kill-line: macOS の Cocoa テキストシステムと同じ挙動を再現
-            # Chromium 等は GTK Emacs keytheme の Ctrl+K を尊重しないため
-            # xremap で Shift+End (行末まで選択) → BackSpace (削除) に変換する
-            C-k = ["Shift-End" "BackSpace"];
-            Super-k = ["Shift-End" "BackSpace"];
             C-h = "BackSpace";
             C-m = "Enter";
             C-n = "Down";
