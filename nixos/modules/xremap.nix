@@ -129,7 +129,11 @@ in
               alone = "Muhenkan";
               alone_timeout_millis = 500;
             };
-            Super_R = "Henkan";
+            Super_R = {
+              held = "Super_R";
+              alone = "Henkan";
+              alone_timeout_millis = 500;
+            };
           };
         }
       ];
