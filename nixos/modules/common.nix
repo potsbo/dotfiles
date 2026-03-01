@@ -163,6 +163,9 @@ in
           sleep-inactive-ac-type = "nothing";
           sleep-inactive-battery-type = "nothing";
         };
+        "org/gnome/desktop/peripherals/touchpad" = {
+          speed = 0.5;
+        };
         "org/gnome/desktop/interface" = {
           font-name = "Noto Sans CJK JP 11";
           document-font-name = "Noto Sans CJK JP 12";
