@@ -1,5 +1,10 @@
 { pkgs, config, ... }:
 
+let
+  # HHKB Studio USB vendor/product ID (PFU vendor 0x2DC8, product 0x9021)
+  hhkbDevice = "ids:0x2DC8:0x9021";
+in
+
 # ============================================================================
 # xremap 設計方針: macOS キーバインド再現
 # ============================================================================
@@ -28,55 +33,63 @@
 #
 # ============================================================================
 {
-  # xremap を HHKB 抜き差し・起動順序に関係なく自動復旧させる
-  systemd.services.xremap = {
-    unitConfig = {
-      # キーボード未接続時の無限再起動ループを防止
-      # 30秒以内に3回失敗したら再起動を停止する
-      # キーボード接続時は udev ルールが reset-failed → restart する
-      StartLimitBurst = 3;
-      StartLimitIntervalSec = 30;
-    };
-    # xremap はシステムサービス (root) で動くため、ユーザーセッションの
-    # D-Bus ソケットパスを明示しないと GNOME Shell 拡張に接続できない
-    environment.DBUS_SESSION_BUS_ADDRESS =
-      let uid = toString config.users.users.${config.services.xremap.userName}.uid;
-      in "unix:path=/run/user/${uid}/bus";
-    serviceConfig = {
-      Restart = "always";
-      RestartSec = 3;
-      # キーボード未接続時に exit 1 で終了するが、これを失敗扱いしない
-      # switch 時の "the following units failed" 警告を防ぐ
-      SuccessExitStatus = "1";
-    };
+  systemd.user.services.xremap.serviceConfig = {
+    Restart = "always";
+    RestartSec = 3;
   };
 
-  # USB キーボード接続時に xremap を自動復旧させる udev ルール
-  # StartLimitBurst で停止した状態からでも reset-failed → restart で復帰する
-  # ID_BUS=="usb" で xremap 自身の仮想デバイス (uinput) を除外し、再起動ループを防ぐ
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1", ENV{ID_BUS}=="usb", RUN+="${pkgs.systemd}/bin/systemctl reset-failed xremap.service", RUN+="${pkgs.systemd}/bin/systemctl restart xremap.service"
-  '';
+  # nixos-rebuild switch 時に xremap の設定変更を検知して自動再起動する
+  # NixOS はユーザーサービスの自動再起動をしないため、userActivationScripts で対応
+  # (system.activationScripts は switch-to-configuration より前に走るため、
+  #  古い unit で restart してしまう。userActivationScripts は daemon-reload 後に実行される)
+  system.userActivationScripts.restartXremap = let
+    unitFile = "/etc/systemd/user/xremap.service";
+    stateFile = "\${XDG_RUNTIME_DIR}/xremap-unit-hash";
+  in {
+    text = ''
+      if [ -f ${unitFile} ]; then
+        NEW_HASH=$(sha256sum ${unitFile} | cut -d' ' -f1)
+        OLD_HASH=""
+        if [ -f ${stateFile} ]; then
+          OLD_HASH=$(cat ${stateFile})
+        fi
+        echo "$NEW_HASH" > ${stateFile}
+        if [ -n "$OLD_HASH" ] && [ "$NEW_HASH" != "$OLD_HASH" ]; then
+          systemctl --user restart xremap.service 2>/dev/null || true
+        fi
+      fi
+    '';
+  };
 
   services.xremap = {
     enable = true;
     withGnome = true;
     userName = "potsbo";
+    serviceMode = "user";
+    watch = true;
 
     config = {
       modmap = [
+        # === 共通: すべてのキーボードで Ctrl_L を dual-purpose にする ===
         {
-          name = "Key remaps";
+          name = "Common remaps";
           remap = {
             Ctrl_L = {
               held = "Ctrl_L";
               alone = "Esc";
               alone_timeout_millis = 150;
             };
-            # HHKB Studio のファームウェア設定でスペース横のキーが Alt を送信するため、
-            # Alt ↔ Super を入れ替えて macOS の物理配列を再現する
+          };
+        }
+
+        # === HHKB 専用: Alt ↔ Super 入れ替え ===
+        # HHKB Studio のファームウェア設定でスペース横のキーが Alt を送信するため、
+        # Alt ↔ Super を入れ替えて macOS の物理配列を再現する
+        {
+          name = "HHKB remaps";
+          device = { only = [ hhkbDevice ]; };
+          remap = {
             # スペース横 (物理Cmd位置, HHKBはAlt送信) → Super (Cmd相当)
-            # その外側 (物理Option位置, HHKBはSuper送信) → Alt (Option相当)
             Alt_L = {
               held = "Super_L";
               alone = "Muhenkan";
@@ -87,11 +100,43 @@
               alone = "Henkan";
               alone_timeout_millis = 500;
             };
+            # その外側 (物理Option位置, HHKBはSuper送信) → Alt (Option相当)
             Super_L = "Alt_L";
             Super_R = "Alt_R";
             Shift_R = {
               held = "Shift_R";
-              alone = "Super_L";
+              alone = "F20";
+              alone_timeout_millis = 500;
+            };
+          };
+        }
+
+        # === 非HHKB: CapsLock → Ctrl, かなキー修正 ===
+        {
+          name = "Non-HHKB remaps";
+          device = { not = [ hhkbDevice ]; };
+          remap = {
+            CapsLock = {
+              held = "Ctrl_L";
+              alone = "Esc";
+              alone_timeout_millis = 150;
+            };
+            # MacBook の ⌘/かなキーは Super を送信するため、
+            # 単押しで GNOME Activities が起動してしまう
+            # → 単押しは IME 切り替え、押しながらはショートカット用 Super として使う
+            Super_L = {
+              held = "Super_L";
+              alone = "Muhenkan";
+              alone_timeout_millis = 500;
+            };
+            Super_R = {
+              held = "Super_R";
+              alone = "Henkan";
+              alone_timeout_millis = 500;
+            };
+            Shift_R = {
+              held = "Shift_R";
+              alone = "F20";
               alone_timeout_millis = 500;
             };
           };
@@ -99,6 +144,41 @@
       ];
 
       keymap = [
+        # === Vicinae ランチャー (右Shift 単押し → F20 経由) ===
+        {
+          name = "Vicinae toggle";
+          remap = {
+            F20 = { launch = ["${pkgs.vicinae}/bin/vicinae" "toggle"]; };
+          };
+        }
+
+        # === ターミナル用 Cmd ショートカット ===
+        # Wayland では Super+key が compositor に消費されアプリに届かないため、
+        # ターミナルでは Ctrl+Shift+key に変換して Ghostty keybind で処理する。
+        # グローバルの "Super shortcuts" より前に配置して先にマッチさせる。
+        {
+          name = "Terminal Cmd shortcuts";
+          application = {
+            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+          };
+          remap = {
+            Super-n = "C-Shift-n";   # Ghostty: new_window
+            Super-q = "C-Shift-q";   # Ghostty: quit
+            # Emacs Ctrl bindings の `not` フィルタが空文字 WMClass のため機能しないので、
+            # `only` フィルタで先にマッチさせて Ctrl キーをそのまま通す (identity mapping)
+            C-a = "C-a";
+            C-b = "C-b";
+            C-d = "C-d";
+            C-e = "C-e";
+            C-f = "C-f";
+            C-h = "C-h";
+            C-k = "C-k";
+            C-m = "C-m";
+            C-n = "C-n";
+            C-p = "C-p";
+          };
+        }
+
         # === Super → Ctrl (Cmd ショートカット再現、グローバル) ===
         # ターミナルでの Ctrl+C/V 衝突は Ghostty 側の keybind で解決する
         {
@@ -121,9 +201,7 @@
             Super-n = "C-n";
             Super-q = "C-q";
             # macOS 風 Tab 切り替え
-            # Cmd+Tab → アプリ切り替え (GNOME の Alt+Tab)
-            Super-Tab = "Alt-Tab";
-            Super-Shift-Tab = "Alt-Shift-Tab";
+            # Cmd+Tab → GNOME が <Super>Tab を switch-applications として処理するため変換不要
             # Option+Tab → 同一アプリのウィンドウ切り替え (GNOME の Alt+`)
             Alt-Tab = "Alt-grave";
             Alt-Shift-Tab = "Alt-Shift-grave";
@@ -149,8 +227,9 @@
         }
 
         # === Emacs Ctrl バインド (ターミナル以外) ===
-        # macOS では Karabiner が frontmost_application_unless でターミナル等を除外して適用。
-        # Linux でも xremap + GNOME 拡張で同様にアプリ検出して除外する。
+        # macOS の Cocoa テキストシステムと同じ挙動を再現。
+        # serviceMode = "user" により GNOME D-Bus のアプリ検出が機能するため、
+        # ターミナル (Ghostty) を除外して適用する。
         {
           name = "Emacs Ctrl bindings (non-terminal)";
           application = {

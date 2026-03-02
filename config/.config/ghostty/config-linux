@@ -3,9 +3,21 @@
 # performable: テキスト選択時のみコピー、未選択時は SIGINT をそのまま通す
 keybind = performable:ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
-# Linux: xremap が Super+N → Ctrl+N にグローバル変換するため、
-# Ghostty 側で Ctrl+N を新規ウィンドウとして処理する
-keybind = ctrl+n=new_window
-# Linux: xremap が Super+Q → Ctrl+Q にグローバル変換するため、
-# Ghostty 側で Ctrl+Q をアプリ終了として処理する
-keybind = ctrl+q=quit
+# xremap がターミナルでは Super+key → Ctrl+Shift+key に変換するため、
+# Ctrl+Shift+key で受ける
+keybind = ctrl+shift+n=new_window
+keybind = ctrl+shift+q=quit
+# Ctrl キーを標準の制御バイトとして送信する。
+# xremap の Emacs Ctrl bindings がターミナルを正しく除外するようになったため、
+# Ghostty がこれらを独自のキーイベントとして処理するのを防ぐ。
+keybind = ctrl+a=text:\x01
+keybind = ctrl+b=text:\x02
+keybind = ctrl+d=text:\x04
+keybind = ctrl+e=text:\x05
+keybind = ctrl+f=text:\x06
+keybind = ctrl+h=text:\x08
+keybind = ctrl+k=text:\x0b
+keybind = ctrl+m=text:\x0d
+keybind = ctrl+n=text:\x0e
+keybind = ctrl+p=text:\x10
+gtk-titlebar = false

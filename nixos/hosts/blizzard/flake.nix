@@ -13,7 +13,7 @@
         /etc/nixos/hardware-configuration.nix
         ./configuration.nix
         xremap-flake.nixosModules.default
-        ./xremap.nix
+        ../../modules/xremap.nix
       ];
     };
   };

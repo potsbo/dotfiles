@@ -21,6 +21,7 @@
         purple = "#ae81ff";
         white = "#f8f8f2";
         orange = "#d7875f";
+        cyan = "#55bed2";
       };
 
       hostColors = {
@@ -28,7 +29,7 @@
         raptorlake = colors.white;
         staten = colors.purple;
         phoenix = colors.orange;
-        blizzard = colors.gray;
+        blizzard = colors.cyan;
         default = colors.gray;
       };
 
