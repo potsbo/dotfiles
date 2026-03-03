@@ -55,6 +55,20 @@ let
     vendorHash = "sha256-lju+QlWxUb11UV9NvXSgQ+ZG37WhyZVahJTM5voDEfw=";
   };
 
+  tiri = pkgs.buildGoModule {
+    pname = "tiri";
+    version = "0-unstable-2025-06-28";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "potsbo";
+      repo = "tiri";
+      rev = "00d26cf930cbe923ca26081d06f18b2046f490dd";
+      hash = "sha256-0H8cdls7OUYX3gtG26yOII3+XvBMaKEbCNDcAt980h8=";
+    };
+
+    vendorHash = "sha256-jEdOBs7cdVOJFH1yevbfFia4pp3LqOFpSgLNNIk7YQM=";
+  };
+
 in
 {
   home.username = "potsbo";
@@ -92,6 +106,7 @@ in
 
   home.packages = with pkgs; [
     aqua
+    tiri
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。

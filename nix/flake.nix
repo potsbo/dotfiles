@@ -21,6 +21,7 @@
         purple = "#ae81ff";
         white = "#f8f8f2";
         orange = "#d7875f";
+        cyan = "#55bed2";
       };
 
       hostColors = {
@@ -28,6 +29,7 @@
         raptorlake = colors.white;
         staten = colors.purple;
         phoenix = colors.orange;
+        blizzard = colors.cyan;
         default = colors.gray;
       };
 
@@ -53,6 +55,7 @@
         "tigerlake" = mkHome { system = "x86_64-linux"; hostname = "tigerlake"; };
         "raptorlake" = mkHome { system = "x86_64-linux"; hostname = "raptorlake"; };
         "phoenix" = mkHome { system = "x86_64-linux"; hostname = "phoenix"; };
+        "blizzard" = mkHome { system = "aarch64-linux"; hostname = "blizzard"; };
         "staten" = mkHome { system = "aarch64-darwin"; hostname = "staten"; };
       };
 

@@ -13,5 +13,6 @@ case $(hostname) in
 "raptorlake")   echo "#f8f8f2" ;;  # white
 "staten.local") echo "#ae81ff" ;;  # purple
 "phoenix")      echo "#d7875f" ;;  # orange
+"blizzard")    echo "#55bed2" ;;  # cyan
 *)              echo "#797979" ;;  # gray
 esac
