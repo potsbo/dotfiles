@@ -34,5 +34,6 @@ config/.config/user-dirs.locale
 /config/.config/zoom.conf
 /config/.config/zoomus.conf
 /config/.config/tiling-assistant
+/config/.config/gcloud-profiles
 /config/.config/chromium
 /config/.config/goa*
