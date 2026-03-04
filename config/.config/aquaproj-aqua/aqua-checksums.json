@@ -1146,23 +1146,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-543.0.0-darwin-arm.tar.gz",
-      "checksum": "85CDC4C0100687F2C75893D65D36EBACF350B124570873B460173A06E2C922C6",
+      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-559.0.0-darwin-arm.tar.gz",
+      "checksum": "4CE6A1D03A2CD20F855D473C79D17CF2E2FCFAFC7BEE73E7328C64237FCF0323",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-543.0.0-darwin-x86_64.tar.gz",
-      "checksum": "62F06F4F1F5266CBCDB8DAA087B734E81D0A8C4740012728B919D8825F0EE590",
+      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-559.0.0-darwin-x86_64.tar.gz",
+      "checksum": "A77D8A51859CD92C119356283EC2264E2D16861A57DDB3D551497584E2FA26A4",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-543.0.0-linux-arm.tar.gz",
-      "checksum": "600498EDB075BD957FC41E28918AE9B5522B72AEDE206F828BC2F99CEBF6FB03",
+      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-559.0.0-linux-arm.tar.gz",
+      "checksum": "02A91349F72C35D65BA33B5DD7D1CCF44FA2C40A358207C50017465AB9EEA5CD",
       "algorithm": "sha256"
     },
     {
-      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-543.0.0-linux-x86_64.tar.gz",
-      "checksum": "0E2991AFD4AA319BDB44E81EF392676A194BEC6BF622D4030158B4CAC310FAC8",
+      "id": "http/dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-559.0.0-linux-x86_64.tar.gz",
+      "checksum": "E80517D8F1D690ADE1920B600DB2594CB5F18E0A61CB5C579F60A9FD8112CC1F",
       "algorithm": "sha256"
     },
     {
