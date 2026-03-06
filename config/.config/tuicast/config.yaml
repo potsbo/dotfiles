@@ -10,11 +10,11 @@ views:
       - name: session
         sources:
           - list: tmux list-sessions -F '#{session_path}' 2>/dev/null
-            display: "printf '● '; ~/.config/tmux/dirmux/path-to-name.sh {}"
-            preview: sesh preview {}
+            display: "printf '\\033[34m\\uEBC8\\033[39m '; ~/.config/tmux/dirmux/path-to-name.sh {}"
+            preview: "tmux capture-pane -ep -t $(tmux list-panes -a -F '#{pane_id} #{session_path}' | awk -v p='{}' '$2==p{print $1;exit}')"
           - list: ghq list --full-path | roots --depth 4 --root-file .git
-            display: ~/.config/tmux/dirmux/path-to-name.sh {}
-            preview: sesh preview {}
+            display: "printf '\\033[36m\\uF114\\033[39m '; ~/.config/tmux/dirmux/path-to-name.sh {}"
+            preview: eza --tree --icons --color=always --level 3 {}
     run: tsuimux open $session --name "$(~/.config/tmux/dirmux/path-to-name.sh $session)"
 
   ssh:

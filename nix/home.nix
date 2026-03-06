@@ -76,8 +76,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "potsbo";
       repo = "tuicast";
-      rev = "dcf1fbb1894b68f5d4cbd822fa1be8a97b4b8ffc";
-      hash = "sha256-JJCNjdvBC7MSZNR05KGwZFmSPM3fdh5gc4sWwcmB7Kg=";
+      rev = "c5899bc42e47bdea92b8d25e5d2a4484ff75e835";
+      hash = "sha256-Az9B8laoI6o1MaDKPJwfOMfg2nCJxtq59TilA4c+jeY=";
     };
 
     vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
