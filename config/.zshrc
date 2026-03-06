@@ -95,7 +95,7 @@ _register_keycommand() {
 }
 
 _sesh_connect() {
-  BUFFER="~/.config/tmux/sesh-connect.sh"
+  BUFFER="tuicast"
   zle accept-line
 }
 
