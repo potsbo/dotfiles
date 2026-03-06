@@ -1,8 +1,9 @@
 { pkgs, config, ... }:
 
 let
-  # HHKB Studio USB vendor/product ID (PFU vendor 0x2DC8, product 0x9021)
-  hhkbDevice = "ids:0x2DC8:0x9021";
+  # HHKB Studio USB vendor/product ID (PFU vendor 0x04FE, product 0x0016)
+  # Confirm with: cat /sys/class/input/event*/device/id/{vendor,product}
+  hhkbDevice = "ids:0x04FE:0x0016";
 in
 
 # ============================================================================
