@@ -9,33 +9,40 @@ views:
   sessions:
     steps:
       - name: session
-        list: tmux list-sessions -F '#{session_path}' 2>/dev/null
-        display: "printf '● '; ~/.config/tmux/dirmux/path-to-name.sh {}"
-        preview: sesh preview {}
+        sources:
+          - list: tmux list-sessions -F '#{session_path}' 2>/dev/null
+            display: "printf '● '; ~/.config/tmux/dirmux/path-to-name.sh {}"
+            preview: sesh preview {}
     run: tsuimux open $session --name "$(~/.config/tmux/dirmux/path-to-name.sh $session)"
 
   tmux:
     steps:
       - name: session
-        list: ghq list --full-path | roots --depth 4 --root-file .git
-        display: ~/.config/tmux/dirmux/path-to-name.sh {}
-        preview: sesh preview {}
+        sources:
+          - list: ghq list --full-path | roots --depth 4 --root-file .git
+            display: ~/.config/tmux/dirmux/path-to-name.sh {}
+            preview: sesh preview {}
     run: tsuimux open $session --name "$(~/.config/tmux/dirmux/path-to-name.sh $session)"
 
   ssh:
     steps:
       - name: host
-        list: ~/.config/tuicast/list-ssh-hosts.sh
-        display: "printf '\\uEB3A %s\\n' {}"
-        preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
+        sources:
+          - list: ~/.config/tuicast/list-ssh-hosts.sh
+            display: "printf '\\uEB3A %s\\n' {}"
+            preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
     run: ~/.config/tuicast/ssh-connect.sh $host
 
   worktree:
     steps:
       - name: repo
-        list: ghq list --full-path
-        display: ~/.config/tmux/dirmux/path-to-name.sh {}
+        sources:
+          - list: ghq list --full-path
+            display: ~/.config/tmux/dirmux/path-to-name.sh {}
       - name: branch
-        list: git -C $repo branch -a --sort=-committerdate --format='%(refname:short)' | grep -v HEAD
-        preview: git -C $repo log --oneline -10 {} 2>/dev/null
-    run: ~/.config/tuicast/worktree-create.sh $repo $branch
+        sources:
+          - list: git -C $repo branch -a --sort=-committerdate --format='%(refname:short)' | grep -v HEAD
+            preview: git -C $repo log --oneline -10 {} 2>/dev/null
+          - label: "✨ Create new branch"
+            input: "Branch name"
+    run: ~/.config/tuicast/worktree-create.sh "$repo" "$branch"

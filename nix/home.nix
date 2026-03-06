@@ -71,13 +71,13 @@ let
 
   tuicast = pkgs.buildGoModule {
     pname = "tuicast";
-    version = "0-unstable-2025-03-06";
+    version = "0-unstable-2026-03-06";
 
     src = pkgs.fetchFromGitHub {
       owner = "potsbo";
       repo = "tuicast";
-      rev = "09dba222ab61074292632db0759c70925b10ec85";
-      hash = "sha256-VP3fySWbZwVo6pBthx2DgD3AolQjnjLX20ZpsAMRjpg=";
+      rev = "dcf1fbb1894b68f5d4cbd822fa1be8a97b4b8ffc";
+      hash = "sha256-JJCNjdvBC7MSZNR05KGwZFmSPM3fdh5gc4sWwcmB7Kg=";
     };
 
     vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
