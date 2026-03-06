@@ -69,6 +69,20 @@ let
     vendorHash = "sha256-jEdOBs7cdVOJFH1yevbfFia4pp3LqOFpSgLNNIk7YQM=";
   };
 
+  tuicast = pkgs.buildGoModule {
+    pname = "tuicast";
+    version = "0-unstable-2025-03-06";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "potsbo";
+      repo = "tuicast";
+      rev = "09dba222ab61074292632db0759c70925b10ec85";
+      hash = "sha256-VP3fySWbZwVo6pBthx2DgD3AolQjnjLX20ZpsAMRjpg=";
+    };
+
+    vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
+  };
+
 in
 {
   home.username = "potsbo";
@@ -107,6 +121,7 @@ in
   home.packages = with pkgs; [
     aqua
     tiri
+    tuicast
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
