@@ -264,12 +264,13 @@ in
     krb5.lib
   ];
   programs.mosh.enable = true;
+  programs._1password-gui.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
     ghostty
     browser.package
-    _1password-gui
+
     xremap-gnome-extension
     gnomeExtensions.tiling-assistant
     gnomeExtensions.appindicator
@@ -279,6 +280,7 @@ in
     (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
     (webApp { name = "slack"; desktopName = "Slack"; url = "https://app.slack.com"; })
     zotero
+    remmina
   ] ++ lib.optionals isX86 (with pkgs; [
     slack
     zoom-us
@@ -315,6 +317,11 @@ in
       ];
     };
   };
+  services.resolved = {
+    enable = true;
+    llmnr = "true";
+  };
+
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "server";
