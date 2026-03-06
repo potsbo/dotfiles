@@ -55,7 +55,7 @@ in
           OLD_HASH=$(cat ${stateFile})
         fi
         echo "$NEW_HASH" > ${stateFile}
-        if [ -n "$OLD_HASH" ] && [ "$NEW_HASH" != "$OLD_HASH" ]; then
+        if [ -z "$OLD_HASH" ] || [ "$NEW_HASH" != "$OLD_HASH" ]; then
           systemctl --user restart xremap.service 2>/dev/null || true
         fi
       fi
