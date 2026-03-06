@@ -83,6 +83,20 @@ let
     vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
   };
 
+  tsuimux = pkgs.buildGoModule {
+    pname = "tsuimux";
+    version = "0-unstable-2025-03-06";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "potsbo";
+      repo = "tsuimux";
+      rev = "de3993402a9c7824f3ee83521b250203be1b0dad";
+      hash = "sha256-TSVJKvVoKNwbwU7uV80bmn6HSP2qOEIRtXQkXhxGA8I=";
+    };
+
+    vendorHash = "sha256-7K17JaXFsjf163g5PXCb5ng2gYdotnZ2IDKk8KFjNj0=";
+  };
+
 in
 {
   home.username = "potsbo";
@@ -122,6 +136,7 @@ in
     aqua
     tiri
     tuicast
+    tsuimux
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
