@@ -2,7 +2,6 @@ views:
   main:
     union:
       - sessions
-      - tmux
       - ssh
       - worktree
 
@@ -13,12 +12,6 @@ views:
           - list: tmux list-sessions -F '#{session_path}' 2>/dev/null
             display: "printf '● '; ~/.config/tmux/dirmux/path-to-name.sh {}"
             preview: sesh preview {}
-    run: tsuimux open $session --name "$(~/.config/tmux/dirmux/path-to-name.sh $session)"
-
-  tmux:
-    steps:
-      - name: session
-        sources:
           - list: ghq list --full-path | roots --depth 4 --root-file .git
             display: ~/.config/tmux/dirmux/path-to-name.sh {}
             preview: sesh preview {}
