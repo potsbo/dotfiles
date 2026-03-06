@@ -11,13 +11,9 @@ keybind = ctrl+shift+q=quit
 # xremap の Emacs Ctrl bindings がターミナルを正しく除外するようになったため、
 # Ghostty がこれらを独自のキーイベントとして処理するのを防ぐ。
 keybind = ctrl+a=text:\x01
-keybind = ctrl+b=text:\x02
 keybind = ctrl+d=text:\x04
 keybind = ctrl+e=text:\x05
-keybind = ctrl+f=text:\x06
 keybind = ctrl+h=text:\x08
 keybind = ctrl+k=text:\x0b
 keybind = ctrl+m=text:\x0d
-keybind = ctrl+n=text:\x0e
-keybind = ctrl+p=text:\x10
 gtk-titlebar = false

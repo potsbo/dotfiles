@@ -168,15 +168,15 @@ in
             # Emacs Ctrl bindings の `not` フィルタが空文字 WMClass のため機能しないので、
             # `only` フィルタで先にマッチさせて Ctrl キーをそのまま通す (identity mapping)
             C-a = "C-a";
-            C-b = "C-b";
+            C-b = "Left";   # 非ターミナルの Emacs bindings と統一
+            C-f = "Right";
+            C-n = "Down";
+            C-p = "Up";
             C-d = "C-d";
             C-e = "C-e";
-            C-f = "C-f";
             C-h = "C-h";
             C-k = "C-k";
             C-m = "C-m";
-            C-n = "C-n";
-            C-p = "C-p";
           };
         }
 
