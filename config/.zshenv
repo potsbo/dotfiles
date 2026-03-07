@@ -32,7 +32,6 @@ export PATH=$HOME/bin:$PATH
 export PATH=$PATH:$HOME/.local/bin # Created by `pipx`
 if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
 export PATH=$PATH:$HOME/go/bin
-export PATH=$PATH:$HOME/.cargo/bin
 ## System
 export PATH=$PATH:/bin               # cat, cp, ...
 export PATH=$PATH:/sbin              # ping, ifconfig, ...

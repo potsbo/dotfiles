@@ -140,7 +140,9 @@ in
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
+    # cargo と rustc はバージョンが一致しないとビルドエラーになるため両方入れる。
     cargo
+    rustc
     btop # aqua では macos 用のバイナリが提供されていない
     whois
     dnsutils
