@@ -4,6 +4,9 @@ let
   # HHKB Studio USB vendor/product ID (PFU vendor 0x04FE, product 0x0016)
   # Confirm with: cat /sys/class/input/event*/device/id/{vendor,product}
   hhkbDevice = "ids:0x04FE:0x0016";
+
+  # RDP クライアントではリモート側にキーをそのまま渡すため、xremap を無効化する
+  rdpApps = [ "xfreerdp" "FreeRDP" ];
 in
 
 # ============================================================================
@@ -74,6 +77,7 @@ in
         # === 共通: すべてのキーボードで Ctrl_L を dual-purpose にする ===
         {
           name = "Common remaps";
+          application = { not = rdpApps; };
           remap = {
             Ctrl_L = {
               held = "Ctrl_L";
@@ -89,6 +93,7 @@ in
         {
           name = "HHKB remaps";
           device = { only = [ hhkbDevice ]; };
+          application = { not = rdpApps; };
           remap = {
             # スペース横 (物理Cmd位置, HHKBはAlt送信) → Super (Cmd相当)
             Alt_L = {
@@ -116,6 +121,7 @@ in
         {
           name = "Non-HHKB remaps";
           device = { not = [ hhkbDevice ]; };
+          application = { not = rdpApps; };
           remap = {
             CapsLock = {
               held = "Ctrl_L";
@@ -148,6 +154,7 @@ in
         # === Vicinae ランチャー (右Shift 単押し → F20 経由) ===
         {
           name = "Vicinae toggle";
+          application = { not = rdpApps; };
           remap = {
             F20 = { launch = ["${pkgs.vicinae}/bin/vicinae" "toggle"]; };
           };
@@ -184,6 +191,7 @@ in
         # ターミナルでの Ctrl+C/V 衝突は Ghostty 側の keybind で解決する
         {
           name = "Super shortcuts";
+          application = { not = rdpApps; };
           remap = {
             Super-c = "C-c";
             Super-v = "C-v";
@@ -213,6 +221,7 @@ in
         # macOS の Magnet ショートカットを GNOME タイリングにマッピング
         {
           name = "Magnet window management";
+          application = { not = rdpApps; };
           remap = {
             C-Alt-Left = "Super-Left";    # 左半分
             C-Alt-Right = "Super-Right";   # 右半分
@@ -234,7 +243,7 @@ in
         {
           name = "Emacs Ctrl bindings (non-terminal)";
           application = {
-            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ] ++ rdpApps;
           };
           remap = {
             C-a = "Home";
@@ -253,6 +262,7 @@ in
         {
           name = "Anpan letter remaps";
           exact_match = true;
+          application = { not = rdpApps; };
           remap = {
             # Left hand - top row
             q = "apostrophe";
@@ -335,6 +345,7 @@ in
         {
           name = "Anpan number/symbol row";
           exact_match = true;
+          application = { not = rdpApps; };
           remap = {
             # Number row remaps
             grave = "Shift-4";  # $
