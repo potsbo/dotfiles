@@ -319,7 +319,7 @@ in
   };
   services.resolved = {
     enable = true;
-    llmnr = "true";
+    settings.Resolve.LLMNR = "true";
   };
 
   services.tailscale = {
