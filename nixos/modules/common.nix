@@ -280,7 +280,7 @@ in
     (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
     (webApp { name = "slack"; desktopName = "Slack"; url = "https://app.slack.com"; })
     zotero
-    remmina
+    freerdp
   ] ++ lib.optionals isX86 (with pkgs; [
     slack
     zoom-us
