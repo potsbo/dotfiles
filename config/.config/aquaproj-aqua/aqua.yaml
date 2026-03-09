@@ -10,8 +10,8 @@ registries:
   - type: standard
     ref: v4.476.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: denoland/deno@v2.6.0
-  - name: twistedpair/google-cloud-sdk@543.0.0
+  - name: denoland/deno@v2.7.4
+  - name: twistedpair/google-cloud-sdk@559.0.0
   - name: junegunn/fzf@v0.70.0
   - name: BurntSushi/ripgrep@15.1.0
   - name: x-motemen/ghq@v1.9.4
@@ -19,21 +19,21 @@ packages:
   - name: jqlang/jq@jq-1.8.1
   - name: direnv/direnv@v2.37.1
   - name: neovim/neovim@v0.11.6
-  - name: mikefarah/yq@v4.48.1
+  - name: mikefarah/yq@v4.52.4
   - name: YS-L/csvlens@v0.15.1
-  - name: golang/go@go1.26.0
-  - name: cli/cli@v2.87.2
+  - name: golang/go@go1.26.1
+  - name: cli/cli@v2.87.3
   - name: Wilfred/difftastic@0.67.0
   - name: Schniz/fnm@v1.38.1
   - name: git-lfs/git-lfs@v3.7.1
   - name: nodejs/node@v23.11.1
-  - name: XAMPPRocky/tokei@v13.0.0
+  - name: XAMPPRocky/tokei@v14.0.0
   - name: sharkdp/fd@v10.3.0
   - name: jesseduffield/lazygit@v0.59.0
-  - name: go-task/task@v3.45.5
-  - name: aws/aws-cli@2.31.17
+  - name: go-task/task@v3.49.1
+  - name: aws/aws-cli@2.34.4
   - name: astral-sh/uv@0.9.3
-  - name: starship/starship@v1.24.1
+  - name: starship/starship@v1.24.2
   - name: zellij-org/zellij@v0.43.1
   - name: johnkerl/miller@v6.17.0
   - name: tldr-pages/tlrc@v1.12.0
@@ -43,8 +43,8 @@ packages:
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: junegunn/fzf/fzf-tmux@v0.70.0
   - name: sxyazi/yazi@v26.1.22
-  - name: github/copilot-cli@v0.0.421
-  - name: anthropics/claude-code@v2.1.66
+  - name: github/copilot-cli@v0.0.423
+  - name: anthropics/claude-code@v2.1.71
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.6.2

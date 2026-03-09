@@ -18,12 +18,28 @@ if [[ ! -d "$dir" ]]; then
   exit 1
 fi
 
-echo "Counting files..."
-total=$(find "$dir" -type f | wc -l)
-echo "Found $total files, warming with $jobs parallel jobs..."
+list_cmd=(find "$dir" -type f)
+count_cmd=(find "$dir" -type f)
+if command -v fd >/dev/null; then
+  list_cmd=(fd -t f -0 . "$dir")
+  count_cmd=(fd -t f . "$dir")
+fi
+
+echo "Warming $dir with $jobs parallel jobs..."
 
 if command -v pv >/dev/null; then
-  find "$dir" -type f -print0 | xargs -0 -P "$jobs" -I {} sh -c 'cat "$1" > /dev/null && printf ".\n"' -- {} | pv -l -s "$total" >/dev/null
+  # Count concurrently via named pipe - warming starts immediately
+  count_pipe=$(mktemp -u)
+  mkfifo "$count_pipe"
+  trap 'rm -f "$count_pipe"' EXIT
+
+  "${count_cmd[@]}" | wc -l > "$count_pipe" &
+
+  if command -v fd >/dev/null; then
+    "${list_cmd[@]}" | xargs -0 -P "$jobs" -I {} sh -c 'cat "$1" > /dev/null && printf "\n"' -- {} | pv -l -s "$(cat "$count_pipe")" > /dev/null
+  else
+    "${list_cmd[@]}" -print0 | xargs -0 -P "$jobs" -I {} sh -c 'cat "$1" > /dev/null && printf "\n"' -- {} | pv -l -s "$(cat "$count_pipe")" > /dev/null
+  fi
 else
-  find "$dir" -type f -print0 | xargs -0 -P "$jobs" cat >/dev/null
+  find "$dir" -type f -print0 | xargs -0 -P "$jobs" cat > /dev/null
 fi

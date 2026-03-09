@@ -2,17 +2,26 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    "github>aquaproj/aqua-renovate-config#2.9.0"
+    "github>aquaproj/aqua-renovate-config#2.11.0"
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.nix$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+) depName=(?<depName>[^\\n]+)\\n\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\";"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.+)$"
+    }
+  ],
+  "nix": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "matchPackageNames": [
         "aquaproj/aqua",
         "aquaproj/aqua-installer"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
       ],
       "automerge": true
     },
@@ -20,19 +29,11 @@
       "matchFileNames": [
         "config/.config/aquaproj-aqua/aqua.yaml"
       ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
       "automerge": true
     },
     {
       "matchManagers": [
         "github-actions"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
       ],
       "automerge": true
     },
@@ -40,9 +41,12 @@
       "matchPackageNames": [
         "aquaproj/aqua-renovate-config"
       ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
+      "automerge": true
+    },
+    {
+      "matchManagers": [
+        "custom.regex",
+        "nix"
       ],
       "automerge": true
     }

@@ -13,4 +13,11 @@ else
   buf=$@
 fi
 
+# ローカルのファイル/ディレクトリはローカルのファイルマネージャーで開く
+if [ -e "$buf" ]; then
+  nautilus "$buf" &>/dev/null &
+  disown
+  exit 0
+fi
+
 echo "$buf" | nc -U "$HOME/.opener.sock"
