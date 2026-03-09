@@ -7,7 +7,7 @@ let
       # renovate: datasource=github-releases depName=aquaproj/aqua
       version = "2.56.7";
     in
-    pkgs.buildGoModule {
+    pkgs.buildGoModule.override { go = pkgs.go_1_26; } {
       pname = "aqua";
       inherit version;
 
@@ -15,10 +15,10 @@ let
         owner = "aquaproj";
         repo = "aqua";
         rev = "v${version}";
-        hash = "sha256-mjGzbHV9u90s6Z09ticdt8vvE0symhG8/6Jqj0zVtsQ=";
+        hash = "sha256-dKbiHQOjAuChDursRUxNrq3hW/aGDn8ZqgvKaU4SLpU=";
       };
 
-      vendorHash = "sha256-dl8vst1gC/Fc0pFmggxjUZH5+/+n/cm4LGNcKBjgE10=";
+      vendorHash = "sha256-6WTKhqsmA5/kiIRMXbKxKDVcFI/6tdKvHO+rgF+na0w=";
 
       # テスト実行をスキップする。
       # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。
