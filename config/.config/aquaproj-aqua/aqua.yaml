@@ -43,7 +43,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: junegunn/fzf/fzf-tmux@v0.70.0
   - name: sxyazi/yazi@v26.1.22
-  - name: github/copilot-cli@v0.0.421
+  - name: github/copilot-cli@v0.0.423
   - name: anthropics/claude-code@v2.1.71
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
