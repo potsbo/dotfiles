@@ -24,7 +24,7 @@ packages:
   - name: golang/go@go1.26.1
   - name: cli/cli@v2.87.3
   - name: Wilfred/difftastic@0.67.0
-  - name: Schniz/fnm@v1.38.1
+  - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.7.1
   - name: nodejs/node@v23.11.1
   - name: XAMPPRocky/tokei@v14.0.0
