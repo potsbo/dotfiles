@@ -28,6 +28,7 @@ let
 
   opener = pkgs.buildGoModule {
     pname = "opener";
+    # renovate: datasource=github-releases depName=superbrothers/opener
     version = "0.1.6";
 
     src = pkgs.fetchFromGitHub {
