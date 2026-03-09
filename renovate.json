@@ -22,19 +22,11 @@
         "aquaproj/aqua",
         "aquaproj/aqua-installer"
       ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
       "automerge": true
     },
     {
       "matchFileNames": [
         "config/.config/aquaproj-aqua/aqua.yaml"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
       ],
       "automerge": true
     },
@@ -42,19 +34,11 @@
       "matchManagers": [
         "github-actions"
       ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
       "automerge": true
     },
     {
       "matchPackageNames": [
         "aquaproj/aqua-renovate-config"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
       ],
       "automerge": true
     }
