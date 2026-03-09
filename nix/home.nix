@@ -5,7 +5,7 @@ let
   aqua =
     let
       # renovate: datasource=github-releases depName=aquaproj/aqua
-      version = "2.56.5";
+      version = "2.56.7";
     in
     pkgs.buildGoModule {
       pname = "aqua";
