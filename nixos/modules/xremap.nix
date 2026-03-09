@@ -187,6 +187,17 @@ in
           };
         }
 
+        # === Chrome 用 Cmd-Q (Ctrl+Shift+W で全タブ・全ウィンドウを閉じる) ===
+        {
+          name = "Chrome Cmd-Q quit";
+          application = {
+            only = [ "google-chrome" "Google-chrome" "chromium-browser" "Chromium-browser" ];
+          };
+          remap = {
+            Super-q = "C-Shift-w";
+          };
+        }
+
         # === Super → Ctrl (Cmd ショートカット再現、グローバル) ===
         # ターミナルでの Ctrl+C/V 衝突は Ghostty 側の keybind で解決する
         {
@@ -209,6 +220,7 @@ in
             Super-k = "C-k";
             Super-n = "C-n";
             Super-q = "C-q";
+            Super-Enter = "C-Enter";
             # macOS 風 Tab 切り替え
             # Cmd+Tab → GNOME が <Super>Tab を switch-applications として処理するため変換不要
             # Option+Tab → 同一アプリのウィンドウ切り替え (GNOME の Alt+`)
@@ -252,6 +264,7 @@ in
             C-b = "Left";
             C-d = "Delete";
             C-h = "BackSpace";
+            C-k = ["Shift-End" "Delete"];
             C-m = "Enter";
             C-n = "Down";
             C-p = "Up";
