@@ -281,6 +281,7 @@ in
     zotero
     freerdp
   ] ++ lib.optionals isX86 (with pkgs; [
+    slack
     zoom-us
     code-cursor
     pgadmin4-desktopmode
