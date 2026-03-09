@@ -4,6 +4,18 @@
     "config:recommended",
     "github>aquaproj/aqua-renovate-config#2.9.0"
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["nix/home\\.nix$"],
+      "matchStrings": [
+        "# renovate: datasource=github-releases depName=aquaproj/aqua\\n\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\";"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "aquaproj/aqua",
+      "extractVersionTemplate": "^v(?<version>.+)$"
+    }
+  ],
   "packageRules": [
     {
       "matchPackageNames": [

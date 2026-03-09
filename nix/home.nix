@@ -4,41 +4,26 @@ let
 
   aqua =
     let
+      # renovate: datasource=github-releases depName=aquaproj/aqua
       version = "2.56.5";
-      sources = {
-        x86_64-linux = {
-          url = "https://github.com/aquaproj/aqua/releases/download/v${version}/aqua_linux_amd64.tar.gz";
-          hash = "sha256-nCGl9UdZv/zm/3ukJM6F7RQVkowFyTC+pcA/ghUKtvY=";
-        };
-        aarch64-linux = {
-          url = "https://github.com/aquaproj/aqua/releases/download/v${version}/aqua_linux_arm64.tar.gz";
-          hash = "sha256-aPgDUqvX/Z5vOv09BWKv+6QNOVwwhk9RrcaVX7uWyvE=";
-        };
-        x86_64-darwin = {
-          url = "https://github.com/aquaproj/aqua/releases/download/v${version}/aqua_darwin_amd64.tar.gz";
-          hash = "sha256-wwhgm020OXqRMxU/9v34+7o5HW1i7ir18nt2vwHwqhs=";
-        };
-        aarch64-darwin = {
-          url = "https://github.com/aquaproj/aqua/releases/download/v${version}/aqua_darwin_arm64.tar.gz";
-          hash = "sha256-+yW5py9CvgaXC7czWAMwW4KZ5FT2HtyRJYVqg1yFI58=";
-        };
-      };
-      src = sources.${pkgs.stdenv.hostPlatform.system};
     in
-    pkgs.stdenv.mkDerivation {
+    pkgs.buildGoModule {
       pname = "aqua";
       inherit version;
 
-      src = pkgs.fetchurl {
-        inherit (src) url hash;
+      src = pkgs.fetchFromGitHub {
+        owner = "aquaproj";
+        repo = "aqua";
+        rev = "v${version}";
+        hash = "sha256-mjGzbHV9u90s6Z09ticdt8vvE0symhG8/6Jqj0zVtsQ=";
       };
 
-      sourceRoot = ".";
+      vendorHash = "sha256-dl8vst1gC/Fc0pFmggxjUZH5+/+n/cm4LGNcKBjgE10=";
 
-      installPhase = ''
-        mkdir -p $out/bin
-        cp aqua $out/bin/
-      '';
+      # テスト実行をスキップする。
+      # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。
+      # aqua 本体の品質は upstream CI で担保されているため、ここでのテストは不要。
+      doCheck = false;
     };
 
   opener = pkgs.buildGoModule {
