@@ -36,6 +36,7 @@ config.keys = {
   { key = "s", mods = "SUPER", action = wezterm.action.SendString("\x1b:w\r") },
   { key = "\\", mods = "SUPER", action = wezterm.action.SendString("\x1b:vsplit\r") },
   { key = "r", mods = "SUPER", action = wezterm.action.SendString("\x1b:e!\r") },
+  { key = " ", mods = "SUPER|SHIFT", action = wezterm.action.QuickSelect },
 }
 
 return config

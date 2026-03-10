@@ -32,6 +32,15 @@
         showAppExposeGestureEnabled = true;
         expose-group-apps = true;
       };
+      # Cmd+Shift+Space の入力ソース切り替えを無効化 (WezTerm QuickSelect で使うため)
+      "com.apple.symbolichotkeys" = {
+        AppleSymbolicHotKeys = {
+          # 61 = "Select next source in Input menu"
+          "61" = { enabled = false; };
+          # 64 = "Show Spotlight search"
+          "64" = { enabled = false; };
+        };
+      };
     };
   };
 
