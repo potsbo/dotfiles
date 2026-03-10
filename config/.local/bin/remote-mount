@@ -1,0 +1,231 @@
+#!/usr/bin/env bash
+
+set -eu
+
+MOUNT_BASE="$HOME/var"
+RCLONE_BIN="${RCLONE_BIN:-rclone}"
+SERVICE_PREFIX="com.potsbo.rclone"
+
+# OS detection
+OS="$(uname -s)"
+case "$OS" in
+  Linux)  SERVICE_DIR="$HOME/.config/systemd/user"; SERVICE_EXT=".service" ;;
+  Darwin) SERVICE_DIR="$HOME/Library/LaunchAgents"; SERVICE_EXT=".plist" ;;
+  *)      echo "Unsupported OS: $OS"; exit 1 ;;
+esac
+
+LOG_DIR="$HOME/Library/Logs/remote-mount"
+
+# --- Service helpers ---
+
+_launchd_label() { basename "$1" .plist; }
+
+svc_start() {
+  local service_path="$1"
+  case "$OS" in
+    Linux)
+      systemctl --user enable --now "$(basename "$service_path")" 2>/dev/null || true
+      ;;
+    Darwin)
+      local label uid
+      label=$(_launchd_label "$service_path")
+      uid=$(id -u)
+      launchctl bootout "gui/${uid}/${label}" 2>/dev/null || true
+      launchctl bootstrap "gui/${uid}" "$service_path" 2>/dev/null || true
+      ;;
+  esac
+}
+
+svc_stop() {
+  local service_path="$1"
+  case "$OS" in
+    Linux)
+      systemctl --user stop "$(basename "$service_path")" 2>/dev/null || true
+      ;;
+    Darwin)
+      local label uid
+      label=$(_launchd_label "$service_path")
+      uid=$(id -u)
+      launchctl bootout "gui/${uid}/${label}" 2>/dev/null || true
+      ;;
+  esac
+}
+
+svc_is_active() {
+  local service_path="$1"
+  case "$OS" in
+    Linux)  systemctl --user is-active "$(basename "$service_path")" &>/dev/null ;;
+    Darwin) launchctl list "$(_launchd_label "$service_path")" &>/dev/null ;;
+  esac
+}
+
+svc_reload() {
+  case "$OS" in
+    Linux)  systemctl --user daemon-reload ;;
+    Darwin) : ;;
+  esac
+}
+
+# --- Core ---
+
+service_path_for() {
+  echo "${SERVICE_DIR}/${SERVICE_PREFIX}-${1}${SERVICE_EXT}"
+}
+
+generate_service() {
+  local name="$1" mount_path="$2"
+  local rclone_bin label
+  rclone_bin=$(command -v rclone)
+  label="${SERVICE_PREFIX}-${name}"
+
+  case "$OS" in
+    Linux)
+      local mkdir_bin
+      mkdir_bin=$(command -v mkdir)
+      cat <<EOF
+[Unit]
+Description=Mount ${name} via SFTP
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStartPre=${mkdir_bin} -p "${mount_path}"
+ExecStartPre=-/run/wrappers/bin/fusermount -uz "${mount_path}"
+ExecStart=${rclone_bin} mount ${name}: "${mount_path}" --vfs-cache-mode full --dir-cache-time 15s --vfs-cache-max-age 336h --vfs-cache-max-size 500G
+ExecStop=fusermount -u "${mount_path}"
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=default.target
+EOF
+      ;;
+    Darwin)
+      cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>${label}</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-c</string>
+    <string>mkdir -p "${mount_path}" "${LOG_DIR}" &amp;&amp; exec "${rclone_bin}" nfsmount "${name}:" "${mount_path}" --vfs-cache-mode full --dir-cache-time 15s --vfs-cache-max-age 336h --vfs-cache-max-size 500G</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+  <key>StandardOutPath</key>
+  <string>${LOG_DIR}/${label}.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>${LOG_DIR}/${label}.err.log</string>
+</dict>
+</plist>
+EOF
+      ;;
+  esac
+}
+
+cmd_ensure() {
+  local name="${1:-}"
+  local host="${2:-$name}"
+
+  if [[ -z "$name" ]]; then
+    echo "Usage: remote-mount ensure <name> [host]"
+    echo "Example: remote-mount ensure phoenix"
+    exit 1
+  fi
+
+  local key_file="$HOME/.ssh/id_ed25519"
+  local mount_path="${MOUNT_BASE}/${name}"
+  local service
+  service=$(service_path_for "$name")
+
+  # Ensure rclone remote exists
+  if ! $RCLONE_BIN listremotes | grep -q "^${name}:$"; then
+    echo "Creating rclone remote: $name"
+    $RCLONE_BIN config create "$name" sftp host "$host" key_file "$key_file" --non-interactive >/dev/null
+  fi
+
+  # Ensure service file exists and is up to date
+  local new_service
+  new_service=$(generate_service "$name" "$mount_path")
+  mkdir -p "$SERVICE_DIR"
+
+  if [[ ! -e "$service" ]] || [[ "$(cat "$service")" != "$new_service" ]]; then
+    echo "Updating service: $name"
+    svc_stop "$service"
+    echo "$new_service" >"$service"
+    svc_reload
+  fi
+
+  # Ensure service is running
+  if ! svc_is_active "$service"; then
+    echo "Starting: $name"
+    svc_start "$service"
+  fi
+
+  echo "$name: active  ($mount_path)"
+}
+
+cmd_delete() {
+  local name="${1:-}"
+
+  if [[ -z "$name" ]]; then
+    echo "Usage: remote-mount delete <name>"
+    exit 1
+  fi
+
+  local service
+  service=$(service_path_for "$name")
+
+  svc_stop "$service"
+  rm -f "$service"
+  svc_reload
+
+  $RCLONE_BIN config delete "$name" 2>/dev/null || true
+
+  local mount_path="${MOUNT_BASE}/${name}"
+  case "$OS" in
+    Linux)  fusermount -u "$mount_path" 2>/dev/null || true ;;
+    Darwin) umount "$mount_path" 2>/dev/null || true ;;
+  esac
+  rmdir "$mount_path" 2>/dev/null || true
+
+  echo "Deleted: $name"
+}
+
+cmd_help() {
+  cat <<EOF
+remote-mount - Manage SFTP mounts via rclone
+
+Usage:
+  remote-mount ensure <name> [host]   Ensure mount is configured and running
+  remote-mount delete <name>          Remove mount and configuration
+
+Examples:
+  remote-mount ensure phoenix
+  remote-mount ensure myserver 192.168.1.100
+
+Mount point: ~/var/<name>/
+EOF
+}
+
+case "${1:-help}" in
+ensure)  shift; cmd_ensure "$@" ;;
+delete)  shift; cmd_delete "$@" ;;
+help | --help | -h) cmd_help ;;
+*)
+  echo "Unknown command: $1"
+  echo "Run 'remote-mount help' for usage."
+  exit 1
+  ;;
+esac
