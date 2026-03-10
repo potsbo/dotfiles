@@ -151,6 +151,7 @@ in
     libyaml
     pv
     mosh
+    wezterm
   ] ++ lib.optionals stdenv.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.isDarwin [

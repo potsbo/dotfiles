@@ -17,7 +17,7 @@ config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = true
 
 -- Hide title bar (macos-titlebar-style = hidden)
-config.window_decorations = "NONE"
+config.window_decorations = "RESIZE"
 
 -- Hide tab bar
 config.enable_tab_bar = false
