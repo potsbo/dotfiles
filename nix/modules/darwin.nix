@@ -85,6 +85,7 @@
       "chatgpt"
       "claude"
       "pgadmin4"
+      "wezterm"
     ];
   };
 
