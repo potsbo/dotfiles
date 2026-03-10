@@ -31,23 +31,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Schniz/fnm/v1.38.1/fnm-arm64.zip",
-      "checksum": "69FEDA9455931C26C84BE9F95F5E6F69E8B64686E68069FAB7CFC34756CD2944",
+      "id": "github_release/github.com/Schniz/fnm/v1.39.0/fnm-arm64.zip",
+      "checksum": "4EAFF58B2C5BF30D0934027572DD0B5BBB60D2A1AF309230B53662D4B1D45599",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Schniz/fnm/v1.38.1/fnm-linux.zip",
-      "checksum": "B69E5C9A05C1E17E4A7DE9A17DF14BA430D049F2591AF791A6F850A170296069",
+      "id": "github_release/github.com/Schniz/fnm/v1.39.0/fnm-linux.zip",
+      "checksum": "7807664F39D39FC518DA1C35BA0181E4B3267603C4B1DEDEB4B5FC6AE440A224",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Schniz/fnm/v1.38.1/fnm-macos.zip",
-      "checksum": "80DEB3DB3DB45598F25AEA594C10936A7658F70826104FE37E33B4072A5E11F9",
+      "id": "github_release/github.com/Schniz/fnm/v1.39.0/fnm-macos.zip",
+      "checksum": "F046483E85C53B3278EFE49A3620C8680F22EFA58A8DABFD03EAFC6B59B31A25",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Schniz/fnm/v1.38.1/fnm-windows.zip",
-      "checksum": "377796E8F2F51EB8B5DE8983974CAA8922B83C167197B68B33962775703AD4A0",
+      "id": "github_release/github.com/Schniz/fnm/v1.39.0/fnm-windows.zip",
+      "checksum": "8183BED4348CB78FDFD8ABB3D1247FBEAB7B2082F941363929C61E747C001E10",
       "algorithm": "sha256"
     },
     {
@@ -406,33 +406,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.423/copilot-darwin-arm64.tar.gz",
-      "checksum": "82BA8214606385A01DD40F386AA50DE9223B9E427E866E6E275F31067B444035",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.3/copilot-darwin-arm64.tar.gz",
+      "checksum": "4581EE264D072965F12EBFF5FDC3540A43C53FA60BCE509BE1A7795373BB84F6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.423/copilot-darwin-x64.tar.gz",
-      "checksum": "FC5F21BDA9EC8E0E48D056E6915A540A9DAC5D195A41AE6899CF7C76FCE82CCF",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.3/copilot-darwin-x64.tar.gz",
+      "checksum": "29AE97FBFD7017252E2CF1318EB95CB17A2EFABC58C8AD54CCF98E29C844ADE0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.423/copilot-linux-arm64.tar.gz",
-      "checksum": "C94F2105CAA1606C2187B4F232D89ACE02B7D923AC5CC0DD958D62413626C8F8",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.3/copilot-linux-arm64.tar.gz",
+      "checksum": "2EB1851B501FDACF0E7CF0672C9A96EC704B754C31BC55983A033EEAACEB4AFF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.423/copilot-linux-x64.tar.gz",
-      "checksum": "415F879E7911A8E54A025F784C038596D0E16B3C0C75EC96132FE7FB2E9785A7",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.3/copilot-linux-x64.tar.gz",
+      "checksum": "CF0E569594FDA7D476C654E38A34BC95771349E7B6D7905D592BB4DB24DA7440",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.423/copilot-win32-arm64.zip",
-      "checksum": "46D380835732A760DC93CA00E9FF2C92B25F429F8D48CD29BCF01EA773CBBC6D",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.3/copilot-win32-arm64.zip",
+      "checksum": "D67453D9D006959CE905B50BC7295F43600BBA48EDE767AB281084497D8CD9E3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v0.0.423/copilot-win32-x64.zip",
-      "checksum": "AE395FDB740E91B1949DF7F12D5CA29CB6EE8821802A358B14E65BDA7A213CDD",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.3/copilot-win32-x64.zip",
+      "checksum": "0D9E05685CD14851396F2B16E121114698A07459F840346896F38CE6BC58862B",
       "algorithm": "sha256"
     },
     {
@@ -511,33 +511,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_darwin_arm64.tar.gz",
-      "checksum": "CDD42E86B16B3BC21EC5CBE4BE92D688E39F3806B53B63C54D1AF4F498302ED8",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.60.0/lazygit_0.60.0_darwin_arm64.tar.gz",
+      "checksum": "5045F0FF2117F12CB5232D65E01C054EB9EA6B8E2F0F0B80E99FBAA589B581B9",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_darwin_x86_64.tar.gz",
-      "checksum": "365DB34A92D017F7E77FE03AA461A921C6A31832FA9D427A7B06C86732821F55",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.60.0/lazygit_0.60.0_darwin_x86_64.tar.gz",
+      "checksum": "9210A8BD8BF18537F9D7747361C8EBA62518E10E4D5FBFE915CF110635EAAB78",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_linux_arm64.tar.gz",
-      "checksum": "A334A6C125169F21942F1A8B02043932575547A6250A1A734D62111EFD92AA8F",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.60.0/lazygit_0.60.0_linux_arm64.tar.gz",
+      "checksum": "2C699579165416EEDE4D2CFAF7D76CCD8F3B20F20F2E8B4ABFF6B5A6350FCDD7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_linux_x86_64.tar.gz",
-      "checksum": "264283F40A40C899D702A338B20622F690221F753F03BAC827C1F34E91F516C2",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.60.0/lazygit_0.60.0_linux_x86_64.tar.gz",
+      "checksum": "6252CA6CF98BC4FD3E0D927B54225910CFA57B065D0AD88263F14592F7F9AB15",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_windows_arm64.zip",
-      "checksum": "67C9250EEA6B2CD26BC87063E7C477969BA4D7AB75FCD838D2C5AD3C3A865156",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.60.0/lazygit_0.60.0_windows_arm64.zip",
+      "checksum": "9B3439E8FB838C1DCCDCB2AA064CEF704F6D7E139CB53C9593A4804397D5097F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.59.0/lazygit_0.59.0_windows_x86_64.zip",
-      "checksum": "3F2C43D4596498CA4E1C31C0430E4A2E015624D82EA25BB306C8695E6613D912",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.60.0/lazygit_0.60.0_windows_x86_64.zip",
+      "checksum": "435B53165FF4604E201549B9317EB0B8BB5B3F6728BE612656988E90C821A9B9",
       "algorithm": "sha256"
     },
     {
@@ -1121,18 +1121,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.34.4.pkg",
-      "checksum": "66CABD1DF6004A989EB0EA39617D1ABD8D05F455FE36F75E5A832C45075D6F7F",
+      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.34.5.pkg",
+      "checksum": "6970153AA761CF8CE0EA1BFC987DF895C5FADA25C53F55B490671F053A9E8E67",
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.34.4.zip",
-      "checksum": "94F85EE86CB96EBEBE3F273700030D89FF795B2029D4E4362BB660149F3DF94B",
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.34.5.zip",
+      "checksum": "D5BF7B15903D3E27FECA4DAB8AE5EBF5F16731AFD77807E6BF50D63D9CB355B9",
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.34.4.zip",
-      "checksum": "2CFB998077A2A03D6EB6480F47F67C8386929B5AB7E0718581BA1E92305F9BA5",
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.34.5.zip",
+      "checksum": "3C4FBDE5E60160C07CB7B9E76418B7F60B2C096F78610B723165AA494D386267",
       "algorithm": "sha256"
     },
     {
@@ -1241,8 +1241,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.476.0/registry.yaml",
-      "checksum": "76F939441EF9C2B56F8ABC96BB1A93546C0A343E90507278DA61B3194799682970BB03A4E41E0DE2F05F2C9E080CADB64259A0B8FC978CB50E3139F412D6CE09",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.480.0/registry.yaml",
+      "checksum": "C6BF704BB5915800583FE9D1A54E256449ADBEF223174AAA5F2FFC20F1CD8DF63D8CFFB34C0CD476EB959FD8523E0D8431CF4667998ACCF6B05C3BD3BA35093E",
       "algorithm": "sha512"
     }
   ]
