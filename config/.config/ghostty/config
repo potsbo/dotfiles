@@ -3,7 +3,8 @@ theme = Monokai Remastered
 font-family = JetBrains Mono
 font-style = Medium
 font-family = Symbols Nerd Font Mono
-font-family = BIZ UDGothic # フォールバックで日本語フォントを当てる. @see https://zenn.dev/lonsagisawa/articles/ghostty-japanese-settings
+font-codepoint-map = U+3000-U+9FFF=BIZ UDGothic
+font-codepoint-map = U+FF00-U+FFEF=BIZ UDGothic
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
