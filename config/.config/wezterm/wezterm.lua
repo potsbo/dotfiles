@@ -30,6 +30,11 @@ config.window_padding = {
   bottom = 0,
 }
 
+-- Skip close confirmation when tmux is the foreground process
+config.skip_close_confirmation_for_processes_named = {
+  "bash", "sh", "zsh", "fish", "tmux", "tuicast", "tsuimux",
+}
+
 -- Keybindings (neovim integration)
 config.keys = {
   { key = "p", mods = "SUPER", action = wezterm.action.SendString("\x1b:CommandP\r") },
@@ -37,6 +42,9 @@ config.keys = {
   { key = "\\", mods = "SUPER", action = wezterm.action.SendString("\x1b:vsplit\r") },
   { key = "r", mods = "SUPER", action = wezterm.action.SendString("\x1b:e!\r") },
   { key = " ", mods = "SUPER|SHIFT", action = wezterm.action.QuickSelect },
+  -- Linux: xremap が Super-n/q → Ctrl+Shift+n/q に変換して送ってくる
+  { key = "n", mods = "CTRL|SHIFT", action = wezterm.action.SpawnWindow },
+  { key = "q", mods = "CTRL|SHIFT", action = wezterm.action.QuitApplication },
 }
 
 return config

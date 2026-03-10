@@ -88,7 +88,6 @@
       "notion-calendar"
       "font-monaspice-nerd-font"
       "tailscale-app"
-      "ghostty"
       "cursor"
       "zotero"
       "chatgpt"

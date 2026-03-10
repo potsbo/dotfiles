@@ -268,7 +268,7 @@ in
 
   environment.systemPackages = with pkgs; [
     git
-    ghostty
+    wezterm
     browser.package
 
     xremap-gnome-extension
