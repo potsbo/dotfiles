@@ -16,6 +16,12 @@ config.font = wezterm.font_with_fallback({
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = true
 
+-- IME (Linux only; macOS handles IME natively)
+if wezterm.target_triple:find("linux") then
+  config.use_ime = true
+  config.xim_im_name = "fcitx"
+end
+
 -- Hide title bar
 -- macOS: "RESIZE" hides title bar but keeps resize ability
 -- Linux: "NONE" removes WM title bar to avoid bottom row clipping
