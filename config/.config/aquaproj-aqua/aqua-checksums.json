@@ -1136,6 +1136,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "http/cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_darwin_amd64_v2.32.1.zip",
+      "checksum": "6469797129D9E70129AAC1828893A53EF535BE3C7D4BD1E235498B8D78D6A4EB",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_darwin_arm64_v2.32.1.zip",
+      "checksum": "FCF1038DA5D1030C87E3382553A875638F17E19204874BED0034382CE2DFD4B8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_linux_amd64_v2.32.1.zip",
+      "checksum": "64A49DB2D1B0333F3BEE88546E3E84995E530E25F2C783FB5D4081D01A05B2A1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_linux_arm64_v2.32.1.zip",
+      "checksum": "CF6D114B12079BA5AC4F3EA6C69D331C06565C361AEAE77F8C20868BD94C9885",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/cache.agilebits.com/dist/1P/op2/pkg/v2.32.1/op_windows_amd64_v2.32.1.zip",
+      "checksum": "AA7A9DFDCE26C32469449DADB73325A3E9BF1F1CBEE9BB743298ED2E4033C340",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/dev.yorhel.nl/download/ncdu-2.9.1-linux-aarch64.tar.gz",
       "checksum": "5BF4A37E8B5E1ECC6863475DC800C6A0D73B9CD1452E37D744EDD3DF0B58DAC0",
       "algorithm": "sha256"
