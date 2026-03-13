@@ -16,8 +16,19 @@ config.font = wezterm.font_with_fallback({
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = true
 
--- Hide title bar (macos-titlebar-style = hidden)
-config.window_decorations = "RESIZE"
+-- IME (Linux only; macOS handles IME natively)
+if wezterm.target_triple:find("linux") then
+  config.use_ime = true
+  config.xim_im_name = "fcitx"
+end
+
+-- Hide title bar
+-- macOS: "RESIZE" hides title bar but keeps resize ability
+-- Linux: "NONE" removes WM title bar to avoid bottom row clipping
+config.window_decorations = wezterm.target_triple:find("linux") and "NONE" or "RESIZE"
+
+-- Snap window size to cell boundaries so the bottom row isn't clipped
+config.use_resize_increments = true
 
 -- Hide tab bar
 config.enable_tab_bar = false
@@ -42,7 +53,10 @@ config.keys = {
   { key = "\\", mods = "SUPER", action = wezterm.action.SendString("\x1b:vsplit\r") },
   { key = "r", mods = "SUPER", action = wezterm.action.SendString("\x1b:e!\r") },
   { key = " ", mods = "SUPER|SHIFT", action = wezterm.action.QuickSelect },
-  -- Linux: xremap が Super-n/q → Ctrl+Shift+n/q に変換して送ってくる
+  -- Linux: xremap terminal rule が Super+key → Ctrl+Shift+key に変換して送ってくる
+  { key = "v", mods = "CTRL|SHIFT", action = wezterm.action.PasteFrom("Clipboard") },
+  { key = "c", mods = "CTRL|SHIFT", action = wezterm.action.CopyTo("Clipboard") },
+  { key = "w", mods = "CTRL|SHIFT", action = wezterm.action.CloseCurrentTab({ confirm = false }) },
   { key = "n", mods = "CTRL|SHIFT", action = wezterm.action.SpawnWindow },
   { key = "q", mods = "CTRL|SHIFT", action = wezterm.action.QuitApplication },
 }

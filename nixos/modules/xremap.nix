@@ -170,8 +170,11 @@ in
             only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "com.github.wez.wezterm" "org.wezfurlong.wezterm" "wezterm" ];
           };
           remap = {
-            Super-n = "C-Shift-n";   # Ghostty: new_window
-            Super-q = "C-Shift-q";   # Ghostty: quit
+            Super-n = "C-Shift-n";   # new_window
+            Super-q = "C-Shift-q";   # quit
+            Super-w = "C-Shift-w";   # close tab/window
+            Super-v = "C-Shift-v";   # paste
+            Super-c = "C-Shift-c";   # copy
             # Emacs Ctrl bindings の `not` フィルタが空文字 WMClass のため機能しないので、
             # `only` フィルタで先にマッチさせて Ctrl キーをそのまま通す (identity mapping)
             C-a = "C-a";
