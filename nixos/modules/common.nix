@@ -324,7 +324,7 @@ in
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "server";
-    extraUpFlags = [ "--advertise-exit-node" ];
+    extraUpFlags = [];
   };
 
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
