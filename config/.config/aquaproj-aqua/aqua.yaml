@@ -28,7 +28,7 @@ packages:
   - name: git-lfs/git-lfs@v3.7.1
   - name: nodejs/node@v23.11.1
   - name: XAMPPRocky/tokei@v14.0.0
-  - name: sharkdp/fd@v10.3.0
+  - name: sharkdp/fd@v10.4.2
   - name: jesseduffield/lazygit@v0.60.0
   - name: go-task/task@v3.49.1
   - name: aws/aws-cli@2.34.9
