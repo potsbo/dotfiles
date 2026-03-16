@@ -19,6 +19,8 @@
       InitialKeyRepeat = 15;
     };
 
+    menuExtraClock.ShowSeconds = true;
+
     trackpad.Clicking = true;
 
     CustomUserPreferences = {
