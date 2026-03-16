@@ -12,6 +12,7 @@
   # System Settings > Displays > More Space
   system.defaults = {
     dock.autohide = true;
+    finder.AppleShowAllFiles = true;
 
     NSGlobalDomain = {
       KeyRepeat = 1;
