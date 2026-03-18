@@ -2,21 +2,7 @@
 
 Personal dotfiles managed across multiple platforms (NixOS, Ubuntu, macOS).
 
-## Package Management Strategy
-
-1. **aqua** (preferred)
-   - Renovate integration for automated updates
-   - Lazy installation
-   - Works in GitHub Codespaces and similar environments
-   - See `config/aqua.yaml` for managed packages
-
-2. **nix / home-manager** (fallback)
-   - For packages not available in aqua
-   - System-level configuration
-   - Platform-specific settings
-
-3. **Homebrew / apt** (legacy, migrating away)
-   - Gradually moving to aqua or nix
+Package management strategy is documented in `CLAUDE.md`.
 
 ## Setup
 

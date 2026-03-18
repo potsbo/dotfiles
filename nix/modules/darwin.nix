@@ -53,7 +53,8 @@
       # zap: 宣言から外したアプリを削除する際に設定ファイルも一緒に削除
       # uninstall: アプリのみ削除、設定は残る
       cleanup = "zap";
-      autoUpdate = true;
+      # false: `brew update` は手動で実行し、意図したタイミングでのみバージョンを上げる
+      autoUpdate = false;
       upgrade = true;
     };
     taps = [
@@ -73,6 +74,7 @@
       "Microsoft PowerPoint" = 462062816;
       "Microsoft Word" = 462054704;
       "Slack" = 803453959;
+      "Todoist" = 585829637;
     };
     casks = [
       "nikitabobko/tap/aerospace"
@@ -96,7 +98,6 @@
       "chatgpt"
       "claude"
       "pgadmin4"
-      "todoist"
     ];
   };
 
