@@ -30,6 +30,10 @@ config.window_decorations = wezterm.target_triple:find("linux") and "NONE" or "R
 -- Snap window size to cell boundaries so the bottom row isn't clipped
 config.use_resize_increments = true
 
+-- 一部の Nerd Font アイコンがセル幅に合わせて縮小され、選択時だけ正しいサイズに戻る問題の対策。
+-- "Always" にすると縮小を抑止し、常に本来のサイズで描画される。
+config.allow_square_glyphs_to_overflow_width = "Always"
+
 -- Hide tab bar
 config.enable_tab_bar = false
 
