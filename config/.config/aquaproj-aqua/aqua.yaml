@@ -8,10 +8,10 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.485.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.486.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: denoland/deno@v2.7.5
-  - name: twistedpair/google-cloud-sdk@560.0.0
+  - name: twistedpair/google-cloud-sdk@561.0.0
   - name: junegunn/fzf@v0.70.0
   - name: BurntSushi/ripgrep@15.1.0
   - name: x-motemen/ghq@v1.9.4
@@ -23,7 +23,7 @@ packages:
   - name: YS-L/csvlens@v0.15.1
   - name: golang/go@go1.26.1
   - name: cli/cli@v2.88.1
-  - name: Wilfred/difftastic@0.67.0
+  - name: Wilfred/difftastic@0.68.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.7.1
   - name: nodejs/node@v23.11.1
@@ -31,7 +31,7 @@ packages:
   - name: sharkdp/fd@v10.4.2
   - name: jesseduffield/lazygit@v0.60.0
   - name: go-task/task@v3.49.1
-  - name: aws/aws-cli@2.34.9
+  - name: aws/aws-cli@2.34.11
   - name: astral-sh/uv@0.9.3
   - name: starship/starship@v1.24.2
   - name: zellij-org/zellij@v0.43.1
@@ -44,7 +44,7 @@ packages:
   - name: junegunn/fzf/fzf-tmux@v0.70.0
   - name: sxyazi/yazi@v26.1.22
   - name: github/copilot-cli@v1.0.5
-  - name: anthropics/claude-code@v2.1.71
+  - name: anthropics/claude-code@v2.1.78
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.6.2
