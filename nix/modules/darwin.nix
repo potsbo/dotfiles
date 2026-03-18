@@ -96,6 +96,7 @@
       "chatgpt"
       "claude"
       "pgadmin4"
+      "todoist"
     ];
   };
 
