@@ -69,6 +69,21 @@ let
     vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
   };
 
+  todoist-cli = pkgs.buildNpmPackage {
+    pname = "todoist-cli";
+    # renovate: datasource=github-releases depName=Doist/todoist-cli
+    version = "1.26.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "Doist";
+      repo = "todoist-cli";
+      rev = "v1.26.0";
+      hash = "sha256-JIuvQjj7d99cVv1JUB3QweWDwlvMRO/tLa55Yvaav5Q=";
+    };
+
+    npmDepsHash = "sha256-6aSUy6YUtgTN5E64cVRJXFqzJcVZzsoIJArp1s5/cRs=";
+  };
+
   tsuimux = pkgs.buildGoModule {
     pname = "tsuimux";
     version = "0-unstable-2025-03-06";
@@ -123,6 +138,7 @@ in
     tiri
     tuicast
     tsuimux
+    todoist-cli
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
