@@ -5,5 +5,5 @@
     ../../modules/laptop.nix
   ];
 
-  networking.hostName = "blizzard";
+  networking.hostName = "staten-nix";
 }
