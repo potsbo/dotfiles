@@ -15,10 +15,10 @@ let
         owner = "aquaproj";
         repo = "aqua";
         rev = "v${version}";
-        hash = "sha256-dKbiHQOjAuChDursRUxNrq3hW/aGDn8ZqgvKaU4SLpU=";
+        hash = "sha256-tnMOUHICpQ030XTVgVXtlWFi8BLeALhi+dGrKpWRMU0=";
       };
 
-      vendorHash = "sha256-6WTKhqsmA5/kiIRMXbKxKDVcFI/6tdKvHO+rgF+na0w=";
+      vendorHash = "sha256-kN7FxyVy2QFLkC/fiYGIuf3/6PrUoC2CMY5sQMuBLPE=";
 
       # テスト実行をスキップする。
       # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。
