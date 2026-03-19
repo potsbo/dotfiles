@@ -15,10 +15,10 @@ let
         owner = "aquaproj";
         repo = "aqua";
         rev = "v${version}";
-        hash = "sha256-dKbiHQOjAuChDursRUxNrq3hW/aGDn8ZqgvKaU4SLpU=";
+        hash = "sha256-tnMOUHICpQ030XTVgVXtlWFi8BLeALhi+dGrKpWRMU0=";
       };
 
-      vendorHash = "sha256-6WTKhqsmA5/kiIRMXbKxKDVcFI/6tdKvHO+rgF+na0w=";
+      vendorHash = "sha256-kN7FxyVy2QFLkC/fiYGIuf3/6PrUoC2CMY5sQMuBLPE=";
 
       # テスト実行をスキップする。
       # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。
@@ -67,6 +67,21 @@ let
     };
 
     vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
+  };
+
+  todoist-cli = pkgs.buildNpmPackage {
+    pname = "todoist-cli";
+    # renovate: datasource=github-releases depName=Doist/todoist-cli
+    version = "1.26.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "Doist";
+      repo = "todoist-cli";
+      rev = "v1.26.0";
+      hash = "sha256-JIuvQjj7d99cVv1JUB3QweWDwlvMRO/tLa55Yvaav5Q=";
+    };
+
+    npmDepsHash = "sha256-6aSUy6YUtgTN5E64cVRJXFqzJcVZzsoIJArp1s5/cRs=";
   };
 
   tsuimux = pkgs.buildGoModule {
@@ -123,6 +138,7 @@ in
     tiri
     tuicast
     tsuimux
+    todoist-cli
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。

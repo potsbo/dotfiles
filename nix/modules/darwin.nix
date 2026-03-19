@@ -101,5 +101,17 @@
     ];
   };
 
+  # GitHub の公開鍵で SSH できるようにする (NixOS の common.nix と同等)
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      PubkeyAuthentication yes
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      AuthorizedKeysCommand /usr/bin/curl -fsSL https://github.com/%u.keys
+      AuthorizedKeysCommandUser nobody
+    '';
+  };
+
   system.stateVersion = 5;
 }
