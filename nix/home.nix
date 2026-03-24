@@ -5,7 +5,7 @@ let
   aqua =
     let
       # renovate: datasource=github-releases depName=aquaproj/aqua
-      version = "2.57.0";
+      version = "2.57.1";
     in
     pkgs.buildGoModule.override { go = pkgs.go_1_26; } {
       pname = "aqua";
@@ -72,7 +72,7 @@ let
   todoist-cli = pkgs.buildNpmPackage {
     pname = "todoist-cli";
     # renovate: datasource=github-releases depName=Doist/todoist-cli
-    version = "1.27.0";
+    version = "1.28.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "Doist";
