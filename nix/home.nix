@@ -105,6 +105,10 @@ in
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   programs.starship.enable = true;
+  # eza は aqua でも管理できるが、zsh completion を自動で fpath に配置するために home-manager を使う。
+  # aqua は completion ファイルを展開せず、eza 自体にも `eza completion zsh` のような生成コマンドがないため。
+  programs.eza.enable = true;
+  programs.eza.enableZshIntegration = false; # エイリアスは不要、completion だけ欲しい
 
   # home-manager 内部で builtins.toFile が store path を参照する際の警告を回避
   # 原因は home-manager が nixpkgs の meta.nix を参照する実装にあり、このコードベースでは修正不可
