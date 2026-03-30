@@ -651,28 +651,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_darwin_amd64.zip",
-      "checksum": "D2D387C5DBAFD46D90DE7A6906D1EE3DF3ACFA83C8C9C7A945DB63D4E6E0F044",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.0/git-wt_v0.26.0_darwin_amd64.zip",
+      "checksum": "ECC17EB1E0ABA5AA83A7225A20CD36119A402BD7FF9292ADD2F76B0365482B37",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_darwin_arm64.zip",
-      "checksum": "5C7FA79FE9C52A2617DE86F8F2D5B8EB43056C4C7BCD9341F5B44D90A70C7CA4",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.0/git-wt_v0.26.0_darwin_arm64.zip",
+      "checksum": "5E39F3DF1357D92A7C1B1E9FBB10B852A7249649F7FA8622E328F76EAD851A6A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_linux_amd64.tar.gz",
-      "checksum": "3D2740C22F7B0DDD469425D3656166C169BD5338688A05572E29D1399E1A945A",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.0/git-wt_v0.26.0_linux_amd64.tar.gz",
+      "checksum": "3184AE1B79B5EEC6F842DC3AAA6055C8442C6ACB777DE49F2B47BD7D9678CFCA",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_linux_arm64.tar.gz",
-      "checksum": "7CAC03D1123C943833388CFD104EED2FA36CC76AE0AFCA7442480D3F827176CC",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.0/git-wt_v0.26.0_linux_arm64.tar.gz",
+      "checksum": "0757EDC483EA37B86F3763DA9B420476BF4F888E99D846312A0F2A9FEC75B508",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.25.0/git-wt_v0.25.0_windows_amd64.tar.gz",
-      "checksum": "57D283A4EF580BB2F03AA1616BA04B8FE9E3F7CB8C1CCC59DE3CEB94805EFC8A",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.0/git-wt_v0.26.0_windows_amd64.tar.gz",
+      "checksum": "190BDB4DDF42C8C9455ADC6A7A429FC39138FE745DF23606469FA79F3B04AA70",
       "algorithm": "sha256"
     },
     {
