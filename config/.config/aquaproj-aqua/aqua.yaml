@@ -36,7 +36,7 @@ packages:
   - name: starship/starship@v1.24.2
   - name: zellij-org/zellij@v0.44.0
   - name: johnkerl/miller@v6.17.0
-  - name: tldr-pages/tlrc@v1.12.0
+  - name: tldr-pages/tlrc@v1.13.0
   - name: k1LoW/git-wt@v0.26.1
   - name: k1LoW/roots@v0.4.1
   - name: joshmedeski/sesh@v2.24.2
