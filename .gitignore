@@ -39,3 +39,4 @@ config/.config/user-dirs.locale
 /config/.config/goa*
 /config/.config/freerdp
 /config/.config/autostart
+/config/.config/todoist-cli

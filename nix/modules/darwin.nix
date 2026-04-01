@@ -75,6 +75,7 @@
       "Microsoft Word" = 462054704;
       "Slack" = 803453959;
       "Todoist" = 585829637;
+      "Windows App" = 1295203466;
     };
     casks = [
       "nikitabobko/tap/aerospace"
