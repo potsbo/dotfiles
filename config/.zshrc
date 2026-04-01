@@ -74,7 +74,7 @@ thm_main=yellow
 "raptorlake")
 thm_main=white
 ;;
-"staten.local")
+"avalanche.local")
 thm_main=blue
 ;;
 *)
@@ -134,3 +134,7 @@ _aqua_install() {
   aqua install --all --only-link &>/dev/null &!
 }
 precmd_functions+=(_aqua_install)
+
+rdp() {
+  xfreerdp /v:"$1" /u:Administrator /p:"$(op read "op://Engineering/$1/password")" /f /bpp:32 /gfx:RFX /network:lan
+}

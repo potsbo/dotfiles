@@ -190,7 +190,7 @@ in
     uid = 1000;
     isNormalUser = true;
     description = "Shimpei Otsubo";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "onepassword-cli" ];
     shell = pkgs.zsh;
     packages = with pkgs; [];
   };
@@ -264,11 +264,15 @@ in
     krb5.lib
   ];
   programs.mosh.enable = true;
-  programs._1password-gui.enable = true;
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "potsbo" ];
+  };
 
   environment.systemPackages = with pkgs; [
     git
-    ghostty
+    wezterm
     browser.package
 
     xremap-gnome-extension
@@ -324,7 +328,7 @@ in
   services.tailscale = {
     enable = true;
     useRoutingFeatures = "server";
-    extraUpFlags = [ "--advertise-exit-node" ];
+    extraUpFlags = [];
   };
 
   networking.firewall.trustedInterfaces = [ "tailscale0" ];

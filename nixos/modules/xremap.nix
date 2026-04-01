@@ -167,11 +167,14 @@ in
         {
           name = "Terminal Cmd shortcuts";
           application = {
-            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
+            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "com.github.wez.wezterm" "org.wezfurlong.wezterm" "wezterm" ];
           };
           remap = {
-            Super-n = "C-Shift-n";   # Ghostty: new_window
-            Super-q = "C-Shift-q";   # Ghostty: quit
+            Super-n = "C-Shift-n";   # new_window
+            Super-q = "C-Shift-q";   # quit
+            Super-w = "C-Shift-w";   # close tab/window
+            Super-v = "C-Shift-v";   # paste
+            Super-c = "C-Shift-c";   # copy
             # Emacs Ctrl bindings の `not` フィルタが空文字 WMClass のため機能しないので、
             # `only` フィルタで先にマッチさせて Ctrl キーをそのまま通す (identity mapping)
             C-a = "C-a";
@@ -184,6 +187,17 @@ in
             C-h = "C-h";
             C-k = "C-k";
             C-m = "C-m";
+          };
+        }
+
+        # === Chrome 用 Cmd-Q (Ctrl+Shift+W で全タブ・全ウィンドウを閉じる) ===
+        {
+          name = "Chrome Cmd-Q quit";
+          application = {
+            only = [ "google-chrome" "Google-chrome" "chromium-browser" "Chromium-browser" ];
+          };
+          remap = {
+            Super-q = "C-Shift-w";
           };
         }
 
@@ -209,6 +223,7 @@ in
             Super-k = "C-k";
             Super-n = "C-n";
             Super-q = "C-q";
+            Super-Enter = "C-Enter";
             # macOS 風 Tab 切り替え
             # Cmd+Tab → GNOME が <Super>Tab を switch-applications として処理するため変換不要
             # Option+Tab → 同一アプリのウィンドウ切り替え (GNOME の Alt+`)
@@ -243,7 +258,7 @@ in
         {
           name = "Emacs Ctrl bindings (non-terminal)";
           application = {
-            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ] ++ rdpApps;
+            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "com.github.wez.wezterm" "org.wezfurlong.wezterm" "wezterm" ] ++ rdpApps;
           };
           remap = {
             C-a = "Home";
@@ -252,6 +267,7 @@ in
             C-b = "Left";
             C-d = "Delete";
             C-h = "BackSpace";
+            C-k = ["Shift-End" "Delete"];
             C-m = "Enter";
             C-n = "Down";
             C-p = "Up";

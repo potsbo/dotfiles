@@ -5,9 +5,9 @@ let
   aqua =
     let
       # renovate: datasource=github-releases depName=aquaproj/aqua
-      version = "2.56.7";
+      version = "2.57.1";
     in
-    pkgs.buildGoModule {
+    pkgs.buildGoModule.override { go = pkgs.go_1_26; } {
       pname = "aqua";
       inherit version;
 
@@ -15,10 +15,10 @@ let
         owner = "aquaproj";
         repo = "aqua";
         rev = "v${version}";
-        hash = "sha256-mjGzbHV9u90s6Z09ticdt8vvE0symhG8/6Jqj0zVtsQ=";
+        hash = "sha256-ZxSRUVhDDW8+GGqLV7gia/zH1wa9e1iU3vG3RCV7cmI=";
       };
 
-      vendorHash = "sha256-dl8vst1gC/Fc0pFmggxjUZH5+/+n/cm4LGNcKBjgE10=";
+      vendorHash = "sha256-kN7FxyVy2QFLkC/fiYGIuf3/6PrUoC2CMY5sQMuBLPE=";
 
       # テスト実行をスキップする。
       # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。
@@ -69,6 +69,21 @@ let
     vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
   };
 
+  todoist-cli = pkgs.buildNpmPackage {
+    pname = "todoist-cli";
+    # renovate: datasource=github-releases depName=Doist/todoist-cli
+    version = "1.35.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "Doist";
+      repo = "todoist-cli";
+      rev = "v1.26.0";
+      hash = "sha256-JIuvQjj7d99cVv1JUB3QweWDwlvMRO/tLa55Yvaav5Q=";
+    };
+
+    npmDepsHash = "sha256-6aSUy6YUtgTN5E64cVRJXFqzJcVZzsoIJArp1s5/cRs=";
+  };
+
   tsuimux = pkgs.buildGoModule {
     pname = "tsuimux";
     version = "0-unstable-2025-03-06";
@@ -90,6 +105,10 @@ in
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   programs.starship.enable = true;
+  # eza は aqua でも管理できるが、zsh completion を自動で fpath に配置するために home-manager を使う。
+  # aqua は completion ファイルを展開せず、eza 自体にも `eza completion zsh` のような生成コマンドがないため。
+  programs.eza.enable = true;
+  programs.eza.enableZshIntegration = false; # エイリアスは不要、completion だけ欲しい
 
   # home-manager 内部で builtins.toFile が store path を参照する際の警告を回避
   # 原因は home-manager が nixpkgs の meta.nix を参照する実装にあり、このコードベースでは修正不可
@@ -123,6 +142,7 @@ in
     tiri
     tuicast
     tsuimux
+    todoist-cli
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
@@ -151,6 +171,7 @@ in
     libyaml
     pv
     mosh
+    wezterm
   ] ++ lib.optionals stdenv.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.isDarwin [

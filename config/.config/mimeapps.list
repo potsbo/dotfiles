@@ -6,3 +6,4 @@ x-scheme-handler/https=chromium-browser.desktop
 x-scheme-handler/about=chromium-browser.desktop
 x-scheme-handler/unknown=chromium-browser.desktop
 x-scheme-handler/notion=notion-app-enhanced.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop

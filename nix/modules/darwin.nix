@@ -12,11 +12,14 @@
   # System Settings > Displays > More Space
   system.defaults = {
     dock.autohide = true;
+    finder.AppleShowAllFiles = true;
 
     NSGlobalDomain = {
       KeyRepeat = 1;
       InitialKeyRepeat = 15;
     };
+
+    menuExtraClock.ShowSeconds = true;
 
     trackpad.Clicking = true;
 
@@ -32,6 +35,15 @@
         showAppExposeGestureEnabled = true;
         expose-group-apps = true;
       };
+      # Cmd+Shift+Space の入力ソース切り替えを無効化 (WezTerm QuickSelect で使うため)
+      "com.apple.symbolichotkeys" = {
+        AppleSymbolicHotKeys = {
+          # 61 = "Select next source in Input menu"
+          "61" = { enabled = false; };
+          # 64 = "Show Spotlight search"
+          "64" = { enabled = false; };
+        };
+      };
     };
   };
 
@@ -41,7 +53,8 @@
       # zap: 宣言から外したアプリを削除する際に設定ファイルも一緒に削除
       # uninstall: アプリのみ削除、設定は残る
       cleanup = "zap";
-      autoUpdate = true;
+      # false: `brew update` は手動で実行し、意図したタイミングでのみバージョンを上げる
+      autoUpdate = false;
       upgrade = true;
     };
     taps = [
@@ -61,6 +74,7 @@
       "Microsoft PowerPoint" = 462062816;
       "Microsoft Word" = 462054704;
       "Slack" = 803453959;
+      "Todoist" = 585829637;
     };
     casks = [
       "nikitabobko/tap/aerospace"
@@ -79,13 +93,24 @@
       "notion-calendar"
       "font-monaspice-nerd-font"
       "tailscale-app"
-      "ghostty"
       "cursor"
       "zotero"
       "chatgpt"
       "claude"
       "pgadmin4"
     ];
+  };
+
+  # GitHub の公開鍵で SSH できるようにする (NixOS の common.nix と同等)
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      PubkeyAuthentication yes
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      AuthorizedKeysCommand /usr/bin/curl -fsSL https://github.com/%u.keys
+      AuthorizedKeysCommandUser nobody
+    '';
   };
 
   system.stateVersion = 5;

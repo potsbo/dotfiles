@@ -29,9 +29,9 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
     alt-tab = 'workspace-back-and-forth'
 
-# Ghostty → workspace 1
+# WezTerm → workspace 1
 [[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
+if.app-id = 'com.github.wez.wezterm'
 check-further-callbacks = true
 run = ['move-node-to-workspace 1']
 

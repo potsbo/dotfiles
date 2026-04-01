@@ -21,15 +21,19 @@
         purple = "#ae81ff";
         white = "#f8f8f2";
         orange = "#d7875f";
+        red = "#f92672";
         cyan = "#55bed2";
+        blue = "#6796e6";
       };
 
       hostColors = {
         tigerlake = colors.yellow;
         raptorlake = colors.white;
-        staten = colors.purple;
+        avalanche = colors.purple;
         phoenix = colors.orange;
+        "staten-nix" = colors.red;
         blizzard = colors.cyan;
+        skylake = colors.blue;
         default = colors.gray;
       };
 
@@ -55,8 +59,10 @@
         "tigerlake" = mkHome { system = "x86_64-linux"; hostname = "tigerlake"; };
         "raptorlake" = mkHome { system = "x86_64-linux"; hostname = "raptorlake"; };
         "phoenix" = mkHome { system = "x86_64-linux"; hostname = "phoenix"; };
-        "blizzard" = mkHome { system = "aarch64-linux"; hostname = "blizzard"; };
-        "staten" = mkHome { system = "aarch64-darwin"; hostname = "staten"; };
+        "skylake" = mkHome { system = "x86_64-linux"; hostname = "skylake"; };
+        "staten-nix" = mkHome { system = "aarch64-linux"; hostname = "staten-nix"; };
+        "avalanche" = mkHome { system = "aarch64-darwin"; hostname = "avalanche"; };
+        "blizzard" = mkHome { system = "aarch64-darwin"; hostname = "blizzard"; };
       };
 
       darwinConfigurations = {
@@ -64,7 +70,11 @@
           system = "aarch64-darwin";
           modules = [ ./modules/darwin.nix ];
         };
-        "staten" = nix-darwin.lib.darwinSystem {
+        "avalanche" = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [ ./modules/darwin.nix ];
+        };
+        "blizzard" = nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = [ ./modules/darwin.nix ];
         };

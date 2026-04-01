@@ -24,7 +24,7 @@ main() {
     thm_main=$thm_white
     thm_sub=$thm_black
     ;;
-  "staten.local")
+  "avalanche.local")
     thm_main=$thm_purple
     thm_sub=$thm_black
     ;;
@@ -32,7 +32,11 @@ main() {
     thm_main=$thm_orange
     thm_sub=$thm_black
     ;;
-  "blizzard")
+  "staten-nix")
+    thm_main=$thm_red
+    thm_sub=$thm_black
+    ;;
+  "blizzard.local")
     thm_main="#55bed2"
     thm_sub=$thm_black
     ;;
