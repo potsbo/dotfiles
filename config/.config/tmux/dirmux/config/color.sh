@@ -11,8 +11,9 @@ set -eu
 case $(hostname) in
 "tigerlake")    echo "#fd971f" ;;  # yellow
 "raptorlake")   echo "#f8f8f2" ;;  # white
-"staten.local") echo "#ae81ff" ;;  # purple
-"phoenix")      echo "#d7875f" ;;  # orange
-"blizzard")    echo "#55bed2" ;;  # cyan
+"avalanche.local") echo "#ae81ff" ;;  # purple
+"phoenix")         echo "#d7875f" ;;  # orange
+"staten-nix")      echo "#f92672" ;;  # red
+"blizzard.local")  echo "#55bed2" ;;  # cyan
 *)              echo "#797979" ;;  # gray
 esac

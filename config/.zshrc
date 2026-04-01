@@ -74,7 +74,7 @@ thm_main=yellow
 "raptorlake")
 thm_main=white
 ;;
-"staten.local")
+"avalanche.local")
 thm_main=blue
 ;;
 *)

@@ -6,7 +6,7 @@
   };
 
   outputs = { nixpkgs, xremap-flake, nixos-apple-silicon, ... }: {
-    nixosConfigurations.blizzard = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.staten-nix = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
       modules = [
         nixos-apple-silicon.nixosModules.apple-silicon-support
