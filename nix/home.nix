@@ -15,7 +15,7 @@ let
         owner = "aquaproj";
         repo = "aqua";
         rev = "v${version}";
-        hash = "sha256-tnMOUHICpQ030XTVgVXtlWFi8BLeALhi+dGrKpWRMU0=";
+        hash = "sha256-ZxSRUVhDDW8+GGqLV7gia/zH1wa9e1iU3vG3RCV7cmI=";
       };
 
       vendorHash = "sha256-kN7FxyVy2QFLkC/fiYGIuf3/6PrUoC2CMY5sQMuBLPE=";
