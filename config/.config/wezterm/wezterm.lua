@@ -27,8 +27,9 @@ end
 -- Linux: "NONE" removes WM title bar to avoid bottom row clipping
 config.window_decorations = wezterm.target_triple:find("linux") and "NONE" or "RESIZE"
 
--- Snap window size to cell boundaries so the bottom row isn't clipped
-config.use_resize_increments = true
+-- Disable cell-boundary snapping; when enabled, Magnet cannot fit the window
+-- to exact screen dimensions and shifts it off-screen (x = -2).
+config.use_resize_increments = false
 
 -- 一部の Nerd Font アイコンがセル幅に合わせて縮小され、選択時だけ正しいサイズに戻る問題の対策。
 -- "Always" にすると縮小を抑止し、常に本来のサイズで描画される。
