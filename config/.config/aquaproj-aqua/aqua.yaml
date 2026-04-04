@@ -12,7 +12,7 @@ registries:
 packages:
   - name: denoland/deno@v2.7.11
   - name: twistedpair/google-cloud-sdk@562.0.0
-  - name: junegunn/fzf@v0.70.0
+  - name: junegunn/fzf@v0.71.0
   - name: BurntSushi/ripgrep@15.1.0
   - name: x-motemen/ghq@v1.9.4
   - name: sharkdp/bat@v0.26.1
@@ -41,9 +41,9 @@ packages:
   - name: k1LoW/roots@v0.4.1
   - name: joshmedeski/sesh@v2.24.2
   - name: ajeetdsouza/zoxide@v0.9.9
-  - name: junegunn/fzf/fzf-tmux@v0.70.0
+  - name: junegunn/fzf/fzf-tmux@v0.71.0
   - name: sxyazi/yazi@v26.1.22
-  - name: github/copilot-cli@v1.0.17
+  - name: github/copilot-cli@v1.0.18
   - name: anthropics/claude-code@v2.1.92
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
