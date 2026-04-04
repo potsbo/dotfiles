@@ -1,15 +1,16 @@
 views:
   main:
     union:
+      - worktree
       - sessions
       - ssh
-      - worktree
 
   sessions:
     steps:
       - name: session
         sources:
-          - list: tmux list-sessions -F '#{session_path}' 2>/dev/null
+          - list: |
+              tmux list-sessions -F "#{session_last_attached} #{session_path}" | sort -rn | cut -d' ' -f2
             display: "printf '\\033[34m\\033[39m '; ~/.config/tmux/dirmux/path-to-name.sh {}"
             preview: "tmux capture-pane -ep -t $(tmux list-panes -a -F '#{pane_id} #{session_path}' | awk -v p='{}' '$2==p{print $1;exit}')"
           - list: ghq list --full-path | roots --depth 4 --root-file .git
@@ -34,8 +35,8 @@ views:
             display: ~/.config/tmux/dirmux/path-to-name.sh {}
       - name: branch
         sources:
-          - list: git -C $repo branch -a --sort=-committerdate --format='%(refname:short)' | grep -v HEAD
-            preview: git -C $repo log --oneline -10 {} 2>/dev/null
           - label: "✨ Create new branch"
             input: "Branch name"
+          - list: git -C $repo branch -a --sort=-committerdate --format='%(refname:short)' | grep -v HEAD
+            preview: git -C $repo log --oneline -10 {} 2>/dev/null
     run: ~/.config/tuicast/worktree-create.sh "$repo" "$branch"
