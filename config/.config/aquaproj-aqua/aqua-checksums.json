@@ -1,7 +1,7 @@
 {
   "checksums": [
     {
-      "id": "github_content/github.com/junegunn/fzf/v0.70.0/bin/fzf-tmux",
+      "id": "github_content/github.com/junegunn/fzf/v0.71.0/bin/fzf-tmux",
       "checksum": "EA14943D739FC81952D5071A642591DF25ED8DAC166040A6D6036B3BE197CECD",
       "algorithm": "sha256"
     },
@@ -391,33 +391,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.17/copilot-darwin-arm64.tar.gz",
-      "checksum": "2CA168D36A6D6063FF6B6A0139A5AFC8B49C1F03152A56E09DAB4766CE5FD3B7",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.18/copilot-darwin-arm64.tar.gz",
+      "checksum": "26ACFB249708E605B9B5AF105327E5F79BA632EDFE9EAD89A30661C1BADF2294",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.17/copilot-darwin-x64.tar.gz",
-      "checksum": "CB7B107EB5291EADB63D687BCFE2C22FE5F5AE14982737E36E2A14559FEAEAF1",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.18/copilot-darwin-x64.tar.gz",
+      "checksum": "663E7C71FCAE233CA92823219125DD872FB78F233DE71309E3B48CA61A5F0CAD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.17/copilot-linux-arm64.tar.gz",
-      "checksum": "8530297BDFB7069B2A170ACC94EF3CC4865B66739AA4610C00E19ECC59B6538F",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.18/copilot-linux-arm64.tar.gz",
+      "checksum": "307A87BF33903F248814C40191D628C397F0BCB61EC58D12AC89A77B0EBDA062",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.17/copilot-linux-x64.tar.gz",
-      "checksum": "6C99C3662CA8AB06EA72D935892E4B84ABCF8B527C4B36CB46E86FB3E9E47F58",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.18/copilot-linux-x64.tar.gz",
+      "checksum": "7ECA3BBB03A3DB4FEF9250F88052CCC5AA30CA95FAE71ADD70E1E66FCB037913",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.17/copilot-win32-arm64.zip",
-      "checksum": "083AFDB9B64EF53D3D3381207CB817FEEE605D9FE03941CB0A1369D3B769CEB9",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.18/copilot-win32-arm64.zip",
+      "checksum": "65698192376073A925F98FEAFCB89F57C035B75A37DED6861C45BF901955379A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.17/copilot-win32-x64.zip",
-      "checksum": "5331F166FF7C6EC0CD0E13F7DB2F3D8249AF18784BDBB065271353EA98DECA22",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.18/copilot-win32-x64.zip",
+      "checksum": "5E1F5A19E00A10CCB341C5B05F3ACA67FB77C2F178C5531CF3D3FA36B64E6EF3",
       "algorithm": "sha256"
     },
     {
@@ -606,58 +606,58 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-darwin_amd64.tar.gz",
-      "checksum": "46AF74CFEB171C5E2EB936096A653061A0DE0F5AEB70319BF9935D8D193E078F",
+      "id": "github_release/github.com/junegunn/fzf/v0.71.0/fzf-0.71.0-darwin_amd64.tar.gz",
+      "checksum": "144E98EE6BCFFAF915366162768000561CD2DB8FB53B119D73110391A8E5B5F0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-darwin_arm64.tar.gz",
-      "checksum": "75F4905C2E3D00666D81DFFDD001BB2A9A8E0AD4E4AC8CECFC17A7401B99E6E4",
+      "id": "github_release/github.com/junegunn/fzf/v0.71.0/fzf-0.71.0-darwin_arm64.tar.gz",
+      "checksum": "02DFB11DE8773CB79AA4FC5BFC77E75C6604EE14728BC849FC162DD91A9714C4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-linux_amd64.tar.gz",
-      "checksum": "8FD0E0B93BDF64BA90081FFB6658D77EA5A024C122B36852B1DE30F9D2733754",
+      "id": "github_release/github.com/junegunn/fzf/v0.71.0/fzf-0.71.0-linux_amd64.tar.gz",
+      "checksum": "22639BB38489DBCA8ACEF57850CBB50231AB714D0E8E855AC52FAE8B41233DF4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-linux_arm64.tar.gz",
-      "checksum": "90A07A13B61F56DD59CCFD0F0BF05070E9CEC067713D313FA2607AAB2DC0E422",
+      "id": "github_release/github.com/junegunn/fzf/v0.71.0/fzf-0.71.0-linux_arm64.tar.gz",
+      "checksum": "98B7D322EFAE9C37E4BFBBAB1CBCD8722EB742D9399511F96375FEB40CC35D1D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-windows_amd64.zip",
-      "checksum": "7465A6738E2C844742DF973459C7509AED2D10D7A72BFD6DE201B867B4EDA4CD",
+      "id": "github_release/github.com/junegunn/fzf/v0.71.0/fzf-0.71.0-windows_amd64.zip",
+      "checksum": "15BF30FA658C596D740F0CE9A9A97B6B5D90566124903657D09FD109DD0973D2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/junegunn/fzf/v0.70.0/fzf-0.70.0-windows_arm64.zip",
-      "checksum": "EAA12CA2E072EF8E8F89CA3D961FD886E46FBBC254C0C85C4786D813416A95D5",
+      "id": "github_release/github.com/junegunn/fzf/v0.71.0/fzf-0.71.0-windows_arm64.zip",
+      "checksum": "9D0DE41E8C40E8A7AC1EDB64FE93AAE96181ED93439E9E6D8D35DEDA61EE910B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.26.1/git-wt_v0.26.1_darwin_amd64.zip",
-      "checksum": "8892F2262FD71C8097BB4A3B437C3F4890C99A1A8E730CE6785F43FA430978B8",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.2/git-wt_v0.26.2_darwin_amd64.zip",
+      "checksum": "9BA82C5DAAC9538E8D36439D6669D6531D8687A99D474A5D4EB038D5C4B2F81F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.26.1/git-wt_v0.26.1_darwin_arm64.zip",
-      "checksum": "3DA403E12EB266CA2137B8DC6760594399E373234D92F3C0712AD137334A7C4E",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.2/git-wt_v0.26.2_darwin_arm64.zip",
+      "checksum": "BED3CDC55C318C45C07E95A7B4EBD565C0CFF7897330A8CB04610C028A282A77",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.26.1/git-wt_v0.26.1_linux_amd64.tar.gz",
-      "checksum": "1C52480A138C25ADDD122EC5659BF89E2801AB7D17C82A994077F8D3865A371A",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.2/git-wt_v0.26.2_linux_amd64.tar.gz",
+      "checksum": "19CEB0365A4FAF755868E87DD1382FFDFC2A4905402D47FAF9FC91ECA19E09C0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.26.1/git-wt_v0.26.1_linux_arm64.tar.gz",
-      "checksum": "93E9DB1288E3DDFFAC3D8CCF3544BCC3DDACF1D1E249416075AEFD59687AC137",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.2/git-wt_v0.26.2_linux_arm64.tar.gz",
+      "checksum": "4451249AEEE8F66C3190C4106F524C95736D40CA6A62009A50D50DA9A7F9EB5A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/git-wt/v0.26.1/git-wt_v0.26.1_windows_amd64.tar.gz",
-      "checksum": "FB334036D131727AC97B8FAE662A7116D5963E666D442F290B0FD70E44F48603",
+      "id": "github_release/github.com/k1LoW/git-wt/v0.26.2/git-wt_v0.26.2_windows_amd64.tar.gz",
+      "checksum": "D6B965772330FFB90D114FC4A1CC8B7D9CCF0C78B2DC4E07B404FB2523B67D9C",
       "algorithm": "sha256"
     },
     {
@@ -1111,18 +1111,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.34.23.pkg",
-      "checksum": "509A12DACC1D81D53F505AB8CFB9030470622129FD3C4CD3887B5056FC38B48C",
+      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.34.24.pkg",
+      "checksum": "C9372AFB712A882254AC4316A248F1FB69DC3000C42F15DDE80F829040F24785",
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.34.23.zip",
-      "checksum": "05F9104F6209335405FDB27AC982E58DC11B3C8C36909DB3FF0A7DA40FEDD88F",
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.34.24.zip",
+      "checksum": "5818D17CE4973EBE99618ED0DCB37C7884260F98F688FDD9850CADD64A9BCE4B",
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.34.23.zip",
-      "checksum": "36E6EAEA21584357F4B9E7892A555B37317D38FC8DC1CF82147AFB9013679DEA",
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.34.24.zip",
+      "checksum": "CBC6978C4126440DB18DF7154DB6CA2F5327F5282325D196E9FAA9F7A3898BB4",
       "algorithm": "sha256"
     },
     {
@@ -1211,28 +1211,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.91/darwin-arm64/claude",
-      "checksum": "7433D76D3EC5D223A340E21D7A05F3D481D89999F228113168AD5D64C66FD376",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.92/darwin-arm64/claude",
+      "checksum": "6D1B9657727DCE81332B3CDA11BFE0A8C83E2392E3C062A31022E10B0E71CDD1",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.91/darwin-x64/claude",
-      "checksum": "47409DC476C199711D5C776CF359773F75CB9DC72CE7494A4E4CB100520E8AB4",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.92/darwin-x64/claude",
+      "checksum": "D422B5CC974B3BC4B28F698144FD0316F3E17774BABE0BC1EB76C2BB0858D0AA",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.91/linux-arm64/claude",
-      "checksum": "DDDBA100B352EA6D06AA7E036D5AFE49749EDDDD1309A4AA22E47049FAFCADF9",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.92/linux-arm64/claude",
+      "checksum": "08DEB3D56477496EB92E624F492E25B123F4527DD5674F71AFFF58A48ECCD953",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.91/linux-x64/claude",
-      "checksum": "01B74E1B02E3330940B3526D2F6E00BF32F7FD9E6B3861BE6A61E01CFD7296E6",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.92/linux-x64/claude",
+      "checksum": "E22324514967FF2D5E9F91F0EE37E4675BF8B6DFEC27FAFB19CB25CC5B23FCAF",
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.491.0/registry.yaml",
-      "checksum": "B8A22CB2C7B23FE966BB444520CB1DDB6A153D24282D4D358288D575A573A4340E57B793E25A2B31D94D68D1A9D8B987CFC13CDFFE3131EF59E880BF79551188",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.492.0/registry.yaml",
+      "checksum": "A0FAAA0CDBA0C23349E000D45D7DFE48185519CA72A0D5618A4C6198F2BCBA9EE10FA209351D44437495541A3BCECD987D65D176BBF59CF23271FC30D53DA90E",
       "algorithm": "sha512"
     }
   ]
