@@ -89,12 +89,13 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStartPre=${mkdir_bin} -p "${mount_path}"
 ExecStartPre=-/run/wrappers/bin/fusermount -uz "${mount_path}"
-ExecStart=${rclone_bin} mount ${name}: "${mount_path}" --vfs-cache-mode full --dir-cache-time 15s --vfs-cache-max-age 336h --vfs-cache-max-size 500G
-ExecStop=fusermount -u "${mount_path}"
+ExecStartPre=${mkdir_bin} -p "${mount_path}"
+ExecStart=${rclone_bin} mount ${name}: "${mount_path}" --vfs-cache-mode full --dir-cache-time 15s --vfs-cache-max-age 336h --vfs-cache-max-size 500G --transfers 4 -v
+ExecStop=-/run/wrappers/bin/fusermount -uz "${mount_path}"
 Restart=on-failure
 RestartSec=10s
+OOMScoreAdjust=-200
 
 [Install]
 WantedBy=default.target
@@ -112,7 +113,7 @@ EOF
   <array>
     <string>/bin/bash</string>
     <string>-c</string>
-    <string>mkdir -p "${mount_path}" "${LOG_DIR}" &amp;&amp; exec "${rclone_bin}" nfsmount "${name}:" "${mount_path}" --vfs-cache-mode full --dir-cache-time 15s --vfs-cache-max-age 336h --vfs-cache-max-size 500G</string>
+    <string>mkdir -p "${mount_path}" "${LOG_DIR}" &amp;&amp; exec "${rclone_bin}" nfsmount "${name}:" "${mount_path}" --vfs-cache-mode full --dir-cache-time 15s --vfs-cache-max-age 336h --vfs-cache-max-size 500G --transfers 4</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
