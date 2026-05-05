@@ -1086,28 +1086,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zellij-org/zellij/v0.44.1/zellij-aarch64-apple-darwin.tar.gz",
-      "checksum": "544C19A9353F0ECC52877EF1E80B1C1DCBF8F258B4817077F9520099C12CC30C",
+      "id": "github_release/github.com/zellij-org/zellij/v0.44.2/zellij-aarch64-apple-darwin.tar.gz",
+      "checksum": "2F914C95D9D57E15573CBFB3848071B8F34A0B7F3F8951876B3DE20EC9E32AC7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zellij-org/zellij/v0.44.1/zellij-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "6F028BB569D29BE968C961249C5F80D5336AD4AD4B3CD79AF8E32AFAB57B0948",
+      "id": "github_release/github.com/zellij-org/zellij/v0.44.2/zellij-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "E0B2DDBF050D58577B09B2A032A54F1A3FAC0E214D1605C5969E8936340FFF6B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zellij-org/zellij/v0.44.1/zellij-x86_64-apple-darwin.tar.gz",
-      "checksum": "590071E02F7733D25201EC9A97C5BD661AC7DA3CBDF2AE52A11685B36654B7DC",
+      "id": "github_release/github.com/zellij-org/zellij/v0.44.2/zellij-x86_64-apple-darwin.tar.gz",
+      "checksum": "1150710E3F78211144A7B0E58235B8FA459EA3797B2063CFA03B183487298CD0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zellij-org/zellij/v0.44.1/zellij-x86_64-pc-windows-msvc.zip",
-      "checksum": "69D7A913DE40388BDB64A440B82E6ED2AC4C7232E88D0899B085C88550EC8B8F",
+      "id": "github_release/github.com/zellij-org/zellij/v0.44.2/zellij-x86_64-pc-windows-msvc.zip",
+      "checksum": "9E5C90D99D8DEF4042DD2B464DC62DB7CBCB496353525C3321FC57EB4F83A306",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zellij-org/zellij/v0.44.1/zellij-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "669825021D529FCA5D939888263C9D2A90762145191FA07581A15250E8AF2B49",
+      "id": "github_release/github.com/zellij-org/zellij/v0.44.2/zellij-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "26E1753B4C8451912523C7D8700C5AED75392EA57F0B1C988560F3BBC7775744",
       "algorithm": "sha256"
     },
     {
