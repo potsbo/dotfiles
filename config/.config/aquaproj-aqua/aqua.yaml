@@ -45,7 +45,7 @@ packages:
   - name: sxyazi/yazi@v26.1.22
   - name: github/copilot-cli@v1.0.20
   - name: anthropics/claude-code@v2.1.128
-  - name: aristocratos/btop@v1.4.6
+  - name: aristocratos/btop@v1.4.7
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.7.1
   - name: theseus-rs/postgresql-binaries@18.3.0
