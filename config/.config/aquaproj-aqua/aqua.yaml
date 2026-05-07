@@ -26,7 +26,7 @@ packages:
   - name: Wilfred/difftastic@0.69.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.7.1
-  - name: nodejs/node@v26.0.0
+  - name: nodejs/node@v26.1.0
   - name: XAMPPRocky/tokei@v14.0.0
   - name: sharkdp/fd@v10.4.2
   - name: jesseduffield/lazygit@v0.61.1
