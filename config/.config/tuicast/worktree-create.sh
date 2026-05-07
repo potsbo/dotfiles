@@ -21,14 +21,7 @@ fi
 
 git fetch --prune 2>/dev/null || true
 
-# Determine start point
-if git show-ref --verify "refs/remotes/$branch" >/dev/null 2>&1; then
-  git wt "$local_branch" "$branch"
-elif git show-ref --verify "refs/heads/$branch" >/dev/null 2>&1; then
-  git wt "$local_branch" "$branch"
-else
-  git wt "$local_branch" "origin/$(git default-branch)"
-fi
+git wt "$local_branch"
 
 worktree_path=$(git wt | grep "$local_branch" | awk '{print $1}')
 exec ~/.config/tmux/tmux-session-connect.sh "$worktree_path"
