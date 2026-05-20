@@ -711,28 +711,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.5/doggo_1.1.5_Darwin_arm64.tar.gz",
-      "checksum": "60D8455CC146544CAE0A35E36F58C8920B239D5F095A2AF224C6970F25554CAF",
+      "id": "github_release/github.com/mr-karan/doggo/v1.1.6/doggo_1.1.6_Darwin_arm64.tar.gz",
+      "checksum": "8101BF4EE15B0B57B93667720AF019AFCF07049A01F82CEE6882A3F8B08AA9B7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.5/doggo_1.1.5_Darwin_x86_64.tar.gz",
-      "checksum": "1AD77CCFEC4987AFBA205C89922494559D8A355716D59EC00F07FF1CD2AF72CD",
+      "id": "github_release/github.com/mr-karan/doggo/v1.1.6/doggo_1.1.6_Darwin_x86_64.tar.gz",
+      "checksum": "5EAF4335E80882897CC5CD4DEF91F3B9D65B45A04EE31CF6A16A6189C70689A6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.5/doggo_1.1.5_Linux_arm64.tar.gz",
-      "checksum": "7A74420A4C84C4134EC81909AE37C31ADE7A423AC096BD7AFB1D56D8ECD679F1",
+      "id": "github_release/github.com/mr-karan/doggo/v1.1.6/doggo_1.1.6_Linux_arm64.tar.gz",
+      "checksum": "C810E5CE257619BD00DA699B204E58722C2E73C81CC150E356338AB661BC6C30",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.5/doggo_1.1.5_Linux_x86_64.tar.gz",
-      "checksum": "FE29A6C856EE9BA4EDA5A551EB9AAB7CD81DB92773A58200C9734B672AD38146",
+      "id": "github_release/github.com/mr-karan/doggo/v1.1.6/doggo_1.1.6_Linux_x86_64.tar.gz",
+      "checksum": "FAE374273FB3F801F8DCF4D1FD9DABFEBD7F968AB153BA782D4452B0A45B2266",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.5/doggo_1.1.5_Windows_x86_64.zip",
-      "checksum": "F184025607CD0121939CB5C8E7042141A93D7A9A601FED7D43307A0841162720",
+      "id": "github_release/github.com/mr-karan/doggo/v1.1.6/doggo_1.1.6_Windows_x86_64.zip",
+      "checksum": "4CE4DA178332D3F637DBA7E6D44CED23752AFAA2F9748E9BE2104216785F0456",
       "algorithm": "sha256"
     },
     {
