@@ -1016,18 +1016,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/tldr-pages/tlrc/v1.13.0/tlrc-v1.13.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "CA84B09390D81058C8F6C532DA7FFB06DBE42A0D208BD3A35F1649B368EBACBA",
+      "id": "github_release/github.com/tldr-pages/tlrc/v1.13.1/tlrc-v1.13.1-x86_64-apple-darwin.tar.gz",
+      "checksum": "2DB4A3C772AE30243CD6BB4231CC43EFF005D311618666AF91E49662310B8E8B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/tldr-pages/tlrc/v1.13.0/tlrc-v1.13.0-x86_64-pc-windows-msvc.zip",
-      "checksum": "D26FA0E5E190513B66A7834945846370ACED3F945F681F901EBBE55E1B11901D",
+      "id": "github_release/github.com/tldr-pages/tlrc/v1.13.1/tlrc-v1.13.1-x86_64-pc-windows-msvc.zip",
+      "checksum": "8B85477C935365008214BE7A5FD319C56855175FF0C4E8CC2D01FA94ACCDD210",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/tldr-pages/tlrc/v1.13.0/tlrc-v1.13.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "29AFAC4831274FB0B4F26951F9C8FB006CEB3B6C84F301C7BC48395BADD27C3E",
+      "id": "github_release/github.com/tldr-pages/tlrc/v1.13.1/tlrc-v1.13.1-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "E63B80E180B956AE2114C39D7FB10E607FFAA46B6D8C370D90868389A228584D",
       "algorithm": "sha256"
     },
     {
