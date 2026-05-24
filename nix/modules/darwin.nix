@@ -93,6 +93,9 @@
       "notion"
       "notion-calendar"
       "font-monaspice-nerd-font"
+      # WezTerm の日本語フォールバック (config/.config/wezterm/wezterm.lua)。
+      # 未インストールだと一部の漢字が tofu (斜線付き□) になるため必須。
+      "font-biz-ud-gothic"
       "tailscale-app"
       "cursor"
       "zotero"
