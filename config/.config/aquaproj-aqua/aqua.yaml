@@ -41,7 +41,7 @@ packages:
   - name: k1LoW/roots@v0.4.1
   - name: joshmedeski/sesh@v2.26.2
   - name: ajeetdsouza/zoxide@v0.9.9
-  - name: junegunn/fzf/fzf-tmux@v0.73.0
+  - name: junegunn/fzf/fzf-tmux@v0.73.1
   - name: sxyazi/yazi@v26.5.6
   - name: github/copilot-cli@v1.0.20
   - name: anthropics/claude-code@v2.1.150
