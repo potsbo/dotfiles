@@ -8,11 +8,11 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.515.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.517.0 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: denoland/deno@v2.7.14
+  - name: denoland/deno@v2.8.1
   - name: twistedpair/google-cloud-sdk@562.0.0
-  - name: junegunn/fzf@v0.72.0
+  - name: junegunn/fzf@v0.73.1
   - name: BurntSushi/ripgrep@15.1.0
   - name: x-motemen/ghq@v1.10.1
   - name: sharkdp/bat@v0.26.1
@@ -22,29 +22,29 @@ packages:
   - name: mikefarah/yq@v4.53.2
   - name: YS-L/csvlens@v0.15.1
   - name: golang/go@go1.26.3
-  - name: cli/cli@v2.92.0
+  - name: cli/cli@v2.93.0
   - name: Wilfred/difftastic@0.69.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.7.1
   - name: nodejs/node@v26.2.0
   - name: XAMPPRocky/tokei@v14.0.0
   - name: sharkdp/fd@v10.4.2
-  - name: jesseduffield/lazygit@v0.61.1
+  - name: jesseduffield/lazygit@v0.62.0
   - name: go-task/task@v3.51.1
   - name: aws/aws-cli@2.34.42
   - name: astral-sh/uv@0.11.16
   - name: starship/starship@v1.25.1
   - name: zellij-org/zellij@v0.44.3
   - name: johnkerl/miller@v6.18.1
-  - name: tldr-pages/tlrc@v1.13.0
+  - name: tldr-pages/tlrc@v1.13.1
   - name: k1LoW/git-wt@v0.28.0
   - name: k1LoW/roots@v0.4.1
   - name: joshmedeski/sesh@v2.26.2
   - name: ajeetdsouza/zoxide@v0.9.9
-  - name: junegunn/fzf/fzf-tmux@v0.72.0
+  - name: junegunn/fzf/fzf-tmux@v0.73.1
   - name: sxyazi/yazi@v26.5.6
   - name: github/copilot-cli@v1.0.20
-  - name: anthropics/claude-code@v2.1.148
+  - name: anthropics/claude-code@v2.1.153
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.7.1
@@ -56,7 +56,7 @@ packages:
   - name: dalance/procs@v0.14.11
   - name: muesli/duf@v0.9.1
   - name: chmln/sd@v1.1.0
-  - name: mr-karan/doggo@v1.1.6
+  - name: mr-karan/doggo@v1.1.7
   - name: orf/gping@gping-v1.20.1
   - name: fujiapple852/trippy@0.13.0
   - name: sharkdp/hexyl@v0.17.0
