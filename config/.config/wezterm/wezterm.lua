@@ -53,6 +53,10 @@ config.skip_close_confirmation_for_processes_named = {
 
 -- Keybindings (neovim integration)
 config.keys = {
+  -- Ctrl+Tab / Ctrl+Shift+Tab: CSI-u を送って tmux 側で window 切替する。
+  -- WezTerm デフォルトの ActivateTabRelative を上書き (tab bar 無効のため実害なし)。
+  { key = "Tab", mods = "CTRL", action = wezterm.action.SendString("\x1b[9;5u") },
+  { key = "Tab", mods = "CTRL|SHIFT", action = wezterm.action.SendString("\x1b[9;6u") },
   { key = "p", mods = "SUPER", action = wezterm.action.SendString("\x1b:CommandP\r") },
   { key = "s", mods = "SUPER", action = wezterm.action.SendString("\x1b:w\r") },
   { key = "\\", mods = "SUPER", action = wezterm.action.SendString("\x1b:vsplit\r") },
