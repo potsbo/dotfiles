@@ -135,6 +135,39 @@ EOF
   esac
 }
 
+is_mounted() {
+  mount | grep -q " ${1} "
+}
+
+# FUSE mounts launched from inside the systemd user manager fail with EPERM on
+# Linux 6.18 NixOS; spawn rclone directly with --daemon so the process inherits
+# the login session context.
+linux_ensure_daemon_mount() {
+  local name="$1" mount_path="$2" service rclone_bin
+  service=$(service_path_for "$name")
+  rclone_bin=$(command -v "$RCLONE_BIN")
+
+  if [[ -e "$service" ]]; then
+    echo "Removing legacy systemd unit: $(basename "$service")"
+    systemctl --user disable --now "$(basename "$service")" 2>/dev/null || true
+    systemctl --user reset-failed "$(basename "$service")" 2>/dev/null || true
+    rm -f "$service"
+    systemctl --user daemon-reload
+  fi
+
+  if is_mounted "$mount_path"; then
+    return 0
+  fi
+
+  /run/wrappers/bin/fusermount3 -uz "$mount_path" 2>/dev/null || true
+  mkdir -p "$mount_path"
+  echo "Starting daemon mount: $name"
+  "$rclone_bin" mount "${name}:" "$mount_path" \
+    --vfs-cache-mode full --dir-cache-time 15s \
+    --vfs-cache-max-age 336h --vfs-cache-max-size 500G \
+    --transfers 4 --daemon
+}
+
 cmd_ensure() {
   local name="${1:-}"
   local host="${2:-$name}"
@@ -147,8 +180,6 @@ cmd_ensure() {
 
   local key_file="$HOME/.ssh/id_ed25519"
   local mount_path="${MOUNT_BASE}/${name}"
-  local service
-  service=$(service_path_for "$name")
 
   # Ensure rclone remote exists
   if ! $RCLONE_BIN listremotes | grep -q "^${name}:$"; then
@@ -156,32 +187,38 @@ cmd_ensure() {
     $RCLONE_BIN config create "$name" sftp host "$host" key_file "$key_file" --non-interactive >/dev/null
   fi
 
-  # Ensure service file exists and is up to date
-  local new_service
-  new_service=$(generate_service "$name" "$mount_path")
-  mkdir -p "$SERVICE_DIR"
+  case "$OS" in
+    Linux)
+      linux_ensure_daemon_mount "$name" "$mount_path"
+      ;;
+    Darwin)
+      local service new_service
+      service=$(service_path_for "$name")
+      new_service=$(generate_service "$name" "$mount_path")
+      mkdir -p "$SERVICE_DIR"
 
-  if [[ ! -e "$service" ]] || [[ "$(cat "$service")" != "$new_service" ]]; then
-    echo "Updating service: $name"
-    svc_stop "$service"
-    echo "$new_service" >"$service"
-    svc_reload
-  fi
+      if [[ ! -e "$service" ]] || [[ "$(cat "$service")" != "$new_service" ]]; then
+        echo "Updating service: $name"
+        svc_stop "$service"
+        echo "$new_service" >"$service"
+        svc_reload
+      fi
 
-  # Ensure service is running and mount is alive
-  local needs_restart=false
-  if ! svc_is_active "$service"; then
-    needs_restart=true
-  elif ! mount | grep -q " ${mount_path} "; then
-    echo "Mount missing, restarting: $name"
-    needs_restart=true
-  fi
+      local needs_restart=false
+      if ! svc_is_active "$service"; then
+        needs_restart=true
+      elif ! is_mounted "$mount_path"; then
+        echo "Mount missing, restarting: $name"
+        needs_restart=true
+      fi
 
-  if [[ "$needs_restart" == true ]]; then
-    echo "Starting: $name"
-    svc_stop "$service"
-    svc_start "$service"
-  fi
+      if [[ "$needs_restart" == true ]]; then
+        echo "Starting: $name"
+        svc_stop "$service"
+        svc_start "$service"
+      fi
+      ;;
+  esac
 
   echo "$name: active  ($mount_path)"
 }
