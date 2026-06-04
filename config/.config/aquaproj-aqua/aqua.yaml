@@ -8,9 +8,9 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.517.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.520.1 # renovate: depName=aquaproj/aqua-registry
 packages:
-  - name: denoland/deno@v2.8.1
+  - name: denoland/deno@v2.8.2
   - name: twistedpair/google-cloud-sdk@562.0.0
   - name: junegunn/fzf@v0.73.1
   - name: BurntSushi/ripgrep@15.1.0
@@ -21,18 +21,18 @@ packages:
   - name: neovim/neovim@v0.12.2
   - name: mikefarah/yq@v4.53.2
   - name: YS-L/csvlens@v0.15.1
-  - name: golang/go@go1.26.3
+  - name: golang/go@go1.26.4
   - name: cli/cli@v2.93.0
   - name: Wilfred/difftastic@0.69.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.7.1
-  - name: nodejs/node@v26.2.0
+  - name: nodejs/node@v26.3.0
   - name: XAMPPRocky/tokei@v14.0.0
   - name: sharkdp/fd@v10.4.2
-  - name: jesseduffield/lazygit@v0.62.0
+  - name: jesseduffield/lazygit@v0.62.1
   - name: go-task/task@v3.51.1
   - name: aws/aws-cli@2.34.42
-  - name: astral-sh/uv@0.11.16
+  - name: astral-sh/uv@0.11.19
   - name: starship/starship@v1.25.1
   - name: zellij-org/zellij@v0.44.3
   - name: johnkerl/miller@v6.18.1
@@ -44,7 +44,7 @@ packages:
   - name: junegunn/fzf/fzf-tmux@v0.73.1
   - name: sxyazi/yazi@v26.5.6
   - name: github/copilot-cli@v1.0.20
-  - name: anthropics/claude-code@v2.1.153
+  - name: anthropics/claude-code@v2.1.162
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.7.1
