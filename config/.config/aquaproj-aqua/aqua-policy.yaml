@@ -1,0 +1,9 @@
+registries:
+  - type: standard
+    ref: semver(">= 0.0.0")
+  - name: local
+    type: local
+    path: registry.yaml
+packages:
+  - registry: standard
+  - registry: local

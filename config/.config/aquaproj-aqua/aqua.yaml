@@ -9,6 +9,9 @@ checksum:
 registries:
   - type: standard
     ref: v4.522.0 # renovate: depName=aquaproj/aqua-registry
+  - name: local
+    type: local
+    path: registry.yaml
 packages:
   - name: denoland/deno@v2.8.2
   - name: twistedpair/google-cloud-sdk@562.0.0
@@ -63,3 +66,6 @@ packages:
   - name: ducaale/xh@v0.25.3
   - name: sharkdp/hyperfine@v1.20.0
   - name: imsnif/bandwhich@v0.23.1
+  # Not in aqua-registry; defined via the local registry below. Apple Silicon only.
+  - name: vladkens/macmon@v0.7.2
+    registry: local

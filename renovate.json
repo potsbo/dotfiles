@@ -12,6 +12,14 @@
         "# renovate: datasource=(?<datasource>[a-z-]+) depName=(?<depName>[^\\n]+)\\n\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\";"
       ],
       "extractVersionTemplate": "^v?(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["config/.config/aquaproj-aqua/aqua\\.yaml$"],
+      "matchStrings": [
+        "name:\\s*(?<depName>[^@\\s]+)@(?<currentValue>v?[0-9][^\\s]*)\\s*\\n\\s*registry:\\s*local"
+      ],
+      "datasourceTemplate": "github-releases"
     }
   ],
   "nix": {

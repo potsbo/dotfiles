@@ -45,6 +45,9 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml
+# Required to allow the `local` registry (e.g. macmon). After first checkout, run once:
+#   aqua policy allow "$AQUA_POLICY_CONFIG"
+export AQUA_POLICY_CONFIG=${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua-policy.yaml
 
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
