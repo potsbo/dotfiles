@@ -816,28 +816,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-linux-arm64.tar.gz",
-      "checksum": "88654024E8DE21B41AEE6F4B6BECA1C786EADB4614B2E89E16D3823EA6040755",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-linux-arm64.tar.gz",
+      "checksum": "4BF88AA5443B09A49E8AF55C1E92FF6148486856703B8F886E1984B0E541AF4D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-linux-x86_64.tar.gz",
-      "checksum": "F5500A69D7299358B537D5D01EF7D30831F2801299D29C23601FA506A2A7061B",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-linux-x86_64.tar.gz",
+      "checksum": "C0406DA6C19BBFBF0381A1A54CF7098A97372C15E5D64BED38E4B8BE53E8455E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-macos-arm64.tar.gz",
-      "checksum": "4B06276180AE713970E1D729F0AA2E9C0C1F4818074D14F76A26DF69283582F5",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-macos-arm64.tar.gz",
+      "checksum": "46E9F219299E6A012075B46191FED21663BD916CEA95F1E419B787A87DDD48BF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-macos-x86_64.tar.gz",
-      "checksum": "375049B30E5211D43A410ACF8A160D0C14038C8C3ED08D044BFE181ED770B62A",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-macos-x86_64.tar.gz",
+      "checksum": "FE3AFAC2154CDC6432449D1CF526744389F8686BD9B240F146E632AA532205AD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-windows-x86_64.tar.gz",
-      "checksum": "5111869984D0CB12C2F0764BAFA83159B2B011FC00EFC32024E21B8AD1C0F7F0",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-windows-x86_64.tar.gz",
+      "checksum": "B77C34A18D10FB3C9338EF292A59DE00F3D695AA423FD3B6FF617EF6840E2A70",
       "algorithm": "sha256"
     },
     {
