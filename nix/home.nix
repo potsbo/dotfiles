@@ -72,7 +72,7 @@ let
   todoist-cli = pkgs.buildNpmPackage {
     pname = "todoist-cli";
     # renovate: datasource=github-releases depName=Doist/todoist-cli
-    version = "1.72.1";
+    version = "1.74.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "Doist";
@@ -127,6 +127,15 @@ in
     ODBCSYSINI = "${config.home.homeDirectory}/.config/odbc";
   } // lib.optionalAttrs pkgs.stdenv.isDarwin {
     LIBRARY_PATH = "${pkgs.libiconv}/lib";
+
+    # home-manager の gcc が cc/c++ として PATH 先頭に来る (.zshenv) が、
+    # この gcc は現行の macOS SDK ヘッダ (例: mach/message.h の clang 専用マクロ)
+    # をコンパイルできず、ソースビルドを伴う C/C++ 拡張 (uv sync での xgboost-cpu 等)
+    # が落ちる。macOS のビルドには Apple clang を使わせる。
+    # CMake / cargo / cgo / setuptools はいずれも CC/CXX を尊重する。
+    # GCC 固有のビルドが必要な場合はそのコマンドだけ CC=... で局所上書きする。
+    CC = "/usr/bin/clang";
+    CXX = "/usr/bin/clang++";
   };
 
   # FreeTDS ODBC ドライバの登録

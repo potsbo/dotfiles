@@ -352,7 +352,49 @@ in
     }
   ];
 
-  # OOM 対策: カーネル OOM キラーが発動する前にプロアクティブにプロセスを kill する
+  # ============================================================
+  # メモリ枯渇耐性 (最小構成)
+  #
+  # 方針: 重いジョブ (Python データ分析等) が RAM+swap を食い尽くしても、
+  #   kernel / sshd / tailscaled には必ずメモリを残し、
+  #   「ssh で入って暴走プロセスを kill する」余力を確保する。
+  # 過去事例: ユーザランドの Python ジョブがメモリを食い尽くし、
+  #   新規接続を捌くメモリすら確保できず全応答停止 → 物理再起動が必要に。
+  #
+  # 注意: ここでは swap 構成やユーザジョブの上限には手を入れない。
+  #   暴走時はディスクスワップ thrash で「重く」はなるが、救命線のメモリ予約で
+  #   ssh 経由の救出はできる状態を保つ、という割り切り。
+  #   「重さ」自体も消したい場合は別途 zram 化 / user.slice 上限を検討する。
+  # ============================================================
+
+  # --- カーネルの予約 ---
+  # min_free_kbytes: カーネルが常に確保しておく空きページ。ネットワーク受信など
+  #   割り込み内の atomic 確保に使われ、逼迫時も tailscale/ssh のパケットを捌ける。
+  # admin_reserve_kbytes: OOM 寸前でも root が復旧コマンド (ps/kill) を実行できる予約。
+  boot.kernel.sysctl = {
+    "vm.min_free_kbytes" = 262144;      # 256MiB
+    "vm.admin_reserve_kbytes" = 262144; # 256MiB
+  };
+
+  # --- 救命線へのメモリ予約 ---
+  # system.slice 全体 + sshd/tailscaled 個別に memory.min を与え、逼迫時も
+  # カーネルがこれらのページを回収 (swap-out/破棄) しないようにする。
+  # OOMScoreAdjust=-900 で、万一カーネル OOM killer が走っても最後まで殺されない。
+  systemd.slices."system".sliceConfig.MemoryMin = "512M";
+  systemd.services.sshd.serviceConfig = {
+    OOMScoreAdjust = -900;
+    MemoryMin = "32M";
+  };
+  systemd.services."sshd@".serviceConfig = {
+    OOMScoreAdjust = -900;
+    MemoryMin = "32M";
+  };
+  systemd.services.tailscaled.serviceConfig = {
+    OOMScoreAdjust = -900;
+    MemoryMin = "128M";
+  };
+
+  # --- earlyoom: カーネル OOM killer 発動前にプロアクティブに kill (バックストップ) ---
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 5;
