@@ -102,6 +102,7 @@
       "chatgpt"
       "claude"
       "pgadmin4"
+      "plaud"
     ];
   };
 
