@@ -57,14 +57,8 @@
       autoUpdate = false;
       upgrade = true;
     };
-    taps = [
-      "nikitabobko/tap"
-      "felixkratz/formulae"
-    ];
     brews = [
-      "felixkratz/formulae/borders"
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
-
     ];
     masApps = {
       "Amphetamine" = 937984704;
@@ -78,7 +72,6 @@
       "Windows App" = 1295203466;
     };
     casks = [
-      "nikitabobko/tap/aerospace"
       "akiflow"
       "karabiner-elements"
       "visual-studio-code"
@@ -102,6 +95,7 @@
       "chatgpt"
       "claude"
       "pgadmin4"
+      "plaud"
     ];
   };
 

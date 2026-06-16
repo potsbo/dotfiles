@@ -791,53 +791,53 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.1/gping-Linux-gnu-arm64.tar.gz",
-      "checksum": "D8A46C8E4D66367F1D56C731698784D0FE812BAC3E1EC5CEF9555AB15E1497D5",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-Linux-gnu-arm64.tar.gz",
+      "checksum": "95FA83A26A6F5617B90610201DF7BA99B2F1FE785919ED259317B5DAEE9B9739",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.1/gping-Linux-gnu-x86_64.tar.gz",
-      "checksum": "793A27F578E86D5358EC67FB82A1251741CD3A8CE576CCC9589891380E6C72B0",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-Linux-gnu-x86_64.tar.gz",
+      "checksum": "49AB921AA82D304E78B03AB10329CDBDA3A9393731AA56CE53A1E2283B96F912",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.1/gping-Windows-msvc-x86_64.zip",
-      "checksum": "F08559444BCD7AF8D629CBAD6A972DEA4033A116FF9AAF0B1B2BEF2A3CABB0AF",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-Windows-msvc-x86_64.zip",
+      "checksum": "00EF381775A6449F0510A1E8649E145D7D03634461B269CF8F27F34A22F28AF8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.1/gping-macOS-arm64.tar.gz",
-      "checksum": "3CBFDD3653853CB4770542AF7A9F259DDF93C08C507883320E4A00DFAAABCA2B",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-macOS-arm64.tar.gz",
+      "checksum": "4F63DA3376ABDC9E8BF4E8A562F57DE911330FC416488EEAADE39F8100018D2E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.1/gping-macOS-x86_64.tar.gz",
-      "checksum": "5C1A7273788F5C9E47650ADE9181CD5FC3BCF1978269E0826132AF3B9BC69FD0",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-macOS-x86_64.tar.gz",
+      "checksum": "7865F7FBCA3EA63E411FD9E3059A79E061E9862C9CAB10950391E60D7A853FAC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-linux-arm64.tar.gz",
-      "checksum": "88654024E8DE21B41AEE6F4B6BECA1C786EADB4614B2E89E16D3823EA6040755",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-linux-arm64.tar.gz",
+      "checksum": "4BF88AA5443B09A49E8AF55C1E92FF6148486856703B8F886E1984B0E541AF4D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-linux-x86_64.tar.gz",
-      "checksum": "F5500A69D7299358B537D5D01EF7D30831F2801299D29C23601FA506A2A7061B",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-linux-x86_64.tar.gz",
+      "checksum": "C0406DA6C19BBFBF0381A1A54CF7098A97372C15E5D64BED38E4B8BE53E8455E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-macos-arm64.tar.gz",
-      "checksum": "4B06276180AE713970E1D729F0AA2E9C0C1F4818074D14F76A26DF69283582F5",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-macos-arm64.tar.gz",
+      "checksum": "46E9F219299E6A012075B46191FED21663BD916CEA95F1E419B787A87DDD48BF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-macos-x86_64.tar.gz",
-      "checksum": "375049B30E5211D43A410ACF8A160D0C14038C8C3ED08D044BFE181ED770B62A",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-macos-x86_64.tar.gz",
+      "checksum": "FE3AFAC2154CDC6432449D1CF526744389F8686BD9B240F146E632AA532205AD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sachaos/viddy/v1.3.0/viddy-v1.3.0-windows-x86_64.tar.gz",
-      "checksum": "5111869984D0CB12C2F0764BAFA83159B2B011FC00EFC32024E21B8AD1C0F7F0",
+      "id": "github_release/github.com/sachaos/viddy/v1.3.1/viddy-v1.3.1-windows-x86_64.tar.gz",
+      "checksum": "B77C34A18D10FB3C9338EF292A59DE00F3D695AA423FD3B6FF617EF6840E2A70",
       "algorithm": "sha256"
     },
     {
@@ -1216,28 +1216,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/darwin-arm64/claude",
-      "checksum": "EB0730351BE2F02B482B1855870F5877489085AAC86B0C4C1DB4E458D9E40ED9",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/darwin-arm64/claude",
+      "checksum": "473495D0C15D6616CD0870480DB5EB8AA0402FE4F8EAD3277A1B521E94110309",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/darwin-x64/claude",
-      "checksum": "FCDC6C6679D4E1E3A0A3812F24E8B08AB73156732072C2CA5EE6248BEE8313BD",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/darwin-x64/claude",
+      "checksum": "E6C5F5EEC2B4D18F6234C3BA500E285F07A2E5FFB4C67D4BA0494C28C70DFE79",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/linux-arm64/claude",
-      "checksum": "BAF3926DC166215772F959E367DA9784FF4C75157AAAFE4524FDC79EBFF984B1",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/linux-arm64/claude",
+      "checksum": "8E57484F5C08093117CFE6225529F8977877EEA04BB3463F4E228AA7438349B3",
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/linux-x64/claude",
-      "checksum": "FF41753634B20C869EF6A32A20863521B33D4186AC0D6A49379AB48A48395EE7",
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/linux-x64/claude",
+      "checksum": "17ED1A983A49404C4673DE286419A8FD6617C92440A2E0F789BCC413A3B14DE1",
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.524.0/registry.yaml",
-      "checksum": "644671BCC740F0E8358C06A109822A39CA96F042A9D8136DA84049BD5D8CD4632966D2575E6B456F6B5A3C2B0B392D14864E5816AF047497D2A8D9AB20BCD686",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.526.0/registry.yaml",
+      "checksum": "D2E561691DC27A32AE7A37AEF06854BB6CE6E3F3424D189D56FBD04B35C13ED82D8409155C575F7B8F06A0A7B3B29CD58872649F27D6E8C4A2C65B98838EC4F9",
       "algorithm": "sha512"
     }
   ]

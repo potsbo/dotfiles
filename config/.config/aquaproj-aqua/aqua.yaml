@@ -8,7 +8,7 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.524.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.526.0 # renovate: depName=aquaproj/aqua-registry
   - name: local
     type: local
     path: registry.yaml
@@ -47,20 +47,20 @@ packages:
   - name: junegunn/fzf/fzf-tmux@v0.73.1
   - name: sxyazi/yazi@v26.5.6
   - name: github/copilot-cli@v1.0.20
-  - name: anthropics/claude-code@v2.1.177
+  - name: anthropics/claude-code@v2.1.178
   - name: aristocratos/btop@v1.4.6
   - name: itamae-kitchen/mitamae@v1.14.4
   - name: ynqa/jnv@v0.7.1
   - name: theseus-rs/postgresql-binaries@18.4.0
   - name: bootandy/dust@v1.2.4
-  - name: sachaos/viddy@v1.3.0
+  - name: sachaos/viddy@v1.3.1
   - name: dev.yorhel.nl/ncdu
     version: 2.9.1
   - name: dalance/procs@v0.14.11
   - name: muesli/duf@v0.9.1
   - name: chmln/sd@v1.1.0
   - name: mr-karan/doggo@v1.1.7
-  - name: orf/gping@gping-v1.20.1
+  - name: orf/gping@gping-v1.20.2
   - name: fujiapple852/trippy@0.13.0
   - name: sharkdp/hexyl@v0.17.0
   - name: ducaale/xh@v0.25.3
