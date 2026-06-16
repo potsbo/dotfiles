@@ -23,7 +23,4 @@
       method = "link-local";
     };
   };
-
-  # phoenix 固有: LAN ルート広告
-  services.tailscale.extraUpFlags = [ "--advertise-routes=192.168.10.0/24" ];
 }
