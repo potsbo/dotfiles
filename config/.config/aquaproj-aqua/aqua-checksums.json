@@ -1191,28 +1191,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.3.0/node-v26.3.0-darwin-arm64.tar.gz",
-      "checksum": "77EF7F7A15AA757C2CA19D63CF41C8D9EB3B18590EBC6883871310787D8C6B6C",
+      "id": "http/nodejs.org/dist/v26.3.1/node-v26.3.1-darwin-arm64.tar.gz",
+      "checksum": "3F624AB0D774553C0D28B968E141D8C676A35A2811FB0B7B356BA9CBDCE15F74",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.3.0/node-v26.3.0-darwin-x64.tar.gz",
-      "checksum": "7453BD54A17BDC656E2E784D702F6EEB224FB517965E6F8C5A31A88C83D3804C",
+      "id": "http/nodejs.org/dist/v26.3.1/node-v26.3.1-darwin-x64.tar.gz",
+      "checksum": "3EC9E5A28C641C088F3D04AD38721BFDEDB2F8AA8C031979FA93DF08B5A92E58",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.3.0/node-v26.3.0-linux-arm64.tar.gz",
-      "checksum": "B2E01F65905C24CB5DD19C4CFBFEFE0118E0504C170CC18BEAC343A2ABBB59BD",
+      "id": "http/nodejs.org/dist/v26.3.1/node-v26.3.1-linux-arm64.tar.gz",
+      "checksum": "2F0829B201E9DB20996AE15BCE62138DF1E3D317775B005778B05CF7B19714F1",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.3.0/node-v26.3.0-linux-x64.tar.gz",
-      "checksum": "A6E65CC653E40C1653B77742F9185DBCE3FF1F99FA2746D211BDDB53530EF206",
+      "id": "http/nodejs.org/dist/v26.3.1/node-v26.3.1-linux-x64.tar.gz",
+      "checksum": "E892CD615E637EDEBCF22F9653D80FBA63167AD6754D20881FD52CC37BE81441",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.3.0/node-v26.3.0-win-x64.zip",
-      "checksum": "EC6D0F6B056C89498A9B26C4D5C77A31FD0B7FE45BA8A45FA87D26F66C3EBCE4",
+      "id": "http/nodejs.org/dist/v26.3.1/node-v26.3.1-win-x64.zip",
+      "checksum": "45001B289EBFFE7B22260898F3750059183D8246042B88E8FFA4337E65E6763E",
       "algorithm": "sha256"
     },
     {
