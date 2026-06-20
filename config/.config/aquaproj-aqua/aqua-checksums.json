@@ -306,28 +306,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.25.3/xh-v0.25.3-aarch64-apple-darwin.tar.gz",
-      "checksum": "3886AF1DF744A44F6F8DA37D51E3F733C14B35AEB3F46828EE528970AD708951",
+      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-aarch64-apple-darwin.tar.gz",
+      "checksum": "C66E2F66CF0D486066F8BC6BB5E0B567FA62519B3CB9F68B4A2CFEF8BCE92892",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.25.3/xh-v0.25.3-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "042F504048281E0042D99230750EE0A314D0A7273C4398D62A66896478B53A86",
+      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "823C344A8DFE747E94E667F3331B8E41EF99939E7E42078F498388FB9D1062B0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.25.3/xh-v0.25.3-x86_64-apple-darwin.tar.gz",
-      "checksum": "EF0BD8FE2752ABD84202D0B0AC5D4943712CE3C464D70A679B140CA2A0A475CF",
+      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-x86_64-apple-darwin.tar.gz",
+      "checksum": "1D7ECE33662E0C0336283E1F1BF09DE75B46302701DF50493BED1EBC5EE9E305",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.25.3/xh-v0.25.3-x86_64-pc-windows-msvc.zip",
-      "checksum": "49F60A01324CE42726CE1F8BCDFF4B376B1E8533AED33D7A107A3CD70F040236",
+      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-x86_64-pc-windows-msvc.zip",
+      "checksum": "8BDD9CC00F03739294B9F3BC9214E2624BEE89F7BA6DD55E65E6F53FD1ADE388",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.25.3/xh-v0.25.3-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "FC738E616B327E7A10256E206C78073BFEED95D73AF6BA9CED4C5EB20AC8D717",
+      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "C411F07A0B204CA07858A67473D0F5C77E332226430D4D84D1D2AFD351A425F2",
       "algorithm": "sha256"
     },
     {
