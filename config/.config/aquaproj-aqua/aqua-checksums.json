@@ -711,31 +711,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.7/doggo_1.1.7_Darwin_arm64.tar.gz",
-      "checksum": "DFE4C061CF7F581CD3712D9A75086548309D6FA41A7C7733E56D14507EA4398F",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.7/doggo_1.1.7_Darwin_x86_64.tar.gz",
-      "checksum": "CC601258EB4ACA0FDE5817CCCCDF2DCD42C732EB87EF230B377E850119CE9D8A",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.7/doggo_1.1.7_Linux_arm64.tar.gz",
-      "checksum": "647382022CD7068B7995A7616C6B27291491D5737EBD32CBA2879D6601E13B2B",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.7/doggo_1.1.7_Linux_x86_64.tar.gz",
-      "checksum": "A908D045DBDA977482927FD90EE1AB2020115FBF0905B93C7D6EF40D357B5392",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/mr-karan/doggo/v1.1.7/doggo_1.1.7_Windows_x86_64.zip",
-      "checksum": "F26B855AD241DB1C3C1F86BB80206AEFE433ACE71FA391B87ED75E293DBE03F8",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/muesli/duf/v0.9.1/duf_0.9.1_darwin_arm64.tar.gz",
       "checksum": "512BA0FF3585BB8C65841DE557A4C4B8712332DB005DC952FA98D373A05D01DF",
       "algorithm": "sha256"
