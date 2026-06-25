@@ -711,6 +711,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/mr-karan/doggo/v1.2.0/doggo-darwin-aarch64.tar.gz",
+      "checksum": "AA8B866D8BC96CE7A004F3D2F99C26E4BB0DD140C7BD151B2EB12A1D0B01CC06",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mr-karan/doggo/v1.2.0/doggo-darwin-x86_64.tar.gz",
+      "checksum": "2D88AD833FD7616AE5E8908CF76593FBECFB5FD4463784AFE8731686BEE0CEFE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mr-karan/doggo/v1.2.0/doggo-linux-aarch64.tar.gz",
+      "checksum": "B15E3E56B1E1D2E4BB3BF81B292A49A1B55781465AB2CB858CDB7F081FD95D0F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mr-karan/doggo/v1.2.0/doggo-linux-x86_64.tar.gz",
+      "checksum": "AA6760E7F163958E7626420447385AB938FDC127983EDACEB121F809BD3E2BCA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mr-karan/doggo/v1.2.0/doggo-windows-x86_64.zip",
+      "checksum": "A84F677F7596C320F419CDC035ADB64E89DEF37FB1EE6C57500A39742024E664",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/muesli/duf/v0.9.1/duf_0.9.1_darwin_arm64.tar.gz",
       "checksum": "512BA0FF3585BB8C65841DE557A4C4B8712332DB005DC952FA98D373A05D01DF",
       "algorithm": "sha256"
@@ -1211,8 +1236,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.527.0/registry.yaml",
-      "checksum": "55A37D408529F4CCEAD32348C177BA59FDD726C856AE4503C026B086A164BC53ADBDDAC89F2B4D219FBC5F4522D9D15DCB4D8923CE338ECE62640E736E8FB19E",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.528.0/registry.yaml",
+      "checksum": "B4C266D1F1A1E38E1CB2EF24E296517149A6528BC77DE808AB04F705A60CDC005D298FDE0356AA4F629D4EE7291981DA428F5BB150218F6C0D8331C4E582D73D",
       "algorithm": "sha512"
     }
   ]
