@@ -766,28 +766,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-Linux-gnu-arm64.tar.gz",
-      "checksum": "95FA83A26A6F5617B90610201DF7BA99B2F1FE785919ED259317B5DAEE9B9739",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.4/gping-Linux-gnu-arm64.tar.gz",
+      "checksum": "A912B76238BF73D4AE6A4A2ADA7F6DD42C25DA37E8F0044F72543323656F7631",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-Linux-gnu-x86_64.tar.gz",
-      "checksum": "49AB921AA82D304E78B03AB10329CDBDA3A9393731AA56CE53A1E2283B96F912",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.4/gping-Linux-gnu-x86_64.tar.gz",
+      "checksum": "91DBCC0A2E279F7C91D9155F846FA5AD2626406F3306138ED2495744AAA9BC84",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-Windows-msvc-x86_64.zip",
-      "checksum": "00EF381775A6449F0510A1E8649E145D7D03634461B269CF8F27F34A22F28AF8",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.4/gping-Windows-msvc-x86_64.zip",
+      "checksum": "E2211DA5056092C13A5690A23C0E03FEAC7B4CAF147E2400EBCAD80CA82CABE3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-macOS-arm64.tar.gz",
-      "checksum": "4F63DA3376ABDC9E8BF4E8A562F57DE911330FC416488EEAADE39F8100018D2E",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.4/gping-macOS-arm64.tar.gz",
+      "checksum": "124E5C44DD05ABD8F2019BB23E31CC32D700E7F2F15F74692AFDE53B8C30A24F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/orf/gping/gping-v1.20.2/gping-macOS-x86_64.tar.gz",
-      "checksum": "7865F7FBCA3EA63E411FD9E3059A79E061E9862C9CAB10950391E60D7A853FAC",
+      "id": "github_release/github.com/orf/gping/gping-v1.20.4/gping-macOS-x86_64.tar.gz",
+      "checksum": "B39E8ED591117CA4366502D68AD59E7ADE46CDD789853EA78A705FF5F7053D55",
       "algorithm": "sha256"
     },
     {
