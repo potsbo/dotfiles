@@ -9,9 +9,9 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Install aqua
-        uses: aquaproj/aqua-installer@v4.0.4
+        uses: aquaproj/aqua-installer@v4.0.5
         with:
           aqua_version: v2.57.1
       - run: ./install
@@ -20,6 +20,6 @@ jobs:
   nix:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: DeterminateSystems/determinate-nix-action@v3
       - run: nix build ./nix#homeConfigurations.linux.activationPackage
