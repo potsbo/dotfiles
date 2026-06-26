@@ -17,14 +17,23 @@ REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
 # Step 0 validation
+# MANAGE_SYSTEM=1 のときだけ nixos-rebuild でシステム全体の設定を触る。
+# 既知ホスト = 自分が管理しているマシンなのでシステムごと管理する。
+# 未知ホスト = 管理外のサーバーなので user (home-manager) 設定だけ入れる。
+MANAGE_SYSTEM=0
 case "$HOSTNAME" in
-avalanche | tigerlake | raptorlake | phoenix | staten-nix | blizzard | skylake) CONFIG="$HOSTNAME" ;;
+avalanche | tigerlake | raptorlake | phoenix | staten-nix | blizzard | skylake)
+  CONFIG="$HOSTNAME"
+  MANAGE_SYSTEM=1
+  ;;
 *)
-  if [[ "$SYSTEM" == "Darwin" ]] || [[ -e /etc/NIXOS ]]; then
+  # nix-darwin は config が無いと switch できないため、未知の macOS は従来どおり弾く
+  if [[ "$SYSTEM" == "Darwin" ]]; then
     echo "Unknown hostname: $HOSTNAME"
     echo "Hint: HOSTNAME=<hostname> curl ... | bash"
     exit 1
   fi
+  # 未知の Linux / NixOS では汎用の home-manager 設定だけ流す（システムには触れない）
   CONFIG="linux"
   ;;
 esac
@@ -59,8 +68,9 @@ if [[ "$USER" == "potsbo" ]]; then
 
   export NIX_CONFIG="experimental-features = nix-command flakes"
 
-  # nixos-rebuild (NixOS only)
-  if [[ -e /etc/NIXOS ]]; then
+  # nixos-rebuild (NixOS only, 既知ホストのみ)
+  # 未知ホスト (MANAGE_SYSTEM=0) では管理外のシステム設定を壊さないようスキップする
+  if [[ -e /etc/NIXOS ]] && [[ "$MANAGE_SYSTEM" == "1" ]]; then
     sudo nixos-rebuild switch --flake "${DOTPATH}/nixos/hosts/${CONFIG}#${CONFIG}" --impure
   fi
 
