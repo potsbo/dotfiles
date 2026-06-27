@@ -149,12 +149,9 @@ _check_pending_ssh() {
     session=$(sed -n '2p' /tmp/sesh-ssh-pending)
     rm -f /tmp/sesh-ssh-pending
     if [ -n "$host" ]; then
-      if [ -n "$session" ]; then
-        # 接続先の tmux セッションに直接 attach (無ければ作成)
-        ssh -t "$host" "tmux new-session -A -s \"$session\""
-      else
-        ssh "$host"
-      fi
+      # ssh-reconnect.sh: 窓タイトルに host[:session] を出し、ネットワーク切断
+      # (ssh exit 255) なら自動で待って再接続する。正常終了なら下のピッカーへ。
+      ~/.config/tuicast/ssh-reconnect.sh "$host" "$session"
       # SSH 終了後、再度 sesh-connect.sh を呼ぶ
       if command -v sesh &> /dev/null; then
         ~/.config/tmux/sesh-connect.sh

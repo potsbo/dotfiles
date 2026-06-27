@@ -10,5 +10,5 @@ if [ -n "${TMUX:-}" ]; then
   echo "$host" >/tmp/sesh-ssh-pending
   tmux detach-client
 else
-  exec ssh "$host"
+  exec ~/.config/tuicast/ssh-reconnect.sh "$host"
 fi
