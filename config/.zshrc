@@ -143,11 +143,18 @@ fi
 # tmux detach 後に pending SSH があれば実行
 _check_pending_ssh() {
   if [ -z "$TMUX" ] && [ -f /tmp/sesh-ssh-pending ]; then
-    local host
-    host=$(cat /tmp/sesh-ssh-pending)
+    local host session
+    # 1行目: host, 2行目: session (session は空なら素の ssh)
+    host=$(sed -n '1p' /tmp/sesh-ssh-pending)
+    session=$(sed -n '2p' /tmp/sesh-ssh-pending)
     rm -f /tmp/sesh-ssh-pending
     if [ -n "$host" ]; then
-      ssh "$host"
+      if [ -n "$session" ]; then
+        # 接続先の tmux セッションに直接 attach (無ければ作成)
+        ssh -t "$host" "tmux new-session -A -s \"$session\""
+      else
+        ssh "$host"
+      fi
       # SSH 終了後、再度 sesh-connect.sh を呼ぶ
       if command -v sesh &> /dev/null; then
         ~/.config/tmux/sesh-connect.sh

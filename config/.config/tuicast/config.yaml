@@ -4,6 +4,7 @@ views:
       - worktree
       - sessions
       - ssh
+      - ssh-session
 
   sessions:
     steps:
@@ -26,6 +27,16 @@ views:
             display: "printf ' %s\\n' {}"
             preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
     run: ~/.config/tuicast/ssh-connect.sh $host
+
+  # Pick a remote tmux session in one shot: "<host> <session>".
+  # The list fans out to every host in parallel (see list-ssh-sessions.sh).
+  ssh-session:
+    steps:
+      - name: target
+        sources:
+          - list: ~/.config/tuicast/list-ssh-sessions.sh
+            display: "printf '\\033[35m\\356\\254\\272\\033[39m %s\\n' {}"
+    run: ~/.config/tuicast/ssh-session-connect.sh $target
 
   worktree:
     steps:
