@@ -32,8 +32,9 @@ fi
 # label whenever the connection is gone.
 set_title() { printf '\033]0;%s\007' "$1"; }
 
-# Ctrl-C while we are waiting to reconnect: restore the plain label and leave.
-trap 'set_title "$label"; printf "\n"; exit 0' INT
+# Ctrl-C while we are waiting to reconnect: clear the status line, restore the
+# plain label and leave.
+trap 'printf "\r\033[K"; set_title "$label"; exit 0' INT
 
 run_ssh() {
   if [ -n "$session" ]; then
@@ -43,16 +44,31 @@ run_ssh() {
   fi
 }
 
+# Wait for the host to come back, quietly. Instead of letting failed ssh
+# attempts (and their "Could not resolve hostname…" noise) pile up line after
+# line, we probe in the background and keep a single status line updated in
+# place, then clear it once the host answers.
+wait_for_network() {
+  local start=$SECONDS spin='|/-\' i=0
+  set_title "$label · waiting…"
+  while true; do
+    printf '\r\033[K\033[33m%s  %s disconnected — waiting for network (%ds, Ctrl-C to stop)\033[0m' \
+      "${spin:i:1}" "$label" "$((SECONDS - start))"
+    ssh -o ConnectTimeout=4 -o BatchMode=yes -o StrictHostKeyChecking=accept-new \
+      "$host" true 2>/dev/null && break
+    i=$(((i + 1) % 4))
+    sleep 1
+  done
+  printf '\r\033[K'   # erase the status line; the reconnect takes over the screen
+}
+
 set_title "$label"
 while true; do
   run_ssh
   code=$?
   # 0 or any non-255 code => the user logged out / detached on purpose.
   [ "$code" -eq 255 ] || break
-
-  set_title "$label · reconnecting…"
-  printf '\033[33m[%s] disconnected (network). reconnecting… (Ctrl-C to stop)\033[0m\n' "$label"
-  sleep 2
+  wait_for_network
 done
 
 set_title "$label"
