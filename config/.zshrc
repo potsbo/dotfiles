@@ -67,20 +67,36 @@ if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
 
+# host-colored frame so tuicast (and any fzf) shows which host it runs on.
+# palette mirrors config/.config/tmux/style.tmux
 case $(hostname) in
 "tigerlake")
-thm_main=yellow
+thm_main="#fd971f"
 ;;
 "raptorlake")
-thm_main=white
+thm_main="#f8f8f2"
 ;;
 "avalanche.local")
-thm_main=blue
+thm_main="#ae81ff"
+;;
+"phoenix")
+thm_main="#d7875f"
+;;
+"staten-nix")
+thm_main="#f92672"
+;;
+"blizzard.local")
+thm_main="#55bed2"
+;;
+"graniteridge")
+thm_main="#a6e22e"
 ;;
 *)
-thm_main=gray
+thm_main="#797979"
 ;;
 esac
+
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:-} --border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
