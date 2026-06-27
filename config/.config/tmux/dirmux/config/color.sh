@@ -15,5 +15,6 @@ case $(hostname) in
 "phoenix")         echo "#d7875f" ;;  # orange
 "staten-nix")      echo "#f92672" ;;  # red
 "blizzard.local")  echo "#55bed2" ;;  # cyan
+"graniteridge")    echo "#a6e22e" ;;  # green
 *)              echo "#797979" ;;  # gray
 esac

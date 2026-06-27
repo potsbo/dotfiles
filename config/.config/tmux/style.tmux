@@ -40,6 +40,10 @@ main() {
     thm_main="#55bed2"
     thm_sub=$thm_black
     ;;
+  "graniteridge")
+    thm_main=$thm_green
+    thm_sub=$thm_black
+    ;;
   *)
     thm_main=$thm_gray
     thm_sub=$thm_black

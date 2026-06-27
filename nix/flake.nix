@@ -24,6 +24,7 @@
         red = "#f92672";
         cyan = "#55bed2";
         blue = "#6796e6";
+        green = "#a6e22e";
       };
 
       hostColors = {
@@ -34,6 +35,7 @@
         "staten-nix" = colors.red;
         blizzard = colors.cyan;
         skylake = colors.blue;
+        graniteridge = colors.green;
         default = colors.gray;
       };
 
