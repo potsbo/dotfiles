@@ -39,6 +39,12 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
     Dir.rmdir(home_path)
   end
 
+  # .docker/config.json のようにネストしたパスは親ディレクトリが無いと ln が失敗するため先に作る
+  parent_dir = File.dirname(home_path)
+  directory parent_dir do
+    recursive true
+  end unless parent_dir == ENV['HOME']
+
   link home_path do
     to dotfiles_path
     force true
