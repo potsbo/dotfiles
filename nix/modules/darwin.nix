@@ -62,7 +62,6 @@
     ];
     masApps = {
       "Amphetamine" = 937984704;
-      "GoodNotes" = 1444383602;
       "Magnet" = 441258766;
       "Microsoft Excel" = 462058435;
       "Microsoft PowerPoint" = 462062816;
