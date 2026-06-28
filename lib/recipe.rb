@@ -23,7 +23,6 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   ".zprofile",
   ".zshrc",
   ".default-npm-packages",
-  ".docker/config.json",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
   dotfiles_path = File.join(DOTFILE_REPO, "config", name)
@@ -39,7 +38,7 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
     Dir.rmdir(home_path)
   end
 
-  # .docker/config.json のようにネストしたパスは親ディレクトリが無いと ln が失敗するため先に作る
+  # .local/bin のようにネストしたパスは親ディレクトリが無いと ln が失敗するため先に作る
   # mitamae の directory リソースは親ディレクトリも再帰的に作る (mkdir -p 相当)
   directory File.dirname(home_path)
 
