@@ -50,6 +50,14 @@ main() {
     ;;
   esac
 
+  # host-colored fzf frame.
+  # fzf reads FZF_DEFAULT_OPTS from its env. tuicast launches `fzf --tmux`, which
+  # runs the inner fzf via `tmux display-popup` — that popup inherits the tmux
+  # *global* environment (set-environment -g), NOT the caller's shell env, so the
+  # value exported in .zshrc never reaches it. Inject it here, where the host
+  # color already lives, so tuicast (and every in-tmux fzf) shows which host it is.
+  tmux set-environment -g FZF_DEFAULT_OPTS "--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
+
   # cheatsheet shown on prefix key
   cheatsheet=' s:  w:  n/p:  c:  &:  %%%%:  ":  z:  q:  ^:'
 

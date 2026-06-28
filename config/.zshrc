@@ -96,7 +96,11 @@ thm_main="#797979"
 ;;
 esac
 
-export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS:-} --border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
+# Inside tmux this is already set via `set-environment -g` (see style.tmux) and
+# inherited here, so only set it for non-tmux shells to avoid duplicate options.
+if [[ -z "${FZF_DEFAULT_OPTS:-}" ]]; then
+  export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
+fi
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
