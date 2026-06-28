@@ -10,6 +10,15 @@ MItamae::RecipeContext.class_eval do
   end
 end
 
+# GitHub repo を ghq の規約 (~/src/github.com/...) に従ってクローンする独自リソース
+define :ghq do
+  repo = params[:name]
+  execute "ghq get #{repo}" do
+    command "aqua exec -- ghq get https://github.com/#{repo}"
+    not_if "test -d #{File.join(ENV['HOME'], 'src', 'github.com', repo)}"
+  end
+end
+
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
 # シンボリックリンク
@@ -161,26 +170,17 @@ if node[:platform] == "ubuntu"
 end
 
 # tmux plugins (ghq で管理し、~/.tmux/plugins/ にシンボリックリンク)
-GHQ_ROOT = File.join(ENV['HOME'], "src")
 TMUX_PLUGINS = [
   "tmux-plugins/tpm",
   "alexwforsythe/tmux-which-key",
 ]
 
-TMUX_PLUGINS.each do |plugin|
-  plugin_path = File.join(GHQ_ROOT, "github.com", plugin)
-  execute "ghq get #{plugin}" do
-    command "aqua exec -- ghq get https://github.com/#{plugin}"
-    not_if "test -d #{plugin_path}"
-  end
-end
-
 directory File.join(ENV['HOME'], ".tmux/plugins")
 
 TMUX_PLUGINS.each do |plugin|
-  plugin_name = plugin.split("/").last
-  link File.join(ENV['HOME'], ".tmux/plugins", plugin_name) do
-    to File.join(GHQ_ROOT, "github.com", plugin)
+  ghq plugin
+  link File.join(ENV['HOME'], ".tmux/plugins", plugin.split("/").last) do
+    to File.join(ENV['HOME'], "src", "github.com", plugin)
     force true
   end
 end
@@ -192,9 +192,5 @@ ZSH_PLUGINS = [
 ]
 
 ZSH_PLUGINS.each do |plugin|
-  plugin_path = File.join(GHQ_ROOT, "github.com", plugin)
-  execute "ghq get #{plugin}" do
-    command "aqua exec -- ghq get https://github.com/#{plugin}"
-    not_if "test -d #{plugin_path}"
-  end
+  ghq plugin
 end
