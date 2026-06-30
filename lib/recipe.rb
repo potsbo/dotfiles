@@ -160,9 +160,7 @@ if node[:platform] == "ubuntu"
     command "sudo chsh -s $(which zsh) $(whoami)"
     not_if '[ "$(getent passwd $(whoami) | cut -d: -f7)" = "$(which zsh)" ]'
   end
-end
 
-if node[:platform] == "ubuntu"
   execute "install tailscale" do
     command "curl -fsSL https://tailscale.com/install.sh | sh"
     not_if "command -v tailscale"
