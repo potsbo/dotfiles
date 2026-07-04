@@ -526,28 +526,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.19.0/miller-6.19.0-darwin-amd64.tar.gz",
-      "checksum": "59082FD03D98DB97DA2BEF38728520F678BAA1A1416E109F10978606A863A814",
+      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-darwin-amd64.tar.gz",
+      "checksum": "BCFE6D817E1752B6A0BCC5ECFFBCF1911BB980CA4CC40FB8B6B6D446ABFED0B1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.19.0/miller-6.19.0-darwin-arm64.tar.gz",
-      "checksum": "BF96BCF9EB26CDFC98185D5B99A9D08A8E53014C202C7A81352D8ACF02E7DE8C",
+      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-darwin-arm64.tar.gz",
+      "checksum": "32DDFF009DE1B281A06FB1AA1C5C4EFD9D4958BA4BD7CC608BEA6DBF1206623C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.19.0/miller-6.19.0-linux-amd64.tar.gz",
-      "checksum": "69F48273C34A38D534CFAA0F40FCC839A730F89DC4C7A25C6071BB82770B73FA",
+      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-linux-amd64.tar.gz",
+      "checksum": "73461CD6469DF3A0C14A102D6E19EF04528EDA08CBD7AEDBCE5D32CCC7C0428E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.19.0/miller-6.19.0-linux-arm64.tar.gz",
-      "checksum": "25DBD7E6FA11D1D4785165ACC881E0F51D677730817776B64D99DB95E34C655B",
+      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-linux-arm64.tar.gz",
+      "checksum": "D38F0F42D939609D6806274AF67D86C2873ACBC64635A3F11AA69FA28038722B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.19.0/miller-6.19.0-windows-amd64.zip",
-      "checksum": "73FAF998C09D6018D6F93BF085148912728D84FC8797BB7FD6F2BDC8A3D37036",
+      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-windows-amd64.zip",
+      "checksum": "C49CB6C1DD3A5A8C7B63F64E6758C910CAF4B4B2AAE040E75946AAA5BFF77B6D",
       "algorithm": "sha256"
     },
     {
