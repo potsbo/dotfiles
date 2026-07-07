@@ -126,13 +126,13 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aristocratos/btop/v1.4.6/btop-aarch64-unknown-linux-musl.tbz",
-      "checksum": "7902578C0439332573148CAF6B3515DF2B158D163BAEEFF046028E428EC3295A",
+      "id": "github_release/github.com/aristocratos/btop/v1.4.7/btop-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "6270DE0EF4C84CF0EEA61CB148B3AD9AE91A11E9C3309867FFC6B3751024C252",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/aristocratos/btop/v1.4.6/btop-x86_64-unknown-linux-musl.tbz",
-      "checksum": "9BF7ED170423BB3709A8020767BD2CA529C5632AF478F229DCE7CDFD32B25691",
+      "id": "github_release/github.com/aristocratos/btop/v1.4.7/btop-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "5099054DD6A101BD12EB6FF3702A9A6A3F57AAA27923A0DA478AE5B517FAF335",
       "algorithm": "sha256"
     },
     {
