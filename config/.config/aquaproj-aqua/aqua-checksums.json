@@ -786,6 +786,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-linux-aarch64",
+      "checksum": "EA490094F2C7C39099870857D00C64C628EF7B5EBA1967DF4258033455EE2CB1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-linux-x86_64",
+      "checksum": "043EF43ECBABDA28465DCFF1EEC3184518150D567B8B8F20CDA9C6C88770641D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-macos-aarch64",
+      "checksum": "B31345392D004EC1F1B2C821E1AD601019FA8385FE1E4C6931321EB58A920773",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-macos-x86_64",
+      "checksum": "9B5F35D283B0877EEDA0CF66BA1EF1D95AE40F32E858A04DA0041F3A20DF027C",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/orf/gping/gping-v1.20.4/gping-Linux-gnu-arm64.tar.gz",
       "checksum": "A912B76238BF73D4AE6A4A2ADA7F6DD42C25DA37E8F0044F72543323656F7631",
       "algorithm": "sha256"
