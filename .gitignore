@@ -41,4 +41,5 @@ config/.config/user-dirs.locale
 /config/.config/autostart
 /config/.config/todoist-cli
 /config/.config/github-copilot
-/config/.config/herdr
+/config/.config/herdr/*
+!/config/.config/herdr/config.toml

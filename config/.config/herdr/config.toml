@@ -1,0 +1,14 @@
+# herdr config — https://herdr.dev/docs/configuration/
+# Only overrides are listed; everything else stays at herdr's defaults.
+
+[keys]
+# tmux と同じ prefix (C-w) に合わせる。
+prefix = "ctrl+w"
+
+# tmux では C-Tab / C-BTab で window を切り替えていた。
+# herdr の tab がそれに相当するので、prefix なしの直接バインドを追加する
+# (prefix+n / prefix+p のデフォルトも配列で残す)。
+# 注: C-Tab を届けるには WezTerm 側の CSI-u 設定が必要で、herdr が
+#     そのシーケンスを解釈するかは要確認 (効かなければこの2行を消す)。
+next_tab = ["prefix+n", "ctrl+tab"]
+previous_tab = ["prefix+p", "ctrl+shift+tab"]
