@@ -12,3 +12,17 @@ prefix = "ctrl+w"
 #     そのシーケンスを解釈するかは要確認 (効かなければこの2行を消す)。
 next_tab = ["prefix+n", "ctrl+tab"]
 previous_tab = ["prefix+p", "ctrl+shift+tab"]
+
+# 全 repo × 全 worktree から選んで、その worktree の space に switch (無ければ作る)。
+[[keys.command]]
+key = "ctrl+]"
+type = "pane"
+command = "herdr-worktree-switch"
+
+[[keys.command]]
+key = "prefix+f"
+type = "pane"
+command = "herdr-worktree-switch"
+
+[ui]
+agent_panel_sort = "spaces"

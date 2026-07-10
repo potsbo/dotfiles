@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Pick any worktree across every ghq repo and switch to its herdr space,
+# creating the space if none exists yet.
+#
+# One worktree <-> one space: keyed off the worktree's on-disk path. If an open
+# space already has a pane rooted at that path we focus it, otherwise we create
+# a new space there.
+set -euo pipefail
+
+name_of() { GHQ_ROOT="$ghq_root" ~/.config/tmux/dirmux/path-to-name.sh "$1"; }
+
+ghq_root=$(ghq root)
+
+# Snapshot of open panes, used to mark open worktrees and resolve the target
+# workspace id after the pick. Taken once so the view is stable.
+panes=$(herdr pane list)
+open_cwds=$(printf '%s' "$panes" | jq -r '.result.panes[].cwd')
+
+# All worktrees across all repos, "<path>\t<branch>", deduped by path.
+# (Linked worktrees of the same repo are separate ghq entries and each reports
+# the full worktree set, so the same path shows up many times without dedup.)
+list_worktrees() {
+  ghq list --full-path | while IFS= read -r repo; do
+    git -C "$repo" worktree list --porcelain 2>/dev/null
+  done | awk '
+    /^worktree /  { p = substr($0, 10) }
+    /^branch /    { b = $2; sub("refs/heads/", "", b); print p "\t" b }
+    /^detached$/  { print p "\t(detached)" }
+  ' | awk -F'\t' '!seen[$1]++'
+}
+
+openf=$(mktemp)
+trap 'rm -f "$openf"' EXIT
+printf '%s\n' "$open_cwds" >"$openf"
+
+# fzf line: "<path>\t<mark> <repo-relative path>\t<branch>"; columns 2,3 shown.
+sel=$(
+  list_worktrees | awk -F'\t' -v root="$ghq_root/" -v openf="$openf" '
+    BEGIN { while ((getline l < openf) > 0) if (l != "") open[l] = 1 }
+    {
+      path = $1; branch = $2
+      disp = (substr(path, 1, length(root)) == root) ? substr(path, length(root) + 1) : path
+      mark = (path in open) ? "\xe2\x97\x8f" : " "   # ● when a space is open
+      printf "%s\t%s %s\t%s\n", path, mark, disp, branch
+    }
+  ' | fzf --delimiter='\t' --with-nth=2,3 \
+          --prompt='space> ' \
+          --preview='git -C {1} log --oneline --decorate -15 2>/dev/null' \
+          --preview-window=right,50%
+) || exit 0
+
+path=$(printf '%s' "$sel" | cut -f1)
+[ -n "$path" ] || exit 0
+
+ws=$(printf '%s' "$panes" | jq -r --arg p "$path" \
+  'first(.result.panes[] | select(.cwd == $p) | .workspace_id) // empty')
+
+if [ -n "$ws" ]; then
+  herdr workspace focus "$ws"
+else
+  # `herdr worktree open` only works from a repo's parent workspace, so it can't
+  # target an arbitrary linked-worktree path. A plain workspace rooted at the
+  # worktree path gives us the 1:1 space we want without that restriction.
+  herdr workspace create --cwd "$path" --label "$(name_of "$path")" --focus
+fi
