@@ -33,17 +33,15 @@ openf=$(mktemp)
 trap 'rm -f "$openf"' EXIT
 printf '%s\n' "$open_cwds" >"$openf"
 
-# fzf line: "<path>\t<mark> <repo-relative path>\t<branch>"; columns 2,3 shown.
+# fzf line: "<path>\t<mark> <display name>\t<branch>"; columns 2,3 shown.
+# Display name comes from path-to-name.sh (nerd font icons for host/worktree),
+# one subprocess per worktree.
 sel=$(
-  list_worktrees | awk -F'\t' -v root="$ghq_root/" -v openf="$openf" '
-    BEGIN { while ((getline l < openf) > 0) if (l != "") open[l] = 1 }
-    {
-      path = $1; branch = $2
-      disp = (substr(path, 1, length(root)) == root) ? substr(path, length(root) + 1) : path
-      mark = (path in open) ? "\xe2\x97\x8f" : " "   # ● when a space is open
-      printf "%s\t%s %s\t%s\n", path, mark, disp, branch
-    }
-  ' | fzf --delimiter='\t' --with-nth=2,3 \
+  list_worktrees | while IFS=$'\t' read -r path branch; do
+    mark=" "
+    grep -qxF "$path" "$openf" && mark="$(printf '\xe2\x97\x8f')"   # ● when open
+    printf '%s\t%s %s\t%s\n' "$path" "$mark" "$(name_of "$path")" "$branch"
+  done | fzf --delimiter='\t' --with-nth=2,3 \
           --prompt='space> ' \
           --preview='git -C {1} log --oneline --decorate -15 2>/dev/null' \
           --preview-window=right,50%
