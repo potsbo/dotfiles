@@ -4,13 +4,12 @@
 theme = Monokai Remastered
 
 # Font
+# フォント指定は最小限。ghostty 内蔵の JetBrains Mono (Regular/Bold) と
+# Nerd Font アイコンをそのまま使い、日本語は macOS の CoreText 経由で
+# Hiragino に自動フォールバックさせる (これが一番きれいに決まる)。
+# font-family を明示すると内蔵フォントとの兼ね合いで bold が別フォントに
+# 化ける不具合が出たため、あえて指定しない。
 font-size = 13
-# 主フォント。wezterm の weight = "Medium" は font-style で再現する。
-font-family = JetBrains Mono
-font-style = Medium
-# フォールバック (wezterm: font_with_fallback)
-font-family = Symbols Nerd Font Mono
-font-family = BIZ UDGothic
 # リガチャ無効化 (wezterm: harfbuzz_features = calt=0 liga=0 dlig=0)
 font-feature = -calt
 font-feature = -liga
