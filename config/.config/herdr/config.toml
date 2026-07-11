@@ -26,3 +26,6 @@ command = "herdr-worktree-switch"
 
 [ui]
 agent_panel_sort = "spaces"
+
+# tmux の prefix+c のように、名前入力なしで即 tab を作る。
+prompt_new_tab_name = false
