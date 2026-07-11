@@ -61,3 +61,14 @@ agent_panel_sort = "spaces"
 
 # tmux の prefix+c のように、名前入力なしで即 tab を作る。
 prompt_new_tab_name = false
+
+[update]
+# バイナリは aqua(+Renovate) で管理するので、herdr 自身の版チェック/自己更新は無効化。
+# (`herdr update` は叩かない。aqua 管理とドリフトするため)
+version_check = false
+# manifest_check はデフォルト(true)のまま: agent 検出ルールは本体更新と別軸で最新化される。
+
+[experimental]
+# prefix モード中だけ macOS の入力ソースを ASCII に一時切替。日本語 IME オン中でも
+# prefix コマンド (prefix→c 等) が IME に食われず通る。抜けたら元の入力ソースに戻す。
+switch_ascii_input_source_in_prefix = true
