@@ -66,6 +66,7 @@ if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --compl
 if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
+if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
 # host-colored frame so tuicast (and any fzf) shows which host it runs on.
 # palette mirrors config/.config/tmux/style.tmux
