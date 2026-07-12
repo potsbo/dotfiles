@@ -70,3 +70,4 @@ packages:
   # Not in aqua-registry; defined via the local registry below. Apple Silicon only.
   - name: vladkens/macmon@v0.7.2
     registry: local
+  - name: dlvhdr/gh-dash@v4.25.2

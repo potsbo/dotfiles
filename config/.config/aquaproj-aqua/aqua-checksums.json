@@ -306,6 +306,36 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.25.2/gh-dash_v4.25.2_darwin-amd64",
+      "checksum": "CED29D14D9CF4A7508CA3A7466F0A6867FE9694FC8C65CD354BC842F7F32C18A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.25.2/gh-dash_v4.25.2_darwin-arm64",
+      "checksum": "A0E787EF5679E45E08C69EDB34F25ED811AEFC14157DD08F5721EDCB5A3EC671",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.25.2/gh-dash_v4.25.2_linux-amd64",
+      "checksum": "1546F8CEB193D0BED2D4EE4470E0A8A789F4CE5C75383B0037305C125F5BBCE5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.25.2/gh-dash_v4.25.2_linux-arm64",
+      "checksum": "4FE4FC59B9847030653FBC1268F156E13DB3218ECE63F0EEBBB2115AA3C3366D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.25.2/gh-dash_v4.25.2_windows-amd64.exe",
+      "checksum": "5936981BD98D671A00DE9E872C5FC5BE126106E5F06B1A962FBD198E7502A8DB",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.25.2/gh-dash_v4.25.2_windows-arm64.exe",
+      "checksum": "D0470B59D65A14E7AE071D4A4831F6A4768F2AFBD0D28380A54287F93E7501A4",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-aarch64-apple-darwin.tar.gz",
       "checksum": "C66E2F66CF0D486066F8BC6BB5E0B567FA62519B3CB9F68B4A2CFEF8BCE92892",
       "algorithm": "sha256"
