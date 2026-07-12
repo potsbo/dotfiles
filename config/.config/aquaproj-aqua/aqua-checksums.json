@@ -716,6 +716,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-darwin-arm64.tar.gz",
+      "checksum": "0F0597395696F74C66BAF6FFD78F7187DCDCEBD2272A7AB69C744F2421CA40C8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-darwin-x64.tar.gz",
+      "checksum": "01EA9C772A8925C2A7C9C5676E2E6FA4F37B580E5E64C0E507101DA58BE46531",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-linux-arm64.tar.gz",
+      "checksum": "993750A4398726F1693EA1C9A8A29D560529037AA6DAC43C5E775A83BAC67CA5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-linux-x64.tar.gz",
+      "checksum": "6CA05990FBDFEB5FEAFBB0BA46DA00590BB2C22366A391BAB0B7CA07E39D1550",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/mikefarah/yq/v4.53.3/yq_darwin_amd64",
       "checksum": "B4BA1ECCE3C47F00803F4F964DE38394326C7A32EB6540616E04FB2935A0F08D",
       "algorithm": "sha256"
