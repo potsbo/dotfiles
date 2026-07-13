@@ -7,9 +7,26 @@
 # a new space there.
 set -euo pipefail
 
-name_of() { GHQ_ROOT="$ghq_root" ~/.config/tmux/dirmux/path-to-name.sh "$1"; }
-
 ghq_root=$(ghq root)
+
+# Display name for a worktree path. Inlined port of path-to-name.sh: strip the
+# ghq root, swap the host for a nerd-font icon, and mark /.worktrees/. Kept as a
+# shell function (not a subprocess per line) — spawning path-to-name.sh once per
+# worktree dominated the runtime (~1.3s for a few hundred worktrees) and blocked
+# fzf's incremental rendering.
+ICON_GITHUB=$(printf '')
+ICON_GITLAB=$(printf '')
+ICON_WORKTREE=$(printf '')
+name_of() {
+  local rel="${1#"$ghq_root"/}"
+  local host="${rel%%/*}" name="${rel#*/}"
+  case "$host" in
+    github.com) host=$ICON_GITHUB ;;
+    gitlab.com) host=$ICON_GITLAB ;;
+  esac
+  name="${name/\/.worktrees\///$ICON_WORKTREE }"
+  printf '%s %s' "$host" "$name"
+}
 
 # Snapshot of open panes, used to mark open worktrees and resolve the target
 # workspace id after the pick. Taken once so the view is stable.
@@ -19,8 +36,16 @@ open_cwds=$(printf '%s' "$panes" | jq -r '.result.panes[].cwd')
 # All worktrees across all repos, "<path>\t<branch>", deduped by path.
 # (Linked worktrees of the same repo are separate ghq entries and each reports
 # the full worktree set, so the same path shows up many times without dedup.)
+#
+# Repos are visited most-recently-touched first (by .git/index mtime, same
+# heuristic as worktree-new.sh), so frequently-used repos stream to the top of
+# fzf immediately instead of waiting behind the whole ghq list. Dedup keeps the
+# first occurrence, so each worktree inherits its owning repo's rank.
 list_worktrees() {
   ghq list --full-path | while IFS= read -r repo; do
+    t=$(stat -c %Y "$repo/.git/index" 2>/dev/null || stat -f %m "$repo/.git/index" 2>/dev/null || echo 0)
+    printf '%s\t%s\n' "$t" "$repo"
+  done | sort -rn | cut -f2- | while IFS= read -r repo; do
     git -C "$repo" worktree list --porcelain 2>/dev/null
   done | awk '
     /^worktree /  { p = substr($0, 10) }
