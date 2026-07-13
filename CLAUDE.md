@@ -1,5 +1,11 @@
 # CLAUDE.md
 
+## Workflow
+
+Commit dotfiles changes directly on `main` — do **not** create a branch or git
+worktree unless explicitly asked. These changes are usually meant to be tried
+immediately (the repo is symlinked into `~`), so branching just adds friction.
+
 ## Package Management Strategy
 
 Priority order for installing packages:
