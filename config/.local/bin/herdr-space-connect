@@ -7,7 +7,7 @@
 set -euo pipefail
 
 dir="$1"
-label=$(GHQ_ROOT="$(ghq root)" ~/.config/tmux/dirmux/path-to-name.sh "$dir")
+label=$(~/.local/bin/herdr-label "$dir")
 
 # An open space with a pane rooted at this path already? Focus it.
 ws=$(herdr pane list | jq -r --arg p "$dir" \
