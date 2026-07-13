@@ -57,7 +57,7 @@ type = "pane"
 command = "herdr-worktree-switch"
 
 [ui]
-agent_panel_sort = "priority"
+agent_panel_sort = "spaces"
 
 # モバイル端末で幅が広めでもサイドバーを畳んで単一カラムにしたい。
 # この桁数以下だとモバイルレイアウト(サイドバー非表示)になる。default は 64。
