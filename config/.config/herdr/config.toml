@@ -60,9 +60,10 @@ command = "herdr-worktree-switch"
 agent_panel_sort = "spaces"
 
 # サイドバーを既定(26)の約1.5倍に。名前長で min..max の範囲を自動スケールするので、
-# 上限(既定36)も上げないと 39 で頭打ちになる。
+# 短い名前だと下限まで縮むので、下限自体を 39 に上げて実質固定する(上限も併せて上げる)。
+sidebar_min_width = 39
 sidebar_width = 39
-sidebar_max_width = 40
+sidebar_max_width = 45
 
 # モバイル端末で幅が広めでもサイドバーを畳んで単一カラムにしたい。
 # この桁数以下だとモバイルレイアウト(サイドバー非表示)になる。default は 64。
