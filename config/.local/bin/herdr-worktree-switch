@@ -14,6 +14,7 @@ ghq_root=$(ghq root)
 # shell function (not a subprocess per line) — spawning path-to-name.sh once per
 # worktree dominated the runtime (~1.3s for a few hundred worktrees) and blocked
 # fzf's incremental rendering.
+ICON_OPEN=$(printf '\xe2\x97\x8f')   # ● marks a worktree that already has a space
 ICON_GITHUB=$(printf '')
 ICON_GITLAB=$(printf '')
 ICON_WORKTREE=$(printf '')
@@ -59,8 +60,11 @@ trap 'rm -f "$openf"' EXIT
 printf '%s\n' "$open_cwds" >"$openf"
 
 # fzf line: "<path>\t<mark> <display name>\t<branch>"; columns 2,3 shown.
-# Display name comes from path-to-name.sh (nerd font icons for host/worktree),
-# one subprocess per worktree.
+#
+# Worktrees that already have a space (● / present in $openf) are emitted first,
+# so switching back to something already open is a near-instant top-of-list pick;
+# the rest follow, each group keeping the most-recently-used order from
+# list_worktrees. Closed lines are buffered and flushed after the open ones.
 #
 # Feed the list via process substitution rather than a pipe into fzf: picking
 # before every line is loaded makes fzf exit and SIGPIPE the still-running
@@ -73,11 +77,15 @@ sel=$(
       --preview='git -C {1} log --oneline --decorate -15 2>/dev/null' \
       --preview-window=right,50% \
     < <(
-      list_worktrees | while IFS=$'\t' read -r path branch; do
-        mark=" "
-        grep -qxF "$path" "$openf" && mark="$(printf '\xe2\x97\x8f')"   # ● when open
-        printf '%s\t%s %s\t%s\n' "$path" "$mark" "$(name_of "$path")" "$branch"
-      done
+      deferred=''
+      while IFS=$'\t' read -r path branch; do
+        if grep -qxF "$path" "$openf"; then
+          printf '%s\t%s %s\t%s\n' "$path" "$ICON_OPEN" "$(name_of "$path")" "$branch"
+        else
+          deferred+="$(printf '%s\t  %s\t%s' "$path" "$(name_of "$path")" "$branch")"$'\n'
+        fi
+      done < <(list_worktrees)
+      printf '%s' "$deferred"
     )
 ) || exit 0
 
