@@ -61,7 +61,7 @@ export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=100000
 export HISTSIZE=100000
 
-export ANTHROPIC_MODEL=opus
+export ANTHROPIC_MODEL=claude-fable-5
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
