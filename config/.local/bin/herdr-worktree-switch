@@ -9,11 +9,12 @@ set -euo pipefail
 
 ghq_root=$(ghq root)
 
-# Display name for a worktree path. Inlined port of path-to-name.sh: strip the
-# ghq root, swap the host for a nerd-font icon, and mark /.worktrees/. Kept as a
-# shell function (not a subprocess per line) — spawning path-to-name.sh once per
-# worktree dominated the runtime (~1.3s for a few hundred worktrees) and blocked
-# fzf's incremental rendering.
+# Display name for a worktree path, returned in $REPLY. Inlined port of
+# path-to-name.sh: strip the ghq root, swap the host for a nerd-font icon, and
+# mark /.worktrees/. Returns via a global rather than stdout on purpose: the hot
+# loop below runs this once per worktree and `$(name_of ...)` would fork a
+# subshell each time (even for a shell function) — a few hundred forks that used
+# to add ~0.9s and hitch fzf's rendering. Assigning $REPLY keeps it fork-free.
 ICON_OPEN=$(printf '\xe2\x97\x8f')   # ● marks a worktree that already has a space
 ICON_GITHUB=$(printf '')
 ICON_GITLAB=$(printf '')
@@ -26,7 +27,7 @@ name_of() {
     gitlab.com) host=$ICON_GITLAB ;;
   esac
   name="${name/\/.worktrees\///$ICON_WORKTREE }"
-  printf '%s %s' "$host" "$name"
+  REPLY="$host $name"
 }
 
 # Snapshot of open panes, used to mark open worktrees and resolve the target
@@ -55,16 +56,22 @@ list_worktrees() {
   ' | awk -F'\t' '!seen[$1]++'
 }
 
-openf=$(mktemp)
-trap 'rm -f "$openf"' EXIT
-printf '%s\n' "$open_cwds" >"$openf"
+# Open worktrees as a set, for O(1) membership without a grep per line.
+declare -A open_set=()
+while IFS= read -r cwd; do
+  [ -n "$cwd" ] && open_set[$cwd]=1
+done <<<"$open_cwds"
 
 # fzf line: "<path>\t<mark> <display name>\t<branch>"; columns 2,3 shown.
 #
-# Worktrees that already have a space (● / present in $openf) are emitted first,
-# so switching back to something already open is a near-instant top-of-list pick;
-# the rest follow, each group keeping the most-recently-used order from
-# list_worktrees. Closed lines are buffered and flushed after the open ones.
+# Worktrees that already have a space (● / present in open_set) are emitted
+# first, so switching back to something already open is a near-instant
+# top-of-list pick; the rest follow, each group keeping the most-recently-used
+# order from list_worktrees. Closed lines are buffered and flushed afterwards.
+#
+# The per-line work is deliberately fork-free (name_of -> $REPLY, open_set
+# lookup, printf -v) — the earlier `$(name_of)`/`grep`/`$(printf)` per line cost
+# ~0.9s over a few hundred worktrees and was the source of the noticeable hitch.
 #
 # Feed the list via process substitution rather than a pipe into fzf: picking
 # before every line is loaded makes fzf exit and SIGPIPE the still-running
@@ -79,10 +86,12 @@ sel=$(
     < <(
       deferred=''
       while IFS=$'\t' read -r path branch; do
-        if grep -qxF "$path" "$openf"; then
-          printf '%s\t%s %s\t%s\n' "$path" "$ICON_OPEN" "$(name_of "$path")" "$branch"
+        name_of "$path"
+        if [ -n "${open_set[$path]:-}" ]; then
+          printf '%s\t%s %s\t%s\n' "$path" "$ICON_OPEN" "$REPLY" "$branch"
         else
-          deferred+="$(printf '%s\t  %s\t%s' "$path" "$(name_of "$path")" "$branch")"$'\n'
+          printf -v line '%s\t  %s\t%s\n' "$path" "$REPLY" "$branch"
+          deferred+=$line
         fi
       done < <(list_worktrees)
       printf '%s' "$deferred"
@@ -101,5 +110,6 @@ else
   # `herdr worktree open` only works from a repo's parent workspace, so it can't
   # target an arbitrary linked-worktree path. A plain workspace rooted at the
   # worktree path gives us the 1:1 space we want without that restriction.
-  herdr workspace create --cwd "$path" --label "$(name_of "$path")" --focus
+  name_of "$path"
+  herdr workspace create --cwd "$path" --label "$REPLY" --focus
 fi
