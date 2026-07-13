@@ -36,15 +36,24 @@ printf '%s\n' "$open_cwds" >"$openf"
 # fzf line: "<path>\t<mark> <display name>\t<branch>"; columns 2,3 shown.
 # Display name comes from path-to-name.sh (nerd font icons for host/worktree),
 # one subprocess per worktree.
+#
+# Feed the list via process substitution rather than a pipe into fzf: picking
+# before every line is loaded makes fzf exit and SIGPIPE the still-running
+# generator, which under `pipefail` would surface as a non-zero pipeline status
+# and silently trip the `|| exit 0` below (nothing happens). With `< <(...)` the
+# command substitution's status is fzf's alone, so only a real cancel exits.
 sel=$(
-  list_worktrees | while IFS=$'\t' read -r path branch; do
-    mark=" "
-    grep -qxF "$path" "$openf" && mark="$(printf '\xe2\x97\x8f')"   # ● when open
-    printf '%s\t%s %s\t%s\n' "$path" "$mark" "$(name_of "$path")" "$branch"
-  done | fzf --delimiter='\t' --with-nth=2,3 \
-          --prompt='space> ' \
-          --preview='git -C {1} log --oneline --decorate -15 2>/dev/null' \
-          --preview-window=right,50%
+  fzf --delimiter='\t' --with-nth=2,3 \
+      --prompt='space> ' \
+      --preview='git -C {1} log --oneline --decorate -15 2>/dev/null' \
+      --preview-window=right,50% \
+    < <(
+      list_worktrees | while IFS=$'\t' read -r path branch; do
+        mark=" "
+        grep -qxF "$path" "$openf" && mark="$(printf '\xe2\x97\x8f')"   # ● when open
+        printf '%s\t%s %s\t%s\n' "$path" "$mark" "$(name_of "$path")" "$branch"
+      done
+    )
 ) || exit 0
 
 path=$(printf '%s' "$sel" | cut -f1)
