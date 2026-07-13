@@ -57,7 +57,13 @@ type = "pane"
 command = "herdr-worktree-switch"
 
 [ui]
-agent_panel_sort = "spaces"
+agent_panel_sort = "priority"
+
+# モバイル端末で幅が広めでもサイドバーを畳んで単一カラムにしたい。
+# この桁数以下だとモバイルレイアウト(サイドバー非表示)になる。default は 64。
+# iPhone 17 の Termius 最小フォントサイズで幅 81 桁だったので、それを確実に含むよう
+# 少し余裕を持たせて 100 に設定 (フォント調整で幅が増えても判定が外れにくい)。
+mobile_width_threshold = 100
 
 # tmux の prefix+c のように、名前入力なしで即 tab を作る。
 prompt_new_tab_name = false
