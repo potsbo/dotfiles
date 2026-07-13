@@ -17,7 +17,7 @@
   dif = !git --no-pager diff
   difpr = !git diff $(git merge-base --fork-point $(git default-branch))
   new = "!f() { gh repo sync && git switch $(git default-branch) && git wt potsbo/$(echo $@ | ~/.config/git/sanitize-branch-name.sh); }; f"
-  tree = "!f() { local b=potsbo/$(echo $@ | ~/.config/git/sanitize-branch-name.sh); gh repo sync && git switch $(git default-branch) && git wt $b && exec ~/.config/tmux/tmux-session-connect.sh $(git wt | grep \"$b\" | awk '{print $1}'); }; f"
+  tree = "!f() { local b=potsbo/$(echo $@ | ~/.config/git/sanitize-branch-name.sh); gh repo sync && git switch $(git default-branch) && git wt $b && exec ~/.config/tmux/space-connect.sh $(git wt | grep \"$b\" | awk '{print $1}'); }; f"
   queue = "!f() { git switch --create potsbo/$(echo $@ | ~/.config/git/sanitize-branch-name.sh); }; f"
   view  = "!f() { gh browse -- blob/$(git show -s --format=%H)/$1; }; f"
   # https://medium.com/@jmatsu.drm/avoid-direct-value-of-default-branch-name-f24ec6e6b52

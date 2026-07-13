@@ -66,6 +66,6 @@ else
   git wt "$local_branch" "$branch"
 fi
 
-# 4. Create/connect tmux session
+# 4. Create/connect space (herdr workspace or tmux session)
 worktree_path=$(git wt | grep "${branch_name:-$local_branch}" | awk '{print $1}')
-exec ~/.config/tmux/tmux-session-connect.sh "$worktree_path"
+exec ~/.config/tmux/space-connect.sh "$worktree_path"

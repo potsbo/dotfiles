@@ -24,4 +24,4 @@ git fetch --prune 2>/dev/null || true
 git wt "$local_branch"
 
 worktree_path=$(git wt | grep "$local_branch" | awk '{print $1}')
-exec ~/.config/tmux/tmux-session-connect.sh "$worktree_path"
+exec ~/.config/tmux/space-connect.sh "$worktree_path"
