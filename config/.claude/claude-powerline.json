@@ -9,11 +9,7 @@
           "model": { "enabled": true },
           "session": { "enabled": true, "type": "both" },
           "today": { "enabled": true, "type": "both" },
-          "context": { "enabled": true }
-        }
-      },
-      {
-        "segments": {
+          "context": { "enabled": true },
           "block": { "enabled": true },
           "weekly": { "enabled": true },
           "cacheTimer": { "enabled": true }
