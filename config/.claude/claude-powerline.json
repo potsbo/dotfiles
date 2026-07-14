@@ -7,10 +7,21 @@
       {
         "segments": {
           "model": { "enabled": true },
+          "session": { "enabled": true, "type": "both" },
+          "today": { "enabled": true, "type": "both" },
+          "context": { "enabled": true }
+        }
+      },
+      {
+        "segments": {
           "block": { "enabled": true },
-          "weekly": { "enabled": true }
+          "weekly": { "enabled": true },
+          "cacheTimer": { "enabled": true }
         }
       }
     ]
+  },
+  "budget": {
+    "today": { "amount": null }
   }
 }
