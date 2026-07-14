@@ -16,7 +16,7 @@
   "model": "claude-fable-5[1m]",
   "statusLine": {
     "type": "command",
-    "command": "bash ~/.claude/statusline.sh"
+    "command": "npx -y @owloops/claude-powerline@latest"
   },
   "hooks": {
     "SessionStart": [

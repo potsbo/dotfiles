@@ -1,0 +1,16 @@
+{
+  "theme": "dark",
+  "display": {
+    "style": "minimal",
+    "charset": "unicode",
+    "lines": [
+      {
+        "segments": {
+          "model": { "enabled": true },
+          "block": { "enabled": true },
+          "weekly": { "enabled": true }
+        }
+      }
+    ]
+  }
+}
