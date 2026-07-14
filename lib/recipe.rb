@@ -32,6 +32,9 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   ".zprofile",
   ".zshrc",
   ".default-npm-packages",
+  # .claude はセッション状態などが多いのでディレクトリごとはリンクせず settings.json だけ管理する。
+  # 注意: herdr が integration 更新時にこのファイルを書き直す (二重登録や再整形の diff が出たらこの管理をやめる)
+  ".claude/settings.json",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
   dotfiles_path = File.join(DOTFILE_REPO, "config", name)
