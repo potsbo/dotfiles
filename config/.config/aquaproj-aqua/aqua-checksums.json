@@ -181,6 +181,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Darwin_arm64.tar.gz",
+      "checksum": "6F7ABFB47DE69FBF7B0E67D2FA019CC554916E8B6694F9877212BE89FC7EBB8C",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Darwin_x86_64.tar.gz",
+      "checksum": "8CBC78A4947C68E804EDF34D36070153FCC5D424873152DA83AD6BE14FA88ED3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Linux_arm64.tar.gz",
+      "checksum": "CF63ABEBCB50B72909DB965D78290E7CECBF17A900E84705DC84ADDBB6952099",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Linux_x86_64.tar.gz",
+      "checksum": "6063D4F2AF8A82A5F4BBA0831E165DE9381660AA8B41DF4816D0106A265B07D5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Windows_x86_64.zip",
+      "checksum": "9BC12FCE6061B0DD45325401B0D11EC2E45981B76EEF2B7FA3C0F941BA5C0B39",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/chmln/sd/v1.1.0/sd-v1.1.0-aarch64-apple-darwin.tar.gz",
       "checksum": "4BD3C09226376CA0A1D69589C91E86276FAE36C5FBAAEE669AFCE583F6682030",
       "algorithm": "sha256"

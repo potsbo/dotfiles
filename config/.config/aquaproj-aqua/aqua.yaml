@@ -73,3 +73,4 @@ packages:
   - name: dlvhdr/gh-dash@v4.25.2
   - name: kitlangton/ghui@v0.9.0
     registry: local
+  - name: charmbracelet/glow@v2.1.2
