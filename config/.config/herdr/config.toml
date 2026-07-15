@@ -84,3 +84,7 @@ version_check = false
 # prefix モード中だけ macOS の入力ソースを ASCII に一時切替。日本語 IME オン中でも
 # prefix コマンド (prefix→c 等) が IME に食われず通る。抜けたら元の入力ソースに戻す。
 switch_ascii_input_source_in_prefix = true
+
+[theme]
+name = "vesper"
+auto_switch = false
