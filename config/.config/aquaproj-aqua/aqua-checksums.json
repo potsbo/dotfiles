@@ -786,6 +786,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.1/hunkdiff-darwin-arm64.tar.gz",
+      "checksum": "62C16D04C5C52FF45F7F1AD56E9AA9CC09508D45664733E16F6890D0233B9FF9",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.1/hunkdiff-darwin-x64.tar.gz",
+      "checksum": "4513E9B92C3991B2774DEAFBB9FAEF87D728AC0A0E8D560E1A6B5B3DA1021862",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.1/hunkdiff-linux-arm64.tar.gz",
+      "checksum": "E9538586350FBCBF36B146DF43292D4CCE12F38E9F78D54E4695096881D2877B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.1/hunkdiff-linux-x64.tar.gz",
+      "checksum": "E4ED3EB6BA4BD763E71BDC63F2D1EED993F54B189774A5073592C79095041BD6",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/mr-karan/doggo/v1.2.0/doggo-darwin-aarch64.tar.gz",
       "checksum": "AA8B866D8BC96CE7A004F3D2F99C26E4BB0DD140C7BD151B2EB12A1D0B01CC06",
       "algorithm": "sha256"

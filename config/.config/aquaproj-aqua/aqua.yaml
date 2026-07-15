@@ -75,3 +75,5 @@ packages:
     registry: local
   - name: charmbracelet/glow@v2.1.2
   - name: openai/codex@rust-v0.144.4
+  - name: modem-dev/hunk@v0.17.1
+    registry: local

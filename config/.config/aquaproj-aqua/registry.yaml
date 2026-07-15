@@ -22,3 +22,17 @@ packages:
       - linux
     files:
       - name: ghui
+  # hunk - Review-first terminal diff viewer for agentic coders.
+  # https://github.com/modem-dev/hunk
+  - type: github_release
+    repo_owner: modem-dev
+    repo_name: hunk
+    asset: hunkdiff-{{.OS}}-{{.Arch}}.tar.gz
+    replacements:
+      amd64: x64
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: hunk
+        src: hunkdiff-{{.OS}}-{{.Arch}}/hunk
