@@ -13,12 +13,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5[1m]",
-  "statusLine": {
-    "type": "command",
-    "command": "npx -y @owloops/claude-powerline@latest",
-    "refreshInterval": 10
-  },
   "hooks": {
     "SessionStart": [
       {
@@ -32,6 +26,11 @@
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y @owloops/claude-powerline@latest",
+    "refreshInterval": 10
   },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true
