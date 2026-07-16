@@ -6,28 +6,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "378E973289176CA0C6054054EE7F631A065874A352BF43F0FA60EF079B6BA715",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "3750B2E93F37E0C692657DA574D7019A101C0084DA05A790C83FD335BAD973E4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "2B661C6EF508E902F388E9098D9C4C5ACA72C87B55922D94ABDBA830B4DC885E",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "A740B91C82EAF9914CFEDD353572F2791CBE0162C84101EE0951058F4DCBC90D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "64811CB24E77CAC3057D6C40B63AC9BECF9082EEDD54CA411B475B755D334882",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "AF7825FCC69A2AFC7A7AEA55FC9AF90E26421D8F20FE59DF32E233C0B8A231C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-x86_64-pc-windows-msvc.zip",
-      "checksum": "124510B94B6BAA3380D051FDF4650EAA80A302C876D611E9DBA0B2E18D87493A",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-x86_64-pc-windows-msvc.zip",
+      "checksum": "71B2FEF860ABE467217A538FF31DE02F5258807C0129F771846F87BD029AAFC5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/BurntSushi/ripgrep/15.1.0/ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "1C9297BE4A084EEA7ECAEDF93EB03D058D6FAAE29BBC57ECDAF5063921491599",
+      "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "33E15BCF1624B25CDD2A55813A47A2F95DBE126268203E76AA6A585D1E7B149C",
       "algorithm": "sha256"
     },
     {
@@ -136,28 +136,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.28/uv-aarch64-apple-darwin.tar.gz",
-      "checksum": "33540EB7C883AB857EFF79BD5AC2AA31FE27B595ABECB4A9C003A2C998447232",
+      "id": "github_release/github.com/astral-sh/uv/0.11.29/uv-aarch64-apple-darwin.tar.gz",
+      "checksum": "61C04ACC52A33EF0F331E494BDFBEDCDB6C26C6970C022ED3699E5860F8930E3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.28/uv-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "DA10CDFA7D92212B7ACB62021A0FD61BCF8580C58C3632EC915D10C3A1A7906B",
+      "id": "github_release/github.com/astral-sh/uv/0.11.29/uv-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "593D79A797ECE3F1DFAAF3E0A973263422A135D9262C7DBC6CD75D9C11ACC0B4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.28/uv-x86_64-apple-darwin.tar.gz",
-      "checksum": "2AD79983127FFCA7D77B77CE6A24278D7E4F7B817A1ACF72FEA5F8124B4AAC5E",
+      "id": "github_release/github.com/astral-sh/uv/0.11.29/uv-x86_64-apple-darwin.tar.gz",
+      "checksum": "C4C4DE482DA9CCDD076DC4FB5CFE7B740609029385C72F58606BE3153602387D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.28/uv-x86_64-pc-windows-msvc.zip",
-      "checksum": "0A23463216D09C6A72FF80EF5DC5A795F07DC1575CB84D24596C2F124A441B7B",
+      "id": "github_release/github.com/astral-sh/uv/0.11.29/uv-x86_64-pc-windows-msvc.zip",
+      "checksum": "A047D55651BC3E0CA24595B25EC4CFCB10F9DCA9FB56514E661269B37D4FAE68",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.28/uv-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "F02146B371C35C287D860F003ECE7345C86E358A3FD70A9B63700CD141EE7FB4",
+      "id": "github_release/github.com/astral-sh/uv/0.11.29/uv-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "46711858ADB2A3ACAA9CEE00F9060688AD1FD5706AECC005B96A6A7F285A00B7",
       "algorithm": "sha256"
     },
     {
@@ -276,28 +276,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/denoland/deno/v2.9.2/deno-aarch64-apple-darwin.zip",
-      "checksum": "687AE485168BA73A4F1EE3A954EB4F077ECA82F2FEFD236A6A83A3889287876C",
+      "id": "github_release/github.com/denoland/deno/v2.9.3/deno-aarch64-apple-darwin.zip",
+      "checksum": "1B2972F7CEB6DF28D9600EAB18D423BEBB9AA18DB02F01D7EB37A5B501482203",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/denoland/deno/v2.9.2/deno-aarch64-unknown-linux-gnu.zip",
-      "checksum": "310B8F48E59964FF18890D35E64F64FB90E8B1CC5D9EBFF8C818327D5AFB16D2",
+      "id": "github_release/github.com/denoland/deno/v2.9.3/deno-aarch64-unknown-linux-gnu.zip",
+      "checksum": "753937DB98A4B56CBBBD26E8F00EB4B789191A229AFEC93F74BCFA4E79BC2C8B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/denoland/deno/v2.9.2/deno-x86_64-apple-darwin.zip",
-      "checksum": "C953379E5A85A0A30E99AA51B807633E380E809A1181F53E4904D5FA73785BFF",
+      "id": "github_release/github.com/denoland/deno/v2.9.3/deno-x86_64-apple-darwin.zip",
+      "checksum": "CFF2BCE236FDE0952AAC62A5699464C46901B4EB1E61D0CAFFBB33D556E098C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/denoland/deno/v2.9.2/deno-x86_64-pc-windows-msvc.zip",
-      "checksum": "5FE194D26AC5EF77FCC5288C2C438C7A0465F3B6180440EBF04092714BF2DCDF",
+      "id": "github_release/github.com/denoland/deno/v2.9.3/deno-x86_64-pc-windows-msvc.zip",
+      "checksum": "60343461AC5FE3A31F4EF12667F2946BB852E20655C8610AEB7E751E87F7DF3A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/denoland/deno/v2.9.2/deno-x86_64-unknown-linux-gnu.zip",
-      "checksum": "934D1BD5CB09EAED7F2E4A4FC58208D04A3C5C0FCDE9F319D93D735265C67A4A",
+      "id": "github_release/github.com/denoland/deno/v2.9.3/deno-x86_64-unknown-linux-gnu.zip",
+      "checksum": "8101865641CBEDE56F08AD19C0A67A87DF84BCE127FEE0D3E3E1F7467717FFA6",
       "algorithm": "sha256"
     },
     {
@@ -551,33 +551,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.0/lazygit_0.63.0_darwin_arm64.tar.gz",
-      "checksum": "60E6BF29A1501A57A9D078538AA576A1B4DB45779DB2E3DD6931A7207F560A9C",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.1/lazygit_0.63.1_darwin_arm64.tar.gz",
+      "checksum": "B963E9D0A1F4649708C594AC6C999CDCD435F8E679E220E78E87C4642BADEDD6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.0/lazygit_0.63.0_darwin_x86_64.tar.gz",
-      "checksum": "304B1BF7F7BBB5A5D59E34145BCE63D42733CD828E4FE41428CED9EE4DBFE942",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.1/lazygit_0.63.1_darwin_x86_64.tar.gz",
+      "checksum": "5CC02389CC189B1146AA330615F0C547996395CA7661E56F946670947E803006",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.0/lazygit_0.63.0_linux_arm64.tar.gz",
-      "checksum": "AAC147ABF5CE43AFE6AE8BCB14B0D479111975A189302D7A99386DECA70D57F7",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.1/lazygit_0.63.1_linux_arm64.tar.gz",
+      "checksum": "555DBC9A8EFCF2E33BC24E7FBD9463E9FA375E3C5E23CC270763733C38EEAE36",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.0/lazygit_0.63.0_linux_x86_64.tar.gz",
-      "checksum": "CF5CFA3E116D7775F3600A51EC1D9CE7BA554A08B9566C7C2DA83CB0023EFABF",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.1/lazygit_0.63.1_linux_x86_64.tar.gz",
+      "checksum": "8E033BC78C8E192DEE9510E951F6C9E154289B7198D22C924ED1D0A951B0DAC1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.0/lazygit_0.63.0_windows_arm64.zip",
-      "checksum": "49539C2B284183E9DB18246FC5EFE7B4065A027B9FBE4AC529C3B917668E3487",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.1/lazygit_0.63.1_windows_arm64.zip",
+      "checksum": "8CED1A9E788CB9B5A8E27F61080CEECEDE0D76E86FB8ED74D882D2982D480458",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.0/lazygit_0.63.0_windows_x86_64.zip",
-      "checksum": "6AC4282E2C99D2430E318143F38DD0EAB6B6EA3932F4F1C7E3FCBF207727FC7C",
+      "id": "github_release/github.com/jesseduffield/lazygit/v0.63.1/lazygit_0.63.1_windows_x86_64.zip",
+      "checksum": "230721FB5F0D5C0E91555BD4BD76F5213477B116027F1C0FE222B70D49F58EA0",
       "algorithm": "sha256"
     },
     {
@@ -886,23 +886,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-linux-aarch64",
-      "checksum": "EA490094F2C7C39099870857D00C64C628EF7B5EBA1967DF4258033455EE2CB1",
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.4/herdr-linux-aarch64",
+      "checksum": "544E0002DE42806D1AB64CCDEF3A7E7414F24717B0B6B022BC9E57D2EEFD26A2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-linux-x86_64",
-      "checksum": "043EF43ECBABDA28465DCFF1EEC3184518150D567B8B8F20CDA9C6C88770641D",
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.4/herdr-linux-x86_64",
+      "checksum": "BC0FC02D4BA500F9CAC2353A43E67FE036785ECCA6EB55378E050FAC3C103059",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-macos-aarch64",
-      "checksum": "B31345392D004EC1F1B2C821E1AD601019FA8385FE1E4C6931321EB58A920773",
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.4/herdr-macos-aarch64",
+      "checksum": "24992E1625DBDCB18354A59E299E4B263C312400B31396CDC07CD46ED57F24A7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.3/herdr-macos-x86_64",
-      "checksum": "9B5F35D283B0877EEDA0CF66BA1EF1D95AE40F32E858A04DA0041F3A20DF027C",
+      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.4/herdr-macos-x86_64",
+      "checksum": "DDF430133352E1712413D5D865B34A485546F4658893FC89986257D65A7585A8",
       "algorithm": "sha256"
     },
     {
