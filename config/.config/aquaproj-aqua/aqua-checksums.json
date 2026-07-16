@@ -1156,6 +1156,11 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/tldr-pages/tlrc/v1.13.1/tlrc-v1.13.1-aarch64-apple-darwin.tar.gz",
+      "checksum": "7DD8C585DA66C9977ECFF5D50A93C4C77A946322668B7AB2E0082DD07D11EDDF",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/tldr-pages/tlrc/v1.13.1/tlrc-v1.13.1-x86_64-apple-darwin.tar.gz",
       "checksum": "2DB4A3C772AE30243CD6BB4231CC43EFF005D311618666AF91E49662310B8E8B",
       "algorithm": "sha256"
@@ -1376,8 +1381,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.538.0/registry.yaml",
-      "checksum": "7827DE9157E85081CBCA4F6BFCEA3AA3A251F9907A4BF8E77F8F20CFD742801A42CA9BC6BE891510FC914704C5A9644F66138F515D6A3912F6C428B8EA053BFE",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.538.1/registry.yaml",
+      "checksum": "1E024B109D7A24702C0A38840E99724A592E401B42B06FAF7900D9A36B69F355B2FCB082B229C839E25251F636B4EF3A9F334B0DACDC84B6342641ACCD2D2726",
       "algorithm": "sha512"
     }
   ]
