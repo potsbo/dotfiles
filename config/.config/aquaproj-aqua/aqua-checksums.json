@@ -446,33 +446,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.70/copilot-darwin-arm64.tar.gz",
-      "checksum": "5F9791561EEFE99B3BED25A02EEF37DC434327053AF05E6150DAD7D6AED05A35",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.71/copilot-darwin-arm64.tar.gz",
+      "checksum": "0EF20B0308B6E23E9D44C143BF075EE7D29ACBBBC3847BACB8E29623F2D24389",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.70/copilot-darwin-x64.tar.gz",
-      "checksum": "CE2D968B68C1A28690544FF638E762A804943992B5496FB7EC2358FE7F1EEE87",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.71/copilot-darwin-x64.tar.gz",
+      "checksum": "27CC84056A3D7B5AE46909DBFFFF635EF03D43D6636A1D90F8153706D61B70E2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.70/copilot-linux-arm64.tar.gz",
-      "checksum": "1CB358A1A8AC8D0F680B54C6EAC990C376043314409A06A5AA4FED0E0A7D3362",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.71/copilot-linux-arm64.tar.gz",
+      "checksum": "74CC7CDAAED398F26B7D72C7D41BA2BFF41A903525AEAC778361D6DBD8A0C60D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.70/copilot-linux-x64.tar.gz",
-      "checksum": "4EDEE3CD005254960789329181968B209B17CAB47F43EE13C9E071B1F7E33095",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.71/copilot-linux-x64.tar.gz",
+      "checksum": "779E9B3E52399D8FDF5BCD61779E3F1D606796BA478B614AD41FB80D522910BB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.70/copilot-win32-arm64.zip",
-      "checksum": "C5516D814AA08BB27042DB07184E771D7058FF70E69F3849AD0AB134BD200E64",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.71/copilot-win32-arm64.zip",
+      "checksum": "8BF99FF1AED1E8F2EFA12140595231FAD12BEC806D65302FCBF8DF108FF22AAC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.70/copilot-win32-x64.zip",
-      "checksum": "F5080345F048D44F6DA4AC5F96892FD9F39CB7B6C45B313E82B6DB53108BE559",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.71/copilot-win32-x64.zip",
+      "checksum": "E4642B2EFCE3649C49849FDE30307242F9A2475133533294A55B881187818471",
       "algorithm": "sha256"
     },
     {
@@ -906,28 +906,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.144.4/codex-package-aarch64-apple-darwin.tar.gz",
-      "checksum": "312E6FA2826596FB23CC1193C30D51902B6522C36CCC43B36417590E0EBD533D",
+      "id": "github_release/github.com/openai/codex/rust-v0.144.5/codex-package-aarch64-apple-darwin.tar.gz",
+      "checksum": "8D1CD2D53B2070919D12C054B57485B6E08347E2666CB20932E9E95EB2AA2901",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.144.4/codex-package-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "B1BC561A5BF74F9C5767C698275AE8043CEE2CE45341098048B0B0B8B4E2CFC5",
+      "id": "github_release/github.com/openai/codex/rust-v0.144.5/codex-package-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "7703BBB6CBD4BA3DF60C32D200BCA2987691047353D3A6C825AF2B8BC99F1808",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.144.4/codex-package-x86_64-apple-darwin.tar.gz",
-      "checksum": "666671FBE761FE1FD57D74E725C5A306729F81F4FBEFC16A01A0595E69864D41",
+      "id": "github_release/github.com/openai/codex/rust-v0.144.5/codex-package-x86_64-apple-darwin.tar.gz",
+      "checksum": "8322B8CF3747014B435318D2F34EE6D8F566B61360E5A770E30311CC0D90205B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.144.4/codex-package-x86_64-pc-windows-msvc.tar.gz",
-      "checksum": "7F41B38DA27E41F0FD3509E0E247BF05B7A9B6105565D70AC2BE4CC79B64F1FE",
+      "id": "github_release/github.com/openai/codex/rust-v0.144.5/codex-package-x86_64-pc-windows-msvc.tar.gz",
+      "checksum": "4F69430B9A4496214975AECC304ADF9B895A27B055B7C64FD274C4FA63A4EF9A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.144.4/codex-package-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "D0A7BDB2CA821C9BB5F4CC2FB11A4ED96025DB63B20D1BDDF1E632361A108220",
+      "id": "github_release/github.com/openai/codex/rust-v0.144.5/codex-package-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "23A7022A493C5404C50C62A4AD5655836ADBEE019D93C73114954D8DAFF20053",
       "algorithm": "sha256"
     },
     {

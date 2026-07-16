@@ -46,7 +46,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: junegunn/fzf/fzf-tmux@v0.74.0
   - name: sxyazi/yazi@v26.5.6
-  - name: github/copilot-cli@v1.0.70
+  - name: github/copilot-cli@v1.0.71
   - name: anthropics/claude-code@v2.1.190
   - name: ogulcancelik/herdr@v0.7.4
   - name: aristocratos/btop@v1.4.7
@@ -74,6 +74,6 @@ packages:
   - name: kitlangton/ghui@v0.9.0
     registry: local
   - name: charmbracelet/glow@v2.1.2
-  - name: openai/codex@rust-v0.144.4
+  - name: openai/codex@rust-v0.144.5
   - name: modem-dev/hunk@v0.17.1
     registry: local
