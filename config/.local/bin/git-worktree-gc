@@ -5,7 +5,7 @@
 #   - working tree がクリーン (未コミット変更・untracked なし)
 #   - 未 push コミットなし (upstream に push 済み、または origin のデフォルトブランチに merge 済み)
 #   - ディレクトリの mtime が MAX_AGE_DAYS 日より古い
-# 使い方: worktree-gc.sh [--dry-run] [repo...]
+# 使い方: git worktree-gc [--dry-run] [repo...]
 #   repo 省略時は ~/src/github.com/*/* から primary worktree を自動検出
 
 set -eu
