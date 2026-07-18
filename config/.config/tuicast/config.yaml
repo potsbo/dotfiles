@@ -1,18 +1,22 @@
-# 共通ピッカー: herdr の中 (prefix なし ctrl+] → herdr keybind) からも
-# 外 (zsh の C-]) からも同じ tuicast を呼ぶ。内外差は各 run スクリプト側で
-# HERDR_PANE_ID を見て切り替える (worktree-connect.sh)。
+# 共通ピッカー: herdr の中 (ctrl+] → herdr keybind) からも外 (zsh の C-]) からも
+# 同じ tuicast を呼ぶ。内外差は各 run スクリプト側で HERDR_PANE_ID を見て
+# 切り替える (worktree-connect.sh)。
 views:
   main:
     union:
       - worktree
       - ssh
 
+  # 開いている space がある worktree (●) を先に、残りをその後に出す。
   worktree:
     steps:
       - name: worktree
         sources:
-          - list: ~/.config/tuicast/list-worktrees.sh
-            display: ~/.local/bin/herdr-label {}
+          - list: ~/.config/tuicast/list-worktrees.sh --open
+            display: "printf '\\033[34m\\342\\227\\217\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --closed
+            display: "printf '  '; ~/.local/bin/herdr-label {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
     run: ~/.config/tuicast/worktree-connect.sh $worktree
 
@@ -21,6 +25,6 @@ views:
       - name: host
         sources:
           - list: ~/.config/tuicast/list-ssh-hosts.sh
-            display: "printf ' %s\\n' {}"
+            display: "printf '\\033[35m\\356\\254\\272\\033[39m %s\\n' {}"
             preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
     run: ~/.config/tuicast/ssh-reconnect.sh $host
