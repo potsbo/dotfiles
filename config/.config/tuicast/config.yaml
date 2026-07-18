@@ -13,7 +13,7 @@ views:
       - name: worktree
         sources:
           - list: ~/.config/tuicast/list-worktrees.sh --open
-            display: "printf '\\033[34m\\363\\260\\263\\206\\033[39m '; ~/.local/bin/herdr-label {}"
+            display: "printf '\\033[38;5;183m\\363\\260\\263\\206\\033[39m '; ~/.local/bin/herdr-label {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --closed
             display: "printf '  '; ~/.local/bin/herdr-label {}"
