@@ -16,6 +16,20 @@ vim.api.nvim_create_user_command("CommandShiftF", function()
   require("conform").format({ async = true, lsp_format = "fallback" })
 end, { range = true })
 vim.api.nvim_create_user_command("CommandP", "Telescope find_files", {})
+-- OSC 52 の copy(書き込み)は端末に一方的に送るだけなので動くが、
+-- paste(読み出し)は端末にクリップボード内容を問い合わせて応答を待つ。
+-- herdr など多くのターミナル/マルチプレクサは OSC 52 の読み出し応答に
+-- 対応しておらず、`unnamedplus` 経由の p が
+--   "Waiting for OSC 52 response from the terminal..."
+-- で固まる。そこで paste は端末に問い合わせず nvim 内部レジスタから返す。
+-- (yank 内容は nvim 内で保持されるので nvim 内コピペは問題なし。
+--  外部からの貼り付けはターミナル自身の Cmd+V を使う。)
+local function paste_from_register()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
 vim.g.clipboard = {
   name = "OSC52",
   copy = {
@@ -23,8 +37,8 @@ vim.g.clipboard = {
     ["*"] = require("vim.ui.clipboard.osc52").copy("+"),
   },
   paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["+"] = paste_from_register,
+    ["*"] = paste_from_register,
   },
 }
 
