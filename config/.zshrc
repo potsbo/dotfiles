@@ -68,8 +68,7 @@ if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt -
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
 if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
-# host-colored frame so tuicast (and any fzf) shows which host it runs on.
-# palette mirrors config/.config/tmux/style.tmux
+# host-colored frame so any fzf shows which host it runs on.
 case $(hostname) in
 "tigerlake")
 thm_main="#fd971f"
@@ -97,11 +96,7 @@ thm_main="#797979"
 ;;
 esac
 
-# Inside tmux this is already set via `set-environment -g` (see style.tmux) and
-# inherited here, so only set it for non-tmux shells to avoid duplicate options.
-if [[ -z "${FZF_DEFAULT_OPTS:-}" ]]; then
-  export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
-fi
+export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
@@ -109,18 +104,14 @@ autoload -Uz colors && colors
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
-_register_keycommand() {
-  zle -N $2
-  # mode を明示的に指定しないと C-] が tmux 環境で動かなかった
-  bindkey -M emacs "$1" $2
-}
-
-_sesh_connect() {
+# C-] で tuicast (SSH ピッカー)。herdr ペイン内では herdr 側の ctrl+]
+# (herdr-worktree-switch) が先に食うので、素のシェルでだけ効く
+_tuicast_connect() {
   BUFFER="tuicast"
   zle accept-line
 }
-
-_register_keycommand "^]" _sesh_connect
+zle -N _tuicast_connect
+bindkey -M emacs "^]" _tuicast_connect
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e
@@ -160,27 +151,6 @@ if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; 
 if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
   "$(ghq root)/github.com/potsbo/dotfiles/script/fix-wl-copy.sh"
 fi
-
-# tmux detach 後に pending SSH があれば実行
-_check_pending_ssh() {
-  if [ -z "$TMUX" ] && [ -f /tmp/sesh-ssh-pending ]; then
-    local host session
-    # 1行目: host, 2行目: session (session は空なら素の ssh)
-    host=$(sed -n '1p' /tmp/sesh-ssh-pending)
-    session=$(sed -n '2p' /tmp/sesh-ssh-pending)
-    rm -f /tmp/sesh-ssh-pending
-    if [ -n "$host" ]; then
-      # ssh-reconnect.sh: 窓タイトルに host[:session] を出し、ネットワーク切断
-      # (ssh exit 255) なら自動で待って再接続する。正常終了なら下のピッカーへ。
-      ~/.config/tuicast/ssh-reconnect.sh "$host" "$session"
-      # SSH 終了後、再度 sesh-connect.sh を呼ぶ
-      if command -v sesh &> /dev/null; then
-        ~/.config/tmux/sesh-connect.sh
-      fi
-    fi
-  fi
-}
-precmd_functions+=(_check_pending_ssh)
 
 # aqua: prompt 毎にパッケージをインストール（~50ms, バックグラウンド実行）
 _aqua_install() {

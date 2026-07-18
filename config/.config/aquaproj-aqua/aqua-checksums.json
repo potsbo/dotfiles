@@ -1,11 +1,6 @@
 {
   "checksums": [
     {
-      "id": "github_content/github.com/junegunn/fzf/v0.74.1/bin/fzf-tmux",
-      "checksum": "EA14943D739FC81952D5071A642591DF25ED8DAC166040A6D6036B3BE197CECD",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/BurntSushi/ripgrep/15.2.0/ripgrep-15.2.0-aarch64-apple-darwin.tar.gz",
       "checksum": "3750B2E93F37E0C692657DA574D7019A101C0084DA05A790C83FD335BAD973E4",
       "algorithm": "sha256"
@@ -603,36 +598,6 @@
     {
       "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-windows-amd64.zip",
       "checksum": "C49CB6C1DD3A5A8C7B63F64E6758C910CAF4B4B2AAE040E75946AAA5BFF77B6D",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.27.0/sesh_Darwin_arm64.tar.gz",
-      "checksum": "EB3109BF5BDA11B819B3D2D3BF2012CBA91734A4200AC6F80712930136D45A12",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.27.0/sesh_Darwin_x86_64.tar.gz",
-      "checksum": "BEB05F497866AC201662F476A06E7E1FD94235104B079161AB035397A709318A",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.27.0/sesh_Linux_arm64.tar.gz",
-      "checksum": "B68513F96ED358073CBCF79E1B0CBA07215FE9C2C722244B286BC05DAC71EEEA",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.27.0/sesh_Linux_x86_64.tar.gz",
-      "checksum": "199E3352655D6300CCE7D16B99BF9DBCA944158B2F210C97CB418AFF6EC4623C",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.27.0/sesh_Windows_arm64.zip",
-      "checksum": "8E173BE7862096BA5D66B966C70F8AD588EDFAB88438A1719B07D5C4D0645F93",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/joshmedeski/sesh/v2.27.0/sesh_Windows_x86_64.zip",
-      "checksum": "E67CCC7B1780F2FEE857F5997E28437B9DA6FAE7C5C4668876DF5B299D25371F",
       "algorithm": "sha256"
     },
     {

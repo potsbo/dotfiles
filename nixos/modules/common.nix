@@ -272,7 +272,6 @@ in
 
   environment.systemPackages = with pkgs; [
     git
-    wezterm
     browser.package
 
     xremap-gnome-extension

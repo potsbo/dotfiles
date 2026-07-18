@@ -73,22 +73,6 @@ include_recipe "recipes/darwin" if node[:platform] == "darwin"
 include_recipe "recipes/wsl" if wsl_environment?
 include_recipe "recipes/ubuntu" if node[:platform] == "ubuntu"
 
-# tmux plugins (ghq で管理し、~/.tmux/plugins/ にシンボリックリンク)
-TMUX_PLUGINS = [
-  "tmux-plugins/tpm",
-  "alexwforsythe/tmux-which-key",
-]
-
-directory File.join(ENV['HOME'], ".tmux/plugins")
-
-TMUX_PLUGINS.each do |plugin|
-  ghq plugin
-  link File.join(ENV['HOME'], ".tmux/plugins", plugin.split("/").last) do
-    to File.join(ENV['HOME'], "src", "github.com", plugin)
-    force true
-  end
-end
-
 # zsh plugins (ghq で管理、.zshrc から直接 source)
 ZSH_PLUGINS = [
   "romkatv/zsh-defer",

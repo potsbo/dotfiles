@@ -86,7 +86,7 @@
       "notion-calendar"
       "font-monaspice-nerd-font"
       "ghostty"
-      # ターミナルの日本語フォールバック (config/.config/ghostty/config, wezterm.lua)。
+      # ターミナルの日本語フォールバック (config/.config/ghostty/config)。
       # 未インストールだと一部の漢字が tofu (斜線付き□) になるため必須。
       "font-biz-udgothic"
       "tailscale-app"

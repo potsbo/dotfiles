@@ -12,7 +12,7 @@ curl -fsSL https://raw.githubusercontent.com/potsbo/dotfiles/main/install | bash
 
 ## Home Manager (PoC)
 
-Home Manager manages packages not available in aqua (e.g., git, tmux).
+Home Manager manages packages not available in aqua (e.g., git, mosh).
 
 ### First-time setup
 

@@ -67,14 +67,14 @@ export ANTHROPIC_MODEL=claude-fable-5
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
 
-# --- forwarded ssh-agent: keep keys on the origin host, usable across tmux ---
+# --- forwarded ssh-agent: keep keys on the origin host, usable across herdr ---
 # We ssh in with agent forwarding (ForwardAgent), so no private key lives here.
-# But every ssh connection gets its own forwarded socket, and tmux freezes the
-# one it first saw — so after a reconnect the in-tmux $SSH_AUTH_SOCK is stale and
-# the agent looks gone. Fix: point a stable, machine-local symlink at the current
-# connection's live socket and have every shell use that link. On reconnect the
-# fresh login shell (runs before tmux via .zprofile) repoints it, so already-open
-# tmux panes get a working agent again without touching their env.
+# But every ssh connection gets its own forwarded socket, and long-lived herdr
+# panes keep the one they first saw — so after a reconnect their $SSH_AUTH_SOCK
+# is stale and the agent looks gone. Fix: point a stable, machine-local symlink
+# at the current connection's live socket and have every shell use that link. On
+# reconnect the fresh login shell (runs before herdr via .zprofile) repoints it,
+# so already-open herdr panes get a working agent again without touching their env.
 # The link lives under $XDG_RUNTIME_DIR (per-machine, tmpfs) — never under ~/.ssh,
 # which is a symlink into the shared dotfiles repo.
 if [ -n "$SSH_CONNECTION" ]; then

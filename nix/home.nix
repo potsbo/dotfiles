@@ -69,20 +69,6 @@ let
     npmDepsHash = "sha256-6aSUy6YUtgTN5E64cVRJXFqzJcVZzsoIJArp1s5/cRs=";
   };
 
-  tsuimux = pkgs.buildGoModule {
-    pname = "tsuimux";
-    version = "0-unstable-2025-03-06";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "potsbo";
-      repo = "tsuimux";
-      rev = "de3993402a9c7824f3ee83521b250203be1b0dad";
-      hash = "sha256-TSVJKvVoKNwbwU7uV80bmn6HSP2qOEIRtXQkXhxGA8I=";
-    };
-
-    vendorHash = "sha256-7K17JaXFsjf163g5PXCb5ng2gYdotnZ2IDKk8KFjNj0=";
-  };
-
 in
 {
   home.username = "potsbo";
@@ -135,7 +121,6 @@ in
     aqua
     tiri
     tuicast
-    tsuimux
     # todoist-cli # install がハングするようになってしまった
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
@@ -154,8 +139,6 @@ in
     freetds
 
     # 以下 aqua 未提供
-    tmux
-    tmux-mem-cpu-load
     gcc
     gnumake
     cmake
@@ -166,11 +149,9 @@ in
     libyaml
     pv
     mosh
-    wezterm
   ] ++ lib.optionals stdenv.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.isDarwin [
-    reattach-to-user-namespace
     coreutils
   ];
 

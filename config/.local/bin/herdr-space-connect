@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Focus (or create) the herdr workspace rooted at a working directory.
-# herdr counterpart of ~/.config/tmux/tmux-session-connect.sh: one worktree <->
-# one space, keyed off the worktree's on-disk path.
+# One worktree <-> one space, keyed off the worktree's on-disk path.
 #
 # Usage: herdr-space-connect <working-directory>
 set -euo pipefail

@@ -1,4 +1,4 @@
-# Ghostty config (migrated from wezterm: config/.config/wezterm/wezterm.lua)
+# Ghostty config (migrated from wezterm)
 
 # Theme
 theme = Monokai Remastered
@@ -30,12 +30,12 @@ macos-titlebar-style = hidden
 window-padding-x = 0
 window-padding-y = 0
 
-# シェル/tmux 前面時にクローズ確認を出さない
+# シェル/herdr 前面時にクローズ確認を出さない
 # (wezterm: skip_close_confirmation_for_processes_named)
 confirm-close-surface = false
 
-# Keybindings (neovim / tmux integration)
-# CSI-u を送って tmux 側で window 切替 (wezterm: SendString "\x1b[9;5u")
+# Keybindings (neovim / herdr integration)
+# CSI-u を送って herdr 側で tab 切替 (wezterm: SendString "\x1b[9;5u")
 keybind = ctrl+tab=text:\x1b[9;5u
 keybind = ctrl+shift+tab=text:\x1b[9;6u
 # neovim へコマンド送信 (wezterm: Super+key で SendString)

@@ -167,7 +167,7 @@ in
         {
           name = "Terminal Cmd shortcuts";
           application = {
-            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "com.github.wez.wezterm" "org.wezfurlong.wezterm" "wezterm" ];
+            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
           };
           remap = {
             Super-n = "C-Shift-n";   # new_window
@@ -258,7 +258,7 @@ in
         {
           name = "Emacs Ctrl bindings (non-terminal)";
           application = {
-            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "com.github.wez.wezterm" "org.wezfurlong.wezterm" "wezterm" ] ++ rdpApps;
+            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ] ++ rdpApps;
           };
           remap = {
             C-a = "Home";
