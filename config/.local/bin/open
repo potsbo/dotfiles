@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 # Mac から ssh しているとき、URL / ファイルを透過的に Mac 側で開く open/xdg-open。
 #
-# 経路 (優先順):
-#   1. 127.0.0.1:2226 — ssh の RemoteForward (config/.ssh/config) 経由で
-#      Mac の opener-listen (launchd) に届く。ACK ("ok") が返ったときだけ成功
-#      とみなすので、転送が死んでいれば確実にフォールバックする。
-#   2. ~/.opener.sock — 旧方式 (superbrothers/opener + unix socket 転送)。
-#      全マシンの移行が済んだら消す。
-#   3. ローカルの nautilus / 本物の xdg-open
+# 経路: 127.0.0.1:2226 → ssh RemoteForward (config/.ssh/config) → Mac の
+# opener-listen (launchd, nix/home.nix)。ACK ("ok") が返ったときだけ成功と
+# みなすので、転送や Mac 側リスナーが死んでいれば確実にローカル
+# (nautilus / 本物の xdg-open) にフォールバックする。
 #
 # ファイル/ディレクトリは Mac 側の rclone mount (remote-mount ensure <host> で
 # 作る ~/var/<host>) のパスに変換して送る。$HOME の外は Mac から見えないので
@@ -16,7 +13,6 @@
 set -eu
 
 PORT=2226
-LEGACY_SOCK="$HOME/.opener.sock"
 MAC_HOME="/Users/potsbo"
 
 # macOS では素の open に委譲 (~/.local/bin が PATH 先頭にあり shadow するため)
@@ -31,18 +27,12 @@ else
   buf=$*
 fi
 
-send_tcp() {
+# Mac 側リスナーに送る。ACK が返ったときだけ成功
+send_mac() {
   local resp
   resp=$(printf '%s\n' "$1" | nc -w 2 127.0.0.1 "$PORT" 2>/dev/null) || return 1
   [ "$resp" = "ok" ]
 }
-
-send_legacy() {
-  [ -S "$LEGACY_SOCK" ] || return 1
-  printf '%s\n' "$1" | nc -w 2 -U "$LEGACY_SOCK" 2>/dev/null
-}
-
-send_mac() { send_tcp "$1" || send_legacy "$1"; }
 
 # ~/.local/bin/{open,xdg-open} (= このスクリプト) を除いた本物の xdg-open で開く
 fallback_xdg_open() {
@@ -57,6 +47,10 @@ fallback_xdg_open() {
   exit 1
 }
 
+notice_local() {
+  echo "open: Mac opener unreachable; opening locally" >&2
+}
+
 if [ -e "$buf" ]; then
   abs=$(realpath "$buf")
   case "$abs" in
@@ -64,6 +58,7 @@ if [ -e "$buf" ]; then
     if send_mac "${MAC_HOME}/var/$(hostname)${abs#"$HOME"}"; then
       exit 0
     fi
+    notice_local
     ;;
   esac
   if command -v nautilus >/dev/null; then
@@ -77,4 +72,5 @@ fi
 if send_mac "$buf"; then
   exit 0
 fi
+notice_local
 fallback_xdg_open "$buf"

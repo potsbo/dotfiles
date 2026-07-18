@@ -26,21 +26,6 @@ let
       doCheck = false;
     };
 
-  opener = pkgs.buildGoModule {
-    pname = "opener";
-    # renovate: datasource=github-releases depName=superbrothers/opener
-    version = "0.1.6";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "superbrothers";
-      repo = "opener";
-      rev = "v0.1.6";
-      hash = "sha256-rYeQ45skFXWxdxMj0dye8IBEYcQCRqdt9nLVXF36od8=";
-    };
-
-    vendorHash = "sha256-lju+QlWxUb11UV9NvXSgQ+ZG37WhyZVahJTM5voDEfw=";
-  };
-
   tiri = pkgs.buildGoModule {
     pname = "tiri";
     version = "0-unstable-2025-06-28";
@@ -187,7 +172,6 @@ in
   ] ++ lib.optionals stdenv.isDarwin [
     reattach-to-user-namespace
     coreutils
-    opener # 旧 opener (unix socket 方式)。opener-listen への移行が済んだら消す
   ];
 
   # linux ホストの open/xdg-open を Mac 側で開くためのリスナー。
