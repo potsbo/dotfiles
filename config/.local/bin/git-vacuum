@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 # 古い git worktree と不要 branch を掃除する。
-# builtin の `git gc` は上書きできないため、.zshrc の git() ラッパーが
-# `git gc` をこのコマンドに割り当てている (素の gc は `command git gc`)。
-#
 # worktree: 以下をすべて満たす linked worktree だけを消す
 #   - working tree がクリーン (未コミット変更・untracked なし)
 #   - 未 push コミットなし (upstream に push 済み、または origin のデフォルトブランチに merge 済み)
@@ -12,7 +9,7 @@
 #   - origin のデフォルトブランチに merge 済みのもの (branch -d)
 #   - upstream が消えたもの = PR が merge/close されて remote branch も削除済み (branch -D)
 #
-# 使い方: git gc [--dry-run] [repo...]
+# 使い方: git vacuum [--dry-run] [repo...]
 #   repo 省略時は ~/src/github.com/*/* から primary worktree を自動検出
 
 set -eu

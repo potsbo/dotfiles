@@ -44,17 +44,6 @@ alias zshrc='nvim ~/.zshrc'
 alias vimrc='nvim ~/.config/nvim/init.lua'
 
 alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --prompt 'GIT BRANCH>' | cut -d$'\t' -f2\`"
-# builtin の gc は alias/PATH で上書きできないため shell 側でフックする
-# 素の gc を使いたいときは `command git gc`
-git() {
-  if [ "${1:-}" = "gc" ]; then
-    shift
-    git-gc-all "$@"
-  else
-    command git "$@"
-  fi
-}
-
 alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>'| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 
 # direnv (defer + cache)
