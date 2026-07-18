@@ -7,16 +7,27 @@ views:
       - worktree
       - ssh
 
-  # 開いている space がある worktree (●) を先に、残りをその後に出す。
+  # 開いている space がある worktree (󰳆) を先に、残りをその後に出す。
+  # 先頭のドットは herdr sidebar の state_dot と同じ:
+  #   blocked=赤● > working=黄● > idle=緑○ > 状態不明=灰· (space 内で最も緊急な agent)
   worktree:
     steps:
       - name: worktree
         sources:
-          - list: ~/.config/tuicast/list-worktrees.sh --open
-            display: "printf '\\033[38;5;183m\\363\\260\\263\\206\\033[39m '; ~/.local/bin/herdr-label {}"
+          - list: ~/.config/tuicast/list-worktrees.sh --open blocked
+            display: "printf '\\033[31m\\342\\227\\217\\033[39m \\033[38;5;183m\\363\\260\\263\\206\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --open working
+            display: "printf '\\033[33m\\342\\227\\217\\033[39m \\033[38;5;183m\\363\\260\\263\\206\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --open idle
+            display: "printf '\\033[32m\\342\\227\\213\\033[39m \\033[38;5;183m\\363\\260\\263\\206\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --open unknown
+            display: "printf '\\033[90m\\302\\267\\033[39m \\033[38;5;183m\\363\\260\\263\\206\\033[39m '; ~/.local/bin/herdr-label {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --closed
-            display: "printf '  '; ~/.local/bin/herdr-label {}"
+            display: "printf '    '; ~/.local/bin/herdr-label {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
     run: ~/.config/tuicast/worktree-connect.sh $worktree
 
