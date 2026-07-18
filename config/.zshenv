@@ -29,7 +29,8 @@ export GHQ_ROOT="$HOME/src"
 export PATH=$HOME/.local/state/nix/profiles/home-manager/home-path/bin:$PATH
 export PATH=$HOME/bin:$PATH
 ## Build
-export PATH=$PATH:$HOME/.local/bin # Created by `pipx`
+# prepend: 自作の open/xdg-open ラッパーが system の xdg-open (nix) に勝つ必要がある
+export PATH=$HOME/.local/bin:$PATH
 if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
 export PATH=$PATH:$HOME/go/bin
 ## System

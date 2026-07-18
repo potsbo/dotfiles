@@ -187,6 +187,27 @@ in
   ] ++ lib.optionals stdenv.isDarwin [
     reattach-to-user-namespace
     coreutils
-    opener
+    opener # 旧 opener (unix socket 方式)。opener-listen への移行が済んだら消す
   ];
+
+  # linux ホストの open/xdg-open を Mac 側で開くためのリスナー。
+  # inetd 互換モード: launchd が 127.0.0.1:2226 を listen し、接続ごとに
+  # opener-listen を socket 繋ぎで起動する。ssh の RemoteForward
+  # (config/.ssh/config) がこのポートへ各 linux ホストの 2226 を繋ぐ。
+  launchd.agents = lib.optionalAttrs pkgs.stdenv.isDarwin {
+    opener-listen = {
+      enable = true;
+      config = {
+        ProgramArguments = [ "${config.home.homeDirectory}/.local/bin/opener-listen" ];
+        Sockets = {
+          Listener = {
+            SockNodeName = "127.0.0.1";
+            SockServiceName = "2226";
+          };
+        };
+        inetdCompatibility = { Wait = false; };
+        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/opener-listen.log";
+      };
+    };
+  };
 }

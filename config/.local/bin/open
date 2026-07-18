@@ -1,23 +1,80 @@
 #!/usr/bin/env bash
-
-# inspired by https://github.com/superbrothers/opener/blob/95903db0f9b8f4bb1abc183a03c3189af6d02348/bin/open
+# Mac から ssh しているとき、URL / ファイルを透過的に Mac 側で開く open/xdg-open。
+#
+# 経路 (優先順):
+#   1. 127.0.0.1:2226 — ssh の RemoteForward (config/.ssh/config) 経由で
+#      Mac の opener-listen (launchd) に届く。ACK ("ok") が返ったときだけ成功
+#      とみなすので、転送が死んでいれば確実にフォールバックする。
+#   2. ~/.opener.sock — 旧方式 (superbrothers/opener + unix socket 転送)。
+#      全マシンの移行が済んだら消す。
+#   3. ローカルの nautilus / 本物の xdg-open
+#
+# ファイル/ディレクトリは Mac 側の rclone mount (remote-mount ensure <host> で
+# 作る ~/var/<host>) のパスに変換して送る。$HOME の外は Mac から見えないので
+# ローカルで開く。
 
 set -eu
 
-# get data either form stdin or from file
-if (($# == 0)); then
-  # if no argument, read from standard input from pipe
-  buf=$(cat "$@")
-else
-  # otherwise read from all arguments
-  buf=$@
+PORT=2226
+LEGACY_SOCK="$HOME/.opener.sock"
+MAC_HOME="/Users/potsbo"
+
+# macOS では素の open に委譲 (~/.local/bin が PATH 先頭にあり shadow するため)
+if [ "$(uname -s)" = "Darwin" ]; then
+  exec /usr/bin/open "$@"
 fi
 
-# ローカルのファイル/ディレクトリはローカルのファイルマネージャーで開く
+# get data either from stdin or from arguments
+if (($# == 0)); then
+  buf=$(cat)
+else
+  buf=$*
+fi
+
+send_tcp() {
+  local resp
+  resp=$(printf '%s\n' "$1" | nc -w 2 127.0.0.1 "$PORT" 2>/dev/null) || return 1
+  [ "$resp" = "ok" ]
+}
+
+send_legacy() {
+  [ -S "$LEGACY_SOCK" ] || return 1
+  printf '%s\n' "$1" | nc -w 2 -U "$LEGACY_SOCK" 2>/dev/null
+}
+
+send_mac() { send_tcp "$1" || send_legacy "$1"; }
+
+# ~/.local/bin/{open,xdg-open} (= このスクリプト) を除いた本物の xdg-open で開く
+fallback_xdg_open() {
+  local self candidate
+  self=$(realpath "${BASH_SOURCE[0]}")
+  while IFS= read -r candidate; do
+    if [ "$(realpath "$candidate" 2>/dev/null)" != "$self" ]; then
+      exec "$candidate" "$1"
+    fi
+  done < <(type -pa xdg-open 2>/dev/null)
+  echo "open: don't know how to open: $1" >&2
+  exit 1
+}
+
 if [ -e "$buf" ]; then
-  nautilus "$buf" &>/dev/null &
-  disown
+  abs=$(realpath "$buf")
+  case "$abs" in
+  "$HOME" | "$HOME"/*)
+    if send_mac "${MAC_HOME}/var/$(hostname)${abs#"$HOME"}"; then
+      exit 0
+    fi
+    ;;
+  esac
+  if command -v nautilus >/dev/null; then
+    nautilus "$buf" &>/dev/null &
+    disown
+    exit 0
+  fi
+  fallback_xdg_open "$buf"
+fi
+
+if send_mac "$buf"; then
   exit 0
 fi
-
-echo "$buf" | nc -U "$HOME/.opener.sock"
+fallback_xdg_open "$buf"
