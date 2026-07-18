@@ -50,11 +50,12 @@ settings = "prefix+shift+s"
 open_notification_target = "prefix+shift+o"
 # ----------------------------------------------------------------------
 
-# 全 repo × 全 worktree から選んで、その worktree の space に switch (無ければ作る)。
+# 共通ピッカー tuicast (worktree / ssh)。zsh 側の C-] と同じ入口で、
+# herdr 内外の挙動差は tuicast の run スクリプト側が吸収する。
 [[keys.command]]
 key = "ctrl+]"
 type = "pane"
-command = "herdr-worktree-switch"
+command = "tuicast"
 
 [ui]
 agent_panel_sort = "spaces"

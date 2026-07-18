@@ -13,9 +13,6 @@
 # just the shorturl. Everything is derived from the path — no git call, so it is
 # safe on detached worktrees.
 #
-# This is the canonical definition; herdr-worktree-switch inlines a fork-free
-# copy (name_of) for its hot loop — keep the two in sync.
-#
 # Usage: herdr-label <checkout-path>
 set -eu
 

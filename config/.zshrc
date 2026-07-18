@@ -104,8 +104,8 @@ autoload -Uz colors && colors
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
-# C-] で tuicast (SSH ピッカー)。herdr ペイン内では herdr 側の ctrl+]
-# (herdr-worktree-switch) が先に食うので、素のシェルでだけ効く
+# C-] で tuicast (worktree / ssh ピッカー)。herdr ペイン内では herdr 側の
+# ctrl+] keybind が同じ tuicast を起動するので、内外どちらでも同じ体験になる
 _tuicast_connect() {
   BUFFER="tuicast"
   zle accept-line

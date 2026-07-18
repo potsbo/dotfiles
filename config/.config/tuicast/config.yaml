@@ -1,7 +1,20 @@
+# 共通ピッカー: herdr の中 (prefix なし ctrl+] → herdr keybind) からも
+# 外 (zsh の C-]) からも同じ tuicast を呼ぶ。内外差は各 run スクリプト側で
+# HERDR_PANE_ID を見て切り替える (worktree-connect.sh)。
 views:
   main:
     union:
+      - worktree
       - ssh
+
+  worktree:
+    steps:
+      - name: worktree
+        sources:
+          - list: ~/.config/tuicast/list-worktrees.sh
+            display: ~/.local/bin/herdr-label {}
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+    run: ~/.config/tuicast/worktree-connect.sh $worktree
 
   ssh:
     steps:
