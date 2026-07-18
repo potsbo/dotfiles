@@ -12,7 +12,7 @@
 
 set -eu
 
-PORT=2226
+PORT=${OPENER_PORT:-2226}
 MAC_HOME="/Users/potsbo"
 
 # macOS では素の open に委譲 (~/.local/bin が PATH 先頭にあり shadow するため)
@@ -32,6 +32,17 @@ send_mac() {
   local resp
   resp=$(printf '%s\n' "$1" | nc -w 2 127.0.0.1 "$PORT" 2>/dev/null) || return 1
   [ "$resp" = "ok" ]
+}
+
+# localhost 向け URL は Mac から見た自ホスト名 (tailscale MagicDNS) に読み替える。
+# dev server (vite 等) の URL をそのまま Mac のブラウザで開くため。
+# ローカルフォールバック時は元の localhost のままが正しいので、送信時のみ適用。
+rewrite_for_mac() {
+  if [[ "$1" =~ ^(https?://)(localhost|127\.0\.0\.1|\[::1\])([:/].*)?$ ]]; then
+    printf '%s' "${BASH_REMATCH[1]}$(hostname)${BASH_REMATCH[3]:-}"
+  else
+    printf '%s' "$1"
+  fi
 }
 
 # ~/.local/bin/{open,xdg-open} (= このスクリプト) を除いた本物の xdg-open で開く
@@ -69,7 +80,7 @@ if [ -e "$buf" ]; then
   fallback_xdg_open "$buf"
 fi
 
-if send_mac "$buf"; then
+if send_mac "$(rewrite_for_mac "$buf")"; then
   exit 0
 fi
 notice_local
