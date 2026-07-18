@@ -21,6 +21,9 @@ gui:
       - "#e6db74"
 git:
   branchPrefix: "potsbo/"
+os:
+  # SSH セッションでは wl-copy 等が使えないので OSC52 でターミナル経由コピー
+  copyToClipboardCmd: printf "\033]52;c;$(printf {{text}} | base64 -w0)\a" > /dev/tty
 keybinding:
   universal:
     prevItem-alt: t
