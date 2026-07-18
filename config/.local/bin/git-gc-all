@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+# 古い git worktree と不要 branch を掃除する。
+# builtin の `git gc` は上書きできないため、.zshrc の git() ラッパーが
+# `git gc` をこのコマンドに割り当てている (素の gc は `command git gc`)。
+#
+# worktree: 以下をすべて満たす linked worktree だけを消す
+#   - working tree がクリーン (未コミット変更・untracked なし)
+#   - 未 push コミットなし (upstream に push 済み、または origin のデフォルトブランチに merge 済み)
+#   - ディレクトリの mtime が MAX_AGE_DAYS (default 30) 日より古い
+# branch: checkout 中でも worktree 使用中でもない local branch のうち
+#   - origin のデフォルトブランチに merge 済みのもの (branch -d)
+#   - upstream が消えたもの = PR が merge/close されて remote branch も削除済み (branch -D)
+#
+# 使い方: git gc [--dry-run] [repo...]
+#   repo 省略時は ~/src/github.com/*/* から primary worktree を自動検出
+
+set -eu
+
+MAX_AGE_DAYS="${MAX_AGE_DAYS:-30}"
+DRY_RUN=0
+[ "${1:-}" = "--dry-run" ] && { DRY_RUN=1; shift; }
+
+repos=("$@")
+if [ ${#repos[@]} -eq 0 ]; then
+  for d in "$HOME"/src/github.com/*/*/; do
+    # linked worktree は .git がファイルなので、.git がディレクトリの primary だけ対象
+    [ -d "$d/.git" ] && repos+=("${d%/}")
+  done
+fi
+
+now=$(date +%s)
+removed=0 skipped=0 branches_removed=0
+
+for repo in "${repos[@]}"; do
+  git -C "$repo" fetch origin --prune --quiet 2>/dev/null || true
+  default_branch=$(git -C "$repo" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || echo origin/main)
+
+  # --- worktree GC ---
+  worktrees=$(git -C "$repo" worktree list --porcelain | awk '/^worktree /{print substr($0,10)}' | tail -n +2)
+  while IFS= read -r wt; do
+    [ -n "$wt" ] && [ -d "$wt" ] || continue
+
+    age_days=$(( (now - $(stat -c %Y "$wt")) / 86400 ))
+    if [ "$age_days" -le "$MAX_AGE_DAYS" ]; then
+      skipped=$((skipped + 1)); continue
+    fi
+
+    if [ -n "$(git -C "$wt" status --porcelain 2>/dev/null)" ]; then
+      echo "skip (dirty): $wt"
+      skipped=$((skipped + 1)); continue
+    fi
+
+    if ! git -C "$wt" merge-base --is-ancestor HEAD '@{u}' 2>/dev/null &&
+       ! git -C "$wt" merge-base --is-ancestor HEAD "$default_branch" 2>/dev/null; then
+      echo "skip (unpushed): $wt"
+      skipped=$((skipped + 1)); continue
+    fi
+
+    if [ "$DRY_RUN" = 1 ]; then
+      echo "would remove worktree: $wt (${age_days}d)"
+    else
+      echo "remove worktree: $wt (${age_days}d)"
+      git -C "$repo" worktree remove "$wt" || { skipped=$((skipped + 1)); continue; }
+      removed=$((removed + 1))
+    fi
+  done <<< "$worktrees"
+
+  git -C "$repo" worktree prune
+
+  # --- branch GC ---
+  # %(worktreepath) が空 = どの worktree にも checkout されていない branch だけ対象
+  while IFS=$'\t' read -r br track wtpath; do
+    [ -n "$br" ] || continue
+    [ -n "$wtpath" ] && continue
+    [ "origin/$br" = "$default_branch" ] && continue
+
+    if git -C "$repo" merge-base --is-ancestor "refs/heads/$br" "$default_branch" 2>/dev/null; then
+      reason="merged"; flag=-d
+    elif [ "$track" = "[gone]" ]; then
+      reason="upstream gone"; flag=-D
+    else
+      continue
+    fi
+
+    if [ "$DRY_RUN" = 1 ]; then
+      echo "would remove branch: $br ($reason) in $repo"
+    else
+      echo "remove branch: $br ($reason) in $repo"
+      git -C "$repo" branch "$flag" "$br" >/dev/null || continue
+      branches_removed=$((branches_removed + 1))
+    fi
+  done < <(git -C "$repo" for-each-ref refs/heads \
+             --format='%(refname:short)%09%(upstream:track)%09%(worktreepath)')
+done
+
+echo "done: worktrees removed=$removed skipped=$skipped, branches removed=$branches_removed"
