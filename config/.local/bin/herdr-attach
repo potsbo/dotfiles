@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Attach herdr, with the ssh detach-and-reconnect loop.
+#
+# `herdr` returning means either the user detached (prefix+d) or the tuicast
+# ssh picker inside herdr stashed a target in /tmp/herdr-ssh-pending and shot
+# the client (see tuicast/ssh-connect.sh). In the latter case run the ssh
+# full-screen and re-attach when it ends; otherwise just return to the caller.
+set -u
+
+while :; do
+  herdr
+  # mtime 1分以内のものだけ拾う (消し損ねた古い pending で ssh しない)
+  if [ -n "$(find /tmp/herdr-ssh-pending -mmin -1 2>/dev/null)" ]; then
+    host=$(cat /tmp/herdr-ssh-pending)
+    rm -f /tmp/herdr-ssh-pending
+    [ -n "$host" ] && ~/.config/tuicast/ssh-reconnect.sh "$host"
+  else
+    break
+  fi
+done

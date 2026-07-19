@@ -14,9 +14,9 @@ if [ -n "${HERDR_PANE_ID:-}" ]; then
 fi
 
 if ~/.local/bin/herdr-space-connect "$dir" 2>/dev/null; then
-  exec herdr
+  exec ~/.local/bin/herdr-attach
 else
   # herdr server がまだ無い: その dir から起動して最初の workspace にする
   cd "$dir"
-  exec herdr
+  exec ~/.local/bin/herdr-attach
 fi

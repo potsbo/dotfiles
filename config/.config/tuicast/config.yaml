@@ -4,8 +4,19 @@
 views:
   main:
     union:
+      - herdr
       - worktree
       - ssh
+
+  # herdr の外にいるときだけ出る「herdr に入る」エントリ。
+  # attach は herdr-attach 経由 (ssh detach-and-reconnect ループ付き)。
+  herdr:
+    steps:
+      - name: _herdr
+        sources:
+          - list: '[ -z "${HERDR_ENV:-}" ] && command -v herdr >/dev/null && echo herdr || true'
+            display: "printf '\\033[38;2;255;199;153m\\357\\222\\211\\033[39m %s\\n' {}"
+    run: ~/.local/bin/herdr-attach
 
   # 開いている space がある worktree を先に、残りをその後に出す。
   # 先頭のドットは herdr sidebar の state_dot と同じ:
