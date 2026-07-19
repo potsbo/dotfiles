@@ -13,7 +13,7 @@ for t in $(~/.local/bin/host-tags "$host"); do
     darwin)  tags+="   darwin" ;;
     linux)   tags+="   linux" ;;
     windows) tags+="   windows" ;;
-    *)       tags+="  $t" ;;
+    *)       tags+="   $t" ;;
   esac
 done
 
