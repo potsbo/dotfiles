@@ -69,33 +69,8 @@ if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua complet
 if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
 # host-colored frame so any fzf shows which host it runs on.
-case $(hostname) in
-"tigerlake")
-thm_main="#fd971f"
-;;
-"raptorlake")
-thm_main="#f8f8f2"
-;;
-"avalanche.local")
-thm_main="#ae81ff"
-;;
-"phoenix")
-thm_main="#d7875f"
-;;
-"staten-nix")
-thm_main="#f92672"
-;;
-"blizzard.local")
-thm_main="#55bed2"
-;;
-"graniteridge")
-thm_main="#a6e22e"
-;;
-*)
-thm_main="#797979"
-;;
-esac
-
+# 色の割り当ては ~/.local/bin/host-color に一元化 (tuicast の ssh view と共通)
+thm_main=$(~/.local/bin/host-color "$(hostname)")
 export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}

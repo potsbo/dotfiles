@@ -48,6 +48,6 @@ views:
       - name: host
         sources:
           - list: ~/.config/tuicast/list-ssh-hosts.sh
-            display: "printf '\\033[35m\\356\\254\\272\\033[39m %s\\n' {}"
+            display: ~/.config/tuicast/ssh-display.sh {}
             preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
     run: ~/.config/tuicast/ssh-connect.sh $host
