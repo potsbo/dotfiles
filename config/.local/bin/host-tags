@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# OS tag for a host (matched on the short name, like host-color).
+case "${1%%.*}" in
+  phoenix|staten-nix|skylake)        echo nixos ;;
+  mac-mini|blizzard|avalanche)       echo darwin ;;
+  raptorlake-windows)                echo windows ;;
+  tigerlake|raptorlake|graniteridge) echo linux ;;
+esac
