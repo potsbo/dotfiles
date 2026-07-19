@@ -9,11 +9,11 @@ r=$((16#${hex:1:2})); g=$((16#${hex:3:2})); b=$((16#${hex:5:2}))
 tags=" ssh"
 for t in $(~/.local/bin/host-tags "$host"); do
   case "$t" in
-    nixos)   tags+="  󱄅 nixos" ;;
-    darwin)  tags+="   darwin" ;;
-    linux)   tags+="   linux" ;;
-    windows) tags+="   windows" ;;
-    *)       tags+="   $t" ;;
+    nixos)   tags+="   nixos" ;;
+    darwin)  tags+="  󰀵 darwin" ;;
+    linux)   tags+="  󰌽 linux" ;;
+    windows) tags+="  󰖳 windows" ;;
+    *)       tags+="  󰓹 $t" ;;
   esac
 done
 
