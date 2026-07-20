@@ -124,6 +124,9 @@ in
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  # Disable tap-to-click on touchpad
+  services.libinput.touchpad.tapping = false;
+
   # GNOME Shell 拡張機能の有効化 & tiling-assistant 設定
   programs.dconf = {
     enable = true;
@@ -159,6 +162,7 @@ in
         };
         "org/gnome/desktop/peripherals/touchpad" = {
           speed = 0.5;
+          tap-to-click = false;
         };
         "org/gnome/desktop/interface" = {
           font-name = "Noto Sans CJK JP 11";
