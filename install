@@ -68,24 +68,48 @@ if [[ "$USER" == "potsbo" ]]; then
 
   export NIX_CONFIG="experimental-features = nix-command flakes"
 
-  # nixos-rebuild (NixOS only, 既知ホストのみ)
-  # 未知ホスト (MANAGE_SYSTEM=0) では管理外のシステム設定を壊さないようスキップする
-  if [[ -e /etc/NIXOS ]] && [[ "$MANAGE_SYSTEM" == "1" ]]; then
-    sudo nixos-rebuild switch --flake "${DOTPATH}/nixos/hosts/${CONFIG}#${CONFIG}" --impure
-  fi
+  # no-op でも nixos-rebuild は評価だけで数秒〜数十秒かかる (--impure で eval cache も
+  # 効かない) ため、前回適用時から入力が変わっていなければ nix ステップごとスキップする。
+  # スタンプには working tree の内容ハッシュ (untracked 含む) と、外部でロールバック
+  # されたときに気付けるよう現在の世代も含める。FORCE=1 で強制フル実行。
+  tree_hash() {
+    local tmp
+    tmp=$(mktemp)
+    cp "${DOTPATH}/.git/index" "$tmp" 2>/dev/null || true
+    GIT_INDEX_FILE="$tmp" git -C "$DOTPATH" add -A >/dev/null 2>&1 || true
+    GIT_INDEX_FILE="$tmp" git -C "$DOTPATH" write-tree 2>/dev/null || echo "unknown"
+    rm -f "$tmp"
+  }
 
-  nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
+  STAMP_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles-install/last-applied"
+  STAMP="$(tree_hash) ${CONFIG} ${MANAGE_SYSTEM} $(readlink /run/current-system 2>/dev/null || true) $(readlink "$HOME/.local/state/nix/profiles/home-manager" 2>/dev/null || true)"
 
-  # nix-darwin (macOS only)
-  if [[ "$SYSTEM" == "Darwin" ]]; then
-    # Install Homebrew if not present (required for nix-darwin homebrew module)
-    if ! has "brew"; then
-      echo "Installing Homebrew..."
-      NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if [[ "${FORCE:-0}" != "1" ]] && [[ -f "$STAMP_FILE" ]] && [[ "$(cat "$STAMP_FILE")" == "$STAMP" ]]; then
+    echo "nix: unchanged since last apply, skipping (FORCE=1 to override)"
+  else
+    # nixos-rebuild (NixOS only, 既知ホストのみ)
+    # 未知ホスト (MANAGE_SYSTEM=0) では管理外のシステム設定を壊さないようスキップする
+    if [[ -e /etc/NIXOS ]] && [[ "$MANAGE_SYSTEM" == "1" ]]; then
+      sudo nixos-rebuild switch --flake "${DOTPATH}/nixos/hosts/${CONFIG}#${CONFIG}" --impure
     fi
 
-    echo "nix-darwin: Using configuration: $CONFIG"
-    sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}/nix" -- switch --flake "${DOTPATH}/nix#$CONFIG" --verbose
+    nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
+
+    # nix-darwin (macOS only)
+    if [[ "$SYSTEM" == "Darwin" ]]; then
+      # Install Homebrew if not present (required for nix-darwin homebrew module)
+      if ! has "brew"; then
+        echo "Installing Homebrew..."
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      fi
+
+      echo "nix-darwin: Using configuration: $CONFIG"
+      sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}/nix" -- switch --flake "${DOTPATH}/nix#$CONFIG" --verbose
+    fi
+
+    # switch 後の世代を含めてスタンプを取り直す
+    mkdir -p "$(dirname "$STAMP_FILE")"
+    echo "$(tree_hash) ${CONFIG} ${MANAGE_SYSTEM} $(readlink /run/current-system 2>/dev/null || true) $(readlink "$HOME/.local/state/nix/profiles/home-manager" 2>/dev/null || true)" >"$STAMP_FILE"
   fi
 fi
 
