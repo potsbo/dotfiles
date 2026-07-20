@@ -90,7 +90,14 @@ if [[ "$USER" == "potsbo" ]]; then
     # nixos-rebuild (NixOS only, 既知ホストのみ)
     # 未知ホスト (MANAGE_SYSTEM=0) では管理外のシステム設定を壊さないようスキップする
     if [[ -e /etc/NIXOS ]] && [[ "$MANAGE_SYSTEM" == "1" ]]; then
-      sudo nixos-rebuild switch --flake "${DOTPATH}/nixos/hosts/${CONFIG}#${CONFIG}" --impure
+      # hardware-configuration.nix をまだリポジトリに取り込んでいないホストは
+      # /etc/nixos を読むため --impure が要る。pure なホストはフラグを外すことで
+      # eval cache が効き、no-op の switch が数秒で終わる。
+      IMPURE_FLAG=""
+      if grep -q "/etc/nixos" "${DOTPATH}/nixos/hosts/${CONFIG}/flake.nix"; then
+        IMPURE_FLAG="--impure"
+      fi
+      sudo nixos-rebuild switch --flake "${DOTPATH}/nixos/hosts/${CONFIG}#${CONFIG}" $IMPURE_FLAG
     fi
 
     nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
