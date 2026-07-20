@@ -10,6 +10,15 @@ MItamae::RecipeContext.class_eval do
   end
 end
 
+# GitHub repo を ghq の規約 (~/src/github.com/...) に従ってクローンする独自リソース
+define :ghq do
+  repo = params[:name]
+  execute "ghq get #{repo}" do
+    command "aqua exec -- ghq get https://github.com/#{repo}"
+    not_if "test -d #{File.join(ENV['HOME'], 'src', 'github.com', repo)}"
+  end
+end
+
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
 # シンボリックリンク
@@ -23,7 +32,10 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   ".zprofile",
   ".zshrc",
   ".default-npm-packages",
-  ".docker/config.json",
+  # .claude はセッション状態などが多いのでディレクトリごとはリンクせず settings.json だけ管理する。
+  # 注意: herdr が integration 更新時にこのファイルを書き直す (二重登録や再整形の diff が出たらこの管理をやめる)
+  ".claude/settings.json",
+  ".claude/claude-powerline.json",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
   dotfiles_path = File.join(DOTFILE_REPO, "config", name)
@@ -39,6 +51,10 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
     Dir.rmdir(home_path)
   end
 
+  # .local/bin のようにネストしたパスは親ディレクトリが無いと ln が失敗するため先に作る
+  # mitamae の directory リソースは親ディレクトリも再帰的に作る (mkdir -p 相当)
+  directory File.dirname(home_path)
+
   link home_path do
     to dotfiles_path
     force true
@@ -52,135 +68,10 @@ link File.join(ENV['HOME'], "go/src") do
   force true
 end
 
-if node[:platform] == "darwin"
-  link File.join(ENV['HOME'], "iCloudDrive") do
-    to File.join(ENV['HOME'], "Library/Mobile Documents/com~apple~CloudDocs")
-    force true
-  end
-
-  ["Cursor", "Code"].each do |name|
-    directory File.join(ENV['HOME'], "Library/Application Support/#{name}/User")
-    link File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json") do
-      to File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json")
-      force true
-    end
-  end
-end
-
-if wsl_environment?
-  ["Cursor", "Code"].each do |name|
-    cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/settings.json")
-    file cursor_target do
-      content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))
-    end
-
-    cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/keybindings.json")
-    file cursor_target do
-      content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/keybindings.win.json"))
-    end
-  end
-end
-
-if wsl_environment?
-  link File.join(ENV['HOME'], "win") do
-    to "/mnt/c/Users/potsb"
-    force true
-  end
-  directory File.join(ENV['HOME'], ".local/share/ssh")
-  directory File.join(ENV['HOME'], ".local/share/applications")
-  file File.join(ENV['HOME'], ".local/share/applications/file-protocol-handler.desktop") do
-    action :create
-    content <<-EOF
-[Desktop Entry]
-Type=Application
-Version=1.0
-Name=File Protocol Handler
-NoDisplay=true
-Exec=rundll32.exe url.dll,FileProtocolHandler
-MimeType=x-scheme-handler/unknown;x-scheme-handler/about;x-scheme-handler/https;x-scheme-handler/http;text/html;
-EOF
-  end
-
-  if node[:hostname] == "raptorlake"
-    file File.join(ENV['HOME'], 'win', '.wslconfig') do
-      content <<-EOF
-[wsl2]
-memory=96GB
-EOF
-      atomic_update true # to avoid `-p` option, which is not supported on Windows file system
-    end
-
-    execute 'Update wsl.conf' do
-      command "sudo cp #{DOTFILE_REPO}/lib/wsl.conf /etc/wsl.conf"
-    end
-  end
-
-  execute 'Add NOPASSWD to sudoers' do
-    pattern = '%sudo ALL=(ALL) NOPASSWD:ALL'
-    command "echo '#{pattern}' | sudo tee -a /etc/sudoers"
-    not_if "sudo grep -qxF '#{pattern}' /etc/sudoers"
-  end
-end
-
-if node[:platform] == "ubuntu"
-  execute "apt update" do
-    command "apt update"
-    user 'root'
-  end
-  # nix で管理できないもの
-  packages = [
-    "locales-all",
-    "wslu",
-    "openssh-server",
-
-    # ruby build (TODO: nix-shell で管理するか検討)
-    "zlib1g-dev",
-    "libssl-dev",
-    "libreadline-dev",
-    "libyaml-dev",
-  ]
-  packages.each do |pkg|
-    package pkg do
-      user 'root'
-    end
-  end
-  execute "login with zsh " do
-    command "sudo chsh -s $(which zsh) $(whoami)"
-    not_if '[ "$(getent passwd $(whoami) | cut -d: -f7)" = "$(which zsh)" ]'
-  end
-end
-
-if node[:platform] == "ubuntu"
-  execute "install tailscale" do
-    command "curl -fsSL https://tailscale.com/install.sh | sh"
-    not_if "command -v tailscale"
-  end
-end
-
-# tmux plugins (ghq で管理し、~/.tmux/plugins/ にシンボリックリンク)
-GHQ_ROOT = File.join(ENV['HOME'], "src")
-TMUX_PLUGINS = [
-  "tmux-plugins/tpm",
-  "alexwforsythe/tmux-which-key",
-]
-
-TMUX_PLUGINS.each do |plugin|
-  plugin_path = File.join(GHQ_ROOT, "github.com", plugin)
-  execute "ghq get #{plugin}" do
-    command "aqua exec -- ghq get https://github.com/#{plugin}"
-    not_if "test -d #{plugin_path}"
-  end
-end
-
-directory File.join(ENV['HOME'], ".tmux/plugins")
-
-TMUX_PLUGINS.each do |plugin|
-  plugin_name = plugin.split("/").last
-  link File.join(ENV['HOME'], ".tmux/plugins", plugin_name) do
-    to File.join(GHQ_ROOT, "github.com", plugin)
-    force true
-  end
-end
+# OS 固有の設定は recipes/ 以下に切り出している
+include_recipe "recipes/darwin" if node[:platform] == "darwin"
+include_recipe "recipes/wsl" if wsl_environment?
+include_recipe "recipes/ubuntu" if node[:platform] == "ubuntu"
 
 # zsh plugins (ghq で管理、.zshrc から直接 source)
 ZSH_PLUGINS = [
@@ -189,9 +80,5 @@ ZSH_PLUGINS = [
 ]
 
 ZSH_PLUGINS.each do |plugin|
-  plugin_path = File.join(GHQ_ROOT, "github.com", plugin)
-  execute "ghq get #{plugin}" do
-    command "aqua exec -- ghq get https://github.com/#{plugin}"
-    not_if "test -d #{plugin_path}"
-  end
+  ghq plugin
 end

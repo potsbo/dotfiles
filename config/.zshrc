@@ -66,21 +66,11 @@ if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --compl
 if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
+if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
-case $(hostname) in
-"tigerlake")
-thm_main=yellow
-;;
-"raptorlake")
-thm_main=white
-;;
-"staten.local")
-thm_main=blue
-;;
-*)
-thm_main=gray
-;;
-esac
+# host-colored frame so any fzf shows which host it runs on.
+thm_main=$(~/.local/bin/host-color "$(hostname)")
+export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
@@ -88,21 +78,45 @@ autoload -Uz colors && colors
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
-_register_keycommand() {
-  zle -N $2
-  # mode を明示的に指定しないと C-] が tmux 環境で動かなかった
-  bindkey -M emacs "$1" $2
-}
-
-_sesh_connect() {
+# C-] で tuicast (worktree / ssh ピッカー)。herdr ペイン内では herdr 側の
+# ctrl+] keybind が同じ tuicast を起動するので、内外どちらでも同じ体験になる
+_tuicast_connect() {
   BUFFER="tuicast"
   zle accept-line
 }
-
-_register_keycommand "^]" _sesh_connect
+zle -N _tuicast_connect
+bindkey -M emacs "^]" _tuicast_connect
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e
+
+# macOS HFS+/APFS 由来のファイル名は NFD (分解形) で格納されており、
+# 濁点・半濁点が結合文字 (U+3099/U+309A) として分離されている。
+# 例: 「パ」= U+30D1 (NFC) → U+30CF U+309A (NFD)
+#
+# Linux 上で rclone mount 等を介してこれらのファイルにアクセスすると、
+# NFD のまま readdir されるため以下の2つの問題が起きる:
+#   1. zsh のタブ補完で NFC 入力 (「デ」) が NFD ファイル名にマッチしない
+#   2. 補完後のファイル名で結合文字が分離表示される (テ<3099>ータ)
+#
+# rclone の --no-unicode-normalization はファイルアクセス時の lookup fixup のみで、
+# readdir が返すファイル名自体は NFC に変換しない (v1.73.2 時点)。
+#
+# 対策:
+#   COMBINING_CHARS: 結合文字の表示を修正 (問題2)
+#   _nfd_complete:   Tab 押下時に入力を NFD に変換してから補完 (問題1)
+#     - LBUFFER を変更すると補完メニューの走査状態がリセットされるため、
+#       変換結果が同じなら LBUFFER を触らない
+#     - bindkey -e より後に置くこと (emacs キーマップのリセットで ^I が上書きされるため)
+setopt COMBINING_CHARS
+_nfd_complete() {
+  if [[ $LBUFFER == *[^[:ascii:]]* ]]; then
+    local nfd=$(perl -MUnicode::Normalize -MEncode -e 'print encode("UTF-8", NFD(decode("UTF-8", $ARGV[0])))' "$LBUFFER")
+    [[ $nfd != "$LBUFFER" ]] && LBUFFER=$nfd
+  fi
+  zle expand-or-complete
+}
+zle -N _nfd_complete && bindkey '^I' _nfd_complete
 
 if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"; fi
 if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
@@ -111,23 +125,6 @@ if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; 
 if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
   "$(ghq root)/github.com/potsbo/dotfiles/script/fix-wl-copy.sh"
 fi
-
-# tmux detach 後に pending SSH があれば実行
-_check_pending_ssh() {
-  if [ -z "$TMUX" ] && [ -f /tmp/sesh-ssh-pending ]; then
-    local host
-    host=$(cat /tmp/sesh-ssh-pending)
-    rm -f /tmp/sesh-ssh-pending
-    if [ -n "$host" ]; then
-      ssh "$host"
-      # SSH 終了後、再度 sesh-connect.sh を呼ぶ
-      if command -v sesh &> /dev/null; then
-        ~/.config/tmux/sesh-connect.sh
-      fi
-    fi
-  fi
-}
-precmd_functions+=(_check_pending_ssh)
 
 # aqua: prompt 毎にパッケージをインストール（~50ms, バックグラウンド実行）
 _aqua_install() {

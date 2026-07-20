@@ -1,0 +1,38 @@
+packages:
+  # macmon - CPU/GPU temperature, power and frequency monitor for Apple Silicon.
+  # https://github.com/vladkens/macmon
+  # Single universal arm64 asset, so darwin/arm64 only.
+  - type: github_release
+    repo_owner: vladkens
+    repo_name: macmon
+    asset: macmon-{{.Version}}.tar.gz
+    supported_envs:
+      - darwin/arm64
+    files:
+      - name: macmon
+  # ghui - A GitHub TUI. https://github.com/kitlangton/ghui
+  - type: github_release
+    repo_owner: kitlangton
+    repo_name: ghui
+    asset: ghui-{{.OS}}-{{.Arch}}.tar.gz
+    replacements:
+      amd64: x64
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: ghui
+  # hunk - Review-first terminal diff viewer for agentic coders.
+  # https://github.com/modem-dev/hunk
+  - type: github_release
+    repo_owner: modem-dev
+    repo_name: hunk
+    asset: hunkdiff-{{.OS}}-{{.Arch}}.tar.gz
+    replacements:
+      amd64: x64
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: hunk
+        src: hunkdiff-{{.OS}}-{{.Arch}}/hunk

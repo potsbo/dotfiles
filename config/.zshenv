@@ -29,7 +29,8 @@ export GHQ_ROOT="$HOME/src"
 export PATH=$HOME/.local/state/nix/profiles/home-manager/home-path/bin:$PATH
 export PATH=$HOME/bin:$PATH
 ## Build
-export PATH=$PATH:$HOME/.local/bin # Created by `pipx`
+# prepend: 自作の open/xdg-open ラッパーが system の xdg-open (nix) に勝つ必要がある
+export PATH=$HOME/.local/bin:$PATH
 if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
 export PATH=$PATH:$HOME/go/bin
 ## System
@@ -45,6 +46,9 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml
+# Required to allow the `local` registry (e.g. macmon). After first checkout, run once:
+#   aqua policy allow "$AQUA_POLICY_CONFIG"
+export AQUA_POLICY_CONFIG=${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua-policy.yaml
 
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
@@ -58,7 +62,26 @@ export HISTFILE="${HOME}/.zsh_history"
 export SAVEHIST=100000
 export HISTSIZE=100000
 
-export ANTHROPIC_MODEL=opus
+export ANTHROPIC_MODEL=claude-fable-5
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
+
+# --- forwarded ssh-agent: keep keys on the origin host, usable across herdr ---
+# We ssh in with agent forwarding (ForwardAgent), so no private key lives here.
+# But every ssh connection gets its own forwarded socket, and long-lived herdr
+# panes keep the one they first saw — so after a reconnect their $SSH_AUTH_SOCK
+# is stale and the agent looks gone. Fix: point a stable, machine-local symlink
+# at the current connection's live socket and have every shell use that link. On
+# reconnect the fresh login shell (runs before herdr via .zprofile) repoints it,
+# so already-open herdr panes get a working agent again without touching their env.
+# The link lives under $XDG_RUNTIME_DIR (per-machine, tmpfs) — never under ~/.ssh,
+# which is a symlink into the shared dotfiles repo.
+if [ -n "$SSH_CONNECTION" ]; then
+  _stable_sock="${XDG_RUNTIME_DIR:-/tmp}/ssh-auth-sock"
+  if [ -S "$SSH_AUTH_SOCK" ] && [ "$SSH_AUTH_SOCK" != "$_stable_sock" ]; then
+    ln -sf "$SSH_AUTH_SOCK" "$_stable_sock"
+  fi
+  [ -L "$_stable_sock" ] && export SSH_AUTH_SOCK="$_stable_sock"
+  unset _stable_sock
+fi

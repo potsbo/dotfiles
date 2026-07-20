@@ -1,41 +1,53 @@
+# 共通ピッカー: herdr の中 (ctrl+] → herdr keybind) からも外 (zsh の C-]) からも
+# 同じ tuicast を呼ぶ。内外差は各 run スクリプト側で HERDR_PANE_ID を見て
+# 切り替える (worktree-connect.sh)。
 views:
   main:
     union:
-      - sessions
-      - ssh
+      - herdr
       - worktree
+      - ssh
 
-  sessions:
+  # herdr の外にいるときだけ出る「herdr に入る」エントリ。
+  # attach は herdr-attach 経由 (ssh detach-and-reconnect ループ付き)。
+  herdr:
     steps:
-      - name: session
+      - name: _herdr
         sources:
-          - list: tmux list-sessions -F '#{session_path}' 2>/dev/null
-            display: "printf '\\033[34m\\033[39m '; ~/.config/tmux/dirmux/path-to-name.sh {}"
-            preview: "tmux capture-pane -ep -t $(tmux list-panes -a -F '#{pane_id} #{session_path}' | awk -v p='{}' '$2==p{print $1;exit}')"
-          - list: ghq list --full-path | roots --depth 4 --root-file .git
-            display: "printf '\\033[36m\\033[39m '; ~/.config/tmux/dirmux/path-to-name.sh {}"
-            preview: eza --tree --icons --color=always --level 3 {}
-    run: tsuimux open $session --name "$(~/.config/tmux/dirmux/path-to-name.sh $session)"
+          - list: '[ -z "${HERDR_ENV:-}" ] && command -v herdr >/dev/null && echo herdr || true'
+            display: "printf '\\033[38;2;255;199;153m\\357\\222\\211\\033[39m %s\\n' {}"
+    run: ~/.local/bin/herdr-attach
+
+  # 開いている space がある worktree を先に、残りをその後に出す。
+  # 先頭のドットは herdr sidebar の state_dot と同じ:
+  #   blocked=赤● > working=peach● > idle=mint○ > 状態不明=灰· (space 内で最も緊急な agent)。
+  #   色は herdr の vesper テーマの palette 値 (truecolor)。theme を変えたらここも合わせる。
+  worktree:
+    steps:
+      - name: worktree
+        sources:
+          - list: ~/.config/tuicast/list-worktrees.sh --open blocked
+            display: "printf '\\033[38;2;255;128;128m\\342\\227\\217\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --open working
+            display: "printf '\\033[38;2;255;199;153m\\342\\227\\217\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --open idle
+            display: "printf '\\033[38;2;153;255;228m\\342\\227\\213\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --open unknown
+            display: "printf '\\033[38;2;92;92;92m\\302\\267\\033[39m '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+          - list: ~/.config/tuicast/list-worktrees.sh --closed
+            display: "printf '  '; ~/.local/bin/herdr-label {}"
+            preview: git -C {} log --oneline --decorate -15 2>/dev/null
+    run: ~/.config/tuicast/worktree-connect.sh $worktree
 
   ssh:
     steps:
       - name: host
         sources:
           - list: ~/.config/tuicast/list-ssh-hosts.sh
-            display: "printf ' %s\\n' {}"
+            display: ~/.config/tuicast/ssh-display.sh {}
             preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
     run: ~/.config/tuicast/ssh-connect.sh $host
-
-  worktree:
-    steps:
-      - name: repo
-        sources:
-          - list: ghq list --full-path
-            display: ~/.config/tmux/dirmux/path-to-name.sh {}
-      - name: branch
-        sources:
-          - list: git -C $repo branch -a --sort=-committerdate --format='%(refname:short)' | grep -v HEAD
-            preview: git -C $repo log --oneline -10 {} 2>/dev/null
-          - label: "✨ Create new branch"
-            input: "Branch name"
-    run: ~/.config/tuicast/worktree-create.sh "$repo" "$branch"

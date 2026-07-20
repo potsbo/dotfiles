@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Focus (or create) the herdr workspace rooted at a working directory.
+# One worktree <-> one space, keyed off the worktree's on-disk path.
+#
+# Usage: herdr-space-connect <working-directory>
+set -euo pipefail
+
+dir="$1"
+label=$(~/.local/bin/herdr-label "$dir")
+
+# An open space with a pane rooted at this path already? Focus it.
+ws=$(herdr pane list | jq -r --arg p "$dir" \
+  'first(.result.panes[] | select(.cwd == $p) | .workspace_id) // empty')
+
+if [ -n "$ws" ]; then
+  herdr workspace focus "$ws"
+else
+  # `herdr worktree open` only works from a repo's parent workspace, so it can't
+  # target an arbitrary linked-worktree path. A plain workspace rooted at the
+  # worktree path gives us the 1:1 space we want without that restriction.
+  herdr workspace create --cwd "$dir" --label "$label" --focus
+fi

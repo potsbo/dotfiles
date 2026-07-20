@@ -8,59 +8,70 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.481.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.539.0 # renovate: depName=aquaproj/aqua-registry
+  - name: local
+    type: local
+    path: registry.yaml
 packages:
-  - name: denoland/deno@v2.7.4
-  - name: twistedpair/google-cloud-sdk@560.0.0
-  - name: junegunn/fzf@v0.70.0
-  - name: BurntSushi/ripgrep@15.1.0
-  - name: x-motemen/ghq@v1.9.4
+  - name: denoland/deno@v2.9.3
+  - name: twistedpair/google-cloud-sdk@562.0.0
+  - name: junegunn/fzf@v0.74.1
+  - name: BurntSushi/ripgrep@15.2.0
+  - name: x-motemen/ghq@v1.10.1
   - name: sharkdp/bat@v0.26.1
-  - name: jqlang/jq@jq-1.8.1
+  - name: jqlang/jq@jq-1.8.2
   - name: direnv/direnv@v2.37.1
-  - name: neovim/neovim@v0.11.6
-  - name: mikefarah/yq@v4.52.4
+  - name: neovim/neovim@v0.12.4
+  - name: mikefarah/yq@v4.53.3
   - name: YS-L/csvlens@v0.15.1
-  - name: golang/go@go1.26.1
-  - name: cli/cli@v2.88.0
-  - name: Wilfred/difftastic@0.67.0
+  - name: golang/go@go1.26.5
+  - name: cli/cli@v2.96.0
+  - name: Wilfred/difftastic@0.69.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.7.1
-  - name: nodejs/node@v23.11.1
+  - name: nodejs/node@v26.5.0
   - name: XAMPPRocky/tokei@v14.0.0
-  - name: sharkdp/fd@v10.3.0
-  - name: jesseduffield/lazygit@v0.60.0
-  - name: go-task/task@v3.49.1
-  - name: aws/aws-cli@2.34.6
-  - name: astral-sh/uv@0.9.3
-  - name: starship/starship@v1.24.2
-  - name: zellij-org/zellij@v0.43.1
-  - name: johnkerl/miller@v6.17.0
-  - name: tldr-pages/tlrc@v1.12.0
-  - name: k1LoW/git-wt@v0.25.0
+  - name: sharkdp/fd@v10.4.2
+  - name: jesseduffield/lazygit@v0.63.1
+  - name: go-task/task@v3.52.0
+  - name: aws/aws-cli@2.35.16
+  - name: astral-sh/uv@0.11.29
+  - name: starship/starship@v1.26.0
+  - name: zellij-org/zellij@v0.44.3
+  - name: johnkerl/miller@v6.20.2
+  - name: tldr-pages/tlrc@v1.13.1
+  - name: k1LoW/git-wt@v0.29.0
   - name: k1LoW/roots@v0.4.1
-  - name: joshmedeski/sesh@v2.24.2
-  - name: ajeetdsouza/zoxide@v0.9.9
-  - name: junegunn/fzf/fzf-tmux@v0.70.0
-  - name: sxyazi/yazi@v26.1.22
-  - name: github/copilot-cli@v1.0.3
-  - name: anthropics/claude-code@v2.1.71
-  - name: aristocratos/btop@v1.4.6
+  - name: ajeetdsouza/zoxide@v0.10.0
+  - name: sxyazi/yazi@v26.5.6
+  - name: github/copilot-cli@v1.0.71
+  - name: anthropics/claude-code@v2.1.190
+  - name: ogulcancelik/herdr@v0.7.4
+  - name: aristocratos/btop@v1.4.7
   - name: itamae-kitchen/mitamae@v1.14.4
-  - name: ynqa/jnv@v0.6.2
-  - name: theseus-rs/postgresql-binaries@18.3.0
+  - name: ynqa/jnv@v0.7.1
+  - name: theseus-rs/postgresql-binaries@18.4.0
   - name: bootandy/dust@v1.2.4
-  - name: sachaos/viddy@v1.3.0
+  - name: sachaos/viddy@v1.3.1
   - name: dev.yorhel.nl/ncdu
     version: 2.9.1
-  - name: dalance/procs@v0.14.11
+  - name: dalance/procs@v0.14.12
   - name: muesli/duf@v0.9.1
   - name: chmln/sd@v1.1.0
-  - name: mr-karan/doggo@v1.1.5
-  - name: orf/gping@gping-v1.20.1
+  - name: mr-karan/doggo@v1.2.0
+  - name: orf/gping@gping-v1.20.4
   - name: fujiapple852/trippy@0.13.0
   - name: sharkdp/hexyl@v0.17.0
-  - name: ducaale/xh@v0.25.3
+  - name: ducaale/xh@v0.26.1
   - name: sharkdp/hyperfine@v1.20.0
   - name: imsnif/bandwhich@v0.23.1
-  - name: eza-community/eza@v0.23.4
+  # Not in aqua-registry; defined via the local registry below. Apple Silicon only.
+  - name: vladkens/macmon@v0.7.2
+    registry: local
+  - name: dlvhdr/gh-dash@v4.25.2
+  - name: kitlangton/ghui@v0.9.0
+    registry: local
+  - name: charmbracelet/glow@v2.1.2
+  - name: openai/codex@rust-v0.144.6
+  - name: modem-dev/hunk@v0.17.3
+    registry: local

@@ -1,23 +1,87 @@
 #!/usr/bin/env bash
-
-# inspired by https://github.com/superbrothers/opener/blob/95903db0f9b8f4bb1abc183a03c3189af6d02348/bin/open
+# Mac から ssh しているとき、URL / ファイルを透過的に Mac 側で開く open/xdg-open。
+#
+# 経路: 127.0.0.1:2226 → ssh RemoteForward (config/.ssh/config) → Mac の
+# opener-listen (launchd, nix/home.nix)。ACK ("ok") が返ったときだけ成功と
+# みなすので、転送や Mac 側リスナーが死んでいれば確実にローカル
+# (nautilus / 本物の xdg-open) にフォールバックする。
+#
+# ファイル/ディレクトリは Mac 側の rclone mount (remote-mount ensure <host> で
+# 作る ~/var/<host>) のパスに変換して送る。$HOME の外は Mac から見えないので
+# ローカルで開く。
 
 set -eu
 
-# get data either form stdin or from file
-if (($# == 0)); then
-  # if no argument, read from standard input from pipe
-  buf=$(cat "$@")
-else
-  # otherwise read from all arguments
-  buf=$@
+PORT=${OPENER_PORT:-2226}
+MAC_HOME="/Users/potsbo"
+
+# macOS では素の open に委譲 (~/.local/bin が PATH 先頭にあり shadow するため)
+if [ "$(uname -s)" = "Darwin" ]; then
+  exec /usr/bin/open "$@"
 fi
 
-# ローカルのファイル/ディレクトリはローカルのファイルマネージャーで開く
+# get data either from stdin or from arguments
+if (($# == 0)); then
+  buf=$(cat)
+else
+  buf=$*
+fi
+
+# Mac 側リスナーに送る。ACK が返ったときだけ成功
+send_mac() {
+  local resp
+  resp=$(printf '%s\n' "$1" | nc -w 2 127.0.0.1 "$PORT" 2>/dev/null) || return 1
+  [ "$resp" = "ok" ]
+}
+
+# localhost 向け URL は Mac から見た自ホスト名 (tailscale MagicDNS) に読み替える。
+# dev server (vite 等) の URL をそのまま Mac のブラウザで開くため。
+# ローカルフォールバック時は元の localhost のままが正しいので、送信時のみ適用。
+rewrite_for_mac() {
+  if [[ "$1" =~ ^(https?://)(localhost|127\.0\.0\.1|\[::1\])([:/].*)?$ ]]; then
+    printf '%s' "${BASH_REMATCH[1]}$(hostname)${BASH_REMATCH[3]:-}"
+  else
+    printf '%s' "$1"
+  fi
+}
+
+# ~/.local/bin/{open,xdg-open} (= このスクリプト) を除いた本物の xdg-open で開く
+fallback_xdg_open() {
+  local self candidate
+  self=$(realpath "${BASH_SOURCE[0]}")
+  while IFS= read -r candidate; do
+    if [ "$(realpath "$candidate" 2>/dev/null)" != "$self" ]; then
+      exec "$candidate" "$1"
+    fi
+  done < <(type -pa xdg-open 2>/dev/null)
+  echo "open: don't know how to open: $1" >&2
+  exit 1
+}
+
+notice_local() {
+  echo "open: Mac opener unreachable; opening locally" >&2
+}
+
 if [ -e "$buf" ]; then
-  nautilus "$buf" &>/dev/null &
-  disown
+  abs=$(realpath "$buf")
+  case "$abs" in
+  "$HOME" | "$HOME"/*)
+    if send_mac "${MAC_HOME}/var/$(hostname)${abs#"$HOME"}"; then
+      exit 0
+    fi
+    notice_local
+    ;;
+  esac
+  if command -v nautilus >/dev/null; then
+    nautilus "$buf" &>/dev/null &
+    disown
+    exit 0
+  fi
+  fallback_xdg_open "$buf"
+fi
+
+if send_mac "$(rewrite_for_mac "$buf")"; then
   exit 0
 fi
-
-echo "$buf" | nc -U "$HOME/.opener.sock"
+notice_local
+fallback_xdg_open "$buf"

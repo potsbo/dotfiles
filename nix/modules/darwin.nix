@@ -12,11 +12,14 @@
   # System Settings > Displays > More Space
   system.defaults = {
     dock.autohide = true;
+    finder.AppleShowAllFiles = true;
 
     NSGlobalDomain = {
       KeyRepeat = 1;
       InitialKeyRepeat = 15;
     };
+
+    menuExtraClock.ShowSeconds = true;
 
     trackpad.Clicking = true;
 
@@ -50,29 +53,24 @@
       # zap: 宣言から外したアプリを削除する際に設定ファイルも一緒に削除
       # uninstall: アプリのみ削除、設定は残る
       cleanup = "zap";
-      autoUpdate = true;
+      # false: `brew update` は手動で実行し、意図したタイミングでのみバージョンを上げる
+      autoUpdate = false;
       upgrade = true;
     };
-    taps = [
-      "nikitabobko/tap"
-      "felixkratz/formulae"
-    ];
     brews = [
-      "felixkratz/formulae/borders"
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
-
     ];
     masApps = {
       "Amphetamine" = 937984704;
-      "GoodNotes" = 1444383602;
       "Magnet" = 441258766;
       "Microsoft Excel" = 462058435;
       "Microsoft PowerPoint" = 462062816;
       "Microsoft Word" = 462054704;
       "Slack" = 803453959;
+      "Todoist" = 585829637;
+      "Windows App" = 1295203466;
     };
     casks = [
-      "nikitabobko/tap/aerospace"
       "akiflow"
       "karabiner-elements"
       "visual-studio-code"
@@ -87,13 +85,30 @@
       "notion"
       "notion-calendar"
       "font-monaspice-nerd-font"
+      "ghostty"
+      # ターミナルの日本語フォールバック (config/.config/ghostty/config)。
+      # 未インストールだと一部の漢字が tofu (斜線付き□) になるため必須。
+      "font-biz-udgothic"
       "tailscale-app"
       "cursor"
       "zotero"
       "chatgpt"
       "claude"
       "pgadmin4"
+      "plaud"
     ];
+  };
+
+  # GitHub の公開鍵で SSH できるようにする (NixOS の common.nix と同等)
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      PubkeyAuthentication yes
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+      AuthorizedKeysCommand /usr/bin/curl -fsSL https://github.com/%u.keys
+      AuthorizedKeysCommandUser nobody
+    '';
   };
 
   system.stateVersion = 5;

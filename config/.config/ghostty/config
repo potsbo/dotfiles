@@ -1,0 +1,58 @@
+# Ghostty config (migrated from wezterm)
+
+# Theme
+theme = Monokai Remastered
+
+# Font
+# フォント指定は最小限。ghostty 内蔵の JetBrains Mono (Regular/Bold) と
+# Nerd Font アイコンをそのまま使い、日本語は macOS の CoreText 経由で
+# Hiragino に自動フォールバックさせる (これが一番きれいに決まる)。
+# font-family を明示すると内蔵フォントとの兼ね合いで bold が別フォントに
+# 化ける不具合が出たため、あえて指定しない。
+font-size = 13
+# リガチャ無効化 (wezterm: harfbuzz_features = calt=0 liga=0 dlig=0)
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+# macOS: 左 Option を Alt、右 Option は compose (macOS 既定)
+# wezterm: send_composed_key_when_{left,right}_alt_is_pressed = {false,true}
+macos-option-as-alt = left
+
+# タイトルバーを隠す (wezterm macOS: window_decorations = "RESIZE")
+# hidden はフレーム/リサイズを維持したままタイトルバーだけ消す。
+macos-titlebar-style = hidden
+# Linux では WM のタイトルバーで最下行が欠ける問題があった (wezterm: "NONE")。
+# ghostty で再発する場合は window-decoration = none を有効化する。
+# window-decoration = none
+
+# ウィンドウ余白を無くす (wezterm: window_padding = 0)
+window-padding-x = 0
+window-padding-y = 0
+
+# シェル/herdr 前面時にクローズ確認を出さない
+# (wezterm: skip_close_confirmation_for_processes_named)
+confirm-close-surface = false
+
+# Keybindings (neovim / herdr integration)
+# CSI-u を送って herdr 側で tab 切替 (wezterm: SendString "\x1b[9;5u")
+keybind = ctrl+tab=text:\x1b[9;5u
+keybind = ctrl+shift+tab=text:\x1b[9;6u
+# neovim へコマンド送信 (wezterm: Super+key で SendString)
+keybind = super+p=text:\x1b:CommandP\r
+keybind = super+s=text:\x1b:w\r
+keybind = super+backslash=text:\x1b:vsplit\r
+keybind = super+r=text:\x1b:e!\r
+
+# Linux: xremap terminal rule が Super+key → Ctrl+Shift+key に変換して送ってくる
+# (wezterm と同じく両方を明示的にバインド)
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+w=close_surface
+keybind = ctrl+shift+n=new_window
+keybind = ctrl+shift+q=quit
+
+# 移植できなかった wezterm 設定:
+# - QuickSelect (Super+Shift+Space / Super+Space): ghostty に相当機能なし
+# - allow_square_glyphs_to_overflow_width: ghostty では不要 (Nerd Font を正しく描画)
+# - use_resize_increments = false: ghostty はセル境界スナップを行わないため不要

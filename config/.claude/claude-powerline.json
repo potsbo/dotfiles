@@ -1,0 +1,23 @@
+{
+  "theme": "dark",
+  "display": {
+    "style": "minimal",
+    "charset": "unicode",
+    "lines": [
+      {
+        "segments": {
+          "model": { "enabled": true },
+          "session": { "enabled": true, "type": "both" },
+          "today": { "enabled": true, "type": "both" },
+          "context": { "enabled": true },
+          "block": { "enabled": true },
+          "weekly": { "enabled": true },
+          "cacheTimer": { "enabled": true }
+        }
+      }
+    ]
+  },
+  "budget": {
+    "today": { "amount": null }
+  }
+}

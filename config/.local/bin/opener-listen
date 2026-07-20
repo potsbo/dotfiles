@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# macOS 側の opener リスナー。launchd の inetd 互換モード (nix/home.nix の
+# launchd.agents.opener-listen) から 1 接続 = 1 プロセスで起動され、
+# socket が stdin/stdout に繋がった状態で呼ばれる。
+#
+# プロトコル: 1 行受け取り "ok" を返してから /usr/bin/open で開く。
+# Linux 側の open wrapper (config/.local/bin/open) はこの ACK で
+# 「本当に Mac まで届いたか」を判定し、届かなければローカルで開く。
+#
+# 経路: linux で open <url> → 127.0.0.1:2226 → ssh RemoteForward → ここ
+
+set -u
+
+IFS= read -r -t 5 line || exit 0
+printf 'ok\n'
+[ -n "$line" ] || exit 0
+
+exec /usr/bin/open "$line" </dev/null >/dev/null 2>&1

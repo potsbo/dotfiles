@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Quick worktree creation from the current repo.
+# Usage: wt some branch name
+set -eu
+
+if [ $# -eq 0 ]; then
+  echo "Usage: wt <branch name...>" >&2
+  exit 1
+fi
+
+repo="$(git rev-parse --show-toplevel)"
+branch="$(echo "$*" | ~/.config/git/sanitize-branch-name.sh)"
+
+exec ~/.config/tuicast/worktree-create.sh "$repo" "$branch"

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Herdr space/workspace label for a checkout path: "<basename> <shorturl>".
+#
+#   basename = branch leaf: the path under .worktrees/, with a leading potsbo/
+#              (own-owner) prefix stripped. Front-loaded so the identifying part
+#              survives truncation in herdr's narrow sidebar and agents section
+#              (both render the workspace label; there is no separate agent
+#              label, so branch-first here is what surfaces the branch there).
+#   shorturl = github.com/<user>/<repo> with the host swapped for a nerd-font
+#              icon.
+#
+# A main checkout (no /.worktrees/ segment) has no branch leaf, so the label is
+# just the shorturl. Everything is derived from the path — no git call, so it is
+# safe on detached worktrees.
+#
+# Usage: herdr-label <checkout-path>
+set -eu
+
+ghq_root="${GHQ_ROOT:-$(ghq root)}"
+ICON_GITHUB=$(printf '')
+ICON_GITLAB=$(printf '')
+
+rel="${1#"$ghq_root"/}"
+host="${rel%%/*}"
+rest="${rel#*/}"
+
+case "$host" in
+  github.com) icon=$ICON_GITHUB ;;
+  gitlab.com) icon=$ICON_GITLAB ;;
+  *)          icon=$host ;;
+esac
+
+if [[ "$rest" == */.worktrees/* ]]; then
+  repo="${rest%%/.worktrees/*}"
+  branch="${rest#*/.worktrees/}"
+  branch="${branch#potsbo/}"
+  printf '%s %s %s' "$branch" "$icon" "$repo"
+else
+  printf '%s %s' "$icon" "$rest"
+fi
