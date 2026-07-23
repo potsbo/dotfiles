@@ -22,6 +22,19 @@ packages:
       - linux
     files:
       - name: ghui
+  # ax - The AI-era curl. https://github.com/yusukebe/ax
+  - type: github_release
+    repo_owner: yusukebe
+    repo_name: ax
+    asset: ax-{{.OS}}-{{.Arch}}
+    format: raw
+    replacements:
+      amd64: x64
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: ax
   # hunk - Review-first terminal diff viewer for agentic coders.
   # https://github.com/modem-dev/hunk
   - type: github_release

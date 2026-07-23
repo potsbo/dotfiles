@@ -1201,6 +1201,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.21/ax-darwin-arm64",
+      "checksum": "7232D7F4C1BC96B8BC9C2169EE82F6269531C4C6C941E351217799A034E18FA7",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.21/ax-darwin-x64",
+      "checksum": "51235E4F65D7848CECDBCF66036BB67FA27481E106DF825090C317B2D0E8999E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.21/ax-linux-arm64",
+      "checksum": "0938E38B9F9AC986CC899AE79531F4607B2C33214DF6A80D6A7ADCEADF8F7218",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.21/ax-linux-x64",
+      "checksum": "7C2C79D58CA59F23F0535DF5D0442B97026D654B3A1BEB6BEC855112DE7BF625",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/zellij-org/zellij/v0.44.3/zellij-aarch64-apple-darwin.tar.gz",
       "checksum": "B6ACF83A7739CF5F0F4E9BD47709642D4D98ACBBF8C34D4A12C6E706F531DA61",
       "algorithm": "sha256"
