@@ -751,23 +751,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-darwin-arm64.tar.gz",
-      "checksum": "7BF6FCE9DFE66B59227C2ADCF96781CDCA68A10944182A9872354AE36EFE36B0",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-darwin-arm64.tar.gz",
+      "checksum": "DB143343E2C16447B21B587F219137A0CC0E922F1ADE3DACCE0E0E48622F6B97",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-darwin-x64.tar.gz",
-      "checksum": "ECF4DB36357CB31E08AAAD15A8D07531507D78717CFF01DF87B301E3C2F07B57",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-darwin-x64.tar.gz",
+      "checksum": "7B0E4C70C09B68A83C1B3EC8AE2DDF12F8449D37282BD4DB43CB9E7F9E7AA582",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-linux-arm64.tar.gz",
-      "checksum": "B5BB4E219CBD5E13F34C34EF8CE06CE2467E2F9F3037E260F10ECB563A67BA6D",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-linux-arm64.tar.gz",
+      "checksum": "6993A49BCDF77D7DC7E9EF917CD714C55C0F4BD77680941D795B05B0B064D0AE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-linux-x64.tar.gz",
-      "checksum": "6E192E42365A81F2083F16A1C176CD18E92A016F0D981B60637CD02B2CD0706D",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-linux-x64.tar.gz",
+      "checksum": "D8CCF2DF957A1B858A2DCF35B13B161654B881923721D3DFB9A43F19972FEC0F",
       "algorithm": "sha256"
     },
     {
