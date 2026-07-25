@@ -131,28 +131,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.31/uv-aarch64-apple-darwin.tar.gz",
-      "checksum": "B2B93E82A6786F9C7CB89FD4CA0E859A147B292AE8F6F95784F9742F0EFEC39E",
+      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-aarch64-apple-darwin.tar.gz",
+      "checksum": "ED336D0BA49DB8EF89B2B41FFFA372CE63BD032F22A56F001C265891AEC32829",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.31/uv-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "49CB5FFCE40CC9C85355CAA8104F7B61C40A8DAAC7334F4BC841CAD1A7BB359E",
+      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "D70CDAE687FEB6AAD9A09FE8D686DF8C8EFAF69A1007FA581379A2025ADC10A5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.31/uv-x86_64-apple-darwin.tar.gz",
-      "checksum": "33EE6BD62B57FCD77A499DEB54E4432DC1E1A2F3D34930BA987AD8B43F9C7BC7",
+      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-x86_64-apple-darwin.tar.gz",
+      "checksum": "77F5CA26C0DE20E992A3677A174FE1121EE25C36F9B1434A863F75BF077A05EB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.31/uv-x86_64-pc-windows-msvc.zip",
-      "checksum": "410C2FD3126FF621C9450A21CFC200002C7540DC48D130069A8F619CDB0A811B",
+      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-x86_64-pc-windows-msvc.zip",
+      "checksum": "ACFDE570451CFDB8689FA159A138EE805BA4E241C466432750302C86254B0984",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.31/uv-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "89048B7E30A6C459FA7E8F2E91CFDC413DC004DCBDDC6C2AF5E09DF123E3246D",
+      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "1FD052F196108D87E61FC3D98FE06B4EC758C9A1EB1466A6FD1A436FE45885F2",
       "algorithm": "sha256"
     },
     {
@@ -441,33 +441,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.73/copilot-darwin-arm64.tar.gz",
-      "checksum": "858081270A544C396AF0132926449F8D92BA5086C2B802C633A376A9DA5E83D6",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.75/copilot-darwin-arm64.tar.gz",
+      "checksum": "A5EDE0D96DBB6CFFF8BED0F6872AC3EB05BF0A4ED342D44A0A6548CB242713C2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.73/copilot-darwin-x64.tar.gz",
-      "checksum": "91F9420CD903E35A235407FA87901493625267F502DD3E5D2EAB1882B0A8C658",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.75/copilot-darwin-x64.tar.gz",
+      "checksum": "E8078D57ACCC7EABBB29565A2F4C217723ACFB7C7A2563ED6CAC41C45EB29ACF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.73/copilot-linux-arm64.tar.gz",
-      "checksum": "16F824AB3CDCF51A75AD907C84242805911CAFC6519AAF58D09E0AE4EB1FC1CD",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.75/copilot-linux-arm64.tar.gz",
+      "checksum": "0911F12DD816F612D27C4A360D4F00B62D933845A98D6C913E8D7400A69C6809",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.73/copilot-linux-x64.tar.gz",
-      "checksum": "8F9BB5F7E364C267265D1E24AC2AEA69ED559DDB956719C6DB12A353DE6C5970",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.75/copilot-linux-x64.tar.gz",
+      "checksum": "D304EF66C0C1D2DE7D736B3653B36557E80B4F40A0BF8C4A71E7215F3AFF7441",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.73/copilot-win32-arm64.zip",
-      "checksum": "43DA98599755D4B014FFF2A8296A0FF0F869961B8CC71ABFAF6456BB90AEC80B",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.75/copilot-win32-arm64.zip",
+      "checksum": "D9C3B7E0E22BA2929FF53CAE8FD9FB1990E8D63C8507266B19FFECF9A3AE9D87",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.73/copilot-win32-x64.zip",
-      "checksum": "A60699797C819D38669AC751EB9AD401F3BD416423C6936DC5FAD2F6F158F09E",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.75/copilot-win32-x64.zip",
+      "checksum": "18A8D469D30930CB9DA5625DFAF3E261F0CD25442BFDB6754382C443BED42643",
       "algorithm": "sha256"
     },
     {
@@ -751,23 +751,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-darwin-arm64.tar.gz",
-      "checksum": "7BF6FCE9DFE66B59227C2ADCF96781CDCA68A10944182A9872354AE36EFE36B0",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-darwin-arm64.tar.gz",
+      "checksum": "05C00C8A0F92A64334A3659E93BF93E7204852E21F8B43A7E338EA6FC7A137C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-darwin-x64.tar.gz",
-      "checksum": "ECF4DB36357CB31E08AAAD15A8D07531507D78717CFF01DF87B301E3C2F07B57",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-darwin-x64.tar.gz",
+      "checksum": "A2AC58A49B84F5EC172D71B303FA0F0E6AB63C2EF18C742A0464577365368095",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-linux-arm64.tar.gz",
-      "checksum": "B5BB4E219CBD5E13F34C34EF8CE06CE2467E2F9F3037E260F10ECB563A67BA6D",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-linux-arm64.tar.gz",
+      "checksum": "12DFA0CAF740004551B6623EDF223E70F522D0B6892682E6DBFA302BD9AC7ADE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.3/hunkdiff-linux-x64.tar.gz",
-      "checksum": "6E192E42365A81F2083F16A1C176CD18E92A016F0D981B60637CD02B2CD0706D",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-linux-x64.tar.gz",
+      "checksum": "FD3703D1AFB51D13A80FB49818C349BADCC5742C3E100ED46184F7318C26EE6A",
       "algorithm": "sha256"
     },
     {
@@ -1141,8 +1141,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/vladkens/macmon/v0.7.2/macmon-v0.7.2.tar.gz",
-      "checksum": "C79FDC7AB02B456B897DCC3EA041678420D7A1D5BD669AAAC36FDA3885572AD6",
+      "id": "github_release/github.com/vladkens/macmon/v0.8.0/macmon-v0.8.0.tar.gz",
+      "checksum": "E37F2FDB2FB0FDF7B27BF00159006BAC51B6C7B7FEF4A3B5433A31DB062002CF",
       "algorithm": "sha256"
     },
     {
@@ -1366,8 +1366,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.541.0/registry.yaml",
-      "checksum": "47B6FEE42FAC4401107AAA5C15122C0ABEDDC813C1813C57753DF22C49DFF2DB9C4F0314515919C13A3BAAF0E13A405A8DA33F037FC715664FF87D4433276075",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.542.0/registry.yaml",
+      "checksum": "7D08FE6B0842E3DEB7E3EC9BF4BFC8CD61B844B93302EE6278862CBD0FAE8C622C244C165450A97755F9DF9CFC90022E97D58E9AAE10F5E87FDD1B962F7064E4",
       "algorithm": "sha512"
     }
   ]

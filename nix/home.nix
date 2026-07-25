@@ -57,7 +57,7 @@ let
   todoist-cli = pkgs.buildNpmPackage {
     pname = "todoist-cli";
     # renovate: datasource=github-releases depName=Doist/todoist-cli
-    version = "3.0.0";
+    version = "3.0.2";
 
     src = pkgs.fetchFromGitHub {
       owner = "Doist";
@@ -133,6 +133,7 @@ in
     whois
     dnsutils
     rclone
+    elan # Lean toolchain manager (rustup 相当)。aqua 未登録
 
     # ODBC (arrow-odbc + FreeTDS で SQL Server から Arrow ネイティブ読み取り)
     unixODBC
