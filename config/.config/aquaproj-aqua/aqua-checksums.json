@@ -751,23 +751,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-darwin-arm64.tar.gz",
-      "checksum": "DB143343E2C16447B21B587F219137A0CC0E922F1ADE3DACCE0E0E48622F6B97",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-darwin-arm64.tar.gz",
+      "checksum": "05C00C8A0F92A64334A3659E93BF93E7204852E21F8B43A7E338EA6FC7A137C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-darwin-x64.tar.gz",
-      "checksum": "7B0E4C70C09B68A83C1B3EC8AE2DDF12F8449D37282BD4DB43CB9E7F9E7AA582",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-darwin-x64.tar.gz",
+      "checksum": "A2AC58A49B84F5EC172D71B303FA0F0E6AB63C2EF18C742A0464577365368095",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-linux-arm64.tar.gz",
-      "checksum": "6993A49BCDF77D7DC7E9EF917CD714C55C0F4BD77680941D795B05B0B064D0AE",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-linux-arm64.tar.gz",
+      "checksum": "12DFA0CAF740004551B6623EDF223E70F522D0B6892682E6DBFA302BD9AC7ADE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.17.4/hunkdiff-linux-x64.tar.gz",
-      "checksum": "D8CCF2DF957A1B858A2DCF35B13B161654B881923721D3DFB9A43F19972FEC0F",
+      "id": "github_release/github.com/modem-dev/hunk/v0.17.6/hunkdiff-linux-x64.tar.gz",
+      "checksum": "FD3703D1AFB51D13A80FB49818C349BADCC5742C3E100ED46184F7318C26EE6A",
       "algorithm": "sha256"
     },
     {
@@ -1198,6 +1198,26 @@
     {
       "id": "github_release/github.com/ynqa/jnv/v0.7.1/jnv-x86_64-unknown-linux-musl.tar.xz",
       "checksum": "43BC90E8875F10790E2E69ADBA5DCC48CFF393D0EBC59B9947449FEB349B42E8",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-darwin-arm64",
+      "checksum": "8195E5E3077AFD4CE5AB059AA7E5A68E13DEB9CD60FFB230ABA6751C339E2234",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-darwin-x64",
+      "checksum": "E3AFF9EF518727D38BED1F211DB471B3C5FB6E4A002FDF66B7D56A33293F65B6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-linux-arm64",
+      "checksum": "3532EE3DAE09D98FAAAD6F7BB50CF5ACC2942F63CA550D6444F5336073D173F9",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-linux-x64",
+      "checksum": "66EC1252771692E67CF36B86B39F5520E9B61D512707A92AA2DD2A256E84937D",
       "algorithm": "sha256"
     },
     {
