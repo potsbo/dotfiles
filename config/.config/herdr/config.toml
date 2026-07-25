@@ -1,3 +1,4 @@
+onboarding = false
 # herdr config — https://herdr.dev/docs/configuration/
 # Only overrides are listed; everything else stays at herdr's defaults.
 
