@@ -62,5 +62,8 @@
     "raptorlake": "linux"
   },
   "extensions.ignoreRecommendations": true,
-  "github.copilot.nextEditSuggestions.enabled": true
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.enable": {
+    "lean4": false
+  }
 }
