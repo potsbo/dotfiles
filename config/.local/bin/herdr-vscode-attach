@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Attach a per-VSCode-workspace named herdr session, rooted at the cwd
+# (VSCode opens terminals at the workspace root).
+#
+# Herdr's workspace focus is session-global — every client attached to a
+# session follows its focused space. A dedicated session per VSCode workspace
+# is the only way to keep this terminal pinned while other clients (tuicast /
+# the default session) switch spaces freely. The session persists after the
+# terminal closes; reach it from anywhere with `herdr session attach <name>`
+# (see `herdr session list`).
+#
+# The trade-off: this session's space is separate from the same project's
+# space in the default session — panes/agents are not shared between them.
+set -eu
+
+# basename alone collides across worktrees; a short path hash keeps names unique.
+slug="code-$(basename "$PWD")-$(printf '%s' "$PWD" | shasum | cut -c1-6)"
+exec herdr --session "$slug"
