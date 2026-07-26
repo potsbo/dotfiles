@@ -38,7 +38,7 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   ".claude/claude-powerline.json",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
-  dotfiles_path = File.join(DOTFILE_REPO, "config", name)
+  dotfiles_path = File.join(DOTFILE_REPO, "home", name)
 
   # home_path が実ディレクトリなら中身をマージして削除
   if File.directory?(home_path) && !File.symlink?(home_path)

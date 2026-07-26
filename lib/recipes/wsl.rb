@@ -1,12 +1,12 @@
 ["Cursor", "Code"].each do |name|
   cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/settings.json")
   file cursor_target do
-    content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/settings.json"))
+    content File.read(File.join(DOTFILE_REPO, "home/.config/cursor/user/settings.json"))
   end
 
   cursor_target = File.join(ENV['HOME'], "win/AppData/Roaming/#{name}/User/keybindings.json")
   file cursor_target do
-    content File.read(File.join(DOTFILE_REPO, "config/.config/cursor/user/keybindings.win.json"))
+    content File.read(File.join(DOTFILE_REPO, "home/.config/cursor/user/keybindings.win.json"))
   end
 end
 
