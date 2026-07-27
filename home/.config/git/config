@@ -7,8 +7,6 @@
   cmd = difft "$LOCAL" "$REMOTE"
 [pager]
   difftool = true
-[core]
-  pager = hunk pager
 [color]
 	ui = true
 [alias]
