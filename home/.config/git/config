@@ -7,6 +7,10 @@
   cmd = difft "$LOCAL" "$REMOTE"
 [pager]
   difftool = true
+  # hunk patch launches the full-UI review (with , . [ ] navigation);
+  # hunk pager forces pager mode which only allows scroll keys
+  diff = hunk patch
+  show = hunk patch
 [core]
   pager = hunk pager
 [color]
