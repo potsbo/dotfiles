@@ -2,10 +2,14 @@
 # Focus (or create) the herdr workspace rooted at a working directory.
 # One worktree <-> one space, keyed off the worktree's on-disk path.
 #
-# Usage: herdr-space-connect <working-directory>
+# Usage: herdr-space-connect <working-directory> [command...]
+#
+# When a command is given it is run in the space's pane, so callers can
+# hand off straight into an agent (e.g. `... <dir> claude "do the thing"`).
 set -euo pipefail
 
 dir="$1"
+shift
 label=$(~/.local/bin/herdr-label "$dir")
 
 # An open space with a pane rooted at this path already? Focus it.
@@ -20,3 +24,19 @@ else
   # worktree path gives us the 1:1 space we want without that restriction.
   herdr workspace create --cwd "$dir" --label "$label" --focus
 fi
+
+[ $# -eq 0 ] && exit 0
+
+# The pane spawns asynchronously after workspace create; wait for it.
+pane=""
+for _ in $(seq 50); do
+  pane=$(herdr pane list | jq -r --arg p "$dir" \
+    'first(.result.panes[] | select(.cwd == $p) | .pane_id) // empty')
+  [ -n "$pane" ] && break
+  sleep 0.1
+done
+if [ -z "$pane" ]; then
+  echo "herdr-space-connect: no pane appeared at $dir" >&2
+  exit 1
+fi
+herdr pane run "$pane" "$@"
