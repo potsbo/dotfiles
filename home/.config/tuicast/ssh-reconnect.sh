@@ -35,6 +35,11 @@ trap 'printf "\r\033[K"; set_title "$host"; exit 0' INT
 # place, then clear it once the host answers.
 wait_for_network() {
   local start=$SECONDS spin='|/-\' i=0
+  # The remote TUI turned mouse reporting on, and a dead ssh never gets to
+  # turn it off — scrolling during this wait would flood the line with
+  # \e[<...M events. Reset the modes (mouse variants, SGR encoding, bracketed
+  # paste) ourselves before sitting here.
+  printf '\033[?1000;1002;1003;1006l\033[?2004l'
   set_title "$host · waiting…"
   while true; do
     printf '\r\033[K\033[33m%s  %s disconnected — waiting for network (%ds, Ctrl-C to stop)\033[0m' \
@@ -42,7 +47,9 @@ wait_for_network() {
     ssh -o ConnectTimeout=4 -o BatchMode=yes -o StrictHostKeyChecking=accept-new \
       "$host" true 2>/dev/null && break
     i=$(((i + 1) % 4))
-    sleep 1
+    # Short backoff: right after a laptop wake the first probe often races the
+    # Wi-Fi coming back, and a full 1s here is most of the visible wait.
+    sleep 0.2
   done
   printf '\r\033[K'   # erase the status line; the reconnect takes over the screen
 }
