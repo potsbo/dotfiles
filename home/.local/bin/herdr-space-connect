@@ -39,4 +39,6 @@ if [ -z "$pane" ]; then
   echo "herdr-space-connect: no pane appeared at $dir" >&2
   exit 1
 fi
-herdr pane run "$pane" "$@"
+# pane run joins its argv with spaces and evaluates it in the pane's shell,
+# so multi-word args need shell quoting to survive as single words.
+herdr pane run "$pane" "$(printf '%q ' "$@")"
