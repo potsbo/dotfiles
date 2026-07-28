@@ -56,7 +56,11 @@ wait_for_network() {
 
 set_title "$host"
 while true; do
-  ssh -t "$host"
+  # Aggressive keepalive on the interactive session only (a global setting
+  # made scp/rsync abort on ~2s stalls): detect a dead link ~2-3s after a
+  # laptop wake instead of hanging on the TCP timeout. A false positive just
+  # exits 255, which this loop turns into an automatic reattach.
+  ssh -t -o ServerAliveInterval=1 -o ServerAliveCountMax=2 "$host"
   code=$?
   # 0 or any non-255 code => the user logged out / detached on purpose.
   [ "$code" -eq 255 ] || break
