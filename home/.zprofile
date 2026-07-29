@@ -8,7 +8,7 @@
 if [ -z "$HERDR_ENV" ] && [[ -t 0 ]]; then
   if [ "$TERM_PROGRAM" = "vscode" ] && command -v herdr &> /dev/null; then
     ~/.local/bin/herdr-vscode-attach
-  elif [ -n "$SSH_CONNECTION" ] && command -v herdr &> /dev/null; then
+  elif command -v herdr &> /dev/null; then
     ~/.local/bin/herdr-attach
   elif command -v tuicast &> /dev/null; then
     tuicast
