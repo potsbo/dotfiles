@@ -86,6 +86,9 @@ version_check = false
 # prefix モード中だけ macOS の入力ソースを ASCII に一時切替。日本語 IME オン中でも
 # prefix コマンド (prefix→c 等) が IME に食われず通る。抜けたら元の入力ソースに戻す。
 switch_ascii_input_source_in_prefix = true
+# kitty graphics protocol を pane に通す (icat 等での画像表示)。これがないと
+# ピクセルサイズ問い合わせ (CSI 14 t) に herdr が応答せず icat がエラーになる。
+kitty_graphics = true
 
 [theme]
 name = "vesper"

@@ -8,11 +8,12 @@
       "[ ](bg:lavender)"
       "\${custom.git_worktree}"
       "\${custom.git_repo_name}"
-      "[](fg:lavender bg:yellow)"
+      "([](fg:lavender bg:yellow)"
       "$git_branch"
       "$git_status"
-      "[](bg:peach fg:yellow)"
+      "[](bg:peach fg:yellow))"
       "\${custom.directory}"
+      "([](fg:lavender bg:peach)\${custom.directory_no_git})"
       "[ ](fg:peach)"
       "$cmd_duration"
       "$line_break"
@@ -54,6 +55,13 @@
       command = "git rev-parse --show-prefix 2>/dev/null | sed 's#/$##'";
       when = "git rev-parse --is-inside-work-tree 2>/dev/null";
       format = "[ /$output ]($style)";
+    };
+
+    custom.directory_no_git = {
+      style = "bold bg:peach fg:white";
+      command = ''pwd | sed "s#^$HOME#~#"'';
+      when = "! git rev-parse --is-inside-work-tree 2>/dev/null";
+      format = "[ $output ]($style)";
     };
 
     git_branch = {
