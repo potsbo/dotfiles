@@ -68,6 +68,18 @@ link File.join(ENV['HOME'], "go/src") do
   force true
 end
 
+# Hunk (hunk.dev) 同梱のレビュースキルを user skill として全 repo に見せる。
+# これが無いと別 repo で Hunk セッションを認識できずエージェントが暴走する。
+# 実体パスは OS (linux-x64/darwin-arm64) とバージョンで変わるため hardcode せず
+# `hunk skill path` で毎回解決し、現在インストール済みの版へ貼り直す。
+# hunk は aqua の lazy install なので aqua exec 経由で叩く。未導入なら no-op。
+execute "link hunk-review skill into ~/.claude/skills" do
+  command 'p="$(aqua exec -- hunk skill path)" && [ -n "$p" ] && ' \
+          'mkdir -p "${HOME}/.claude/skills" && ' \
+          'ln -sfn "$(dirname "$p")" "${HOME}/.claude/skills/hunk-review"'
+  only_if "aqua exec -- hunk skill path >/dev/null 2>&1"
+end
+
 # OS 固有の設定は recipes/ 以下に切り出している
 include_recipe "recipes/darwin" if node[:platform] == "darwin"
 include_recipe "recipes/wsl" if wsl_environment?

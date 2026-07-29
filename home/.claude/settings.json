@@ -13,7 +13,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5",
   "hooks": {
     "SessionStart": [
       {
