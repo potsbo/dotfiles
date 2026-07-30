@@ -1,5 +1,19 @@
 {
-  "theme": "dark",
+  "theme": "custom",
+  "colors": {
+    "custom": {
+      "directory":       { "bg": "#2A1408", "fg": "#D97757" },
+      "git":             { "bg": "#2A1408", "fg": "#D97757" },
+      "model":           { "bg": "#2A1408", "fg": "#D97757" },
+      "session":         { "bg": "#2A1408", "fg": "#D97757" },
+      "block":           { "bg": "#2A1408", "fg": "#D97757" },
+      "context":         { "bg": "#2A1408", "fg": "#D97757" },
+      "contextWarning":  { "bg": "#2A1408", "fg": "#FFB060" },
+      "contextCritical": { "bg": "#2A1408", "fg": "#FF6040" },
+      "weekly":          { "bg": "#2A1408", "fg": "#D97757" },
+      "cacheTimer":      { "bg": "#2A1408", "fg": "#D97757" }
+    }
+  },
   "display": {
     "style": "minimal",
     "charset": "unicode",
@@ -7,9 +21,9 @@
       {
         "segments": {
           "model": { "enabled": true },
-          "session": { "enabled": true, "type": "both" },
-          "today": { "enabled": true, "type": "both" },
-          "context": { "enabled": true },
+          "session": { "enabled": true, "type": "cost" },
+          "today": { "enabled": false },
+          "context": { "enabled": true, "showPercentageOnly": true },
           "block": { "enabled": true },
           "weekly": { "enabled": true },
           "cacheTimer": { "enabled": true }
