@@ -9,6 +9,7 @@ views:
       - hunk
       - hunk-show
       - yazi
+      - nvim
       - btop
       - zsh
       - worktree
@@ -63,6 +64,16 @@ views:
           - list: 'command -v yazi >/dev/null && echo yazi || true'
             display: "printf '\\033[38;2;255;213;128m\\357\\201\\273\\033[39m %s\\n' {}"
     run: yazi
+
+  # エディタ。どこでも出せるよう無条件 (nvim がある場合のみ)。
+  # 色は neovim らしい green、アイコンは vim (\356\230\253)。
+  nvim:
+    steps:
+      - name: _nvim
+        sources:
+          - list: 'command -v nvim >/dev/null && echo nvim || true'
+            display: "printf '\\033[38;2;138;192;120m\\356\\230\\253\\033[39m %s\\n' {}"
+    run: nvim
 
   # システムモニタ。どこにいても出せるよう無条件 (btop がある場合のみ)。
   # 色は idle と同じ mint 系、アイコンは bar chart (\357\202\200)。
