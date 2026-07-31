@@ -8,6 +8,7 @@ views:
       - lazygit
       - hunk
       - btop
+      - zsh
       - worktree
       - ssh
 
@@ -50,6 +51,16 @@ views:
           - list: 'command -v btop >/dev/null && echo btop || true'
             display: "printf '\\033[38;2;153;255;228m\\357\\202\\200\\033[39m %s\\n' {}"
     run: btop
+
+  # スクラッチシェル。ツールごとに増やさず、素の zsh を1つ出す入口。exit で閉じる。
+  # 色は控えめな grey、アイコンは terminal (\357\204\240)。
+  zsh:
+    steps:
+      - name: _zsh
+        sources:
+          - list: 'command -v zsh >/dev/null && echo zsh || true'
+            display: "printf '\\033[38;2;180;180;180m\\357\\204\\240\\033[39m %s\\n' {}"
+    run: zsh
 
   # 開いている space がある worktree を先に、残りをその後に出す。
   # 先頭のドットは herdr sidebar の state_dot と同じ:
