@@ -8,8 +8,10 @@ views:
       - lazygit
       - hunk
       - hunk-show
+      - ghui
       - yazi
       - nvim
+      - glow
       - btop
       - zsh
       - worktree
@@ -55,6 +57,16 @@ views:
             display: "printf '\\033[38;2;180;170;255m\\357\\207\\232\\033[39m %s\\n' {}"
     run: hunk show
 
+  # GitHub の PR/issue を見る TUI (ghui)。どこでも出せるよう無条件 (ghui がある場合のみ)。
+  # 色は GitHub らしい purple、アイコンは github (\357\202\233)。
+  ghui:
+    steps:
+      - name: _ghui
+        sources:
+          - list: 'command -v ghui >/dev/null && echo ghui || true'
+            display: "printf '\\033[38;2;190;140;250m\\357\\202\\233\\033[39m %s\\n' {}"
+    run: ghui
+
   # ファイラ。どこでも出せるよう無条件 (yazi がある場合のみ)。
   # 色は folder らしい yellow、アイコンは folder (\357\201\273)。
   yazi:
@@ -74,6 +86,16 @@ views:
           - list: 'command -v nvim >/dev/null && echo nvim || true'
             display: "printf '\\033[38;2;138;192;120m\\356\\230\\253\\033[39m %s\\n' {}"
     run: nvim
+
+  # cwd 配下の Markdown をブラウズする TUI (glow)。無条件 (glow がある場合のみ)。
+  # 色は glow らしい pink、アイコンは book (\357\200\255)。
+  glow:
+    steps:
+      - name: _glow
+        sources:
+          - list: 'command -v glow >/dev/null && echo glow || true'
+            display: "printf '\\033[38;2;245;160;210m\\357\\200\\255\\033[39m %s\\n' {}"
+    run: glow
 
   # システムモニタ。どこにいても出せるよう無条件 (btop がある場合のみ)。
   # 色は idle と同じ mint 系、アイコンは bar chart (\357\202\200)。
