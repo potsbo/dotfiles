@@ -7,6 +7,8 @@ views:
       - herdr
       - lazygit
       - hunk
+      - hunk-show
+      - yazi
       - btop
       - zsh
       - worktree
@@ -41,6 +43,26 @@ views:
           - list: 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && command -v hunk >/dev/null && echo "hunk diff" || true'
             display: "printf '\\033[38;2;153;204;255m\\357\\204\\246\\033[39m %s\\n' {}"
     run: hunk diff
+
+  # 直近コミットを hunk でレビュー (hunk show)。git リポジトリ内かつ hunk がある場合のみ。
+  # hunk diff と区別して lavender、アイコンは history (\357\207\232)。
+  hunk-show:
+    steps:
+      - name: _hunk_show
+        sources:
+          - list: 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && command -v hunk >/dev/null && echo "hunk show" || true'
+            display: "printf '\\033[38;2;180;170;255m\\357\\207\\232\\033[39m %s\\n' {}"
+    run: hunk show
+
+  # ファイラ。どこでも出せるよう無条件 (yazi がある場合のみ)。
+  # 色は folder らしい yellow、アイコンは folder (\357\201\273)。
+  yazi:
+    steps:
+      - name: _yazi
+        sources:
+          - list: 'command -v yazi >/dev/null && echo yazi || true'
+            display: "printf '\\033[38;2;255;213;128m\\357\\201\\273\\033[39m %s\\n' {}"
+    run: yazi
 
   # システムモニタ。どこにいても出せるよう無条件 (btop がある場合のみ)。
   # 色は idle と同じ mint 系、アイコンは bar chart (\357\202\200)。
