@@ -1,0 +1,12 @@
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+
+[projects."/home/potsbo/src/github.com/medicu-inc/one"]
+trust_level = "trusted"
+
+[projects."/home/potsbo/src/github.com/potsbo/dotfiles"]
+trust_level = "trusted"
