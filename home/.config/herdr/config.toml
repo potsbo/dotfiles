@@ -53,10 +53,14 @@ open_notification_target = "prefix+shift+o"
 
 # 共通ピッカー tuicast (worktree / ssh)。zsh 側の C-] と同じ入口で、
 # herdr 内外の挙動差は tuicast の run スクリプト側が吸収する。
+# レイアウトを崩さない floating popup で出し、選択が済めば自動で閉じる。
 [[keys.command]]
 key = "ctrl+]"
-type = "pane"
+type = "popup"
 command = "tuicast"
+description = "tuicast (popup)"
+width = "90%"
+height = "90%"
 
 [ui]
 agent_panel_sort = "spaces"

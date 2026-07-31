@@ -5,6 +5,9 @@ views:
   main:
     union:
       - herdr
+      - lazygit
+      - hunk
+      - btop
       - worktree
       - ssh
 
@@ -17,6 +20,36 @@ views:
           - list: '[ -z "${HERDR_ENV:-}" ] && command -v herdr >/dev/null && echo herdr || true'
             display: "printf '\\033[38;2;255;199;153m\\357\\222\\211\\033[39m %s\\n' {}"
     run: ~/.local/bin/herdr-attach
+
+  # git リポジトリ内にいるときだけ出る lazygit エントリ。選んで抜けたら popup/pane が閉じる。
+  # 色は worktree の working と同じ peach 系に合わせ、アイコンは git branch (\356\202\240)。
+  lazygit:
+    steps:
+      - name: _lazygit
+        sources:
+          - list: 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && command -v lazygit >/dev/null && echo lazygit || true'
+            display: "printf '\\033[38;2;255;199;153m\\356\\202\\240\\033[39m %s\\n' {}"
+    run: lazygit
+
+  # working tree の diff を hunk でレビュー。git リポジトリ内かつ hunk がある場合のみ。
+  # 色は lazygit と区別して blue 系、アイコンは code-fork (\357\204\246)。
+  hunk:
+    steps:
+      - name: _hunk
+        sources:
+          - list: 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && command -v hunk >/dev/null && echo "hunk diff" || true'
+            display: "printf '\\033[38;2;153;204;255m\\357\\204\\246\\033[39m %s\\n' {}"
+    run: hunk diff
+
+  # システムモニタ。どこにいても出せるよう無条件 (btop がある場合のみ)。
+  # 色は idle と同じ mint 系、アイコンは bar chart (\357\202\200)。
+  btop:
+    steps:
+      - name: _btop
+        sources:
+          - list: 'command -v btop >/dev/null && echo btop || true'
+            display: "printf '\\033[38;2;153;255;228m\\357\\202\\200\\033[39m %s\\n' {}"
+    run: btop
 
   # 開いている space がある worktree を先に、残りをその後に出す。
   # 先頭のドットは herdr sidebar の state_dot と同じ:
