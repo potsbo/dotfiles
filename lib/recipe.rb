@@ -36,6 +36,8 @@ DOTFILE_REPO = File.expand_path("../..", __FILE__)
   # 注意: herdr が integration 更新時にこのファイルを書き直す (二重登録や再整形の diff が出たらこの管理をやめる)
   ".claude/settings.json",
   ".claude/claude-powerline.json",
+  # .codex もセッション状態などを含むため、設定ファイルだけ管理する。
+  ".codex/config.toml",
 ].each do |name|
   home_path = File.join(ENV['HOME'], name)
   dotfiles_path = File.join(DOTFILE_REPO, "home", name)
