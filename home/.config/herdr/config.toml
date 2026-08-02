@@ -3,53 +3,21 @@ onboarding = false
 # Only overrides are listed; everything else stays at herdr's defaults.
 
 [keys]
-# tmux と同じ prefix (C-w) に合わせる。
+# 指馴染みで prefix は C-w のまま (herdr default: ctrl+b)。
 prefix = "ctrl+w"
 
-# tmux では C-Tab / C-BTab で window を切り替えていた。
-# herdr の tab がそれに相当するので、prefix なしの直接バインドを追加する
-# (prefix+n / prefix+p のデフォルトも配列で残す)。
+# tab 切替は prefix なしの C-Tab / C-BTab も併用する
+# (default の prefix+n / prefix+p も配列で残す)。
 # 注: C-Tab を届けるには WezTerm 側の CSI-u 設定が必要で、herdr が
 #     そのシーケンスを解釈するかは要確認 (効かなければこの2行を消す)。
 next_tab = ["prefix+n", "ctrl+tab"]
 previous_tab = ["prefix+p", "ctrl+shift+tab"]
-
-# --- tmux default 互換レイヤ -------------------------------------------
-# prefix は C-w のまま、pane/window/session 操作を tmux デフォルトに寄せる。
-# tmux に無い herdr 固有機能で衝突するものは tmux 優先で別キーへ退避した:
-#   通知(o→shift+o) / 設定(s→shift+s) / detach(q→d)。
-# tmux に相当機能が無いもの (ペイン番号ジャンプ prefix+q, レイアウト循環,
-# swap/break pane 等) は再現していない。
-
-# pane 分割 (tmux: %=左右, "=上下)。herdr の split_vertical/horizontal の向きが
-# tmux と逆なら % と " を入れ替える (実機で1回確認)。
-split_vertical = 'prefix+%'      # 左右分割
-split_horizontal = 'prefix+"'    # 上下分割
 
 # pane 移動は矢印のみ (herdr default の hjkl は外す)
 focus_pane_left = "prefix+left"
 focus_pane_down = "prefix+down"
 focus_pane_up = "prefix+up"
 focus_pane_right = "prefix+right"
-
-# pane 巡回 (tmux: o) / 直前 pane (tmux: ;)
-cycle_pane_next = "prefix+o"
-last_pane = "prefix+;"
-
-# window(=tab) 操作 (tmux: ,=rename, &=kill)。c/n/p/z/x/1..9 は herdr default が既に一致。
-rename_tab = "prefix+,"
-close_tab = "prefix+&"
-
-# session(=workspace) 選択 (tmux: s = choose-session)
-workspace_picker = "prefix+s"
-
-# detach (tmux: d)。herdr default の prefix+q から移動し q は解放。
-detach = "prefix+d"
-
-# 退避先 (tmux に無い herdr 固有機能。tmux が使うキーを避ける)
-settings = "prefix+shift+s"
-open_notification_target = "prefix+shift+o"
-# ----------------------------------------------------------------------
 
 # 共通ピッカー tuicast (worktree / ssh)。zsh 側の C-] と同じ入口で、
 # herdr 内外の挙動差は tuicast の run スクリプト側が吸収する。
