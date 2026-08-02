@@ -48,6 +48,16 @@ mobile_width_threshold = 100
 # tmux の prefix+c のように、名前入力なしで即 tab を作る。
 prompt_new_tab_name = false
 
+# 全 built-in トークンのお試し表示 (default: [["state_icon","workspace","tab"],["agent"]])。
+# 見た上で不要な行/トークンを削る。$name (report-metadata 由来) は未使用なので入れていない。
+[ui.sidebar.agents]
+rows = [
+  ["state_icon", "state_text", "workspace", "tab"],
+  ["pane", "agent"],
+  ["terminal_title"],
+  ["terminal_title_stripped"],
+]
+
 [update]
 # バイナリは aqua(+Renovate) で管理するので、herdr 自身の版チェック/自己更新は無効化。
 # (`herdr update` は叩かない。aqua 管理とドリフトするため)
