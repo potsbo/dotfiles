@@ -48,13 +48,13 @@ mobile_width_threshold = 100
 # tmux の prefix+c のように、名前入力なしで即 tab を作る。
 prompt_new_tab_name = false
 
-# 全 built-in トークンのお試し表示 (default: [["state_icon","workspace","tab"],["agent"]])。
-# 見た上で不要な行/トークンを削る。$name (report-metadata 由来) は未使用なので入れていない。
+# default ([["state_icon","workspace","tab"],["agent"]]) に pane と
+# terminal_title_stripped (agent の実行中タスク) を足したお試し表示。
+# state_text (icon と冗長) と terminal_title (stripped で足りる) は不採用。
 [ui.sidebar.agents]
 rows = [
-  ["state_icon", "state_text", "workspace", "tab"],
+  ["state_icon", "workspace", "tab"],
   ["pane", "agent"],
-  ["terminal_title"],
   ["terminal_title_stripped"],
 ]
 
