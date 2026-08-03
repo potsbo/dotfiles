@@ -80,6 +80,9 @@ execute "link hunk-review skill into ~/.claude/skills" do
           'mkdir -p "${HOME}/.claude/skills" && ' \
           'ln -sfn "$(dirname "$p")" "${HOME}/.claude/skills/hunk-review"'
   only_if "aqua exec -- hunk skill path >/dev/null 2>&1"
+  # リンクが既に現行版を指していれば実行しない (毎回 executed とログに出るのを防ぐ)
+  not_if 'p="$(aqua exec -- hunk skill path)" && ' \
+         '[ "$(readlink "${HOME}/.claude/skills/hunk-review")" = "$(dirname "$p")" ]'
 end
 
 # OS 固有の設定は recipes/ 以下に切り出している
