@@ -1,6 +1,6 @@
 # 共通ピッカー: herdr の中 (ctrl+] → herdr keybind) からも外 (zsh の C-]) からも
-# 同じ tuicast を呼ぶ。内外差は各 run スクリプト側で HERDR_PANE_ID を見て
-# 切り替える (worktree-connect.sh)。
+# 同じ tuicast を呼ぶ。内外差は各 run スクリプト側で HERDR_ENV を見て
+# 切り替える (worktree-connect.sh / ssh-connect.sh)。
 views:
   main:
     union:

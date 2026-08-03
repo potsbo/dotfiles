@@ -9,7 +9,8 @@ set -eu
 
 dir="$1"
 
-if [ -n "${HERDR_PANE_ID:-}" ]; then
+# 内外判定は HERDR_ENV (popup にも入る)。HERDR_PANE_ID は popup で未設定。
+if [ -n "${HERDR_ENV:-}" ]; then
   exec ~/.local/bin/herdr-space-connect "$dir"
 fi
 

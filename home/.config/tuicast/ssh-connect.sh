@@ -13,7 +13,9 @@ set -eu
 
 host="$1"
 
-if [ -z "${HERDR_PANE_ID:-}" ]; then
+# 内外判定は HERDR_ENV で行う。HERDR_PANE_ID は通常 pane にしか入らず、
+# popup (keys.command type="popup") では未設定なので判定に使えない。
+if [ -z "${HERDR_ENV:-}" ]; then
   exec ~/.config/tuicast/ssh-reconnect.sh "$host"
 fi
 
