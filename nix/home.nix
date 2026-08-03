@@ -26,20 +26,6 @@ let
       doCheck = false;
     };
 
-  tiri = pkgs.buildGoModule {
-    pname = "tiri";
-    version = "0-unstable-2025-06-28";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "potsbo";
-      repo = "tiri";
-      rev = "00d26cf930cbe923ca26081d06f18b2046f490dd";
-      hash = "sha256-0H8cdls7OUYX3gtG26yOII3+XvBMaKEbCNDcAt980h8=";
-    };
-
-    vendorHash = "sha256-jEdOBs7cdVOJFH1yevbfFia4pp3LqOFpSgLNNIk7YQM=";
-  };
-
   tuicast = pkgs.buildGoModule {
     pname = "tuicast";
     version = "0-unstable-2026-06-27";
@@ -119,7 +105,6 @@ in
 
   home.packages = with pkgs; [
     aqua
-    tiri
     tuicast
     # todoist-cli # install がハングするようになってしまった
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
