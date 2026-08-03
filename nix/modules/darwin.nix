@@ -71,7 +71,6 @@
       "Windows App" = 1295203466;
     };
     casks = [
-      "akiflow"
       "karabiner-elements"
       "visual-studio-code"
       "google-chrome"
@@ -90,8 +89,6 @@
       # 未インストールだと一部の漢字が tofu (斜線付き□) になるため必須。
       "font-biz-udgothic"
       "tailscale-app"
-      "cursor"
-      "zotero"
       "chatgpt"
       "claude"
       "pgadmin4"
