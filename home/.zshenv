@@ -23,7 +23,22 @@ export LC_MESSAGES=C
 export EDITOR=nvim
 export TERM=xterm-256color
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
 export GHQ_ROOT="$HOME/src"
+
+# XDG: $HOME に散らばる生成物を XDG 配下へ寄せる。
+# 移動先は xdg-ninja (github.com/b3nj5m1n/xdg-ninja) が示すデファクトに従う。
+# 各ツールとも $HOME 直下を決め打ちしており、下記変数が正規の変更手段。
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+# NPM_CONFIG_CACHE は home-manager (home.sessionVariables) に集約。
+# 背景プロセス(npx製MCP等)にも継承させるため。詳細は nix/home.nix 参照。
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export NODE_REPL_HISTORY="$XDG_STATE_HOME/node_repl_history"
+export PYTHON_HISTORY="$XDG_STATE_HOME/python_history" # 効くのは Python 3.13+
+export ZSH_EVALCACHE_DIR="$XDG_CACHE_HOME/zsh/evalcache"
 
 # PATH
 export PATH=$HOME/.local/state/nix/profiles/home-manager/home-path/bin:$PATH
@@ -58,7 +73,7 @@ export GODEBUG=asyncpreemptoff=1
 # for `go test -race ...`
 export CGO_ENABLED=1
 
-export HISTFILE="${HOME}/.zsh_history"
+# HISTFILE は .zshrc で設定（/etc/zshrc の上書きに勝つため）
 export SAVEHIST=100000
 export HISTSIZE=100000
 

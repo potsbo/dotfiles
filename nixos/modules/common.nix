@@ -262,6 +262,10 @@ in
   };
 
   programs.zsh.enable = true;
+  # system の /etc/zshrc が実行する compinit を無効化する。既定では -d なしで
+  # ~/.zcompdump を毎ログイン生成してしまうため。補完初期化は user の .zshrc が
+  # `compinit -d $XDG_CACHE_HOME/zsh/...` で XDG 配下に行う。
+  programs.zsh.enableGlobalCompInit = false;
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     readline
