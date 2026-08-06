@@ -5,9 +5,10 @@
 #   - aqua: 60日 (AQUA_VACUUM_DAYS) 以上使っていない旧バージョンのバイナリ (aqua vacuum)
 #   - nix : user profile の旧世代 + 到達不能な store パス (nix-collect-garbage -d)
 #   - nix : system profile の旧世代 (sudo nix-collect-garbage -d) ← store の大半はここが保持
+#   - git : マージ済みの古い worktree / branch (git vacuum) ← 安全網で処理中データは残す
 #
-# git の worktree / branch は「処理対象データが入っていることがある」ため意図的に含めない。
-# そちらは別コマンド `git vacuum`（--dry-run で確認してから）で手動整理する。
+# git vacuum は dirty・未 push・30日以内の worktree をスキップするので、処理対象データが
+# 入った作業ツリーは消えない。root 所有ファイルの残骸までは消せない点だけ注意。
 # docker prune は phoenix では nixos の autoPrune で毎週自動なのでここには入れない。
 #
 # 使い方: reap [--dry-run]
@@ -48,6 +49,16 @@ if command -v nix-collect-garbage >/dev/null 2>&1; then
   fi
 fi
 
+# --- git: マージ済みの古い worktree / branch を掃除 (安全網は git vacuum 側が持つ) ---
+if command -v git-vacuum >/dev/null 2>&1; then
+  echo "== git vacuum (worktree/branch GC) =="
+  if [ "$DRY_RUN" = 1 ]; then
+    git vacuum --dry-run
+  else
+    git vacuum
+  fi
+fi
+
 after=$(avail)
 
 if [ "$DRY_RUN" = 1 ]; then
@@ -56,5 +67,3 @@ else
   freed=$(( after - before ))
   echo "done: freed $(human "$freed") ($(human "$before") -> $(human "$after") free on /)"
 fi
-
-echo "hint: git の古い worktree/branch は 'git vacuum --dry-run' で別途確認できます。"
