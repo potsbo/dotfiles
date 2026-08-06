@@ -33,6 +33,8 @@ export GHQ_ROOT="$HOME/src"
 # 各ツールとも $HOME 直下を決め打ちしており、下記変数が正規の変更手段。
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 # NPM_CONFIG_CACHE は home-manager (home.sessionVariables) に集約。
 # 背景プロセス(npx製MCP等)にも継承させるため。詳細は nix/home.nix 参照。
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
