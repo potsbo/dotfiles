@@ -26,7 +26,10 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-export GHQ_ROOT="$HOME/src"
+# 2つ目の root は worktree 置き場 ($XDG_DATA_HOME/worktrees)。git-wt/herdr が
+# ここに worktree を作るので、ghq list / tuicast に実 repo と並んで出る。
+# primary (ghq get のクローン先) は先頭の $HOME/src のまま。
+export GHQ_ROOT="$HOME/src:$XDG_DATA_HOME/worktrees"
 
 # XDG: $HOME に散らばる生成物を XDG 配下へ寄せる。
 # 移動先は xdg-ninja (github.com/b3nj5m1n/xdg-ninja) が示すデファクトに従う。

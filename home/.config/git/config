@@ -55,7 +55,7 @@
 [url "https://github.com/"]
 	insteadOf = git@github.com:
 [wt]
-	basedir = .worktrees
+	basedir = ~/.local/share/worktrees/{gitroot}
 	nocd = create
 [credential "https://github.com"]
 	helper = !gh auth git-credential
