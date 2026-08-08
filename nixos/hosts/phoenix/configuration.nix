@@ -17,11 +17,28 @@
 
   # RTL8125 の 2.5Gbps リンクが数十回/日フラップする (EEE off だけでは止まらず、
   # 1Gbps 固定で解消 → ケーブルかスイッチ側の 2.5G 信号品質の問題)。
-  # 2.5G に戻したければケーブル交換 (Cat6 以上) してこの rule を外す。
-  # EEE は NetworkManager にも systemd.link にも設定項目がないので udev で ethtool を叩く
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="net", KERNEL=="enp2s0", RUN+="${pkgs.ethtool}/bin/ethtool --set-eee enp2s0 eee off", RUN+="${pkgs.ethtool}/bin/ethtool -s enp2s0 speed 1000 duplex full autoneg on"
-  '';
+  # 2.5G に戻したければケーブル交換 (Cat6 以上) してこの dispatcher を外す。
+  #
+  # udev の ACTION=="add" は起動時 1 回しか発火しない。フラップのたびに autoneg が
+  # 2.5G+EEE の既定値へ戻り、以後 udev は再発火しないので設定が失われて再びフラップした
+  # (実測: 効かなくなって 1 日 22 回フラップ)。NetworkManager dispatcher なら
+  # リンクが up するたびに再適用されるので、フラップ後も 1G+EEE off を維持できる。
+  networking.networkmanager.dispatcherScripts = [{
+    type = "basic";
+    source = pkgs.writeShellScript "enp2s0-pin-1g" ''
+      iface="$1"; action="$2"
+      [ "$iface" = "enp2s0" ] || exit 0
+      case "$action" in up|connectivity-change) ;; *) exit 0 ;; esac
+      ethtool="${pkgs.ethtool}/bin/ethtool"
+      # 既に 1G + EEE off なら何もしない (再適用が余計なリンクリセットを起こさないため)
+      need=0
+      "$ethtool" enp2s0 | grep -q "Speed: 1000Mb/s" || need=1
+      "$ethtool" --show-eee enp2s0 | grep -qw disabled || need=1
+      [ "$need" = 0 ] && exit 0
+      "$ethtool" --set-eee enp2s0 eee off || true
+      "$ethtool" -s enp2s0 speed 1000 duplex full autoneg on || true
+    '';
+  }];
 
   # Thunderbolt Bridge: 対向 (10.0.0.1) への静的 IP
   networking.networkmanager.ensureProfiles.profiles.thunderbolt0 = {

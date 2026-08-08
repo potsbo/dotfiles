@@ -1,0 +1,4 @@
+# credentials (機微) と sso/cli キャッシュは無視。region 等の config だけ追跡する。
+*
+!.gitignore
+!config

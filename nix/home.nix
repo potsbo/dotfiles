@@ -82,6 +82,11 @@ in
     LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.unixODBC pkgs.freetds ];
     # odbcinst.ini の検索先ディレクトリ
     ODBCSYSINI = "${config.home.homeDirectory}/.config/odbc";
+    # npm cache を XDG へ。npm は $HOME 直下を決め打ちするため変数で変更する。
+    # home-manager を単一ソースにする理由: 対話 shell を経ずに npx を叩く背景プロセス
+    # (npx 製 MCP サーバ等) にも hm-session-vars 経由で継承させ ~/.npm 生成を防ぐ。
+    # 他ツール (cargo/rustup 等) は .zshenv 側に集約。npm だけ背景プロセス対策で例外。
+    NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.cache/npm";
   } // lib.optionalAttrs pkgs.stdenv.isDarwin {
     LIBRARY_PATH = "${pkgs.libiconv}/lib";
 

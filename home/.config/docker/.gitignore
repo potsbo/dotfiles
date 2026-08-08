@@ -1,0 +1,5 @@
+# docker が書く machine-local な状態・機微 (.token_seed, buildx/ 等) は無視し、
+# 意図的に共有したい設定 (config.json) だけ追跡する。
+*
+!.gitignore
+!config.json

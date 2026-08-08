@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+# 再生成可能なパッケージ/ビルド成果物を刈り取ってディスクを空ける。
+# ここで消すものは「消えても再取得できるキャッシュ類」だけ:
+#   - aqua: 60日 (AQUA_VACUUM_DAYS) 以上使っていない旧バージョンのバイナリ (aqua vacuum)
+#   - nix : user profile の旧世代 + 到達不能な store パス (nix-collect-garbage -d)
+#   - nix : system profile の旧世代 (sudo nix-collect-garbage -d) ← store の大半はここが保持
+#   - git : マージ済みの古い worktree / branch (git vacuum) ← 安全網で処理中データは残す
+#
+# git vacuum は dirty・未 push・30日以内の worktree をスキップするので、処理対象データが
+# 入った作業ツリーは消えない。root 所有ファイルの残骸までは消せない点だけ注意。
+# docker prune は phoenix では nixos の autoPrune で毎週自動なのでここには入れない。
+#
+# 使い方: reap [--dry-run]
+#   --dry-run : 実行せず、何を流すかだけ表示 (aqua vacuum は dry-run 非対応なのでスキップ表示)
+
+set -eu
+
+DRY_RUN=0
+[ "${1:-}" = "--dry-run" ] && { DRY_RUN=1; shift; }
+
+run() {
+  echo "+ $*"
+  [ "$DRY_RUN" = 1 ] && return 0
+  "$@"
+}
+
+avail() { df -B1 --output=avail / 2>/dev/null | tail -1 | tr -d ' '; }
+human() { numfmt --to=iec --suffix=B "$1" 2>/dev/null || echo "$1"; }
+
+before=$(avail)
+
+# --- aqua: 未使用の旧バージョンを削除 (再取得は遅延インストールで自動) ---
+if command -v aqua >/dev/null 2>&1; then
+  echo "== aqua vacuum (AQUA_VACUUM_DAYS=${AQUA_VACUUM_DAYS:-60}) =="
+  run aqua vacuum
+fi
+
+# --- nix: user profile GC ---
+if command -v nix-collect-garbage >/dev/null 2>&1; then
+  echo "== nix-collect-garbage -d (user) =="
+  run nix-collect-garbage -d
+
+  # --- nix: system profile GC (store の大半を保持している旧世代を削除) ---
+  # sudo が要るので対話でパスワードを聞かれることがある。NixOS/nix-darwin 両対応。
+  if [ -e /nix/var/nix/profiles/system ]; then
+    echo "== sudo nix-collect-garbage -d (system) =="
+    run sudo nix-collect-garbage -d
+  fi
+fi
+
+# --- git: マージ済みの古い worktree / branch を掃除 (安全網は git vacuum 側が持つ) ---
+if command -v git-vacuum >/dev/null 2>&1; then
+  echo "== git vacuum (worktree/branch GC) =="
+  if [ "$DRY_RUN" = 1 ]; then
+    git vacuum --dry-run
+  else
+    git vacuum
+  fi
+fi
+
+after=$(avail)
+
+if [ "$DRY_RUN" = 1 ]; then
+  echo "dry-run: 上記を実行すると再生成可能なキャッシュが削除されます。"
+else
+  freed=$(( after - before ))
+  echo "done: freed $(human "$freed") ($(human "$before") -> $(human "$after") free on /)"
+fi

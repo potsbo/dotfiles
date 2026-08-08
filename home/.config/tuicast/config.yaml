@@ -5,6 +5,7 @@ views:
   main:
     union:
       - herdr
+      - zsh
       - lazygit
       - hunk
       - hunk-show
@@ -13,7 +14,6 @@ views:
       - nvim
       - glow
       - btop
-      - zsh
       - worktree
       - ssh
 
@@ -33,7 +33,7 @@ views:
     steps:
       - name: _lazygit
         sources:
-          - list: 'git rev-parse --is-inside-work-tree >/dev/null 2>&1 && command -v lazygit >/dev/null && echo lazygit || true'
+          - list: "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && command -v lazygit >/dev/null && echo lazygit || true"
             display: "printf '\\033[38;2;255;199;153m\\356\\202\\240\\033[39m %s\\n' {}"
     run: lazygit
 
@@ -63,7 +63,7 @@ views:
     steps:
       - name: _ghui
         sources:
-          - list: 'command -v ghui >/dev/null && echo ghui || true'
+          - list: "command -v ghui >/dev/null && echo ghui || true"
             display: "printf '\\033[38;2;190;140;250m\\357\\202\\233\\033[39m %s\\n' {}"
     run: ghui
 
@@ -73,7 +73,7 @@ views:
     steps:
       - name: _yazi
         sources:
-          - list: 'command -v yazi >/dev/null && echo yazi || true'
+          - list: "command -v yazi >/dev/null && echo yazi || true"
             display: "printf '\\033[38;2;255;213;128m\\357\\201\\273\\033[39m %s\\n' {}"
     run: yazi
 
@@ -83,7 +83,7 @@ views:
     steps:
       - name: _nvim
         sources:
-          - list: 'command -v nvim >/dev/null && echo nvim || true'
+          - list: "command -v nvim >/dev/null && echo nvim || true"
             display: "printf '\\033[38;2;138;192;120m\\356\\230\\253\\033[39m %s\\n' {}"
     run: nvim
 
@@ -93,7 +93,7 @@ views:
     steps:
       - name: _glow
         sources:
-          - list: 'command -v glow >/dev/null && echo glow || true'
+          - list: "command -v glow >/dev/null && echo glow || true"
             display: "printf '\\033[38;2;245;160;210m\\357\\200\\255\\033[39m %s\\n' {}"
     run: glow
 
@@ -103,7 +103,7 @@ views:
     steps:
       - name: _btop
         sources:
-          - list: 'command -v btop >/dev/null && echo btop || true'
+          - list: "command -v btop >/dev/null && echo btop || true"
             display: "printf '\\033[38;2;153;255;228m\\357\\202\\200\\033[39m %s\\n' {}"
     run: btop
 
@@ -113,7 +113,7 @@ views:
     steps:
       - name: _zsh
         sources:
-          - list: 'command -v zsh >/dev/null && echo zsh || true'
+          - list: "command -v zsh >/dev/null && echo zsh || true"
             display: "printf '\\033[38;2;180;180;180m\\357\\204\\240\\033[39m %s\\n' {}"
     run: zsh
 

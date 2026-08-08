@@ -9,10 +9,14 @@ if [ -f "/opt/homebrew/bin/brew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# zsh が書き込む XDG ディレクトリ（history / zcompdump の親）を用意
+mkdir -p "$XDG_STATE_HOME/zsh" "$XDG_CACHE_HOME/zsh"
+
 # compinit: zsh 補完システムの初期化
-# -C: キャッシュ (~/.zcompdump) を使用し compaudit をスキップ（0.4秒→0.02秒）
+# -C: キャッシュを使用し compaudit をスキップ（0.4秒→0.02秒）
+# -d: zcompdump を XDG_CACHE_HOME 配下へ（$HOME を汚さない）
 # 新しい補完を追加した時は `compinit` を手動実行してキャッシュ再生成
-autoload -Uz compinit && compinit -C
+autoload -Uz compinit && compinit -C -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # ignore case
 zstyle ':completion:*' ignore-parents parent pwd .. # don't complete current directory after ../
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin # complete commands after sudo
@@ -27,6 +31,9 @@ setopt no_beep
 setopt interactive_comments
 
 # history
+# HISTFILE はここで設定する: システムの /etc/zshrc が user .zshenv の後・この
+# .zshrc の前に HISTFILE=$HOME/.zsh_history を代入してくるため、zshenv では負ける。
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
 setopt append_history
 setopt share_history
 setopt inc_append_history
