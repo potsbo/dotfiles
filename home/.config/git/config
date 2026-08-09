@@ -54,6 +54,13 @@
 	rebase = false
 [url "https://github.com/"]
 	insteadOf = git@github.com:
+[ghq]
+	# worktree 置き場も root にして ghq list / tuicast に実 repo と並べる。
+	# ghq get のクローン先になるのは最後の root なので ~/src を末尾に置く。
+	# GHQ_ROOT 環境変数は複数 root (コロン区切り) を get 側で解釈できず、
+	# 文字列丸ごとを 1 パスとして掘るので使わない。
+	root = ~/.local/share/worktrees
+	root = ~/src
 [wt]
 	basedir = ~/.local/share/worktrees/{gitroot}
 	nocd = create
