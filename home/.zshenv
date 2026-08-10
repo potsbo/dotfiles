@@ -26,8 +26,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-export GHQ_ROOT="$HOME/src"
-
 # XDG: $HOME に散らばる生成物を XDG 配下へ寄せる。
 # 移動先は xdg-ninja (github.com/b3nj5m1n/xdg-ninja) が示すデファクトに従う。
 # 各ツールとも $HOME 直下を決め打ちしており、下記変数が正規の変更手段。

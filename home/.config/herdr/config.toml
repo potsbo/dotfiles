@@ -74,6 +74,13 @@ switch_ascii_input_source_in_prefix = true
 # ピクセルサイズ問い合わせ (CSI 14 t) に herdr が応答せず icat がエラーになる。
 kitty_graphics = true
 
+[worktrees]
+# git-wt (wt.basedir) と同じ場所に集約し、GHQ_ROOT の2つ目の root にもなっている
+# ので ghq list / tuicast に出る。実配置は <directory>/<repo>/<slug>。
+# ~ は herdr が展開する (default 値自体が "~/.herdr/worktrees")。macOS/Linux で
+# home が違うのでハードコードせず ~ を使う。
+directory = "~/.local/share/worktrees"
+
 [theme]
 name = "vesper"
 auto_switch = false
