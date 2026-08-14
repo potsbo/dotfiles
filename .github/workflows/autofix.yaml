@@ -19,5 +19,8 @@ jobs:
         env:
           AQUA_CONFIG: .config/aquaproj-aqua/aqua.yaml
       - uses: DeterminateSystems/determinate-nix-action@v3
-      - run: determinate-nixd fix hashes --auto-apply
+      # Renovate は version だけを書き換えるので、src の hash と vendorHash が取り残される。
+      # --version=skip でバージョンには触れず、両方のハッシュだけ再計算させる。
+      - run: nix run nixpkgs#nix-update -- --flake --version=skip aqua
+        working-directory: nix
       - uses: autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a # v1.3.4
