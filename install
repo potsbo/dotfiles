@@ -81,7 +81,13 @@ if [[ "$USER" == "potsbo" ]]; then
     sudo nixos-rebuild switch --flake "${DOTPATH}/nixos/hosts/${CONFIG}#${CONFIG}" $IMPURE_FLAG
   fi
 
-  nix run home-manager -- switch --flake "${DOTPATH}/nix#$CONFIG"
+  # home-manager を registry 経由 (nix run home-manager) で呼ばない。
+  # unpinned な参照は rev 確定のため GitHub API を叩き、新環境では gh がまだ
+  # 入っていないので未認証のまま 403 に当たりうる。flake.lock で固定済みの
+  # activationPackage を直接ビルドすれば API 解決そのものが不要になる。
+  # 最新 CLI と lock 済み設定のバージョン skew が消える利点もある。
+  HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}/nix#homeConfigurations.${CONFIG}.activationPackage")
+  "${HM_ACTIVATION}/activate"
 fi
 
 if [ "${CODESPACES:-"false"}" = "true" ]; then
@@ -109,6 +115,20 @@ export AQUA_POLICY_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua-policy.yam
 if has "aqua"; then
   aqua install --only-link
   aqua exec mitamae local lib/recipe.rb
+fi
+
+# nix に GitHub のトークンを渡す (home/.config/nix/nix.conf が include する)。
+# 未認証だと GitHub API が 60 req/hour で、nix flake update が 403 で落ちる。
+# gh を使うので新規に PAT を発行しなくてよい。gh 未認証なら黙って飛ばす。
+# 書き込み先が ~ ではなく DOTPATH なのは、.config がディレクトリごと
+# symlink される (lib/recipe.rb) ため、リンク前に実体を作ると衝突するため。
+if has "gh" && GH_TOKEN=$(gh auth token 2>/dev/null); then
+  (
+    umask 077
+    printf 'access-tokens = github.com=%s\n' "$GH_TOKEN" \
+      >"${DOTPATH}/home/.config/nix/access-tokens.conf"
+  )
+  unset GH_TOKEN
 fi
 
 # nix-darwin (macOS only)
