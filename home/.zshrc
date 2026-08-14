@@ -1,8 +1,8 @@
 # ~/.zshrc - 対話シェル用設定
 
-# zsh-defer と evalcache で起動高速化
-source ~/src/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh
-source ~/src/github.com/mroth/evalcache/evalcache.plugin.zsh
+# zsh-defer と evalcache で起動高速化 (home-manager が ~/.local/share/zsh/plugins に配置)
+source ~/.local/share/zsh/plugins/zsh-defer/zsh-defer.plugin.zsh
+source ~/.local/share/zsh/plugins/evalcache/evalcache.plugin.zsh
 
 # brew
 if [ -f "/opt/homebrew/bin/brew" ]; then

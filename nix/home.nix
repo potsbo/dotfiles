@@ -10,6 +10,8 @@ let
 
   todoist-cli = pkgs.callPackage ./pkgs/todoist-cli.nix { };
 
+  evalcache = pkgs.callPackage ./pkgs/evalcache.nix { };
+
 in
 {
   home.username = "potsbo";
@@ -54,6 +56,12 @@ in
     CC = "/usr/bin/clang";
     CXX = "/usr/bin/clang++";
   };
+
+  # zsh plugins (.zshrc から source する)。profile のパスは NixOS module /
+  # standalone home-manager でホストごとに違うため、~/.local/share 下の
+  # 安定パスにリンクして .zshrc からはそこを見る。
+  home.file.".local/share/zsh/plugins/zsh-defer".source = "${pkgs.zsh-defer}/share/zsh-defer";
+  home.file.".local/share/zsh/plugins/evalcache".source = "${evalcache}/share/evalcache";
 
   # FreeTDS ODBC ドライバの登録
   home.file.".config/odbc/odbcinst.ini".text = ''

@@ -10,15 +10,6 @@ MItamae::RecipeContext.class_eval do
   end
 end
 
-# GitHub repo を ghq の規約 (~/src/github.com/...) に従ってクローンする独自リソース
-define :ghq do
-  repo = params[:name]
-  execute "ghq get #{repo}" do
-    command "aqua exec -- ghq get https://github.com/#{repo}"
-    not_if "test -d #{File.join(ENV['HOME'], 'src', 'github.com', repo)}"
-  end
-end
-
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
 # シンボリックリンク
@@ -89,13 +80,3 @@ end
 include_recipe "recipes/darwin" if node[:platform] == "darwin"
 include_recipe "recipes/wsl" if wsl_environment?
 include_recipe "recipes/ubuntu" if node[:platform] == "ubuntu"
-
-# zsh plugins (ghq で管理、.zshrc から直接 source)
-ZSH_PLUGINS = [
-  "romkatv/zsh-defer",
-  "mroth/evalcache",
-]
-
-ZSH_PLUGINS.each do |plugin|
-  ghq plugin
-end

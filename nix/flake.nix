@@ -86,7 +86,7 @@
 
       # nix-update がハッシュを自動更新するための出力。CI (autofix.ci) が
       # `nix-update --flake --version=skip <name>` で参照する。
-      packages.x86_64-linux = nixpkgs.lib.genAttrs [ "aqua" "tuicast" "todoist-cli" ]
+      packages.x86_64-linux = nixpkgs.lib.genAttrs [ "aqua" "tuicast" "todoist-cli" "evalcache" ]
         (name: nixpkgs.legacyPackages.x86_64-linux.callPackage (./pkgs + "/${name}.nix") { });
     };
 }
