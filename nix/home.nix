@@ -43,7 +43,7 @@ let
   todoist-cli = pkgs.buildNpmPackage {
     pname = "todoist-cli";
     # renovate: datasource=github-releases depName=Doist/todoist-cli
-    version = "3.0.2";
+    version = "3.1.8";
 
     src = pkgs.fetchFromGitHub {
       owner = "Doist";
