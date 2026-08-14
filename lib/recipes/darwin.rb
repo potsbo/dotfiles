@@ -1,8 +1,3 @@
-link File.join(ENV['HOME'], "iCloudDrive") do
-  to File.join(ENV['HOME'], "Library/Mobile Documents/com~apple~CloudDocs")
-  force true
-end
-
 ["Cursor", "Code"].each do |name|
   directory File.join(ENV['HOME'], "Library/Application Support/#{name}/User")
   link File.join(ENV['HOME'], "Library/Application Support/#{name}/User/settings.json") do
