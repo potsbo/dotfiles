@@ -15,7 +15,7 @@ jobs:
         with:
           aqua_version: v2.57.1
       - run: aqua upc -prune
-        working-directory: config
+        working-directory: home
         env:
           AQUA_CONFIG: .config/aquaproj-aqua/aqua.yaml
       - uses: DeterminateSystems/determinate-nix-action@v3
