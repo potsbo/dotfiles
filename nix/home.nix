@@ -57,11 +57,10 @@ in
     CXX = "/usr/bin/clang++";
   };
 
-  # zsh plugins (.zshrc から source する)。profile のパスは NixOS module /
-  # standalone home-manager でホストごとに違うため、~/.local/share 下の
-  # 安定パスにリンクして .zshrc からはそこを見る。
-  home.file.".local/share/zsh/plugins/zsh-defer".source = "${pkgs.zsh-defer}/share/zsh-defer";
-  home.file.".local/share/zsh/plugins/evalcache".source = "${evalcache}/share/evalcache";
+  # zsh plugins (.zshrc から source する)。以前は ghq clone だったのを nix 管理に
+  # 置き換えたもので、配置は ghq 規約のパスのまま維持している。
+  home.file."src/github.com/romkatv/zsh-defer".source = "${pkgs.zsh-defer}/share/zsh-defer";
+  home.file."src/github.com/mroth/evalcache".source = "${evalcache}/share/evalcache";
 
   # FreeTDS ODBC ドライバの登録
   home.file.".config/odbc/odbcinst.ini".text = ''
