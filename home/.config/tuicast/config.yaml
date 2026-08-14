@@ -121,24 +121,26 @@ views:
   # 先頭のドットは herdr sidebar の state_dot と同じ:
   #   blocked=赤● > working=peach● > idle=mint○ > 状態不明=灰· (space 内で最も緊急な agent)。
   #   色は herdr の vesper テーマの palette 値 (truecolor)。theme を変えたらここも合わせる。
+  # 行末の灰色  はその checkout の branch。fzf は表示文字列しか検索対象にしないので、
+  # branch 名で引きたければ表示に出ている必要がある (worktree-label.sh)。
   worktree:
     steps:
       - name: worktree
         sources:
           - list: ~/.config/tuicast/list-worktrees.sh --open blocked
-            display: "printf '\\033[38;2;255;128;128m\\342\\227\\217\\033[39m '; ~/.local/bin/herdr-label {}"
+            display: "printf '\\033[38;2;255;128;128m\\342\\227\\217\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --open working
-            display: "printf '\\033[38;2;255;199;153m\\342\\227\\217\\033[39m '; ~/.local/bin/herdr-label {}"
+            display: "printf '\\033[38;2;255;199;153m\\342\\227\\217\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --open idle
-            display: "printf '\\033[38;2;153;255;228m\\342\\227\\213\\033[39m '; ~/.local/bin/herdr-label {}"
+            display: "printf '\\033[38;2;153;255;228m\\342\\227\\213\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --open unknown
-            display: "printf '\\033[38;2;92;92;92m\\302\\267\\033[39m '; ~/.local/bin/herdr-label {}"
+            display: "printf '\\033[38;2;92;92;92m\\302\\267\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --closed
-            display: "printf '  '; ~/.local/bin/herdr-label {}"
+            display: "printf '  '; ~/.config/tuicast/worktree-label.sh {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
     run: ~/.config/tuicast/worktree-connect.sh $worktree
 
