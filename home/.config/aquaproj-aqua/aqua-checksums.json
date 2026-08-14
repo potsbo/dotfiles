@@ -576,23 +576,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-aarch64-darwin.tar.gz",
-      "checksum": "DB5B2D3AC75E444DFB12AAA1B1074CC820F234B1071BFA08D7328B26D9BCDE0F",
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-aarch64-darwin",
+      "checksum": "ACD0BBAA32832E4D7724F5C393229F0EB7AB8A96D8951E1FE7CDD0967234B69E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-aarch64-linux.tar.gz",
-      "checksum": "E84F7B00070C6FC64B8FD0242182D4913180764DEA699BE4ADDA2CFA2E8D0683",
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-aarch64-linux",
+      "checksum": "60896C5598EAB03283E6F1DF95FEA861217C69F7A259EB6CCA097C1DCA34C46B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-x86_64-darwin.tar.gz",
-      "checksum": "E55073F6DA72D08EA2289431B5ED7951689BDA7151A2A479C409B84454770DE3",
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-x86_64-darwin",
+      "checksum": "1AF8D2CF3FD392B8EE62B01B7E54ADA4080B09117B3ABB9DB1CD2A43FB7EE64B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v1.14.4/mitamae-x86_64-linux.tar.gz",
-      "checksum": "A4B80EB74E796B453916DFFF739C3EAA8D3D794244A0805A423B22292AFA7165",
+      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-x86_64-linux",
+      "checksum": "61C6B2A678F45C1374506874846CF362BC418E4914DD0CF5EB56351210DCB930",
       "algorithm": "sha256"
     },
     {
