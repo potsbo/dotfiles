@@ -75,4 +75,4 @@ packages:
   - name: openai/codex@rust-v0.145.0
   - name: yusukebe/ax@v0.1.22
     registry: local
-  - name: modem-dev/hunk@v0.17.6
+  - name: modem-dev/hunk@v0.18.1
