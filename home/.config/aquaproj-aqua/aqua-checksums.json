@@ -356,28 +356,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-aarch64-apple-darwin.tar.gz",
-      "checksum": "C66E2F66CF0D486066F8BC6BB5E0B567FA62519B3CB9F68B4A2CFEF8BCE92892",
+      "id": "github_release/github.com/ducaale/xh/v0.26.2/xh-v0.26.2-aarch64-apple-darwin.tar.gz",
+      "checksum": "CC5739D061A8469D0011CA0AB92D4A5CD726CC56F0EF30108953B119F54D0719",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "823C344A8DFE747E94E667F3331B8E41EF99939E7E42078F498388FB9D1062B0",
+      "id": "github_release/github.com/ducaale/xh/v0.26.2/xh-v0.26.2-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "3A44900A8AC53F614AA0CD1D2E54ECF4E93584384C1AD091AA18D7992686D7EB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-x86_64-apple-darwin.tar.gz",
-      "checksum": "1D7ECE33662E0C0336283E1F1BF09DE75B46302701DF50493BED1EBC5EE9E305",
+      "id": "github_release/github.com/ducaale/xh/v0.26.2/xh-v0.26.2-x86_64-apple-darwin.tar.gz",
+      "checksum": "1F19AE1A2F411C58BD6943C638472CD5C4179ED019FE4F786E524B27DA4C14A2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-x86_64-pc-windows-msvc.zip",
-      "checksum": "8BDD9CC00F03739294B9F3BC9214E2624BEE89F7BA6DD55E65E6F53FD1ADE388",
+      "id": "github_release/github.com/ducaale/xh/v0.26.2/xh-v0.26.2-x86_64-pc-windows-msvc.zip",
+      "checksum": "7907C1EF225382FB5955C8274AA23E31B70622C4D39DBC76CF945DC8CE15A78D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ducaale/xh/v0.26.1/xh-v0.26.1-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "C411F07A0B204CA07858A67473D0F5C77E332226430D4D84D1D2AFD351A425F2",
+      "id": "github_release/github.com/ducaale/xh/v0.26.2/xh-v0.26.2-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "8C53B6A23435754F9E2EA8AB8C0D0296A1921404B88132CF9B364FF6E8C22A6E",
       "algorithm": "sha256"
     },
     {
@@ -848,26 +848,6 @@
     {
       "id": "github_release/github.com/neovim/neovim/v0.12.4/nvim-win64.zip",
       "checksum": "9FC3572829FFD13DEBB6E32555DA2C8CC02555568260A9FC4CF1F65BBCCA319C",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-linux-aarch64",
-      "checksum": "32E763A1499A6B694B1D708E4F062B743BE1DA9F34FCFA4D212D6DB6FE09A8B9",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-linux-x86_64",
-      "checksum": "3DC83288073E4C2D3C679A30E7BE97BCCA9141C6FD17DBBB9219142E95C59253",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-macos-aarch64",
-      "checksum": "37350546B0012555943B92EAF962665DE4E264395BAEB44227B8015E8FF5B0D6",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-macos-x86_64",
-      "checksum": "3FE50C4A63DC8102306B1322178628DDB3655CD3AE56D784F094153408D69E62",
       "algorithm": "sha256"
     },
     {
@@ -1363,26 +1343,6 @@
     {
       "id": "http/nodejs.org/dist/v26.5.0/node-v26.5.0-win-x64.zip",
       "checksum": "D3B2277DBCCCFDF24EF6302928F64F484CFF1D77A6D3CAA3A28F4D20CE9158F6",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/darwin-arm64/claude",
-      "checksum": "1FA59529C233914FDD9D42816A74ECF300EEFA14C3D118D4ECBA2F0F16FC5741",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/darwin-x64/claude",
-      "checksum": "4ECA48431A43C5540C53657964BE604F301D38C02B244CA7C05DA18F84BB5C85",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/linux-arm64/claude",
-      "checksum": "E7305203E7D78A6BFECB94F7973B0EE4A71A3BA67C8028C98B293CF571900B68",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/linux-x64/claude",
-      "checksum": "0684E28517CC785AB8D19FEB5DAD3381EAB4ABC97BF6FCE07BC534DC88040B27",
       "algorithm": "sha256"
     },
     {
