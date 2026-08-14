@@ -34,7 +34,8 @@
     "refreshInterval": 10
   },
   "enabledPlugins": {
-    "pyright-lsp@claude-plugins-official": true
+    "pyright-lsp@claude-plugins-official": true,
+    "figma@claude-plugins-official": true
   },
   "effortLevel": "medium",
   "tui": "fullscreen",
