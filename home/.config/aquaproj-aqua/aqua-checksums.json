@@ -851,26 +851,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-linux-aarch64",
-      "checksum": "32E763A1499A6B694B1D708E4F062B743BE1DA9F34FCFA4D212D6DB6FE09A8B9",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-linux-x86_64",
-      "checksum": "3DC83288073E4C2D3C679A30E7BE97BCCA9141C6FD17DBBB9219142E95C59253",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-macos-aarch64",
-      "checksum": "37350546B0012555943B92EAF962665DE4E264395BAEB44227B8015E8FF5B0D6",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-macos-x86_64",
-      "checksum": "3FE50C4A63DC8102306B1322178628DDB3655CD3AE56D784F094153408D69E62",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/ogulcancelik/herdr/v0.8.0/herdr-linux-aarch64",
       "checksum": "F647AC66468D9EFBC642FE534FB284468F0AEA60641606FC008DFC0D82A3CA87",
       "algorithm": "sha256"
@@ -1366,26 +1346,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/darwin-arm64/claude",
-      "checksum": "1FA59529C233914FDD9D42816A74ECF300EEFA14C3D118D4ECBA2F0F16FC5741",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/darwin-x64/claude",
-      "checksum": "4ECA48431A43C5540C53657964BE604F301D38C02B244CA7C05DA18F84BB5C85",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/linux-arm64/claude",
-      "checksum": "E7305203E7D78A6BFECB94F7973B0EE4A71A3BA67C8028C98B293CF571900B68",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/linux-x64/claude",
-      "checksum": "0684E28517CC785AB8D19FEB5DAD3381EAB4ABC97BF6FCE07BC534DC88040B27",
-      "algorithm": "sha256"
-    },
-    {
       "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.224/darwin-arm64/claude",
       "checksum": "391DF9D2AB04E4CF32199335720AC7715A582E91EAECFD4D2198A16F57EA59B3",
       "algorithm": "sha256"
@@ -1396,8 +1356,18 @@
       "algorithm": "sha256"
     },
     {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.224/linux-arm64-musl/claude",
+      "checksum": "5AB089ACD0B8D56B08D9510AEECD96767A057FC7BC05221C968C81D8D21711F6",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.224/linux-arm64/claude",
       "checksum": "3E50836E227868746273653E0F8115CF5FC9CB34A081847C6040C81D80812C33",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.224/linux-x64-musl/claude",
+      "checksum": "979B08E51D814A4ABAA36D8C3B570BDAA8C1DD2020B318C6F8334B631C2C4F19",
       "algorithm": "sha256"
     },
     {
