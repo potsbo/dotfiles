@@ -131,28 +131,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-aarch64-apple-darwin.tar.gz",
-      "checksum": "ED336D0BA49DB8EF89B2B41FFFA372CE63BD032F22A56F001C265891AEC32829",
+      "id": "github_release/github.com/astral-sh/uv/0.12.4/uv-aarch64-apple-darwin.tar.gz",
+      "checksum": "99A913B606194867B43086404412C1AFE079547FEE72ECFB6AF7E7B0DD54B0C6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "D70CDAE687FEB6AAD9A09FE8D686DF8C8EFAF69A1007FA581379A2025ADC10A5",
+      "id": "github_release/github.com/astral-sh/uv/0.12.4/uv-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "04ED16E895B08065720E3D06CDE722F0D406B63D116247D5E7776525C41F4972",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-x86_64-apple-darwin.tar.gz",
-      "checksum": "77F5CA26C0DE20E992A3677A174FE1121EE25C36F9B1434A863F75BF077A05EB",
+      "id": "github_release/github.com/astral-sh/uv/0.12.4/uv-x86_64-apple-darwin.tar.gz",
+      "checksum": "E603F1EB634CA97A2A125539B983891F53235E901511ED10C32C08C86E253ECD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-x86_64-pc-windows-msvc.zip",
-      "checksum": "ACFDE570451CFDB8689FA159A138EE805BA4E241C466432750302C86254B0984",
+      "id": "github_release/github.com/astral-sh/uv/0.12.4/uv-x86_64-pc-windows-msvc.zip",
+      "checksum": "4F3B7D63CD81FCA0DA5A655D973D20AFFCA89CE6E5F9A29FD0183CC4204A7639",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.11.32/uv-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "1FD052F196108D87E61FC3D98FE06B4EC758C9A1EB1466A6FD1A436FE45885F2",
+      "id": "github_release/github.com/astral-sh/uv/0.12.4/uv-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "7AEF04898775585D636424E52053E5328F2B1779175D5CB47665FF9D7524E8E7",
       "algorithm": "sha256"
     },
     {
@@ -851,26 +851,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-linux-aarch64",
-      "checksum": "32E763A1499A6B694B1D708E4F062B743BE1DA9F34FCFA4D212D6DB6FE09A8B9",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-linux-x86_64",
-      "checksum": "3DC83288073E4C2D3C679A30E7BE97BCCA9141C6FD17DBBB9219142E95C59253",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-macos-aarch64",
-      "checksum": "37350546B0012555943B92EAF962665DE4E264395BAEB44227B8015E8FF5B0D6",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/ogulcancelik/herdr/v0.7.5/herdr-macos-x86_64",
-      "checksum": "3FE50C4A63DC8102306B1322178628DDB3655CD3AE56D784F094153408D69E62",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/ogulcancelik/herdr/v0.8.0/herdr-linux-aarch64",
       "checksum": "F647AC66468D9EFBC642FE534FB284468F0AEA60641606FC008DFC0D82A3CA87",
       "algorithm": "sha256"
@@ -1363,26 +1343,6 @@
     {
       "id": "http/nodejs.org/dist/v26.5.0/node-v26.5.0-win-x64.zip",
       "checksum": "D3B2277DBCCCFDF24EF6302928F64F484CFF1D77A6D3CAA3A28F4D20CE9158F6",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/darwin-arm64/claude",
-      "checksum": "1FA59529C233914FDD9D42816A74ECF300EEFA14C3D118D4ECBA2F0F16FC5741",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/darwin-x64/claude",
-      "checksum": "4ECA48431A43C5540C53657964BE604F301D38C02B244CA7C05DA18F84BB5C85",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/linux-arm64/claude",
-      "checksum": "E7305203E7D78A6BFECB94F7973B0EE4A71A3BA67C8028C98B293CF571900B68",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.190/linux-x64/claude",
-      "checksum": "0684E28517CC785AB8D19FEB5DAD3381EAB4ABC97BF6FCE07BC534DC88040B27",
       "algorithm": "sha256"
     },
     {
