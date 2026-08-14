@@ -6,34 +6,9 @@ let
   # nix-update は derivation の meta.position を見て書き戻すので、let 束縛のままだと扱えない。
   aqua = pkgs.callPackage ./pkgs/aqua.nix { };
 
-  tuicast = pkgs.buildGoModule {
-    pname = "tuicast";
-    version = "0-unstable-2026-06-27";
+  tuicast = pkgs.callPackage ./pkgs/tuicast.nix { };
 
-    src = pkgs.fetchFromGitHub {
-      owner = "potsbo";
-      repo = "tuicast";
-      rev = "0551c8932de61f83014e42a78ecaf184a3e4b378";
-      hash = "sha256-VBYaJOa+mZu2kaXeb1gQaS3t1wF72WTif3SNPB0gbFY=";
-    };
-
-    vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
-  };
-
-  todoist-cli = pkgs.buildNpmPackage {
-    pname = "todoist-cli";
-    # renovate: datasource=github-releases depName=Doist/todoist-cli
-    version = "3.1.8";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "Doist";
-      repo = "todoist-cli";
-      rev = "v1.26.0";
-      hash = "sha256-JIuvQjj7d99cVv1JUB3QweWDwlvMRO/tLa55Yvaav5Q=";
-    };
-
-    npmDepsHash = "sha256-6aSUy6YUtgTN5E64cVRJXFqzJcVZzsoIJArp1s5/cRs=";
-  };
+  todoist-cli = pkgs.callPackage ./pkgs/todoist-cli.nix { };
 
 in
 {
