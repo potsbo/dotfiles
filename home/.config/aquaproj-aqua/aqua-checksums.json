@@ -1236,23 +1236,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-darwin-arm64",
-      "checksum": "8195E5E3077AFD4CE5AB059AA7E5A68E13DEB9CD60FFB230ABA6751C339E2234",
+      "id": "github_release/github.com/yusukebe/ax/v0.1.25/ax-darwin-arm64",
+      "checksum": "94633F9D61C743CFFCF51E5338289D974C21428EFB70BD2995E6C6EC13E062C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-darwin-x64",
-      "checksum": "E3AFF9EF518727D38BED1F211DB471B3C5FB6E4A002FDF66B7D56A33293F65B6",
+      "id": "github_release/github.com/yusukebe/ax/v0.1.25/ax-darwin-x64",
+      "checksum": "C33B0A72DF9960116E8467BFA0B170EEC3F57244630EC8018EFC593C7C375083",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-linux-arm64",
-      "checksum": "3532EE3DAE09D98FAAAD6F7BB50CF5ACC2942F63CA550D6444F5336073D173F9",
+      "id": "github_release/github.com/yusukebe/ax/v0.1.25/ax-linux-arm64",
+      "checksum": "631FABF91071B30022039EDB0C89A5E8768067CC00C8CF7DDB598326F02D2D5C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/yusukebe/ax/v0.1.22/ax-linux-x64",
-      "checksum": "66EC1252771692E67CF36B86B39F5520E9B61D512707A92AA2DD2A256E84937D",
+      "id": "github_release/github.com/yusukebe/ax/v0.1.25/ax-linux-x64",
+      "checksum": "6E72297182074038A202D94E1CCA9D61E8908D8A4FD5206B3C25AB91957CAE2F",
       "algorithm": "sha256"
     },
     {
