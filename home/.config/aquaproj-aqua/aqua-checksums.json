@@ -1176,8 +1176,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/vladkens/macmon/v0.8.0/macmon-v0.8.0.tar.gz",
-      "checksum": "E37F2FDB2FB0FDF7B27BF00159006BAC51B6C7B7FEF4A3B5433A31DB062002CF",
+      "id": "github_release/github.com/vladkens/macmon/v0.8.2/macmon-v0.8.2.tar.gz",
+      "checksum": "588D5BDE79885BA36F693E5150911C10C3AD208A2E418A3F2AA827AC84A2D973",
       "algorithm": "sha256"
     },
     {
