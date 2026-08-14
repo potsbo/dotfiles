@@ -15,7 +15,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["config/.config/aquaproj-aqua/aqua\\.yaml$"],
+      "fileMatch": ["home/.config/aquaproj-aqua/aqua\\.yaml$"],
       "matchStrings": [
         "name:\\s*(?<depName>[^@\\s]+)@(?<currentValue>v?[0-9][^\\s]*)\\s*\\n\\s*registry:\\s*local"
       ],
@@ -24,6 +24,10 @@
   ],
   "nix": {
     "enabled": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
   },
   "packageRules": [
     {
@@ -35,7 +39,7 @@
     },
     {
       "matchFileNames": [
-        "config/.config/aquaproj-aqua/aqua.yaml"
+        "home/.config/aquaproj-aqua/aqua.yaml"
       ],
       "automerge": true
     },
