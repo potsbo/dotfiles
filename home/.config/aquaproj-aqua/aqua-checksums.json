@@ -1131,28 +1131,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.4.0/postgresql-18.4.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "1B68828F524B638A24918E258B173D0F16773547A0D3B83D9BA74473B61649F2",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.0/postgresql-18.6.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "A257BCDB8AA3301A13D6A5BCEC48F8C9517045B7CBAE71E50788B2615539E95B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.4.0/postgresql-18.4.0-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "569984D426365C6CA3C197D2B3A999B73161FF1F3ABC963824A8C3624620E5DD",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.0/postgresql-18.6.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "5D2B5E8BE9E96BFC3D7F22090057A836EC36D5D092542D8D3B93CC145CF4EE13",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.4.0/postgresql-18.4.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "CBC38067A795D10BBDDC730E61C835DF0B351C36A7BD2544D388790FCF50AA4D",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.0/postgresql-18.6.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "F8918FBE747E0D79BDA58AD8F8AFCF23AC384B847FF3AF18856F0825BA54B031",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.4.0/postgresql-18.4.0-x86_64-pc-windows-msvc.tar.gz",
-      "checksum": "4099DCF71C74BED82736E17928D07591DF0EFEE8F802449533B9557D99AE7988",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.0/postgresql-18.6.0-x86_64-pc-windows-msvc.tar.gz",
+      "checksum": "7DA44C2DBCDA3B49688EA08CE8CF99CFE677ADF565F53A9145BF9002C74DB7D5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.4.0/postgresql-18.4.0-x86_64-unknown-linux-gnu.tar.gz",
-      "checksum": "65C06CF318B9A57525D842D658D6D18CD461D12B3A89B57D6D8ED7CCCBE2DB53",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.0/postgresql-18.6.0-x86_64-unknown-linux-gnu.tar.gz",
+      "checksum": "BB3D09F876B2383E25A8C9CE09E32D185A03656A23D074F5195542B1B1B3CA61",
       "algorithm": "sha256"
     },
     {
