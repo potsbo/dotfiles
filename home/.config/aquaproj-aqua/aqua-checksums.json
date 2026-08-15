@@ -626,28 +626,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-darwin-amd64.tar.gz",
-      "checksum": "BCFE6D817E1752B6A0BCC5ECFFBCF1911BB980CA4CC40FB8B6B6D446ABFED0B1",
+      "id": "github_release/github.com/johnkerl/miller/v6.21.0/miller-6.21.0-darwin-amd64.tar.gz",
+      "checksum": "0B02BE2A7166B56BAD29B0446E2A2CC8C47269410E6AF2841174AA1854FDE53A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-darwin-arm64.tar.gz",
-      "checksum": "32DDFF009DE1B281A06FB1AA1C5C4EFD9D4958BA4BD7CC608BEA6DBF1206623C",
+      "id": "github_release/github.com/johnkerl/miller/v6.21.0/miller-6.21.0-darwin-arm64.tar.gz",
+      "checksum": "E172A045A813DE63753DDBE043208785E944819B082526DDD927559EEB0AD176",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-linux-amd64.tar.gz",
-      "checksum": "73461CD6469DF3A0C14A102D6E19EF04528EDA08CBD7AEDBCE5D32CCC7C0428E",
+      "id": "github_release/github.com/johnkerl/miller/v6.21.0/miller-6.21.0-linux-amd64.tar.gz",
+      "checksum": "22DAF43F3AFC7C497DA0B9480A0D4EF0D39C9BF68B2460068DD0187ED44F7B80",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-linux-arm64.tar.gz",
-      "checksum": "D38F0F42D939609D6806274AF67D86C2873ACBC64635A3F11AA69FA28038722B",
+      "id": "github_release/github.com/johnkerl/miller/v6.21.0/miller-6.21.0-linux-arm64.tar.gz",
+      "checksum": "3F4BC15993DA3039E5AAD1F67A114817DB5D933A1CDE26B6C2EDF867DE467D27",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.20.2/miller-6.20.2-windows-amd64.zip",
-      "checksum": "C49CB6C1DD3A5A8C7B63F64E6758C910CAF4B4B2AAE040E75946AAA5BFF77B6D",
+      "id": "github_release/github.com/johnkerl/miller/v6.21.0/miller-6.21.0-windows-amd64.zip",
+      "checksum": "E4730FAFCE659DB22C619C0FDE51EBA050EDC584A0804FD2C8B2883C8F8D8250",
       "algorithm": "sha256"
     },
     {
