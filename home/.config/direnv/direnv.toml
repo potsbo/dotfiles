@@ -1,2 +1,2 @@
 [whitelist]
-prefix = ["~/src/github.com/medicu-inc", "~/src/github.com/potsbo"]
+prefix = ["~/src/github.com/medicu-inc", "~/src/github.com/potsbo", "~/.local/share/worktrees/one"]
