@@ -206,28 +206,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Darwin_arm64.tar.gz",
-      "checksum": "6F7ABFB47DE69FBF7B0E67D2FA019CC554916E8B6694F9877212BE89FC7EBB8C",
+      "id": "github_release/github.com/charmbracelet/glow/v3.0.0/glow_3.0.0_Darwin_arm64.tar.gz",
+      "checksum": "4B8A9A32412C0525E4C239E65171706FC5BEB6D423608D99FE16788D47B345D3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Darwin_x86_64.tar.gz",
-      "checksum": "8CBC78A4947C68E804EDF34D36070153FCC5D424873152DA83AD6BE14FA88ED3",
+      "id": "github_release/github.com/charmbracelet/glow/v3.0.0/glow_3.0.0_Darwin_x86_64.tar.gz",
+      "checksum": "B911B90622E686D44BC072112898584A601ED8353276B735835D8CDBCC27F660",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Linux_arm64.tar.gz",
-      "checksum": "CF63ABEBCB50B72909DB965D78290E7CECBF17A900E84705DC84ADDBB6952099",
+      "id": "github_release/github.com/charmbracelet/glow/v3.0.0/glow_3.0.0_Linux_arm64.tar.gz",
+      "checksum": "810C39F4691FEB75E675A5F5F54B9FA091354E7599D9CF9C9FC9B97E47A99759",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Linux_x86_64.tar.gz",
-      "checksum": "6063D4F2AF8A82A5F4BBA0831E165DE9381660AA8B41DF4816D0106A265B07D5",
+      "id": "github_release/github.com/charmbracelet/glow/v3.0.0/glow_3.0.0_Linux_x86_64.tar.gz",
+      "checksum": "13E05E4B2ACC18D2AEE44291AEFE6325B077EC321B631A0CFA780E8E3BC33F78",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/charmbracelet/glow/v2.1.2/glow_2.1.2_Windows_x86_64.zip",
-      "checksum": "9BC12FCE6061B0DD45325401B0D11EC2E45981B76EEF2B7FA3C0F941BA5C0B39",
+      "id": "github_release/github.com/charmbracelet/glow/v3.0.0/glow_3.0.0_Windows_x86_64.zip",
+      "checksum": "D8907E07436ECBB6738BC0E3BBF8AA6159E351F95082E9DB3C3FC4200086F809",
       "algorithm": "sha256"
     },
     {
