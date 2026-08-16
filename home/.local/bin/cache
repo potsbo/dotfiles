@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# 「いつかどうせやる」初回セットアップを先に全部やっておく。
+# ./install は速さを優先して遅延インストールのまま終えるので、時間があるときに
+# これを流して初回コストを前倒しする。reap の裏返し (reap は再生成できるものを
+# 捨てる / cache は再生成できるものを先に作る)。
+#
+# 対象:
+#   - aqua : 全パッケージのバイナリ取得 (install は --only-link で実体を落とさない)
+#   - aqua : local registry の policy 許可 (macmon / ghui / ax に必要な一度きりの作業)
+#   - nvim : lazy.nvim の plugin、mason のサーバー/ツール、treesitter の parser
+#   - tldr : ページキャッシュ
+#   - zsh  : compinit の zcompdump と evalcache (direnv / fzf / starship)
+#
+# 全て冪等。既に揃っていれば数秒で終わる。
+#
+# 使い方: cache [--dry-run]
+#   --dry-run : 実行せず、何を流すかだけ表示
+
+set -eu
+
+DRY_RUN=0
+[ "${1:-}" = "--dry-run" ] && { DRY_RUN=1; shift; }
+
+run() {
+  echo "+ $*"
+  [ "$DRY_RUN" = 1 ] && return 0
+  "$@"
+}
+
+# --- aqua: 遅延インストールされる実体を先に取得 ---
+if command -v aqua >/dev/null 2>&1; then
+  echo "== aqua =="
+  # local registry を使うパッケージは policy を許可しないと install が失敗する
+  if [ -n "${AQUA_POLICY_CONFIG:-}" ]; then
+    run aqua policy allow "$AQUA_POLICY_CONFIG"
+  fi
+  run aqua install --all
+fi
+
+# --- nvim: plugin / mason / treesitter ---
+# lazy.nvim は install と restore が別コマンド。restore は導入済みのものを lockfile の
+# rev に戻すだけで、未導入の plugin は入れないので install を先に流す必要がある。
+if command -v nvim >/dev/null 2>&1; then
+  echo "== nvim =="
+  nvim_cache="${XDG_CONFIG_HOME:-$HOME/.config}/nvim/scripts/cache.lua"
+  run nvim --headless "+Lazy! install" +qa
+  run nvim --headless "+Lazy! restore" +qa
+  if [ -f "$nvim_cache" ]; then
+    run nvim --headless -c "luafile $nvim_cache"
+  fi
+fi
+
+# --- tldr: ページキャッシュ ---
+if command -v tldr >/dev/null 2>&1; then
+  echo "== tldr =="
+  run tldr --update
+fi
+
+# --- zsh: 対話シェルの初回起動で作られるキャッシュ ---
+# compinit の zcompdump と evalcache の生成が目的なので、起動させるだけでよい。
+if command -v zsh >/dev/null 2>&1; then
+  echo "== zsh =="
+  run zsh -ic exit
+fi
+
+if [ "$DRY_RUN" = 1 ]; then
+  echo "dry-run: 上記を実行すると初回セットアップを前倒しします。"
+else
+  echo "done"
+fi
