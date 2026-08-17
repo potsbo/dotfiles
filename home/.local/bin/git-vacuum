@@ -3,7 +3,8 @@
 # 古い git worktree と不要 branch を掃除する。
 # worktree: 以下をすべて満たす linked worktree だけを消す
 #   - working tree がクリーン (未コミット変更・untracked なし)
-#   - 未 push コミットなし (upstream に push 済み、または origin のデフォルトブランチに merge 済み)
+#   - 未 push コミットなし (upstream に push 済み、origin のデフォルトブランチに merge 済み、
+#     または upstream が gone = PR が merge/close されて remote branch 削除済み)
 #   - ディレクトリの mtime が MAX_AGE_DAYS (default 30) 日より古い
 # branch: checkout 中でも worktree 使用中でもない local branch のうち
 #   - origin のデフォルトブランチに merge 済みのもの (branch -d)
@@ -48,7 +49,14 @@ for repo in "${repos[@]}"; do
       skipped=$((skipped + 1)); continue
     fi
 
-    if ! git -C "$wt" merge-base --is-ancestor HEAD '@{u}' 2>/dev/null &&
+    # squash merge だと HEAD は default branch の ancestor にならないので、
+    # branch GC と同様に upstream gone も push 済みとみなす
+    br=$(git -C "$wt" symbolic-ref --quiet --short HEAD || true)
+    track=""
+    [ -n "$br" ] && track=$(git -C "$repo" for-each-ref "refs/heads/$br" --format='%(upstream:track)')
+
+    if [ "$track" != "[gone]" ] &&
+       ! git -C "$wt" merge-base --is-ancestor HEAD '@{u}' 2>/dev/null &&
        ! git -C "$wt" merge-base --is-ancestor HEAD "$default_branch" 2>/dev/null; then
       echo "skip (unpushed): $wt"
       skipped=$((skipped + 1)); continue
