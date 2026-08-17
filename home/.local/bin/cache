@@ -75,6 +75,9 @@ if [ -n "$repo_root" ]; then
   echo "== repo ($repo_root) =="
   cd "$repo_root"
 
+  # remote の object を先に取得しておく (remote 未設定の repo では何もしない)
+  [ -n "$(git remote)" ] && run git fetch
+
   # JS: package.json の packageManager フィールド (corepack 標準) が最優先、
   # なければ lockfile の種類で判定。lockfile が複数あるときは判定不能。
   if [ -f package.json ]; then
