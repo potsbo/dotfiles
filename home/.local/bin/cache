@@ -76,12 +76,28 @@ if [ -n "$repo_root" ]; then
   cd "$repo_root"
 
   # remote の object を先に取得しておく (remote 未設定の repo では何もしない)。
-  # shallow clone は全履歴を取って解消する (--unshallow は完全な repo だと fatal)
+  # 節約型の clone はどの形でもフルに育てる:
+  #   - single-branch: --depth や -b の副作用で fetch 対象が1ブランチに絞られて
+  #     いるので、全ブランチの refspec を足す (--add なので既存の refspec は残る)
+  #   - shallow: 履歴が切れていて log や rebase が浅さに当たるので全履歴を取る
+  #     (--unshallow は完全な repo に対しては fatal)
+  #   - partial (blobless/treeless): blob/tree を遅延取得する filter が残っていると
+  #     オフラインの log -p / blame が都度フェッチになるので、filter を外して
+  #     --refetch で取り直す (通常の fetch は手元にある object を前提に差分交渉する
+  #     ため filter 由来の欠けを埋められない)
   if [ -n "$(git remote)" ]; then
+    remote=origin
+    git config "remote.$remote.url" >/dev/null 2>&1 || remote="$(git remote | head -1)"
+    git config --get-all "remote.$remote.fetch" | grep -qF 'refs/heads/*' \
+      || run git remote set-branches --add "$remote" '*'
     if [ "$(git rev-parse --is-shallow-repository)" = true ]; then
-      run git fetch --unshallow
+      run git fetch --unshallow "$remote"
     else
-      run git fetch
+      run git fetch "$remote"
+    fi
+    if [ -n "$(git config "remote.$remote.partialclonefilter" 2>/dev/null || true)" ]; then
+      run git config --unset "remote.$remote.partialclonefilter"
+      run git fetch --refetch "$remote"
     fi
   fi
   [ -f .gitmodules ] && run git submodule update --init --recursive
