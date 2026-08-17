@@ -75,8 +75,16 @@ if [ -n "$repo_root" ]; then
   echo "== repo ($repo_root) =="
   cd "$repo_root"
 
-  # remote の object を先に取得しておく (remote 未設定の repo では何もしない)
-  [ -n "$(git remote)" ] && run git fetch
+  # remote の object を先に取得しておく (remote 未設定の repo では何もしない)。
+  # shallow clone は全履歴を取って解消する (--unshallow は完全な repo だと fatal)
+  if [ -n "$(git remote)" ]; then
+    if [ "$(git rev-parse --is-shallow-repository)" = true ]; then
+      run git fetch --unshallow
+    else
+      run git fetch
+    fi
+  fi
+  [ -f .gitmodules ] && run git submodule update --init --recursive
 
   # JS: package.json の packageManager フィールド (corepack 標準) が最優先、
   # なければ lockfile の種類で判定。lockfile が複数あるときは判定不能。
