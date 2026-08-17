@@ -11,6 +11,8 @@
 #   - nvim : lazy.nvim の plugin、mason のサーバー/ツール、treesitter の parser
 #   - tldr : ページキャッシュ
 #   - zsh  : compinit の zcompdump と evalcache (direnv / fzf / starship)
+#   - repo : git リポジトリ内で実行した場合のみ、そのリポジトリの依存取得
+#            (JS lockfile / uv.lock / go.mod / Cargo.toml / aqua.yaml)
 #
 # 全て冪等。既に揃っていれば数秒で終わる。
 #
@@ -62,6 +64,53 @@ fi
 if command -v zsh >/dev/null 2>&1; then
   echo "== zsh =="
   run zsh -ic exit
+fi
+
+# --- repo: git リポジトリ内で実行した場合、そのリポジトリの依存も取得 ---
+# どのツールで入れるかは推測せず、リポジトリ側の宣言から決定的に判定できるもの
+# だけ実行する。判定できなければ理由を出してスキップ。マーカーは repo root で見る
+# (monorepo でも lockfile は root に置かれるのが普通)。
+repo_root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [ -n "$repo_root" ]; then
+  echo "== repo ($repo_root) =="
+  cd "$repo_root"
+
+  # JS: package.json の packageManager フィールド (corepack 標準) が最優先、
+  # なければ lockfile の種類で判定。lockfile が複数あるときは判定不能。
+  if [ -f package.json ]; then
+    js_pm="$(jq -r '.packageManager // empty' package.json 2>/dev/null | cut -d@ -f1 || true)"
+    if [ -z "$js_pm" ]; then
+      found=""
+      [ -f pnpm-lock.yaml ] && found="$found pnpm"
+      [ -f yarn.lock ] && found="$found yarn"
+      [ -f package-lock.json ] && found="$found npm"
+      { [ -f bun.lock ] || [ -f bun.lockb ]; } && found="$found bun"
+      set -- $found
+      if [ $# -eq 1 ]; then
+        js_pm="$1"
+      elif [ $# -eq 0 ]; then
+        echo "skip js: lockfile がないので使うツールを判定できない"
+      else
+        echo "skip js: lockfile が複数あるので使うツールを判定できない ($found)"
+      fi
+    fi
+    if [ -n "$js_pm" ]; then
+      if command -v "$js_pm" >/dev/null 2>&1; then
+        case "$js_pm" in
+          npm) run npm ci ;;
+          *) run "$js_pm" install --frozen-lockfile ;;
+        esac
+      else
+        echo "skip js: $js_pm が未導入"
+      fi
+    fi
+  fi
+
+  [ -f uv.lock ] && command -v uv >/dev/null 2>&1 && run uv sync --frozen
+  [ -f go.mod ] && command -v go >/dev/null 2>&1 && run go mod download
+  [ -f Cargo.toml ] && command -v cargo >/dev/null 2>&1 && run cargo fetch
+  # repo local の aqua.yaml (global の分は上の aqua セクションで取得済み)
+  { [ -f aqua.yaml ] || [ -f aqua.yml ]; } && command -v aqua >/dev/null 2>&1 && run aqua install
 fi
 
 if [ "$DRY_RUN" = 1 ]; then
