@@ -501,33 +501,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/go-task/task/v3.52.0/task_darwin_amd64.tar.gz",
-      "checksum": "416348147BC2F1C729417249D932ADD7894FB01A126128778195942C249D7C0B",
+      "id": "github_release/github.com/go-task/task/v3.53.1/task_darwin_amd64.tar.gz",
+      "checksum": "7F1A702D54A789CB818A636039A83DF071F4179893133AFAFA4EBA351A7E19EF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/go-task/task/v3.52.0/task_darwin_arm64.tar.gz",
-      "checksum": "DEBFA9A3BC06FCB5D5550B44725ECD22BB305499CE057BD6D7A774DB5CDAA7B8",
+      "id": "github_release/github.com/go-task/task/v3.53.1/task_darwin_arm64.tar.gz",
+      "checksum": "85D2D96C2380B33D7855B07B3F7A20DC7CA0EDA999A26EFA0FB5F6F32B366CD7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/go-task/task/v3.52.0/task_linux_amd64.tar.gz",
-      "checksum": "02C679FFAE53DCA791804847D78B31731615894E292948397C971C87AC9E95BD",
+      "id": "github_release/github.com/go-task/task/v3.53.1/task_linux_amd64.tar.gz",
+      "checksum": "A54A408F6861FF921F6E87774180DB31BACD8C1E7C944CA696DB9FEA49A82FC7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/go-task/task/v3.52.0/task_linux_arm64.tar.gz",
-      "checksum": "7E0044108830CEC0534577B289564E3B7C83E6DF276FEB631A1EDC63D04E4EBE",
+      "id": "github_release/github.com/go-task/task/v3.53.1/task_linux_arm64.tar.gz",
+      "checksum": "E3AD19101493A0112E1F22AE8CCC54BF03E533B1076A0CA1E6C782A09AD2E588",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/go-task/task/v3.52.0/task_windows_amd64.zip",
-      "checksum": "E3BD4439B445F4F135758A2666EC8B33CCDE789F7F615309C58F116B0E566E79",
+      "id": "github_release/github.com/go-task/task/v3.53.1/task_windows_amd64.zip",
+      "checksum": "27C0CD248C12CBA03D8958D954A3DF981C900BE885EC9CE5F6A3CDC4E9A19316",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/go-task/task/v3.52.0/task_windows_arm64.zip",
-      "checksum": "3F3B5BBF23D10C73F8F11BC4A47D1465F3A61A30FA231FDDF0A87EDC52937237",
+      "id": "github_release/github.com/go-task/task/v3.53.1/task_windows_arm64.zip",
+      "checksum": "4F7C32C0B5A09AABFD860BCF4FF5649F0483339C1F7F90AD5EE55692DA7237B6",
       "algorithm": "sha256"
     },
     {
