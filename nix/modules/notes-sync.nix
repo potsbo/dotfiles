@@ -30,7 +30,7 @@ in
       Unit.Description = "Periodically pull potsbo/notes";
       Timer = {
         OnBootSec = "2m";
-        OnUnitActiveSec = "15m";
+        OnUnitActiveSec = "5m";
       };
       Install.WantedBy = [ "timers.target" ];
     };
@@ -41,7 +41,7 @@ in
       enable = true;
       config = {
         ProgramArguments = [ "${notesPull}" ];
-        StartInterval = 900;
+        StartInterval = 300;
         RunAtLoad = true;
         StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/notes-pull.log";
       };
