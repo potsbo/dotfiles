@@ -35,7 +35,16 @@
   },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,
-    "figma@claude-plugins-official": true
+    "figma@claude-plugins-official": true,
+    "natural-japanese@natural-japanese": true
+  },
+  "extraKnownMarketplaces": {
+    "natural-japanese": {
+      "source": {
+        "source": "github",
+        "repo": "coji/natural-japanese"
+      }
+    }
   },
   "effortLevel": "medium",
   "tui": "fullscreen",
