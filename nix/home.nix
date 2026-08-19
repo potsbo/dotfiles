@@ -15,7 +15,7 @@ let
 in
 {
   home.username = "potsbo";
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/potsbo" else "/home/potsbo";
+  home.homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/potsbo" else "/home/potsbo";
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   programs.starship.enable = true;
@@ -36,7 +36,7 @@ in
   # cargo crate (tokei 等) のビルド時に -liconv が見つからずリンクエラーになる。
   home.sessionVariables = {
     # arrow-odbc が libodbc.so.2 を見つけるために必要
-    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.unixODBC pkgs.freetds ];
+    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.unixodbc pkgs.freetds ];
     # odbcinst.ini の検索先ディレクトリ
     ODBCSYSINI = "${config.home.homeDirectory}/.config/odbc";
     # npm cache を XDG へ。npm は $HOME 直下を決め打ちするため変数で変更する。
@@ -44,7 +44,7 @@ in
     # (npx 製 MCP サーバ等) にも hm-session-vars 経由で継承させ ~/.npm 生成を防ぐ。
     # 他ツール (cargo/rustup 等) は .zshenv 側に集約。npm だけ背景プロセス対策で例外。
     NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.cache/npm";
-  } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+  } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
     LIBRARY_PATH = "${pkgs.libiconv}/lib";
 
     # home-manager の gcc が cc/c++ として PATH 先頭に来る (.zshenv) が、
@@ -61,6 +61,19 @@ in
   # 置き換えたもので、配置は ghq 規約のパスのまま維持している。
   home.file."src/github.com/romkatv/zsh-defer".source = "${pkgs.zsh-defer}/share/zsh-defer";
   home.file."src/github.com/mroth/evalcache".source = "${evalcache}/share/evalcache";
+
+  # 移行前の ghq clone が実体ディレクトリとして残っていると symlink を張れず
+  # activation が止まる (force = true もディレクトリには効かない) ので先に消す。
+  # symlink になっていれば管理済みなので触らない。
+  home.activation.removeStaleZshPluginClones = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+    for dir in \
+      "$HOME/src/github.com/romkatv/zsh-defer" \
+      "$HOME/src/github.com/mroth/evalcache"; do
+      if [ -d "$dir" ] && [ ! -L "$dir" ]; then
+        run rm -rf "$dir"
+      fi
+    done
+  '';
 
   # FreeTDS ODBC ドライバの登録
   home.file.".config/odbc/odbcinst.ini".text = ''
@@ -88,7 +101,7 @@ in
     elan # Lean toolchain manager (rustup 相当)。aqua 未登録
 
     # ODBC (arrow-odbc + FreeTDS で SQL Server から Arrow ネイティブ読み取り)
-    unixODBC
+    unixodbc
     freetds
 
     # 以下 aqua 未提供
@@ -102,9 +115,9 @@ in
     libyaml
     pv
     mosh
-  ] ++ lib.optionals stdenv.isLinux [
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     wl-clipboard
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     coreutils
   ];
 
@@ -112,7 +125,7 @@ in
   # inetd 互換モード: launchd が 127.0.0.1:2226 を listen し、接続ごとに
   # opener-listen を socket 繋ぎで起動する。ssh の RemoteForward
   # (home/.ssh/config) がこのポートへ各 linux ホストの 2226 を繋ぐ。
-  launchd.agents = lib.optionalAttrs pkgs.stdenv.isDarwin {
+  launchd.agents = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
     opener-listen = {
       enable = true;
       config = {

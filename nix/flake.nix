@@ -43,7 +43,7 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           accentColor = hostColors.${hostname} or hostColors.default;
-          homeDir = if pkgs.stdenv.isDarwin then "/Users/potsbo" else "/home/potsbo";
+          homeDir = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/potsbo" else "/home/potsbo";
           dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
         in
         home-manager.lib.homeManagerConfiguration {
