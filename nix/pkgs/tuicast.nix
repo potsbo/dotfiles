@@ -2,13 +2,13 @@
 
 buildGoModule {
   pname = "tuicast";
-  version = "0-unstable-2026-06-27";
+  version = "0-unstable-2026-08-19";
 
   src = fetchFromGitHub {
     owner = "potsbo";
     repo = "tuicast";
-    rev = "0551c8932de61f83014e42a78ecaf184a3e4b378";
-    hash = "sha256-VBYaJOa+mZu2kaXeb1gQaS3t1wF72WTif3SNPB0gbFY=";
+    rev = "0d6c5b20f0265968ad0cc7fc29523a600604589c";
+    hash = "sha256-ePvQ7lPjWmgMD6jjTwpQ/hbWRVhzju/k5NAZU4Yfr2k=";
   };
 
   vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";

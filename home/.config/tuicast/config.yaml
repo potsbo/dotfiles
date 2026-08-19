@@ -142,9 +142,7 @@ views:
           - list: ~/.config/tuicast/list-worktrees.sh --closed
             display: "printf '  '; ~/.config/tuicast/worktree-label.sh {}"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
-    # hold-on-error: herdr CLI が失敗したとき (protocol mismatch 等) に popup を
-    # 即閉じせず、エラーを表示したままキー入力 (何か1キー / ctrl-c) を待つ。
-    run: ~/.config/tuicast/hold-on-error.sh ~/.config/tuicast/worktree-connect.sh $worktree
+    run: ~/.config/tuicast/worktree-connect.sh $worktree
 
   ssh:
     steps:
@@ -153,4 +151,4 @@ views:
           - list: ~/.config/tuicast/list-ssh-hosts.sh
             display: ~/.config/tuicast/ssh-display.sh {}
             preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
-    run: ~/.config/tuicast/hold-on-error.sh ~/.config/tuicast/ssh-connect.sh $host
+    run: ~/.config/tuicast/ssh-connect.sh $host
