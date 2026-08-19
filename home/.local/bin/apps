@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# macOS の GUI アプリ (Homebrew cask / Mac App Store) を宣言どおりに揃える。
+# 宣言は nix/modules/darwin-apps.nix、それを読む構成が `<host>-apps`。
+#
+# ./install からこれを切り離してあるのは brew / mas が遅いため。Word などの
+# 更新が毎回挟まると、nix の設定をサッと反映したいだけのときに待たされる。
+# アプリを足した / 消したときだけ叩けばよい (./install --apps でも同じ)。
+# cache / reap と同じく冪等で、揃っていれば何もしない。
+#
+# 使い方: apps [--dry-run]
+#   --dry-run : 実行せず、何を流すかだけ表示
+
+set -eu
+
+DRY_RUN=0
+[ "${1:-}" = "--dry-run" ] && { DRY_RUN=1; shift; }
+
+run() {
+  echo "+ $*"
+  [ "$DRY_RUN" = 1 ] && return 0
+  "$@"
+}
+
+if [ "$(uname -s)" != "Darwin" ]; then
+  echo "apps: macOS 専用 (Homebrew cask / Mac App Store)" >&2
+  exit 1
+fi
+
+DOTPATH="${HOME}/src/github.com/potsbo/dotfiles"
+HOSTNAME="${HOSTNAME:-$(hostname)}"
+HOSTNAME="${HOSTNAME%.local}"
+
+# 構成が無いホストでは switch できないので先に弾く。attrNames だけを見るので
+# 構成本体は評価されず一瞬で終わる。
+if ! nix eval --extra-experimental-features 'nix-command flakes' \
+  "${DOTPATH}/nix#darwinConfigurations" --apply builtins.attrNames 2>/dev/null |
+  grep -qF "\"${HOSTNAME}-apps\""; then
+  echo "apps: 構成 ${HOSTNAME}-apps が nix/flake.nix に無い" >&2
+  exit 1
+fi
+
+# nix-darwin の homebrew module は brew 本体を自前では入れない
+if ! command -v brew >/dev/null 2>&1; then
+  echo "== homebrew =="
+  # インストーラを取りに行く curl 自体が副作用なので run は使わない
+  echo "+ install homebrew"
+  if [ "$DRY_RUN" != 1 ]; then
+    NONINTERACTIVE=1 /bin/bash -c \
+      "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+fi
+
+echo "== nix-darwin (${HOSTNAME}-apps) =="
+run sudo -H nix --extra-experimental-features 'nix-command flakes' \
+  run "${DOTPATH}/nix" -- switch --flake "${DOTPATH}/nix#${HOSTNAME}-apps" --verbose
+
+if [ "$DRY_RUN" = 1 ]; then
+  echo "dry-run: 上記を実行すると GUI アプリを宣言どおりに揃えます。"
+else
+  echo "done"
+fi

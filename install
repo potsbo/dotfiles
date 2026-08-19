@@ -10,6 +10,46 @@ has() {
   return $(type $1 >/dev/null 2>&1)
 }
 
+usage() {
+  cat <<'USAGE'
+Usage: ./install [--apps] [--cache] [--all]
+
+  既定では速くて高頻度なものだけを流す (nix / home-manager / symlink)。
+  遅くて低頻度なものは opt-in にしてある。
+
+  --apps   GUI アプリ (Homebrew cask / Mac App Store) も揃える (macOS のみ)
+           単体で叩きたいときは `apps` コマンド
+  --cache  遅延インストールされる実体を先に取得する
+           単体で叩きたいときは `cache` コマンド
+  --all    上記を全部
+
+  curl 経由で渡す場合: curl -fsSL <url> | bash -s -- --all
+USAGE
+}
+
+WITH_APPS=0
+WITH_CACHE=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+  --apps) WITH_APPS=1 ;;
+  --cache) WITH_CACHE=1 ;;
+  --all)
+    WITH_APPS=1
+    WITH_CACHE=1
+    ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  *)
+    echo "Unknown option: $1" >&2
+    usage >&2
+    exit 1
+    ;;
+  esac
+  shift
+done
+
 SYSTEM=$(uname -s)
 HOSTNAME="${HOSTNAME:-$(hostname)}"
 HOSTNAME="${HOSTNAME%.local}"
@@ -132,10 +172,25 @@ if has "gh" && GH_TOKEN=$(gh auth token 2>/dev/null); then
 fi
 
 # nix-darwin (macOS only)
-# Homebrew cask / Mac App Store は ./install-apps に切り出してある。
-# ここでは GUI アプリを含まない構成だけを流すので、Word の更新などを
-# 待たされずに nix の設定変更を反映できる。
+# GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので
+# --apps を付けたときだけ、この後で別途揃える。
 if [[ "$USER" == "potsbo" && "$SYSTEM" == "Darwin" ]]; then
   echo "nix-darwin: Using configuration: $CONFIG"
   sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}/nix" -- switch --flake "${DOTPATH}/nix#$CONFIG" --verbose
+fi
+
+# opt-in の重いステージ。どちらも単体コマンドとして存在するものを呼ぶだけ。
+# PATH 経由ではなく実体を叩くのは、リンクが張られる前の新規マシンでも動くため。
+# 順序が コア → apps → cache なのは、cache の aqua install が上で貼った
+# symlink と AQUA_GLOBAL_CONFIG を前提にするため。
+if [[ "$WITH_APPS" == "1" ]]; then
+  if [[ "$SYSTEM" == "Darwin" ]]; then
+    "${DOTPATH}/home/.local/bin/apps"
+  else
+    echo "--apps は macOS 専用なのでスキップします"
+  fi
+fi
+
+if [[ "$WITH_CACHE" == "1" ]]; then
+  "${DOTPATH}/home/.local/bin/cache"
 fi
