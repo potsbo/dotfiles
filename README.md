@@ -10,6 +10,15 @@ Package management strategy is documented in `CLAUDE.md`.
 curl -fsSL https://raw.githubusercontent.com/potsbo/dotfiles/main/install | bash
 ```
 
+### macOS GUI apps
+
+`./install` は Homebrew cask / Mac App Store のアプリを触らない (brew や mas の
+更新で数分待たされるため)。アプリを足した / 消したときだけ以下を実行する。
+
+```bash
+./install-apps
+```
+
 ## Home Manager (PoC)
 
 Home Manager manages packages not available in aqua (e.g., git, mosh).

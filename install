@@ -132,15 +132,10 @@ if has "gh" && GH_TOKEN=$(gh auth token 2>/dev/null); then
 fi
 
 # nix-darwin (macOS only)
-# brew / Mac App Store の install は時間がかかるので、軽くて反映を急ぎたい
-# lib/recipe.rb (mitamae) を上で流し終えてから最後に回す。
+# Homebrew cask / Mac App Store は ./install-apps に切り出してある。
+# ここでは GUI アプリを含まない構成だけを流すので、Word の更新などを
+# 待たされずに nix の設定変更を反映できる。
 if [[ "$USER" == "potsbo" && "$SYSTEM" == "Darwin" ]]; then
-  # Install Homebrew if not present (required for nix-darwin homebrew module)
-  if ! has "brew"; then
-    echo "Installing Homebrew..."
-    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-
   echo "nix-darwin: Using configuration: $CONFIG"
   sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}/nix" -- switch --flake "${DOTPATH}/nix#$CONFIG" --verbose
 fi

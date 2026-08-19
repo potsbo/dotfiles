@@ -67,20 +67,23 @@
         "blizzard" = mkHome { system = "aarch64-darwin"; hostname = "blizzard"; };
       };
 
-      darwinConfigurations = {
-        "darwin" = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [ ./modules/darwin.nix ];
-        };
-        "avalanche" = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [ ./modules/darwin.nix ];
-        };
-        "blizzard" = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [ ./modules/darwin.nix ];
-        };
-      };
+      # `<host>` は Homebrew / Mac App Store を含まない軽い構成 (./install)。
+      # `<host>-apps` は GUI アプリまで含む重い構成 (./install-apps)。
+      darwinConfigurations =
+        let
+          hosts = [ "darwin" "avalanche" "blizzard" ];
+          mkDarwin = { apps }: nix-darwin.lib.darwinSystem {
+            system = "aarch64-darwin";
+            modules = [ ./modules/darwin.nix ]
+              ++ nixpkgs.lib.optional apps ./modules/darwin-apps.nix;
+          };
+        in
+        nixpkgs.lib.listToAttrs (nixpkgs.lib.concatMap
+          (host: [
+            { name = host; value = mkDarwin { apps = false; }; }
+            { name = "${host}-apps"; value = mkDarwin { apps = true; }; }
+          ])
+          hosts);
 
       packages.aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
 

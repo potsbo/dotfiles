@@ -47,56 +47,6 @@
     };
   };
 
-  homebrew = {
-    enable = true;
-    onActivation = {
-      # zap: 宣言から外したアプリを削除する際に設定ファイルも一緒に削除
-      # uninstall: アプリのみ削除、設定は残る
-      cleanup = "zap";
-      # false: `brew update` は手動で実行し、意図したタイミングでのみバージョンを上げる
-      autoUpdate = false;
-      upgrade = true;
-    };
-    brews = [
-      "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
-    ];
-    masApps = {
-      "Amphetamine" = 937984704;
-      "Magnet" = 441258766;
-      "Microsoft Excel" = 462058435;
-      "Microsoft PowerPoint" = 462062816;
-      "Microsoft Word" = 462054704;
-      "Slack" = 803453959;
-      "Todoist" = 585829637;
-      "Windows App" = 1295203466;
-    };
-    casks = [
-      "karabiner-elements"
-      "visual-studio-code"
-      "google-chrome"
-      "google-japanese-ime"
-      "raycast"
-      "keyboard-cleaner"
-      "zoom"
-      "dash"
-      "docker-desktop"
-      "1password"
-      "notion"
-      "notion-calendar"
-      "obsidian"
-      "font-monaspice-nerd-font"
-      "ghostty"
-      # ターミナルの日本語フォールバック (home/.config/ghostty/config)。
-      # 未インストールだと一部の漢字が tofu (斜線付き□) になるため必須。
-      "font-biz-udgothic"
-      "tailscale-app"
-      "chatgpt"
-      "claude"
-      "pgadmin4"
-      "plaud"
-    ];
-  };
-
   # GitHub の公開鍵で SSH できるようにする (NixOS の common.nix と同等)
   services.openssh = {
     enable = true;
