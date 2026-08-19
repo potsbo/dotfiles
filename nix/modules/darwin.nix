@@ -83,6 +83,7 @@
       "1password"
       "notion"
       "notion-calendar"
+      "obsidian"
       "font-monaspice-nerd-font"
       "ghostty"
       # ターミナルの日本語フォールバック (home/.config/ghostty/config)。
