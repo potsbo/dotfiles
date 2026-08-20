@@ -11,6 +11,7 @@
 #   - nvim : lazy.nvim の plugin、mason のサーバー/ツール、treesitter の parser
 #   - tldr : ページキャッシュ
 #   - zsh  : compinit の zcompdump と evalcache (direnv / fzf / starship)
+#   - repos: ghq 管理下の全リポジトリの git fetch
 #   - repo : git リポジトリ内で実行した場合のみ、そのリポジトリの依存取得
 #            (JS lockfile / uv.lock / go.mod / Cargo.toml / aqua.yaml)
 #
@@ -64,6 +65,37 @@ fi
 if command -v zsh >/dev/null 2>&1; then
   echo "== zsh =="
   run zsh -ic exit
+fi
+
+# --- repos: ghq 管理下の全リポジトリの fetch を前倒し ---
+# fetch は作業ツリーに触らず冪等なので全 repo に流して安全。unshallow や依存取得
+# までフルに育てるのはディスクが跳ねるので、その repo の中で実行したとき (下の
+# repo セクション) 限定。消えた remote などで 1 repo が失敗しても続行する。
+if command -v ghq >/dev/null 2>&1; then
+  echo "== repos =="
+  if [ "$DRY_RUN" = 1 ]; then
+    echo "+ ghq list | xargs -P4 git fetch --prune (各 repo)"
+  else
+    GHQ_ROOT="$(ghq root)"
+    export GHQ_ROOT
+    fetch_repo() {
+      local out
+      # linked worktree (.git がファイル) は本体と object store を共有しているので
+      # 本体側の fetch で足りる
+      if [ -f "$GHQ_ROOT/$1/.git" ]; then
+        echo "skip $1 (worktree)"
+        return 0
+      fi
+      if out="$(git -C "$GHQ_ROOT/$1" fetch --prune 2>&1)"; then
+        echo "ok   $1"
+      else
+        echo "fail $1"
+        printf '%s\n' "$out" | sed 's/^/     /'
+      fi
+    }
+    export -f fetch_repo
+    ghq list | xargs -P4 -I{} bash -c 'fetch_repo "$1"' _ {} || true
+  fi
 fi
 
 # --- repo: git リポジトリ内で実行した場合、そのリポジトリの依存も取得 ---
