@@ -186,23 +186,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "E09B0D24B5DA0FA06AECF1561849C13AE41EF055C1CE7077E35E9A46744B16AF",
+      "id": "github_release/github.com/bootandy/dust/v1.2.5/dust-v1.2.5-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "331B328233A70E56F0509FF962B2A6EA606EB2E654CE8A0E9A3BEBE1BD54A2BE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-x86_64-apple-darwin.tar.gz",
-      "checksum": "BF84D3FF7F58E325D3EB5BB7696DF6B22EF1E01FEC80C2D8F7C9D3E611BE66F4",
+      "id": "github_release/github.com/bootandy/dust/v1.2.5/dust-v1.2.5-x86_64-apple-darwin.tar.gz",
+      "checksum": "29566236D7A5E2AFBC3FCF2D365845A4EAF0FC969A4ED9F8B878BC1A4FC7D2B8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-x86_64-pc-windows-msvc.zip",
-      "checksum": "EB08D642F016787BB9FC918A4DC5F34665463657FDDF83A40F2441CBF020FB4C",
+      "id": "github_release/github.com/bootandy/dust/v1.2.5/dust-v1.2.5-x86_64-pc-windows-msvc.zip",
+      "checksum": "B2731D92066D5787A106C0C835B96C6A4BA186D81ABC0EAD0A906F75D5F09AEE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.4/dust-v1.2.4-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "4E313F9F854017E58A2ADA4C0D1774677B8CF53D63AB55A991D5871D5F504452",
+      "id": "github_release/github.com/bootandy/dust/v1.2.5/dust-v1.2.5-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "79813B5743FAB1E04C1D9C34042AAB865DBE09EFB76719E7C7D260568850FABC",
       "algorithm": "sha256"
     },
     {
