@@ -77,6 +77,24 @@ return {
   end,
   },
 
+  -- vault 内のノートは Obsidian が書くので markdownlint の整形規約
+  -- (見出し前後の空行など) には従わない。保存時整形は上の autoformat = false で
+  -- 止まるが、診断 (nvim-lint) は別経路なので vault 内だけ linter を無効化する。
+  -- vault 外の markdown では今まで通り markdownlint が効く。
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters = {
+        ["markdownlint-cli2"] = {
+          condition = function(ctx)
+            return vim.fs.find(".obsidian", { path = ctx.dirname, upward = true, type = "directory" })[1] == nil
+          end,
+        },
+      },
+    },
+  },
+
   -- `obs` スクリプト (~/.local/bin/obs) は nvim を
   --   nvim --cmd 'lua vim.g.obsidian_direct = true' +'Obsidian today'
   -- と起動する。:Obsidian today は非同期にノートを開くため、snacks.dashboard の
