@@ -2,7 +2,7 @@
 
 let
   # renovate: datasource=github-releases depName=Doist/todoist-cli
-  version = "3.2.2";
+  version = "3.2.3";
 in
 buildNpmPackage {
   pname = "todoist-cli";
