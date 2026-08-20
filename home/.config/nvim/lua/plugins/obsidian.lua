@@ -5,6 +5,7 @@
 --   lua/obsidian/autocmds.lua の bufenter_callback 冒頭で
 --   find_workspace() が nil なら early return するため。
 return {
+  {
   "obsidian-nvim/obsidian.nvim",
   version = "*",
   ft = "markdown",
@@ -74,4 +75,20 @@ return {
       },
     }
   end,
+  },
+
+  -- `obs` スクリプト (~/.local/bin/obs) は nvim を
+  --   nvim --cmd 'lua vim.g.obsidian_direct = true' +'Obsidian today'
+  -- と起動する。:Obsidian today は非同期にノートを開くため、snacks.dashboard の
+  -- 「バッファに名前があればダッシュボードを出さない」判定をすり抜けてしまい、
+  -- ノートが開くまでの一瞬だけ splash が見える。起動前にこのフラグを立てて
+  -- ダッシュボードごと無効化する (snacks は enabled=false なら setup を呼ばない)。
+  {
+    "folke/snacks.nvim",
+    opts = function(_, opts)
+      if vim.g.obsidian_direct then
+        opts.dashboard = vim.tbl_deep_extend("force", opts.dashboard or {}, { enabled = false })
+      end
+    end,
+  },
 }

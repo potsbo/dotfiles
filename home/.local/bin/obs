@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Obsidian vault を nvim で開く。引数は :Obsidian のサブコマンドで、既定は today。
+#   obs               今日のデイリーノート (無ければテンプレートから作る)
+#   obs yesterday     昨日のデイリーノート
+#   obs search        vault 全文検索
+#   obs quick_switch  ノート切替
+# サブコマンドの一覧は nvim 内で引数なしの :Obsidian を叩くと出る。
+#
+# vault の場所は nvim 側 (~/.config/nvim/lua/plugins/obsidian.lua) が
+# .obsidian/ の自動検出とフォールバックで解決するので、ここで cd する必要はない。
+# picker の検索範囲もバッファと LSP の root_dir 基準で決まり cwd に依存しない。
+
+set -eu
+
+# --cmd のフラグは snacks.dashboard を無効化するため (詳細は obsidian.lua のコメント)。
+# :Obsidian today が非同期なので、これが無いとノートが開くまで splash が一瞬見える。
+exec nvim --cmd 'lua vim.g.obsidian_direct = true' "+Obsidian ${*:-today}"
