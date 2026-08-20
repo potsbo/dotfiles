@@ -2,7 +2,7 @@
 
 let
   # renovate: datasource=github-releases depName=Doist/todoist-cli
-  version = "3.2.1";
+  version = "3.2.2";
 in
 buildNpmPackage {
   pname = "todoist-cli";
@@ -12,8 +12,8 @@ buildNpmPackage {
     owner = "Doist";
     repo = "todoist-cli";
     rev = "v${version}";
-    hash = "sha256-tVgeKHWakydkflgttV/faLCL9S05HQ6Pc7E79qYVtAY=";
+    hash = "sha256-S8SL0uudACIWEesjW4cwaGJrzQSYc4gHX5Kb8BTRFlI=";
   };
 
-  npmDepsHash = "sha256-R3BZSJ/tKpyObpI8x9oYjgecgF9n5m0aUWSLa1IVGxk=";
+  npmDepsHash = "sha256-Vyf1MFk1KE6s3Jw0mUQ527kSe84ch9w+5GdB5jRVgTM=";
 }
