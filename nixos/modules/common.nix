@@ -474,6 +474,10 @@ in
   };
 
   # rclone mount (FUSE) support
+  # 26.11 で programs.fuse が opt-in 化した。今は GNOME 由来の gvfs / xdg-portal が
+  # 暗黙に有効化しているだけなので、GNOME を外すと setuid fusermount3 ごと消えて
+  # rclone mount が黙って失敗する。依存を明示しておく。
+  programs.fuse.enable = true;
   programs.fuse.userAllowOther = true;
 
   # Keep user services running after logout (for rclone mount)
