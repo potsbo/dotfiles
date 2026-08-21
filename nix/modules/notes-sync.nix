@@ -18,7 +18,7 @@ let
   '';
 in
 {
-  systemd.user = lib.optionalAttrs pkgs.stdenv.isLinux {
+  systemd.user = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
     services.notes-pull = {
       Unit.Description = "Pull potsbo/notes if on main";
       Service = {
@@ -36,7 +36,7 @@ in
     };
   };
 
-  launchd.agents = lib.optionalAttrs pkgs.stdenv.isDarwin {
+  launchd.agents = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
     notes-pull = {
       enable = true;
       config = {
