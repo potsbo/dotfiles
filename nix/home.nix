@@ -115,6 +115,7 @@ in
     libyaml
     pv
     mosh
+    groff # aws help が man 整形に要求する
   ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
