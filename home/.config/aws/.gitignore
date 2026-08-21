@@ -1,4 +1,4 @@
-# credentials (機微) と sso/cli キャッシュは無視。region 等の config だけ追跡する。
+# credentials も config も追跡しない。config には account ID / role ARN が
+# 載るため、public なこの repo には置けない。各マシンでローカルに持つ。
 *
 !.gitignore
-!config
