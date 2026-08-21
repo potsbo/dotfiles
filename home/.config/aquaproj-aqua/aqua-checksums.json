@@ -411,6 +411,36 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "B974B76E3D8DF90311440A2250C83561AA0A863F129925285F2789D932B4CBAA",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-linux-amd64.tar.gz",
+      "checksum": "ADC8A9EB64ECCEF267E50BB1E6F9A767BB608DA5EE4A3B652EF36A10D9105D4D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "4A9B6847EC600EE1ADB222EC5E1DF60BF0E43768F9A21FBF20B14EAEF9FECB0B",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-macos-amd64.tar.gz",
+      "checksum": "C114D6C2FE8D0D2DE0A896E5BB397004785599B3DF4ED368EA16C125E3C6DB79",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-windows-aarch64.zip",
+      "checksum": "C0594F59C4A2239C22317A859598B66FC732A4AAB794BEC896CD73EC5DC540D1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-windows-amd64.zip",
+      "checksum": "19AEB34E4BB5B19F09236AFBB6FB617241828CD94D967E7108C5EB3471CD26D8",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/fujiapple852/trippy/0.13.0/trippy-0.13.0-aarch64-apple-darwin.tar.gz",
       "checksum": "5BB2C22822A8D301BD462DC35BEC865B9EAE1737E9180406B6EACDD46D44ADF2",
       "algorithm": "sha256"
