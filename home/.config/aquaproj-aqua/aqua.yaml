@@ -45,7 +45,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: sxyazi/yazi@v26.8.15
   - name: github/copilot-cli@v1.0.80
-  - name: anthropics/claude-code@v2.1.240
+  - name: anthropics/claude-code@v2.1.241
   - name: ogulcancelik/herdr@v0.8.2
   - name: aristocratos/btop@v1.4.7
   - name: itamae-kitchen/mitamae@v2.0.3
