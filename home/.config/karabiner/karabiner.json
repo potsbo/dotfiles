@@ -3331,7 +3331,7 @@
                         ]
                     },
                     {
-                        "description": "Left Shift only to Alt+Shift+Command+space to invoke OmniFocus",
+                        "description": "Left Shift only to open Obsidian today's note",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -3354,8 +3354,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["option", "shift", "command"]
+                                        "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'"
                                     }
                                 ],
                                 "type": "basic"
@@ -7415,7 +7414,7 @@
                         ]
                     },
                     {
-                        "description": "Left Shift only to Alt+Shift+Command+space to invoke OmniFocus",
+                        "description": "Left Shift only to open Obsidian today's note",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -7438,8 +7437,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["option", "shift", "command"]
+                                        "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'"
                                     }
                                 ],
                                 "type": "basic"
