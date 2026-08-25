@@ -10,6 +10,13 @@
 #   - origin のデフォルトブランチに merge 済みのもの (branch -d)
 #   - upstream が消えたもの = PR が merge/close されて remote branch も削除済み (branch -D)
 #
+# root 所有ファイルが混じった worktree は消しきれず残骸になる。発生源は e2e が
+# docker 内の root で書く成果物 (one の apps/on_prem_front/{test-results,playwright-report})。
+# Claude Code の起動時 sweep も同じ理由で失敗するので蓄積する (実例: 80個 42G)。
+# 根治は呼び出し側のコンテナを非 root 化すること。それまでは sudo rm -rf が要る。
+# worktree が使用中かは lock 理由の PID の生死で判る:
+#   git worktree list --porcelain の `locked ... (pid N)` を kill -0 N
+#
 # 使い方: git vacuum [--dry-run] [repo...]
 #   repo 省略時は ~/src/github.com/*/* から primary worktree を自動検出
 

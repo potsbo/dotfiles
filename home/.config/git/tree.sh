@@ -5,6 +5,10 @@
 # With `-- <prompt>`, also start claude there with that prompt. Branch words
 # and prompt are separated so the prompt can be free-form (Japanese, long
 # sentences) without leaking into the branch/space name.
+#
+# Auto-generating the branch name from the prompt (e.g. `claude -p --model haiku`)
+# was considered and rejected: branch naming stays the user's call. It would also
+# risk billing the API instead of the subscription when ANTHROPIC_API_KEY is set.
 set -euo pipefail
 
 branch_words=()
