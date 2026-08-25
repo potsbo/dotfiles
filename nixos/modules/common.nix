@@ -298,6 +298,13 @@ in
     pgadmin4-desktopmode
   ]);
 
+  # 認証鍵は毎回 GitHub から引く。静的な authorized_keys は意図的に置いていない。
+  # GitHub 側で鍵を消したら即座に全ホストから締め出したいので、失効の反映速度を
+  # 可用性より優先する。静的鍵はまさに「消しても残る鍵」なので目的に反する。
+  #
+  # 代償として、名前解決か外向き通信が死ぬと sshd が正常でもログインできない。
+  # モニタ未接続のヘッドレス機 (phoenix) ではこれが現地作業を意味するため、
+  # 再起動を伴う変更では bootCounting 等で別途保険をかけること。
   environment.etc."ssh/gh-authorized-keys".text = ''
     #!/bin/sh
     exec ${pkgs.curl}/bin/curl -fsSL "https://github.com/$1.keys"
