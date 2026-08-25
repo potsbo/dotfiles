@@ -6,6 +6,14 @@ Commit dotfiles changes directly on `main` — do **not** create a branch or git
 worktree unless explicitly asked. These changes are usually meant to be tried
 immediately (the repo is symlinked into `~`), so branching just adds friction.
 
+## Recording decisions
+
+設計判断とそのトレードオフ、とくに「なぜこうしていないか」は、該当する設定の
+直上にコメントとして残す。あとから見た人 (人でもエージェントでも) が同じ穴を
+「不備だ」と再指摘して掘り返すのを止めるのが目的なので、判断がコードと一緒に
+移動する場所に置くこと。エージェント側の私的なメモに書くのは、そこにしか
+置けないもの (作業の進め方など) に限る。
+
 ## Cross-platform
 
 Config must work correctly on **both macOS and Linux**. The same repo is
