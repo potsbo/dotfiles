@@ -24,22 +24,49 @@
 # (no pane) gets blank padding. 色は herdr の vesper テーマの palette 値
 # (truecolor)。theme を変えたらここも合わせる。
 #
-# Usage: list-worktrees.sh ... | worktree-label.sh --dot (blocked|working|idle|unknown|none)
+# "--dot open" colors each row by its pane's aggregate status, fetched once
+# via list-worktrees.sh --open-status (its own herdr RPC — the list command's
+# output can't carry the status because tuicast's raw value must stay a bare
+# path). Any other value paints the whole column with that one dot.
+#
+# Usage: list-worktrees.sh ... | worktree-label.sh --dot (open|blocked|working|idle|unknown|none)
 set -u
 
-case "${2:-none}" in
-  blocked) dot=$'\033[38;2;255;128;128m\342\227\217\033[39m ' ;;
-  working) dot=$'\033[38;2;255;199;153m\342\227\217\033[39m ' ;;
-  idle)    dot=$'\033[38;2;153;255;228m\342\227\213\033[39m ' ;;
-  unknown) dot=$'\033[38;2;92;92;92m\302\267\033[39m ' ;;
-  *)       dot='  ' ;;
-esac
+declare -A DOT=(
+  [blocked]=$'\033[38;2;255;128;128m\342\227\217\033[39m '
+  [working]=$'\033[38;2;255;199;153m\342\227\217\033[39m '
+  [idle]=$'\033[38;2;153;255;228m\342\227\213\033[39m '
+  [unknown]=$'\033[38;2;92;92;92m\302\267\033[39m '
+  [none]='  '
+)
+
+mode="${2:-none}"
+# The status fetch (herdr RPC, ~50ms) starts here but is drained after the
+# ghq-root lookup below, so the two run concurrently.
+if [ "$mode" = open ]; then
+  exec {status_fd}< <(~/.config/tuicast/list-worktrees.sh --open-status)
+else
+  dot=${DOT[$mode]:-${DOT[none]}}
+fi
 
 ghq_root="${GHQ_ROOT:-$(ghq root)}"
 ICON_GITHUB=$(printf '\356\252\204')
 ICON_GITLAB=$(printf '\356\237\253')
 
+declare -A pane_status=()
+if [ "$mode" = open ]; then
+  while IFS=$'\t' read -r st p; do
+    pane_status[$p]=$st
+  done <&"$status_fd"
+  exec {status_fd}<&-
+fi
+
 while IFS= read -r path; do
+  if [ "$mode" = open ]; then
+    st=${pane_status[$path]:-unknown}
+    dot=${DOT[$st]:-${DOT[unknown]}}
+  fi
+
   rel="${path#"$ghq_root"/}"
   host="${rel%%/*}"
   rest="${rel#*/}"

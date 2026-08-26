@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 # Worktree lists for the tuicast worktree view.
 #
-#   --open [blocked|working|idle|unknown]
-#            worktrees that already have a herdr pane rooted at them; with a
-#            status class, only those whose most urgent agent is in it
-#   --closed every other worktree across all ghq repos
+#   --open        worktrees that already have a herdr pane rooted at them,
+#                 most urgent first (blocked > working > idle > unknown)
+#   --open-status the same rows as "<status>\t<path>", for the display filter
+#   --closed      every other worktree across all ghq repos
 #
-# The view stacks these as separate sources (open first, most urgent status on
-# top, each with the herdr sidebar's status-dot in its display), so switching
-# back to something that needs attention is a top-of-list pick. With no herdr
-# server up, --open is empty and --closed lists everything.
+# --open used to be four per-status sources so each could carry its own dot in
+# the display; that cost one herdr RPC (~50ms) per source. Now the ordering
+# lives in this sort and the display filter recovers per-row status via
+# --open-status — one extra RPC total instead of three, while tuicast's raw
+# value stays a bare path (run/preview must not have to strip a status
+# prefix). With no herdr server up, --open is empty and --closed lists
+# everything.
 #
 # A worktree can host several agents; like herdr's sidebar aggregate it is
 # classed by the most urgent one: blocked > working > idle > unknown.
@@ -27,18 +30,23 @@ open_panes() {  # "<cwd>\t<agent_status>" per pane
     | jq -r '.result.panes[] | [.cwd, (.agent_status // "unknown")] | @tsv' 2>/dev/null
 }
 
-open_cwds() {   # deduped, optionally filtered to one aggregate status class
-  open_panes | awk -F'\t' -v want="${1:-}" '
+open_status() { # "<status>\t<cwd>" per checkout root, most urgent first
+  open_panes | awk -F'\t' '
     function rank(s) { return s == "blocked" ? 3 : s == "working" ? 2 : s == "idle" ? 1 : 0 }
+    function name(r) { return r == 3 ? "blocked" : r == 2 ? "working" : r == 1 ? "idle" : "unknown" }
     {
       if (!($1 in best)) { order[++n] = $1; best[$1] = rank($2) }
       else if (rank($2) > best[$1]) best[$1] = rank($2)
     }
     END {
-      w = rank(want)
-      for (i = 1; i <= n; i++)
-        if (want == "" || best[order[i]] == w) print order[i]
-    }'
+      for (r = 3; r >= 0; r--)
+        for (i = 1; i <= n; i++)
+          if (best[order[i]] == r) print name(r) "\t" order[i]
+    }' | while IFS=$'\t' read -r st d; do
+      # pane の cwd のうち checkout root (.git を持つ) だけ。ssh 用 workspace の
+      # ~ などを弾くための判定で、worktree 全列挙より圧倒的に安い。
+      [ -e "$d/.git" ] && printf '%s\t%s\n' "$st" "$d"
+    done
 }
 
 all_worktrees() {
@@ -52,15 +60,13 @@ all_worktrees() {
 
 case "${1:-}" in
   --open)
-    # pane の cwd のうち checkout root (.git を持つ) だけ。ssh 用 workspace の
-    # ~ などを弾くための判定で、worktree 全列挙より圧倒的に安い。
-    open_cwds "${2:-}" | while IFS= read -r d; do
-      [ -e "$d/.git" ] || continue
-      printf '%s\n' "$d"
-    done
+    open_status | cut -f2-
+    ;;
+  --open-status)
+    open_status
     ;;
   --closed)
-    all_worktrees | grep -vxF -f <(open_cwds) || true
+    all_worktrees | grep -vxF -f <(open_status | cut -f2-) || true
     ;;
   *)
     all_worktrees

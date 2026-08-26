@@ -121,25 +121,18 @@ views:
             display: "printf '\\033[38;2;180;180;180m\\357\\204\\240\\033[39m %s\\n' {}"
     run: zsh
 
-  # 開いている space がある worktree を先に、残りをその後に出す。
-  # display はドット (herdr の状態色)・ラベル・branch とも worktree-label.sh に
-  # まとめてある。pipe 形式 ("|") なのは行数が多く per-item だと spawn コストが
+  # 開いている space がある worktree、緊急なもの (blocked) が先頭。並び順は
+  # list 側、行ごとのドット (herdr の状態色)・ラベル・branch は display filter
+  # (worktree-label.sh) の担当。かつては状態ごとに 4 source に分けて static な
+  # ドットを塗っていたが、source ごとに herdr RPC (~50ms) を払うのをやめて
+  # 1 source に統合した。pipe 形式 ("|") なのは per-item だと spawn コストが
   # 支配的になるため (詳細はスクリプト冒頭)。
   worktree:
     steps:
       - name: worktree
         sources:
-          - list: ~/.config/tuicast/list-worktrees.sh --open blocked
-            display: "|~/.config/tuicast/worktree-label.sh --dot blocked"
-            preview: git -C {} log --oneline --decorate -15 2>/dev/null
-          - list: ~/.config/tuicast/list-worktrees.sh --open working
-            display: "|~/.config/tuicast/worktree-label.sh --dot working"
-            preview: git -C {} log --oneline --decorate -15 2>/dev/null
-          - list: ~/.config/tuicast/list-worktrees.sh --open idle
-            display: "|~/.config/tuicast/worktree-label.sh --dot idle"
-            preview: git -C {} log --oneline --decorate -15 2>/dev/null
-          - list: ~/.config/tuicast/list-worktrees.sh --open unknown
-            display: "|~/.config/tuicast/worktree-label.sh --dot unknown"
+          - list: ~/.config/tuicast/list-worktrees.sh --open
+            display: "|~/.config/tuicast/worktree-label.sh --dot open"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
     run: ~/.config/tuicast/worktree-connect.sh $worktree
 
