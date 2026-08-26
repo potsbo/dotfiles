@@ -47,7 +47,14 @@ human() {
 purge() {
   [ -d "$1" ] || return 0
   echo "+ rm -rf $1 ($(du -sh "$1" 2>/dev/null | cut -f1))"
-  [ "$DRY_RUN" = 1 ] || rm -rf -- "$1"
+  [ "$DRY_RUN" = 1 ] && return 0
+  # 対象を使っているアプリが起動していると、消している端から作り直されて rm が
+  # "Directory not empty" で失敗する。大半は消えているのに、ここで止まると後続の
+  # git vacuum と集計まで飛ぶので、失敗は握って残量だけ報告する。アプリを閉じさせて
+  # まで消し切る価値はない (次に起動すればどのみち作り直される)。
+  rm -rf -- "$1" 2>/dev/null || true
+  [ -d "$1" ] && echo "  一部残った: $(du -sh "$1" 2>/dev/null | cut -f1) (起動中のアプリが再作成した分)"
+  return 0
 }
 
 before=$(avail)
