@@ -16,6 +16,9 @@ views:
       - btop
       - worktree
       - ssh
+      # closed が最後なのは列挙が重い (全 ghq repo を舐めて ~1s) から。union は
+      # 設定順に直列実行されるので、これより前に置くと ssh がその分待たされる。
+      - worktree-closed
 
   # herdr の外にいるときだけ出る「herdr に入る」エントリ。
   # attach は herdr-attach 経由 (ssh detach-and-reconnect ループ付き)。
@@ -118,29 +121,35 @@ views:
     run: zsh
 
   # 開いている space がある worktree を先に、残りをその後に出す。
-  # 先頭のドットは herdr sidebar の state_dot と同じ:
-  #   blocked=赤● > working=peach● > idle=mint○ > 状態不明=灰· (space 内で最も緊急な agent)。
-  #   色は herdr の vesper テーマの palette 値 (truecolor)。theme を変えたらここも合わせる。
-  # 行末の灰色  はその checkout の branch。fzf は表示文字列しか検索対象にしないので、
-  # branch 名で引きたければ表示に出ている必要がある (worktree-label.sh)。
+  # display はドット (herdr の状態色)・ラベル・branch とも worktree-label.sh に
+  # まとめてある。pipe 形式 ("|") なのは行数が多く per-item だと spawn コストが
+  # 支配的になるため (詳細はスクリプト冒頭)。
   worktree:
     steps:
       - name: worktree
         sources:
           - list: ~/.config/tuicast/list-worktrees.sh --open blocked
-            display: "printf '\\033[38;2;255;128;128m\\342\\227\\217\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
+            display: "|~/.config/tuicast/worktree-label.sh --dot blocked"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --open working
-            display: "printf '\\033[38;2;255;199;153m\\342\\227\\217\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
+            display: "|~/.config/tuicast/worktree-label.sh --dot working"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --open idle
-            display: "printf '\\033[38;2;153;255;228m\\342\\227\\213\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
+            display: "|~/.config/tuicast/worktree-label.sh --dot idle"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
           - list: ~/.config/tuicast/list-worktrees.sh --open unknown
-            display: "printf '\\033[38;2;92;92;92m\\302\\267\\033[39m '; ~/.config/tuicast/worktree-label.sh {}"
+            display: "|~/.config/tuicast/worktree-label.sh --dot unknown"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
+    run: ~/.config/tuicast/worktree-connect.sh $worktree
+
+  # 開いていない worktree。worktree view と別なのは union での表示優先度の
+  # ため (union の comment 参照)。
+  worktree-closed:
+    steps:
+      - name: worktree
+        sources:
           - list: ~/.config/tuicast/list-worktrees.sh --closed
-            display: "printf '  '; ~/.config/tuicast/worktree-label.sh {}"
+            display: "|~/.config/tuicast/worktree-label.sh --dot none"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
     run: ~/.config/tuicast/worktree-connect.sh $worktree
 
