@@ -14,10 +14,11 @@ views:
       - nvim
       - glow
       - btop
-      - worktree
+      # union は設定順に直列実行されるので、重い source ほど後ろに置く。
+      # ssh は即時 (~0.1s)、open worktree は herdr 呼び出しで ~0.3s、closed の
+      # 列挙は全 ghq repo を舐めて ~1s。
       - ssh
-      # closed が最後なのは列挙が重い (全 ghq repo を舐めて ~1s) から。union は
-      # 設定順に直列実行されるので、これより前に置くと ssh がその分待たされる。
+      - worktree
       - worktree-closed
 
   # herdr の外にいるときだけ出る「herdr に入る」エントリ。
