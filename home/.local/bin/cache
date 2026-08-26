@@ -47,7 +47,22 @@ fi
 if command -v nvim >/dev/null 2>&1; then
   echo "== nvim =="
   nvim_cache="${XDG_CONFIG_HOME:-$HOME/.config}/nvim/scripts/cache.lua"
+  # Lazy install は終了時に lockfile を無条件で今の rev で書き戻す
+  # (lazy.nvim/lua/lazy/manage/init.lua の lock.update)。導入済み plugin が
+  # lockfile より先の rev にいると install だけで lockfile が進んでしまうので、
+  # install 前の内容に戻してから restore する。spec に増えた plugin の entry は
+  # restore 側の lock.update が書き足すので消えない。
+  lockfile="${XDG_CONFIG_HOME:-$HOME/.config}/nvim/lazy-lock.json"
+  lock_saved=""
+  if [ -f "$lockfile" ] && [ "$DRY_RUN" = 0 ]; then
+    lock_saved="$(mktemp)"
+    cp "$lockfile" "$lock_saved"
+  fi
   run nvim --headless "+Lazy! install" +qa
+  if [ -n "$lock_saved" ]; then
+    cp "$lock_saved" "$lockfile"
+    rm -f "$lock_saved"
+  fi
   run nvim --headless "+Lazy! restore" +qa
   if [ -f "$nvim_cache" ]; then
     run nvim --headless -c "luafile $nvim_cache"
