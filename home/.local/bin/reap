@@ -6,7 +6,8 @@
 #   - nix  : user profile の旧世代 + 到達不能な store パス (nix-collect-garbage -d)
 #   - nix  : system profile の旧世代 (sudo nix-collect-garbage -d) ← store の大半はここが保持
 #   - mac  : brew のダウンロードキャッシュと旧バージョン (brew cleanup --prune=all)
-#   - mac  : Electron 自動更新のダウンロード残骸、Chrome のキャッシュ
+#   - mac  : Electron 自動更新のダウンロード残骸、Chrome / Slack のキャッシュ
+#   - mac  : Podcasts のダウンロード済みエピソード
 #   - git  : マージ済みの古い worktree / branch (git vacuum) ← 安全網で処理中データは残す
 #
 # git vacuum は dirty・未 push・30日以内の worktree をスキップするので、処理対象データが
@@ -45,7 +46,7 @@ human() {
 # 消えても再取得されるディレクトリを丸ごと落とす。サイズを出すのは、dry-run で
 # 「どれが効くのか」を見て取捨選択できるようにするため。
 purge() {
-  [ -d "$1" ] || return 0
+  [ -e "$1" ] || return 0
   echo "+ rm -rf $1 ($(du -sh "$1" 2>/dev/null | cut -f1))"
   [ "$DRY_RUN" = 1 ] && return 0
   # 対象を使っているアプリが起動していると、消している端から作り直されて rm が
@@ -53,7 +54,7 @@ purge() {
   # git vacuum と集計まで飛ぶので、失敗は握って残量だけ報告する。アプリを閉じさせて
   # まで消し切る価値はない (次に起動すればどのみち作り直される)。
   rm -rf -- "$1" 2>/dev/null || true
-  [ -d "$1" ] && echo "  一部残った: $(du -sh "$1" 2>/dev/null | cut -f1) (起動中のアプリが再作成した分)"
+  [ -e "$1" ] && echo "  一部残った: $(du -sh "$1" 2>/dev/null | cut -f1) (起動中のアプリが再作成した分)"
   return 0
 }
 
@@ -106,6 +107,18 @@ if [ "$(uname -s)" = Darwin ]; then
   # Chrome のキャッシュ。プロファイル本体は ~/Library/Application Support 配下なので
   # ここを消してもログイン状態やブックマークは残る (しばらく閲覧が遅くなるだけ)。
   purge "$caches/Google"
+
+  # Slack (Electron) の HTTP キャッシュと Service Worker。ワークスペースの状態は
+  # 同じ Slack ディレクトリ直下の DB が持っているので、ログイン状態や未読は残る。
+  slack="$HOME/Library/Containers/com.tinyspeck.slackmacgap/Data/Library/Application Support/Slack"
+  for d in "Cache" "Service Worker" "Code Cache" "GPUCache"; do purge "$slack/$d"; done
+
+  # Podcasts のダウンロード済みエピソード。購読とプレイリストは Documents 配下の
+  # DB が持ち、エピソードの実体だけが Library/Cache に置かれるので、実体を消しても
+  # 購読は壊れない (再ダウンロードになるだけ)。ディレクトリごとではなく拡張子で
+  # 狙うのは、同じ Cache に artwork (Assets) が同居しているため。
+  pod="$HOME/Library/Group Containers/243LU875E5.groups.com.apple.podcasts/Library/Cache"
+  for f in "$pod"/*.mp3 "$pod"/*.m4a; do purge "$f"; done
 fi
 
 # --- git: マージ済みの古い worktree / branch を掃除 (安全網は git vacuum 側が持つ) ---
