@@ -80,5 +80,5 @@ packages:
   - name: openai/codex@rust-v0.149.1
   - name: yusukebe/ax@v0.1.25
     registry: local
-  - name: modem-dev/hunk@v0.19.0
+  - name: modem-dev/hunk@v0.20.0
   - name: fastfetch-cli/fastfetch@2.67.1
