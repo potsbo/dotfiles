@@ -74,8 +74,63 @@
       # ovmf の指定は要らない (nixpkgs で submodule ごと削除された)。
     };
   };
+
+  # libvirt の NSS モジュール。ゲストを名前で解決できるようにする (fileSystems が依存)。
+  #
+  # mkBefore で systemd-resolved (`resolve [!UNAVAIL=return]`) より前に置く。既定の
+  # 順序では resolved が「見つからない」と答えた時点で探索が打ち切られ、後ろに
+  # 並べても永久に引かれない。
+  #
+  # 引くのは libvirt の domain 名 (win11) であって、ゲストの hostname ではない。
+  # ゲスト側の名前は Tailscale の MagicDNS が先に応答するので、それを使うと SMB が
+  # tailnet 経由になる。ホストとゲストは NAT (virbr0) で直結しているのだから、
+  # そこを通す必然性がない。
+  system.nssModules = [ pkgs.libvirt ];
+  system.nssDatabases.hosts = lib.mkBefore [ "libvirt" "libvirt_guest" ];
+
   programs.virt-manager.enable = true;
   users.users.potsbo.extraGroups = [ "libvirtd" ];
+
+  # Google の共有ドライブを Linux から読むための経路。共有ドライブは Drive for
+  # Desktop がストリーミング固定で扱う (ミラーできるのはマイドライブだけ) ので、
+  # ローカル実体を持てない。ゲストの G: を SMB で出し、ここから読み抜く。
+  #
+  # ホスト側にコピーを持つ案 (robocopy + スナップショット) は却下した。あれは
+  # 「同期が完了するまで待つ」というゲートを作る。実際の運用は「アップロード完了の
+  # 連絡を受けたらすぐ処理を始める」なので、待たされるのは処理の前ではなく処理中で
+  # ないと困る。読み抜きなら転送は処理に混ざり、古いコピーを掴む余地も無い。
+  #
+  # 相手は IP ではなく libvirt の domain 名で引く。IP を書くと、それを固定している
+  # DHCP 予約 (libvirt 側の状態でリポジトリには入らない) が失われた瞬間に、
+  # 気づけない形でマウントが壊れる。domain 名はこちらが付けた名前なので、
+  # ゲストの hostname が変わっても影響を受けない。
+  #
+  # 資格情報はリポジトリに置けないので、root だけが読める /etc/smb-credentials/gdrive
+  # (username= と password= の 2 行) を参照する。ホスト再インストール時は手で作る。
+  # マウント先は /srv/<VM 名>/<ドライブレター>。橋渡しの VM が増えても同じ形で並ぶ。
+  # 共有名にドライブレターだけを使う。Drive for Desktop は Google
+  # アカウントごとに別のドライブレターを割り当てるので、アカウントが増えたら
+  # 同じ形で 1 つ足せばよい。実名 (共有ドライブ名や施設名) を使わないのは、
+  # ここが公開リポジトリで、その情報を載せる必然性がないから。どのアカウントが
+  # どのレターかは実機を見れば分かる。
+  fileSystems."/srv/raptorlake-win/h" = {
+    device = "//win11/h";
+    fsType = "cifs";
+    options = [
+      "credentials=/etc/smb-credentials/gdrive"
+      # 書き戻す用途はない。読み取り専用にしておけば、バッチの事故が
+      # 共有ドライブに波及しない。
+      "ro"
+      "uid=1000" "gid=100" "iocharset=utf8" "vers=3.1.1"
+      # Drive for Desktop の仮想 FS は一意な inode 番号を返さないので、
+      # serverino のままだと readdir が EINVAL で落ちる (ls が Invalid argument)。
+      "noserverino"
+      # VM が落ちていてもホストの boot を止めない。最初にアクセスした時点で
+      # mount し、使わなくなれば外れる。
+      "nofail" "x-systemd.automount" "x-systemd.idle-timeout=600"
+      "x-systemd.mount-timeout=30s" "_netdev"
+    ];
+  };
 
   # docker の storage-driver は指定していない。btrfs 上では btrfs graph driver が
   # 選ばれることを警戒していたが、common.nix の containerd-snapshotter によって
