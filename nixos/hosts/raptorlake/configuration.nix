@@ -21,6 +21,25 @@
     nvidiaSettings = true;
   };
 
+  # ローカル LLM。llama.cpp を直に叩くより数% 遅いが、モデルの取得・切り替え・
+  # アイドル時のアンロードまで標準 module が面倒を見る。
+  #
+  # package を明示するのは、既定の `ollama` が nixpkgs.config.cudaSupport を見て
+  # 中身を決めるため。そのフラグはシステム全体に効き、CUDA 込みの再ビルドを
+  # 引き起こす。CUDA が要るのはここだけなので、パッケージ側で差す。
+  #
+  # 127.0.0.1 のまま tailnet には出していない。ollama の API には認証がなく、
+  # 出した瞬間に tailnet の全ノードからモデルの実行と削除ができる。
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    # VRAM 12GB に対する上下の当たりを取るための 2本。Q4_K_M で 14B (~9GB) が
+    # 全層 GPU に載る上限で、8B (~5GB) は長いコンテキストでも KV cache が
+    # 溢れない基準値。ここを超えると CPU オフロードが混ざり、測っているものが
+    # GPU の性能ではなくなる。
+    loadModels = [ "qwen3:8b" "qwen3:14b" ];
+  };
+
   # swap はディスクに置かず zram のみ。btrfs 上の swapfile は専用の nodatacow
   # subvolume が要るうえ、プールから容量を固定的に取る。メモリ不足の実害が出たら
   # disk-config.nix に swap subvolume を足す (disko が mkswapfile で作る)。
