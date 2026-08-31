@@ -8,7 +8,7 @@
 VM の定義そのものを nix で宣言していないのは、Windows のインストールが
 本質的に対話的で、できあがった domain XML (ゲスト側で入れたドライバや
 ライセンス認証と対になる状態) をリポジトリで再生成しても意味がないため。
-domain の定義は libvirt が `/var/lib/libvirt/qemu/win11.xml` に持つ。
+domain の定義は libvirt が `/var/lib/libvirt/qemu/raptorlake-win.xml` に持つ。
 
 **domain を作り直さないこと。** Windows のデジタルライセンスは VM の
 「ハードウェア構成」(domain UUID, machine type, CPU モデル) に紐づく。
@@ -45,7 +45,7 @@ ISO を `/var/lib/vm` に置くのは、ここが nodatacow の subvolume で、
 ```sh
 sudo virt-install \
   --connect qemu:///system \
-  --name win11 \
+  --name raptorlake-win \
   --osinfo win11 \
   --vcpus 4 \
   --memory 8192 \
@@ -53,7 +53,7 @@ sudo virt-install \
   --machine q35 \
   --boot firmware=efi,firmware.feature0.name=secure-boot,firmware.feature0.enabled=yes,loader.secure=yes \
   --tpm model=tpm-crb,backend.type=emulator,backend.version=2.0 \
-  --disk path=/var/lib/vm/win11.qcow2,size=1024,format=qcow2,bus=virtio,cache=none,discard=unmap \
+  --disk path=/var/lib/vm/raptorlake-win.qcow2,size=1024,format=qcow2,bus=virtio,cache=none,discard=unmap \
   --disk device=cdrom,path=/var/lib/vm/Win11_25H2_Japanese_x64.iso,boot.order=1 \
   --disk device=cdrom,path=/var/lib/vm/virtio-win.iso \
   --network network=default,model=virtio \
@@ -69,7 +69,9 @@ sudo virt-install \
   伸ばすには `reagentc /disable` → 回復パーティション削除 → 拡張 → 再作成 →
   `reagentc /enable` の手術が要る。容量が足りなくなったら、C: を伸ばすより
   2 台目のディスクを `virsh attach-disk --live` で足すほうが速い。
-  ディスク自体の拡張は稼働中にできる (`virsh blockresize win11 --path vda --size 2T`)。
+  ディスク自体の拡張は稼働中にできる (`virsh blockresize raptorlake-win --path vda --size 2T`)。
+- このホストのイメージは `win11.qcow2` のまま。domain は後から `raptorlake-win` に
+  リネームしたが、ファイル名は追随させていない (実害がなく、改名には停止が要るため)。
 - vCPU とメモリは VM を停止すれば `virsh setvcpus/setmaxmem --config` で変えられる
   (ホットプラグ用の枠は取っていない)。
 - nvram (UEFI 変数) だけは libvirt が `/var/lib/libvirt/qemu/nvram/` に置く。
@@ -102,7 +104,7 @@ raptorlake のデスクトップに座れるなら `virt-manager` でよいが�
 
 - "Press any key to boot from CD or DVD" のタイムアウトは数秒しかない。逃すと
   `BdsDxe: No bootable option or device was found` で止まるので、
-  `sudo virsh reset win11` の直後に `sudo virsh send-key win11 KEY_ENTER` を
+  `sudo virsh reset raptorlake-win` の直後に `sudo virsh send-key raptorlake-win KEY_ENTER` を
   連打すればよい (VNC を繋ぐ前でも入る)。
 - **ディスクが 1 台も出てこない**。virtio のストレージドライバが標準に無いため。
   「ドライバーの読み込み」→ 参照 → virtio-win の CD の `viostor\w11\amd64` を選ぶ
@@ -120,8 +122,8 @@ raptorlake のデスクトップに座れるなら `virt-manager` でよいが�
 ホスト側:
 
 ```sh
-sudo virsh change-media win11 sda --eject --live --config   # インストール ISO を外す
-sudo virsh autostart win11                                  # ホスト起動時に上げる
+sudo virsh change-media raptorlake-win sda --eject --live --config   # インストール ISO を外す
+sudo virsh autostart raptorlake-win                                  # ホスト起動時に上げる
 ```
 
 virtio-win の CD (`sdb`) は挿したままにしてある (ゲストツールの導入に使う)。

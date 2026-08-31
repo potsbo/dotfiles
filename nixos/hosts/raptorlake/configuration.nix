@@ -81,10 +81,11 @@
   # 順序では resolved が「見つからない」と答えた時点で探索が打ち切られ、後ろに
   # 並べても永久に引かれない。
   #
-  # 引くのは libvirt の domain 名 (win11) であって、ゲストの hostname ではない。
-  # ゲスト側の名前は Tailscale の MagicDNS が先に応答するので、それを使うと SMB が
-  # tailnet 経由になる。ホストとゲストは NAT (virbr0) で直結しているのだから、
-  # そこを通す必然性がない。
+  # 引くのは libvirt の domain 名であって、ゲストが DHCP で申告する hostname では
+  # ない。同じ綴りだが解決経路が違う。ゲスト側の名前は Tailscale の MagicDNS も
+  # 応答するので、libvirt を前に置いていなければ SMB が tailnet 経由になる。
+  # ホストとゲストは NAT (virbr0) で直結しているのだから、そこを通す必然性がない。
+  # 逆に言うと、ホスト上では tailnet 名より NAT 側の IP が優先される。
   system.nssModules = [ pkgs.libvirt ];
   system.nssDatabases.hosts = lib.mkBefore [ "libvirt" "libvirt_guest" ];
 
@@ -107,14 +108,21 @@
   #
   # 資格情報はリポジトリに置けないので、root だけが読める /etc/smb-credentials/gdrive
   # (username= と password= の 2 行) を参照する。ホスト再インストール時は手で作る。
-  # マウント先は /srv/<VM 名>/<ドライブレター>。橋渡しの VM が増えても同じ形で並ぶ。
-  # 共有名にドライブレターだけを使う。Drive for Desktop は Google
-  # アカウントごとに別のドライブレターを割り当てるので、アカウントが増えたら
-  # 同じ形で 1 つ足せばよい。実名 (共有ドライブ名や施設名) を使わないのは、
-  # ここが公開リポジトリで、その情報を載せる必然性がないから。どのアカウントが
-  # どのレターかは実機を見れば分かる。
-  fileSystems."/srv/raptorlake-win/h" = {
-    device = "//win11/h";
+  # マウント先は /srv/<VM 名>/<共有名>。橋渡しの VM が増えても同じ形で並ぶ。
+  #
+  # 共有しているのはゲストのユーザープロファイル 1 つきり。Drive のマウント先を
+  # その配下 (~/gdrive/<アカウント>) に置いてあるので、Google アカウントが増えても
+  # Windows でフォルダを 1 つ足すだけで、ここは触らなくてよい。
+  #
+  # ドライブレターを共有していたときは、再起動のたびに共有定義ごと消えた。
+  # LanmanServer は起動時に実在しないパスを指す共有を削除するが、Drive の
+  # ドライブレターはサインイン後にしか生えないため必ずこれに当たる。
+  # 常に実在するフォルダを共有することでこれを回避している。
+  #
+  # 共有ドライブ名や施設名を共有名に使わないのは、ここが公開リポジトリで、
+  # その情報を載せる必然性がないから。
+  fileSystems."/srv/raptorlake-win/shimp" = {
+    device = "//raptorlake-win/shimp";
     fsType = "cifs";
     options = [
       "credentials=/etc/smb-credentials/gdrive"
