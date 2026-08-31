@@ -35,7 +35,13 @@ export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 # NPM_CONFIG_CACHE は home-manager (home.sessionVariables) に集約。
 # 背景プロセス(npx製MCP等)にも継承させるため。詳細は nix/home.nix 参照。
-export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+
+# DOCKER_CONFIG は敢えて設定しない。docker の設定は ~/.docker のまま置く。
+# Docker Desktop (mac) が ~/.docker を決め打ちで管理するので、この変数を立てると
+# GUI が書く credsStore/context と CLI が読む config.json が食い違う。加えて
+# .zshenv 経由では systemd unit や GUI ランチャに伝播せず、実際 nixos の
+# docker-buildx-oci が ~/.docker/buildx に builder を作ってシェルから見えなくなった。
+
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node_repl_history"
 export PYTHON_HISTORY="$XDG_STATE_HOME/python_history" # 効くのは Python 3.13+
 export ZSH_EVALCACHE_DIR="$XDG_CACHE_HOME/zsh/evalcache"
