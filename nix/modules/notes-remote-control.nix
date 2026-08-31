@@ -4,9 +4,17 @@
 # `claude --remote-control` (対話セッションに RC を後付けする方) ではなく
 # `claude remote-control` (server mode) を使う。前者は 1 プロセス 1 セッションで、
 # リモート側からは既にあるセッションに話しかけることしかできない。
-{ config, pkgs, lib, dotfilesPath, ... }:
+#
+# 常時起動しているホストだけで動かす。laptop や Mac にも入れると、蓋を閉じる
+# たびにセッションが offline になったものが一覧に並んで、どれに話しかければ
+# 生きているのか分からなくなる。
+{ config, pkgs, lib, hostname, dotfilesPath, ... }:
 
 let
+  # nixos/modules/server.nix を import しているホスト。あちらは NixOS 側の
+  # 構成で、home-manager からは参照できないので手で合わせる。
+  serverHosts = [ "raptorlake" "phoenix" ];
+
   notesDir = "${config.home.homeDirectory}/src/github.com/potsbo/notes";
 
   notesRemoteControl = pkgs.writeShellScript "notes-remote-control" ''
@@ -22,17 +30,20 @@ let
     # --spawn は既定の same-dir のまま。notes は markdown なので複数セッションが
     # 同じ作業ツリーを触っても壊れにくく、worktree を切ると Obsidian から見える
     # 実体と別の場所を編集することになって困る。
-    # セッション名は既定の接頭辞 (ホスト名) に任せる。複数のマシンで常駐させる
+    # セッション名は既定の接頭辞 (ホスト名) に任せる。複数の server で常駐する
     # ので、どのマシンのセッションか一覧で見分けられる方がよい。
     exec claude remote-control
   '';
 in
 {
-  systemd.user = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+  systemd.user = lib.optionalAttrs (lib.elem hostname serverHosts) {
     services.notes-remote-control = {
       Unit.Description = "Claude Code Remote Control server for potsbo/notes";
       Service = {
         ExecStart = "${notesRemoteControl}";
+        # server mode は TTY がなくてもステータス画面を毎秒描き直すので、
+        # 拾うと journal に 65MB/日 積む。エラーは stderr に出るのでそちらは残す。
+        StandardOutput = "null";
         # server mode はネットワークが 10 分ほど届かないとプロセスごと exit する
         # (対話モードと違って自力では復帰しない)。スリープ復帰や Wi-Fi 瞬断で
         # 黙って死ぬので、落ちたら上げ直す前提で組む。
@@ -40,18 +51,6 @@ in
         RestartSec = "30s";
       };
       Install.WantedBy = [ "default.target" ];
-    };
-  };
-
-  launchd.agents = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
-    notes-remote-control = {
-      enable = true;
-      config = {
-        ProgramArguments = [ "${notesRemoteControl}" ];
-        RunAtLoad = true;
-        KeepAlive = true;
-        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/notes-remote-control.log";
-      };
     };
   };
 }
