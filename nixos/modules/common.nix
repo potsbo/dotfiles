@@ -190,6 +190,12 @@ in
     BUILDX_BUILDER = "oci-builder";
   };
 
+  # パスワードは宣言していない (initialPassword も hashedPassword も置かない)。
+  # ハッシュを平文でリポジトリに置きたくないのが理由で、mutableUsers のまま
+  # 実機で passwd する運用にしている。
+  # 代償として、新規インストール直後はパスワードが存在せず GNOME にログインできない。
+  # SSH は AuthorizedKeysCommand が GitHub から鍵を引くので入れるので、
+  # 入れ直した直後は ssh してから `sudo passwd potsbo` すること。
   users.users.potsbo = {
     uid = 1000;
     isNormalUser = true;
