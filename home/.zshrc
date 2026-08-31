@@ -94,33 +94,22 @@ bindkey -M emacs "^]" _tuicast_connect
 # VSCode で emacs キーバインドを使うため
 bindkey -e
 
-# macOS HFS+/APFS 由来のファイル名は NFD (分解形) で格納されており、
-# 濁点・半濁点が結合文字 (U+3099/U+309A) として分離されている。
-# 例: 「パ」= U+30D1 (NFC) → U+30CF U+309A (NFD)
+# 古い macOS (HFS+) 由来のファイル名は NFD (分解形) で、濁点・半濁点が結合文字
+# (U+3099/U+309A) として分離されている。例: 「パ」= U+30D1 (NFC) → U+30CF U+309A。
+# これが 2 つの問題になる:
+#   1. 補完後のファイル名で結合文字が分離表示される (テ<3099>ータ) → COMBINING_CHARS で解決
+#   2. zsh の補完で NFC 入力 (「デ」) が NFD ファイル名にマッチしない → 未対応
 #
-# Linux 上で rclone mount 等を介してこれらのファイルにアクセスすると、
-# NFD のまま readdir されるため以下の2つの問題が起きる:
-#   1. zsh のタブ補完で NFC 入力 (「デ」) が NFD ファイル名にマッチしない
-#   2. 補完後のファイル名で結合文字が分離表示される (テ<3099>ータ)
+# 2 は Tab 押下時に LBUFFER を NFD 化する widget で潰していたが、やめた。入力側を
+# 曲げる対策は、NFD でないファイル名 (= 日常のほぼ全部) を巻き添えにする。実際、
+# CIFS 経由の Windows 共有 (/srv/<VM>/<drive>) は NFC なので、「ド」を打った瞬間に
+# ト+U+3099 へ変換されて 1 件もマッチしなくなっていた。しかも濁点のない文字だけなら
+# 素通りするので、「たまに効く」形で原因が見えにくい。
 #
-# rclone の --no-unicode-normalization はファイルアクセス時の lookup fixup のみで、
-# readdir が返すファイル名自体は NFC に変換しない (v1.73.2 時点)。
-#
-# 対策:
-#   COMBINING_CHARS: 結合文字の表示を修正 (問題2)
-#   _nfd_complete:   Tab 押下時に入力を NFD に変換してから補完 (問題1)
-#     - LBUFFER を変更すると補完メニューの走査状態がリセットされるため、
-#       変換結果が同じなら LBUFFER を触らない
-#     - bindkey -e より後に置くこと (emacs キーマップのリセットで ^I が上書きされるため)
+# 対象を rclone mount (~/var/<host>) に絞る案も検討したが、そこが serve しているのは
+# remote-mount の用途上 Linux ホスト = NFC で、いちばん外れている。NFD が実際に
+# 出てくるのは Mac ローカルの古いファイルなので、必要になったらそちら側で狭く直す。
 setopt COMBINING_CHARS
-_nfd_complete() {
-  if [[ $LBUFFER == *[^[:ascii:]]* ]]; then
-    local nfd=$(perl -MUnicode::Normalize -MEncode -e 'print encode("UTF-8", NFD(decode("UTF-8", $ARGV[0])))' "$LBUFFER")
-    [[ $nfd != "$LBUFFER" ]] && LBUFFER=$nfd
-  fi
-  zle expand-or-complete
-}
-zle -N _nfd_complete && bindkey '^I' _nfd_complete
 
 if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"; fi
 if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
