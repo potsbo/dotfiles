@@ -76,6 +76,11 @@ raptorlake のデスクトップに座っているなら `virt-manager` でよ�
 
 インストーラでの注意:
 
+- "Press any key to boot from CD or DVD" のタイムアウトは数秒しかない。逃すと
+  `BdsDxe: No bootable option or device was found` で止まるので、
+  `sudo virsh reset win11` の直後に `sudo virsh send-key win11 KEY_ENTER` を
+  連打すればよい (VNC を繋ぐ前でも入る)。
+
 - ディスクが出てこない → 「ドライバーの読み込み」で 2 台目の CD-ROM の
   `amd64\w11\viostor.inf` を選ぶ。ネットワークも同様に `NetKVM\w11\amd64`。
 - Microsoft アカウントを避けたい場合は OOBE で `Shift+F10` → `start ms-cxh:localonly`。
