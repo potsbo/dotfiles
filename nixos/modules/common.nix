@@ -99,7 +99,10 @@ in
   # Mozc に anpan ローマ字テーブルを適用
   system.activationScripts.mozcAnpanTable = {
     text = ''
-      install -d -o potsbo -g users /home/potsbo/.config/mozc
+      # .config も明示して作る。install -d は中間ディレクトリも作るが -o/-g は
+      # 最後の要素にしか効かず、activation は root で走るので、初回インストールで
+      # ~/.config が root 所有になって以後 dotfiles の install がそこに書けなくなる。
+      install -d -o potsbo -g users /home/potsbo/.config /home/potsbo/.config/mozc
       install -o potsbo -g users -m 644 ${mozcConfigDb} /home/potsbo/.config/mozc/config1.db
     '';
   };
@@ -311,9 +314,19 @@ in
   # 代償として、名前解決か外向き通信が死ぬと sshd が正常でもログインできない。
   # モニタ未接続のヘッドレス機 (phoenix) ではこれが現地作業を意味するため、
   # 再起動を伴う変更では bootCounting 等で別途保険をかけること。
+  #
+  # curl が 1 回失敗しただけで鍵は拒否される (sshd がこの command を見るのは
+  # authorized_keys と証明書 CA の後で、どちらにも何も置いていない)。だから上限時間は
+  # 「遅いだけの回線では通り、詰まった回線では待たされない」ところを狙う。この待ちは
+  # クライアントが出す鍵 1 本ごとに乗り MaxAuthTries (既定 6) 回まで繰り返されるので、
+  # 合計が LoginGraceTime (既定 120 秒) を超えると鍵が正しくても接続ごと切られる。
+  # 6 回 × 10 秒ならその内側に収まる。
+  #
+  # 失敗時は curl の stderr が sshd に捨てられるので、原因は journal に出る終了コード
+  # ("AuthorizedKeysCommand ... failed, status N") で切り分ける。
   environment.etc."ssh/gh-authorized-keys".text = ''
     #!/bin/sh
-    exec ${pkgs.curl}/bin/curl -fsSL "https://github.com/$1.keys"
+    exec ${pkgs.curl}/bin/curl -fsSL --connect-timeout 5 --max-time 10 "https://github.com/$1.keys"
   '';
   environment.etc."ssh/gh-authorized-keys".mode = "0555";
   environment.etc."ssh/gh-authorized-keys".user = "root";
