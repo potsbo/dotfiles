@@ -81,4 +81,4 @@ packages:
   - name: yusukebe/ax@v0.1.25
     registry: local
   - name: modem-dev/hunk@v0.20.1
-  - name: fastfetch-cli/fastfetch@2.67.1
+  - name: fastfetch-cli/fastfetch@2.68.1
