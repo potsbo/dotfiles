@@ -121,33 +121,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.252/claude-darwin-arm64.tar.gz",
-      "checksum": "5EC54C876C2088052E78A04205543A33C7C232AD5B075D46F639955F963432F8",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.258/claude-darwin-arm64.tar.gz",
+      "checksum": "C13A3E6373F686F91C3C2D199E0EA6BAD67430D2C3325ADCC1AAFA26D298F655",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.252/claude-darwin-x64.tar.gz",
-      "checksum": "550FB44377F72E6B2EB3DEB8631402C68174F563DFB3FE1C0F6482CCDD6F9F11",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.258/claude-darwin-x64.tar.gz",
+      "checksum": "1DE08071CD4245EAE799BC7EDF313F2A602AA15064DBF8ECC559BB56C3031514",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.252/claude-linux-arm64.tar.gz",
-      "checksum": "FB9DB286C4FF00D1D17E139EAD18EF17BA6F0AD9AE1DD29F6F568DAC23206220",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.258/claude-linux-arm64.tar.gz",
+      "checksum": "D9D18E4F10EFC7521212B1ADB34F0A4F4698EBC80BE017A371F59C3D206D399A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.252/claude-linux-x64.tar.gz",
-      "checksum": "EC803FAF88D1E9087C2B59E6833150D1C09DC9DDA5C5B7941C50E1482E81B909",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.258/claude-linux-x64.tar.gz",
+      "checksum": "4DCBD239217DD01A5CF73002EEA8F85E945170830D66891948426A09C99F3292",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.252/claude-win32-arm64.zip",
-      "checksum": "3A749174267A5B77885663D0C08BBC6B89446BDAA3FD098D52256EF7B3F1BB29",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.258/claude-win32-arm64.zip",
+      "checksum": "13DF39BFC04802987B4953663EE08D7E65D67A6007B185F3DA02945907A500F9",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.252/claude-win32-x64.zip",
-      "checksum": "51C8E2E20E7A1E594EBBA6F4AB855A71797A86CA396DCF77DC32745684C49407",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.258/claude-win32-x64.zip",
+      "checksum": "1443BAF6F812EF1F8ACA51F8E950497B11E4C04F1DEAEDF54DCA0D1356726B8E",
       "algorithm": "sha256"
     },
     {
@@ -161,28 +161,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.12.8/uv-aarch64-apple-darwin.tar.gz",
-      "checksum": "8CE083658DBFF20143607CA7AF8E0C1D64B6FD7BF03A5CDCB62BF3D47D991B5F",
+      "id": "github_release/github.com/astral-sh/uv/0.12.9/uv-aarch64-apple-darwin.tar.gz",
+      "checksum": "301F72AFAF54060F92DA7016CB0115BD077F43A9C8E39C1D8170A0BAC80FD398",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.12.8/uv-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "975917BADC8370163989E5BBE5A7C69BF922D19F8E57CB2652531BBFFC935F84",
+      "id": "github_release/github.com/astral-sh/uv/0.12.9/uv-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "7EB9BF48516448C9DB6A9E436D8E747AC9C8A9CAC74717160A29918249B080A6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.12.8/uv-x86_64-apple-darwin.tar.gz",
-      "checksum": "BFCD4407DE99E0A2C1904DF0902FA1795653D4EDD145358E6561527E746A4F16",
+      "id": "github_release/github.com/astral-sh/uv/0.12.9/uv-x86_64-apple-darwin.tar.gz",
+      "checksum": "E1CA175824F1056589CE9908F7631879EBC3C36535B5E63DC06510BEB370B4C1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.12.8/uv-x86_64-pc-windows-msvc.zip",
-      "checksum": "E07ACF3F8A29FE41F9E04B799C3325CB0E0893836BB222BF102829B45C679AD6",
+      "id": "github_release/github.com/astral-sh/uv/0.12.9/uv-x86_64-pc-windows-msvc.zip",
+      "checksum": "DDBFCEE1AC615A0499F6AA97B5EC8EBDF3EE4A7714A48055EC2BA0030E3CF810",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/astral-sh/uv/0.12.8/uv-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "6CA4597639C97E921FB915E113061CE8E4A14EAD9E42A1EAD521DBB0A6763795",
+      "id": "github_release/github.com/astral-sh/uv/0.12.9/uv-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "AA4B1F8770910F7C7C543C7ACC980E4270E52E70750C996ACEF813EA1C7C2912",
       "algorithm": "sha256"
     },
     {
@@ -411,33 +411,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-linux-aarch64.tar.gz",
-      "checksum": "B974B76E3D8DF90311440A2250C83561AA0A863F129925285F2789D932B4CBAA",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "D3369AA9C1BC77FD8BD7BA3BE2AE2CDCECE4A137620C48A9DE58026779FDB7D4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-linux-amd64.tar.gz",
-      "checksum": "ADC8A9EB64ECCEF267E50BB1E6F9A767BB608DA5EE4A3B652EF36A10D9105D4D",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-linux-amd64.tar.gz",
+      "checksum": "0C51EF6FA3E976EB5038FE0AFDA38629D3CA07947740BB0E3354C7C4F1238C0C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-macos-aarch64.tar.gz",
-      "checksum": "4A9B6847EC600EE1ADB222EC5E1DF60BF0E43768F9A21FBF20B14EAEF9FECB0B",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "22426608DCA945E0531AF37054E21A2727AA7BB30179EFAF44DE7F59163BE5FE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-macos-amd64.tar.gz",
-      "checksum": "C114D6C2FE8D0D2DE0A896E5BB397004785599B3DF4ED368EA16C125E3C6DB79",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-macos-amd64.tar.gz",
+      "checksum": "1E9A6BA7474A41B3CC2BB1B923AFCF40C749C25BD17DC1E62B64464E7445A534",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-windows-aarch64.zip",
-      "checksum": "C0594F59C4A2239C22317A859598B66FC732A4AAB794BEC896CD73EC5DC540D1",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-windows-aarch64.zip",
+      "checksum": "16FD27F055707049A8E143909BB72DC4D9DC5574D643E415254846FD5554D200",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.67.1/fastfetch-windows-amd64.zip",
-      "checksum": "19AEB34E4BB5B19F09236AFBB6FB617241828CD94D967E7108C5EB3471CD26D8",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-windows-amd64.zip",
+      "checksum": "7002024C5BA37BDF9142F8B38039D3DD5DA6DE33D3B679B57693DC42483D882D",
       "algorithm": "sha256"
     },
     {
@@ -856,28 +856,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.3.0/doggo-darwin-aarch64.tar.gz",
-      "checksum": "3898D3563E216A0FFBFC457288B16B7027D3743F5512222AD589074AE4990B93",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-darwin-aarch64.tar.gz",
+      "checksum": "9817C57A21644B51DC8B23A98A13C686F8A7F2DE945B3ADC61B8141991DD65A2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.3.0/doggo-darwin-x86_64.tar.gz",
-      "checksum": "EC67FB4F33A4E630B89462F520365574881B78310845EE8623545EECA233F667",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-darwin-x86_64.tar.gz",
+      "checksum": "CD2AA6EAD10FEFF313D7AFD52BCCC6B9DB80414132FAB9702F279B2B5F686900",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.3.0/doggo-linux-aarch64.tar.gz",
-      "checksum": "F034F0D525B165B771370E0EE77E161E1D9BD1F89AA5B20DE81B9053CDE35D44",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-linux-aarch64.tar.gz",
+      "checksum": "BF5BD32F26FA8F652F3AC73F08AF2ECC9E59955BC47E98A260D7DC6860710162",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.3.0/doggo-linux-x86_64.tar.gz",
-      "checksum": "C0D3F064AB40670720B30833A71E6178ED84242EA53FFB5DFAB7B315DCCE61C2",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-linux-x86_64.tar.gz",
+      "checksum": "F85E2471737677A5FA65491B4241E0F46960AAE6CC2211CC660EE6394A1A3D06",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.3.0/doggo-windows-x86_64.zip",
-      "checksum": "5668BBC6A627930CE0C9262724CB21C180AC15E4F6D2AD841A1EAA2144F9A093",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-windows-x86_64.zip",
+      "checksum": "24FF6FE2BE4BAFF39574CCC50C50C467A344804998D1773B9B76B838A26ACD67",
       "algorithm": "sha256"
     },
     {
@@ -936,28 +936,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.151.0/codex-package-aarch64-apple-darwin.tar.gz",
-      "checksum": "CB6E78EBA80C1BC310A533F6F1C6C948377733BC06F9E837949334E04ABDE9C6",
+      "id": "github_release/github.com/openai/codex/rust-v0.152.0/codex-package-aarch64-apple-darwin.tar.gz",
+      "checksum": "5287A514213F8134210677CCE51B23E2EAEAFF1925362F18318E4268A5AB1D1B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.151.0/codex-package-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "C64AD6E4F82609552A37069365B50528EF49E986AEAB24A538781A18A402773D",
+      "id": "github_release/github.com/openai/codex/rust-v0.152.0/codex-package-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "AF9777A8D62EDEEA31ADFECBAA2A5B296BC57A4A0C3ED69C02E39C23744F5FEB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.151.0/codex-package-x86_64-apple-darwin.tar.gz",
-      "checksum": "E8348E1192F155EDB21BDBAAF3231C2321087910BB1472B1306F94FB1108AD70",
+      "id": "github_release/github.com/openai/codex/rust-v0.152.0/codex-package-x86_64-apple-darwin.tar.gz",
+      "checksum": "161D9DA66A0F97A93294D006F8066E6D5FAD71CC9FE00F7D4AE111DAF692B308",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.151.0/codex-package-x86_64-pc-windows-msvc.tar.gz",
-      "checksum": "E3AEBB4F5E8812C19A9DF9AF2D5CAF2C79E4B43A4603403FE6F99A95F3207C6F",
+      "id": "github_release/github.com/openai/codex/rust-v0.152.0/codex-package-x86_64-pc-windows-msvc.tar.gz",
+      "checksum": "29AAA55BCC3573C9F5D6CC59C16A461C514179161AF00C43C5B49857E3D31962",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.151.0/codex-package-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "6E35AC60B86C0E8C7F8BCF797BE8B92206199F6253200B66FF0547276F8CFA5C",
+      "id": "github_release/github.com/openai/codex/rust-v0.152.0/codex-package-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "352C24FBDC5AEFAFFDE9C1DF991B534B6BC72A06E49708794FC685FC3556C855",
       "algorithm": "sha256"
     },
     {
