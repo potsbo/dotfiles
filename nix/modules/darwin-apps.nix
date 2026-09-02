@@ -52,6 +52,7 @@
       "claude"
       "pgadmin4"
       "plaud"
+      "cloudflare-warp"
     ];
   };
 }
