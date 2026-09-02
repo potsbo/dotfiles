@@ -24,8 +24,8 @@ packages:
   - name: neovim/neovim@v0.12.5
   - name: mikefarah/yq@v4.53.6
   - name: YS-L/csvlens@v0.15.1
-  - name: golang/go@go1.27.0
-  - name: cli/cli@v2.98.0
+  - name: golang/go@go1.27.1
+  - name: cli/cli@v2.99.0
   - name: Wilfred/difftastic@0.70.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.8.0
@@ -34,8 +34,8 @@ packages:
   - name: sharkdp/fd@v10.5.0
   - name: jesseduffield/lazygit@v0.64.1
   - name: go-task/task@v3.53.1
-  - name: aws/aws-cli@2.36.34
-  - name: astral-sh/uv@0.12.7
+  - name: aws/aws-cli@2.36.35
+  - name: astral-sh/uv@0.12.9
   - name: starship/starship@v1.26.0
   - name: zellij-org/zellij@v0.45.1
   - name: johnkerl/miller@v6.21.0
@@ -43,9 +43,9 @@ packages:
   - name: k1LoW/git-wt@v0.29.1
   - name: k1LoW/roots@v0.4.1
   - name: ajeetdsouza/zoxide@v0.10.0
-  - name: sxyazi/yazi@v26.8.15
+  - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.82
-  - name: anthropics/claude-code@v2.1.251
+  - name: anthropics/claude-code@v2.1.258
   # herdr の self-update (`herdr update`) は使わない。バージョンはここの Renovate 更新で上げる。
   # 稼働中サーバを pane を殺さず入れ替えるには、素の `herdr server live-handoff` では不足
   # (旧サーバが自分の current_exe = 旧 aqua パスを再 spawn するため)。新バイナリを明示する:
@@ -63,8 +63,8 @@ packages:
   - name: dalance/procs@v0.14.12
   - name: muesli/duf@v0.9.1
   - name: chmln/sd@v1.1.0
-  - name: mr-karan/doggo@v1.3.0
-  - name: orf/gping@gping-v1.20.4
+  - name: mr-karan/doggo@v1.4.0
+  - name: orf/gping@gping-v1.21.0
   - name: fujiapple852/trippy@0.13.0
   - name: sharkdp/hexyl@v0.17.0
   - name: ducaale/xh@v0.26.2
@@ -77,8 +77,8 @@ packages:
   - name: kitlangton/ghui@v0.9.0
     registry: local
   - name: charmbracelet/glow@v3.0.0
-  - name: openai/codex@rust-v0.151.0
+  - name: openai/codex@rust-v0.152.1
   - name: yusukebe/ax@v0.1.25
     registry: local
   - name: modem-dev/hunk@v0.20.1
-  - name: fastfetch-cli/fastfetch@2.67.1
+  - name: fastfetch-cli/fastfetch@2.68.1

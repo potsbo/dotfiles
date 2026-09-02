@@ -115,6 +115,12 @@ if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tai
 if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
 if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
 
+# chafa は端末の正体を TERM から判定するが、ssh 越しだと xterm-256color に
+# 落ちるため、ピクセルを送れる端末でも文字アート (symbols) に退避してしまい
+# 荒い絵になる。使う端末はどれも kitty graphics を解するので明示する。
+# 自動判定に任せたいときは chafa をそのまま呼べばよい。
+alias img="chafa -f kitty"
+
 if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
   "$(ghq root)/github.com/potsbo/dotfiles/script/fix-wl-copy.sh"
 fi

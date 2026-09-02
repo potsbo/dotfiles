@@ -8,7 +8,7 @@
 VM の定義そのものを nix で宣言していないのは、Windows のインストールが
 本質的に対話的で、できあがった domain XML (ゲスト側で入れたドライバや
 ライセンス認証と対になる状態) をリポジトリで再生成しても意味がないため。
-domain の定義は libvirt が `/var/lib/libvirt/qemu/win11.xml` に持つ。
+domain の定義は libvirt が `/var/lib/libvirt/qemu/raptorlake-win.xml` に持つ。
 
 **domain を作り直さないこと。** Windows のデジタルライセンスは VM の
 「ハードウェア構成」(domain UUID, machine type, CPU モデル) に紐づく。
@@ -45,7 +45,7 @@ ISO を `/var/lib/vm` に置くのは、ここが nodatacow の subvolume で、
 ```sh
 sudo virt-install \
   --connect qemu:///system \
-  --name win11 \
+  --name raptorlake-win \
   --osinfo win11 \
   --vcpus 4 \
   --memory 8192 \
@@ -53,7 +53,7 @@ sudo virt-install \
   --machine q35 \
   --boot firmware=efi,firmware.feature0.name=secure-boot,firmware.feature0.enabled=yes,loader.secure=yes \
   --tpm model=tpm-crb,backend.type=emulator,backend.version=2.0 \
-  --disk path=/var/lib/vm/win11.qcow2,size=1024,format=qcow2,bus=virtio,cache=none,discard=unmap \
+  --disk path=/var/lib/vm/raptorlake-win.qcow2,size=1024,format=qcow2,bus=virtio,cache=none,discard=unmap \
   --disk device=cdrom,path=/var/lib/vm/Win11_25H2_Japanese_x64.iso,boot.order=1 \
   --disk device=cdrom,path=/var/lib/vm/virtio-win.iso \
   --network network=default,model=virtio \
@@ -69,7 +69,9 @@ sudo virt-install \
   伸ばすには `reagentc /disable` → 回復パーティション削除 → 拡張 → 再作成 →
   `reagentc /enable` の手術が要る。容量が足りなくなったら、C: を伸ばすより
   2 台目のディスクを `virsh attach-disk --live` で足すほうが速い。
-  ディスク自体の拡張は稼働中にできる (`virsh blockresize win11 --path vda --size 2T`)。
+  ディスク自体の拡張は稼働中にできる (`virsh blockresize raptorlake-win --path vda --size 2T`)。
+- このホストのイメージは `win11.qcow2` のまま。domain は後から `raptorlake-win` に
+  リネームしたが、ファイル名は追随させていない (実害がなく、改名には停止が要るため)。
 - vCPU とメモリは VM を停止すれば `virsh setvcpus/setmaxmem --config` で変えられる
   (ホットプラグ用の枠は取っていない)。
 - nvram (UEFI 変数) だけは libvirt が `/var/lib/libvirt/qemu/nvram/` に置く。
@@ -102,7 +104,7 @@ raptorlake のデスクトップに座れるなら `virt-manager` でよいが�
 
 - "Press any key to boot from CD or DVD" のタイムアウトは数秒しかない。逃すと
   `BdsDxe: No bootable option or device was found` で止まるので、
-  `sudo virsh reset win11` の直後に `sudo virsh send-key win11 KEY_ENTER` を
+  `sudo virsh reset raptorlake-win` の直後に `sudo virsh send-key raptorlake-win KEY_ENTER` を
   連打すればよい (VNC を繋ぐ前でも入る)。
 - **ディスクが 1 台も出てこない**。virtio のストレージドライバが標準に無いため。
   「ドライバーの読み込み」→ 参照 → virtio-win の CD の `viostor\w11\amd64` を選ぶ
@@ -120,8 +122,8 @@ raptorlake のデスクトップに座れるなら `virt-manager` でよいが�
 ホスト側:
 
 ```sh
-sudo virsh change-media win11 sda --eject --live --config   # インストール ISO を外す
-sudo virsh autostart win11                                  # ホスト起動時に上げる
+sudo virsh change-media raptorlake-win sda --eject --live --config   # インストール ISO を外す
+sudo virsh autostart raptorlake-win                                  # ホスト起動時に上げる
 ```
 
 virtio-win の CD (`sdb`) は挿したままにしてある (ゲストツールの導入に使う)。
@@ -148,3 +150,64 @@ virtio-win の CD (`sdb`) は挿したままにしてある (ゲストツール�
   サインインしてから、設定 → システム → ライセンス認証 → トラブルシューティング →
   「このデバイスのハードウェアを最近変更しました」。
   「メールとアカウント」に足しても Windows のユーザーは増えないので効かない。
+
+## Google 共有ドライブを Linux から読む
+
+共有ドライブ (Shared drives) は Drive for Desktop が**ストリーミング固定**で扱う。
+ミラー (ローカルに実体を置く) ができるのはマイドライブと「パソコンからのフォルダ」
+だけなので、Linux から直接読めるファイルは存在しない。rclone の Drive バックエンドは
+データ量が多いと性能が出ず断念した経緯がある。
+
+そこで Windows VM を橋渡しにして、ゲストの Drive を SMB で出し、ホストが cifs で
+読み抜く。マウント定義は `configuration.nix` の `fileSystems` にある。
+
+**ホストにコピーを持つ案 (robocopy + btrfs スナップショット) は却下した。**
+コピーを持つと「同期が完了するまで待つ」というゲートが生まれる。実際の運用は
+「アップロード完了の連絡を受けたらすぐ処理を始める」なので、待ち時間は処理の前ではなく
+処理中に混ざってくれないと困る。読み抜きなら転送は処理に混ざり、古いコピーを掴む
+余地もない (ディレクトリ一覧が常に Drive の現在の状態になる)。
+
+### ホストを作り直したときに手で用意するもの
+
+宣言に入れられないのは資格情報だけ。公開リポジトリなので置けない。
+
+```sh
+sudo install -d -m 700 /etc/smb-credentials
+sudo install -m 600 /dev/null /etc/smb-credentials/gdrive
+sudoedit /etc/smb-credentials/gdrive   # username= と password= の 2 行
+```
+
+パスワードは Windows のローカルアカウントのもの。Microsoft アカウントは
+パスワードレスだと SMB にも RDP にも使えないので、ローカルアカウントに寄せてある。
+
+### ゲスト側の設定
+
+- Drive for Desktop でサインインし、ドライブレターを確認する
+- そのドライブを SMB で共有する。**共有名はドライブレターだけ** (`h` など)。
+  共有ドライブ名や施設名を使わないのは、それが `configuration.nix` に載って
+  公開リポジトリに入るから。アカウントが増えると Drive はレターを増やすので、
+  この規則ならそのまま並べられる
+- 設定 → ネットワークとインターネット → ネットワークの詳細設定 → 共有の詳細設定 で
+  「ファイルとプリンターの共有」をオン。ネットワークの種類は「プライベート」にする
+  (libvirt の NAT は既定でパブリック扱いになり、共有がブロックされる)
+- 共有のアクセス許可は Everyone ではなく専用アカウント 1 つに絞る。さらに
+  Windows Defender ファイアウォールの受信規則「ファイルとプリンターの共有 (SMB 受信)」の
+  スコープを `192.168.122.0/24` に限定する。**この tailnet には他人の端末もいる**ので、
+  絞らないと tailnet から到達できる全員が共有ドライブを読める
+- 自動ログオンを設定する (Sysinternals の Autologon。`netplwiz` やレジストリ直書きと
+  違いパスワードを LSA シークレットとして保存する)。Drive のドライブレターは
+  サインインしたユーザーのセッションにしか生えないので、ホスト再起動後に誰も
+  サインインしていないと共有が空になる
+
+### ハマった点
+
+- **`mount.cifs` が無いと `credentials=` が無視される。** ユーザ空間ヘルパーが解釈する
+  オプションなので、helper が無いとカーネルに素通しされ、匿名セッションとして
+  `STATUS_ACCESS_DENIED` になる。`fileSystems` で宣言すれば NixOS が入れる
+- **`noserverino` が要る。** Drive for Desktop の仮想 FS は一意な inode 番号を返さず、
+  既定の `serverino` では `readdir` が EINVAL で落ちる (`ls: Invalid argument`)
+- **名前解決の順序。** 既定の `hosts:` は `resolve [!UNAVAIL=return]` が先頭近くにあり、
+  systemd-resolved が「見つからない」と答えた時点で打ち切られる。libvirt の NSS
+  モジュールは `mkBefore` でその前に置かないと引かれない
+- **ゲストのホスト名を使うと Tailscale の MagicDNS が先に応答する。** SMB が tailnet
+  経由になってしまうので、参照するのは libvirt の domain 名にしてある
