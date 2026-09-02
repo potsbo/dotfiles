@@ -57,6 +57,7 @@ sudo virt-install \
   --disk device=cdrom,path=/var/lib/vm/Win11_25H2_Japanese_x64.iso,boot.order=1 \
   --disk device=cdrom,path=/var/lib/vm/virtio-win.iso \
   --network network=default,model=virtio \
+  --channel type=unix,target.type=virtio,target.name=org.qemu.guest_agent.0 \
   --graphics vnc,listen=127.0.0.1,passwd=<8文字> \
   --video qxl \
   --noautoconsole
@@ -76,6 +77,11 @@ sudo virt-install \
   (ホットプラグ用の枠は取っていない)。
 - nvram (UEFI 変数) だけは libvirt が `/var/lib/libvirt/qemu/nvram/` に置く。
   128KB なので `/var/lib/vm` に寄せる価値はない。
+- **`--channel` を忘れないこと。** これがないとゲストエージェントとの経路が無く、
+  `virsh shutdown` が ACPI にフォールバックする。ACPI はウィンドウが開いていると
+  無視されることがあり (実際に効かなかった)、ホスト停止時にゲストが
+  タイムアウト後に強制切断される。しかも後から足すには virtio-serial
+  コントローラごと必要で、コントローラはホットプラグできないので VM の停止が要る。
 - **VNC にパスワードを付けるのは macOS の画面共有のため。** 認証なしの VNC には
   繋いでくれない。QEMU は起動時にパスワード認証を有効にしていないと後から
   付けられない (`set_password` が `VNC password authentication is disabled` で失敗する)
@@ -182,22 +188,36 @@ sudoedit /etc/smb-credentials/gdrive   # username= と password= の 2 行
 
 ### ゲスト側の設定
 
-- Drive for Desktop でサインインし、ドライブレターを確認する
-- そのドライブを SMB で共有する。**共有名はドライブレターだけ** (`h` など)。
-  共有ドライブ名や施設名を使わないのは、それが `configuration.nix` に載って
-  公開リポジトリに入るから。アカウントが増えると Drive はレターを増やすので、
-  この規則ならそのまま並べられる
+**Drive のマウント先はドライブレターではなくフォルダにする。** Drive for Desktop の
+環境設定 → 詳細設定 → 「Google ドライブのマウント ポイント」で、ユーザープロファイル
+配下のフォルダ (`C:\Users\<user>\gdrive`) を指定する。Drive はその下にアカウントごとの
+フォルダ (`<メールアドレス>`) を自分で作るので、Google アカウントが増えても
+Windows 側でマウント先を足すだけで済み、共有もホストの設定も増えない。
+
+**共有するのはユーザープロファイルそのもの** (`C:\Users\<user>`) 1 つきり。
+共有名は `configuration.nix` に載って公開リポジトリに入るので、共有ドライブ名や
+施設名は使わない。プロファイル全体を共有すると `AppData` (Drive の OAuth トークン、
+ブラウザのプロファイル) も読める範囲に入るが、読み取り専用で、到達できるのは
+NAT 側のホストだけ、という前提で許容している。範囲を絞りたければ受け渡し用の
+フォルダを 1 つ作ってそれだけを共有してもよい (仕組みは同じ)。
+
 - 設定 → ネットワークとインターネット → ネットワークの詳細設定 → 共有の詳細設定 で
   「ファイルとプリンターの共有」をオン。ネットワークの種類は「プライベート」にする
   (libvirt の NAT は既定でパブリック扱いになり、共有がブロックされる)
-- 共有のアクセス許可は Everyone ではなく専用アカウント 1 つに絞る。さらに
-  Windows Defender ファイアウォールの受信規則「ファイルとプリンターの共有 (SMB 受信)」の
-  スコープを `192.168.122.0/24` に限定する。**この tailnet には他人の端末もいる**ので、
-  絞らないと tailnet から到達できる全員が共有ドライブを読める
-- 自動ログオンを設定する (Sysinternals の Autologon。`netplwiz` やレジストリ直書きと
-  違いパスワードを LSA シークレットとして保存する)。Drive のドライブレターは
-  サインインしたユーザーのセッションにしか生えないので、ホスト再起動後に誰も
-  サインインしていないと共有が空になる
+- 共有のアクセス許可は Everyone ではなく専用アカウント 1 つに絞り、読み取りだけ与える。
+  さらに Windows Defender ファイアウォールの受信規則
+  「ファイルとプリンターの共有 (SMB 受信)」のスコープを `192.168.122.0/24` に限定する。
+  **この tailnet には他人の端末もいる**ので、絞らないと tailnet から到達できる全員が
+  共有ドライブを読める
+- **自動ログオンは必須。** Sysinternals の Autologon を使う (`netplwiz` やレジストリ
+  直書きと違い、パスワードを LSA シークレットとして保存する)。Drive はユーザー
+  セッションでしか動かないので、サインインしていないとマウント先のフォルダが空になり、
+  ホストからは共有は見えるのに中身が無い、という状態になる
+- Linux 側から書き込みたくなったら、そのアカウントのフォルダだけを別の共有にして
+  `rw` でマウントする。プロファイルの共有は読み取り専用のまま残す。禁止したい側に
+  何も足さない形なので、設定漏れで書けてしまう方向には転ばない。なお NTFS の ACL で
+  アカウントごとに差を付けることはできない (`gdrive` 配下は DriveFS の仮想 FS で、
+  Windows のアクセス許可に従わない)
 
 ### ハマった点
 
@@ -211,3 +231,28 @@ sudoedit /etc/smb-credentials/gdrive   # username= と password= の 2 行
   モジュールは `mkBefore` でその前に置かないと引かれない
 - **ゲストのホスト名を使うと Tailscale の MagicDNS が先に応答する。** SMB が tailnet
   経由になってしまうので、参照するのは libvirt の domain 名にしてある
+- **ドライブレターを指す共有は再起動を生き延びない。** LanmanServer は起動時に共有の
+  パスを検証し、実在しないものを削除する。Drive のドライブレターはサインイン後に
+  しか生えないので必ずこれに当たり、サインインしてもレターが戻るだけで共有定義は
+  戻らない (`net share` から消える / `NT_STATUS_BAD_NETWORK_NAME`)。常に実在する
+  フォルダを共有することで回避している
+- **`virsh domrename` は nvram のファイル名を追随させない。** domain を
+  `win11` から `raptorlake-win` に改名したが、`/var/lib/libvirt/qemu/nvram/win11_VARS.fd`
+  はそのまま。XML が絶対パスで指しているので動作に影響はない
+- **domain 名とゲストの hostname は別物。** どちらも `raptorlake-win` にしてあるが、
+  解決経路が違う (前者が `libvirt_guest`、後者が `libvirt` と MagicDNS)
+
+### 検証済みの挙動
+
+VM を再起動して、以下を実測した。
+
+- `virsh shutdown` (モード指定なし) でゲストがきれいに落ちる。ゲストエージェントが
+  あるとそちらが使われるため。エージェントが無かったときは ACPI にフォールバックし、
+  ウィンドウが開いた状態では落ちなかった
+- 共有が再起動後も残り、自動ログオンで Drive がマウントされ、ホストの automount が
+  繋ぎ直して `/srv/raptorlake-win/shimp/gdrive/<アカウント>/共有ドライブ/` が読める
+
+ホスト再起動の経路も、部品としては確認済み: `libvirt-guests.service` が有効
+(`ON_SHUTDOWN=shutdown`, `SHUTDOWN_TIMEOUT=300`)、domain は autostart 有効、
+automount は `remote-fs.target` の WantedBy にある。ホスト起動直後の 1〜2 分は
+VM の起動とサインインを待つので読めない (マウントのタイムアウトは 30 秒)。
