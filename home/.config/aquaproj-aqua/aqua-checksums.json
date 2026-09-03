@@ -786,23 +786,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-darwin-arm64.tar.gz",
-      "checksum": "0F0597395696F74C66BAF6FFD78F7187DCDCEBD2272A7AB69C744F2421CA40C8",
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.1/ghui-darwin-arm64.tar.gz",
+      "checksum": "8D2D4424B4238069CEEC45C610DF9F09F40BBF01E40C309257AAAE56795424D3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-darwin-x64.tar.gz",
-      "checksum": "01EA9C772A8925C2A7C9C5676E2E6FA4F37B580E5E64C0E507101DA58BE46531",
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.1/ghui-darwin-x64.tar.gz",
+      "checksum": "321F6137D42FADA3A8C7AAE4A3997CC53C1FF0507383F46679ED80824B24540A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-linux-arm64.tar.gz",
-      "checksum": "993750A4398726F1693EA1C9A8A29D560529037AA6DAC43C5E775A83BAC67CA5",
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.1/ghui-linux-arm64.tar.gz",
+      "checksum": "9A90264D830D1DC3388086F0E55A294364BEB53C48F33E6E2E7C58A52F044C0D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/kitlangton/ghui/v0.9.0/ghui-linux-x64.tar.gz",
-      "checksum": "6CA05990FBDFEB5FEAFBB0BA46DA00590BB2C22366A391BAB0B7CA07E39D1550",
+      "id": "github_release/github.com/kitlangton/ghui/v0.9.1/ghui-linux-x64.tar.gz",
+      "checksum": "DD46F080000A3AB9A03A3FC8B14AC0449728B002875365530DE5F47375F37921",
       "algorithm": "sha256"
     },
     {
