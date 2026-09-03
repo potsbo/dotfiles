@@ -157,6 +157,30 @@ virtio-win の CD (`sdb`) は挿したままにしてある (ゲストツール�
   「このデバイスのハードウェアを最近変更しました」。
   「メールとアカウント」に足しても Windows のユーザーは増えないので効かない。
 
+## Cloudflare 経由で SSH する
+
+手元の Mac で WARP (Cloudflare One Client) を接続していると tailnet に届かない。
+その状態でも入れるよう、graniteridge と同じ Cloudflare Access for Infrastructure の
+経路を持つ。ホスト側の宣言は `cloudflare-access.nix`、Cloudflare 側 (tunnel・
+route・target・Access policy) は medicu-inc/one の `terraform/main/cloudflare.tf` の
+`module "raptorlake"`。入れるのは本人だけ。
+
+```sh
+warp-cli status              # Connected でなければ warp-cli connect
+warp-cli target list         # raptorlake が出て、Usernames が potsbo
+ssh potsbo@192.0.2.2         # ホスト名では引けない。cfaccess に振った固定アドレス
+```
+
+WARP を切っていれば従来どおり `ssh raptorlake` (Tailscale + GitHub 鍵)。
+
+### ホストを作り直したときに手で用意するもの
+
+トークンだけ。手順は graniteridge の README「Cloudflare Tunnel」の
+ブートストラップと同じで、tunnel 名を `raptorlake` に読み替える。
+`/srv/cloudflared/env` に `TUNNEL_TOKEN=...` を root 0600 で置き、
+`sudo systemctl start cloudflared`。置くまでは unit が `ConditionPathExists` で
+止まっているだけで rebuild は通る。
+
 ## Google 共有ドライブを Linux から読む
 
 共有ドライブ (Shared drives) は Drive for Desktop が**ストリーミング固定**で扱う。
