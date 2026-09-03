@@ -286,6 +286,31 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.8.3/cloudflared-darwin-amd64.tgz",
+      "checksum": "61E1316266A00FD70CE40DA011D612BADC805367FB65293DD1925F938F704C99",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.8.3/cloudflared-darwin-arm64.tgz",
+      "checksum": "40C9144D86DF8937C5B43293A1F7D2D2107029AA74725023DD46B1B27154352F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.8.3/cloudflared-linux-amd64",
+      "checksum": "F29324FE934D1E100617484C78DEEF803C4DC2CD351D645BBDE42E96B4FCCC5E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.8.3/cloudflared-linux-arm64",
+      "checksum": "4BCFD35521A7CBC545EBFD5D57334A71EE180E2A64874981F374C81472118391",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.8.3/cloudflared-windows-amd64.exe",
+      "checksum": "83E726ED18EA78C5AD5213C4C3A3A27051393950D2BC8ED4DE69BEC12D14EAAE",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/dalance/procs/v0.14.12/procs-v0.14.12-x86_64-linux.zip",
       "checksum": "81964FAF9D5CD0E9F399D5D0954FB6FE4D4D9F7D3CBEC4507633DF5A45B11713",
       "algorithm": "sha256"
