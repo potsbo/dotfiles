@@ -45,7 +45,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.83
-  - name: anthropics/claude-code@v2.1.260
+  - name: anthropics/claude-code@v2.1.261
   # herdr の self-update (`herdr update`) は使わない。バージョンはここの Renovate 更新で上げる。
   # 稼働中サーバを pane を殺さず入れ替えるには、素の `herdr server live-handoff` では不足
   # (旧サーバが自分の current_exe = 旧 aqua パスを再 spawn するため)。新バイナリを明示する:
