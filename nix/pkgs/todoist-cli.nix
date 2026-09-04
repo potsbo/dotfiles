@@ -12,8 +12,8 @@ buildNpmPackage {
     owner = "Doist";
     repo = "todoist-cli";
     rev = "v${version}";
-    hash = "sha256-V3apDeMn/K0rvZk7MXsIevlvDrjPace8aSqs0wbyPPU=";
+    hash = "sha256-RYk1MSL15dt8aTeRxNPcVNYXnaDRURiITfMEBqR4DIA=";
   };
 
-  npmDepsHash = "sha256-Np/e5Ph5IDw0+I0cKK4d7ExMefKJZBGe+yv8sFkvQjs=";
+  npmDepsHash = "sha256-JDFKNVm8G/s4fVsXjKzh0DWmqXDbTJ7huv3LO5mq+rU=";
 }
