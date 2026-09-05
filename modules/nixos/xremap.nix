@@ -8,8 +8,8 @@ let
   # RDP クライアントではリモート側にキーをそのまま渡すため、xremap を無効化する
   rdpApps = [ "xfreerdp" "FreeRDP" ];
 
-  # ターミナルとして扱うアプリ。Ghostty が無いホスト (skylake) では GNOME Console
-  # を使っており、そちらもコピー/ペーストは Ctrl+Shift+C/V なので同じ規則に乗せる。
+  # ターミナルとして扱うアプリ。GNOME Console もコピー/ペーストは Ctrl+Shift+C/V なので
+  # 同じ規則に乗せる。
   terminalApps = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "org.gnome.Console" ];
 in
 

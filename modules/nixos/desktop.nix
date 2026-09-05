@@ -96,6 +96,11 @@ in
 
     environment.systemPackages = with pkgs; [
       browser.package
+      # 端末。設定は symlink 済みの home/.config/ghostty/config を共有する。
+      ghostty
+      # macOS 側は cask (darwin/apps.nix)。notes リポジトリ (notes-sync.nix) を
+      # GUI セッションでも直接開くため。
+      obsidian
       vscode
       vicinae
       (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
