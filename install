@@ -25,15 +25,36 @@ fi
 
 if ! has "nix"; then
   echo "Installing Nix..."
-  curl -L https://nixos.org/nix/install | sh -s
-  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+  # 公式インストーラ (nixos.org/nix/install)。挙動は OS で分かれる:
+  #   macOS: multi-user (daemon) のみ。sudo を使い APFS volume を作り、/etc/zshrc 等に
+  #          nix-daemon.sh の source 行を足す。
+  #   Linux: 既定は single-user。root の daemon を立てず、/nix を作る 1 回だけ sudo を使う。
+  #          --no-modify-profile: 既定では ~/.zshenv 等に source 行を追記するが、その
+  #          ファイルはこの後 home-manager が symlink に置き換えるので衝突する。
+  #          nix.sh の source は home/.zshenv が自前でやる。
+  # --no-channel-add: channel は使わない (flake registry で足りる)。nixpkgs の
+  #          channel 取得を省くぶん速い。
+  # --yes:   確認プロンプトを飛ばす。stdin が tty でない (curl | bash) と自動で yes に
+  #          なるが、明示しておく。sudo のパスワードは /dev/tty から聞かれるので残る。
+  args=(--yes --no-channel-add)
+  if [[ "$SYSTEM" == "Linux" ]]; then
+    args+=(--no-daemon --no-modify-profile)
+  fi
+  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install | sh -s -- "${args[@]}"
+  # 今のシェルに PATH を通す。multi-user と single-user で置き場が違う。
+  for f in /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh "$HOME/.nix-profile/etc/profile.d/nix.sh"; do
+    if [ -e "$f" ]; then . "$f"; break; fi
+  done
 fi
 
+# インストーラは flakes を有効にしない。対話シェルでは home/.config/nix/nix.conf が
+# 有効にするが、そのリンクは下の home-manager が張るので、このスクリプトの間は env で通す。
 export NIX_CONFIG="experimental-features = nix-command flakes"
 
 # clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
 # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
-# curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
+# curl と sh (Linux は加えて tar と xz) だけになる。registry 経由の nixpkgs 解決は
+# 初回だけ数十秒かかる。
 if [ ! -d "$DOTPATH" ]; then
   echo "$DOTPATH not found. Cloning..."
   mkdir -p "$(dirname "$DOTPATH")"
