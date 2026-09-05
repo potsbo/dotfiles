@@ -62,7 +62,7 @@ fi
 after=$(avail)
 
 if [ "$DRY_RUN" = 1 ]; then
-  echo "dry-run: 上記を実行すると再生成可能なキャッシュが削除されます。"
+  echo "dry-run: the commands above would delete regenerable caches."
 else
   freed=$(( after - before ))
   echo "done: freed $(human "$freed") ($(human "$before") -> $(human "$after") free on /)"
