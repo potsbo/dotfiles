@@ -88,9 +88,7 @@ in
 
   # GNOME/GDM は tty1 と DRM を取り合うので kiosk 側では止める。X も不要
   # (xfreerdp は cage の Xwayland 上で動く)。
-  services.xserver.enable = lib.mkForce false;
-  services.displayManager.gdm.enable = lib.mkForce false;
-  services.desktopManager.gnome.enable = lib.mkForce false;
+  desktop.environment = "none";
 
   users.users.kiosk = {
     isNormalUser = true;
