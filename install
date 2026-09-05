@@ -56,27 +56,8 @@ HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-# Step 1 clone
-if [ ! -d $DOTPATH ]; then
-  echo "$DOTPATH not found. Cloning..."
-  mkdir -p "$(dirname ${DOTPATH})"
-
-  if [[ -e /etc/NIXOS ]]; then
-    nix-shell -p git --run "git clone --recursive https://${REPO} ${DOTPATH}"
-  else
-    git clone --recursive https://${REPO} ${DOTPATH}
-  fi
-fi
-
-cd $DOTPATH
-
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
-# nix configuration (potsbo ユーザーのみ)
-# nix の設定を potsbo と hard code していることが理由
-# 「nix を install できる環境」と「user が potsbo である」は一致することがほとんどのハズ
+# nix 一式は potsbo ユーザーのみ。home.nix が username と homeDirectory を potsbo で
+# 固定しているため、他ユーザー (CI の runner など) では home-manager を当てられない。
 if [[ "$USER" == "potsbo" ]]; then
   if ! has "nix"; then
     echo "Installing Nix..."
@@ -85,6 +66,16 @@ if [[ "$USER" == "potsbo" ]]; then
   fi
 
   export NIX_CONFIG="experimental-features = nix-command flakes"
+
+  # clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
+  # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
+  # curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
+  if [ ! -d "$DOTPATH" ]; then
+    echo "$DOTPATH not found. Cloning..."
+    mkdir -p "$(dirname "$DOTPATH")"
+    nix shell nixpkgs#git -c git clone --recursive "https://${REPO}" "$DOTPATH"
+  fi
+  cd "$DOTPATH"
 
   # 既知ホストかどうかは flake.nix の hosts 一覧で決まる (ここに一覧を持たない)。
   # 既知ホスト = 自分が管理しているマシンなのでシステムごと管理する。
@@ -122,20 +113,6 @@ if [[ "$USER" == "potsbo" ]]; then
   # 最新 CLI と lock 済み設定のバージョン skew が消える利点もある。
   HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${CONFIG}.activationPackage")
   "${HM_ACTIVATION}/activate"
-fi
-
-if [ "${CODESPACES:-"false"}" = "true" ]; then
-  # codespaces で sudo が command not found になったため入れていない
-  # もしかしたら codespaces の環境によっては必要かもしれない
-  apt update
-
-  # ghq のために workspace 自体もリンクする
-  mkdir -p "${HOME}/src/github.com/$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)"
-  TARGET_REPO_PATH="${HOME}/src/github.com/${GITHUB_REPOSITORY}"
-  if [ ! -e "${TARGET_REPO_PATH}" ]; then
-    # 起動時は CODESPACE_VSCODE_FOLDER が使えなかったので手動で構築
-    ln -s "/workspaces/$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" "${TARGET_REPO_PATH}"
-  fi
 fi
 
 # aqua の global config は既定で ~/.config 配下だが、~/.config のリンクは上の

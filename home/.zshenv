@@ -52,7 +52,6 @@ export PATH=$HOME/bin:$PATH
 ## Build
 # prepend: 自作の open/xdg-open ラッパーが system の xdg-open (nix) に勝つ必要がある
 export PATH=$HOME/.local/bin:$PATH
-if [ -n "$PIPX_BIN_DIR" ]; then; export PATH=$PATH:$PIPX_BIN_DIR; fi # poetry in codespaces
 export PATH=$PATH:$HOME/go/bin
 ## System
 export PATH=$PATH:/bin               # cat, cp, ...

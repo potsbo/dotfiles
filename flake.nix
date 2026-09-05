@@ -110,7 +110,7 @@
         })
         (hostsByOs "darwin");
 
-      # `linux` は一覧に無いホスト (Codespaces、管理外サーバなど) 向けの汎用構成。
+      # `linux` は一覧に無いホスト (管理外のサーバなど) 向けの汎用構成。
       homeConfigurations = {
         linux = mkHome { system = "x86_64-linux"; hostname = "default"; };
       } // lib.mapAttrs (hostname: h: mkHome { inherit (h) system; inherit hostname; }) hosts;

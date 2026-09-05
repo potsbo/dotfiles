@@ -14,6 +14,9 @@ jobs:
         uses: aquaproj/aqua-installer@v4.0.5
         with:
           aqua_version: v2.57.1
+      # runner ユーザーでは nix 段 (clone 込み) が走らないので、checkout を install が
+      # 期待する場所に置いてから流す。
+      - run: mkdir -p ~/src/github.com/potsbo && ln -s "$GITHUB_WORKSPACE" ~/src/github.com/potsbo/dotfiles
       - run: ./install
       - run: aqua install
 
