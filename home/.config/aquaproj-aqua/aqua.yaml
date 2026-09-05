@@ -80,6 +80,6 @@ packages:
   - name: openai/codex@rust-v0.153.3
   - name: yusukebe/ax@v0.1.25
     registry: local
-  - name: modem-dev/hunk@v0.21.0
+  - name: modem-dev/hunk@v0.21.1
   - name: fastfetch-cli/fastfetch@2.68.1
   - name: cloudflare/cloudflared@2026.8.3
