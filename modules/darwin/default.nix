@@ -3,6 +3,8 @@
 {
   nix.enable = false;
   system.primaryUser = "potsbo";
+  # home-manager (darwinModules) がユーザーのホームを要求する
+  users.users.potsbo.home = "/Users/potsbo";
 
   environment.etc."sudoers.d/potsbo".text = ''
     potsbo ALL=(ALL) NOPASSWD: ALL

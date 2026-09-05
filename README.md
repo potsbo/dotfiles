@@ -24,7 +24,7 @@ home-manager on both). To run one piece by hand:
 cd ~/src/github.com/potsbo/dotfiles
 sudo nixos-rebuild switch --flake .#<host>          # NixOS
 nix run . -- switch --flake .#<host>               # nix-darwin
-nix build .#homeConfigurations.<host>.activationPackage && ./result/activate  # home-manager
+# home-manager は上の 2 つに含まれる (NixOS / nix-darwin のモジュール)
 ```
 
 ## Structure

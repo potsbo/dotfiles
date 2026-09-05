@@ -55,6 +55,7 @@ if [ ! -d "$DOTPATH" ]; then
 fi
 cd "$DOTPATH"
 
+# system と home をまとめて切り替える (home-manager は NixOS / nix-darwin のモジュール)。
 # nixos-rebuild (NixOS のみ)。ホストが flake.nix の hosts に無ければ nix 自身が
 # "does not provide attribute nixosConfigurations.<host>" で止まるので、事前確認はしない。
 if [[ -e /etc/NIXOS ]]; then
@@ -67,14 +68,6 @@ if [[ -e /etc/NIXOS ]]; then
   # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
   sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}"
 fi
-
-# home-manager を registry 経由 (nix run home-manager) で呼ばない。
-# unpinned な参照は rev 確定のため GitHub API を叩き、新環境では gh がまだ
-# 入っていないので未認証のまま 403 に当たりうる。flake.lock で固定済みの
-# activationPackage を直接ビルドすれば API 解決そのものが不要になる。
-# 最新 CLI と lock 済み設定のバージョン skew が消える利点もある。
-HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${HOSTNAME}.activationPackage")
-"${HM_ACTIVATION}/activate"
 
 # nix-darwin (macOS only)
 # GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので

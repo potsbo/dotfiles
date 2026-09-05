@@ -55,27 +55,31 @@
       };
       hostsByOs = os: lib.filterAttrs (_: h: h.os == os) hosts;
 
-      mkHome = { system, hostname }:
+      # home-manager は standalone ではなく NixOS / nix-darwin のモジュールとして組み込む。
+      # system と home が同じ世代で切り替わり、./install は rebuild 一発で済む。
+      hmModule = hostname: isDarwin:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          accentColor = (hosts.${hostname} or { color = colors.gray; }).color;
-          homeDir = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/potsbo" else "/home/potsbo";
-          dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
+          homeDir = if isDarwin then "/Users/potsbo" else "/home/potsbo";
         in
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            ./modules/home-manager/home.nix
-            ./modules/home-manager/hosts.nix
-            ./modules/home-manager/dotfiles.nix
-            ./modules/home-manager/starship.nix
-            ./modules/home-manager/notes-sync.nix
-            ./modules/home-manager/notes-remote-control.nix
-          ];
-          extraSpecialArgs = {
-            inherit accentColor hostname dotfilesPath;
-            hosts = lib.mapAttrs (_: h: { inherit (h) os color; }) hosts;
-            defaultColor = colors.gray;
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.potsbo.imports = [
+              ./modules/home-manager/home.nix
+              ./modules/home-manager/hosts.nix
+              ./modules/home-manager/dotfiles.nix
+              ./modules/home-manager/starship.nix
+              ./modules/home-manager/notes-sync.nix
+              ./modules/home-manager/notes-remote-control.nix
+            ];
+            extraSpecialArgs = {
+              inherit hostname;
+              accentColor = hosts.${hostname}.color;
+              dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
+              hosts = lib.mapAttrs (_: h: { inherit (h) os color; }) hosts;
+              defaultColor = colors.gray;
+            };
           };
         };
 
@@ -89,13 +93,18 @@
           (./hosts + "/${hostname}/configuration.nix")
           xremap-flake.nixosModules.default
           ./modules/nixos/xremap.nix
+          home-manager.nixosModules.home-manager
+          (hmModule hostname false)
         ] ++ extraModules;
       };
 
-      mkDarwin = { system, apps }: nix-darwin.lib.darwinSystem {
+      mkDarwin = { hostname, system, apps }: nix-darwin.lib.darwinSystem {
         inherit system;
-        modules = [ ./modules/darwin ]
-          ++ lib.optional apps ./modules/darwin/apps.nix;
+        modules = [
+          ./modules/darwin
+          home-manager.darwinModules.home-manager
+          (hmModule hostname true)
+        ] ++ lib.optional apps ./modules/darwin/apps.nix;
       };
     in
     {
@@ -105,13 +114,10 @@
       # `<host>-apps` は GUI アプリまで含む重い構成 (`apps` コマンド)。
       darwinConfigurations = lib.concatMapAttrs
         (name: h: {
-          ${name} = mkDarwin { inherit (h) system; apps = false; };
-          "${name}-apps" = mkDarwin { inherit (h) system; apps = true; };
+          ${name} = mkDarwin { hostname = name; inherit (h) system; apps = false; };
+          "${name}-apps" = mkDarwin { hostname = name; inherit (h) system; apps = true; };
         })
         (hostsByOs "darwin");
-
-      homeConfigurations = lib.mapAttrs (hostname: h: mkHome { inherit (h) system; inherit hostname; })
-        (lib.filterAttrs (_: h: h.os != "linux") hosts);
 
       packages.aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
 
