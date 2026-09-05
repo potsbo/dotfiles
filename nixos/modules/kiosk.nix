@@ -85,8 +85,15 @@ in
     enable = true;
     user = "kiosk";
     program = lib.getExe rdpKiosk;
+    # 既定では VT 切替を禁止する。Ctrl+Alt+F2 で tty2 に出るために許可する。
+    extraArguments = [ "-s" ];
     environment.XKB_DEFAULT_LAYOUT = "us";
   };
+
+  # xremap は potsbo のユーザーサービスだが linger で GNOME 終了後も生き残り、
+  # キーボードを grab したまま Ctrl 単押し→Esc などを RDP に流してしまう。
+  # GNOME 拡張が無い環境ではアプリ単位の除外 (xfreerdp) も効かない。
+  services.xremap.enable = lib.mkForce false;
 
   systemd.services.cage-tty1 = {
     # Tailscale が Running になってから繋ぎに行く。失敗しても起動自体は止めない
