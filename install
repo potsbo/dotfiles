@@ -6,12 +6,8 @@
 
 set -eu
 
-has() {
-  return $(type $1 >/dev/null 2>&1)
-}
-
 SYSTEM=$(uname -s)
-HOSTNAME="${HOSTNAME:-$(hostname)}"
+# bash が設定する HOSTNAME をそのまま使う (HOSTNAME=<name> ./install で上書きできる)。
 HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
@@ -36,7 +32,7 @@ if [[ "$SYSTEM" == "Linux" && ! -e /etc/NIXOS ]]; then
   exit 1
 fi
 
-if ! has "nix"; then
+if ! command -v nix >/dev/null; then
   echo "Installing Nix..."
   # 公式インストーラ。macOS は multi-user (daemon) のみで、sudo を使って APFS volume と
   # daemon を作る。stdin が tty でない (curl | bash) と確認は自動で yes になるが
@@ -55,8 +51,7 @@ fi
 # curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
 if [ ! -d "$DOTPATH" ]; then
   echo "$DOTPATH not found. Cloning..."
-  mkdir -p "$(dirname "$DOTPATH")"
-  nix shell nixpkgs#git -c git clone --recursive "https://${REPO}" "$DOTPATH"
+  nix shell nixpkgs#git -c git clone "https://${REPO}" "$DOTPATH"
 fi
 cd "$DOTPATH"
 
@@ -80,29 +75,6 @@ fi
 # 最新 CLI と lock 済み設定のバージョン skew が消える利点もある。
 HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${HOSTNAME}.activationPackage")
 "${HM_ACTIVATION}/activate"
-
-# aqua の設定。global config は ~/.config 配下 (上の home-manager が張った) で既定の
-# 場所だが、policy は既定パスでないので .zshenv と同じ値を明示する。
-export AQUA_GLOBAL_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua.yaml"
-export AQUA_POLICY_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua-policy.yaml"
-
-if has "aqua"; then
-  aqua install --only-link
-fi
-
-# nix に GitHub のトークンを渡す (home/.config/nix/nix.conf が include する)。
-# 未認証だと GitHub API が 60 req/hour で、nix flake update が 403 で落ちる。
-# gh を使うので新規に PAT を発行しなくてよい。gh 未認証なら黙って飛ばす。
-# 書き込み先が ~ ではなく DOTPATH なのは、.config がディレクトリごと
-# symlink される (modules/home-manager/dotfiles.nix) ため、リンク前に実体を作ると衝突するため。
-if has "gh" && GH_TOKEN=$(gh auth token 2>/dev/null); then
-  (
-    umask 077
-    printf 'access-tokens = github.com=%s\n' "$GH_TOKEN" \
-      >"${DOTPATH}/home/.config/nix/access-tokens.conf"
-  )
-  unset GH_TOKEN
-fi
 
 # nix-darwin (macOS only)
 # GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので

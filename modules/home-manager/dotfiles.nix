@@ -62,14 +62,27 @@ in
     done
   '';
 
+  # nix に GitHub のトークンを渡す (home/.config/nix/nix.conf が include する)。
+  # 未認証だと GitHub API が 60 req/hour で、nix flake update が 403 で落ちる。
+  # gh を使うので新規に PAT を発行しなくてよい。gh 未認証なら黙って飛ばす。
+  # 書き込み先は ~/.config ではなくリポジトリ側 (同じ場所を指す symlink だが、
+  # gitignore 済みの実体として置く)。トークンをログに出さないよう run は使わない。
+  home.activation.writeNixGithubToken = lib.hm.dag.entryAfter [ "installPackages" ] ''
+    export AQUA_GLOBAL_CONFIG="${repoHome}/.config/aquaproj-aqua/aqua.yaml"
+    if [ -z "''${DRY_RUN:-}" ] && token="$("${config.home.profileDirectory}/bin/aqua" exec -- gh auth token 2>/dev/null)" && [ -n "$token" ]; then
+      (umask 077; printf 'access-tokens = github.com=%s\n' "$token" >"${repoHome}/.config/nix/access-tokens.conf")
+    fi
+  '';
+
   # Hunk (hunk.dev) 同梱のレビュースキルを user skill として全 repo に見せる。
   # これが無いと別 repo で Hunk セッションを認識できずエージェントが暴走する。
   # 実体パスは OS とバージョンで変わるため hardcode せず `hunk skill path` で
   # 毎回解決し、現在インストール済みの版へ貼り直す。hunk は aqua の lazy install
   # なので aqua exec 経由で叩く。aqua か hunk が未導入なら no-op。
-  home.activation.linkHunkReviewSkill = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  # activation の PATH に aqua は無い (system 側から呼ばれる) ので profile の実体を叩く。
+  home.activation.linkHunkReviewSkill = lib.hm.dag.entryAfter [ "installPackages" ] ''
     export AQUA_GLOBAL_CONFIG="${repoHome}/.config/aquaproj-aqua/aqua.yaml"
-    if command -v aqua >/dev/null && p="$(aqua exec -- hunk skill path 2>/dev/null)" && [ -n "$p" ]; then
+    if p="$("${config.home.profileDirectory}/bin/aqua" exec -- hunk skill path 2>/dev/null)" && [ -n "$p" ]; then
       link="$HOME/.claude/skills/hunk-review"
       if [ "$(readlink "$link" 2>/dev/null)" != "$(dirname "$p")" ]; then
         run mkdir -p "$HOME/.claude/skills"
