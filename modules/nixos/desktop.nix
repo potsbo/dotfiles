@@ -3,24 +3,11 @@
 { config, pkgs, lib, ... }:
 
 let
-  isX86 = pkgs.stdenv.hostPlatform.isx86_64;
-
-  # google-chrome は aarch64 非対応のため、アーキテクチャで切り替え
-  browser = if isX86 then {
-    package = pkgs.google-chrome;
-    binary = "${pkgs.google-chrome}/bin/google-chrome-stable";
-    icon = "google-chrome";
-  } else {
-    package = pkgs.chromium;
-    binary = "${pkgs.chromium}/bin/chromium";
-    icon = "chromium-browser";
-  };
-
-  # Web アプリを Chrome/Chromium --app モードで起動する .desktop エントリを生成
-  webApp = { name, desktopName, url, icon ? browser.icon }:
+  # Web アプリを Chrome --app モードで起動する .desktop エントリを生成
+  webApp = { name, desktopName, url, icon ? "google-chrome" }:
     pkgs.makeDesktopItem {
       inherit name desktopName icon;
-      exec = "${browser.binary} --app=${url}";
+      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --app=${url}";
       categories = [ "Network" ];
     };
 in
@@ -52,7 +39,7 @@ in
     services.pipewire = {
       enable = true;
       alsa.enable = true;
-      alsa.support32Bit = isX86;
+      alsa.support32Bit = true;
       pulse.enable = true;
     };
 
@@ -95,7 +82,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      browser.package
+      google-chrome
       # 端末。設定は symlink 済みの home/.config/ghostty/config を共有する。
       ghostty
       # macOS 側は cask (darwin/apps.nix)。notes リポジトリ (notes-sync.nix) を
@@ -106,11 +93,10 @@ in
       (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
       zotero
       freerdp
-    ] ++ lib.optionals isX86 (with pkgs; [
       slack
       zoom-us
       code-cursor
       pgadmin4-desktopmode
-    ]);
+    ];
   };
 }
