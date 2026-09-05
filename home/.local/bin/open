@@ -2,7 +2,7 @@
 # Mac から ssh しているとき、URL / ファイルを透過的に Mac 側で開く open/xdg-open。
 #
 # 経路: 127.0.0.1:2226 → ssh RemoteForward (home/.ssh/config) → Mac の
-# opener-listen (launchd, nix/home.nix)。ACK ("ok") が返ったときだけ成功と
+# opener-listen (launchd, modules/home-manager/home.nix)。ACK ("ok") が返ったときだけ成功と
 # みなすので、転送や Mac 側リスナーが死んでいれば確実にローカル
 # (nautilus / 本物の xdg-open) にフォールバックする。
 #

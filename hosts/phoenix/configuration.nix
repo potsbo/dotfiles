@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ../../modules/common.nix
-    ../../modules/server.nix
+    ../../modules/nixos/common.nix
+    ../../modules/nixos/server.nix
   ];
 
   networking.hostName = "phoenix";
@@ -63,5 +63,10 @@
   # home/.config/ghostty/config をそのまま共有する。
   # common.nix (全 NixOS ホスト) には入れていない: 現状 GUI を日常的に触るのは
   # phoenix だけで、必要になったホストから足す方が安い。
-  environment.systemPackages = [ pkgs.ghostty ];
+  environment.systemPackages = [
+    pkgs.ghostty
+    # macOS 側は cask (darwin-apps.nix)。notes リポジトリ (notes-sync.nix) を
+    # phoenix の GUI セッションでも直接開くため。
+    pkgs.obsidian
+  ];
 }

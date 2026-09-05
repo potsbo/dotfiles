@@ -9,4 +9,3 @@ x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/slack=slack.desktop
 
 [Added Associations]
-x-scheme-handler/slack=slack.desktop;

@@ -1,3 +1,0 @@
-New-Item -force -path ~\aqua.yaml -itemType SymbolicLink -target C:\Users\potsb\src\github.com\potsbo\dotfiles\home\aqua.yaml
-New-Item -force -path ~\.gitconfig -itemType SymbolicLink -target  C:\Users\potsb\src\github.com\potsbo\dotfiles\home\.config\git\config
-New-Item -force -path 'C:\Users\potsb\AppData\Local\nvim' -itemType SymbolicLink -target C:\Users\potsb\src\github.com\potsbo\dotfiles\home\.config\nvim\

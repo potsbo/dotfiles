@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ../../modules/common.nix
+    ../../modules/nixos/common.nix
     # オフィス据え置きで、家から Tailscale 越しに使う。サスペンドされると
     # 到達できなくなるので laptop ではなく server 扱いにする。
-    ../../modules/server.nix
+    ../../modules/nixos/server.nix
     # WARP 接続中の Mac から入るための Cloudflare 経路 (Tailscale と併存)
     ./cloudflare-access.nix
   ];

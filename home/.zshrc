@@ -73,7 +73,7 @@ if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua complet
 if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
 # host-colored frame so any fzf shows which host it runs on.
-thm_main=$(~/.local/bin/host-color "$(hostname)")
+thm_main=$(host-color "$(hostname)")
 export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}
@@ -120,10 +120,6 @@ if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; 
 # 荒い絵になる。使う端末はどれも kitty graphics を解するので明示する。
 # 自動判定に任せたいときは chafa をそのまま呼べばよい。
 alias img="chafa -f kitty"
-
-if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
-  "$(ghq root)/github.com/potsbo/dotfiles/script/fix-wl-copy.sh"
-fi
 
 # aqua: prompt 毎にパッケージをインストール（~50ms, バックグラウンド実行）
 _aqua_install() {

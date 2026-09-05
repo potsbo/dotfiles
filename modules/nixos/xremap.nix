@@ -71,7 +71,7 @@ in
 
   services.xremap = {
     enable = true;
-    withGnome = true;
+    withGnome = config.desktop.environment == "gnome";
     userName = "potsbo";
     serviceMode = "user";
     watch = true;

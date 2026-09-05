@@ -26,5 +26,4 @@ jobs:
           for pkg in aqua tuicast todoist-cli; do
             nix run nixpkgs#nix-update -- --flake --version=skip "$pkg"
           done
-        working-directory: nix
       - uses: autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a # v1.3.4

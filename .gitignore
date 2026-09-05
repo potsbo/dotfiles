@@ -4,3 +4,6 @@
 /config/.config/dconf
 /config/.config/.gsd-keyboard.settings-ported
 /home/.config/BraveSoftware
+/home/.config/mozilla/native-messaging-hosts
+/home/.config/microsoft-edge/NativeMessagingHosts
+/home/.config/opera/NativeMessagingHosts
