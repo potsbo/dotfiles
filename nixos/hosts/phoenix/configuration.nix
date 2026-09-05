@@ -58,4 +58,10 @@
       method = "link-local";
     };
   };
+
+  # RDP 越しの GNOME セッションで使う端末。設定は symlink 済みの
+  # home/.config/ghostty/config をそのまま共有する。
+  # common.nix (全 NixOS ホスト) には入れていない: 現状 GUI を日常的に触るのは
+  # phoenix だけで、必要になったホストから足す方が安い。
+  environment.systemPackages = [ pkgs.ghostty ];
 }
