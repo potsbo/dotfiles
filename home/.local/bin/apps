@@ -23,7 +23,7 @@ run() {
 }
 
 if [ "$(uname -s)" != "Darwin" ]; then
-  echo "apps: macOS 専用 (Homebrew cask / Mac App Store)" >&2
+  echo "apps: macOS only (Homebrew cask / Mac App Store)" >&2
   exit 1
 fi
 
@@ -36,7 +36,7 @@ HOSTNAME="${HOSTNAME%.local}"
 if ! nix eval --extra-experimental-features 'nix-command flakes' \
   "${DOTPATH}/nix#darwinConfigurations" --apply builtins.attrNames 2>/dev/null |
   grep -qF "\"${HOSTNAME}-apps\""; then
-  echo "apps: 構成 ${HOSTNAME}-apps が flake.nix に無い" >&2
+  echo "apps: configuration ${HOSTNAME}-apps is not in flake.nix" >&2
   exit 1
 fi
 
@@ -56,7 +56,7 @@ run sudo -H nix --extra-experimental-features 'nix-command flakes' \
   run "${DOTPATH}" -- switch --flake "${DOTPATH}#${HOSTNAME}-apps" --verbose
 
 if [ "$DRY_RUN" = 1 ]; then
-  echo "dry-run: 上記を実行すると GUI アプリを宣言どおりに揃えます。"
+  echo "dry-run: the commands above would install GUI apps as declared."
 else
   echo "done"
 fi
