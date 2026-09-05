@@ -109,17 +109,10 @@ if [[ "$USER" == "potsbo" ]]; then
     # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
     # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
     #
-    # hardware-configuration.nix をまだリポジトリに取り込んでいないホストは
-    # /etc/nixos を読むため --impure が要る。pure なホストはフラグを外すことで
-    # eval cache が効き、no-op の switch が数秒で終わる。
-    # 残りを pure 化するには、そのホストの /etc/nixos/hardware-configuration.nix を
-    # hosts/<host>/ に commit する (phoenix と同じ形)。eval cache は pure かつ
-    # git tree が clean なときだけ効く。
-    IMPURE_FLAG=""
-    if [[ ! -e "${DOTPATH}/hosts/${CONFIG}/hardware-configuration.nix" ]]; then
-      IMPURE_FLAG="--impure"
-    fi
-    sudo nixos-rebuild switch --flake "${DOTPATH}#${CONFIG}" $IMPURE_FLAG
+    # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
+    # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
+    # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
+    sudo nixos-rebuild switch --flake "${DOTPATH}#${CONFIG}"
   fi
 
   # home-manager を registry 経由 (nix run home-manager) で呼ばない。

@@ -46,6 +46,21 @@ let
   # そこで即再接続すると相手を蹴り返す往復になるので、この場合だけは再接続せず、
   # キオスク側でキーが押されるまで待つ。サインアウトやネットワーク断は従来どおり
   # 即再接続 (systemd の Restart に任せる)。
+  # 取られたあとの待機画面。cage がウィンドウを全画面に広げる前に描くと幅 1 桁で
+  # 縦書きになるので、端末幅が広がるのを待ってから描く。
+  waitScreen = pkgs.writeShellApplication {
+    name = "rdp-kiosk-wait";
+    runtimeInputs = [ pkgs.ncurses ];
+    text = ''
+      until [ "$(tput cols)" -gt 40 ]; do sleep 0.1; done
+      clear
+      echo
+      echo "  Session taken over by another client."
+      echo "  Press any key to reconnect."
+      read -rsn1
+    '';
+  };
+
   rdpKiosk = pkgs.writeShellApplication {
     name = "rdp-kiosk";
     runtimeInputs = [ pkgs.freerdp pkgs.xterm ];
@@ -53,14 +68,12 @@ let
       cred="''${CREDENTIALS_DIRECTORY:?}/rdp-credentials"
       set +o errexit
       {
-        # /f は DesktopWidth/Height をモニタ実サイズ (この機体は 2304x1440) で上書きする
-        # (xf_pre_connect: SmartSizing が無いときだけ)。/size を活かして 1920x1080 の
-        # セッションを全画面に拡縮するには /smart-sizing が要る。
+        # 解像度は指定しない。/f がモニタ実サイズ (この機体は 2304x1440、16:10) をそのまま
+        # 使う。/size:1920x1080 + /smart-sizing も試したが、16:9 を 16:10 に引き延ばして
+        # 横に潰れた。負荷を下げたければ 16:10 を保つ /size:1920x1200 + /smart-sizing。
         printf '%s\n' \
           "/v:${rdpHost}" \
           /f \
-          /size:1920x1080 \
-          /smart-sizing \
           /gfx:AVC444 \
           /cert:tofu \
           +auto-reconnect \
@@ -73,10 +86,7 @@ let
 
       echo "xfreerdp exited with $rc"
       if [ "$rc" -eq 1 ] || [ "$rc" -eq 5 ]; then
-        xterm -fa Monospace -fs 20 -bg black -fg white -e bash -c '
-          echo; echo "  Session taken over by another client."
-          echo "  Press any key to reconnect."
-          read -rsn1'
+        xterm -fa Monospace -fs 20 -bg black -fg white -e ${lib.getExe waitScreen}
       fi
       exit "$rc"
     '';
@@ -102,8 +112,15 @@ in
     enable = true;
     user = "kiosk";
     program = lib.getExe rdpKiosk;
-    # 既定では VT 切替を禁止する。Ctrl+Alt+F2 で tty2 に出るために許可する。
-    extraArguments = [ "-s" ];
+    extraArguments = [
+      # 既定では VT 切替を禁止する。Ctrl+Alt+F2 で tty2 に出るために許可する。
+      "-s"
+      # 最後に繋いだ出力だけを使う。既定の extend は内蔵+外部を 1 枚に延長するので、
+      # 外部ディスプレイを繋いで起動すればそちらだけに出る (クラムシェル運用)。
+      # xfreerdp の /f は起動時の出力サイズで固定なので、抜き差ししたら cage-tty1 を
+      # restart して張り直す。
+      "-m" "last"
+    ];
     environment.XKB_DEFAULT_LAYOUT = "us";
   };
 
