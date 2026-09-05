@@ -7,3 +7,4 @@
 /home/.config/mozilla/native-messaging-hosts
 /home/.config/microsoft-edge/NativeMessagingHosts
 /home/.config/opera/NativeMessagingHosts
+/home/.config/fontconfig/conf.d
