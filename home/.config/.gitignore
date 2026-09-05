@@ -33,7 +33,11 @@ lightdash
 /mozc
 /fcitx/dbus
 /1Password
-/BraveSoftware/Brave-Browser/NativeMessagingHosts
+/BraveSoftware
+/mozilla/native-messaging-hosts
+/microsoft-edge/NativeMessagingHosts
+/opera/NativeMessagingHosts
+/fontconfig/conf.d
 /google-chrome*
 /microsoft-edge-dev/NativeMessagingHosts
 /vivaldi*
