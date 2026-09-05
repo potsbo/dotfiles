@@ -34,7 +34,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
 # NPM_CONFIG_CACHE は home-manager (home.sessionVariables) に集約。
-# 背景プロセス(npx製MCP等)にも継承させるため。詳細は nix/home.nix 参照。
+# 背景プロセス(npx製MCP等)にも継承させるため。詳細は modules/home-manager/home.nix 参照。
 
 # DOCKER_CONFIG は敢えて設定しない。docker の設定は ~/.docker のまま置く。
 # Docker Desktop (mac) が ~/.docker を決め打ちで管理するので、この変数を立てると

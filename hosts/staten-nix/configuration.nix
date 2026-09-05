@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ../../modules/common.nix
-    ../../modules/laptop.nix
+    ../../modules/nixos/common.nix
+    ../../modules/nixos/laptop.nix
   ];
 
   networking.hostName = "staten-nix";

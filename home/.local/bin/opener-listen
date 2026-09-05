@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# macOS 側の opener リスナー。launchd の inetd 互換モード (nix/home.nix の
+# macOS 側の opener リスナー。launchd の inetd 互換モード (modules/home-manager/home.nix の
 # launchd.agents.opener-listen) から 1 接続 = 1 プロセスで起動され、
 # socket が stdin/stdout に繋がった状態で呼ばれる。
 #

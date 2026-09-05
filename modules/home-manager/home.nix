@@ -4,13 +4,13 @@ let
 
   # 別ファイルなのは nix-update が flake output 経由でハッシュを自動更新するため。
   # nix-update は derivation の meta.position を見て書き戻すので、let 束縛のままだと扱えない。
-  aqua = pkgs.callPackage ./pkgs/aqua.nix { };
+  aqua = pkgs.callPackage ../../pkgs/aqua.nix { };
 
-  tuicast = pkgs.callPackage ./pkgs/tuicast.nix { };
+  tuicast = pkgs.callPackage ../../pkgs/tuicast.nix { };
 
-  todoist-cli = pkgs.callPackage ./pkgs/todoist-cli.nix { };
+  todoist-cli = pkgs.callPackage ../../pkgs/todoist-cli.nix { };
 
-  evalcache = pkgs.callPackage ./pkgs/evalcache.nix { };
+  evalcache = pkgs.callPackage ../../pkgs/evalcache.nix { };
 
 in
 {

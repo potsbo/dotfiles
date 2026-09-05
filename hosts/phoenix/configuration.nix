@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 {
   imports = [
-    ../../modules/common.nix
-    ../../modules/server.nix
+    ../../modules/nixos/common.nix
+    ../../modules/nixos/server.nix
   ];
 
   networking.hostName = "phoenix";

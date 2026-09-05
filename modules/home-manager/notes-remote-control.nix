@@ -11,7 +11,7 @@
 { config, pkgs, lib, hostname, dotfilesPath, ... }:
 
 let
-  # nixos/modules/server.nix を import しているホスト。あちらは NixOS 側の
+  # modules/nixos/server.nix を import しているホスト。あちらは NixOS 側の
   # 構成で、home-manager からは参照できないので手で合わせる。
   serverHosts = [ "raptorlake" "phoenix" ];
 

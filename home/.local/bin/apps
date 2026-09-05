@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # macOS の GUI アプリ (Homebrew cask / Mac App Store) を宣言どおりに揃える。
-# 宣言は nix/modules/darwin-apps.nix、それを読む構成が `<host>-apps`。
+# 宣言は modules/darwin/apps.nix、それを読む構成が `<host>-apps`。
 #
 # ./install からこれを切り離してあるのは brew / mas が遅いため。Word などの
 # 更新が毎回挟まると、nix の設定をサッと反映したいだけのときに待たされる。
@@ -36,7 +36,7 @@ HOSTNAME="${HOSTNAME%.local}"
 if ! nix eval --extra-experimental-features 'nix-command flakes' \
   "${DOTPATH}/nix#darwinConfigurations" --apply builtins.attrNames 2>/dev/null |
   grep -qF "\"${HOSTNAME}-apps\""; then
-  echo "apps: 構成 ${HOSTNAME}-apps が nix/flake.nix に無い" >&2
+  echo "apps: 構成 ${HOSTNAME}-apps が flake.nix に無い" >&2
   exit 1
 fi
 

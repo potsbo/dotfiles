@@ -26,34 +26,16 @@ curl 経由で渡すときは `| bash -s -- --all`。
 `--apps` / `--cache` の中身はそれぞれ `apps` / `cache` コマンドそのもので、
 アプリだけ・キャッシュだけ入れ直したいときは直接叩ける。
 
-## Home Manager (PoC)
+## Nix
 
-Home Manager manages packages not available in aqua (e.g., git, mosh).
-
-### First-time setup
-
-```bash
-# Install nix (if not already installed)
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-
-# Apply home-manager configuration
-cd ~/src/github.com/potsbo/dotfiles/nix
-
-# Linux
-nix run home-manager -- switch --flake .#potsbo@linux
-
-# macOS (Apple Silicon)
-nix run home-manager -- switch --flake .#potsbo@darwin-arm
-
-# macOS (Intel)
-nix run home-manager -- switch --flake .#potsbo@darwin-x86
-```
-
-### Subsequent updates
+`./install` runs everything (nixos-rebuild on NixOS, nix-darwin on macOS,
+home-manager on both). To run one piece by hand:
 
 ```bash
-cd ~/src/github.com/potsbo/dotfiles/nix
-home-manager switch --flake .#potsbo@linux  # or darwin-arm, darwin-x86
+cd ~/src/github.com/potsbo/dotfiles
+sudo nixos-rebuild switch --flake .#<host>          # NixOS
+nix run . -- switch --flake .#<host>               # nix-darwin
+nix build .#homeConfigurations.<host>.activationPackage && ./result/activate  # home-manager
 ```
 
 ## Structure
@@ -61,5 +43,7 @@ home-manager switch --flake .#potsbo@linux  # or darwin-arm, darwin-x86
 - `home/` - Dotfiles (symlinked to `$HOME`)
 - `home/.config/aquaproj-aqua/aqua.yaml` - aqua package definitions
 - `lib/recipe.rb` - mitamae recipes (legacy, migrating to nix)
-- `nix/` - Nix/home-manager configuration (flake-based)
-- `nixos/` - NixOS host configurations
+- `flake.nix` - single flake for NixOS hosts, nix-darwin and home-manager
+- `hosts/<host>/` - NixOS host configurations
+- `modules/{nixos,darwin,home-manager}/` - shared modules per system type
+- `pkgs/` - packages not in nixpkgs
