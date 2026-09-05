@@ -5,7 +5,7 @@
 #
 # ./install からこれを切り離してあるのは brew / mas が遅いため。Word などの
 # 更新が毎回挟まると、nix の設定をサッと反映したいだけのときに待たされる。
-# アプリを足した / 消したときだけ叩けばよい (./install --apps でも同じ)。
+# アプリを足した / 消したときだけ叩けばよい。./install は呼ばない。
 # cache / reap と同じく冪等で、揃っていれば何もしない。
 #
 # 使い方: apps [--dry-run]
@@ -53,7 +53,7 @@ fi
 
 echo "== nix-darwin (${HOSTNAME}-apps) =="
 run sudo -H nix --extra-experimental-features 'nix-command flakes' \
-  run "${DOTPATH}/nix" -- switch --flake "${DOTPATH}/nix#${HOSTNAME}-apps" --verbose
+  run "${DOTPATH}" -- switch --flake "${DOTPATH}#${HOSTNAME}-apps" --verbose
 
 if [ "$DRY_RUN" = 1 ]; then
   echo "dry-run: 上記を実行すると GUI アプリを宣言どおりに揃えます。"

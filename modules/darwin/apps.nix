@@ -2,7 +2,7 @@
 
 # macOS の GUI アプリ (Homebrew cask / Mac App Store) の宣言。
 # brew / mas の更新は遅く、`./install` で毎回挟まると鬱陶しいので
-# 本体の darwin.nix から切り離し、`apps` コマンド (= `./install --apps`) が
+# 本体の default.nix から切り離し、`apps` コマンド (home/.local/bin/apps) が
 # 使う `<host>-apps` 構成でだけ読み込む。
 {
   homebrew = {

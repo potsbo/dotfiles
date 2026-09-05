@@ -10,21 +10,10 @@ Package management strategy is documented in `CLAUDE.md`.
 curl -fsSL https://raw.githubusercontent.com/potsbo/dotfiles/main/install | bash
 ```
 
-### オプション
+### GUI アプリ (macOS)
 
-`./install` は速くて高頻度なものだけを流す (nix / home-manager / symlink)。
-遅くて低頻度なものは opt-in。
-
-```bash
-./install --apps    # + GUI アプリ (Homebrew cask / Mac App Store, macOS のみ)
-./install --cache   # + 遅延インストールされる実体の先読み
-./install --all     # 全部 (新マシンの初期化はこれ)
-```
-
-curl 経由で渡すときは `| bash -s -- --all`。
-
-`--apps` / `--cache` の中身はそれぞれ `apps` / `cache` コマンドそのもので、
-アプリだけ・キャッシュだけ入れ直したいときは直接叩ける。
+Homebrew cask と Mac App Store のアプリは遅いので `./install` からは入れない。
+アプリを足した / 消したときだけ `apps` コマンド (home/.local/bin/apps) を叩く。
 
 ## Nix
 

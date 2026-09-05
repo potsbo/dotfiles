@@ -102,7 +102,7 @@
       nixosConfigurations = lib.mapAttrs mkNixos (hostsByOs "nixos");
 
       # `<host>` は Homebrew / Mac App Store を含まない軽い構成 (./install)。
-      # `<host>-apps` は GUI アプリまで含む重い構成 (./install --apps)。
+      # `<host>-apps` は GUI アプリまで含む重い構成 (`apps` コマンド)。
       darwinConfigurations = lib.concatMapAttrs
         (name: h: {
           ${name} = mkDarwin { inherit (h) system; apps = false; };
