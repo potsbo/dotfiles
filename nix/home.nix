@@ -116,6 +116,7 @@ in
     pv
     mosh
     groff # aws help が man 整形に要求する
+    chafa # 端末に画像を出す
   ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [

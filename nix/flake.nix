@@ -52,6 +52,7 @@
             ./home.nix
             ./modules/starship.nix
             ./modules/notes-sync.nix
+            ./modules/notes-remote-control.nix
           ];
           extraSpecialArgs = { inherit accentColor hostname dotfilesPath; };
         };
