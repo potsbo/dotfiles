@@ -62,7 +62,7 @@ DOTPATH="${HOME}/src/${REPO}"
 # 未知ホスト = 管理外のサーバーなので user (home-manager) 設定だけ入れる。
 MANAGE_SYSTEM=0
 case "$HOSTNAME" in
-avalanche | tigerlake | raptorlake | phoenix | staten-nix | blizzard | skylake)
+avalanche | raptorlake | phoenix | staten-nix | blizzard | skylake)
   CONFIG="$HOSTNAME"
   MANAGE_SYSTEM=1
   ;;

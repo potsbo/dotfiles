@@ -3,5 +3,5 @@
 case "${1%%.*}" in
   phoenix|staten-nix|skylake|raptorlake) echo nixos ;;
   mac-mini|blizzard|avalanche)           echo darwin ;;
-  tigerlake|graniteridge)                echo linux ;;
+  graniteridge)                          echo linux ;;
 esac

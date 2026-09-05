@@ -3,7 +3,6 @@
 # zsh FZF frame and the tuicast ssh view). Matching is on the short name, so
 # "blizzard", "blizzard.local" and a full hostname all resolve the same.
 case "${1%%.*}" in
-  tigerlake)    echo "#fd971f" ;;
   raptorlake)   echo "#f8f8f2" ;;
   avalanche)    echo "#ae81ff" ;;
   phoenix)      echo "#d7875f" ;;
