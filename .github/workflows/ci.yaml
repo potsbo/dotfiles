@@ -6,19 +6,18 @@ on:
   pull_request:
 
 jobs:
-  install:
+  # ./install は potsbo 専用で runner では動かせないので、aqua.yaml の検証だけ行う。
+  aqua:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Install aqua
-        uses: aquaproj/aqua-installer@v4.0.5
+      - uses: aquaproj/aqua-installer@v4.0.5
         with:
           aqua_version: v2.57.1
-      # runner ユーザーでは nix 段 (clone 込み) が走らないので、checkout を install が
-      # 期待する場所に置いてから流す。
-      - run: mkdir -p ~/src/github.com/potsbo && ln -s "$GITHUB_WORKSPACE" ~/src/github.com/potsbo/dotfiles
-      - run: ./install
       - run: aqua install
+        env:
+          AQUA_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua.yaml
+          AQUA_POLICY_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua-policy.yaml
 
   nix:
     runs-on: ubuntu-latest

@@ -16,67 +16,70 @@ HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-# nix 一式は potsbo ユーザーのみ。home.nix が username と homeDirectory を potsbo で
-# 固定しているため、他ユーザー (CI の runner など) では home-manager を当てられない。
-if [[ "$USER" == "potsbo" ]]; then
-  if ! has "nix"; then
-    echo "Installing Nix..."
-    curl -L https://nixos.org/nix/install | sh -s
-    . "$HOME/.nix-profile/etc/profile.d/nix.sh"
-  fi
-
-  export NIX_CONFIG="experimental-features = nix-command flakes"
-
-  # clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
-  # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
-  # curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
-  if [ ! -d "$DOTPATH" ]; then
-    echo "$DOTPATH not found. Cloning..."
-    mkdir -p "$(dirname "$DOTPATH")"
-    nix shell nixpkgs#git -c git clone --recursive "https://${REPO}" "$DOTPATH"
-  fi
-  cd "$DOTPATH"
-
-  # 既知ホストかどうかは flake.nix の hosts 一覧で決まる (ここに一覧を持たない)。
-  # 既知ホスト = 自分が管理しているマシンなのでシステムごと管理する。
-  # 未知ホスト = 管理外のサーバーなので汎用の home-manager 設定 (linux) だけ入れる。
-  flake_has() { [[ "$(nix eval "${DOTPATH}#$1" --apply "s: s ? \"$2\"" 2>/dev/null)" == "true" ]]; }
-  if flake_has homeConfigurations "$HOSTNAME"; then
-    CONFIG="$HOSTNAME"
-  else
-    # nix-darwin は config が無いと switch できないため、未知の macOS は弾く
-    if [[ "$SYSTEM" == "Darwin" ]]; then
-      echo "Unknown hostname: $HOSTNAME (flake.nix の hosts に無い)"
-      echo "Hint: HOSTNAME=<hostname> curl ... | bash"
-      exit 1
-    fi
-    CONFIG="linux"
-  fi
-
-  # nixos-rebuild (nixosConfigurations を持つホストのみ)。
-  # 管理外の NixOS でシステム設定を壊さないよう、一覧に無ければスキップする。
-  if [[ -e /etc/NIXOS ]] && flake_has nixosConfigurations "$HOSTNAME"; then
-    # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
-    # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
-    # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
-    #
-    # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
-    # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
-    # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
-    sudo nixos-rebuild switch --flake "${DOTPATH}#${CONFIG}"
-  fi
-
-  # home-manager を registry 経由 (nix run home-manager) で呼ばない。
-  # unpinned な参照は rev 確定のため GitHub API を叩き、新環境では gh がまだ
-  # 入っていないので未認証のまま 403 に当たりうる。flake.lock で固定済みの
-  # activationPackage を直接ビルドすれば API 解決そのものが不要になる。
-  # 最新 CLI と lock 済み設定のバージョン skew が消える利点もある。
-  HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${CONFIG}.activationPackage")
-  "${HM_ACTIVATION}/activate"
+# potsbo 専用。home.nix が username と homeDirectory を potsbo で固定しているので、
+# 他ユーザーでは home-manager を当てられない。中途半端に進めず最初に弾く。
+if [[ "$USER" != "potsbo" ]]; then
+  echo "install: このスクリプトは potsbo ユーザー専用です (USER=$USER)" >&2
+  exit 1
 fi
 
-# aqua の global config は既定で ~/.config 配下だが、~/.config のリンクは上の
-# home-manager が張る。それより前 (nix 未導入の環境) でも同じ設定を見るよう明示する。
+if ! has "nix"; then
+  echo "Installing Nix..."
+  curl -L https://nixos.org/nix/install | sh -s
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+fi
+
+export NIX_CONFIG="experimental-features = nix-command flakes"
+
+# clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
+# 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
+# curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
+if [ ! -d "$DOTPATH" ]; then
+  echo "$DOTPATH not found. Cloning..."
+  mkdir -p "$(dirname "$DOTPATH")"
+  nix shell nixpkgs#git -c git clone --recursive "https://${REPO}" "$DOTPATH"
+fi
+cd "$DOTPATH"
+
+# 既知ホストかどうかは flake.nix の hosts 一覧で決まる (ここに一覧を持たない)。
+# 既知ホスト = 自分が管理しているマシンなのでシステムごと管理する。
+# 未知ホスト = 管理外のサーバーなので汎用の home-manager 設定 (linux) だけ入れる。
+flake_has() { [[ "$(nix eval "${DOTPATH}#$1" --apply "s: s ? \"$2\"" 2>/dev/null)" == "true" ]]; }
+if flake_has homeConfigurations "$HOSTNAME"; then
+  CONFIG="$HOSTNAME"
+else
+  # nix-darwin は config が無いと switch できないため、未知の macOS は弾く
+  if [[ "$SYSTEM" == "Darwin" ]]; then
+    echo "Unknown hostname: $HOSTNAME (flake.nix の hosts に無い)"
+    echo "Hint: HOSTNAME=<hostname> curl ... | bash"
+    exit 1
+  fi
+  CONFIG="linux"
+fi
+
+# nixos-rebuild (nixosConfigurations を持つホストのみ)。
+# 管理外の NixOS でシステム設定を壊さないよう、一覧に無ければスキップする。
+if [[ -e /etc/NIXOS ]] && flake_has nixosConfigurations "$HOSTNAME"; then
+  # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
+  # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
+  # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
+  #
+  # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
+  # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
+  # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
+  sudo nixos-rebuild switch --flake "${DOTPATH}#${CONFIG}"
+fi
+
+# home-manager を registry 経由 (nix run home-manager) で呼ばない。
+# unpinned な参照は rev 確定のため GitHub API を叩き、新環境では gh がまだ
+# 入っていないので未認証のまま 403 に当たりうる。flake.lock で固定済みの
+# activationPackage を直接ビルドすれば API 解決そのものが不要になる。
+# 最新 CLI と lock 済み設定のバージョン skew が消える利点もある。
+HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${CONFIG}.activationPackage")
+"${HM_ACTIVATION}/activate"
+
+# aqua の設定。global config は ~/.config 配下 (上の home-manager が張った) で既定の
+# 場所だが、policy は既定パスでないので .zshenv と同じ値を明示する。
 export AQUA_GLOBAL_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua.yaml"
 export AQUA_POLICY_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua-policy.yaml"
 
@@ -101,7 +104,7 @@ fi
 # nix-darwin (macOS only)
 # GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので
 # `apps` コマンド (home/.local/bin/apps) で別途揃える。
-if [[ "$USER" == "potsbo" && "$SYSTEM" == "Darwin" ]]; then
+if [[ "$SYSTEM" == "Darwin" ]]; then
   echo "nix-darwin: Using configuration: $CONFIG"
   sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}" -- switch --flake "${DOTPATH}#$CONFIG" --verbose
 fi
