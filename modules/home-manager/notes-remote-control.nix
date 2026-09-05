@@ -8,13 +8,9 @@
 # 常時起動しているホストだけで動かす。laptop や Mac にも入れると、蓋を閉じる
 # たびにセッションが offline になったものが一覧に並んで、どれに話しかければ
 # 生きているのか分からなくなる。
-{ config, pkgs, lib, hostname, dotfilesPath, ... }:
+{ config, pkgs, lib, hostname, hosts, dotfilesPath, ... }:
 
 let
-  # modules/nixos/server.nix を import しているホスト。あちらは NixOS 側の
-  # 構成で、home-manager からは参照できないので手で合わせる。
-  serverHosts = [ "raptorlake" "phoenix" ];
-
   notesDir = "${config.home.homeDirectory}/src/github.com/potsbo/notes";
 
   notesRemoteControl = pkgs.writeShellScript "notes-remote-control" ''
@@ -36,7 +32,7 @@ let
   '';
 in
 {
-  systemd.user = lib.optionalAttrs (lib.elem hostname serverHosts) {
+  systemd.user = lib.optionalAttrs hosts.${hostname}.alwaysOn {
     services.notes-remote-control = {
       Unit.Description = "Claude Code Remote Control server for potsbo/notes";
       Service = {

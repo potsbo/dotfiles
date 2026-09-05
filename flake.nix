@@ -42,13 +42,16 @@
       #   nixos  - nixosConfigurations を持ち、./install が nixos-rebuild する
       #   darwin - darwinConfigurations を持ち、./install が nix-darwin を switch する
       #   linux  - 管理外の Linux。./install の対象外で、ssh 先として色とタグだけ持つ
+      # alwaysOn: 常時稼働。サスペンドせず、notes の remote-control server を常駐させる
+      # laptop:   蓋を閉じたらサスペンドする
+      # (「モニタやキーボードが繋がっているか」は別の性質で、今は参照する設定が無いので持たない)
       hosts = {
-        phoenix = { system = "x86_64-linux"; os = "nixos"; color = colors.orange; };
+        phoenix = { system = "x86_64-linux"; os = "nixos"; color = colors.orange; alwaysOn = true; };
         raptorlake = {
-          system = "x86_64-linux"; os = "nixos"; color = colors.white;
+          system = "x86_64-linux"; os = "nixos"; color = colors.white; alwaysOn = true;
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
         };
-        skylake = { system = "x86_64-linux"; os = "nixos"; color = colors.blue; };
+        skylake = { system = "x86_64-linux"; os = "nixos"; color = colors.blue; laptop = true; };
         avalanche = { system = "aarch64-darwin"; os = "darwin"; color = colors.purple; };
         blizzard = { system = "aarch64-darwin"; os = "darwin"; color = colors.cyan; };
         graniteridge = { system = "x86_64-linux"; os = "linux"; color = colors.green; };
@@ -69,6 +72,7 @@
               ./modules/home-manager/home.nix
               ./modules/home-manager/hosts.nix
               ./modules/home-manager/dotfiles.nix
+              ./modules/home-manager/mozc.nix
               ./modules/home-manager/starship.nix
               ./modules/home-manager/notes-sync.nix
               ./modules/home-manager/notes-remote-control.nix
@@ -77,7 +81,7 @@
               inherit hostname;
               accentColor = hosts.${hostname}.color;
               dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
-              hosts = lib.mapAttrs (_: h: { inherit (h) os color; }) hosts;
+              hosts = lib.mapAttrs (_: h: { inherit (h) os color; alwaysOn = h.alwaysOn or false; }) hosts;
               defaultColor = colors.gray;
             };
           };
@@ -86,9 +90,10 @@
       # hardware-configuration.nix は nixos-generate-config の出力をそのまま
       # hosts/<host>/ に commit する。/etc/nixos のものを読むと --impure が要り、
       # eval cache も効かなくなる。
-      mkNixos = hostname: { system, extraModules ? [ ], ... }: lib.nixosSystem {
+      mkNixos = hostname: { system, extraModules ? [ ], alwaysOn ? false, laptop ? false, ... }: lib.nixosSystem {
         inherit system;
         modules = [
+          { host = { inherit alwaysOn laptop; }; }
           (./hosts + "/${hostname}/hardware-configuration.nix")
           (./hosts + "/${hostname}/configuration.nix")
           xremap-flake.nixosModules.default

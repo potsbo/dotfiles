@@ -16,26 +16,6 @@ let
     icon = "chromium-browser";
   };
 
-  # Mozc カスタムローマ字テーブル (potsbo/anpan)
-  anpanRelease = pkgs.fetchzip {
-    url = "https://github.com/potsbo/anpan/releases/download/0.1.0/tables-0.1.0.zip";
-    sha256 = "sha256-oyfVfoJppTUs0DFgwLStEykjePNnoIsYNng+qLYLJ8Q=";
-    stripRoot = true;
-  };
-  mozcConfigProto = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/google/mozc/2.30.5544.102/src/protocol/config.proto";
-    sha256 = "0d6jms4hwhagfdskmgyyijpdbix6rhaxxiq4277zcnflpiv783yg";
-  };
-
-  mozcConfigDb = pkgs.runCommand "mozc-config1-db" {
-    nativeBuildInputs = [ pkgs.protobuf pkgs.python3 ];
-  } ''
-    python3 ${./mozc-romantable-to-config.py} ${anpanRelease}/anpan.txt config.textproto
-    protoc --proto_path=$(dirname ${mozcConfigProto}) \
-      --encode=mozc.config.Config $(basename ${mozcConfigProto}) \
-      < config.textproto > $out
-  '';
-
   # Web アプリを Chrome/Chromium --app モードで起動する .desktop エントリを生成
   webApp = { name, desktopName, url, icon ? browser.icon }:
     pkgs.makeDesktopItem {
@@ -64,17 +44,6 @@ in
           fcitx5-gtk
         ];
       };
-    };
-  
-    # Mozc に anpan ローマ字テーブルを適用
-    system.activationScripts.mozcAnpanTable = {
-      text = ''
-        # .config も明示して作る。install -d は中間ディレクトリも作るが -o/-g は
-        # 最後の要素にしか効かず、activation は root で走るので、初回インストールで
-        # ~/.config が root 所有になって以後 dotfiles の install がそこに書けなくなる。
-        install -d -o potsbo -g users /home/potsbo/.config /home/potsbo/.config/mozc
-        install -o potsbo -g users -m 644 ${mozcConfigDb} /home/potsbo/.config/mozc/config1.db
-      '';
     };
   
     # Enable sound with pipewire.

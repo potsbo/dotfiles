@@ -2,7 +2,6 @@
 {
   imports = [
     ../../modules/nixos/common.nix
-    ../../modules/nixos/server.nix
   ];
 
   networking.hostName = "phoenix";
