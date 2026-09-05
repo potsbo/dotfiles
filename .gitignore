@@ -8,3 +8,6 @@
 /home/.config/microsoft-edge/NativeMessagingHosts
 /home/.config/opera/NativeMessagingHosts
 /home/.config/fontconfig/conf.d
+/home/.config/kdedefaults
+/home/.config/gtk-4.0
+/home/.config
