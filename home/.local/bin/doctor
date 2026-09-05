@@ -8,7 +8,8 @@
 # 対で書く。直すのは人 (ログインは対話が要る) で、このスクリプトは状態を変えない。
 # 冪等で、揃っていれば ok だけが並ぶ。
 #
-# CLI から判定できないもの (GUI アプリのログイン) は末尾に一覧として出すだけ。
+# CLI から判定できないもの (GUI アプリのログイン) は扱わない。判定できない項目を
+# 並べても済んだかどうかが分からず、毎回同じ行が出るだけになる。
 #
 # 使い方: doctor
 #   終了コード: 全部 ok なら 0、足りないものがあれば 1
@@ -138,14 +139,6 @@ if [[ $os == Darwin ]]; then
   # GUI アプリは install から切り離してある。brew と mas は apps が使う。
   check "homebrew" "apps" command -v brew
   check "app store" "App Store にサインイン" mas account
-fi
-
-# --- CLI から判定できないもの ---
-# ログイン状態を外から見る手段が無いので、思い出すための一覧だけ出す。
-
-printf '%s%12s%s %s\n' "$c_dim" manual "$c_reset" "GUI のログイン: 1Password, Chrome, Slack, Zoom, Notion, Obsidian, VS Code / Cursor, Todoist"
-if [[ $os == Darwin ]]; then
-  printf '%s%12s%s %s\n' "$c_dim" manual "$c_reset" "macOS: Displays を More Space に、Karabiner / Google 日本語入力の権限許可, WARP, ChatGPT, Claude"
 fi
 
 exit "$missing"
