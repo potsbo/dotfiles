@@ -41,7 +41,7 @@
       # os:
       #   nixos  - nixosConfigurations を持ち、./install が nixos-rebuild する
       #   darwin - darwinConfigurations を持ち、./install が nix-darwin を switch する
-      #   linux  - 管理外の Linux。home-manager だけ当てる
+      #   linux  - 管理外の Linux。./install の対象外で、ssh 先として色とタグだけ持つ
       hosts = {
         phoenix = { system = "x86_64-linux"; os = "nixos"; color = colors.orange; };
         raptorlake = {
@@ -110,10 +110,8 @@
         })
         (hostsByOs "darwin");
 
-      # `linux` は一覧に無いホスト (管理外のサーバなど) 向けの汎用構成。
-      homeConfigurations = {
-        linux = mkHome { system = "x86_64-linux"; hostname = "default"; };
-      } // lib.mapAttrs (hostname: h: mkHome { inherit (h) system; inherit hostname; }) hosts;
+      homeConfigurations = lib.mapAttrs (hostname: h: mkHome { inherit (h) system; inherit hostname; })
+        (lib.filterAttrs (_: h: h.os != "linux") hosts);
 
       packages.aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
 

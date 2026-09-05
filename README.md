@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal dotfiles managed across multiple platforms (NixOS, macOS, and a generic Linux fallback).
+Personal dotfiles managed across multiple platforms (NixOS and macOS).
 
 Package management strategy is documented in `CLAUDE.md`.
 

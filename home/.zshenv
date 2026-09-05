@@ -82,6 +82,8 @@ export CGO_ENABLED=1
 export SAVEHIST=100000
 export HISTSIZE=100000
 
+# macOS (multi-user nix)。インストーラに /etc/zshrc を書かせていないので、ここで読む。
+if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
 

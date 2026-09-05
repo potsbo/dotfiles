@@ -19,32 +19,29 @@ DOTPATH="${HOME}/src/${REPO}"
 # potsbo 専用。home.nix が username と homeDirectory を potsbo で固定しているので、
 # 他ユーザーでは home-manager を当てられない。中途半端に進めず最初に弾く。
 if [[ "$USER" != "potsbo" ]]; then
-  echo "install: このスクリプトは potsbo ユーザー専用です (USER=$USER)" >&2
+  echo "install: this script is for user potsbo only (USER=$USER)" >&2
+  exit 1
+fi
+
+# 対象は NixOS と macOS だけ。それ以外の Linux は使っていないので弾く。
+# nix を入れる必要があるのは macOS だけ (NixOS は最初からある)。
+if [[ "$SYSTEM" == "Linux" && ! -e /etc/NIXOS ]]; then
+  echo "install: Linux other than NixOS is not supported" >&2
   exit 1
 fi
 
 if ! has "nix"; then
   echo "Installing Nix..."
-  # 公式インストーラ (nixos.org/nix/install)。挙動は OS で分かれる:
-  #   macOS: multi-user (daemon) のみ。sudo を使い APFS volume を作り、/etc/zshrc 等に
-  #          nix-daemon.sh の source 行を足す。
-  #   Linux: 既定は single-user。root の daemon を立てず、/nix を作る 1 回だけ sudo を使う。
-  #          --no-modify-profile: 既定では ~/.zshenv 等に source 行を追記するが、その
-  #          ファイルはこの後 home-manager が symlink に置き換えるので衝突する。
-  #          nix.sh の source は home/.zshenv が自前でやる。
-  # --no-channel-add: channel は使わない (flake registry で足りる)。nixpkgs の
-  #          channel 取得を省くぶん速い。
-  # --yes:   確認プロンプトを飛ばす。stdin が tty でない (curl | bash) と自動で yes に
-  #          なるが、明示しておく。sudo のパスワードは /dev/tty から聞かれるので残る。
-  args=(--yes --no-channel-add)
-  if [[ "$SYSTEM" == "Linux" ]]; then
-    args+=(--no-daemon --no-modify-profile)
-  fi
-  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install | sh -s -- "${args[@]}"
-  # 今のシェルに PATH を通す。multi-user と single-user で置き場が違う。
-  for f in /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh "$HOME/.nix-profile/etc/profile.d/nix.sh"; do
-    if [ -e "$f" ]; then . "$f"; break; fi
-  done
+  # 公式インストーラ。macOS は multi-user (daemon) のみで、sudo を使って APFS volume と
+  # daemon を作る。stdin が tty でない (curl | bash) と確認は自動で yes になるが
+  # --yes で明示する。sudo のパスワードは /dev/tty から聞かれるので対話はそこだけ残る。
+  #   --no-channel-add:    channel は使わない (flake registry で足りる)
+  #   --no-modify-profile: /etc/zshrc 等に source 行を書かせない。シェルの起動ファイルは
+  #                        repo が持つ (home/.zshenv が nix-daemon.sh を読む) ので、macOS の
+  #                        アップデートで /etc/zshrc が書き戻されても影響を受けない。
+  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install \
+    | sh -s -- --yes --no-channel-add --no-modify-profile
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
 # インストーラは flakes を有効にしない。対話シェルでは home/.config/nix/nix.conf が
@@ -53,8 +50,7 @@ export NIX_CONFIG="experimental-features = nix-command flakes"
 
 # clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
 # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
-# curl と sh (Linux は加えて tar と xz) だけになる。registry 経由の nixpkgs 解決は
-# 初回だけ数十秒かかる。
+# curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
 if [ ! -d "$DOTPATH" ]; then
   echo "$DOTPATH not found. Cloning..."
   mkdir -p "$(dirname "$DOTPATH")"
@@ -63,20 +59,13 @@ fi
 cd "$DOTPATH"
 
 # 既知ホストかどうかは flake.nix の hosts 一覧で決まる (ここに一覧を持たない)。
-# 既知ホスト = 自分が管理しているマシンなのでシステムごと管理する。
-# 未知ホスト = 管理外のサーバーなので汎用の home-manager 設定 (linux) だけ入れる。
 flake_has() { [[ "$(nix eval "${DOTPATH}#$1" --apply "s: s ? \"$2\"" 2>/dev/null)" == "true" ]]; }
-if flake_has homeConfigurations "$HOSTNAME"; then
-  CONFIG="$HOSTNAME"
-else
-  # nix-darwin は config が無いと switch できないため、未知の macOS は弾く
-  if [[ "$SYSTEM" == "Darwin" ]]; then
-    echo "Unknown hostname: $HOSTNAME (flake.nix の hosts に無い)"
-    echo "Hint: HOSTNAME=<hostname> curl ... | bash"
-    exit 1
-  fi
-  CONFIG="linux"
+if ! flake_has homeConfigurations "$HOSTNAME"; then
+  echo "install: unknown host $HOSTNAME (not in hosts in flake.nix)" >&2
+  echo "Hint: HOSTNAME=<hostname> ./install" >&2
+  exit 1
 fi
+CONFIG="$HOSTNAME"
 
 # nixos-rebuild (nixosConfigurations を持つホストのみ)。
 # 管理外の NixOS でシステム設定を壊さないよう、一覧に無ければスキップする。
