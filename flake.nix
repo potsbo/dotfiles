@@ -16,10 +16,9 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
   };
 
-  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, nixos-apple-silicon, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, ... }:
     let
       lib = nixpkgs.lib;
 
@@ -50,10 +49,6 @@
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
         };
         skylake = { system = "x86_64-linux"; os = "nixos"; color = colors.blue; };
-        "staten-nix" = {
-          system = "aarch64-linux"; os = "nixos"; color = colors.red;
-          extraModules = [ nixos-apple-silicon.nixosModules.apple-silicon-support ];
-        };
         avalanche = { system = "aarch64-darwin"; os = "darwin"; color = colors.purple; };
         blizzard = { system = "aarch64-darwin"; os = "darwin"; color = colors.cyan; };
         graniteridge = { system = "x86_64-linux"; os = "linux"; color = colors.green; };

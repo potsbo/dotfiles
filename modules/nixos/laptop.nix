@@ -4,12 +4,6 @@
 {
   services.upower.enable = lib.mkForce true;
 
-  # Asahi Linux (Apple Silicon) では Apple SMC の lid switch デバイスに
-  # power-switch タグが付かず logind が認識しないため、udev ルールで補う
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", TAG+="power-switch"
-  '';
-
   # lid を閉じたらサスペンドする
   services.logind.settings.Login = {
     HandleLidSwitch = "suspend";
