@@ -68,4 +68,3 @@ end
 
 # OS 固有の設定は recipes/ 以下に切り出している
 include_recipe "recipes/darwin" if node[:platform] == "darwin"
-include_recipe "recipes/ubuntu" if node[:platform] == "ubuntu"
