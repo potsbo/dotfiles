@@ -114,8 +114,15 @@ in
     enable = true;
     user = "kiosk";
     program = lib.getExe rdpKiosk;
-    # 既定では VT 切替を禁止する。Ctrl+Alt+F2 で tty2 に出るために許可する。
-    extraArguments = [ "-s" ];
+    extraArguments = [
+      # 既定では VT 切替を禁止する。Ctrl+Alt+F2 で tty2 に出るために許可する。
+      "-s"
+      # 最後に繋いだ出力だけを使う。既定の extend は内蔵+外部を 1 枚に延長するので、
+      # 外部ディスプレイを繋いで起動すればそちらだけに出る (クラムシェル運用)。
+      # xfreerdp の /f は起動時の出力サイズで固定なので、抜き差ししたら cage-tty1 を
+      # restart して張り直す。
+      "-m" "last"
+    ];
     environment.XKB_DEFAULT_LAYOUT = "us";
   };
 
