@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./ssh.nix
+    ./sshd.nix
     ./network.nix
     ./oom-resilience.nix
     ./docker.nix
