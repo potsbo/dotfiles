@@ -35,7 +35,6 @@
   },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true,
-    "figma@claude-plugins-official": true,
     "natural-japanese@natural-japanese": true
   },
   "extraKnownMarketplaces": {
