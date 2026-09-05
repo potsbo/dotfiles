@@ -40,8 +40,9 @@ let
   # xfreerdp の /args-from は他の引数と併用できない (3.30 で実測)。そのため全引数を
   # stdin に流す。/p: をコマンドラインに載せないので /proc/<pid>/cmdline にも出ない。
   #
-  # 別の端末が同じ Windows に RDP すると、こちらのセッションは「別接続に置き換え」で
-  # 切られる (xfreerdp の終了コード 5 = ERRINFO_DISCONNECTED_BY_OTHER_CONNECTION)。
+  # 別の端末が同じ Windows に RDP すると、こちらのセッションは切られる。xfreerdp の
+  # 終了コードは RDP の ERRINFO 値で、実測では 1 (RPC_INITIATED_DISCONNECT: 別セッションの
+  # 管理ツールによる切断) が来る。仕様上は 5 (DISCONNECTED_BY_OTHER_CONNECTION) もあり得る。
   # そこで即再接続すると相手を蹴り返す往復になるので、この場合だけは再接続せず、
   # キオスク側でキーが押されるまで待つ。サインアウトやネットワーク断は従来どおり
   # 即再接続 (systemd の Restart に任せる)。
@@ -70,7 +71,8 @@ let
       rc=$?
       set -o errexit
 
-      if [ "$rc" -eq 5 ]; then
+      echo "xfreerdp exited with $rc"
+      if [ "$rc" -eq 1 ] || [ "$rc" -eq 5 ]; then
         xterm -fa Monospace -fs 20 -bg black -fg white -e bash -c '
           echo; echo "  Session taken over by another client."
           echo "  Press any key to reconnect."
