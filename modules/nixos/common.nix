@@ -17,6 +17,11 @@
   options.host = {
     alwaysOn = lib.mkEnableOption "常時稼働 (サスペンドしない)";
     laptop = lib.mkEnableOption "ラップトップ (蓋を閉じたらサスペンド)";
+    desktop = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "GUI 一式 (desktop.nix, xremap) を入れる。false は headless。";
+    };
   };
 
   config = {

@@ -27,7 +27,7 @@ let
   };
 in
 {
-  config = lib.mkIf (config.desktop.environment == "gnome") {
+  config = lib.mkIf (config.host.desktop && config.desktop.environment == "gnome") {
     services.xserver.enable = true;
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;

@@ -12,14 +12,13 @@
 
   # GeForce RTX 4070 (Ada)。Ada 以降は open kernel module が NVIDIA 推奨で、
   # proprietary module より kernel 更新への追従が速い。
-  # modesetting は Wayland (GDM/GNOME) に必須。
+  # headless (host.desktop = false) だが、ollama の CUDA にドライバが要る。videoDrivers は
+  # X 用の名前だが、NixOS では nvidia ドライバを有効にする入口がこれしかない。
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = true;
-    modesetting.enable = true;
-    nvidiaSettings = true;
   };
 
   # ローカル LLM。llama.cpp を直に叩くより数% 遅いが、モデルの取得・切り替え・
@@ -109,7 +108,8 @@
   system.nssModules = [ pkgs.libvirt ];
   system.nssDatabases.hosts = lib.mkBefore [ "libvirt" "libvirt_guest" ];
 
-  programs.virt-manager.enable = true;
+  # virt-manager (GUI) は入れない。VM の操作は virsh か、別マシンの virt-manager から
+  # qemu+ssh://raptorlake/system で繋ぐ。
   users.users.potsbo.extraGroups = [ "libvirtd" ];
 
   # Google の共有ドライブを Linux から読むための経路。共有ドライブは Drive for

@@ -44,11 +44,13 @@
       #   linux  - 管理外の Linux。./install の対象外で、ssh 先として色とタグだけ持つ
       # alwaysOn: 常時稼働。サスペンドせず、notes の remote-control server を常駐させる
       # laptop:   蓋を閉じたらサスペンドする
+      # desktop:  GUI (DE、音、日本語入力、GUI アプリ、xremap) を入れる。既定 true。
+      #           false は headless サーバ。GPU ドライバは別 (CUDA 用に残る)
       # (「モニタやキーボードが繋がっているか」は別の性質で、今は参照する設定が無いので持たない)
       hosts = {
         phoenix = { system = "x86_64-linux"; os = "nixos"; color = colors.orange; alwaysOn = true; };
         raptorlake = {
-          system = "x86_64-linux"; os = "nixos"; color = colors.white; alwaysOn = true;
+          system = "x86_64-linux"; os = "nixos"; color = colors.white; alwaysOn = true; desktop = false;
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
         };
         skylake = { system = "x86_64-linux"; os = "nixos"; color = colors.blue; laptop = true; };
@@ -90,10 +92,10 @@
       # hardware-configuration.nix は nixos-generate-config の出力をそのまま
       # hosts/<host>/ に commit する。/etc/nixos のものを読むと --impure が要り、
       # eval cache も効かなくなる。
-      mkNixos = hostname: { system, extraModules ? [ ], alwaysOn ? false, laptop ? false, ... }: lib.nixosSystem {
+      mkNixos = hostname: { system, extraModules ? [ ], alwaysOn ? false, laptop ? false, desktop ? true, ... }: lib.nixosSystem {
         inherit system;
         modules = [
-          { host = { inherit alwaysOn laptop; }; }
+          { host = { inherit alwaysOn laptop desktop; }; }
           (./hosts + "/${hostname}/hardware-configuration.nix")
           (./hosts + "/${hostname}/configuration.nix")
           xremap-flake.nixosModules.default

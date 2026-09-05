@@ -33,7 +33,7 @@ in
     description = "どの DE を有効にするか。specialisation で差し替えて別の DE を試す。";
   };
 
-  config = {
+  config = lib.mkIf config.host.desktop {
     i18n.inputMethod = {
       enable = true;
       type = "fcitx5";
