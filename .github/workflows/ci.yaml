@@ -26,13 +26,25 @@ jobs:
       - uses: DeterminateSystems/determinate-nix-action@v3
       - run: nix build .#nixosConfigurations.phoenix.config.home-manager.users.potsbo.home.activationPackage
 
+  # ホスト一覧は flake.nix から取る。ここに手で並べると hosts に足したホストが
+  # CI から漏れる。
+  hosts:
+    runs-on: ubuntu-latest
+    outputs:
+      nixos: ${{ steps.list.outputs.nixos }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - id: list
+        run: echo "nixos=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames)" >> "$GITHUB_OUTPUT"
+
   # NixOS ホストは build せず eval だけする (closure の build は重い)。
-  # hardware-configuration.nix を repo に持つ pure なホストしか CI では評価できない。
   nixos:
+    needs: hosts
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        host: [phoenix, raptorlake]
+        host: ${{ fromJSON(needs.hosts.outputs.nixos) }}
     steps:
       - uses: actions/checkout@v7
       - uses: DeterminateSystems/determinate-nix-action@v3

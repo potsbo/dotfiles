@@ -14,8 +14,6 @@ let
 
 in
 {
-  home.username = "potsbo";
-  home.homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/potsbo" else "/home/potsbo";
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   programs.starship.enable = true;

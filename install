@@ -22,8 +22,8 @@ HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-# potsbo 専用。home.nix が username と homeDirectory を potsbo で固定しているので、
-# 他ユーザーでは home-manager を当てられない。中途半端に進めず最初に弾く。
+# potsbo 専用 (flake.nix の user)。他ユーザーでは home-manager を当てられないので
+# 中途半端に進めず最初に弾く。nix が入る前に走るので flake からは読まず二重に持つ。
 if [[ "$USER" != "potsbo" ]]; then
   fail "user $USER: this script is for user potsbo only"
 fi

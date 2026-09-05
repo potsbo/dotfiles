@@ -59,17 +59,19 @@
       };
       managedByOs = os: lib.filterAttrs (_: h: h.os == os && (h.managed or true)) hosts;
 
+      # ユーザー名はここだけ。./install の potsbo チェックだけは nix が入る前に走るので別。
+      user = "potsbo";
+
       # home-manager は standalone ではなく NixOS / nix-darwin のモジュールとして組み込む。
       # system と home が同じ世代で切り替わり、./install は rebuild 一発で済む。
-      hmModule = hostname: isDarwin:
-        let
-          homeDir = if isDarwin then "/Users/potsbo" else "/home/potsbo";
-        in
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.potsbo.imports = [
+      # username / homeDirectory は NixOS / nix-darwin の users.users.${user} から
+      # home-manager が引くので、ここでも home.nix でも OS ごとのホームは書かない。
+      hmModule = hostname: {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.${user} = { config, ... }: {
+            imports = [
               ./modules/home-manager/home.nix
               ./modules/home-manager/hosts.nix
               ./modules/home-manager/dotfiles.nix
@@ -78,38 +80,45 @@
               ./modules/home-manager/notes-sync.nix
               ./modules/home-manager/notes-remote-control.nix
             ];
-            extraSpecialArgs = {
-              inherit hostname;
-              accentColor = hosts.${hostname}.color;
-              dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
-              hosts = lib.mapAttrs (_: h: { inherit (h) os color; alwaysOn = h.alwaysOn or false; }) hosts;
-              defaultColor = colors.gray;
-            };
+            _module.args.dotfilesPath = "${config.home.homeDirectory}/src/github.com/potsbo/dotfiles";
+          };
+          extraSpecialArgs = {
+            inherit hostname;
+            accentColor = hosts.${hostname}.color;
+            hosts = lib.mapAttrs (_: h: { inherit (h) os color; alwaysOn = h.alwaysOn or false; }) hosts;
+            defaultColor = colors.gray;
           };
         };
+      };
 
       # hardware-configuration.nix は nixos-generate-config の出力をそのまま
       # hosts/<host>/ に commit する。/etc/nixos のものを読むと --impure が要り、
       # eval cache も効かなくなる。
       mkNixos = hostname: { system, extraModules ? [ ], alwaysOn ? false, laptop ? false, desktop ? true, ... }: lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit user; };
         modules = [
-          { host = { inherit alwaysOn laptop desktop; }; }
+          {
+            host = { inherit alwaysOn laptop desktop; };
+            networking.hostName = hostname;
+          }
           (./hosts + "/${hostname}/hardware-configuration.nix")
           (./hosts + "/${hostname}/configuration.nix")
           xremap-flake.nixosModules.default
           ./modules/nixos/xremap.nix
           home-manager.nixosModules.home-manager
-          (hmModule hostname false)
+          (hmModule hostname)
         ] ++ extraModules;
       };
 
       mkDarwin = { hostname, system, apps }: nix-darwin.lib.darwinSystem {
         inherit system;
+        specialArgs = { inherit user; };
         modules = [
+          { networking.hostName = hostname; }
           ./modules/darwin
           home-manager.darwinModules.home-manager
-          (hmModule hostname true)
+          (hmModule hostname)
         ] ++ lib.optional apps ./modules/darwin/apps.nix;
       };
     in

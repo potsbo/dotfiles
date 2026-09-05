@@ -8,8 +8,6 @@
     ./cloudflare-access.nix
   ];
 
-  networking.hostName = "raptorlake";
-
   # GeForce RTX 4070 (Ada)。Ada 以降は open kernel module が NVIDIA 推奨で、
   # proprietary module より kernel 更新への追従が速い。
   # headless (host.desktop = false) だが、ollama の CUDA にドライバが要る。videoDrivers は

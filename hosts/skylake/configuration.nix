@@ -4,8 +4,6 @@
     ../../modules/nixos/common.nix
   ];
 
-  networking.hostName = "skylake";
-
   # サスペンドを s2idle にする。既定の deep (ACPI S3) だと、このマシン
   # (MacBook9,1 + Apple SSD AP0256J) は復帰時に NVMe が戻らず、`/` への書き込みが
   # 全部失敗して journald が "failed to write entry" を吐き続け、強制再起動が要る。

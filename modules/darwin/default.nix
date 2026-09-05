@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 {
   # nix は公式 installer で入れているので nix-darwin に nix.conf ごと管理させる
@@ -6,12 +6,12 @@
   # /etc/nix/nix.conf があると止まるので、手で退避してから ./install を流す:
   #   sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  system.primaryUser = "potsbo";
+  system.primaryUser = user;
   # home-manager (darwinModules) がユーザーのホームを要求する
-  users.users.potsbo.home = "/Users/potsbo";
+  users.users.${user}.home = "/Users/${user}";
 
-  environment.etc."sudoers.d/potsbo".text = ''
-    potsbo ALL=(ALL) NOPASSWD: ALL
+  environment.etc."sudoers.d/${user}".text = ''
+    ${user} ALL=(ALL) NOPASSWD: ALL
   '';
 
   # ディスプレイ解像度は nix-darwin では設定できないため、手動で "More Space" に変更する
