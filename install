@@ -16,6 +16,12 @@ HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
+# nix コマンドを flakes 有効で動かす。/etc/nix/nix.conf (NixOS) や
+# home/.config/nix/nix.conf (それ以外) にも書いてあるが、新規 macOS では nix を入れてから
+# home-manager が ~/.config を張るまでの間どちらも無いので、このスクリプトでは env で通す。
+# sudo 越し (nix-darwin) には届かないので、そこは --extra-experimental-features を直接付ける。
+export NIX_CONFIG="experimental-features = nix-command flakes"
+
 # potsbo 専用。home.nix が username と homeDirectory を potsbo で固定しているので、
 # 他ユーザーでは home-manager を当てられない。中途半端に進めず最初に弾く。
 if [[ "$USER" != "potsbo" ]]; then
@@ -43,10 +49,6 @@ if ! has "nix"; then
     | sh -s -- --yes --no-channel-add --no-modify-profile
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
-
-# インストーラは flakes を有効にしない。対話シェルでは home/.config/nix/nix.conf が
-# 有効にするが、そのリンクは下の home-manager が張るので、このスクリプトの間は env で通す。
-export NIX_CONFIG="experimental-features = nix-command flakes"
 
 # clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
 # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
