@@ -77,7 +77,7 @@ packages:
   - name: kitlangton/ghui@v0.9.1
     registry: local
   - name: charmbracelet/glow@v3.0.0
-  - name: openai/codex@rust-v0.153.3
+  - name: openai/codex@rust-v0.153.4
   - name: yusukebe/ax@v0.1.25
     registry: local
   - name: modem-dev/hunk@v0.21.1
