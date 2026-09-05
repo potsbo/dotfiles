@@ -61,10 +61,7 @@
 
       # home-manager は standalone ではなく NixOS / nix-darwin のモジュールとして組み込む。
       # system と home が同じ世代で切り替わり、./install は rebuild 一発で済む。
-      hmModule = hostname: isDarwin:
-        let
-          homeDir = if isDarwin then "/Users/potsbo" else "/home/potsbo";
-        in
+      hmModule = hostname: isDarwin: { config, ... }:
         {
           home-manager = {
             useGlobalPkgs = true;
@@ -81,7 +78,7 @@
             extraSpecialArgs = {
               inherit hostname;
               accentColor = hosts.${hostname}.color;
-              dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
+              dotfilesPath = "${config.users.users.potsbo.home}/src/github.com/potsbo/dotfiles";
               hosts = lib.mapAttrs (_: h: { inherit (h) os color; alwaysOn = h.alwaysOn or false; }) hosts;
               defaultColor = colors.gray;
             };
