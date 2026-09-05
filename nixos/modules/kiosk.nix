@@ -39,11 +39,18 @@ let
   #
   # xfreerdp の /args-from は他の引数と併用できない (3.30 で実測)。そのため全引数を
   # stdin に流す。/p: をコマンドラインに載せないので /proc/<pid>/cmdline にも出ない。
+  #
+  # 別の端末が同じ Windows に RDP すると、こちらのセッションは「別接続に置き換え」で
+  # 切られる (xfreerdp の終了コード 5 = ERRINFO_DISCONNECTED_BY_OTHER_CONNECTION)。
+  # そこで即再接続すると相手を蹴り返す往復になるので、この場合だけは再接続せず、
+  # キオスク側でキーが押されるまで待つ。サインアウトやネットワーク断は従来どおり
+  # 即再接続 (systemd の Restart に任せる)。
   rdpKiosk = pkgs.writeShellApplication {
     name = "rdp-kiosk";
-    runtimeInputs = [ pkgs.freerdp ];
+    runtimeInputs = [ pkgs.freerdp pkgs.xterm ];
     text = ''
       cred="''${CREDENTIALS_DIRECTORY:?}/rdp-credentials"
+      set +o errexit
       {
         # /f は DesktopWidth/Height をモニタ実サイズ (この機体は 2304x1440) で上書きする
         # (xf_pre_connect: SmartSizing が無いときだけ)。/size を活かして 1920x1080 の
@@ -59,7 +66,17 @@ let
           -toggle-fullscreen \
           /log-level:INFO
         cat "$cred"
-      } | exec xfreerdp /args-from:stdin
+      } | xfreerdp /args-from:stdin
+      rc=$?
+      set -o errexit
+
+      if [ "$rc" -eq 5 ]; then
+        xterm -fa Monospace -fs 20 -bg black -fg white -e bash -c '
+          echo; echo "  Session taken over by another client."
+          echo "  Press any key to reconnect."
+          read -rsn1'
+      fi
+      exit "$rc"
     '';
   };
 in
