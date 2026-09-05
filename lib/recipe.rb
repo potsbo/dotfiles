@@ -1,15 +1,5 @@
 # NOTE: make it work, refactor later
 
-MItamae::RecipeContext.class_eval do
-  def wsl_environment?
-    return false unless File.exist?("/proc/version")
-
-    File.open("/proc/version") do |file|
-      file.each_line.any? { |line| line =~ /(Microsoft|WSL2)/i }
-    end
-  end
-end
-
 DOTFILE_REPO = File.expand_path("../..", __FILE__)
 
 # シンボリックリンク
@@ -78,5 +68,4 @@ end
 
 # OS 固有の設定は recipes/ 以下に切り出している
 include_recipe "recipes/darwin" if node[:platform] == "darwin"
-include_recipe "recipes/wsl" if wsl_environment?
 include_recipe "recipes/ubuntu" if node[:platform] == "ubuntu"

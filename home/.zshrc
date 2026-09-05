@@ -121,10 +121,6 @@ if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; 
 # 自動判定に任せたいときは chafa をそのまま呼べばよい。
 alias img="chafa -f kitty"
 
-if [[ -e /proc/version ]] && grep -qEi "(Microsoft|WSL)" /proc/version; then
-  "$(ghq root)/github.com/potsbo/dotfiles/script/fix-wl-copy.sh"
-fi
-
 # aqua: prompt 毎にパッケージをインストール（~50ms, バックグラウンド実行）
 _aqua_install() {
   aqua install --all --only-link &>/dev/null &!

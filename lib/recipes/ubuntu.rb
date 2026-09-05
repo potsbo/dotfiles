@@ -5,7 +5,6 @@ end
 # nix で管理できないもの
 packages = [
   "locales-all",
-  "wslu",
   "openssh-server",
 
   # ruby build (TODO: nix-shell で管理するか検討)
