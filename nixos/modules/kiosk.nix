@@ -68,14 +68,12 @@ let
       cred="''${CREDENTIALS_DIRECTORY:?}/rdp-credentials"
       set +o errexit
       {
-        # /f は DesktopWidth/Height をモニタ実サイズ (この機体は 2304x1440) で上書きする
-        # (xf_pre_connect: SmartSizing が無いときだけ)。/size を活かして 1920x1080 の
-        # セッションを全画面に拡縮するには /smart-sizing が要る。
+        # 解像度は指定しない。/f がモニタ実サイズ (この機体は 2304x1440、16:10) をそのまま
+        # 使う。/size:1920x1080 + /smart-sizing も試したが、16:9 を 16:10 に引き延ばして
+        # 横に潰れた。負荷を下げたければ 16:10 を保つ /size:1920x1200 + /smart-sizing。
         printf '%s\n' \
           "/v:${rdpHost}" \
           /f \
-          /size:1920x1080 \
-          /smart-sizing \
           /gfx:AVC444 \
           /cert:tofu \
           +auto-reconnect \
