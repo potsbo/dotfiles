@@ -74,6 +74,7 @@ in
     services.xremap = {
       enable = true;
       withGnome = config.desktop.environment == "gnome";
+      withKDE = config.desktop.environment == "plasma";
       userName = "potsbo";
       serviceMode = "user";
       watch = true;

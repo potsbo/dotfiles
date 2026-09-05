@@ -18,4 +18,9 @@
   specialisation.kiosk.configuration = {
     imports = [ ../../modules/nixos/kiosk.nix ];
   };
+
+  # KDE Plasma のお試し。ブートメニューで "plasma" を選んだときだけ有効になる。
+  specialisation.plasma.configuration = {
+    desktop.environment = "plasma";
+  };
 }

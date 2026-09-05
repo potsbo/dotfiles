@@ -12,10 +12,10 @@ let
     };
 in
 {
-  imports = [ ./desktop/gnome.nix ];
+  imports = [ ./desktop/gnome.nix ./desktop/plasma.nix ];
 
   options.desktop.environment = lib.mkOption {
-    type = lib.types.enum [ "gnome" "none" ];
+    type = lib.types.enum [ "gnome" "plasma" "none" ];
     default = "gnome";
     description = "どの DE を有効にするか。specialisation で差し替えて別の DE を試す。";
   };
