@@ -26,6 +26,11 @@ macos-titlebar-style = hidden
 # ghostty で再発する場合は window-decoration = none を有効化する。
 # window-decoration = none
 
+# Linux の ghostty は $SHELL をそのまま (非ログインで) 起動するので .zprofile が
+# 読まれず herdr が自動起動しなかった (2026-09-06)。ログインシェルにする。
+# `direct:` で /bin/sh 経由を避ける。macOS は元々 login 経由なので害はない。
+command = direct:zsh -l
+
 # ウィンドウ余白を無くす (wezterm: window_padding = 0)
 window-padding-x = 0
 window-padding-y = 0
