@@ -631,26 +631,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-aarch64-darwin",
-      "checksum": "ACD0BBAA32832E4D7724F5C393229F0EB7AB8A96D8951E1FE7CDD0967234B69E",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-aarch64-linux",
-      "checksum": "60896C5598EAB03283E6F1DF95FEA861217C69F7A259EB6CCA097C1DCA34C46B",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-x86_64-darwin",
-      "checksum": "1AF8D2CF3FD392B8EE62B01B7E54ADA4080B09117B3ABB9DB1CD2A43FB7EE64B",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/itamae-kitchen/mitamae/v2.0.3/mitamae-x86_64-linux",
-      "checksum": "61C6B2A678F45C1374506874846CF362BC418E4914DD0CF5EB56351210DCB930",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/jesseduffield/lazygit/v0.64.1/lazygit_0.64.1_darwin_arm64.tar.gz",
       "checksum": "A106B4C1BF8AB7539C4AFB40A01CBDE263A96513CDCB8BF7630278F07E88CD99",
       "algorithm": "sha256"

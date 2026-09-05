@@ -42,7 +42,7 @@ nix build .#homeConfigurations.<host>.activationPackage && ./result/activate  # 
 
 - `home/` - Dotfiles (symlinked to `$HOME`)
 - `home/.config/aquaproj-aqua/aqua.yaml` - aqua package definitions
-- `lib/recipe.rb` - mitamae recipes (legacy, migrating to nix)
+- `modules/home-manager/dotfiles.nix` - symlinks `home/` into `$HOME`
 - `flake.nix` - single flake for NixOS hosts, nix-darwin and home-manager
 - `hosts/<host>/` - NixOS host configurations
 - `modules/{nixos,darwin,home-manager}/` - shared modules per system type

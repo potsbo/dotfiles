@@ -67,6 +67,7 @@
           modules = [
             ./modules/home-manager/home.nix
             ./modules/home-manager/hosts.nix
+            ./modules/home-manager/dotfiles.nix
             ./modules/home-manager/starship.nix
             ./modules/home-manager/notes-sync.nix
             ./modules/home-manager/notes-remote-control.nix

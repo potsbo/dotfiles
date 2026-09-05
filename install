@@ -143,26 +143,22 @@ if [ "${CODESPACES:-"false"}" = "true" ]; then
     # 起動時は CODESPACE_VSCODE_FOLDER が使えなかったので手動で構築
     ln -s "/workspaces/$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)" "${TARGET_REPO_PATH}"
   fi
-
-  # 任意の場所から aqua が使えるようにしておく
-  ln -s "$HOME/aqua.yaml" /aqua.yaml
 fi
 
-# mitamae が ~/aqua.yaml をリンクするが、mitamae 自体が aqua 経由で動くため
-# 先に aqua.yaml の場所を環境変数で指定して循環参照を断ち切る
+# aqua の global config は既定で ~/.config 配下だが、~/.config のリンクは上の
+# home-manager が張る。それより前 (nix 未導入の環境) でも同じ設定を見るよう明示する。
 export AQUA_GLOBAL_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua.yaml"
 export AQUA_POLICY_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua-policy.yaml"
 
 if has "aqua"; then
   aqua install --only-link
-  aqua exec mitamae local lib/recipe.rb
 fi
 
 # nix に GitHub のトークンを渡す (home/.config/nix/nix.conf が include する)。
 # 未認証だと GitHub API が 60 req/hour で、nix flake update が 403 で落ちる。
 # gh を使うので新規に PAT を発行しなくてよい。gh 未認証なら黙って飛ばす。
 # 書き込み先が ~ ではなく DOTPATH なのは、.config がディレクトリごと
-# symlink される (lib/recipe.rb) ため、リンク前に実体を作ると衝突するため。
+# symlink される (modules/home-manager/dotfiles.nix) ため、リンク前に実体を作ると衝突するため。
 if has "gh" && GH_TOKEN=$(gh auth token 2>/dev/null); then
   (
     umask 077
