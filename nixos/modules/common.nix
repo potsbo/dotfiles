@@ -30,12 +30,17 @@ let
   # アプリごとに Emacs Ctrl バインドの適用/除外を切り替えるために必要
   xremap-gnome-extension = pkgs.stdenvNoCC.mkDerivation {
     pname = "gnome-shell-extension-xremap";
-    version = "13";
+    # metadata.json の shell-version に現在の GNOME Shell が無いと拡張は
+    # "OUT OF DATE" で読み込まれず、xremap の application フィルタが全滅する
+    # (`only` は何にも当たらず `not` は何でも通る → ターミナルで Super+V が
+    # Ctrl+V になる)。GNOME を上げたら `gnome-extensions info xremap@k0kubun.com`
+    # の State を確認し、必要ならここを上げる。
+    version = "14";
     src = pkgs.fetchFromGitHub {
       owner = "xremap";
       repo = "xremap-gnome";
-      rev = "9434933b430d466f8ea01a32cf5781e9b2cb75af";
-      hash = "sha256-gA7UlCoYB+avYi3BNXJ8P0cyDCDTpmqDRyY/iwQWbns=";
+      rev = "de79b05989308d717429726dab503e116a141851";
+      hash = "sha256-pTTUepxDcAi63k2FmbU7WRb9npkw5YF7UuVEqvZsm1w=";
     };
     installPhase = ''
       mkdir -p $out/share/gnome-shell/extensions/xremap@k0kubun.com
