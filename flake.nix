@@ -78,21 +78,18 @@
           };
         };
 
-      # hardware-configuration.nix をまだリポジトリに取り込んでいないホストは
-      # /etc/nixos のものを読む (--impure が要る)。取り込んだホストは pure に評価できる。
-      mkNixos = hostname: { system, extraModules ? [ ], ... }:
-        let
-          hardware = ./hosts + "/${hostname}/hardware-configuration.nix";
-        in
-        lib.nixosSystem {
-          inherit system;
-          modules = [
-            (if builtins.pathExists hardware then hardware else /etc/nixos/hardware-configuration.nix)
-            (./hosts + "/${hostname}/configuration.nix")
-            xremap-flake.nixosModules.default
-            ./modules/nixos/xremap.nix
-          ] ++ extraModules;
-        };
+      # hardware-configuration.nix は nixos-generate-config の出力をそのまま
+      # hosts/<host>/ に commit する。/etc/nixos のものを読むと --impure が要り、
+      # eval cache も効かなくなる。
+      mkNixos = hostname: { system, extraModules ? [ ], ... }: lib.nixosSystem {
+        inherit system;
+        modules = [
+          (./hosts + "/${hostname}/hardware-configuration.nix")
+          (./hosts + "/${hostname}/configuration.nix")
+          xremap-flake.nixosModules.default
+          ./modules/nixos/xremap.nix
+        ] ++ extraModules;
+      };
 
       mkDarwin = { system, apps }: nix-darwin.lib.darwinSystem {
         inherit system;
