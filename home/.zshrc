@@ -73,7 +73,7 @@ if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua complet
 if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
 # host-colored frame so any fzf shows which host it runs on.
-thm_main=$(~/.local/bin/host-color "$(hostname)")
+thm_main=$(host-color "$(hostname)")
 export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}

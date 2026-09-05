@@ -56,28 +56,6 @@ HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-# Step 0 validation
-# MANAGE_SYSTEM=1 のときだけ nixos-rebuild でシステム全体の設定を触る。
-# 既知ホスト = 自分が管理しているマシンなのでシステムごと管理する。
-# 未知ホスト = 管理外のサーバーなので user (home-manager) 設定だけ入れる。
-MANAGE_SYSTEM=0
-case "$HOSTNAME" in
-avalanche | raptorlake | phoenix | staten-nix | blizzard | skylake)
-  CONFIG="$HOSTNAME"
-  MANAGE_SYSTEM=1
-  ;;
-*)
-  # nix-darwin は config が無いと switch できないため、未知の macOS は従来どおり弾く
-  if [[ "$SYSTEM" == "Darwin" ]]; then
-    echo "Unknown hostname: $HOSTNAME"
-    echo "Hint: HOSTNAME=<hostname> curl ... | bash"
-    exit 1
-  fi
-  # 未知の Linux / NixOS では汎用の home-manager 設定だけ流す（システムには触れない）
-  CONFIG="linux"
-  ;;
-esac
-
 # Step 1 clone
 if [ ! -d $DOTPATH ]; then
   echo "$DOTPATH not found. Cloning..."
@@ -108,9 +86,25 @@ if [[ "$USER" == "potsbo" ]]; then
 
   export NIX_CONFIG="experimental-features = nix-command flakes"
 
-  # nixos-rebuild (NixOS only, 既知ホストのみ)
-  # 未知ホスト (MANAGE_SYSTEM=0) では管理外のシステム設定を壊さないようスキップする
-  if [[ -e /etc/NIXOS ]] && [[ "$MANAGE_SYSTEM" == "1" ]]; then
+  # 既知ホストかどうかは flake.nix の hosts 一覧で決まる (ここに一覧を持たない)。
+  # 既知ホスト = 自分が管理しているマシンなのでシステムごと管理する。
+  # 未知ホスト = 管理外のサーバーなので汎用の home-manager 設定 (linux) だけ入れる。
+  flake_has() { [[ "$(nix eval "${DOTPATH}#$1" --apply "s: s ? \"$2\"" 2>/dev/null)" == "true" ]]; }
+  if flake_has homeConfigurations "$HOSTNAME"; then
+    CONFIG="$HOSTNAME"
+  else
+    # nix-darwin は config が無いと switch できないため、未知の macOS は弾く
+    if [[ "$SYSTEM" == "Darwin" ]]; then
+      echo "Unknown hostname: $HOSTNAME (flake.nix の hosts に無い)"
+      echo "Hint: HOSTNAME=<hostname> curl ... | bash"
+      exit 1
+    fi
+    CONFIG="linux"
+  fi
+
+  # nixos-rebuild (nixosConfigurations を持つホストのみ)。
+  # 管理外の NixOS でシステム設定を壊さないよう、一覧に無ければスキップする。
+  if [[ -e /etc/NIXOS ]] && flake_has nixosConfigurations "$HOSTNAME"; then
     # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
     # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
     # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
