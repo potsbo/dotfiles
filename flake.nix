@@ -38,10 +38,9 @@
       # `./install` の既知ホスト判定、シェル側の host-color / host-tags
       # (modules/home-manager/hosts.nix) はすべてここから導出する。
       #
-      # os:
-      #   nixos  - nixosConfigurations を持ち、./install が nixos-rebuild する
-      #   darwin - darwinConfigurations を持ち、./install が nix-darwin を switch する
-      #   linux  - 管理外の Linux。./install の対象外で、ssh 先として色とタグだけ持つ
+      # os:      nixos | darwin。host-tags が表示に使う
+      # managed: この dotfiles で system と home を管理するか (既定 true)。false は会社
+      #          管理などで ./install の対象外。ssh 先として色とタグだけ持つ
       # alwaysOn: 常時稼働。サスペンドせず、notes の remote-control server を常駐させる
       # laptop:   蓋を閉じたらサスペンドする
       # desktop:  GUI (DE、音、日本語入力、GUI アプリ、xremap) を入れる。既定 true。
@@ -56,9 +55,9 @@
         skylake = { system = "x86_64-linux"; os = "nixos"; color = colors.blue; laptop = true; };
         avalanche = { system = "aarch64-darwin"; os = "darwin"; color = colors.purple; };
         blizzard = { system = "aarch64-darwin"; os = "darwin"; color = colors.cyan; };
-        graniteridge = { system = "x86_64-linux"; os = "linux"; color = colors.green; };
+        graniteridge = { system = "x86_64-linux"; os = "nixos"; color = colors.green; managed = false; };
       };
-      hostsByOs = os: lib.filterAttrs (_: h: h.os == os) hosts;
+      managedByOs = os: lib.filterAttrs (_: h: h.os == os && (h.managed or true)) hosts;
 
       # home-manager は standalone ではなく NixOS / nix-darwin のモジュールとして組み込む。
       # system と home が同じ世代で切り替わり、./install は rebuild 一発で済む。
@@ -115,7 +114,7 @@
       };
     in
     {
-      nixosConfigurations = lib.mapAttrs mkNixos (hostsByOs "nixos");
+      nixosConfigurations = lib.mapAttrs mkNixos (managedByOs "nixos");
 
       # `<host>` は Homebrew / Mac App Store を含まない軽い構成 (./install)。
       # `<host>-apps` は GUI アプリまで含む重い構成 (`apps` コマンド)。
@@ -124,7 +123,7 @@
           ${name} = mkDarwin { hostname = name; inherit (h) system; apps = false; };
           "${name}-apps" = mkDarwin { hostname = name; inherit (h) system; apps = true; };
         })
-        (hostsByOs "darwin");
+        (managedByOs "darwin");
 
       packages.aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
 
