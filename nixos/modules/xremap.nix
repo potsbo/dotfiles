@@ -7,6 +7,10 @@ let
 
   # RDP クライアントではリモート側にキーをそのまま渡すため、xremap を無効化する
   rdpApps = [ "xfreerdp" "FreeRDP" ];
+
+  # ターミナルとして扱うアプリ。Ghostty が無いホスト (skylake) では GNOME Console
+  # を使っており、そちらもコピー/ペーストは Ctrl+Shift+C/V なので同じ規則に乗せる。
+  terminalApps = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "org.gnome.Console" ];
 in
 
 # ============================================================================
@@ -166,9 +170,7 @@ in
         # グローバルの "Super shortcuts" より前に配置して先にマッチさせる。
         {
           name = "Terminal Cmd shortcuts";
-          application = {
-            only = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
-          };
+          application = { only = terminalApps; };
           remap = {
             Super-n = "C-Shift-n";   # new_window
             Super-q = "C-Shift-q";   # quit
@@ -257,9 +259,7 @@ in
         # ターミナル (Ghostty) を除外して適用する。
         {
           name = "Emacs Ctrl bindings (non-terminal)";
-          application = {
-            not = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ] ++ rdpApps;
-          };
+          application = { not = terminalApps ++ rdpApps; };
           remap = {
             C-a = "Home";
             C-e = "End";
