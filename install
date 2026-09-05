@@ -12,12 +12,6 @@ HOSTNAME="${HOSTNAME%.local}"
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-# nix コマンドを flakes 有効で動かす。/etc/nix/nix.conf (NixOS) や
-# home/.config/nix/nix.conf (それ以外) にも書いてあるが、新規 macOS では nix を入れてから
-# home-manager が ~/.config を張るまでの間どちらも無いので、このスクリプトでは env で通す。
-# sudo 越し (nix-darwin) には届かないので、そこは --extra-experimental-features を直接付ける。
-export NIX_CONFIG="experimental-features = nix-command flakes"
-
 # potsbo 専用。home.nix が username と homeDirectory を potsbo で固定しているので、
 # 他ユーザーでは home-manager を当てられない。中途半端に進めず最初に弾く。
 if [[ "$USER" != "potsbo" ]]; then
@@ -46,12 +40,14 @@ if ! command -v nix >/dev/null; then
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
+# flakes は NixOS / nix-darwin が switch 後に nix.conf で有効にする。新規 Mac の初回は
+# その前に nix を叩くので、nix を呼ぶ行には毎回 --extra-experimental-features を付ける。
 # clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
 # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
 # curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
 if [ ! -d "$DOTPATH" ]; then
   echo "$DOTPATH not found. Cloning..."
-  nix shell nixpkgs#git -c git clone "https://${REPO}" "$DOTPATH"
+  nix --extra-experimental-features 'nix-command flakes' shell nixpkgs#git -c git clone "https://${REPO}" "$DOTPATH"
 fi
 cd "$DOTPATH"
 
