@@ -27,8 +27,8 @@
 #     sudo install -m 0600 -o root -g root /dev/stdin /var/lib/kiosk/tailscale-authkey <<<'tskey-auth-...'
 
 let
-  # TODO: Tailscale 上の Windows の IP (100.x.y.z) に置き換える
-  rdpHost = "100.64.0.0";
+  # MagicDNS で解決する (resolved に 100.100.100.100 が入る)。IP 固定より名前で追従させる。
+  rdpHost = "raptorlake-win";
 
   credentialsFile = "/var/lib/kiosk/rdp-credentials";
   tailscaleAuthKeyFile = "/var/lib/kiosk/tailscale-authkey";
