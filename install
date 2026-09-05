@@ -84,6 +84,8 @@ if [[ "$USER" == "potsbo" ]]; then
     . "$HOME/.nix-profile/etc/profile.d/nix.sh"
   fi
 
+  # flakes は switch 後は nix-darwin / NixOS が nix.conf で有効にするが、
+  # 新マシンの初回はその前に nix を叩くので、ここで環境変数から与える。
   export NIX_CONFIG="experimental-features = nix-command flakes"
 
   # 既知ホストかどうかは flake.nix の hosts 一覧で決まる (ここに一覧を持たない)。
