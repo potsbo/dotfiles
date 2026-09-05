@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# ./install では解決しない手作業 (ログイン、鍵、認証) がどれだけ残っているかを
+# 一覧する。install は宣言できるものだけを揃えて終わるので、新しいマシンでは
+# 「あと何をすれば普段どおりになるか」が見えない。それをここで機械的に判定する。
+#
+# 各項目は「今その状態か」を確かめる check と、足りないときに打つコマンドの
+# 対で書く。直すのは人 (ログインは対話が要る) で、このスクリプトは状態を変えない。
+# 冪等で、揃っていれば ok だけが並ぶ。
+#
+# 使い方: doctor
+#   終了コード: 全部 ok なら 0、足りないものがあれば 1
+
+set -u
+
+# 出力は install と同じ cargo 風。tty のときだけ色を付ける。
+if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
+  c_ok=$'\033[1;32m' c_ng=$'\033[1;31m' c_dim=$'\033[2m' c_reset=$'\033[0m'
+else
+  c_ok='' c_ng='' c_dim='' c_reset=''
+fi
+
+missing=0
+
+# check <name> <fix> <cmd...>
+#   cmd が 0 で終われば ok、それ以外なら fix を添えて出す。cmd の出力は捨てる
+#   (状態表示だけが目的で、診断の詳細は fix のコマンドを打てば見える)。
+check() {
+  local name=$1 fix=$2
+  shift 2
+  if "$@" >/dev/null 2>&1; then
+    printf '%s%12s%s %s\n' "$c_ok" ok "$c_reset" "$name"
+  else
+    printf '%s%12s%s %s  %s→ %s%s\n' "$c_ng" missing "$c_reset" "$name" "$c_dim" "$fix" "$c_reset"
+    missing=1
+  fi
+}
+
+# --- ログイン ---
+
+# gh は git の credential helper、nix の GitHub token、notes-pull が依存する。
+# ここが最初。ログイン後に ./install をもう一度流すと access-tokens.conf が生える。
+check "gh" "gh auth login && ./install" gh auth status
+
+# `claude auth status` は JSON を返す。loggedIn だけ見る。
+claude_logged_in() { claude auth status 2>/dev/null | grep -q '"loggedIn": *true'; }
+check "claude" "claude auth login" claude_logged_in
+
+# macOS は CLI が app bundle の中にあり PATH に無い。
+tailscale_bin() {
+  if command -v tailscale >/dev/null; then echo tailscale
+  elif [[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ]]; then echo /Applications/Tailscale.app/Contents/MacOS/Tailscale
+  else return 1
+  fi
+}
+tailscale_running() {
+  local bin
+  bin=$(tailscale_bin) || return 1
+  "$bin" status --json 2>/dev/null | grep -q '"BackendState": *"Running"'
+}
+if [[ $(uname -s) == Darwin ]]; then
+  check "tailscale" "open -a Tailscale してログイン" tailscale_running
+else
+  check "tailscale" "sudo tailscale up" tailscale_running
+fi
+
+exit "$missing"
