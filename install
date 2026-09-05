@@ -6,6 +6,16 @@
 
 set -eu
 
+# 出力は cargo 風 (右揃えの動詞 + 対象)。状態表示なので stderr に出す。
+# 色は tty のときだけ、NO_COLOR があれば付けない (clig.dev の慣習)。
+if [[ -t 2 && -z "${NO_COLOR:-}" ]]; then
+  c_verb=$'\033[1;32m' c_err=$'\033[1;31m' c_reset=$'\033[0m'
+else
+  c_verb='' c_err='' c_reset=''
+fi
+step() { printf '%s%12s%s %s\n' "$c_verb" "$1" "$c_reset" "${*:2}" >&2; }
+fail() { printf '%s%12s%s %s\n' "$c_err" error "$c_reset" "$*" >&2; exit 1; }
+
 SYSTEM=$(uname -s)
 # bash が設定する HOSTNAME をそのまま使う (HOSTNAME=<name> ./install で上書きできる)。
 HOSTNAME="${HOSTNAME%.local}"
@@ -15,19 +25,20 @@ DOTPATH="${HOME}/src/${REPO}"
 # potsbo 専用。home.nix が username と homeDirectory を potsbo で固定しているので、
 # 他ユーザーでは home-manager を当てられない。中途半端に進めず最初に弾く。
 if [[ "$USER" != "potsbo" ]]; then
-  echo "install: this script is for user potsbo only (USER=$USER)" >&2
-  exit 1
+  fail "user $USER: this script is for user potsbo only"
 fi
+step Checking "user $USER"
 
 # 対象は NixOS と macOS だけ。それ以外の Linux は使っていないので弾く。
 # nix を入れる必要があるのは macOS だけ (NixOS は最初からある)。
 if [[ "$SYSTEM" == "Linux" && ! -e /etc/NIXOS ]]; then
-  echo "install: Linux other than NixOS is not supported" >&2
-  exit 1
+  fail "os Linux: only NixOS and macOS are supported"
 fi
+if [[ -e /etc/NIXOS ]]; then os=NixOS; else os=macOS; fi
+step Checking "os $os ($HOSTNAME)"
 
 if ! command -v nix >/dev/null; then
-  echo "Installing Nix..."
+  step Installing nix
   # 公式インストーラ。macOS は multi-user (daemon) のみで、sudo を使って APFS volume と
   # daemon を作る。stdin が tty でない (curl | bash) と確認は自動で yes になるが
   # --yes で明示する。sudo のパスワードは /dev/tty から聞かれるので対話はそこだけ残る。
@@ -39,6 +50,7 @@ if ! command -v nix >/dev/null; then
     | sh -s -- --yes --no-channel-add --no-modify-profile
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
+step Found "nix $(nix --version | awk '{print $NF}')"
 
 # flakes は NixOS / nix-darwin が switch 後に nix.conf で有効にする。新規 Mac の初回は
 # その前に nix を叩くので、nix を呼ぶ行には毎回 --extra-experimental-features を付ける。
@@ -46,14 +58,17 @@ fi
 # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
 # curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
 if [ ! -d "$DOTPATH" ]; then
-  echo "$DOTPATH not found. Cloning..."
+  step Cloning "$REPO"
   nix --extra-experimental-features 'nix-command flakes' shell nixpkgs#git -c git clone "https://${REPO}" "$DOTPATH"
 fi
+step Found "repo ${DOTPATH/#$HOME/\~}"
 cd "$DOTPATH"
 
 # system と home をまとめて切り替える (home-manager は NixOS / nix-darwin のモジュール)。
-# nixos-rebuild (NixOS のみ)。ホストが flake.nix の hosts に無ければ nix 自身が
-# "does not provide attribute nixosConfigurations.<host>" で止まるので、事前確認はしない。
+# ホストが flake.nix の hosts に無ければ nix 自身が "does not provide attribute ..." で
+# 止まるので、事前確認はしない。
+step Switching "$HOSTNAME"
+SECONDS=0
 if [[ -e /etc/NIXOS ]]; then
   # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
   # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
@@ -63,12 +78,9 @@ if [[ -e /etc/NIXOS ]]; then
   # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
   # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
   sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}"
+else
+  # GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので
+  # `apps` コマンド (home/.local/bin/apps) で別途揃える。
+  sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}" -- switch --flake "${DOTPATH}#${HOSTNAME}"
 fi
-
-# nix-darwin (macOS only)
-# GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので
-# `apps` コマンド (home/.local/bin/apps) で別途揃える。
-if [[ "$SYSTEM" == "Darwin" ]]; then
-  echo "nix-darwin: Using configuration: $HOSTNAME"
-  sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}" -- switch --flake "${DOTPATH}#$HOSTNAME" --verbose
-fi
+step Finished "in ${SECONDS}s"
