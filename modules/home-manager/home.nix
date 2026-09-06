@@ -113,6 +113,10 @@ in
     mosh
     groff # aws help が man 整形に要求する
     chafa # 端末に画像を出す
+    # LazyVim の lang.nix extra が nix 保存時に nvim-lint 経由で呼ぶ。aqua 標準レジストリ未登録。
+    # 同 extra が formatter に指定する nixfmt は入れていない: このリポジトリの 1 行 attrset
+    # スタイルをほぼ全ファイル書き換えてしまうので、保存時整形は無効のままにしておく。
+    statix
   ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     wl-clipboard
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
