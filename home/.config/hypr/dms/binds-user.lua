@@ -24,6 +24,11 @@ hl.unbind("SUPER + R") -- togglesplit。浮動既定 (windowrules.lua) では使
 hl.unbind("SUPER + L") -- focus right。下の Super+Alt+矢印で代替 (Super+Alt+L は DMS のロック)
 hl.unbind("SUPER + K")
 
+-- 全ウィンドウ浮動の本体 (float) は DMS が dms/windowrules.lua で持つ (初回起動で取り込まれた)。
+-- DMS の形式には無い center と persistent_size (同じ class+title は前回の大きさで開く) を
+-- ここで足す。
+hl.window_rule({ match = { class = ".*" }, center = true, persistent_size = true })
+
 -- === Magnet 風の配置 (macOS の Ctrl+Option+矢印 / U/I/J/K) ===
 -- xremap が Ctrl+Alt+矢印 → Super+矢印、Ctrl+Alt+U/I/J/K → Super+U/I/J/K に変える
 -- (GNOME では tiling-assistant 拡張がこれを受けていた)。DMS 既定の Super+矢印 (フォーカス
