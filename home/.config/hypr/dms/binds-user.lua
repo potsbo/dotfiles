@@ -172,4 +172,15 @@ hl.config({
   general = {
     border_size = 0,
   },
+  -- 枠線が無い分、影を濃く大きくして前後関係が分かるようにする (雛形は range 30、
+  -- render_power 4、rgba(00000070))。
+  decoration = {
+    shadow = {
+      enabled = true,
+      range = 60,
+      render_power = 3,
+      offset = "0 12",
+      color = "rgba(000000b0)",
+    },
+  },
 })
