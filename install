@@ -33,8 +33,8 @@ if ! command -v nix >/dev/null; then
   #   --no-modify-profile: /etc/zshrc 等に source 行を書かせない。シェルの起動ファイルは
   #                        repo が持つ (home/.zshenv が nix-daemon.sh を読む) ので、macOS の
   #                        アップデートで /etc/zshrc が書き戻されても影響を受けない。
-  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install \
-    | sh -s -- --yes --no-channel-add --no-modify-profile
+  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install |
+    sh -s -- --yes --no-channel-add --no-modify-profile
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 step Found "nix $(nix --version | awk '{print $NF}')"
@@ -50,4 +50,10 @@ fi
 step Found "repo ${DOTPATH/#$HOME/\~}"
 
 # 初回は PATH に乗っていないのでフルパスで呼ぶ。
-exec "${DOTPATH}/home/.local/bin/rebuild"
+"${DOTPATH}/home/.local/bin/rebuild"
+
+# 宣言で揃わない手作業 (ログイン、鍵) が何個残っているかを最後に見せる。
+# doctor は gh や gcloud を PATH から探すが、このシェルの PATH は switch 前のまま
+# なので、rebuild が張ったばかりの ~/.zshenv を読む zsh の下で走らせる。
+# 残りがあるのは新規マシンでは当然なので、doctor の exit 1 は install の失敗にしない。
+zsh -c doctor || true
