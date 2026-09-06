@@ -21,6 +21,37 @@
     }
   },
   "dankIslandBarId": "default",
+  "dankIslandHomeCompactTight": true,
+  "dankIslandHomeLayout": [
+    {
+      "id": "media",
+      "enabled": false
+    },
+    {
+      "id": "clock",
+      "enabled": true
+    },
+    {
+      "id": "weather",
+      "enabled": false
+    },
+    {
+      "id": "status",
+      "enabled": false
+    },
+    {
+      "id": "volume",
+      "enabled": false
+    },
+    {
+      "id": "brightness",
+      "enabled": false
+    },
+    {
+      "id": "notifications",
+      "enabled": true
+    }
+  ],
   "osdPowerProfileEnabled": true,
   "barConfigs": [
     {
@@ -33,9 +64,18 @@
       ],
       "showOnLastDisplay": true,
       "leftWidgets": [
-        "launcherButton",
-        "workspaceSwitcher",
-        "focusedWindow"
+        {
+          "id": "launcherButton",
+          "enabled": false
+        },
+        {
+          "id": "workspaceSwitcher",
+          "enabled": false
+        },
+        {
+          "id": "focusedWindow",
+          "enabled": false
+        }
       ],
       "centerWidgets": [
         "music",
@@ -44,12 +84,29 @@
       ],
       "rightWidgets": [
         "systemTray",
-        "clipboard",
-        "cpuUsage",
-        "memUsage",
+        {
+          "id": "clipboard",
+          "enabled": false
+        },
+        {
+          "id": "cpuUsage",
+          "enabled": true,
+          "minimumWidth": true
+        },
+        {
+          "id": "memUsage",
+          "enabled": true,
+          "showInGb": false
+        },
         "notificationButton",
-        "battery",
-        "controlCenterButton"
+        {
+          "id": "battery",
+          "enabled": false
+        },
+        {
+          "id": "controlCenterButton",
+          "enabled": true
+        }
       ],
       "spacing": 4,
       "innerPadding": 4,
@@ -58,7 +115,7 @@
       "bottomGap": 0,
       "attachToScreenEdge": false,
       "transparency": 1,
-      "widgetTransparency": 1,
+      "widgetTransparency": 0,
       "squareCorners": false,
       "noBackground": false,
       "maximizeWidgetIcons": false,
@@ -126,6 +183,20 @@
     "hslSaturation": 0,
     "hslLightness": 1,
     "valid": true
+  },
+  "builtInPluginSettings": {
+    "dms_settings_search": {
+      "trigger": "?"
+    },
+    "dms_clipboard_search": {
+      "trigger": "cb"
+    },
+    "dms_power": {
+      "trigger": "pw"
+    },
+    "dms_qr_generator": {
+      "trigger": "qrg"
+    }
   },
   "configVersion": 17
 }
