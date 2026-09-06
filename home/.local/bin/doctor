@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+# ./install では解決しない手作業 (ログイン、鍵、認証) がどれだけ残っているかを
+# 一覧する。install は宣言できるものだけを揃えて終わるので、新しいマシンでは
+# 「あと何をすれば普段どおりになるか」が見えない。それをここで機械的に判定する。
+#
+# 各項目は「今その状態か」を確かめる check と、足りないときに打つコマンドの
+# 対で書く。直すのは人 (ログインは対話が要る) で、このスクリプトは状態を変えない。
+# 冪等で、揃っていれば ok だけが並ぶ。
+#
+# CLI から判定できないもの (GUI アプリのログイン) は扱わない。判定できない項目を
+# 並べても済んだかどうかが分からず、毎回同じ行が出るだけになる。
+#
+# 使い方: doctor
+#   終了コード: 全部 ok なら 0、足りないものがあれば 1
+
+set -u
+
+# 出力は install と同じ cargo 風。tty のときだけ色を付ける。
+if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
+  c_ok=$'\033[1;32m' c_ng=$'\033[1;31m' c_dim=$'\033[2m' c_reset=$'\033[0m'
+else
+  c_ok='' c_ng='' c_dim='' c_reset=''
+fi
+
+os=$(uname -s)
+host=${HOSTNAME:-$(hostname)}
+host=${host%.local}
+missing=0
+
+# check <name> <fix> <cmd...>
+#   cmd が 0 で終われば ok、それ以外なら fix を添えて出す。cmd の出力は捨てる
+#   (状態表示だけが目的で、診断の詳細は fix のコマンドを打てば見える)。
+check() {
+  local name=$1 fix=$2
+  shift 2
+  if "$@" >/dev/null 2>&1; then
+    printf '%s%12s%s %s\n' "$c_ok" ok "$c_reset" "$name"
+  else
+    printf '%s%12s%s %s  %s→ %s%s\n' "$c_ng" missing "$c_reset" "$name" "$c_dim" "$fix" "$c_reset"
+    missing=1
+  fi
+}
+
+# --- 土台 (他の項目がこれに依存する) ---
+
+if [[ $os == Linux ]]; then
+  # パスワードは宣言していない (common.nix)。無いと GNOME にログインできない。
+  # ハッシュが ! や * ならロック状態。sudo は wheel なので聞かれない。
+  passwd_set() { sudo -n grep -q '^potsbo:[^!*:]' /etc/shadow; }
+  check "user password" "sudo passwd potsbo" passwd_set
+fi
+
+# 鍵は gitignore なので新規マシンでは無い。他ホストの sshd は GitHub の公開鍵を
+# 毎回引く (ssh.nix) ので、登録するまで他ホストにも入れない。
+check "ssh key" "ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519" test -f ~/.ssh/id_ed25519.pub
+ssh_key_on_github() {
+  local key
+  key=$(cut -d' ' -f2 ~/.ssh/id_ed25519.pub) || return 1
+  curl -fsSL --max-time 10 https://github.com/potsbo.keys | grep -qF "$key"
+}
+check "ssh key on GitHub" "gh ssh-key add ~/.ssh/id_ed25519.pub" ssh_key_on_github
+
+# gh は git の credential helper、nix の GitHub token、notes-pull が依存する。
+# ログイン後に ./install をもう一度流すと access-tokens.conf が生える (dotfiles.nix)。
+check "gh" "gh auth login && ./install" gh auth status
+check "nix github token" "./install (gh ログイン後)" test -f ~/.config/nix/access-tokens.conf
+
+# --- ログイン ---
+
+# `claude auth status` は JSON を返す。loggedIn だけ見る。
+claude_logged_in() { claude auth status 2>/dev/null | grep -q '"loggedIn": *true'; }
+check "claude" "claude auth login" claude_logged_in
+
+# codex / copilot は status コマンドが無いので資格情報ファイルの有無だけ。期限切れは分からない。
+check "codex" "codex login" test -f ~/.codex/auth.json
+check "copilot" "copilot login" test -f ~/.config/github-copilot/auth.db
+
+gcloud_active() { [[ -n $(gcloud auth list --filter=status:ACTIVE --format='value(account)' 2>/dev/null) ]]; }
+check "gcloud" "gcloud auth login" gcloud_active
+check "gcloud ADC" "gcloud auth application-default login" test -f ~/.config/gcloud/application_default_credentials.json
+
+# login_session を持つ profile は本人アカウントの 1 つだけ (aws/config)。他はそれを source にする。
+aws_profile="shimpei.otsubo@medicu.co.jp"
+check "aws" "aws login --profile $aws_profile" aws sts get-caller-identity --profile "$aws_profile"
+
+# .zshrc の xfreerdp ラッパーが `op read` する。
+check "op" "op signin" op whoami
+
+# macOS は CLI が app bundle の中にあり PATH に無い。
+tailscale_bin() {
+  if command -v tailscale >/dev/null; then echo tailscale
+  elif [[ -x /Applications/Tailscale.app/Contents/MacOS/Tailscale ]]; then echo /Applications/Tailscale.app/Contents/MacOS/Tailscale
+  else return 1
+  fi
+}
+tailscale_running() {
+  local bin
+  bin=$(tailscale_bin) || return 1
+  "$bin" status --json 2>/dev/null | grep -q '"BackendState": *"Running"'
+}
+if [[ $os == Darwin ]]; then
+  check "tailscale" "open -a Tailscale してログイン" tailscale_running
+else
+  check "tailscale" "sudo tailscale up" tailscale_running
+fi
+
+# --- リポジトリ・toolchain ---
+
+# notes-pull は dir が無いと exit 0 で黙って何もしない。
+check "notes repo" "ghq get potsbo/notes" test -d ~/src/github.com/potsbo/notes/.git
+
+# dotfiles.nix が hunk skill path を張る。hunk が aqua で未導入だと no-op で終わる。
+check "hunk review skill" "hunk --version && ./install" test -L ~/.claude/skills/hunk-review
+
+# lazy.nvim は初回起動で取りに行く。cache コマンドが前倒しする。
+nvim_plugins() { [[ -n $(ls -A ~/.local/share/nvim/lazy 2>/dev/null) ]]; }
+check "nvim plugins" "cache (または nvim を一度開く)" nvim_plugins
+
+# rustup を使っているマシンだけ。cargo/rustc は nix で入るので無くてもよい。
+if command -v rustup >/dev/null; then
+  check "rust toolchain" "rustup default stable" rustup show active-toolchain
+fi
+
+# --- ホスト固有 ---
+
+if [[ $host == raptorlake ]]; then
+  # 宣言に入れられない資格情報。手順は hosts/raptorlake/README.md。
+  check "cloudflared token" "hosts/raptorlake/README.md 「Cloudflare 経由で SSH する」" sudo -n test -s /srv/cloudflared/env
+  check "smb credentials" "hosts/raptorlake/README.md 「Google 共有ドライブを Linux から読む」" sudo -n test -s /etc/smb-credentials/gdrive
+fi
+
+# --- macOS ---
+
+if [[ $os == Darwin ]]; then
+  check "xcode CLT" "xcode-select --install" xcode-select -p
+  # 公式 installer の nix.conf が残っていると nix-darwin の初回 switch が止まる (darwin/default.nix)。
+  check "nix.conf (nix-darwin)" "sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin && ./install" test -L /etc/nix/nix.conf
+  # GUI アプリは install から切り離してある。brew と mas は apps が使う。
+  check "homebrew" "apps" command -v brew
+  check "app store" "App Store にサインイン" mas account
+fi
+
+exit "$missing"

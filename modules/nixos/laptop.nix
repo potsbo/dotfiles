@@ -1,6 +1,6 @@
 { config, lib, ... }:
 
-# ラップトップ (host.laptop): 電源管理を有効にし、適宜スリープする
+# role = laptop (host.laptop): 電源管理を有効にし、適宜スリープする
 {
   config = lib.mkIf config.host.laptop {
     services.upower.enable = lib.mkForce true;

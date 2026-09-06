@@ -22,6 +22,7 @@ lightdash
 /environment.d
 /systemd/user
 /starship.toml
+/lazygit/config.yml
 /cagent
 /monitors.xml
 /odbc/odbcinst.ini
@@ -38,6 +39,8 @@ lightdash
 /microsoft-edge/NativeMessagingHosts
 /opera/NativeMessagingHosts
 /fontconfig/conf.d
+/kdedefaults
+/gtk-4.0
 /google-chrome*
 /microsoft-edge-dev/NativeMessagingHosts
 /vivaldi*

@@ -13,11 +13,11 @@
 #   ビルドが落ちる。ln で張った symlink ならそれらは今までどおり symlink 越しに
 #   リポジトリ側へ落ちる (gitignore 済み)。.config を丸ごと 1 本にするのは
 #   「知らないファイルが追加されたときに気づく」ためで、個別リンクにはしない。
-{ config, lib, pkgs, dotfilesPath, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  repoHome = "${dotfilesPath}/home";
+  repoHome = "${config.home.homeDirectory}/src/github.com/potsbo/dotfiles/home";
 
   dirLinks = [
     ".config"

@@ -12,10 +12,10 @@ let
     };
 in
 {
-  imports = [ ./desktop/gnome.nix ./desktop/plasma.nix ];
+  imports = [ ./desktop/gnome.nix ./desktop/plasma.nix ./desktop/hyprland.nix ];
 
   options.desktop.environment = lib.mkOption {
-    type = lib.types.enum [ "gnome" "plasma" "none" ];
+    type = lib.types.enum [ "gnome" "plasma" "hyprland" "none" ];
     default = "gnome";
     description = "どの DE を有効にするか。specialisation で差し替えて別の DE を試す。";
   };

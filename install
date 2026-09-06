@@ -65,19 +65,29 @@ step Found "repo ${DOTPATH/#$HOME/\~}"
 cd "$DOTPATH"
 
 # system と home をまとめて切り替える (home-manager は NixOS / nix-darwin のモジュール)。
+# OS 側を管理しないホストでは home-manager だけを standalone で当てる。
 # ホストが flake.nix の hosts に無ければ nix 自身が "does not provide attribute ..." で
 # 止まるので、事前確認はしない。
 step Switching "$HOSTNAME"
 SECONDS=0
 if [[ -e /etc/NIXOS ]]; then
-  # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
-  # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
-  # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
-  #
-  # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
-  # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
-  # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
-  sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}"
+  if nix --extra-experimental-features 'nix-command flakes' eval "${DOTPATH}#nixosConfigurations" --apply "c: c ? \"${HOSTNAME}\"" | grep -qx true; then
+    # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
+    # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
+    # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
+    #
+    # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
+    # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
+    # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
+    sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}"
+  else
+    # OS 側を触れないホスト (flake.nix の hosts で manage = home)。home-manager だけを
+    # standalone で当てる。`nix run home-manager` は使わない: unpinned な参照は rev 確定に
+    # GitHub API を叩き、gh が無い新環境では未認証のまま 403 に当たりうる。lock 済みの
+    # activationPackage を直接ビルドすれば API 解決が要らず、CLI と設定の版ずれも消える。
+    HM_ACTIVATION=$(nix --extra-experimental-features 'nix-command flakes' build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${HOSTNAME}.activationPackage")
+    "${HM_ACTIVATION}/activate"
+  fi
 else
   # GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので
   # `apps` コマンド (home/.local/bin/apps) で別途揃える。
