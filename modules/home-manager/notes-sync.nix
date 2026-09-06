@@ -1,8 +1,9 @@
 # github.com/potsbo/notes を定期的に pull する。
 # main 以外を checkout 中や rebase 中は何もしない (ff-only なので壊さない)。
-{ config, pkgs, lib, dotfilesPath, ... }:
+{ config, pkgs, lib, ... }:
 
 let
+  dotfilesPath = "${config.home.homeDirectory}/src/github.com/potsbo/dotfiles";
   notesDir = "${config.home.homeDirectory}/src/github.com/potsbo/notes";
 
   notesPull = pkgs.writeShellScript "notes-pull" ''

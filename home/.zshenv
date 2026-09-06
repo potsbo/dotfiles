@@ -47,8 +47,11 @@ export PYTHON_HISTORY="$XDG_STATE_HOME/python_history" # 効くのは Python 3.1
 export ZSH_EVALCACHE_DIR="$XDG_CACHE_HOME/zsh/evalcache"
 
 # PATH
-# home-manager の profile (NixOS / nix-darwin のモジュールとして当てているので per-user 配下)
+# home-manager の profile。manage = system (flake.nix の hosts) なら NixOS / nix-darwin の
+# モジュールとして当たるので per-user 配下、manage = home (standalone) なら ~/.nix-profile。
+# 同じホストに両方あることは無いので、存在する方だけが効く。
 export PATH=/etc/profiles/per-user/$USER/bin:$PATH
+export PATH=$HOME/.nix-profile/bin:$PATH
 export PATH=$HOME/bin:$PATH
 ## Build
 # prepend: 自作の open/xdg-open ラッパーが system の xdg-open (nix) に勝つ必要がある
@@ -87,6 +90,7 @@ export HISTSIZE=100000
 if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 if [ -e /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh ]; then . /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh; fi
+if [ -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
 
 # --- forwarded ssh-agent: keep keys on the origin host, usable across herdr ---
 # We ssh in with agent forwarding (ForwardAgent), so no private key lives here.
