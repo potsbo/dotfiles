@@ -14,11 +14,16 @@ set -eu
 # 出力は cargo 風 (右揃えの動詞 + 対象)。状態表示なので stderr に出す。
 # 色は tty のときだけ、NO_COLOR があれば付けない (clig.dev の慣習)。
 if [[ -t 2 && -z "${NO_COLOR:-}" ]]; then
-  c_verb=$'\033[1;32m' c_reset=$'\033[0m'
+  c_verb=$'\033[1;32m' c_head=$'\033[1m' c_reset=$'\033[0m'
 else
-  c_verb='' c_reset=''
+  c_verb='' c_head='' c_reset=''
 fi
 step() { printf '%s%12s%s %s\n' "$c_verb" "$1" "$c_reset" "${*:2}" >&2; }
+# 3 段 (bootstrap / rebuild / doctor) の境目。doctor は missing を並べるので、
+# 見出しが無いと直前の rebuild が失敗したように見える。
+section() { printf '\n%s%s%s\n' "$c_head" "$1" "$c_reset" >&2; }
+
+section bootstrap
 
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
@@ -49,6 +54,7 @@ if [ ! -d "$DOTPATH" ]; then
 fi
 step Found "repo ${DOTPATH/#$HOME/\~}"
 
+section rebuild
 # 初回は PATH に乗っていないのでフルパスで呼ぶ。
 "${DOTPATH}/home/.local/bin/rebuild"
 
@@ -56,4 +62,5 @@ step Found "repo ${DOTPATH/#$HOME/\~}"
 # doctor は gh や gcloud を PATH から探すが、このシェルの PATH は switch 前のまま
 # なので、rebuild が張ったばかりの ~/.zshenv を読む zsh の下で走らせる。
 # 残りがあるのは新規マシンでは当然なので、doctor の exit 1 は install の失敗にしない。
+section doctor
 zsh -c doctor || true
