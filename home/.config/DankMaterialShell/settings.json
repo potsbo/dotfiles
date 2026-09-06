@@ -6,6 +6,7 @@
   "showSeconds": true,
   "controlCenterShowMicPercent": true,
   "appIdSubstitutions": [],
+  "useAutoLocation": true,
   "cursorSettings": {
     "theme": "System Default",
     "size": 24,
