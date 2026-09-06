@@ -12,7 +12,7 @@
 
   # GeForce RTX 4070 (Ada)。Ada 以降は open kernel module が NVIDIA 推奨で、
   # proprietary module より kernel 更新への追従が速い。
-  # headless (host.desktop = false) だが、ollama の CUDA にドライバが要る。videoDrivers は
+  # headless (role = server) だが、ollama の CUDA にドライバが要る。videoDrivers は
   # X 用の名前だが、NixOS では nvidia ドライバを有効にする入口がこれしかない。
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;

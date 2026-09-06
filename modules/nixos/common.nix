@@ -13,14 +13,35 @@
     ./laptop.nix
   ];
 
-  # flake.nix の hosts から渡る性質。server.nix / laptop.nix がこれを見て有効になる。
+  # flake.nix の hosts から渡る役割。入力は role ひとつで、他は導出 (readOnly)。
+  # 電源 (蓋で寝る / 常時稼働) と GUI の有無を別々の bool にすると、意味のない
+  # 組 (常時稼働なのに蓋で寝る、headless の laptop) が書けてしまうので enum にした。
   options.host = {
-    alwaysOn = lib.mkEnableOption "常時稼働 (サスペンドしない)";
-    laptop = lib.mkEnableOption "ラップトップ (蓋を閉じたらサスペンド)";
+    role = lib.mkOption {
+      type = lib.types.enum [ "laptop" "workstation" "server" ];
+      description = ''
+        laptop:      蓋を閉じたらサスペンド。GUI あり
+        workstation: 常時稼働 (サスペンドしない)。GUI あり
+        server:      常時稼働。headless
+      '';
+    };
+    alwaysOn = lib.mkOption {
+      type = lib.types.bool;
+      readOnly = true;
+      default = config.host.role != "laptop";
+      description = "常時稼働 (サスペンドしない)。server.nix が見る";
+    };
+    laptop = lib.mkOption {
+      type = lib.types.bool;
+      readOnly = true;
+      default = config.host.role == "laptop";
+      description = "蓋を閉じたらサスペンド。laptop.nix が見る";
+    };
     desktop = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      description = "GUI 一式 (desktop.nix, xremap) を入れる。false は headless。";
+      readOnly = true;
+      default = config.host.role != "server";
+      description = "GUI 一式 (desktop.nix, xremap) を入れる";
     };
   };
 

@@ -41,7 +41,7 @@ in
 #
 # ============================================================================
 {
-  # headless ホスト (host.desktop = false) ではキーボードの再配置も要らない。
+  # headless ホスト (role = server) ではキーボードの再配置も要らない。
   # enable だけは mkIf の外で常に明示する。上流 module は enable が未設定で
   # default に落ちたときだけ evaluation warning を出す (default に lib.warn を
   # 仕込んでいる) ので、false でも書いておく必要がある。

@@ -34,35 +34,27 @@
       # (modules/home-manager/hosts.nix) はすべてここから導出する。
       #
       # 既定値は持たず、各ホストで全キーを書き下す。省略可能にすると既定値の埋めが
-      # 参照側 (mkNixos の引数、managedByOs、home への受け渡し) に散って読めなくなる。
+      # 参照側 (mkNixos の引数、managedByOs) に散って読めなくなる。
       #
       # os:      nixos | darwin。host-tags が表示に使う
       # managed: この dotfiles で system と home を管理するか。false は会社管理などで
       #          ./install の対象外。ssh 先として色とタグだけ持つ
-      # alwaysOn: 常時稼働。サスペンドしない
       # 以下は managed な nixos ホストだけが持つ:
-      # laptop:   蓋を閉じたらサスペンドする
-      # desktop:  GUI (DE、音、日本語入力、GUI アプリ、xremap) を入れる。
-      #           false は headless サーバ。GPU ドライバは別 (CUDA 用に残る)
+      # role:    laptop (蓋で寝る、GUI) | workstation (常時稼働、GUI) | server (常時稼働、headless)。
+      #          意味は modules/nixos/common.nix の options.host。物理形状ではなく扱い
+      #          (raptorlake は据え置きで使うので server)
       # extraModules: そのホストだけの NixOS モジュール
       # (「モニタやキーボードが繋がっているか」は別の性質で、今は参照する設定が無いので持たない)
       hosts = {
-        phoenix = {
-          system = "x86_64-linux"; os = "nixos"; color = palette.orange; managed = true;
-          alwaysOn = true; laptop = false; desktop = true; extraModules = [ ];
-        };
+        phoenix = { system = "x86_64-linux"; os = "nixos"; color = palette.orange; managed = true; role = "workstation"; extraModules = [ ]; };
         raptorlake = {
-          system = "x86_64-linux"; os = "nixos"; color = palette.white; managed = true;
-          alwaysOn = true; laptop = false; desktop = false;
+          system = "x86_64-linux"; os = "nixos"; color = palette.white; managed = true; role = "server";
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
         };
-        skylake = {
-          system = "x86_64-linux"; os = "nixos"; color = palette.blue; managed = true;
-          alwaysOn = false; laptop = true; desktop = true; extraModules = [ ];
-        };
-        avalanche = { system = "aarch64-darwin"; os = "darwin"; color = palette.purple; managed = true; alwaysOn = false; };
-        blizzard = { system = "aarch64-darwin"; os = "darwin"; color = palette.cyan; managed = true; alwaysOn = false; };
-        graniteridge = { system = "x86_64-linux"; os = "nixos"; color = palette.green; managed = false; alwaysOn = false; };
+        skylake = { system = "x86_64-linux"; os = "nixos"; color = palette.blue; managed = true; role = "laptop"; extraModules = [ ]; };
+        avalanche = { system = "aarch64-darwin"; os = "darwin"; color = palette.purple; managed = true; };
+        blizzard = { system = "aarch64-darwin"; os = "darwin"; color = palette.cyan; managed = true; };
+        graniteridge = { system = "x86_64-linux"; os = "nixos"; color = palette.green; managed = false; };
       };
       managedByOs = os: lib.filterAttrs (_: h: h.os == os && h.managed) hosts;
 
@@ -94,10 +86,10 @@
       # hardware-configuration.nix は nixos-generate-config の出力をそのまま
       # hosts/<host>/ に commit する。/etc/nixos のものを読むと --impure が要り、
       # eval cache も効かなくなる。
-      mkNixos = hostname: { system, extraModules, alwaysOn, laptop, desktop, ... }: lib.nixosSystem {
+      mkNixos = hostname: { system, extraModules, role, ... }: lib.nixosSystem {
         inherit system;
         modules = [
-          { host = { inherit alwaysOn laptop desktop; }; }
+          { host = { inherit role; }; }
           (./hosts + "/${hostname}/hardware-configuration.nix")
           (./hosts + "/${hostname}/configuration.nix")
           xremap-flake.nixosModules.default

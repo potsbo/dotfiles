@@ -1,6 +1,6 @@
 { config, lib, ... }:
 
-# 常時稼働 (host.alwaysOn): suspend/sleep を完全に無効化
+# role = workstation / server (host.alwaysOn): suspend/sleep を完全に無効化
 {
   config = lib.mkIf config.host.alwaysOn {
     services.displayManager.gdm.autoSuspend = false;
