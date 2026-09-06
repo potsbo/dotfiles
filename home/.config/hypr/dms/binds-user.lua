@@ -270,6 +270,11 @@ hl.config({
   },
   misc = {
     middle_click_paste = false,
+    -- ロック画面は DMS (dms.service) が出す。ロック中に nixos-rebuild switch などで
+    -- dms.service が再起動するとロッククライアントが消え、既定の Hyprland は新しい
+    -- ロッククライアントを受け付けず「lockscreen app has died」から抜けられなくなる
+    -- (セッションの再起動しかない)。再起動した DMS が再ロックできるようにする。
+    allow_session_lock_restore = true,
   },
   general = {
     resize_on_border = true,
