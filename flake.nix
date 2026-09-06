@@ -12,13 +12,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     xremap-flake.url = "github:xremap/nix-flake";
+    # DankMaterialShell: Hyprland 上の bar / ランチャー / 通知 / ロック画面。release tag に固定
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/v1.6.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, ... }:
     let
       lib = nixpkgs.lib;
 
@@ -96,6 +101,7 @@
           (./hosts + "/${hostname}/configuration.nix")
           xremap-flake.nixosModules.default
           ./modules/nixos/xremap.nix
+          dms.nixosModules.dank-material-shell
           home-manager.nixosModules.home-manager
           (hmModule hostname false)
         ] ++ extraModules;

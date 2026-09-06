@@ -74,6 +74,8 @@ in
     services.xremap = {
       enable = true;
       withGnome = config.desktop.environment == "gnome";
+      # Hyprland では IPC でフォーカス中のウィンドウ class を取る。GNOME 拡張のような版ずれは無い
+      withHypr = config.desktop.environment == "hyprland";
       withKDE = config.desktop.environment == "plasma";
       userName = "potsbo";
       serviceMode = "user";
@@ -167,6 +169,18 @@ in
             };
           }
   
+          # === Super+Alt は変換せず compositor に渡す (Hyprland 用) ===
+          # 下の "Super shortcuts" は修飾キーが上位集合でも当たる (xremap の既定) ので、
+          # Super+Alt+Q は Ctrl+Alt+Q になってしまう。Hyprland 側で Super+Alt に寄せた WM 操作
+          # (home/.config/hypr/dms/binds-user.lua) を届けるため、完全一致の同一写像で先に受ける。
+          {
+            name = "Super+Alt passthrough";
+            exact_match = true;
+            remap = lib.genAttrs
+              (map (k: "Super-Alt-${k}") [ "c" "v" "x" "a" "z" "s" "w" "t" "f" "r" "l" "k" "n" "q" "Enter" ])
+              (k: k);
+          }
+
           # === ターミナル用 Cmd ショートカット ===
           # Wayland では Super+key が compositor に消費されアプリに届かないため、
           # ターミナルでは Ctrl+Shift+key に変換して Ghostty keybind で処理する。
