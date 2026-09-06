@@ -2,6 +2,8 @@
   "currentThemeName": "custom",
   "currentThemeCategory": "custom",
   "cornerRadius": 12,
+  "clockFormat": "24h",
+  "showSeconds": true,
   "controlCenterShowMicPercent": true,
   "appIdSubstitutions": [],
   "cursorSettings": {
