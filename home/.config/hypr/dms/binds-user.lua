@@ -211,9 +211,11 @@ hl.config({
       tap_to_click = true,
       clickfinger_behavior = true,
       disable_while_typing = true,
-      -- libinput の加速 (-1 〜 1)。GNOME では speed 0.5 にしていた
-      scroll_factor = 1.0,
+      -- スクロール量 (1.0 が既定)。速すぎたので下げる。マウスは input.scroll_factor
+      scroll_factor = 0.6,
     },
+    scroll_factor = 0.6,
+    -- libinput の加速 (-1 〜 1)。GNOME では speed 0.5 にしていた
     sensitivity = 0.5,
   },
   cursor = {
