@@ -77,6 +77,9 @@ in
     # ウィンドウを並べる。hyprshell は起動時にこれらのキーを Hyprland に自分で登録する。
     home-manager.users.potsbo.services.hyprshell = {
       enable = true;
+      # 設定ファイルの版。無いと hyprshell は設定を読まず (移行判定で止まる)、バインドも登録
+      # されない。hyprshell を上げたら `hyprshell config check` で確かめる
+      settings.version = 4;
       settings.windows = {
         switch = {
           modifier = "super";
