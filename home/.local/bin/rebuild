@@ -46,7 +46,19 @@ if [[ -e /etc/NIXOS ]]; then
     # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
     # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
     # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
-    sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}"
+    #
+    # specialisation で起動しているならそれを維持する (modules/nixos/specialisation-marker.nix)。
+    # booted-system を先に見るのは、起動後に誰かが基本構成へ switch していても「この起動で
+    # 選んだもの」に戻すため。current-system は、目印が無い古い世代で起動したあと手で
+    # specialisation へ switch した場合の保険。
+    specialisation=()
+    for sys in /run/booted-system /run/current-system; do
+      if [[ -r $sys/etc/specialisation ]]; then
+        specialisation=(--specialisation "$(< $sys/etc/specialisation)")
+        break
+      fi
+    done
+    sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}" "${specialisation[@]}"
   else
     # OS 側を触れないホスト (flake.nix の hosts で manage = home)。home-manager だけを
     # standalone で当てる。`nix run home-manager` は使わない: unpinned な参照は rev 確定に

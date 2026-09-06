@@ -11,6 +11,7 @@
     ./desktop.nix
     ./server.nix
     ./laptop.nix
+    ./specialisation-marker.nix
   ];
 
   # flake.nix の hosts から渡る役割。入力は role ひとつで、他は導出 (readOnly)。

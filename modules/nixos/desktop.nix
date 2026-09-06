@@ -76,6 +76,23 @@ in
       subpixel.rgba = "none";
     };
 
+    # Vicinae (Raycast 風ランチャー) のデーモン。右 Shift 単押し → F20 → xremap が `vicinae toggle`
+    # を打つ (xremap.nix)。パッケージ同梱の unit と同じ内容。以前は ~/.config/systemd/user に手で
+    # enable した symlink で起動していたが、指していた store path が GC されて壊れていた。
+    systemd.user.services.vicinae = {
+      description = "Vicinae launcher daemon";
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+      requires = [ "dbus.socket" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.vicinae}/bin/vicinae server --replace";
+        Restart = "always";
+        RestartSec = 60;
+        KillMode = "process";
+      };
+    };
+
     programs._1password-gui = {
       enable = true;
       polkitPolicyOwners = [ "potsbo" ];
