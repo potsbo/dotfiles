@@ -1,10 +1,14 @@
-{ buildGoModule, fetchFromGitHub, go_1_26 }:
+{ buildGoModule, fetchFromGitHub }:
 
 let
   # renovate: datasource=github-releases depName=aquaproj/aqua
-  version = "2.57.1";
+  version = "2.62.3";
 in
-buildGoModule.override { go = go_1_26; } {
+# go は固定しない。go_1_XX で override すると nixpkgs の default が進んでも追従せず、
+# Renovate も attr 名は書き換えないので手で bump することになる (2026-09 に一度やった)。
+# aqua の go.mod が nixpkgs の default より新しい go を要求したときだけ一時的に
+# override し、default が追いついたら外す。
+buildGoModule {
   pname = "aqua";
   inherit version;
 
@@ -12,10 +16,16 @@ buildGoModule.override { go = go_1_26; } {
     owner = "aquaproj";
     repo = "aqua";
     rev = "v${version}";
-    hash = "sha256-ZxSRUVhDDW8+GGqLV7gia/zH1wa9e1iU3vG3RCV7cmI=";
+    hash = "sha256-SrkSel+hiUIRAip/U3ODFkLBkqFjVKjar6TbkQab+lE=";
   };
 
-  vendorHash = "sha256-kN7FxyVy2QFLkC/fiYGIuf3/6PrUoC2CMY5sQMuBLPE=";
+  vendorHash = "sha256-PLtYXYpbZKHDzvK589wZtpVcv2YIBxLruHLHKbRjM30=";
+
+  # 公式 release (goreleaser) と同じく main.version を埋める。無いと `aqua version` が
+  # unknown になり、aqua 自身の update 判定やログの version 表示も効かない。
+  # release は main.commit / main.date / main.builtBy も渡すが、main.go に受ける変数が
+  # 無く no-op なので付けない。
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   # テスト実行をスキップする。
   # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。

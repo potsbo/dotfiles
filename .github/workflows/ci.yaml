@@ -6,14 +6,31 @@ on:
   pull_request:
 
 jobs:
-  # ./install は potsbo 専用で runner では動かせないので、aqua.yaml の検証だけ行う。
+  # `curl | bash` の入口が壊れていないかを見る。runner は ubuntu なので通せるのは
+  # bootstrap (nix の導入と repo の検出) までで、rebuild は「NixOS と macOS のみ」で
+  # 止まる。その失敗を期待値にして、そこまで届いたことを確認する。
+  # rebuild の切り替え自体 (activation) は試せていない。ubuntu でそれをやるには
+  # potsbo ユーザーと manage = home な非 NixOS ホストの追加が要る。
+  # clone は main を引くので、PR の内容を試すため checkout を先に置く。
+  # ジョブ名は ruleset (main) の required status checks から参照されている。変えたら
+  # そちらも直す (9024684b で install → aqua にした際に取り残して PR が止まった)。
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: mkdir -p ~/src/github.com/potsbo && ln -s "$GITHUB_WORKSPACE" ~/src/github.com/potsbo/dotfiles
+      - run: |
+          ! ./install 2>&1 | tee install.log
+          grep -q 'only NixOS and macOS are supported' install.log
+
+  # ./install は potsbo 専用で runner では最後まで動かせないので、aqua.yaml の検証は別に行う。
   aqua:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: aquaproj/aqua-installer@v4.0.5
         with:
-          aqua_version: v2.57.1
+          aqua_version: v2.62.3
       - run: aqua install
         env:
           AQUA_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua.yaml

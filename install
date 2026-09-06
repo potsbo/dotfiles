@@ -34,12 +34,15 @@ if ! command -v nix >/dev/null; then
   # 公式インストーラ。macOS は multi-user (daemon) のみで、sudo を使って APFS volume と
   # daemon を作る。stdin が tty でない (curl | bash) と確認は自動で yes になるが
   # --yes で明示する。sudo のパスワードは /dev/tty から聞かれるので対話はそこだけ残る。
+  #   --daemon:            Linux の既定は single-user で、その場合 source 先が ~/.nix-profile
+  #                        側になり下の行が無い。macOS と同じ multi-user に揃える。実機で
+  #                        ここを通る Linux は無く (NixOS は nix を持つ)、CI の ubuntu 用。
   #   --no-channel-add:    channel は使わない (flake registry で足りる)
   #   --no-modify-profile: /etc/zshrc 等に source 行を書かせない。シェルの起動ファイルは
   #                        repo が持つ (home/.zshenv が nix-daemon.sh を読む) ので、macOS の
   #                        アップデートで /etc/zshrc が書き戻されても影響を受けない。
   curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install |
-    sh -s -- --yes --no-channel-add --no-modify-profile
+    sh -s -- --daemon --yes --no-channel-add --no-modify-profile
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 step Found "nix $(nix --version | awk '{print $NF}')"

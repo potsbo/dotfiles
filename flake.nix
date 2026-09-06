@@ -12,7 +12,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     xremap-flake.url = "github:xremap/nix-flake";
-    # DankMaterialShell: Hyprland 上の bar / ランチャー / 通知 / ロック画面。release tag に固定
+    # DankMaterialShell: Hyprland 上の bar / ランチャー / 通知 / ロック画面。release tag に固定。
+    # Renovate の nix manager は lock の rev しか見ず URL 中の tag は進めないので、
+    # renovate.json の regex で tag を進め、flake.lock は autofix.ci が relock する。
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/v1.6.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,7 +29,7 @@
     let
       inherit (nixpkgs) lib;
 
-      palette = import ./palette.nix;
+      palette = import ./lib/palette.nix;
 
       # ホスト一覧はここだけ。nixos / darwin / home の各 configuration、
       # シェル側の host-color / host-tags (modules/home-manager/hosts.nix) は
@@ -51,16 +53,29 @@
         # builder を持つホストは他ホストの nix build を引き受ける (modules/remote-build.nix)。
         # 常時稼働の x86_64-linux 機だけ。sshHostKey は client 側 root の known_hosts 用で、
         # 入れ直して host key が変わったら ssh-keyscan -t ed25519 <host> で取り直す。
+        # raptorlake を全ホストから最優先にする。phoenix も client として raptorlake に出す。
+        # 以前は LAN の phoenix (往復 5ms) を優先していた。store path の転送が支配的で、外に
+        # ある raptorlake (往復 26ms) より速く終わるため。しかし phoenix の upload 回線が
+        # 細く、phoenix でローカル build した出力を raptorlake に送る状況が一番遅い。ほぼ
+        # 全部を raptorlake で build すれば、入力は raptorlake が cache から直接取るか
+        # 自分の store に既にあるかで、phoenix から上がるのは .drv とローカルソースだけになる。
+        # builder 同士は store を共有しないので、分散させず 1 台に寄せるのも同じ理由。
+        # phoenix は raptorlake が満杯か到達不能なときの fallback として builder に残す。
+        #
+        # nix は空きのある builder を load / speedFactor (整数除算) の小さい順、同点なら
+        # speedFactor の大きい順に選ぶ。raptorlake の speedFactor を maxJobs 以上にしておくと
+        # 枠が埋まるまで常に 0 で勝ち、phoenix はそのときだけ使われる。
+        # speedFactor は委譲の向きも決める (自分より大きい builder にだけ出す)。
         phoenix = {
           system = "x86_64-linux"; os = "nixos"; color = palette.orange; manage = "system"; role = "workstation";
           extraModules = [ ];
-          builder = { maxJobs = 4; speedFactor = 1; };
+          builder = { maxJobs = 16; speedFactor = 16; };
           sshHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTgQinkEH54/i8XT8+2+rajQUEqvx84dSzMd/aZzS6l";
         };
         raptorlake = {
           system = "x86_64-linux"; os = "nixos"; color = palette.white; manage = "system"; role = "server";
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
-          builder = { maxJobs = 8; speedFactor = 2; };
+          builder = { maxJobs = 20; speedFactor = 20; };
           sshHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILr0XeysKahURB4x3NQ1KjGsq6pcoUwNNQuDg4uaF91N";
         };
         skylake = { system = "x86_64-linux"; os = "nixos"; color = palette.blue; manage = "system"; role = "laptop"; extraModules = [ ]; };
