@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# この dotfiles をこのホストに当てる (NixOS なら nixos-rebuild、macOS なら nix-darwin、
+# home-manager はそのモジュールとして一緒に当たる。OS を管理しないホストは standalone)。
+# 設定を変えたら、または新しいマシンで ./install が nix と repo を揃えた後に叩く。
+#
+# ./install と分けてあるのは、あちらが `curl | bash` で repo 無しに走る入口だから。
+# 入口は変えるたびに新規マシンの導線を壊しうるので、変化の多い switch はこちらに置く。
+#
+# GUI アプリ (Homebrew cask / Mac App Store) は含まない。遅いので `apps` で別途揃える。
+#
+# 使い方: rebuild
+#   HOSTNAME=<name> rebuild で構成名を上書きできる。
+
+set -eu
+
+# 出力は cargo 風 (右揃えの動詞 + 対象)。状態表示なので stderr に出す。
+# 色は tty のときだけ、NO_COLOR があれば付けない (clig.dev の慣習)。
+if [[ -t 2 && -z "${NO_COLOR:-}" ]]; then
+  c_verb=$'\033[1;32m' c_err=$'\033[1;31m' c_reset=$'\033[0m'
+else
+  c_verb='' c_err='' c_reset=''
+fi
+step() { printf '%s%12s%s %s\n' "$c_verb" "$1" "$c_reset" "${*:2}" >&2; }
+fail() { printf '%s%12s%s %s\n' "$c_err" error "$c_reset" "$*" >&2; exit 1; }
+
+DOTPATH="${HOME}/src/github.com/potsbo/dotfiles"
+HOSTNAME="${HOSTNAME:-$(hostname)}"
+HOSTNAME="${HOSTNAME%.local}"
+
+# flakes は NixOS / nix-darwin が switch 後に nix.conf で有効にする。新規 Mac の初回は
+# その前に走るので、nix を呼ぶ行には毎回 --extra-experimental-features を付ける。
+nix() { command nix --extra-experimental-features 'nix-command flakes' "$@"; }
+
+# ホストが flake.nix の hosts に無ければ nix 自身が "does not provide attribute ..." で、
+# ユーザーが flake.nix の user と違えば home-manager の activation が $USER の不一致で
+# 止まるので、どちらも事前確認はしない。
+step Switching "$HOSTNAME"
+SECONDS=0
+if [[ -e /etc/NIXOS ]]; then
+  if nix eval "${DOTPATH}#nixosConfigurations" --apply "c: c ? \"${HOSTNAME}\"" | grep -qx true; then
+    # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
+    # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
+    # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
+    #
+    # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
+    # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
+    # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
+    sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}"
+  else
+    # OS 側を触れないホスト (flake.nix の hosts で manage = home)。home-manager だけを
+    # standalone で当てる。`nix run home-manager` は使わない: unpinned な参照は rev 確定に
+    # GitHub API を叩き、gh が無い新環境では未認証のまま 403 に当たりうる。lock 済みの
+    # activationPackage を直接ビルドすれば API 解決が要らず、CLI と設定の版ずれも消える。
+    HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${HOSTNAME}.activationPackage")
+    "${HM_ACTIVATION}/activate"
+  fi
+elif [[ "$(uname -s)" == Darwin ]]; then
+  # sudo 越しなので上の関数は届かない。
+  sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}" -- switch --flake "${DOTPATH}#${HOSTNAME}"
+else
+  # 対象は NixOS と macOS だけ。それ以外の Linux は使っていない。
+  fail "os $(uname -s): only NixOS and macOS are supported"
+fi
+step Finished "in ${SECONDS}s"

@@ -30,8 +30,8 @@
       palette = import ./palette.nix;
 
       # ホスト一覧はここだけ。nixos / darwin / home の各 configuration、
-      # `./install` の既知ホスト判定、シェル側の host-color / host-tags
-      # (modules/home-manager/hosts.nix) はすべてここから導出する。
+      # シェル側の host-color / host-tags (modules/home-manager/hosts.nix) は
+      # すべてここから導出する。
       #
       # 既定値は持たず、各ホストで全キーを書き下す。省略可能にすると既定値の埋めが
       # 参照側 (mkNixos の引数、hostsWith) に散って読めなくなる。
@@ -60,7 +60,7 @@
       };
       hostsWith = manage: os: lib.filterAttrs (_: h: h.os == os && h.manage == manage) hosts;
 
-      # ユーザー名はここだけ。./install の potsbo チェックだけは nix が入る前に走るので別。
+      # ユーザー名はここだけ。
       # homeDirectory は書かない。manage = system では NixOS / nix-darwin の
       # users.users.${user} から home-manager が引き、standalone は mkHome が組む。
       user = "potsbo";
@@ -83,7 +83,7 @@
       };
 
       # manage = system では home-manager を NixOS / nix-darwin のモジュールとして組み込む。
-      # system と home が同じ世代で切り替わり、./install は rebuild 一発で済む。
+      # system と home が同じ世代で切り替わり、`rebuild` は switch 一発で済む。
       hmModule = hostname: {
         home-manager = {
           useGlobalPkgs = true;
@@ -140,7 +140,7 @@
     {
       nixosConfigurations = lib.mapAttrs mkNixos (hostsWith "system" "nixos");
 
-      # `<host>` は Homebrew / Mac App Store を含まない軽い構成 (./install)。
+      # `<host>` は Homebrew / Mac App Store を含まない軽い構成 (`rebuild` コマンド)。
       # `<host>-apps` は GUI アプリまで含む重い構成 (`apps` コマンド)。
       darwinConfigurations = lib.concatMapAttrs
         (name: h: {

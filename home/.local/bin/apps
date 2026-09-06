@@ -3,9 +3,9 @@
 # macOS の GUI アプリ (Homebrew cask / Mac App Store) を宣言どおりに揃える。
 # 宣言は modules/darwin/apps.nix、それを読む構成が `<host>-apps`。
 #
-# ./install からこれを切り離してあるのは brew / mas が遅いため。Word などの
+# rebuild からこれを切り離してあるのは brew / mas が遅いため。Word などの
 # 更新が毎回挟まると、nix の設定をサッと反映したいだけのときに待たされる。
-# アプリを足した / 消したときだけ叩けばよい。./install は呼ばない。
+# アプリを足した / 消したときだけ叩けばよい。rebuild は呼ばない。
 # cache / reap と同じく冪等で、揃っていれば何もしない。
 #
 # 使い方: apps [--dry-run]

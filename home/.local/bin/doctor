@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# ./install では解決しない手作業 (ログイン、鍵、認証) がどれだけ残っているかを
-# 一覧する。install は宣言できるものだけを揃えて終わるので、新しいマシンでは
+# rebuild では解決しない手作業 (ログイン、鍵、認証) がどれだけ残っているかを
+# 一覧する。rebuild は宣言できるものだけを揃えて終わるので、新しいマシンでは
 # 「あと何をすれば普段どおりになるか」が見えない。それをここで機械的に判定する。
 #
 # 各項目は「今その状態か」を確かめる check と、足りないときに打つコマンドの
@@ -62,9 +62,9 @@ ssh_key_on_github() {
 check "ssh key on GitHub" "gh ssh-key add ~/.ssh/id_ed25519.pub" ssh_key_on_github
 
 # gh は git の credential helper、nix の GitHub token、notes-pull が依存する。
-# ログイン後に ./install をもう一度流すと access-tokens.conf が生える (dotfiles.nix)。
-check "gh" "gh auth login && ./install" gh auth status
-check "nix github token" "./install (gh ログイン後)" test -f ~/.config/nix/access-tokens.conf
+# ログイン後に rebuild をもう一度流すと access-tokens.conf が生える (dotfiles.nix)。
+check "gh" "gh auth login && rebuild" gh auth status
+check "nix github token" "rebuild (gh ログイン後)" test -f ~/.config/nix/access-tokens.conf
 
 # --- ログイン ---
 
@@ -111,7 +111,7 @@ fi
 check "notes repo" "ghq get potsbo/notes" test -d ~/src/github.com/potsbo/notes/.git
 
 # dotfiles.nix が hunk skill path を張る。hunk が aqua で未導入だと no-op で終わる。
-check "hunk review skill" "hunk --version && ./install" test -L ~/.claude/skills/hunk-review
+check "hunk review skill" "hunk --version && rebuild" test -L ~/.claude/skills/hunk-review
 
 # lazy.nvim は初回起動で取りに行く。cache コマンドが前倒しする。
 nvim_plugins() { [[ -n $(ls -A ~/.local/share/nvim/lazy 2>/dev/null) ]]; }
@@ -135,8 +135,8 @@ fi
 if [[ $os == Darwin ]]; then
   check "xcode CLT" "xcode-select --install" xcode-select -p
   # 公式 installer の nix.conf が残っていると nix-darwin の初回 switch が止まる (darwin/default.nix)。
-  check "nix.conf (nix-darwin)" "sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin && ./install" test -L /etc/nix/nix.conf
-  # GUI アプリは install から切り離してある。brew と mas は apps が使う。
+  check "nix.conf (nix-darwin)" "sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin && rebuild" test -L /etc/nix/nix.conf
+  # GUI アプリは rebuild から切り離してある。brew と mas は apps が使う。
   check "homebrew" "apps" command -v brew
   check "app store" "App Store にサインイン" mas account
 fi

@@ -3,7 +3,7 @@
 {
   # nix は公式 installer で入れているので nix-darwin に nix.conf ごと管理させる
   # (Determinate installer なら nix.enable = false が要る)。初回 switch は既存の
-  # /etc/nix/nix.conf があると止まるので、手で退避してから ./install を流す:
+  # /etc/nix/nix.conf があると止まるので、手で退避してから rebuild を流す:
   #   sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.primaryUser = user;
