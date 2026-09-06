@@ -41,7 +41,7 @@ hl.window_rule({ match = { class = ".*" }, center = true, persistent_size = true
 -- 右と下の枠線が画面外にはみ出すので、枠線の分だけ内側に寄せる。あわせて、タイル配置の
 -- gaps_out / gaps_in と同じ余白を外周とウィンドウ間に置き、見た目をタイルに揃える。
 -- 値は DMS が書く dms/layout.lua (border_size = 2, gaps = 4) に合わせている。
-local border = 2
+local border = 0 -- 下の hl.config で枠線を消している
 local gap = 4
 
 local function place(fx, fy, fw, fh)
@@ -163,3 +163,13 @@ hl.on("layer.closed", function(layer)
     emacs_binds = {}
   end
 end)
+
+-- === 見た目 ===
+-- 枠線を消す。macOS にウィンドウの枠線は無く、フォーカスは影と bar の表示で分かる。
+-- DMS の dms/layout.lua (border_size = 2) と dms/colors.lua (テーマの primary 色) の後に
+-- 読まれるので、こちらが勝つ。配置 (place) の border も 0 に合わせる。
+hl.config({
+  general = {
+    border_size = 0,
+  },
+})
