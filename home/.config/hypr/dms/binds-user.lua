@@ -193,3 +193,38 @@ hl.config({
     follow_mouse = 2,
   },
 })
+
+-- === 入力: macOS の既定 + modules/darwin/default.nix の上書きに合わせる ===
+-- macOS 側で変えているのは、タップでクリック (trackpad.Clicking = true)、キーリピートを
+-- 最速 (KeyRepeat = 1 → 15ms、InitialKeyRepeat = 15 → 225ms)、トラックパッドの速さ
+-- (scaling = 2) の 3 つ。それ以外は macOS の既定: ナチュラルスクロールはトラックパッドも
+-- マウスも on、二本指クリックで右クリック、入力中はトラックパッドを無視、文字を打ち始めたら
+-- ポインタを隠す、中クリック貼り付けは無い、ウィンドウの縁でサイズ変更できる。
+-- GNOME 側 (gnome.nix) は tap-to-click を切っていたが、macOS 側の上書きに揃える。
+hl.config({
+  input = {
+    repeat_rate = 66,
+    repeat_delay = 225,
+    natural_scroll = true,
+    touchpad = {
+      natural_scroll = true,
+      tap_to_click = true,
+      clickfinger_behavior = true,
+      disable_while_typing = true,
+      -- libinput の加速 (-1 〜 1)。GNOME では speed 0.5 にしていた
+      scroll_factor = 1.0,
+    },
+    sensitivity = 0.5,
+  },
+  cursor = {
+    hide_on_key_press = true,
+  },
+  misc = {
+    middle_click_paste = false,
+  },
+  general = {
+    resize_on_border = true,
+    -- 枠線を 0 にしているので、掴める幅は縁の外側に足す
+    extend_border_grab_area = 12,
+  },
+})
