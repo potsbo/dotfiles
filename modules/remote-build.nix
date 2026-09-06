@@ -11,8 +11,10 @@
 { lib, config, user, hosts, hostname, ... }:
 
 let
-  builders = lib.filterAttrs (name: h: h ? builder && name != hostname) hosts;
   isBuilder = hosts.${hostname} ? builder;
+  # builder 自身は委譲しない。nix は builder に空きがある限りローカルより remote を
+  # 選ぶので、放っておくと raptorlake (28 コア) の build まで phoenix に飛ぶ。
+  builders = lib.optionalAttrs (!isBuilder) (lib.filterAttrs (_: h: h ? builder) hosts);
 in
 {
   nix = {

@@ -7,5 +7,11 @@ x-scheme-handler/unknown=google-chrome.desktop
 x-scheme-handler/notion=notion-app-enhanced.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/slack=slack.desktop
+inode/directory=dms-open.desktop
+x-scheme-handler/file=dms-open.desktop
+x-scheme-handler/sftp=dms-open.desktop
 
 [Added Associations]
+inode/directory=dms-open.desktop;
+x-scheme-handler/file=dms-open.desktop;
+x-scheme-handler/sftp=dms-open.desktop;
