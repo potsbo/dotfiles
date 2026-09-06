@@ -17,7 +17,6 @@ lightdash
 /evolution/sources
 /ibus/bus
 /pulse
-/gnome-initial-setup-done
 /.gsd-keyboard.settings-ported
 /environment.d
 /systemd/user
@@ -48,7 +47,6 @@ lightdash
 /notion-app-enhanced
 /zoom.conf
 /zoomus.conf
-/tiling-assistant
 /gcloud-profiles
 /chromium
 /goa*

@@ -1,6 +1,5 @@
 # Hyprland + DankMaterialShell (DMS)。desktop.environment (modules/nixos/desktop.nix) の
-# 既定で、GUI ありの NixOS ホスト全部で有効になる。GNOME (gnome.nix) は phoenix の
-# specialisation に残している。
+# 既定で、GUI ありの NixOS ホスト全部で有効になる。
 #
 # omarchy (nixarchy) は試したうえでやめた。見た目は良かったが、初回ログインの provisioning が
 # ~ に shim・.desktop・gsettings・mise 設定を撒く設計で、~ を dotfiles で管理している
@@ -57,7 +56,7 @@ in
       after = [ "graphical-session-pre.target" ];
     };
 
-    # greeter は GNOME と同じ GDM。Hyprland のセッションが一覧に並ぶ。DMS にも greeter
+    # greeter は GDM。Hyprland のセッションが一覧に並ぶ。DMS にも greeter
     # (dank-greeter) はあるが、ログイン画面のために input を増やすほどではない
     services.displayManager.gdm.enable = true;
 
@@ -70,8 +69,8 @@ in
     # GNOME Shell) でも起動して /var/lib/gdm に設定を書こうとする。システムユーザーでは走らせない。
     systemd.user.services.dms.unitConfig.ConditionUser = "!@system";
 
-    # fcitx5 (日本語入力)。GNOME は XDG autostart (/etc/xdg/autostart) で起動していたが、Hyprland
-    # にはそれを走らせる仕組みが無い。omarchy と同じく user unit で起動する。
+    # fcitx5 (日本語入力)。XDG autostart (/etc/xdg/autostart) を走らせる仕組みが Hyprland には
+    # 無いので、user unit で起動する。
     # `--disable notificationitem` はトレイに fcitx5 のアイコンを出さないため (DMS が持つ)。
     systemd.user.services.fcitx5 = {
       description = "Fcitx5 input method";

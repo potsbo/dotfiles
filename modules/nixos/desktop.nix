@@ -12,12 +12,12 @@ let
     };
 in
 {
-  imports = [ ./desktop/gnome.nix ./desktop/plasma.nix ./desktop/hyprland.nix ];
+  imports = [ ./desktop/plasma.nix ./desktop/hyprland.nix ];
 
   options.desktop.environment = lib.mkOption {
-    type = lib.types.enum [ "gnome" "plasma" "hyprland" "none" ];
+    type = lib.types.enum [ "plasma" "hyprland" "none" ];
     # 2026-09-06 に GNOME から Hyprland + DMS に切り替えた (見た目と macOS との操作の近さ)。
-    # GNOME は phoenix の specialisation に逃げ道として残している。
+    # GNOME の設定 (gnome.nix) は同日に消した。戻すなら git 履歴から。
     default = "hyprland";
     description = "どの DE を有効にするか。specialisation で差し替えて別の DE を試す。";
   };
@@ -44,9 +44,6 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-
-    # Disable tap-to-click on touchpad
-    services.libinput.touchpad.tapping = false;
 
     programs.dconf.enable = true;
 
@@ -78,23 +75,6 @@ in
       subpixel.rgba = "none";
     };
 
-    # Vicinae (Raycast 風ランチャー) のデーモン。右 Shift 単押し → F20 → xremap が `vicinae toggle`
-    # を打つ (xremap.nix)。パッケージ同梱の unit と同じ内容。以前は ~/.config/systemd/user に手で
-    # enable した symlink で起動していたが、指していた store path が GC されて壊れていた。
-    systemd.user.services.vicinae = {
-      description = "Vicinae launcher daemon";
-      after = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-      requires = [ "dbus.socket" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.vicinae}/bin/vicinae server --replace";
-        Restart = "always";
-        RestartSec = 60;
-        KillMode = "process";
-      };
-    };
-
     programs._1password-gui = {
       enable = true;
       polkitPolicyOwners = [ "potsbo" ];
@@ -108,7 +88,6 @@ in
       # GUI セッションでも直接開くため。
       obsidian
       vscode
-      vicinae
       (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
       zotero
       freerdp

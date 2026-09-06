@@ -96,7 +96,7 @@ in
   # ブートメニュー上の表示名
   system.nixos.tags = [ "kiosk" ];
 
-  # GNOME/GDM は tty1 と DRM を取り合うので kiosk 側では止める。X も不要
+  # GDM は tty1 と DRM を取り合うので kiosk 側では止める。X も不要
   # (xfreerdp は cage の Xwayland 上で動く)。
   desktop.environment = "none";
 
@@ -124,9 +124,9 @@ in
     environment.XKB_DEFAULT_LAYOUT = "us";
   };
 
-  # xremap は potsbo のユーザーサービスだが linger で GNOME 終了後も生き残り、
+  # xremap は potsbo のユーザーサービスだが linger でセッション終了後も生き残り、
   # キーボードを grab したまま Ctrl 単押し→Esc などを RDP に流してしまう。
-  # GNOME 拡張が無い環境ではアプリ単位の除外 (xfreerdp) も効かない。
+  # compositor が無い環境ではアプリ単位の除外 (xfreerdp) も効かない。
   services.xremap.enable = lib.mkForce false;
 
   systemd.services.cage-tty1 = {

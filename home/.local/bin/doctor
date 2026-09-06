@@ -45,7 +45,7 @@ check() {
 # --- 土台 (他の項目がこれに依存する) ---
 
 if [[ $os == Linux ]]; then
-  # パスワードは宣言していない (common.nix)。無いと GNOME にログインできない。
+  # パスワードは宣言していない (common.nix)。無いと GDM でログインできない。
   # ハッシュが ! や * ならロック状態。sudo は wheel なので聞かれない。
   passwd_set() { sudo -n grep -q '^potsbo:[^!*:]' /etc/shadow; }
   check "user password" "sudo passwd potsbo" passwd_set

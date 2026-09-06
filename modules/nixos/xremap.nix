@@ -8,9 +8,8 @@ let
   # RDP クライアントではリモート側にキーをそのまま渡すため、xremap を無効化する
   rdpApps = [ "xfreerdp" "FreeRDP" ];
 
-  # ターミナルとして扱うアプリ。GNOME Console もコピー/ペーストは Ctrl+Shift+C/V なので
-  # 同じ規則に乗せる。
-  terminalApps = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" "org.gnome.Console" ];
+  # ターミナルとして扱うアプリ
+  terminalApps = [ "com.mitchellh.ghostty" "Ghostty" "ghostty" ];
 in
 
 # ============================================================================
@@ -29,7 +28,7 @@ in
 #   Linux の Ctrl が両方の役割を担っているため、Super → Ctrl のグローバル変換では
 #   ターミナルで衝突する (例: Cmd+C → Ctrl+C = SIGINT、コピーにならない)
 #
-# --- 解決: アプリ種別ごとに変換先を分ける (withGnome = true 必須) ---
+# --- 解決: アプリ種別ごとに変換先を分ける (withHypr でフォーカス中のアプリを判定) ---
 #
 #   ┌─────────────────┬──────────────────────────────┬──────────────────────────────┐
 #   │ 物理キー         │ GUI アプリ (Chrome 等)         │ ターミナル (Ghostty)          │
@@ -77,8 +76,7 @@ in
     };
   
     services.xremap = {
-      withGnome = config.desktop.environment == "gnome";
-      # Hyprland では IPC でフォーカス中のウィンドウ class を取る。GNOME 拡張のような版ずれは無い
+      # Hyprland では IPC でフォーカス中のウィンドウ class を取る
       withHypr = config.desktop.environment == "hyprland";
       withKDE = config.desktop.environment == "plasma";
       userName = "potsbo";
@@ -142,7 +140,7 @@ in
                 alone_timeout_millis = 150;
               };
               # MacBook の ⌘/かなキーは Super を送信するため、
-              # 単押しで GNOME Activities が起動してしまう
+              # 単押しが compositor に食われないよう
               # → 単押しは IME 切り替え、押しながらはショートカット用 Super として使う
               Super_L = {
                 held = "Super_L";
@@ -164,18 +162,12 @@ in
         ];
   
         keymap = [
-          # === ランチャー (右Shift 単押し → F20 経由) ===
-          # Hyprland では DMS の spotlight、それ以外は Vicinae
+          # === ランチャー (右Shift 単押し → F20 経由) === DMS の spotlight
           {
             name = "Launcher toggle";
             application = { not = rdpApps; };
             remap = {
-              F20 = {
-                launch =
-                  if config.desktop.environment == "hyprland"
-                  then [ (lib.getExe config.programs.dank-material-shell.package) "ipc" "call" "spotlight" "toggle" ]
-                  else [ "${pkgs.vicinae}/bin/vicinae" "toggle" ];
-              };
+              F20 = { launch = [ (lib.getExe config.programs.dank-material-shell.package) "ipc" "call" "spotlight" "toggle" ]; };
             };
           }
   
@@ -256,16 +248,12 @@ in
               Super-n = "C-n";
               Super-q = "C-q";
               Super-Enter = "C-Enter";
-              # macOS 風 Tab 切り替え
-              # Cmd+Tab → GNOME が <Super>Tab を switch-applications として処理するため変換不要
-              # Option+Tab → 同一アプリのウィンドウ切り替え (GNOME の Alt+`)
-              Alt-Tab = "Alt-grave";
-              Alt-Shift-Tab = "Alt-Shift-grave";
+              # Cmd+Tab と Cmd+` は変換せず Hyprland 側 (hyprshell) に渡す
             };
           }
   
           # === Magnet 風ウィンドウ操作 (Ctrl+Option → Ctrl+Alt) ===
-          # macOS の Magnet ショートカットを GNOME タイリングにマッピング
+          # macOS の Magnet ショートカット。受け側は home/.config/hypr/dms/binds-user.lua
           {
             name = "Magnet window management";
             application = { not = rdpApps; };
@@ -275,7 +263,7 @@ in
               C-Alt-Up = "Super-Up";         # 最大化
               C-Alt-Down = "Super-Down";     # 元に戻す
               C-Alt-Enter = "Super-Up";      # 最大化 (Magnet の Ctrl+Option+Enter)
-              # 四分割 (tiling-assistant 拡張が Super+U/I/J/K を処理)
+              # 四分割
               C-Alt-u = "Super-u";           # 左上
               C-Alt-i = "Super-i";           # 右上
               C-Alt-j = "Super-j";           # 左下
@@ -285,7 +273,6 @@ in
   
           # === Emacs Ctrl バインド (ターミナル以外) ===
           # macOS の Cocoa テキストシステムと同じ挙動を再現。
-          # serviceMode = "user" により GNOME D-Bus のアプリ検出が機能するため、
           # ターミナル (Ghostty) を除外して適用する。
           {
             name = "Emacs Ctrl bindings (non-terminal)";

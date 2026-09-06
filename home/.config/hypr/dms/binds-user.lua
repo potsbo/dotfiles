@@ -31,7 +31,7 @@ hl.window_rule({ match = { class = ".*" }, center = true, persistent_size = true
 
 -- === Magnet 風の配置 (macOS の Ctrl+Option+矢印 / U/I/J/K) ===
 -- xremap が Ctrl+Alt+矢印 → Super+矢印、Ctrl+Alt+U/I/J/K → Super+U/I/J/K に変える
--- (GNOME では tiling-assistant 拡張がこれを受けていた)。DMS 既定の Super+矢印 (フォーカス
+-- (以前は GNOME の tiling-assistant 拡張がこれを受けていた)。DMS 既定の Super+矢印 (フォーカス
 -- 移動) と Super+U/I (ワークスペース) 、Super+J/K は外し、フォーカス移動は Super+Alt+矢印へ。
 --
 -- 座標は論理ピクセル。monitor.width/height は物理ピクセルなので scale で割る。
@@ -200,7 +200,6 @@ hl.config({
 -- (scaling = 2) の 3 つ。それ以外は macOS の既定: ナチュラルスクロールはトラックパッドも
 -- マウスも on、二本指クリックで右クリック、入力中はトラックパッドを無視、文字を打ち始めたら
 -- ポインタを隠す、中クリック貼り付けは無い、ウィンドウの縁でサイズ変更できる。
--- GNOME 側 (gnome.nix) は tap-to-click を切っていたが、macOS 側の上書きに揃える。
 hl.config({
   input = {
     repeat_rate = 66,
@@ -216,7 +215,7 @@ hl.config({
       scroll_factor = 0.3,
     },
     scroll_factor = 0.6,
-    -- libinput の加速 (-1 〜 1)。GNOME では speed 0.5 にしていた
+    -- libinput の加速 (-1 〜 1)
     sensitivity = 0.5,
   },
   cursor = {
