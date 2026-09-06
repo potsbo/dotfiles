@@ -1,10 +1,10 @@
-{ buildGoModule, fetchFromGitHub, go_1_26 }:
+{ buildGoModule, fetchFromGitHub, go_1_27 }:
 
 let
   # renovate: datasource=github-releases depName=aquaproj/aqua
   version = "2.57.1";
 in
-buildGoModule.override { go = go_1_26; } {
+buildGoModule.override { go = go_1_27; } {
   pname = "aqua";
   inherit version;
 
