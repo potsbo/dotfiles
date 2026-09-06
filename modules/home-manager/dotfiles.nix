@@ -54,7 +54,7 @@ in
   # 新規マシンで ~/.config や ~/.ssh が実ディレクトリとして先にできていると
   # (NixOS の activation が ~/.config/mozc を作る、ssh が known_hosts を作る)、
   # ln -T が "cannot overwrite directory" で止まる。中身をリポジトリ側の home/ へ
-  # mv してから ./install を打ち直す。黙って中にリンクを作られるより失敗する方を選ぶ。
+  # mv してから rebuild を打ち直す。黙って中にリンクを作られるより失敗する方を選ぶ。
   home.activation.linkDotfileDirs = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
     for rel in ${lib.escapeShellArgs dirLinks}; do
       run mkdir -p "$(dirname "$HOME/$rel")"

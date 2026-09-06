@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# 新しいマシンの入口。`curl | bash` で repo 無しに走るので、ここでやるのは repo が
+# 無いとできないことだけ: nix を入れて、repo を clone して、あとは repo 内の
+# `rebuild` (home/.local/bin/rebuild) に渡す。ユーザーや OS の判定もそちらでやる。
+# 入口は変えるたびに新規マシンの導線を壊しうるので、変化の多いものは置かない。
+#
 # ref
 # - http://qiita.com/b4b4r07/items/24872cdcbec964ce2178#deploy
 # - https://github.com/izumin5210/dotfiles/blob/438d5d82378b684500abfded0e92362a0cd500e0/install
@@ -9,34 +14,21 @@ set -eu
 # 出力は cargo 風 (右揃えの動詞 + 対象)。状態表示なので stderr に出す。
 # 色は tty のときだけ、NO_COLOR があれば付けない (clig.dev の慣習)。
 if [[ -t 2 && -z "${NO_COLOR:-}" ]]; then
-  c_verb=$'\033[1;32m' c_err=$'\033[1;31m' c_reset=$'\033[0m'
+  c_verb=$'\033[1;32m' c_head=$'\033[1m' c_reset=$'\033[0m'
 else
-  c_verb='' c_err='' c_reset=''
+  c_verb='' c_head='' c_reset=''
 fi
 step() { printf '%s%12s%s %s\n' "$c_verb" "$1" "$c_reset" "${*:2}" >&2; }
-fail() { printf '%s%12s%s %s\n' "$c_err" error "$c_reset" "$*" >&2; exit 1; }
+# 3 段 (bootstrap / rebuild / doctor) の境目。doctor は missing を並べるので、
+# 見出しが無いと直前の rebuild が失敗したように見える。
+section() { printf '\n%s%s%s\n' "$c_head" "$1" "$c_reset" >&2; }
 
-SYSTEM=$(uname -s)
-# bash が設定する HOSTNAME をそのまま使う (HOSTNAME=<name> ./install で上書きできる)。
-HOSTNAME="${HOSTNAME%.local}"
+section bootstrap
+
 REPO="github.com/potsbo/dotfiles"
 DOTPATH="${HOME}/src/${REPO}"
 
-# potsbo 専用 (flake.nix の user)。他ユーザーでは home-manager を当てられないので
-# 中途半端に進めず最初に弾く。nix が入る前に走るので flake からは読まず二重に持つ。
-if [[ "$USER" != "potsbo" ]]; then
-  fail "user $USER: this script is for user potsbo only"
-fi
-step Checking "user $USER"
-
-# 対象は NixOS と macOS だけ。それ以外の Linux は使っていないので弾く。
 # nix を入れる必要があるのは macOS だけ (NixOS は最初からある)。
-if [[ "$SYSTEM" == "Linux" && ! -e /etc/NIXOS ]]; then
-  fail "os Linux: only NixOS and macOS are supported"
-fi
-if [[ -e /etc/NIXOS ]]; then os=NixOS; else os=macOS; fi
-step Checking "os $os ($HOSTNAME)"
-
 if ! command -v nix >/dev/null; then
   step Installing nix
   # 公式インストーラ。macOS は multi-user (daemon) のみで、sudo を使って APFS volume と
@@ -46,14 +38,13 @@ if ! command -v nix >/dev/null; then
   #   --no-modify-profile: /etc/zshrc 等に source 行を書かせない。シェルの起動ファイルは
   #                        repo が持つ (home/.zshenv が nix-daemon.sh を読む) ので、macOS の
   #                        アップデートで /etc/zshrc が書き戻されても影響を受けない。
-  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install \
-    | sh -s -- --yes --no-channel-add --no-modify-profile
+  curl --proto '=https' --tlsv1.2 -fsSL https://nixos.org/nix/install |
+    sh -s -- --yes --no-channel-add --no-modify-profile
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 step Found "nix $(nix --version | awk '{print $NF}')"
 
-# flakes は NixOS / nix-darwin が switch 後に nix.conf で有効にする。新規 Mac の初回は
-# その前に nix を叩くので、nix を呼ぶ行には毎回 --extra-experimental-features を付ける。
+# flakes はまだ有効になっていないので --extra-experimental-features を付ける。
 # clone は nix の git で行う。ホスト側に git を要求しない (新規 Mac で git を
 # 叩くと Xcode CLT のダイアログが出る) ので、前提は nix インストーラと同じ
 # curl と sh だけになる。registry 経由の nixpkgs 解決は初回だけ数十秒かかる。
@@ -62,47 +53,14 @@ if [ ! -d "$DOTPATH" ]; then
   nix --extra-experimental-features 'nix-command flakes' shell nixpkgs#git -c git clone "https://${REPO}" "$DOTPATH"
 fi
 step Found "repo ${DOTPATH/#$HOME/\~}"
-cd "$DOTPATH"
 
-# system と home をまとめて切り替える (home-manager は NixOS / nix-darwin のモジュール)。
-# OS 側を管理しないホストでは home-manager だけを standalone で当てる。
-# ホストが flake.nix の hosts に無ければ nix 自身が "does not provide attribute ..." で
-# 止まるので、事前確認はしない。
-step Switching "$HOSTNAME"
-SECONDS=0
-if [[ -e /etc/NIXOS ]]; then
-  if nix --extra-experimental-features 'nix-command flakes' eval "${DOTPATH}#nixosConfigurations" --apply "c: c ? \"${HOSTNAME}\"" | grep -qx true; then
-    # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
-    # in the Nix search path")。/etc/nixos には configuration.nix の symlink しか無く
-    # NIX_PATH に nixos-config が無いため。必ず --flake で呼ぶ。
-    #
-    # --impure は付けない。hardware-configuration.nix は全ホスト hosts/<host>/ に
-    # commit してあり pure に評価できる。impure だと eval cache が効かず、no-op の
-    # switch でも数十秒かかる。eval cache は pure かつ git tree が clean なときだけ効く。
-    #
-    # specialisation で起動しているならそれを維持する (modules/nixos/specialisation-marker.nix)。
-    # booted-system を先に見るのは、起動後に誰かが基本構成へ switch していても「この起動で
-    # 選んだもの」に戻すため。current-system は、目印が無い古い世代で起動したあと手で
-    # specialisation へ switch した場合の保険。
-    specialisation=()
-    for sys in /run/booted-system /run/current-system; do
-      if [[ -r $sys/etc/specialisation ]]; then
-        specialisation=(--specialisation "$(< $sys/etc/specialisation)")
-        break
-      fi
-    done
-    sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}" "${specialisation[@]}"
-  else
-    # OS 側を触れないホスト (flake.nix の hosts で manage = home)。home-manager だけを
-    # standalone で当てる。`nix run home-manager` は使わない: unpinned な参照は rev 確定に
-    # GitHub API を叩き、gh が無い新環境では未認証のまま 403 に当たりうる。lock 済みの
-    # activationPackage を直接ビルドすれば API 解決が要らず、CLI と設定の版ずれも消える。
-    HM_ACTIVATION=$(nix --extra-experimental-features 'nix-command flakes' build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${HOSTNAME}.activationPackage")
-    "${HM_ACTIVATION}/activate"
-  fi
-else
-  # GUI アプリ (Homebrew cask / Mac App Store) を含まない構成。アプリは遅いので
-  # `apps` コマンド (home/.local/bin/apps) で別途揃える。
-  sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}" -- switch --flake "${DOTPATH}#${HOSTNAME}"
-fi
-step Finished "in ${SECONDS}s"
+section rebuild
+# 初回は PATH に乗っていないのでフルパスで呼ぶ。
+"${DOTPATH}/home/.local/bin/rebuild"
+
+# 宣言で揃わない手作業 (ログイン、鍵) が何個残っているかを最後に見せる。
+# doctor は gh や gcloud を PATH から探すが、このシェルの PATH は switch 前のまま
+# なので、rebuild が張ったばかりの ~/.zshenv を読む zsh の下で走らせる。
+# 残りがあるのは新規マシンでは当然なので、doctor の exit 1 は install の失敗にしない。
+section doctor
+zsh -c doctor || true
