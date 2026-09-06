@@ -69,34 +69,35 @@
         ./modules/home-manager/lazygit.nix
         ./modules/home-manager/notes-sync.nix
       ];
-      hmSpecialArgs = hostname: homeDir: {
+      # home 配下のパスは渡さない。各モジュールが config.home.homeDirectory から組む。
+      hmSpecialArgs = hostname: {
         inherit hostname palette hosts;
         accentColor = hosts.${hostname}.color;
-        dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
         defaultColor = palette.gray;
       };
 
       # manage = system では home-manager を NixOS / nix-darwin のモジュールとして組み込む。
       # system と home が同じ世代で切り替わり、./install は rebuild 一発で済む。
-      hmModule = hostname: { config, ... }:
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.potsbo.imports = hmModules;
-            extraSpecialArgs = hmSpecialArgs hostname config.users.users.potsbo.home;
-          };
+      hmModule = hostname: {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.potsbo.imports = hmModules;
+          extraSpecialArgs = hmSpecialArgs hostname;
         };
+      };
 
       # manage = home では standalone。OS 側の設定が無いので、モジュール経由なら
       # そちらから来る homeDirectory と allowUnfree (modules/nixos/common.nix) をここで与える。
-      mkHome = hostname: { system, ... }:
-        let homeDir = "/home/potsbo"; in
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
-          modules = hmModules ++ [{ home.homeDirectory = homeDir; }];
-          extraSpecialArgs = hmSpecialArgs hostname homeDir;
-        };
+      # homeDirectory は Linux の慣習で決め打つ。standalone は Linux でしか使わない
+      # (macOS は必ず nix-darwin ごと管理する) ので、OS で分ける必要が無い。
+      mkHome = hostname: { system, ... }: home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+        modules = hmModules ++ [
+          ({ config, ... }: { home.homeDirectory = "/home/${config.home.username}"; })
+        ];
+        extraSpecialArgs = hmSpecialArgs hostname;
+      };
 
       # hardware-configuration.nix は nixos-generate-config の出力をそのまま
       # hosts/<host>/ に commit する。/etc/nixos のものを読むと --impure が要り、
