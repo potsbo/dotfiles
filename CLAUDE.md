@@ -6,6 +6,13 @@ Commit dotfiles changes directly on `main` — do **not** create a branch or git
 worktree unless explicitly asked. These changes are usually meant to be tried
 immediately (the repo is symlinked into `~`), so branching just adds friction.
 
+### Renovate の PR
+
+Renovate の PR (branch `renovate/*`) には触らない: push、`gh pr update-branch`、
+merge commit の追加を含む。一度でも人が触ると Renovate は "PR Edited (Blocked)"
+として以後の rebase も version 更新もやめる (Dependency Dashboard #26 に並ぶ)。
+CI を流し直したいときは PR 本文の rebase/retry checkbox を本人が付ける。
+
 ### Staging
 
 **`git add -A` / `git add .` は絶対に使わない。** 明示パスか、追跡済みだけの
