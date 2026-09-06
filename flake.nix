@@ -51,14 +51,19 @@
         # builder を持つホストは他ホストの nix build を引き受ける (modules/remote-build.nix)。
         # 常時稼働の x86_64-linux 機だけ。sshHostKey は client 側 root の known_hosts 用で、
         # 入れ直して host key が変わったら ssh-keyscan -t ed25519 <host> で取り直す。
-        # speedFactor は CPU の速さではなく近さで付けている。実際の所要時間は store path の
-        # 転送が支配的で、LAN の phoenix (往復 5ms) の方が外にある raptorlake (28 コアだが
-        # 往復 26ms) より速く終わる。さらに builder 同士は store を共有せず、片方の出力を
-        # もう片方が使うときは client 経由で送り直しになるので、分散させたくない。
+        # raptorlake を全ホストから最優先にする。phoenix も client として raptorlake に出す。
+        # 以前は LAN の phoenix (往復 5ms) を優先していた。store path の転送が支配的で、外に
+        # ある raptorlake (往復 26ms) より速く終わるため。しかし phoenix の upload 回線が
+        # 細く、phoenix でローカル build した出力を raptorlake に送る状況が一番遅い。ほぼ
+        # 全部を raptorlake で build すれば、入力は raptorlake が cache から直接取るか
+        # 自分の store に既にあるかで、phoenix から上がるのは .drv とローカルソースだけになる。
+        # builder 同士は store を共有しないので、分散させず 1 台に寄せるのも同じ理由。
+        # phoenix は raptorlake が満杯か到達不能なときの fallback として builder に残す。
         #
         # nix は空きのある builder を load / speedFactor (整数除算) の小さい順、同点なら
-        # speedFactor の大きい順に選ぶ。phoenix の speedFactor を maxJobs 以上にしておくと
-        # 枠が埋まるまで常に 0 で勝ち、raptorlake は phoenix が満杯か到達不能のときだけ使われる。
+        # speedFactor の大きい順に選ぶ。raptorlake の speedFactor を maxJobs 以上にしておくと
+        # 枠が埋まるまで常に 0 で勝ち、phoenix はそのときだけ使われる。
+        # speedFactor は委譲の向きも決める (自分より大きい builder にだけ出す)。
         phoenix = {
           system = "x86_64-linux"; os = "nixos"; color = palette.orange; manage = "system"; role = "workstation";
           extraModules = [ ];
@@ -68,7 +73,7 @@
         raptorlake = {
           system = "x86_64-linux"; os = "nixos"; color = palette.white; manage = "system"; role = "server";
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
-          builder = { maxJobs = 20; speedFactor = 1; };
+          builder = { maxJobs = 20; speedFactor = 20; };
           sshHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILr0XeysKahURB4x3NQ1KjGsq6pcoUwNNQuDg4uaF91N";
         };
         skylake = { system = "x86_64-linux"; os = "nixos"; color = palette.blue; manage = "system"; role = "laptop"; extraModules = [ ]; };

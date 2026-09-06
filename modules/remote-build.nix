@@ -12,9 +12,11 @@
 
 let
   isBuilder = hosts.${hostname} ? builder;
-  # builder 自身は委譲しない。nix は builder に空きがある限りローカルより remote を
-  # 選ぶので、放っておくと raptorlake (28 コア) の build まで phoenix に飛ぶ。
-  builders = lib.optionalAttrs (!isBuilder) (lib.filterAttrs (_: h: h ? builder) hosts);
+  # 委譲先は「自分より speedFactor の大きい builder」だけ。builder 同士は一方通行に
+  # したい (raptorlake の build が phoenix に飛んだり、互いに投げ合ったりしない) ので、
+  # speedFactor を優先順位としても使う。builder でないホストは 0 扱いで全 builder に出す。
+  mySpeed = hosts.${hostname}.builder.speedFactor or 0;
+  builders = lib.filterAttrs (_: h: h ? builder && h.builder.speedFactor > mySpeed) hosts;
 in
 {
   nix = {
