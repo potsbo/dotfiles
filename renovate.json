@@ -15,6 +15,22 @@
     },
     {
       "customType": "regex",
+      "fileMatch": ["^pkgs/.*\\.nix$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>git-refs) depName=(?<depName>\\S+) branch=(?<currentValue>\\S+)\\n\\s*rev\\s*=\\s*\"(?<currentDigest>[0-9a-f]{40})\";"
+      ]
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^flake\\.nix$"],
+      "matchStrings": [
+        "github:AvengeMedia/DankMaterialShell/(?<currentValue>v[0-9][^\"]*)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "AvengeMedia/DankMaterialShell"
+    },
+    {
+      "customType": "regex",
       "fileMatch": ["home/.config/aquaproj-aqua/aqua\\.yaml$"],
       "matchStrings": [
         "name:\\s*(?<depName>[^@\\s]+)@(?<currentValue>v?[0-9][^\\s]*)\\s*\\n\\s*registry:\\s*local"
@@ -61,6 +77,11 @@
         "nix"
       ],
       "automerge": true
+    },
+    {
+      "description": "DMS はデスクトップ全体に効くので automerge せず手で入れる",
+      "matchPackageNames": ["AvengeMedia/DankMaterialShell"],
+      "automerge": false
     }
   ]
 }
