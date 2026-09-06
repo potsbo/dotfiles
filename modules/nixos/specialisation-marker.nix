@@ -1,7 +1,7 @@
 # specialisation で起動しているとき、その名前を /etc/specialisation に書く。
-# `./install` がこれを読んで `nixos-rebuild switch --specialisation <name>` にする。
+# `rebuild` がこれを読んで `nixos-rebuild switch --specialisation <name>` にする。
 #
-# 無いと install は基本構成 (GNOME) を有効化してしまい、Hyprland で起動中に打つと
+# 無いと rebuild は基本構成 (GNOME) を有効化してしまい、Hyprland で起動中に打つと
 # 動いている system から Hyprland が消えて、次のログインが失敗する (2026-09-06 に踏んだ)。
 #
 # specialisation option は attrsOf submodule なので、同じ形で宣言し直すと submodule 側が
