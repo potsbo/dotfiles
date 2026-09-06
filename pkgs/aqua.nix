@@ -21,6 +21,12 @@ buildGoModule {
 
   vendorHash = "sha256-PLtYXYpbZKHDzvK589wZtpVcv2YIBxLruHLHKbRjM30=";
 
+  # 公式 release (goreleaser) と同じく main.version を埋める。無いと `aqua version` が
+  # unknown になり、aqua 自身の update 判定やログの version 表示も効かない。
+  # release は main.commit / main.date / main.builtBy も渡すが、main.go に受ける変数が
+  # 無く no-op なので付けない。
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
+
   # テスト実行をスキップする。
   # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。
   # aqua 本体の品質は upstream CI で担保されているため、ここでのテストは不要。
