@@ -164,12 +164,18 @@ in
         ];
   
         keymap = [
-          # === Vicinae ランチャー (右Shift 単押し → F20 経由) ===
+          # === ランチャー (右Shift 単押し → F20 経由) ===
+          # Hyprland では DMS の spotlight、それ以外は Vicinae
           {
-            name = "Vicinae toggle";
+            name = "Launcher toggle";
             application = { not = rdpApps; };
             remap = {
-              F20 = { launch = ["${pkgs.vicinae}/bin/vicinae" "toggle"]; };
+              F20 = {
+                launch =
+                  if config.desktop.environment == "hyprland"
+                  then [ (lib.getExe config.programs.dank-material-shell.package) "ipc" "call" "spotlight" "toggle" ]
+                  else [ "${pkgs.vicinae}/bin/vicinae" "toggle" ];
+              };
             };
           }
   

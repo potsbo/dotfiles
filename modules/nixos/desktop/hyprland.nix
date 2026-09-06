@@ -11,6 +11,14 @@
 # dms/binds-user.lua に集める)。DMS 本体は NixOS module 側で入れ、home-manager module は
 # 使わない (両方入れると systemd unit が二重定義になる)。
 { config, pkgs, lib, ... }:
+
+let
+  focusOrLaunch = pkgs.writeShellApplication {
+    name = "dms-focus-or-launch";
+    runtimeInputs = [ pkgs.jq config.programs.hyprland.package ];
+    text = builtins.readFile ./dms-focus-or-launch.sh;
+  };
+in
 {
   config = lib.mkIf (config.host.desktop && config.desktop.environment == "hyprland") {
     programs.hyprland.enable = true;
@@ -40,5 +48,10 @@
     # DMS の unit は graphical-session.target に紐づくので、GDM の greeter (gdm ユーザーの
     # GNOME Shell) でも起動して /var/lib/gdm に設定を書こうとする。システムユーザーでは走らせない。
     systemd.user.services.dms.unitConfig.ConditionUser = "!@system";
+
+    # ランチャーからの起動を dms-focus-or-launch (同名の .sh) で包み、開いているアプリなら
+    # 起動せずフォーカスする。DMS の設定画面 (Launcher > launch prefix) が空のときの既定値。
+    systemd.user.services.dms.environment.DMS_DEFAULT_LAUNCH_PREFIX = lib.getExe focusOrLaunch;
+    environment.systemPackages = [ focusOrLaunch ];
   };
 }
