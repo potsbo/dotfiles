@@ -21,6 +21,9 @@
       "cursorHideTimeout": 0
     }
   },
+  "acMonitorTimeout": 300,
+  "acLockTimeout": 3600,
+  "acPostLockMonitorTimeout": 15,
   "dankIslandBarId": "default",
   "dankIslandHoverOpenDelay": 50,
   "dankIslandPalette": "dim",
