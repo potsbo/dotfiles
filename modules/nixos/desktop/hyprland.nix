@@ -18,6 +18,27 @@ let
     runtimeInputs = [ pkgs.jq config.programs.hyprland.package ];
     text = builtins.readFile ./dms-focus-or-launch.sh;
   };
+
+  # DMS のランチャーに見せる .desktop の写し。[Desktop Entry] の Exec を dms-focus-or-launch で
+  # 包む ([Desktop Action] の "New Window" などは新規起動が目的なので包まない)。
+  # DMS の launch prefix (設定・環境変数) は 1.6.0 では効かなかった: strace で見ると起動は
+  # `systemd-run --user --scope <Exec>` で prefix が付かない。PATH の shim は google-chrome や
+  # slack のように Exec が絶対パスのものに効かないので、.desktop 自体を差し替える。
+  launcherEntries = pkgs.runCommand "dms-launcher-entries" { } ''
+    mkdir -p $out/share/applications
+    for dir in ${config.system.path}/share/applications ${config.home-manager.users.potsbo.home.path}/share/applications; do
+      [ -d "$dir" ] || continue
+      for f in "$dir"/*.desktop; do
+        name=$(basename "$f")
+        [ -e "$out/share/applications/$name" ] && continue
+        awk -v w='${lib.getExe focusOrLaunch}' '
+          /^\[/ { entry = ($0 == "[Desktop Entry]") }
+          entry && /^Exec=/ { sub(/^Exec=/, "Exec=" w " ") }
+          { print }
+        ' "$f" > "$out/share/applications/$name"
+      done
+    done
+  '';
 in
 {
   config = lib.mkIf (config.host.desktop && config.desktop.environment == "hyprland") {
@@ -52,6 +73,12 @@ in
     # ランチャーからの起動を dms-focus-or-launch (同名の .sh) で包み、開いているアプリなら
     # 起動せずフォーカスする。DMS の設定画面 (Launcher > launch prefix) が空のときの既定値。
     systemd.user.services.dms.environment.DMS_DEFAULT_LAUNCH_PREFIX = lib.getExe focusOrLaunch;
+    # 差し替えた .desktop を XDG_DATA_DIRS の先頭で DMS に見せる。unit の Environment= では
+    # 既存の XDG_DATA_DIRS に足せないので、起動スクリプトで前置してから DMS を exec する。
+    systemd.user.services.dms.serviceConfig.ExecStart = lib.mkForce (pkgs.writeShellScript "dms-session" ''
+      export XDG_DATA_DIRS="${launcherEntries}/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+      exec ${lib.getExe config.programs.dank-material-shell.package} run --session
+    '');
     environment.systemPackages = [ focusOrLaunch ];
   };
 }

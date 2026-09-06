@@ -1,4 +1,7 @@
-# DMS のランチャーが起動するコマンドの前に付く launch prefix (hyprland.nix)。
+[ $# -gt 0 ] || exit 0
+orig=("$@")
+
+# `env VAR=val cmd` 形式# DMS のランチャーが起動するコマンドの前に付く launch prefix (hyprland.nix)。
 # macOS / Raycast の「既に開いているアプリは新しく起動せずそのウィンドウに移る」を再現する。
 # 使い方: dms-focus-or-launch <cmd> [args...]
 #
@@ -11,6 +14,15 @@ set -euo pipefail
 
 [ $# -gt 0 ] || exit 0
 
+# `env VAR=val cmd` 形式の Exec は env と代入を飛ばしてコマンド名を取る
+while [ $# -gt 0 ]; do
+  case "$1" in
+    env) shift ;;
+    *=*) shift ;;
+    *) break ;;
+  esac
+done
+[ $# -gt 0 ] || exit 0
 key=$(basename "$1")
 for arg in "$@"; do
   case "$arg" in
@@ -40,4 +52,4 @@ if [ -n "$addr" ]; then
   exit 0
 fi
 
-exec "$@"
+exec "${orig[@]}"
