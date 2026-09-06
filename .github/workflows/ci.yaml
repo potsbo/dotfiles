@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: aquaproj/aqua-installer@v4.0.5
         with:
-          aqua_version: v2.57.1
+          aqua_version: v2.62.3
       - run: aqua install
         env:
           AQUA_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua.yaml

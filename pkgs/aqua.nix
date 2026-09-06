@@ -2,7 +2,7 @@
 
 let
   # renovate: datasource=github-releases depName=aquaproj/aqua
-  version = "2.57.1";
+  version = "2.62.3";
 in
 buildGoModule.override { go = go_1_26; } {
   pname = "aqua";
