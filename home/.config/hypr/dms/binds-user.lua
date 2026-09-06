@@ -44,28 +44,73 @@ hl.window_rule({ match = { class = ".*" }, center = true, persistent_size = true
 local border = 0 -- 下の hl.config で枠線を消している
 local gap = 4
 
+-- モニタ m 上のセル (fx, fy, fw, fh は 0〜1 の割合) を論理ピクセルの矩形にする
+local function cell(m, fx, fy, fw, fh)
+  local r = m.reserved
+  -- 作業領域から外周の余白を引いたもの
+  local ax = m.x + r.left + gap
+  local ay = m.y + r.top + gap
+  local aw = m.width / m.scale - r.left - r.right - 2 * gap
+  local ah = m.height / m.scale - r.top - r.bottom - 2 * gap
+  -- 割り当てるセル。隣にセルがある辺は余白を半分ずつ分け合う
+  local x = ax + aw * fx
+  local y = ay + ah * fy
+  local cw = aw * fw
+  local ch = ah * fh
+  if fx > 0 then x = x + gap / 2; cw = cw - gap / 2 end
+  if fx + fw < 1 then cw = cw - gap / 2 end
+  if fy > 0 then y = y + gap / 2; ch = ch - gap / 2 end
+  if fy + fh < 1 then ch = ch - gap / 2 end
+  return { x = x, y = y, w = cw, h = ch }
+end
+
+-- ウィンドウ w がセル c にほぼ一致して置かれているか (枠線と丸めの誤差を許す)
+local function occupies(w, c)
+  local tol = 3
+  return math.abs(w.at.x - (c.x + border)) <= tol
+    and math.abs(w.at.y - (c.y + border)) <= tol
+    and math.abs(w.size.x - (c.w - 2 * border)) <= tol
+    and math.abs(w.size.y - (c.h - 2 * border)) <= tol
+end
+
+-- dir (-1 = 左、1 = 右) にある隣のモニタ。無ければ nil
+local function neighbour_monitor(m, dir)
+  local best
+  for _, o in ipairs(hl.get_monitors()) do
+    if o.id ~= m.id then
+      local dx = o.x - m.x
+      if dir > 0 and dx > 0 and (not best or dx < best.x - m.x) then best = o end
+      if dir < 0 and dx < 0 and (not best or dx > best.x - m.x) then best = o end
+    end
+  end
+  return best
+end
+
+-- Magnet と同じく、既に左半分 / 右半分に置かれているウィンドウにもう一度同じ方向を押すと、
+-- その方向の隣のモニタの反対側の半分へ移る (右半分 → 右モニタの左半分)。
 local function place(fx, fy, fw, fh)
   return function()
     local w = hl.get_active_window()
-    local m = hl.get_active_monitor()
-    if not w or not m then
+    if not w then
       return
     end
-    local r = m.reserved
-    -- 作業領域から外周の余白を引いたもの
-    local ax = m.x + r.left + gap
-    local ay = m.y + r.top + gap
-    local aw = m.width / m.scale - r.left - r.right - 2 * gap
-    local ah = m.height / m.scale - r.top - r.bottom - 2 * gap
-    -- 割り当てるセル。隣にセルがある辺は余白を半分ずつ分け合う
-    local x = ax + aw * fx
-    local y = ay + ah * fy
-    local cw = aw * fw
-    local ch = ah * fh
-    if fx > 0 then x = x + gap / 2; cw = cw - gap / 2 end
-    if fx + fw < 1 then cw = cw - gap / 2 end
-    if fy > 0 then y = y + gap / 2; ch = ch - gap / 2 end
-    if fy + fh < 1 then ch = ch - gap / 2 end
+    -- ウィンドウの中心があるモニタで判定する。w.monitor は座標で別モニタへ動かした直後は
+    -- 元のモニタを指したままなので使わない
+    local m = hl.get_monitor_at({ x = w.at.x + w.size.x / 2, y = w.at.y + w.size.y / 2 }) or w.monitor or hl.get_active_monitor()
+    if not m then
+      return
+    end
+    local c = cell(m, fx, fy, fw, fh)
+    if fw == 0.5 and fh == 1 and w.floating and occupies(w, c) then
+      local dir = (fx > 0) and 1 or -1
+      local n = neighbour_monitor(m, dir)
+      if n then
+        c = cell(n, (dir > 0) and 0 or 0.5, 0, 0.5, 1)
+        -- 座標を動かすだけだと所属 (workspace) が元のモニタに残るので、先に移す
+        hl.dispatch(hl.dsp.window.move({ monitor = n.name }))
+      end
+    end
+    local x, y, cw, ch = c.x, c.y, c.w, c.h
     -- float({ action = "set" }) は Hyprland 0.56 では toggle として動く (実機で確認: 2 回送ると
     -- タイルに戻る)。浮動でないときだけ切り替える。
     if not w.floating then
@@ -83,9 +128,11 @@ for _, key in ipairs({ "left", "right", "up", "down", "U", "I", "J", "H" }) do
   hl.unbind("SUPER + " .. key)
 end
 
-hl.bind("SUPER + left", place(0, 0, 0.5, 1), { description = "Left half" })
-hl.bind("SUPER + right", place(0.5, 0, 0.5, 1), { description = "Right half" })
-hl.bind("SUPER + up", place(0, 0, 1, 1), { description = "Maximize" })
+-- `hyprctl eval "Magnet.right()"` で手を使わずに試せるよう、グローバルにも置く
+Magnet = { left = place(0, 0, 0.5, 1), right = place(0.5, 0, 0.5, 1), max = place(0, 0, 1, 1) }
+hl.bind("SUPER + left", Magnet.left, { description = "Left half" })
+hl.bind("SUPER + right", Magnet.right, { description = "Right half" })
+hl.bind("SUPER + up", Magnet.max, { description = "Maximize" })
 hl.bind("SUPER + down", hl.dsp.window.center(), { description = "Center" })
 hl.bind("SUPER + U", place(0, 0, 0.5, 0.5), { description = "Top-left quarter" })
 hl.bind("SUPER + I", place(0.5, 0, 0.5, 0.5), { description = "Top-right quarter" })
