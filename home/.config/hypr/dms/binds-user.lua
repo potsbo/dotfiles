@@ -69,6 +69,9 @@ local function place(fx, fy, fw, fh)
     hl.dispatch(hl.dsp.window.float({ action = "set" }))
     hl.dispatch(hl.dsp.window.resize({ x = math.floor(cw - 2 * border), y = math.floor(ch - 2 * border) }))
     hl.dispatch(hl.dsp.window.move({ x = math.floor(x + border), y = math.floor(y + border) }))
+    -- 配置したウィンドウが他の浮動ウィンドウの下に残ることがある (フォーカスと重なり順は
+    -- 別)。Magnet は操作したウィンドウが必ず前に出るので、明示的に最前面へ
+    hl.dispatch(hl.dsp.window.alter_zorder({ mode = "top" }))
   end
 end
 
