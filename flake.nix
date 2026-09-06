@@ -27,7 +27,7 @@
     let
       lib = nixpkgs.lib;
 
-      colors = import ./palette.nix;
+      palette = import ./palette.nix;
 
       # ホスト一覧はここだけ。nixos / darwin / home の各 configuration、
       # `./install` の既知ホスト判定、シェル側の host-color / host-tags
@@ -42,15 +42,15 @@
       #           false は headless サーバ。GPU ドライバは別 (CUDA 用に残る)
       # (「モニタやキーボードが繋がっているか」は別の性質で、今は参照する設定が無いので持たない)
       hosts = {
-        phoenix = { system = "x86_64-linux"; os = "nixos"; color = colors.orange; alwaysOn = true; };
+        phoenix = { system = "x86_64-linux"; os = "nixos"; color = palette.orange; alwaysOn = true; };
         raptorlake = {
-          system = "x86_64-linux"; os = "nixos"; color = colors.white; alwaysOn = true; desktop = false;
+          system = "x86_64-linux"; os = "nixos"; color = palette.white; alwaysOn = true; desktop = false;
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
         };
-        skylake = { system = "x86_64-linux"; os = "nixos"; color = colors.blue; laptop = true; };
-        avalanche = { system = "aarch64-darwin"; os = "darwin"; color = colors.purple; };
-        blizzard = { system = "aarch64-darwin"; os = "darwin"; color = colors.cyan; };
-        graniteridge = { system = "x86_64-linux"; os = "nixos"; color = colors.green; managed = false; };
+        skylake = { system = "x86_64-linux"; os = "nixos"; color = palette.blue; laptop = true; };
+        avalanche = { system = "aarch64-darwin"; os = "darwin"; color = palette.purple; };
+        blizzard = { system = "aarch64-darwin"; os = "darwin"; color = palette.cyan; };
+        graniteridge = { system = "x86_64-linux"; os = "nixos"; color = palette.green; managed = false; };
       };
       managedByOs = os: lib.filterAttrs (_: h: h.os == os && (h.managed or true)) hosts;
 
@@ -73,11 +73,11 @@
             ];
             extraSpecialArgs = {
               inherit hostname;
-              palette = colors;
+              inherit palette;
               accentColor = hosts.${hostname}.color;
               dotfilesPath = "${config.users.users.potsbo.home}/src/github.com/potsbo/dotfiles";
               hosts = lib.mapAttrs (_: h: { inherit (h) os color; alwaysOn = h.alwaysOn or false; }) hosts;
-              defaultColor = colors.gray;
+              defaultColor = palette.gray;
             };
           };
         };
