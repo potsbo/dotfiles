@@ -90,8 +90,8 @@
         inherit system;
         modules = [
           { host = { inherit role; }; }
-          (./hosts + "/${hostname}/hardware-configuration.nix")
-          (./hosts + "/${hostname}/configuration.nix")
+          ./hosts/${hostname}/hardware-configuration.nix
+          ./hosts/${hostname}/configuration.nix
           xremap-flake.nixosModules.default
           ./modules/nixos/xremap.nix
           dms.nixosModules.dank-material-shell
@@ -126,6 +126,6 @@
       # nix-update がハッシュを自動更新するための出力。CI (autofix.ci) が
       # `nix-update --flake --version=skip <name>` で参照する。
       packages.x86_64-linux = lib.genAttrs [ "aqua" "tuicast" "todoist-cli" "evalcache" ]
-        (name: nixpkgs.legacyPackages.x86_64-linux.callPackage (./pkgs + "/${name}.nix") { });
+        (name: nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/${name}.nix { });
     };
 }
