@@ -70,6 +70,34 @@ in
     # GNOME Shell) でも起動して /var/lib/gdm に設定を書こうとする。システムユーザーでは走らせない。
     systemd.user.services.dms.unitConfig.ConditionUser = "!@system";
 
+    # Cmd+Tab: macOS のようにアイコンが並び、Cmd を押している間に Tab で選んで離すと切り替わる。
+    # Hyprland にも DMS にもこの UI は無いので hyprshell (旧 hyprswitch) を使う。切り替えの
+    # 候補は最近使った順、全モニタ・全ワークスペース (macOS と同じ)。Super+` は同じアプリの
+    # ウィンドウだけを回す (macOS の Cmd+`)。Ctrl+Down は App Exposé 相当で、いまのアプリの
+    # ウィンドウを並べる。hyprshell は起動時にこれらのキーを Hyprland に自分で登録する。
+    home-manager.users.potsbo.services.hyprshell = {
+      enable = true;
+      settings.windows = {
+        switch = {
+          modifier = "super";
+          key = "Tab";
+          filter_by = [ ];
+        };
+        switch_2 = {
+          modifier = "super";
+          key = "grave";
+          filter_by = [ "same_class" ];
+        };
+        overview = {
+          modifier = "ctrl";
+          key = "Down";
+          filter_by = [ "same_class" ];
+          # overview にはランチャーが付くが、ランチャーは DMS を使うので出さない
+          launcher.max_items = 0;
+        };
+      };
+    };
+
     # ランチャーからの起動を dms-focus-or-launch (同名の .sh) で包み、開いているアプリなら
     # 起動せずフォーカスする。DMS の設定画面 (Launcher > launch prefix) が空のときの既定値。
     systemd.user.services.dms.environment.DMS_DEFAULT_LAUNCH_PREFIX = lib.getExe focusOrLaunch;

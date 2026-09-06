@@ -255,18 +255,20 @@ for _, name in ipairs({ "pfu-limited-hhkb-studio-1", "xremap-1" }) do
   hl.device({ name = name, natural_scroll = false, scroll_factor = 1.0 })
 end
 
--- === Cmd+Tab ===
--- DMS の既定は Super+Tab でワークスペースの俯瞰 (Mission Control 相当) だが、macOS の Cmd+Tab は
--- 「直前のウィンドウに戻る、押すたびに次へ」なので、その形にする。俯瞰は Super+O と
--- Super+Alt+Tab に残す。Hyprland は浮動でもフォーカスと重なり順が別なので、切り替えた
--- ウィンドウを前面に出す。
+-- === Cmd+Tab、Mission Control、App Exposé ===
+-- Cmd+Tab (アイコンが並び、押している間に選んで離すと切り替わる) は hyprshell が担う
+-- (modules/nixos/desktop/hyprland.nix)。hyprshell は起動時に Super+Tab と Super+` を自分で
+-- 登録するので、DMS 既定の Super+Tab (俯瞰) は外しておく。
 hl.unbind("SUPER + TAB")
-local function cycle(prev)
-  return function()
-    hl.dispatch(hl.dsp.window.cycle_next(prev and { next = false } or nil))
-    hl.dispatch(hl.dsp.window.alter_zorder({ mode = "top" }))
-  end
+
+-- Mission Control は DMS の俯瞰。macOS と同じ Ctrl+Up と三本指の上スワイプで開く。
+-- 俯瞰は DMS 既定の Super+O にも残っている。
+local function overview()
+  hl.dispatch(hl.dsp.exec_cmd("dms ipc call hypr toggleOverview"))
 end
-hl.bind("SUPER + TAB", cycle(false), { description = "Switch to next window" })
-hl.bind("SUPER + SHIFT + TAB", cycle(true), { description = "Switch to previous window" })
-hl.bind("SUPER + ALT + TAB", hl.dsp.exec_cmd("dms ipc call hypr toggleOverview"), { description = "Overview" })
+hl.bind("CTRL + up", overview, { description = "Mission Control (overview)" })
+hl.bind("SUPER + ALT + TAB", overview, { description = "Mission Control (overview)" })
+hl.gesture({ fingers = 3, direction = "up", action = overview })
+
+-- App Exposé (Ctrl+Down: いま使っているアプリのウィンドウ一覧) は hyprshell の overview を
+-- 同じ class に絞って使う (hyprland.nix)。
