@@ -22,17 +22,7 @@
     let
       lib = nixpkgs.lib;
 
-      colors = {
-        gray = "#797979";
-        yellow = "#fd971f";
-        purple = "#ae81ff";
-        white = "#f8f8f2";
-        orange = "#d7875f";
-        red = "#f92672";
-        cyan = "#55bed2";
-        blue = "#6796e6";
-        green = "#a6e22e";
-      };
+      colors = import ./palette.nix;
 
       # ホスト一覧はここだけ。nixos / darwin / home の各 configuration、
       # `./install` の既知ホスト判定、シェル側の host-color / host-tags
@@ -75,11 +65,13 @@
               ./modules/home-manager/dotfiles.nix
               ./modules/home-manager/mozc.nix
               ./modules/home-manager/starship.nix
+              ./modules/home-manager/lazygit.nix
               ./modules/home-manager/notes-sync.nix
               ./modules/home-manager/notes-remote-control.nix
             ];
             extraSpecialArgs = {
               inherit hostname;
+              palette = colors;
               accentColor = hosts.${hostname}.color;
               dotfilesPath = "${homeDir}/src/github.com/potsbo/dotfiles";
               hosts = lib.mapAttrs (_: h: { inherit (h) os color; alwaysOn = h.alwaysOn or false; }) hosts;

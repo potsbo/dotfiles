@@ -22,6 +22,7 @@ lightdash
 /environment.d
 /systemd/user
 /starship.toml
+/lazygit/config.yml
 /cagent
 /monitors.xml
 /odbc/odbcinst.ini
