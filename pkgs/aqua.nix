@@ -12,10 +12,10 @@ buildGoModule.override { go = go_1_26; } {
     owner = "aquaproj";
     repo = "aqua";
     rev = "v${version}";
-    hash = "sha256-ZxSRUVhDDW8+GGqLV7gia/zH1wa9e1iU3vG3RCV7cmI=";
+    hash = "sha256-SrkSel+hiUIRAip/U3ODFkLBkqFjVKjar6TbkQab+lE=";
   };
 
-  vendorHash = "sha256-kN7FxyVy2QFLkC/fiYGIuf3/6PrUoC2CMY5sQMuBLPE=";
+  vendorHash = "sha256-PLtYXYpbZKHDzvK589wZtpVcv2YIBxLruHLHKbRjM30=";
 
   # テスト実行をスキップする。
   # aqua のテストが /bin/date をハードコードしており、nix サンドボックスには存在しないため失敗する。
