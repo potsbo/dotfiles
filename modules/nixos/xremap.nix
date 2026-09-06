@@ -42,7 +42,12 @@ in
 # ============================================================================
 {
   # headless ホスト (host.desktop = false) ではキーボードの再配置も要らない。
-  config = lib.mkIf config.host.desktop {
+  # enable だけは mkIf の外で常に明示する。上流 module は enable が未設定で
+  # default に落ちたときだけ evaluation warning を出す (default に lib.warn を
+  # 仕込んでいる) ので、false でも書いておく必要がある。
+  config = lib.mkMerge [
+    { services.xremap.enable = config.host.desktop; }
+    (lib.mkIf config.host.desktop {
     systemd.user.services.xremap.serviceConfig = {
       Restart = "always";
       RestartSec = 3;
@@ -72,7 +77,6 @@ in
     };
   
     services.xremap = {
-      enable = true;
       withGnome = config.desktop.environment == "gnome";
       withKDE = config.desktop.environment == "plasma";
       userName = "potsbo";
@@ -398,5 +402,6 @@ in
         ];
       };
     };
-  };
+    })
+  ];
 }
