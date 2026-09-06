@@ -49,6 +49,8 @@ addr=$(hyprctl clients -j | jq -r --arg k "$key" '
 if [ -n "$addr" ]; then
   # 設定が Lua のときの hyprctl dispatch は Lua 式を受け取る (旧来の "focuswindow ..." は通らない)
   hyprctl dispatch "hl.dsp.focus({ window = \"address:$addr\" })" >/dev/null
+  # 浮動ウィンドウはフォーカスしても重なり順が変わらず、他のウィンドウの下に残ることがある
+  hyprctl dispatch "hl.dsp.window.alter_zorder({ window = \"address:$addr\", mode = \"top\" })" >/dev/null
   exit 0
 fi
 
