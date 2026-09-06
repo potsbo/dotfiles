@@ -27,7 +27,7 @@
     let
       inherit (nixpkgs) lib;
 
-      palette = import ./palette.nix;
+      palette = import ./lib/palette.nix;
 
       # ホスト一覧はここだけ。nixos / darwin / home の各 configuration、
       # シェル側の host-color / host-tags (modules/home-manager/hosts.nix) は
