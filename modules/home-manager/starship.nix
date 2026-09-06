@@ -36,7 +36,13 @@
       NixOS = "";
     };
 
+    # custom モジュールの shell は STARSHIP_SHELL (= zsh) が既定で、コマンドごとに zsh を起動して
+    # .zshenv を読む。.zshenv は ssh-agent のソケットを探して生死を確かめる (応答しないものは
+    # 1 秒待つ) ので、agent が死んでいる環境 (herdr の pane など) では毎回 500ms の
+    # command_timeout を超えてモジュールが空になる。コマンドは全部 POSIX なので sh で走らせる。
+    # 4 つとも同じ理由。
     custom.git_worktree = {
+      shell = [ "sh" ];
       command = "echo '\\uef81'";
       when = "git rev-parse --git-dir 2>/dev/null | grep -q worktrees";
       format = "[$output ]($style)";
@@ -44,6 +50,7 @@
     };
 
     custom.git_repo_name = {
+      shell = [ "sh" ];
       style = "bg:accent fg:black";
       command = "git remote get-url origin 2>/dev/null | sed -E 's#.*/([^/]+)(\\.git)?$#\\1#' | sed 's#\\.git$##'";
       when = "git rev-parse --is-inside-work-tree 2>/dev/null";
@@ -51,6 +58,7 @@
     };
 
     custom.directory = {
+      shell = [ "sh" ];
       style = "bold bg:red fg:white";
       command = "git rev-parse --show-prefix 2>/dev/null | sed 's#/$##'";
       when = "git rev-parse --is-inside-work-tree 2>/dev/null";
@@ -58,6 +66,7 @@
     };
 
     custom.directory_no_git = {
+      shell = [ "sh" ];
       style = "bold bg:red fg:white";
       command = ''pwd | sed "s#^$HOME#~#"'';
       when = "! git rev-parse --is-inside-work-tree 2>/dev/null";
