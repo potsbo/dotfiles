@@ -25,7 +25,7 @@
 
   outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, ... }:
     let
-      lib = nixpkgs.lib;
+      inherit (nixpkgs) lib;
 
       palette = import ./palette.nix;
 

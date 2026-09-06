@@ -18,13 +18,15 @@
   #
   # 失敗時は curl の stderr が sshd に捨てられるので、原因は journal に出る終了コード
   # ("AuthorizedKeysCommand ... failed, status N") で切り分ける。
-  environment.etc."ssh/gh-authorized-keys".text = ''
-    #!/bin/sh
-    exec ${pkgs.curl}/bin/curl -fsSL --connect-timeout 5 --max-time 10 "https://github.com/$1.keys"
-  '';
-  environment.etc."ssh/gh-authorized-keys".mode = "0555";
-  environment.etc."ssh/gh-authorized-keys".user = "root";
-  environment.etc."ssh/gh-authorized-keys".group = "root";
+  environment.etc."ssh/gh-authorized-keys" = {
+    text = ''
+      #!/bin/sh
+      exec ${pkgs.curl}/bin/curl -fsSL --connect-timeout 5 --max-time 10 "https://github.com/$1.keys"
+    '';
+    mode = "0555";
+    user = "root";
+    group = "root";
+  };
 
   services.openssh = {
     enable = true;

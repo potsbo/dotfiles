@@ -1,0 +1,6 @@
+# nvim (LazyVim lang.nix extra → nvim-lint) と `statix check .` の両方が読む。
+# hardware-configuration.nix は nixos-generate-config の出力そのままで、書き換えても
+# 再生成で戻るので lint の対象から外す。
+disabled = []
+nix_version = '2.4'
+ignore = ['hardware-configuration.nix']

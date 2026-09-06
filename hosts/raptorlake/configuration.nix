@@ -10,50 +10,54 @@
 
   # GeForce RTX 4070 (Ada)。Ada 以降は open kernel module が NVIDIA 推奨で、
   # proprietary module より kernel 更新への追従が速い。
-  # headless (role = server) だが、ollama の CUDA にドライバが要る。videoDrivers は
-  # X 用の名前だが、NixOS では nvidia ドライバを有効にする入口がこれしかない。
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # headless (role = server) だが、ollama の CUDA にドライバが要る。
   hardware.graphics.enable = true;
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = true;
   };
 
-  # ローカル LLM。llama.cpp を直に叩くより数% 遅いが、モデルの取得・切り替え・
-  # アイドル時のアンロードまで標準 module が面倒を見る。
-  #
-  # package を明示するのは、既定の `ollama` が nixpkgs.config.cudaSupport を見て
-  # 中身を決めるため。そのフラグはシステム全体に効き、CUDA 込みの再ビルドを
-  # 引き起こす。CUDA が要るのはここだけなので、パッケージ側で差す。
-  #
-  # 127.0.0.1 のまま tailnet には出していない。ollama の API には認証がなく、
-  # 出した瞬間に tailnet の全ノードからモデルの実行と削除ができる。
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-cuda;
-    # VRAM 12GB に対する上下の当たりを取るための 2本。Q4_K_M で 14B (~9GB) が
-    # 全層 GPU に載る上限で、8B (~5GB) は長いコンテキストでも KV cache が
-    # 溢れない基準値。ここを超えると CPU オフロードが混ざり、測っているものが
-    # GPU の性能ではなくなる。
-    loadModels = [ "qwen3:8b" "qwen3:14b" ];
+  services = {
+    # videoDrivers は X 用の名前だが、NixOS では nvidia ドライバを有効にする入口が
+    # これしかない。
+    xserver.videoDrivers = [ "nvidia" ];
+
+    # ローカル LLM。llama.cpp を直に叩くより数% 遅いが、モデルの取得・切り替え・
+    # アイドル時のアンロードまで標準 module が面倒を見る。
+    #
+    # package を明示するのは、既定の `ollama` が nixpkgs.config.cudaSupport を見て
+    # 中身を決めるため。そのフラグはシステム全体に効き、CUDA 込みの再ビルドを
+    # 引き起こす。CUDA が要るのはここだけなので、パッケージ側で差す。
+    #
+    # 127.0.0.1 のまま tailnet には出していない。ollama の API には認証がなく、
+    # 出した瞬間に tailnet の全ノードからモデルの実行と削除ができる。
+    ollama = {
+      enable = true;
+      package = pkgs.ollama-cuda;
+      # VRAM 12GB に対する上下の当たりを取るための 2本。Q4_K_M で 14B (~9GB) が
+      # 全層 GPU に載る上限で、8B (~5GB) は長いコンテキストでも KV cache が
+      # 溢れない基準値。ここを超えると CPU オフロードが混ざり、測っているものが
+      # GPU の性能ではなくなる。
+      loadModels = [ "qwen3:8b" "qwen3:14b" ];
+    };
+
+    # 冗長性がないのでチェックサム不一致は自動修復されないが、どのファイルが
+    # 壊れたかは分かる。壊れたものはクラウドから取り直す。
+    #
+    # fileSystems を明示するのは、既定だと btrfs な fileSystems を全部拾って
+    # / と /var/lib/vm の 2本ぶんの timer が立つため。実体は同じデバイスなので
+    # 同じものを 2回 scrub することになる。
+    btrfs.autoScrub = {
+      enable = true;
+      interval = "monthly";
+      fileSystems = [ "/" ];
+    };
   };
 
   # swap はディスクに置かず zram のみ。btrfs 上の swapfile は専用の nodatacow
   # subvolume が要るうえ、プールから容量を固定的に取る。メモリ不足の実害が出たら
   # disk-config.nix に swap subvolume を足す (disko が mkswapfile で作る)。
   zramSwap.enable = true;
-
-  # 冗長性がないのでチェックサム不一致は自動修復されないが、どのファイルが
-  # 壊れたかは分かる。壊れたものはクラウドから取り直す。
-  #
-  # fileSystems を明示するのは、既定だと btrfs な fileSystems を全部拾って
-  # / と /var/lib/vm の 2本ぶんの timer が立つため。実体は同じデバイスなので
-  # 同じものを 2回 scrub することになる。
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "monthly";
-    fileSystems = [ "/" ];
-  };
 
   # VM イメージ置き場を nodatacow にする。CoW のままだと、大きいファイルへの
   # ランダム in-place 書き込みでエクステントが解放されず実消費が論理サイズを超える。

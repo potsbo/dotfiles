@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 # RDP キオスク (PoC): 電源 ON → ユーザー操作ゼロで Windows デスクトップ表示まで到達させる。
 # specialisation として読み込む前提 (ベース構成の上に被せ、ブートメニューで選ぶ)。
@@ -108,73 +108,79 @@ in
     # video/input グループも不要。
   };
 
-  services.cage = {
-    enable = true;
-    user = "kiosk";
-    program = lib.getExe rdpKiosk;
-    extraArguments = [
-      # 既定では VT 切替を禁止する。Ctrl+Alt+F2 で tty2 に出るために許可する。
-      "-s"
-      # 最後に繋いだ出力だけを使う。既定の extend は内蔵+外部を 1 枚に延長するので、
-      # 外部ディスプレイを繋いで起動すればそちらだけに出る (クラムシェル運用)。
-      # xfreerdp の /f は起動時の出力サイズで固定なので、抜き差ししたら cage-tty1 を
-      # restart して張り直す。
-      "-m" "last"
-    ];
-    environment.XKB_DEFAULT_LAYOUT = "us";
-  };
-
-  # xremap は potsbo のユーザーサービスだが linger でセッション終了後も生き残り、
-  # キーボードを grab したまま Ctrl 単押し→Esc などを RDP に流してしまう。
-  # compositor が無い環境ではアプリ単位の除外 (xfreerdp) も効かない。
-  services.xremap.enable = lib.mkForce false;
-
-  systemd.services.cage-tty1 = {
-    # Tailscale が Running になってから繋ぎに行く。失敗しても起動自体は止めない
-    # (after のみ) — その場合は下の Restart ループで追いつく。
-    after = [ "tailscaled-autoconnect.service" ];
-    serviceConfig = {
-      LoadCredential = [ "rdp-credentials:${credentialsFile}" ];
-      # 切断・Windows 側サインアウト・xfreerdp 異常終了からの自動復帰
-      Restart = "always";
-      RestartSec = 3;
+  services = {
+    cage = {
+      enable = true;
+      user = "kiosk";
+      program = lib.getExe rdpKiosk;
+      extraArguments = [
+        # 既定では VT 切替を禁止する。Ctrl+Alt+F2 で tty2 に出るために許可する。
+        "-s"
+        # 最後に繋いだ出力だけを使う。既定の extend は内蔵+外部を 1 枚に延長するので、
+        # 外部ディスプレイを繋いで起動すればそちらだけに出る (クラムシェル運用)。
+        # xfreerdp の /f は起動時の出力サイズで固定なので、抜き差ししたら cage-tty1 を
+        # restart して張り直す。
+        "-m" "last"
+      ];
+      environment.XKB_DEFAULT_LAYOUT = "us";
     };
-    # 既定の StartLimitBurst=5/10s だと、Windows 側が落ちている間に 3 秒間隔の再起動が
-    # 上限に当たって cage が永久停止する。無制限にしておく。
-    unitConfig.StartLimitIntervalSec = 0;
+
+    # xremap は potsbo のユーザーサービスだが linger でセッション終了後も生き残り、
+    # キーボードを grab したまま Ctrl 単押し→Esc などを RDP に流してしまう。
+    # compositor が無い環境ではアプリ単位の除外 (xfreerdp) も効かない。
+    xremap.enable = lib.mkForce false;
+
+    # 無人認証。tailscaled 自体はシステムサービスで NetworkManager にしか依存せず、
+    # Wi-Fi 接続も system 接続 (permissions 空、psk-flags=0) なので、誰もログイン
+    # しなくても接続が立つ。tailscaled-autoconnect は Running を見届けるまで待つ。
+    tailscale.authKeyFile = tailscaleAuthKeyFile;
+
+    # スリープ・休止は下の systemd.targets で丸ごと無効化している。
+    # laptop.nix が suspend にしているのを上書き
+    logind.settings.Login = {
+      HandleLidSwitch = lib.mkForce "ignore";
+      HandleLidSwitchExternalPower = lib.mkForce "ignore";
+      HandleLidSwitchDocked = lib.mkForce "ignore";
+      IdleAction = "ignore";
+    };
+    # 画面消灯: cage/wlroots は自前でアイドル消灯しないので、ここでは何もしない。
   };
 
-  systemd.tmpfiles.rules = [
-    "d /var/lib/kiosk 0700 root root -"
-  ];
+  systemd = {
+    services.cage-tty1 = {
+      # Tailscale が Running になってから繋ぎに行く。失敗しても起動自体は止めない
+      # (after のみ) — その場合は下の Restart ループで追いつく。
+      after = [ "tailscaled-autoconnect.service" ];
+      serviceConfig = {
+        LoadCredential = [ "rdp-credentials:${credentialsFile}" ];
+        # 切断・Windows 側サインアウト・xfreerdp 異常終了からの自動復帰
+        Restart = "always";
+        RestartSec = 3;
+      };
+      # 既定の StartLimitBurst=5/10s だと、Windows 側が落ちている間に 3 秒間隔の再起動が
+      # 上限に当たって cage が永久停止する。無制限にしておく。
+      unitConfig.StartLimitIntervalSec = 0;
+    };
 
-  # 無人認証。tailscaled 自体はシステムサービスで NetworkManager にしか依存せず、
-  # Wi-Fi 接続も system 接続 (permissions 空、psk-flags=0) なので、誰もログイン
-  # しなくても接続が立つ。tailscaled-autoconnect は Running を見届けるまで待つ。
-  services.tailscale.authKeyFile = tailscaleAuthKeyFile;
+    tmpfiles.rules = [
+      "d /var/lib/kiosk 0700 root root -"
+    ];
 
-  # スリープ・休止を丸ごと無効化 (蓋閉じ・アイドルを含む)
-  systemd.targets = {
-    sleep.enable = false;
-    suspend.enable = false;
-    hibernate.enable = false;
-    hybrid-sleep.enable = false;
-  };
-  # laptop.nix が suspend にしているのを上書き
-  services.logind.settings.Login = {
-    HandleLidSwitch = lib.mkForce "ignore";
-    HandleLidSwitchExternalPower = lib.mkForce "ignore";
-    HandleLidSwitchDocked = lib.mkForce "ignore";
-    IdleAction = "ignore";
-  };
-  # 画面消灯: cage/wlroots は自前でアイドル消灯しないので、ここでは何もしない。
+    # スリープ・休止を丸ごと無効化 (蓋閉じ・アイドルを含む)
+    targets = {
+      sleep.enable = false;
+      suspend.enable = false;
+      hibernate.enable = false;
+      hybrid-sleep.enable = false;
+    };
 
-  # tty2 の getty は非常口 (SSH が死んだときの現地ログイン)。logind の autovt でも
-  # VT 切替時に立つが、常駐させて確実にしておく。cage 側で Ctrl+Alt+F2 が VT 切替に
-  # なるので、その操作だけはローカルで食われる (意図した非常口)。
-  systemd.services."getty@tty2" = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
+    # tty2 の getty は非常口 (SSH が死んだときの現地ログイン)。logind の autovt でも
+    # VT 切替時に立つが、常駐させて確実にしておく。cage 側で Ctrl+Alt+F2 が VT 切替に
+    # なるので、その操作だけはローカルで食われる (意図した非常口)。
+    services."getty@tty2" = {
+      enable = true;
+      wantedBy = [ "multi-user.target" ];
+    };
   };
 
   # SSH は common.nix で有効 (鍵は GitHub から取得)。

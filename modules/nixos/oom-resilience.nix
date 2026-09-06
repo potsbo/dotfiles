@@ -39,31 +39,35 @@
   #   リンクフラップでルート消失 → 沈黙、物理再起動が必要になった。
   #   sshd 自身は Linux では自力で listener を -1000 にし、セッションには
   #   起動時の値 (=0) を復元するので、systemd 側では何も設定しないのが正解。
-  systemd.slices."system".sliceConfig.MemoryMin = "512M";
-  systemd.services.sshd.serviceConfig.MemoryMin = "32M";
-  systemd.services."sshd@".serviceConfig.MemoryMin = "32M";
-  systemd.services.tailscaled.serviceConfig = {
-    OOMScoreAdjust = -900;
-    MemoryMin = "128M";
-  };
+  systemd = {
+    slices."system".sliceConfig.MemoryMin = "512M";
+    services = {
+      sshd.serviceConfig.MemoryMin = "32M";
+      "sshd@".serviceConfig.MemoryMin = "32M";
+      tailscaled.serviceConfig = {
+        OOMScoreAdjust = -900;
+        MemoryMin = "128M";
+      };
 
-  # --- NetworkManager: OOM 保護 + 無限リトライ ---
-  # NM は new connection を捌く sshd/tailscaled と同格の救命線。
-  # NM が死んで DHCP 更新・リンクフラップ後のルート再設定が行われないと、
-  # sshd/tailscaled が生きていても外から到達不能になる。
-  systemd.services.NetworkManager = {
-    # デフォルトの StartLimitBurst=5/10s は OOM 嵐の中で一瞬で使い切り
-    # 「Start request repeated too quickly」で永久停止する。無限にリトライさせる。
-    unitConfig.StartLimitIntervalSec = 0;
-    serviceConfig = {
-      Restart = lib.mkForce "always";
-      RestartSec = "5s";
-      OOMScoreAdjust = -900; # NM はユーザプロセスを spawn しないので継承問題なし
-      MemoryMin = "32M";
+      # --- NetworkManager: OOM 保護 + 無限リトライ ---
+      # NM は new connection を捌く sshd/tailscaled と同格の救命線。
+      # NM が死んで DHCP 更新・リンクフラップ後のルート再設定が行われないと、
+      # sshd/tailscaled が生きていても外から到達不能になる。
+      NetworkManager = {
+        # デフォルトの StartLimitBurst=5/10s は OOM 嵐の中で一瞬で使い切り
+        # 「Start request repeated too quickly」で永久停止する。無限にリトライさせる。
+        unitConfig.StartLimitIntervalSec = 0;
+        serviceConfig = {
+          Restart = lib.mkForce "always";
+          RestartSec = "5s";
+          OOMScoreAdjust = -900; # NM はユーザプロセスを spawn しないので継承問題なし
+          MemoryMin = "32M";
+        };
+      };
+      # NM の再起動には dbus が必要なので dbus も保護
+      dbus.serviceConfig.OOMScoreAdjust = -900;
     };
   };
-  # NM の再起動には dbus が必要なので dbus も保護
-  systemd.services.dbus.serviceConfig.OOMScoreAdjust = -900;
 
   # --- earlyoom: カーネル OOM killer 発動前にプロアクティブに kill (バックストップ) ---
   services.earlyoom = {

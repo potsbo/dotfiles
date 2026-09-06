@@ -43,61 +43,77 @@ in
   config = lib.mkIf (config.host.desktop && config.desktop.environment == "hyprland") {
     programs.hyprland.enable = true;
 
-    # DMS の雛形 (home/.config/hypr/hyprland.lua) は起動時に hyprland-session.target を start して
-    # graphical-session.target (DMS、xremap、portal が紐づく) を上げる。upstream の Hyprland は
-    # この target を同梱するが nixpkgs は UWSM 無しだと入れないので、同じ中身を自前で定義する。
-    # UWSM (programs.hyprland.withUWSM) にしない理由: セッションの起動経路とアプリ起動
-    # (uwsm-app) が変わり、DMS の雛形と食い違う部分が増える。target 1 つで足りる。
-    systemd.user.targets.hyprland-session = {
-      description = "Hyprland compositor session";
-      documentation = [ "man:systemd.special(7)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
+    services = {
+      # greeter は GDM。Hyprland のセッションが一覧に並ぶ。DMS にも greeter
+      # (dank-greeter) はあるが、ログイン画面のために input を増やすほどではない
+      displayManager.gdm.enable = true;
+
+      # greeter の画面消灯は gsd-power (gnome-settings-daemon) がやる。GDM の module が入れる
+      # unit は gnome-session と gnome-shell だけで、GNOME デスクトップ無しだと greeter が
+      # wants する org.gnome.SettingsDaemon.*.target が not-found のまま、ログイン画面を
+      # 放置しても画面が消えない。
+      gnome.gnome-settings-daemon.enable = true;
+      # gsd-power は org.gnome.ScreenSaver の ActiveChanged を待って 15 秒後に消灯する。
+      # この名前を持つのは gnome-shell 本体ではなく、D-Bus 起動される中継サービス
+      # (gnome-shell 同梱の org.gnome.ScreenSaver.service) で、GDM の module は gnome-shell を
+      # bus の検索パスに載せないため greeter では「not activatable」になり、shell が
+      # スクリーンセーバーを有効にしても gsd-power に届かなかった。
+      dbus.packages = [ pkgs.gnome-shell ];
     };
-
-    # greeter は GDM。Hyprland のセッションが一覧に並ぶ。DMS にも greeter
-    # (dank-greeter) はあるが、ログイン画面のために input を増やすほどではない
-    services.displayManager.gdm.enable = true;
-
-    # greeter の画面消灯は gsd-power (gnome-settings-daemon) がやる。GDM の module が入れる
-    # unit は gnome-session と gnome-shell だけで、GNOME デスクトップ無しだと greeter が
-    # wants する org.gnome.SettingsDaemon.*.target が not-found のまま、ログイン画面を
-    # 放置しても画面が消えない。
-    services.gnome.gnome-settings-daemon.enable = true;
-    # gsd-power は org.gnome.ScreenSaver の ActiveChanged を待って 15 秒後に消灯する。
-    # この名前を持つのは gnome-shell 本体ではなく、D-Bus 起動される中継サービス
-    # (gnome-shell 同梱の org.gnome.ScreenSaver.service) で、GDM の module は gnome-shell を
-    # bus の検索パスに載せないため greeter では「not activatable」になり、shell が
-    # スクリーンセーバーを有効にしても gsd-power に届かなかった。
-    services.dbus.packages = [ pkgs.gnome-shell ];
 
     programs.dank-material-shell = {
       enable = true;
       systemd.enable = true;
     };
 
-    # DMS の unit は graphical-session.target に紐づくので、GDM の greeter (GNOME Shell) でも
-    # 起動する。そこで org.gnome.ScreenSaver を gnome-shell から横取りするため gsd-power に
-    # スクリーンセーバー有効の通知が届かず、ログイン画面の画面消灯が効かなくなる。
-    # `ConditionUser=!@system` では止まらない: GDM 50 の greeter は gdm-greeter-N という
-    # 通常 uid 帯のユーザーで走る。greeter かどうかはセッションの class で見る
-    # (xremap.nix の同じ条件も同じ理由)。
-    systemd.user.services.dms.unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
+    systemd.user = {
+      # DMS の雛形 (home/.config/hypr/hyprland.lua) は起動時に hyprland-session.target を start して
+      # graphical-session.target (DMS、xremap、portal が紐づく) を上げる。upstream の Hyprland は
+      # この target を同梱するが nixpkgs は UWSM 無しだと入れないので、同じ中身を自前で定義する。
+      # UWSM (programs.hyprland.withUWSM) にしない理由: セッションの起動経路とアプリ起動
+      # (uwsm-app) が変わり、DMS の雛形と食い違う部分が増える。target 1 つで足りる。
+      targets.hyprland-session = {
+        description = "Hyprland compositor session";
+        documentation = [ "man:systemd.special(7)" ];
+        bindsTo = [ "graphical-session.target" ];
+        wants = [ "graphical-session-pre.target" ];
+        after = [ "graphical-session-pre.target" ];
+      };
 
-    # fcitx5 (日本語入力)。XDG autostart (/etc/xdg/autostart) を走らせる仕組みが Hyprland には
-    # 無いので、user unit で起動する。
-    # `--disable notificationitem` はトレイに fcitx5 のアイコンを出さないため (DMS が持つ)。
-    systemd.user.services.fcitx5 = {
-      description = "Fcitx5 input method";
-      after = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-      unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
-      serviceConfig = {
-        ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5 --disable notificationitem";
-        Restart = "on-failure";
-        RestartSec = 2;
+      services.dms = {
+        # DMS の unit は graphical-session.target に紐づくので、GDM の greeter (GNOME Shell) でも
+        # 起動する。そこで org.gnome.ScreenSaver を gnome-shell から横取りするため gsd-power に
+        # スクリーンセーバー有効の通知が届かず、ログイン画面の画面消灯が効かなくなる。
+        # `ConditionUser=!@system` では止まらない: GDM 50 の greeter は gdm-greeter-N という
+        # 通常 uid 帯のユーザーで走る。greeter かどうかはセッションの class で見る
+        # (xremap.nix の同じ条件も同じ理由)。
+        unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
+
+        # ランチャーからの起動を dms-focus-or-launch (同名の .sh) で包み、開いているアプリなら
+        # 起動せずフォーカスする。DMS の設定画面 (Launcher > launch prefix) が空のときの既定値。
+        environment.DMS_DEFAULT_LAUNCH_PREFIX = lib.getExe focusOrLaunch;
+        # 差し替えた .desktop を XDG_DATA_DIRS の先頭で DMS に見せる。unit の Environment= では
+        # 既存の XDG_DATA_DIRS に足せないので、起動スクリプトで前置してから DMS を exec する。
+        serviceConfig.ExecStart = lib.mkForce (pkgs.writeShellScript "dms-session" ''
+          export XDG_DATA_DIRS="${launcherEntries}/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+          exec ${lib.getExe config.programs.dank-material-shell.package} run --session
+        '');
+      };
+
+      # fcitx5 (日本語入力)。XDG autostart (/etc/xdg/autostart) を走らせる仕組みが Hyprland には
+      # 無いので、user unit で起動する。
+      # `--disable notificationitem` はトレイに fcitx5 のアイコンを出さないため (DMS が持つ)。
+      services.fcitx5 = {
+        description = "Fcitx5 input method";
+        after = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        wantedBy = [ "graphical-session.target" ];
+        unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
+        serviceConfig = {
+          ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5 --disable notificationitem";
+          Restart = "on-failure";
+          RestartSec = 2;
+        };
       };
     };
 
@@ -135,15 +151,6 @@ in
       };
     };
 
-    # ランチャーからの起動を dms-focus-or-launch (同名の .sh) で包み、開いているアプリなら
-    # 起動せずフォーカスする。DMS の設定画面 (Launcher > launch prefix) が空のときの既定値。
-    systemd.user.services.dms.environment.DMS_DEFAULT_LAUNCH_PREFIX = lib.getExe focusOrLaunch;
-    # 差し替えた .desktop を XDG_DATA_DIRS の先頭で DMS に見せる。unit の Environment= では
-    # 既存の XDG_DATA_DIRS に足せないので、起動スクリプトで前置してから DMS を exec する。
-    systemd.user.services.dms.serviceConfig.ExecStart = lib.mkForce (pkgs.writeShellScript "dms-session" ''
-      export XDG_DATA_DIRS="${launcherEntries}/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
-      exec ${lib.getExe config.programs.dank-material-shell.package} run --session
-    '');
     environment.systemPackages = [ focusOrLaunch ];
   };
 }

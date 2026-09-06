@@ -1,4 +1,4 @@
-{ ... }:
+_:
 
 # macOS の GUI アプリ (Homebrew cask / Mac App Store) の宣言。
 # brew / mas の更新は遅く、`rebuild` で毎回挟まると鬱陶しいので
