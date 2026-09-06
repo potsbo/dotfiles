@@ -70,6 +70,22 @@ in
     # GNOME Shell) でも起動して /var/lib/gdm に設定を書こうとする。システムユーザーでは走らせない。
     systemd.user.services.dms.unitConfig.ConditionUser = "!@system";
 
+    # fcitx5 (日本語入力)。GNOME は XDG autostart (/etc/xdg/autostart) で起動していたが、Hyprland
+    # にはそれを走らせる仕組みが無い。omarchy と同じく user unit で起動する。
+    # `--disable notificationitem` はトレイに fcitx5 のアイコンを出さないため (DMS が持つ)。
+    systemd.user.services.fcitx5 = {
+      description = "Fcitx5 input method";
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+      unitConfig.ConditionUser = "!@system";
+      serviceConfig = {
+        ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5 --disable notificationitem";
+        Restart = "on-failure";
+        RestartSec = 2;
+      };
+    };
+
     # Cmd+Tab: macOS のようにアイコンが並び、Cmd を押している間に Tab で選んで離すと切り替わる。
     # Hyprland にも DMS にもこの UI は無いので hyprshell (旧 hyprswitch) を使う。切り替えの
     # 候補は最近使った順、全モニタ・全ワークスペース (macOS と同じ)。Super+` は同じアプリの
