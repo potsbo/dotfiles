@@ -62,6 +62,13 @@ runtime, not baked in.
   a generated file, or the tool's own template vars) rather than hardcoding.
 - Guard OS-specific commands/paths behind an `uname`/`$OSTYPE` check.
 
+## Personal identifiers
+
+公開リポジトリなので、メールアドレスや勤務先の名前・ドメイン (その一部も含む) は
+リポジトリに書かない。コメントや CLAUDE.md の例示にも出さない。AWS profile 名のように
+それらが識別子になっているものは、gitignore された実行時ファイル
+(`~/.config/aws/config` など) から起動時に引く。
+
 `avalanche` (メインの Mac) は ssh を受け付けない。Mac 側にしか効かない変更は
 リポジトリに入れたうえで、本人が Mac で `home-manager switch` を打つ必要がある。
 

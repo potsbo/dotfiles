@@ -81,7 +81,12 @@ check "gcloud" "gcloud auth login" gcloud_active
 check "gcloud ADC" "gcloud auth application-default login" test -f ~/.config/gcloud/application_default_credentials.json
 
 # login_session を持つ profile は本人アカウントの 1 つだけ (aws/config)。他はそれを source にする。
-aws_profile="shimpei.otsubo@medicu.co.jp"
+# profile 名がメアドなので直書きせず config から引く (公開リポジトリに載せない)。
+aws_profile=$(awk -v cfg="${AWS_CONFIG_FILE:-$HOME/.config/aws/config}" '
+  BEGIN { while ((getline line < cfg) > 0) {
+    if (line ~ /^\[profile /) { sub(/^\[profile /, "", line); sub(/\]$/, "", line); p = line }
+    else if (line ~ /^login_session/) { print p; exit }
+  } }')
 check "aws" "aws login --profile $aws_profile" aws sts get-caller-identity --profile "$aws_profile"
 
 # .zshrc の xfreerdp ラッパーが `op read` する。
