@@ -1,4 +1,4 @@
-# lazygit の設定。テーマ色を palette.nix から引くために nix 側で生成する。
+# lazygit の設定。テーマ色を lib/palette.nix から引くために nix 側で生成する。
 # lazygit は aqua で入れるので programs.lazygit (package も入れる) は使わず、
 # ~/.config/lazygit/config.yml を直接置く。
 { pkgs, palette, ... }:
