@@ -36,6 +36,14 @@ hl.window_rule({ match = { class = ".*" }, center = true, persistent_size = true
 --
 -- 座標は論理ピクセル。monitor.width/height は物理ピクセルなので scale で割る。
 -- reserved は bar などが占める領域。
+--
+-- ウィンドウの size と position に枠線 (border) は含まれない。作業領域いっぱいに置くと
+-- 右と下の枠線が画面外にはみ出すので、枠線の分だけ内側に寄せる。あわせて、タイル配置の
+-- gaps_out / gaps_in と同じ余白を外周とウィンドウ間に置き、見た目をタイルに揃える。
+-- 値は DMS が書く dms/layout.lua (border_size = 2, gaps = 4) に合わせている。
+local border = 2
+local gap = 4
+
 local function place(fx, fy, fw, fh)
   return function()
     local w = hl.get_active_window()
@@ -44,13 +52,23 @@ local function place(fx, fy, fw, fh)
       return
     end
     local r = m.reserved
-    local lw = m.width / m.scale - r.left - r.right
-    local lh = m.height / m.scale - r.top - r.bottom
-    local x0 = m.x + r.left
-    local y0 = m.y + r.top
+    -- 作業領域から外周の余白を引いたもの
+    local ax = m.x + r.left + gap
+    local ay = m.y + r.top + gap
+    local aw = m.width / m.scale - r.left - r.right - 2 * gap
+    local ah = m.height / m.scale - r.top - r.bottom - 2 * gap
+    -- 割り当てるセル。隣にセルがある辺は余白を半分ずつ分け合う
+    local x = ax + aw * fx
+    local y = ay + ah * fy
+    local cw = aw * fw
+    local ch = ah * fh
+    if fx > 0 then x = x + gap / 2; cw = cw - gap / 2 end
+    if fx + fw < 1 then cw = cw - gap / 2 end
+    if fy > 0 then y = y + gap / 2; ch = ch - gap / 2 end
+    if fy + fh < 1 then ch = ch - gap / 2 end
     hl.dispatch(hl.dsp.window.float({ action = "set" }))
-    hl.dispatch(hl.dsp.window.resize({ x = math.floor(lw * fw), y = math.floor(lh * fh) }))
-    hl.dispatch(hl.dsp.window.move({ x = math.floor(x0 + lw * fx), y = math.floor(y0 + lh * fy) }))
+    hl.dispatch(hl.dsp.window.resize({ x = math.floor(cw - 2 * border), y = math.floor(ch - 2 * border) }))
+    hl.dispatch(hl.dsp.window.move({ x = math.floor(x + border), y = math.floor(y + border) }))
   end
 end
 
