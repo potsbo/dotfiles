@@ -246,6 +246,11 @@ in
               Super-l = "C-l";
               Super-k = "C-k";
               Super-n = "C-n";
+              # DMS 既定の Hyprland バインド (dms/binds.lua) が Super+P を出力プロファイル
+              # 切替に使っているので、ここで先に Ctrl+P に変えないとアプリ (Obsidian の
+              # コマンドパレット等) に届かない
+              Super-p = "C-p";
+              Super-o = "C-o";
               Super-q = "C-q";
               Super-Enter = "C-Enter";
               # Cmd+Tab と Cmd+` は変換せず Hyprland 側 (hyprshell) に渡す
