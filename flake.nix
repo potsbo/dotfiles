@@ -56,7 +56,7 @@
 
       # home-manager は standalone ではなく NixOS / nix-darwin のモジュールとして組み込む。
       # system と home が同じ世代で切り替わり、./install は rebuild 一発で済む。
-      hmModule = hostname: isDarwin: { config, ... }:
+      hmModule = hostname: { config, ... }:
         {
           home-manager = {
             useGlobalPkgs = true;
@@ -95,7 +95,7 @@
           ./modules/nixos/xremap.nix
           dms.nixosModules.dank-material-shell
           home-manager.nixosModules.home-manager
-          (hmModule hostname false)
+          (hmModule hostname)
         ] ++ extraModules;
       };
 
@@ -104,7 +104,7 @@
         modules = [
           ./modules/darwin
           home-manager.darwinModules.home-manager
-          (hmModule hostname true)
+          (hmModule hostname)
         ] ++ lib.optional apps ./modules/darwin/apps.nix;
       };
     in
