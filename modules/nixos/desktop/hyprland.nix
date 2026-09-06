@@ -23,5 +23,9 @@
       enable = true;
       systemd.enable = true;
     };
+
+    # DMS の unit は graphical-session.target に紐づくので、GDM の greeter (gdm ユーザーの
+    # GNOME Shell) でも起動して /var/lib/gdm に設定を書こうとする。システムユーザーでは走らせない。
+    systemd.user.services.dms.unitConfig.ConditionUser = "!@system";
   };
 }
