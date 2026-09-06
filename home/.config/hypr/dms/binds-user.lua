@@ -307,14 +307,12 @@ end
 -- 登録するので、DMS 既定の Super+Tab (俯瞰) は外しておく。
 hl.unbind("SUPER + TAB")
 
--- Mission Control は DMS の俯瞰。macOS と同じ Ctrl+Up と三本指の上スワイプで開く。
+-- Ctrl+Up (全ウィンドウを並べる) は hyprshell の overview (hyprland.nix)。hyprshell が登録する。
+-- DMS の俯瞰 (ワークスペース単位の一覧) は Spaces の一覧として、三本指の上スワイプと
+-- Super+Alt+Tab に置く。hyprshell の overview はコマンドから開けないのでジェスチャには結べない。
 -- 俯瞰は DMS 既定の Super+O にも残っている。
 local function overview()
   hl.dispatch(hl.dsp.exec_cmd("dms ipc call hypr toggleOverview"))
 end
-hl.bind("CTRL + up", overview, { description = "Mission Control (overview)" })
-hl.bind("SUPER + ALT + TAB", overview, { description = "Mission Control (overview)" })
+hl.bind("SUPER + ALT + TAB", overview, { description = "Workspace overview" })
 hl.gesture({ fingers = 3, direction = "up", action = overview })
-
--- App Exposé (Ctrl+Down: いま使っているアプリのウィンドウ一覧) は hyprshell の overview を
--- 同じ class に絞って使う (hyprland.nix)。

@@ -88,8 +88,8 @@ in
     # Cmd+Tab: macOS のようにアイコンが並び、Cmd を押している間に Tab で選んで離すと切り替わる。
     # Hyprland にも DMS にもこの UI は無いので hyprshell (旧 hyprswitch) を使う。切り替えの
     # 候補は最近使った順、全モニタ・全ワークスペース (macOS と同じ)。Super+` は同じアプリの
-    # ウィンドウだけを回す (macOS の Cmd+`)。Ctrl+Down は App Exposé 相当で、いまのアプリの
-    # ウィンドウを並べる。hyprshell は起動時にこれらのキーを Hyprland に自分で登録する。
+    # ウィンドウだけを回す (macOS の Cmd+`)。hyprshell は起動時にこれらのキーを Hyprland に
+    # 自分で登録する。
     home-manager.users.potsbo.services.hyprshell = {
       enable = true;
       # 設定ファイルの版。無いと hyprshell は設定を読まず (移行判定で止まる)、バインドも登録
@@ -106,10 +106,13 @@ in
           key = "grave";
           filter_by = [ "same_class" ];
         };
+        # Ctrl+Up: 全ウィンドウを縮小して並べる (macOS の Mission Control でウィンドウが並ぶ部分)。
+        # DMS の俯瞰はワークスペース単位で、ウィンドウを並べる形ではなかった。overview は
+        # 1 つしか持てないので App Exposé (同じアプリだけ) はここでは出さない。
         overview = {
           modifier = "ctrl";
-          key = "Down";
-          filter_by = [ "same_class" ];
+          key = "Up";
+          filter_by = [ ];
           # overview にはランチャーが付くが、ランチャーは DMS を使うので出さない
           launcher.max_items = 0;
         };
