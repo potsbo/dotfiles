@@ -58,6 +58,14 @@ in
   home.file."src/github.com/romkatv/zsh-defer".source = "${pkgs.zsh-defer}/share/zsh-defer";
   home.file."src/github.com/mroth/evalcache".source = "${evalcache}/share/evalcache";
 
+  # プロフィール画像。DMS (ロック画面、コントロールセンター) と GDM は AccountsService の
+  # IconFile を見て、それが ~/.face を指している。GitHub のアイコンを使う。画像が変わったら
+  # hash を更新する (nix-prefetch-url https://github.com/potsbo.png)。
+  home.file.".face".source = pkgs.fetchurl {
+    url = "https://github.com/potsbo.png";
+    hash = "sha256-vL+tQ5Xvfm+/HU9XRdxdsoZTG9b21AZ8szjYLuKFgBQ=";
+  };
+
   # 移行前の ghq clone が実体ディレクトリとして残っていると symlink を張れず
   # activation が止まる (force = true もディレクトリには効かない) ので先に消す。
   # symlink になっていれば管理済みなので触らない。
