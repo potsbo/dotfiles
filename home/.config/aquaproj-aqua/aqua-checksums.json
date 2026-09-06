@@ -606,6 +606,11 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/herdrdev/herdr/v0.8.2/herdr-windows-x86_64.zip",
+      "checksum": "0AB3D0FE1434D55757997542B978C771D642987BB15A7130F4160F0DB38821D5",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/imsnif/bandwhich/v0.23.1/bandwhich-v0.23.1-aarch64-apple-darwin.tar.gz",
       "checksum": "3B440E6A48C94C2CA7507D45F769D8E97FE9069BAFA6F718B045A185ADDFAD36",
       "algorithm": "sha256"
@@ -1416,8 +1421,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.552.0/registry.yaml",
-      "checksum": "26CE5D8927230B8426972A07754399B131C0B307B0109C254776ACC954B547A3EB6910C7BBBB3A69C2F7806AC1F11213DF1C63CB1312DC617096B5BF96BBC0E4",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.558.1/registry.yaml",
+      "checksum": "71A4A7ED4252698D8889193BECB5BDF8F8F43FAA2FBF67F3A43549E1F0D28326373BECE528C9093EE2901D84D9BBEFE7DEE197010D30817234F4D38242F5E7B6",
       "algorithm": "sha512"
     }
   ]
