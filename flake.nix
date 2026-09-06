@@ -151,11 +151,13 @@
 
       homeConfigurations = lib.mapAttrs mkHome (hostsWith "home" "nixos");
 
-      packages.aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
+      packages = {
+        aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
 
-      # nix-update がハッシュを自動更新するための出力。CI (autofix.ci) が
-      # `nix-update --flake --version=skip <name>` で参照する。
-      packages.x86_64-linux = lib.genAttrs [ "aqua" "tuicast" "evalcache" ]
-        (name: nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/${name}.nix { });
+        # nix-update がハッシュを自動更新するための出力。CI (autofix.ci) が
+        # `nix-update --flake --version=skip <name>` で参照する。
+        x86_64-linux = lib.genAttrs [ "aqua" "tuicast" "evalcache" ]
+          (name: nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/${name}.nix { });
+      };
     };
 }
