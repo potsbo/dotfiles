@@ -205,6 +205,5 @@
       "trigger": "qrg"
     }
   },
-  "configVersion": 17,
-  "lockScreenPowerOffMonitorsOnLock": true
+  "configVersion": 17
 }
