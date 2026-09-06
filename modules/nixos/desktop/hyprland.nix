@@ -23,7 +23,12 @@ let
   # DMS の launch prefix (設定・環境変数) は 1.6.0 では効かなかった: strace で見ると起動は
   # `systemd-run --user --scope <Exec>` で prefix が付かない。PATH の shim は google-chrome や
   # slack のように Exec が絶対パスのものに効かないので、.desktop 自体を差し替える。
-  launcherEntries = pkgs.runCommand "dms-launcher-entries" { } ''
+  #
+  # runCommandLocal にしておく。入力に system-path と home-manager-path 全体を持つので、
+  # remote builder に出ると cache.nixos.org に無い unfree アプリ (vscode, zoom, cursor など
+  # 合計 6 GB 弱) を builder に送ることになる。awk で .desktop を書き換えるだけなので
+  # ローカルで十分。パス全体を入力に取る runCommand は同じ罠になる。
+  launcherEntries = pkgs.runCommandLocal "dms-launcher-entries" { } ''
     mkdir -p $out/share/applications
     for dir in ${config.system.path}/share/applications ${config.home-manager.users.potsbo.home.path}/share/applications; do
       [ -d "$dir" ] || continue
