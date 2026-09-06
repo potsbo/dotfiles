@@ -211,8 +211,9 @@ hl.config({
       tap_to_click = true,
       clickfinger_behavior = true,
       disable_while_typing = true,
-      -- スクロール量 (1.0 が既定)。速すぎたので下げる。マウスは input.scroll_factor
-      scroll_factor = 0.6,
+      -- スクロール量 (1.0 が既定)。トラックパッドは速く感じるので下げる。マウスは
+      -- input.scroll_factor で、HHKB は下の hl.device で別に持つ
+      scroll_factor = 0.4,
     },
     scroll_factor = 0.6,
     -- libinput の加速 (-1 〜 1)。GNOME では speed 0.5 にしていた
@@ -249,6 +250,7 @@ hl.config({
 -- ナチュラルスクロールだと向きが逆に感じる。HHKB だけ通常向きにする。
 -- xremap-1 は xremap の仮想デバイスで、HHKB のポインタ操作がそちらを経由して届く場合の保険。
 -- 名前は `hyprctl devices` で確認。
+-- スクロール量も HHKB は遅く感じるので、マウス共通の 0.6 より上げる
 for _, name in ipairs({ "pfu-limited-hhkb-studio-1", "xremap-1" }) do
-  hl.device({ name = name, natural_scroll = false })
+  hl.device({ name = name, natural_scroll = false, scroll_factor = 1.0 })
 end
