@@ -1,4 +1,4 @@
-{ config, pkgs, lib, accentColor ? "#797979", hostname ? "unknown", ... }:
+{ config, pkgs, lib, ... }:
 
 let
 
