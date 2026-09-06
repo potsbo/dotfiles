@@ -3,6 +3,11 @@
 # Theme
 theme = Monokai Remastered
 
+# 背景の透過。文字は不透明のまま背景だけ透ける。ぼかしは Linux (Hyprland) では compositor が
+# 既定で掛け、macOS では background-blur-radius で掛かる (Linux ではこのキーは無視される)。
+background-opacity = 0.85
+background-blur-radius = 20
+
 # Font
 # フォント指定は最小限。ghostty 内蔵の JetBrains Mono (Regular/Bold) と
 # Nerd Font アイコンをそのまま使い、日本語は macOS の CoreText 経由で
