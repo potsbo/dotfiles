@@ -23,7 +23,8 @@
   },
   "dankIslandBarId": "default",
   "dankIslandHoverOpenDelay": 50,
-  "dankIslandTransparency": 0.5,
+  "dankIslandPalette": "dim",
+  "dankIslandHighContrast": true,
   "dankIslandNotificationExpand": true,
   "dankIslandHomeLayout": [
     {
@@ -55,6 +56,8 @@
       "enabled": true
     }
   ],
+  "dankIslandSatelliteBackground": true,
+  "dankIslandSatelliteSwoopRadius": 12,
   "dankIslandSpringStiffness": 760,
   "osdPowerProfileEnabled": true,
   "barConfigs": [
