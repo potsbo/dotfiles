@@ -21,7 +21,9 @@
     }
   },
   "dankIslandBarId": "default",
-  "dankIslandHomeCompactTight": true,
+  "dankIslandHoverOpenDelay": 50,
+  "dankIslandTransparency": 0.5,
+  "dankIslandNotificationExpand": true,
   "dankIslandHomeLayout": [
     {
       "id": "media",
@@ -52,6 +54,7 @@
       "enabled": true
     }
   ],
+  "dankIslandSpringStiffness": 760,
   "osdPowerProfileEnabled": true,
   "barConfigs": [
     {
