@@ -213,7 +213,7 @@ hl.config({
       disable_while_typing = true,
       -- スクロール量 (1.0 が既定)。トラックパッドは速く感じるので下げる。マウスは
       -- input.scroll_factor で、HHKB は下の hl.device で別に持つ
-      scroll_factor = 0.4,
+      scroll_factor = 0.3,
     },
     scroll_factor = 0.6,
     -- libinput の加速 (-1 〜 1)。GNOME では speed 0.5 にしていた
