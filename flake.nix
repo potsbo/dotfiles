@@ -48,10 +48,20 @@
       # extraModules: そのホストだけの NixOS モジュール
       # (「モニタやキーボードが繋がっているか」は別の性質で、今は参照する設定が無いので持たない)
       hosts = {
-        phoenix = { system = "x86_64-linux"; os = "nixos"; color = palette.orange; manage = "system"; role = "workstation"; extraModules = [ ]; };
+        # builder を持つホストは他ホストの nix build を引き受ける (modules/remote-build.nix)。
+        # 常時稼働の x86_64-linux 機だけ。sshHostKey は client 側 root の known_hosts 用で、
+        # 入れ直して host key が変わったら ssh-keyscan -t ed25519 <host> で取り直す。
+        phoenix = {
+          system = "x86_64-linux"; os = "nixos"; color = palette.orange; manage = "system"; role = "workstation";
+          extraModules = [ ];
+          builder = { maxJobs = 4; speedFactor = 1; };
+          sshHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTgQinkEH54/i8XT8+2+rajQUEqvx84dSzMd/aZzS6l";
+        };
         raptorlake = {
           system = "x86_64-linux"; os = "nixos"; color = palette.white; manage = "system"; role = "server";
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
+          builder = { maxJobs = 8; speedFactor = 2; };
+          sshHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILr0XeysKahURB4x3NQ1KjGsq6pcoUwNNQuDg4uaF91N";
         };
         skylake = { system = "x86_64-linux"; os = "nixos"; color = palette.blue; manage = "system"; role = "laptop"; extraModules = [ ]; };
         avalanche = { system = "aarch64-darwin"; os = "darwin"; color = palette.purple; manage = "system"; };
@@ -110,7 +120,7 @@
       # eval cache も効かなくなる。
       mkNixos = hostname: { system, extraModules, role, ... }: lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit user; };
+        specialArgs = { inherit user hosts hostname; };
         modules = [
           {
             host = { inherit role; };
@@ -118,6 +128,7 @@
           }
           ./hosts/${hostname}/hardware-configuration.nix
           ./hosts/${hostname}/configuration.nix
+          ./modules/remote-build.nix
           xremap-flake.nixosModules.default
           ./modules/nixos/xremap.nix
           dms.nixosModules.dank-material-shell
@@ -128,10 +139,11 @@
 
       mkDarwin = { hostname, system, apps }: nix-darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = { inherit user; };
+        specialArgs = { inherit user hosts hostname; };
         modules = [
           { networking.hostName = hostname; }
           ./modules/darwin
+          ./modules/remote-build.nix
           home-manager.darwinModules.home-manager
           (hmModule hostname)
         ] ++ lib.optional apps ./modules/darwin/apps.nix;
