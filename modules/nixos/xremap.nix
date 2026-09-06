@@ -51,6 +51,9 @@ in
       Restart = "always";
       RestartSec = 3;
     };
+    # GDM の greeter でも graphical-session.target 経由で起動し、uinput を作れずに
+    # 3 秒おきに落ち続ける。greeter の判定は desktop/hyprland.nix の DMS と同じ。
+    systemd.user.services.xremap.unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
   
     # nixos-rebuild switch 時に xremap の設定変更を検知して自動再起動する
     # NixOS はユーザーサービスの自動再起動をしないため、userActivationScripts で対応

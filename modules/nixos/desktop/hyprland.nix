@@ -60,14 +60,30 @@ in
     # (dank-greeter) はあるが、ログイン画面のために input を増やすほどではない
     services.displayManager.gdm.enable = true;
 
+    # greeter の画面消灯は gsd-power (gnome-settings-daemon) がやる。GDM の module が入れる
+    # unit は gnome-session と gnome-shell だけで、GNOME デスクトップ無しだと greeter が
+    # wants する org.gnome.SettingsDaemon.*.target が not-found のまま、ログイン画面を
+    # 放置しても画面が消えない。
+    services.gnome.gnome-settings-daemon.enable = true;
+    # gsd-power は org.gnome.ScreenSaver の ActiveChanged を待って 15 秒後に消灯する。
+    # この名前を持つのは gnome-shell 本体ではなく、D-Bus 起動される中継サービス
+    # (gnome-shell 同梱の org.gnome.ScreenSaver.service) で、GDM の module は gnome-shell を
+    # bus の検索パスに載せないため greeter では「not activatable」になり、shell が
+    # スクリーンセーバーを有効にしても gsd-power に届かなかった。
+    services.dbus.packages = [ pkgs.gnome-shell ];
+
     programs.dank-material-shell = {
       enable = true;
       systemd.enable = true;
     };
 
-    # DMS の unit は graphical-session.target に紐づくので、GDM の greeter (gdm ユーザーの
-    # GNOME Shell) でも起動して /var/lib/gdm に設定を書こうとする。システムユーザーでは走らせない。
-    systemd.user.services.dms.unitConfig.ConditionUser = "!@system";
+    # DMS の unit は graphical-session.target に紐づくので、GDM の greeter (GNOME Shell) でも
+    # 起動する。そこで org.gnome.ScreenSaver を gnome-shell から横取りするため gsd-power に
+    # スクリーンセーバー有効の通知が届かず、ログイン画面の画面消灯が効かなくなる。
+    # `ConditionUser=!@system` では止まらない: GDM 50 の greeter は gdm-greeter-N という
+    # 通常 uid 帯のユーザーで走る。greeter かどうかはセッションの class で見る
+    # (xremap.nix の同じ条件も同じ理由)。
+    systemd.user.services.dms.unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
 
     # fcitx5 (日本語入力)。XDG autostart (/etc/xdg/autostart) を走らせる仕組みが Hyprland には
     # 無いので、user unit で起動する。
@@ -77,7 +93,7 @@ in
       after = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       wantedBy = [ "graphical-session.target" ];
-      unitConfig.ConditionUser = "!@system";
+      unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
       serviceConfig = {
         ExecStart = "${config.i18n.inputMethod.package}/bin/fcitx5 --disable notificationitem";
         Restart = "on-failure";
