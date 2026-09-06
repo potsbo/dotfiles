@@ -51,16 +51,19 @@
         # builder を持つホストは他ホストの nix build を引き受ける (modules/remote-build.nix)。
         # 常時稼働の x86_64-linux 機だけ。sshHostKey は client 側 root の known_hosts 用で、
         # 入れ直して host key が変わったら ssh-keyscan -t ed25519 <host> で取り直す。
+        # speedFactor は CPU の速さではなく近さで付けている。nix は速い方から使うが、
+        # 実際の所要時間は store path の転送が支配的で、LAN の phoenix (往復 5ms) の方が
+        # 外にある raptorlake (28 コアだが往復 26ms) より速く終わる。
         phoenix = {
           system = "x86_64-linux"; os = "nixos"; color = palette.orange; manage = "system"; role = "workstation";
           extraModules = [ ];
-          builder = { maxJobs = 4; speedFactor = 1; };
+          builder = { maxJobs = 4; speedFactor = 2; };
           sshHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOTgQinkEH54/i8XT8+2+rajQUEqvx84dSzMd/aZzS6l";
         };
         raptorlake = {
           system = "x86_64-linux"; os = "nixos"; color = palette.white; manage = "system"; role = "server";
           extraModules = [ ./hosts/raptorlake/disk-config.nix disko.nixosModules.disko ];
-          builder = { maxJobs = 8; speedFactor = 2; };
+          builder = { maxJobs = 8; speedFactor = 1; };
           sshHostKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILr0XeysKahURB4x3NQ1KjGsq6pcoUwNNQuDg4uaF91N";
         };
         skylake = { system = "x86_64-linux"; os = "nixos"; color = palette.blue; manage = "system"; role = "laptop"; extraModules = [ ]; };
