@@ -1,6 +1,6 @@
 # GNOME デスクトップ。desktop.environment (modules/nixos/desktop.nix) が "gnome" の
-# ときだけ有効になる。別の DE を試すときは specialisation で desktop.environment を
-# 差し替え、こちらは自然に外れる。
+# ときだけ有効になる。既定は Hyprland (hyprland.nix) に移したので、いまは phoenix の
+# specialisation "gnome" から選ぶ逃げ道。
 { config, pkgs, lib, ... }:
 
 let

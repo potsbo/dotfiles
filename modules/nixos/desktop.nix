@@ -16,7 +16,9 @@ in
 
   options.desktop.environment = lib.mkOption {
     type = lib.types.enum [ "gnome" "plasma" "hyprland" "none" ];
-    default = "gnome";
+    # 2026-09-06 に GNOME から Hyprland + DMS に切り替えた (見た目と macOS との操作の近さ)。
+    # GNOME は phoenix の specialisation に逃げ道として残している。
+    default = "hyprland";
     description = "どの DE を有効にするか。specialisation で差し替えて別の DE を試す。";
   };
 

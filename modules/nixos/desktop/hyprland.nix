@@ -1,6 +1,6 @@
-# Hyprland + DankMaterialShell (DMS)。desktop.environment (modules/nixos/desktop.nix) が
-# "hyprland" のときだけ有効で、GNOME (gnome.nix) と入れ替わる。hosts/phoenix の
-# specialisation から選ぶ。
+# Hyprland + DankMaterialShell (DMS)。desktop.environment (modules/nixos/desktop.nix) の
+# 既定で、GUI ありの NixOS ホスト全部で有効になる。GNOME (gnome.nix) は phoenix の
+# specialisation に残している。
 #
 # omarchy (nixarchy) は試したうえでやめた。見た目は良かったが、初回ログインの provisioning が
 # ~ に shim・.desktop・gsettings・mise 設定を撒く設計で、~ を dotfiles で管理している

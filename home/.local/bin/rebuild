@@ -51,10 +51,17 @@ if [[ -e /etc/NIXOS ]]; then
     # booted-system を先に見るのは、起動後に誰かが基本構成へ switch していても「この起動で
     # 選んだもの」に戻すため。current-system は、目印が無い古い世代で起動したあと手で
     # specialisation へ switch した場合の保険。
+    # 起動中の specialisation が新しい構成から消えている (既定に昇格した、など) ときは
+    # 基本構成に切り替える。
     specialisation=()
     for sys in /run/booted-system /run/current-system; do
       if [[ -r $sys/etc/specialisation ]]; then
-        specialisation=(--specialisation "$(< $sys/etc/specialisation)")
+        name=$(< $sys/etc/specialisation)
+        if nix eval "${DOTPATH}#nixosConfigurations.${HOSTNAME}.config.specialisation" --apply "s: s ? \"${name}\"" | grep -qx true; then
+          specialisation=(--specialisation "$name")
+        else
+          echo "specialisation '$name' は新しい構成に無いので基本構成に切り替える"
+        fi
         break
       fi
     done
