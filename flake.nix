@@ -39,7 +39,7 @@
       # os:      nixos | darwin。host-tags が表示に使う
       # managed: この dotfiles で system と home を管理するか。false は会社管理などで
       #          ./install の対象外。ssh 先として色とタグだけ持つ
-      # alwaysOn: 常時稼働。サスペンドせず、notes の remote-control server を常駐させる
+      # alwaysOn: 常時稼働。サスペンドしない
       # 以下は managed な nixos ホストだけが持つ:
       # laptop:   蓋を閉じたらサスペンドする
       # desktop:  GUI (DE、音、日本語入力、GUI アプリ、xremap) を入れる。
@@ -81,7 +81,6 @@
               ./modules/home-manager/starship.nix
               ./modules/home-manager/lazygit.nix
               ./modules/home-manager/notes-sync.nix
-              ./modules/home-manager/notes-remote-control.nix
             ];
             extraSpecialArgs = {
               inherit hostname palette hosts;

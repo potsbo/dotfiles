@@ -107,7 +107,7 @@ fi
 
 # --- リポジトリ・toolchain ---
 
-# notes-pull / notes-remote-control は dir が無いと exit 0 で黙って何もしない。
+# notes-pull は dir が無いと exit 0 で黙って何もしない。
 check "notes repo" "ghq get potsbo/notes" test -d ~/src/github.com/potsbo/notes/.git
 
 # dotfiles.nix が hunk skill path を張る。hunk が aqua で未導入だと no-op で終わる。
