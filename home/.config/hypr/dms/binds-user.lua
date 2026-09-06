@@ -228,3 +228,17 @@ hl.config({
     extend_border_grab_area = 12,
   },
 })
+
+-- 透過ウィンドウ (Ghostty の background-opacity) の背後のぼかし。Hyprland の既定は
+-- size 8 / passes 1 で薄い。macOS の半透明ウィンドウ (ターミナルや通知センター) に近い
+-- 強さにする。size は 1 pass あたりの半径、passes は重ねる回数で、掛け算で効く。
+hl.config({
+  decoration = {
+    blur = {
+      enabled = true,
+      size = 10,
+      passes = 3,
+      noise = 0.02,
+    },
+  },
+})
