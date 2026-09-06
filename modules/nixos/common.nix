@@ -84,32 +84,32 @@
       description = "Shimpei Otsubo";
       extraGroups = [ "networkmanager" "wheel" "docker" "onepassword-cli" ];
       shell = pkgs.zsh;
-      packages = with pkgs; [];
     };
   
-    programs.zsh.enable = true;
-    # system の /etc/zshrc が実行する compinit を無効化する。既定では -d なしで
-    # ~/.zcompdump を毎ログイン生成してしまうため。補完初期化は user の .zshrc が
-    # `compinit -d $XDG_CACHE_HOME/zsh/...` で XDG 配下に行う。
-    programs.zsh.enableGlobalCompInit = false;
-    programs.nix-ld.enable = true;
-    programs.nix-ld.libraries = with pkgs; [
-      readline
-      krb5.lib
-    ];
-    programs.mosh.enable = true;
-    programs._1password.enable = true;
-  
+    programs = {
+      zsh.enable = true;
+      # system の /etc/zshrc が実行する compinit を無効化する。既定では -d なしで
+      # ~/.zcompdump を毎ログイン生成してしまうため。補完初期化は user の .zshrc が
+      # `compinit -d $XDG_CACHE_HOME/zsh/...` で XDG 配下に行う。
+      zsh.enableGlobalCompInit = false;
+      nix-ld.enable = true;
+      nix-ld.libraries = with pkgs; [
+        readline
+        krb5.lib
+      ];
+      mosh.enable = true;
+      _1password.enable = true;
+      # rclone mount (FUSE) support
+      # 26.11 で programs.fuse が opt-in 化した。DE 側の xdg-portal などが暗黙に有効化する
+      # ことがあるが、それに頼ると DE を変えたときに setuid fusermount3 ごと消えて
+      # rclone mount が黙って失敗する。依存を明示しておく。
+      fuse.enable = true;
+      fuse.userAllowOther = true;
+    };
+
     environment.systemPackages = with pkgs; [
       git
     ];
-  
-    # rclone mount (FUSE) support
-    # 26.11 で programs.fuse が opt-in 化した。DE 側の xdg-portal などが暗黙に有効化する
-    # ことがあるが、それに頼ると DE を変えたときに setuid fusermount3 ごと消えて
-    # rclone mount が黙って失敗する。依存を明示しておく。
-    programs.fuse.enable = true;
-    programs.fuse.userAllowOther = true;
   
     # Keep user services running after logout (for rclone mount)
     users.users.potsbo.linger = true;
