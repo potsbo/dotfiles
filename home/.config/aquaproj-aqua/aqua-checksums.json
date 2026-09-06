@@ -131,8 +131,18 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.263/claude-linux-arm64-musl.tar.gz",
+      "checksum": "7D49674FD10BBF7D0E5989BD300AAA8DCE4C2ECFEC66D2C19A82FE4EC84BFEB8",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/anthropics/claude-code/v2.1.263/claude-linux-arm64.tar.gz",
       "checksum": "CBA2E616346C4F45F7FE468297BCC186D84EE6C292B2B1814B9BE190B1DA49BE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.263/claude-linux-x64-musl.tar.gz",
+      "checksum": "9A96F0E03CEA5EBBB3AF9B70CDE7DC145ED33C7912735CBEEE1F923F55DE0585",
       "algorithm": "sha256"
     },
     {
@@ -1418,6 +1428,16 @@
     {
       "id": "http/nodejs.org/dist/v26.8.1/node-v26.8.1-win-x64.zip",
       "checksum": "57693D8E93D1B04E7B7DE46ACA53ECD63E97564E73DE36A68428D7FF08D83587",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.8.1/node-v26.8.1-linux-arm64-musl.tar.gz",
+      "checksum": "0FE78AFDEB4A4D273B14ABBD4B946C772885C58994C9D23B1C8AE0A59A2F8A53",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.8.1/node-v26.8.1-linux-x64-musl.tar.gz",
+      "checksum": "13135A6A2106F9D111FA9B48C8801ED119AD43E7E1D00DE17D77A9C44899AADA",
       "algorithm": "sha256"
     },
     {
