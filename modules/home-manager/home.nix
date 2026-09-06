@@ -8,8 +8,6 @@ let
 
   tuicast = pkgs.callPackage ../../pkgs/tuicast.nix { };
 
-  todoist-cli = pkgs.callPackage ../../pkgs/todoist-cli.nix { };
-
   evalcache = pkgs.callPackage ../../pkgs/evalcache.nix { };
 
 in
@@ -85,7 +83,6 @@ in
   home.packages = with pkgs; [
     aqua
     tuicast
-    # todoist-cli # install がハングするようになってしまった
     # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
     # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
     # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
