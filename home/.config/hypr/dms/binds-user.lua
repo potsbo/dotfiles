@@ -244,3 +244,11 @@ hl.config({
     },
   },
 })
+
+-- HHKB Studio のポインティングスティック / ジェスチャーパッドはマウス扱いだが、
+-- ナチュラルスクロールだと向きが逆に感じる。HHKB だけ通常向きにする。
+-- xremap-1 は xremap の仮想デバイスで、HHKB のポインタ操作がそちらを経由して届く場合の保険。
+-- 名前は `hyprctl devices` で確認。
+for _, name in ipairs({ "pfu-limited-hhkb-studio-1", "xremap-1" }) do
+  hl.device({ name = name, natural_scroll = false })
+end
