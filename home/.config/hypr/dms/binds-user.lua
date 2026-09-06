@@ -66,7 +66,11 @@ local function place(fx, fy, fw, fh)
     if fx + fw < 1 then cw = cw - gap / 2 end
     if fy > 0 then y = y + gap / 2; ch = ch - gap / 2 end
     if fy + fh < 1 then ch = ch - gap / 2 end
-    hl.dispatch(hl.dsp.window.float({ action = "set" }))
+    -- float({ action = "set" }) は Hyprland 0.56 では toggle として動く (実機で確認: 2 回送ると
+    -- タイルに戻る)。浮動でないときだけ切り替える。
+    if not w.floating then
+      hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+    end
     hl.dispatch(hl.dsp.window.resize({ x = math.floor(cw - 2 * border), y = math.floor(ch - 2 * border) }))
     hl.dispatch(hl.dsp.window.move({ x = math.floor(x + border), y = math.floor(y + border) }))
     -- 配置したウィンドウが他の浮動ウィンドウの下に残ることがある (フォーカスと重なり順は
