@@ -20,7 +20,11 @@ jobs:
       - uses: actions/checkout@v7
       - run: mkdir -p ~/src/github.com/potsbo && ln -s "$GITHUB_WORKSPACE" ~/src/github.com/potsbo/dotfiles
       - run: |
-          ! ./install 2>&1 | tee install.log
+          set -o pipefail
+          if ./install 2>&1 | tee install.log; then
+            echo 'install が失敗しなかった (rebuild まで届くはずがない)' >&2
+            exit 1
+          fi
           grep -q 'only NixOS and macOS are supported' install.log
 
   # ./install は potsbo 専用で runner では最後まで動かせないので、aqua.yaml の検証は別に行う。
@@ -35,6 +39,22 @@ jobs:
         env:
           AQUA_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua.yaml
           AQUA_POLICY_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua-policy.yaml
+
+  # 手元の `task check` と同じもの (Taskfile.yml)。lint と全ホストの eval。
+  # task は aqua で引く。`aqua i -l` は proxy の symlink を張るだけで、本体は初回実行時に落ちる。
+  check:
+    runs-on: ubuntu-latest
+    env:
+      AQUA_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua.yaml
+      AQUA_POLICY_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua-policy.yaml
+    steps:
+      - uses: actions/checkout@v7
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - uses: aquaproj/aqua-installer@v4.0.5
+        with:
+          aqua_version: v2.62.3
+      - run: aqua i -l
+      - run: task check
 
   nix:
     runs-on: ubuntu-latest

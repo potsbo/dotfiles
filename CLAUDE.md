@@ -6,6 +6,14 @@ Commit dotfiles changes directly on `main` — do **not** create a branch or git
 worktree unless explicitly asked. These changes are usually meant to be tried
 immediately (the repo is symlinked into `~`), so branching just adds friction.
 
+### commit 前の check
+
+**`task check` が通るまで commit しない。** statix / deadnix / shellcheck / actionlint と、全ホストの
+eval (`abort-on-warn` で nixpkgs の deprecation warning も error 扱い) を回す。何を
+回しているかは `Taskfile.yml`。CI も同じ task を呼ぶので、手元で通れば CI も通る。
+落ちたら指摘を直す。lint を黙らせるための無効化コメントは、誤検知だと説明できる
+ときだけ、理由を添えて置く。
+
 ### Renovate の PR
 
 Renovate の PR (branch `renovate/*`) には触らない: push、`gh pr update-branch`、
