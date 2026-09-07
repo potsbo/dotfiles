@@ -47,13 +47,13 @@ in
 
     programs.dconf.enable = true;
 
+    # fcitx5 用の GTK_IM_MODULE / QT_IM_MODULE / XMODIFIERS はここに書かない。
+    # i18n.inputMethod.fcitx5 が waylandFrontend の有無を見て必要な分だけ設定する
+    # (Wayland ネイティブなら XMODIFIERS だけ)。手で GTK/QT_IM_MODULE を足すと、fcitx5 が
+    # ログインごとに "Wayland Diagnose" の通知で外せと言ってくる (2026-09-07)。
     environment.sessionVariables = {
       # GTK Emacs keybindings (Ctrl+A/E/K/D/H etc.) — like macOS Cocoa
       GTK_KEY_THEME = "Emacs";
-      # fcitx5 input method
-      GTK_IM_MODULE = "fcitx";
-      QT_IM_MODULE = "fcitx";
-      XMODIFIERS = "@im=fcitx";
     };
 
     fonts.packages = with pkgs; [

@@ -23,18 +23,9 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Look: Spotlight / Raycast 系のランチャー。nixpkgs に無く、Linux 版の flake は
-    # apps/linows 配下にある (macOS 版は SwiftUI の別アプリで Homebrew cask から入れる)。
-    # nixpkgs を follows させると upstream の Cachix は当たらずソースビルドになるが、
-    # follows しないと webkitgtk ごと別 nixpkgs の closure を抱えるので、他の input と
-    # 同じく follows を取り、ビルドは remote builder に任せる。
-    look = {
-      url = "github:kunkka19xx/look?dir=apps/linows";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, look, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -110,7 +101,6 @@
         ./modules/home-manager/starship.nix
         ./modules/home-manager/lazygit.nix
         ./modules/home-manager/notes-sync.nix
-        look.homeModules.default
       ];
       # home 配下のパスは渡さない。各モジュールが config.home.homeDirectory から組む。
       hmSpecialArgs = hostname: {

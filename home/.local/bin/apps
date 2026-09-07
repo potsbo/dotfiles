@@ -3,10 +3,10 @@
 # macOS の GUI アプリ (Homebrew cask / Mac App Store) を宣言どおりに揃える。
 # 宣言は modules/darwin/apps.nix、それを読む構成が `<host>-apps`。
 #
-# rebuild からこれを切り離してあるのは brew / mas が遅いため。Word などの
-# 更新が毎回挟まると、nix の設定をサッと反映したいだけのときに待たされる。
-# アプリを足した / 消したときだけ叩けばよい。rebuild は呼ばない。
-# cache / reap と同じく冪等で、揃っていれば何もしない。
+# rebuild からこれを切り離してあるのは brew / mas が遅いため。nix の設定を
+# サッと反映したいだけのときに待たされる。アプリを足した / 消したときだけ
+# 叩けばよい。rebuild は呼ばない。cache / reap と同じく冪等で、揃っていれば
+# 何もしない。既存アプリの更新はしない (apps.nix の onActivation.upgrade)。
 #
 # 使い方: apps [--dry-run]
 #   --dry-run : 実行せず、何を流すかだけ表示
@@ -34,7 +34,7 @@ HOSTNAME="${HOSTNAME%.local}"
 # 構成が無いホストでは switch できないので先に弾く。attrNames だけを見るので
 # 構成本体は評価されず一瞬で終わる。
 if ! nix eval --extra-experimental-features 'nix-command flakes' \
-  "${DOTPATH}/nix#darwinConfigurations" --apply builtins.attrNames 2>/dev/null |
+  "${DOTPATH}#darwinConfigurations" --apply builtins.attrNames 2>/dev/null |
   grep -qF "\"${HOSTNAME}-apps\""; then
   echo "apps: configuration ${HOSTNAME}-apps is not in flake.nix" >&2
   exit 1
