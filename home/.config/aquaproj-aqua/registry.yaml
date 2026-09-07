@@ -35,3 +35,21 @@ packages:
       - linux
     files:
       - name: ax
+  # terminal-browser - Chromium (Electron) を端末内にオフスクリーン描画するブラウザ。
+  # https://github.com/zenbu-labs/terminal-browser
+  # 公式は brew か curl | bash だが、GitHub release に tarball があるので aqua で入れる。
+  # bin/terminal-browser は同梱 Electron を相対パスで exec する wrapper なので
+  # tarball の展開構造をそのまま使う。NixOS では Electron のシステムライブラリを
+  # nix-ld 側で用意している (modules/nixos/common.nix)。
+  - type: github_release
+    repo_owner: zenbu-labs
+    repo_name: terminal-browser
+    asset: terminal-browser-{{.OS}}-{{.Arch}}.tar.gz
+    replacements:
+      amd64: x64
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: terminal-browser
+        src: terminal-browser/bin/terminal-browser

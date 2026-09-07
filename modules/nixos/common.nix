@@ -96,6 +96,34 @@
       nix-ld.libraries = with pkgs; [
         readline
         krb5.lib
+        # aqua で入れる terminal-browser が同梱する Electron の実行時依存。
+        # nixpkgs に package はなく、公式配布が Electron 同梱 tarball のみなので
+        # patchelf するより nix-ld に寄せる方が upstream 追従が楽。
+        alsa-lib
+        at-spi2-atk
+        at-spi2-core
+        atk
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        gtk3
+        libdrm
+        libgbm
+        libGL
+        libxkbcommon
+        nspr
+        nss
+        pango
+        udev
+        xorg.libX11
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        xorg.libxcb
       ];
       mosh.enable = true;
       _1password.enable = true;
