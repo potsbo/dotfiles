@@ -1,4 +1,4 @@
-{ lib, palette, accentColor, ... }:
+{ lib, palette, accentColor, accentFgColor, ... }:
 
 {
   programs.starship.settings = {
@@ -27,7 +27,7 @@
 
     os = {
       disabled = false;
-      style = "bg:accent fg:black";
+      style = "bg:accent fg:on_accent";
     };
 
     os.symbols = {
@@ -47,12 +47,12 @@
         command = "echo '\\uef81'";
         when = "git rev-parse --git-dir 2>/dev/null | grep -q worktrees";
         format = "[$output ]($style)";
-        style = "bg:accent fg:black";
+        style = "bg:accent fg:on_accent";
       };
 
       git_repo_name = {
         shell = [ "sh" ];
-        style = "bg:accent fg:black";
+        style = "bg:accent fg:on_accent";
         command = "git remote get-url origin 2>/dev/null | sed -E 's#.*/([^/]+)(\\.git)?$#\\1#' | sed 's#\\.git$##'";
         when = "git rev-parse --is-inside-work-tree 2>/dev/null";
         format = "[$output ]($style)";
@@ -90,7 +90,7 @@
       disabled = false;
       time_format = "%R";
       style = "bg:accent";
-      format = "[[  $time ](fg:black bg:accent)]($style)";
+      format = "[[  $time ](fg:on_accent bg:accent)]($style)";
     };
 
     jobs = {
@@ -111,6 +111,7 @@
     palettes.monokai = {
       inherit (palette) black white red green;
       accent = accentColor;
+      on_accent = accentFgColor;
     };
   };
 }

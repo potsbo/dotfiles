@@ -81,7 +81,9 @@
         skylake = { system = "x86_64-linux"; os = "nixos"; color = palette.blue; manage = "system"; role = "laptop"; extraModules = [ ]; };
         avalanche = { system = "aarch64-darwin"; os = "darwin"; color = palette.purple; manage = "system"; };
         blizzard = { system = "aarch64-darwin"; os = "darwin"; color = palette.cyan; manage = "system"; };
-        graniteridge = { system = "x86_64-linux"; os = "nixos"; color = palette.green; manage = "home"; };
+        # green だと starship の branch セグメントと同色で境界が消える。black は端末背景に
+        # 沈んで見えなかったので、少し明るい surface に白文字。
+        graniteridge = { system = "x86_64-linux"; os = "nixos"; color = palette.surface; fg = palette.white; manage = "home"; };
       };
       hostsWith = manage: os: lib.filterAttrs (_: h: h.os == os && h.manage == manage) hosts;
 
@@ -104,6 +106,8 @@
       hmSpecialArgs = hostname: {
         inherit hostname palette hosts;
         accentColor = hosts.${hostname}.color;
+        # accent の上に乗せる文字色。accent が暗いホストだけ fg で白を指定する。
+        accentFgColor = hosts.${hostname}.fg or palette.black;
         defaultColor = palette.gray;
       };
 
