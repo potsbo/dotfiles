@@ -2,10 +2,13 @@
 
 # 再生成可能なパッケージ/ビルド成果物を刈り取ってディスクを空ける。
 # ここで消すものは「消えても再取得できるキャッシュ類」だけ:
-#   - aqua: 60日 (AQUA_VACUUM_DAYS) 以上使っていない旧バージョンのバイナリ (aqua vacuum)
-#   - nix : user profile の旧世代 + 到達不能な store パス (nix-collect-garbage -d)
-#   - nix : system profile の旧世代 (sudo nix-collect-garbage -d) ← store の大半はここが保持
-#   - git : マージ済みの古い worktree / branch (git vacuum) ← 安全網で処理中データは残す
+#   - aqua : 60日 (AQUA_VACUUM_DAYS) 以上使っていない旧バージョンのバイナリ (aqua vacuum)
+#   - nix  : user profile の旧世代 + 到達不能な store パス (nix-collect-garbage -d)
+#   - nix  : system profile の旧世代 (sudo nix-collect-garbage -d) ← store の大半はここが保持
+#   - mac  : brew のダウンロードキャッシュと旧バージョン (brew cleanup --prune=all)
+#   - mac  : Electron 自動更新のダウンロード残骸、Chrome / Slack のキャッシュ
+#   - mac  : Podcasts のダウンロード済みエピソード
+#   - git  : マージ済みの古い worktree / branch (git vacuum) ← 安全網で処理中データは残す
 #
 # git vacuum は dirty・未 push・30日以内の worktree をスキップするので、処理対象データが
 # 入った作業ツリーは消えない。root 所有ファイルの残骸までは消せない点だけ注意。
@@ -25,8 +28,35 @@ run() {
   "$@"
 }
 
-avail() { df -B1 --output=avail / 2>/dev/null | tail -1 | tr -d ' '; }
-human() { numfmt --to=iec --suffix=B "$1" 2>/dev/null || echo "$1"; }
+# 空き容量は $HOME のあるファイルシステムで測る。macOS の / は読み取り専用の
+# システムボリュームで、Linux でも /home が別ボリュームのことがある。
+# df -Pk と awk だけで書くのは、GNU coreutils を PATH に持たない素の mac
+# (home-manager を入れる前など) でも動かすため。--output= や numfmt は GNU 専用で、
+# BSD 版では空文字を返して下の引き算が set -e で落ちる。
+avail() { df -Pk "$HOME" 2>/dev/null | awk 'NR>1 { print $4 * 1024; exit }'; }
+human() {
+  awk -v b="$1" 'BEGIN {
+    sign = ""; if (b < 0) { sign = "-"; b = -b }
+    split("KB MB GB TB", u, " "); s = "B"
+    for (i = 1; b >= 1024 && i <= 4; i++) { b /= 1024; s = u[i] }
+    printf "%s%.1f%s", sign, b, s
+  }'
+}
+
+# 消えても再取得されるディレクトリを丸ごと落とす。サイズを出すのは、dry-run で
+# 「どれが効くのか」を見て取捨選択できるようにするため。
+purge() {
+  [ -e "$1" ] || return 0
+  echo "+ rm -rf $1 ($(du -sh "$1" 2>/dev/null | cut -f1))"
+  [ "$DRY_RUN" = 1 ] && return 0
+  # 対象を使っているアプリが起動していると、消している端から作り直されて rm が
+  # "Directory not empty" で失敗する。大半は消えているのに、ここで止まると後続の
+  # git vacuum と集計まで飛ぶので、失敗は握って残量だけ報告する。アプリを閉じさせて
+  # まで消し切る価値はない (次に起動すればどのみち作り直される)。
+  rm -rf -- "$1" 2>/dev/null || true
+  [ -e "$1" ] && echo "  一部残った: $(du -sh "$1" 2>/dev/null | cut -f1) (起動中のアプリが再作成した分)"
+  return 0
+}
 
 before=$(avail)
 
@@ -49,6 +79,48 @@ if command -v nix-collect-garbage >/dev/null 2>&1; then
   fi
 fi
 
+# --- macOS: アプリ側が抱える再取得可能なキャッシュ ---
+# Xcode の DerivedData / CoreSimulator と Time Machine のローカルスナップショットは
+# 意図的に対象外。前者はこの環境に Xcode が無く、後者はキャッシュではなく巻き戻し用の
+# バックアップで、OS アップデート準備中のスナップショットを消すと更新が壊れる。
+if [ "$(uname -s)" = Darwin ]; then
+  # brew がダウンロードした bottle / cask と、入れ替え済みの旧バージョン。
+  # nix-darwin の homebrew.onActivation.cleanup = "zap" は「宣言から外したアプリの
+  # アンインストール」であって、宣言どおり入っているアプリの残骸には効かないので
+  # apps を流しても減らない。
+  if command -v brew >/dev/null 2>&1; then
+    echo "== brew cleanup --prune=all =="
+    if [ "$DRY_RUN" = 1 ]; then
+      brew cleanup --dry-run --prune=all
+    else
+      run brew cleanup --prune=all
+    fi
+  fi
+
+  echo "== macOS app caches =="
+  caches="$HOME/Library/Caches"
+  # Squirrel.Mac (Electron アプリの自動更新) が落とした .zip / .app。適用後も消えず
+  # 溜まり続ける。~/Library/Caches を丸ごと消さないのは、アプリによっては実質的な
+  # 状態をここに置いていることがあり、キャッシュかどうかを名前から判定できないため。
+  # 更新機構が作るディレクトリ名 (*-updater, *.ShipIt) だけを狙う。
+  for d in "$caches"/*-updater "$caches"/*.ShipIt; do purge "$d"; done
+  # Chrome のキャッシュ。プロファイル本体は ~/Library/Application Support 配下なので
+  # ここを消してもログイン状態やブックマークは残る (しばらく閲覧が遅くなるだけ)。
+  purge "$caches/Google"
+
+  # Slack (Electron) の HTTP キャッシュと Service Worker。ワークスペースの状態は
+  # 同じ Slack ディレクトリ直下の DB が持っているので、ログイン状態や未読は残る。
+  slack="$HOME/Library/Containers/com.tinyspeck.slackmacgap/Data/Library/Application Support/Slack"
+  for d in "Cache" "Service Worker" "Code Cache" "GPUCache"; do purge "$slack/$d"; done
+
+  # Podcasts のダウンロード済みエピソード。購読とプレイリストは Documents 配下の
+  # DB が持ち、エピソードの実体だけが Library/Cache に置かれるので、実体を消しても
+  # 購読は壊れない (再ダウンロードになるだけ)。ディレクトリごとではなく拡張子で
+  # 狙うのは、同じ Cache に artwork (Assets) が同居しているため。
+  pod="$HOME/Library/Group Containers/243LU875E5.groups.com.apple.podcasts/Library/Cache"
+  for f in "$pod"/*.mp3 "$pod"/*.m4a; do purge "$f"; done
+fi
+
 # --- git: マージ済みの古い worktree / branch を掃除 (安全網は git vacuum 側が持つ) ---
 if command -v git-vacuum >/dev/null 2>&1; then
   echo "== git vacuum (worktree/branch GC) =="
@@ -65,5 +137,5 @@ if [ "$DRY_RUN" = 1 ]; then
   echo "dry-run: the commands above would delete regenerable caches."
 else
   freed=$(( after - before ))
-  echo "done: freed $(human "$freed") ($(human "$before") -> $(human "$after") free on /)"
+  echo "done: freed $(human "$freed") ($(human "$before") -> $(human "$after") free on $HOME)"
 fi

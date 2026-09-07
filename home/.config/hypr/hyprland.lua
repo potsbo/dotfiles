@@ -58,6 +58,13 @@ hl.config({
 	misc = {
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
+		-- 画面 OFF (DPMS) からの復帰を DMS の idle 復帰通知だけに任せない。DMS はモニタを
+		-- 消した側が ext-idle-notify の resumed を受けて点け直す作りなので、消えている間に
+		-- DMS が再起動する (home-manager switch など) と、新しい DMS は OFF を知らず、
+		-- キーを叩いても誰も点けない状態になる (2026-09-07 phoenix で発生)。
+		-- compositor 自身が入力で点ければ DMS の状態に依存しない。
+		key_press_enables_dpms = true,
+		mouse_move_enables_dpms = true,
 	},
 	dwindle = {
 		preserve_split = true,
