@@ -34,7 +34,7 @@ HOSTNAME="${HOSTNAME%.local}"
 # 構成が無いホストでは switch できないので先に弾く。attrNames だけを見るので
 # 構成本体は評価されず一瞬で終わる。
 if ! nix eval --extra-experimental-features 'nix-command flakes' \
-  "${DOTPATH}/nix#darwinConfigurations" --apply builtins.attrNames 2>/dev/null |
+  "${DOTPATH}#darwinConfigurations" --apply builtins.attrNames 2>/dev/null |
   grep -qF "\"${HOSTNAME}-apps\""; then
   echo "apps: configuration ${HOSTNAME}-apps is not in flake.nix" >&2
   exit 1
