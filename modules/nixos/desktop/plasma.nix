@@ -11,7 +11,7 @@
 #   ショートカット > KWin で手で割り当てる。Super+矢印の半分/最大化は既定で動く。
 # - フォント・タッチパッド設定: 同じく試用中は GUI で設定する。採用が決まったら
 #   plasma-manager を入れるか判断する。
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 {
   config = lib.mkIf (config.host.desktop && config.desktop.environment == "plasma") {
     services.displayManager.sddm = {

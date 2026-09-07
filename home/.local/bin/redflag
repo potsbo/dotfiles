@@ -9,7 +9,7 @@ usage() {
 
 PRESETS=(
   'lazygit'
-  'claude',
+  'claude'
   'nvim'
   'vim'
   'gitui'

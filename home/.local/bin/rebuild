@@ -75,7 +75,8 @@ if [[ -e /etc/NIXOS ]]; then
     "${HM_ACTIVATION}/activate"
   fi
 elif [[ "$(uname -s)" == Darwin ]]; then
-  # sudo 越しなので上の関数は届かない。
+  # sudo 越しなので上の関数は届かない (本物の nix を呼ぶ意図)。
+  # shellcheck disable=SC2033
   sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}" -- switch --flake "${DOTPATH}#${HOSTNAME}"
 else
   # 対象は NixOS と macOS だけ。それ以外の Linux は使っていない。

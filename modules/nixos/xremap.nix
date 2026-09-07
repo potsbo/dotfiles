@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 
 let
   # HHKB Studio USB vendor/product ID (PFU vendor 0x04FE, product 0x0016)

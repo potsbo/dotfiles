@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+_:
 {
   imports = [
     ../../modules/nixos/common.nix
