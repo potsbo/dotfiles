@@ -321,3 +321,10 @@ local function overview()
 end
 hl.bind("SUPER + ALT + TAB", overview, { description = "Workspace overview" })
 hl.gesture({ fingers = 3, direction = "up", action = overview })
+
+-- === キーボードバックライト (MacBook の F5/F6) ===
+-- DMS の brightness IPC は画面用なので、brightnessctl (modules/nixos/desktop/hyprland.nix) で
+-- leds クラスを直接動かす。デバイス名は機種で変わる (MacBook9,1 は spi::kbd_backlight) ので glob。
+for _, pair in ipairs({ { "XF86KbdBrightnessUp", "10%+" }, { "XF86KbdBrightnessDown", "10%-" } }) do
+  hl.bind(pair[1], hl.dsp.exec_cmd("brightnessctl -d '*::kbd_backlight' set " .. pair[2]), { locked = true, repeating = true })
+end

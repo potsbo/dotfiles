@@ -156,6 +156,12 @@ in
       };
     };
 
-    environment.systemPackages = [ focusOrLaunch ];
+    environment.systemPackages = [
+      focusOrLaunch
+      # キーボードバックライト (XF86KbdBrightnessUp/Down、home/.config/hypr/dms/binds-user.lua)。
+      # DMS の brightness IPC は画面のバックライトしか扱わない。brightnessctl は logind の
+      # SetBrightness 経由で leds クラスも書けるので、udev 規則も root も要らない。
+      pkgs.brightnessctl
+    ];
   };
 }
