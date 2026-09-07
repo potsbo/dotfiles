@@ -19,6 +19,9 @@ in
     # aqua は completion ファイルを展開せず、eza 自体にも `eza completion zsh` のような生成コマンドがないため。
     eza.enable = true;
     eza.enableZshIntegration = false; # エイリアスは不要、completion だけ欲しい
+    # Look (ランチャー)。package は Linux 向けしか無く、darwin で enable すると eval で落ちる。
+    # macOS 版は modules/darwin/apps.nix の cask。
+    lookapp.enable = pkgs.stdenv.hostPlatform.isLinux;
   };
 
   # home-manager 内部で builtins.toFile が store path を参照する際の警告を回避

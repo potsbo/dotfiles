@@ -15,6 +15,9 @@ _:
       autoUpdate = false;
       upgrade = true;
     };
+    taps = [
+      "kunkka19xx/tap" # look
+    ];
     brews = [
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
     ];
@@ -34,6 +37,7 @@ _:
       "google-chrome"
       "google-japanese-ime"
       "raycast"
+      "look" # Linux 側は flake input look (flake.nix) から入る
       "keyboard-cleaner"
       "zoom"
       "dash"
