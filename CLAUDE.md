@@ -8,7 +8,7 @@ immediately (the repo is symlinked into `~`), so branching just adds friction.
 
 ### commit 前の check
 
-**`task check` が通るまで commit しない。** statix / deadnix / shellcheck / actionlint と、全ホストの
+**`task check` が通るまで commit しない。** statix / deadnix / nixf-tidy / shellcheck / actionlint と、全ホストの
 eval (`abort-on-warn` で nixpkgs の deprecation warning も error 扱い) を回す。何を
 回しているかは `Taskfile.yml`。CI も同じ task を呼ぶので、手元で通れば CI も通る。
 落ちたら指摘を直す。lint を黙らせるための無効化コメントは、誤検知だと説明できる

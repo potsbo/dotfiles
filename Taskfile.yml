@@ -15,7 +15,7 @@ vars:
 tasks:
   check:
     desc: lint と全ホストの eval。commit 前に必ず通す
-    deps: [statix, deadnix, shellcheck, actionlint, eval, flake-check]
+    deps: [statix, deadnix, nixf-tidy, shellcheck, actionlint, eval, flake-check]
 
   statix:
     cmds:
@@ -53,3 +53,21 @@ tasks:
   actionlint:
     cmds:
       - nix run --inputs-from . nixpkgs#actionlint
+
+  # nixf-tidy (nixd 同梱) は statix / deadnix より広い意味解析の診断を出す。
+  # 1 回に 1 ファイルを stdin から読み、診断を JSON 配列で返して常に exit 0 なので、
+  # 空でない配列を返したファイルがあれば fail にする。設定ファイルも抑止コメントも
+  # 無いので、誤検知はコードを書き換えて避けるか対象から外すかしかない。
+  nixf-tidy:
+    cmds:
+      - |
+        nix shell --inputs-from . nixpkgs#nixf -c sh -c '
+          fail=0
+          for f in "$@"; do
+            out=$(nixf-tidy --variable-lookup --pretty-print < "$f")
+            if [ "$out" != "[]" ]; then
+              echo "== $f"; echo "$out"; fail=1
+            fi
+          done
+          exit $fail
+        ' sh {{.NIX_FILES | catLines}}
