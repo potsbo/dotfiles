@@ -3,3 +3,7 @@
 /home/.config/DankMaterialShell/.firstlaunch
 /home/.config/btop/themes
 /home/.config/hyprshell/config.json
+
+# nix build の出力 symlink (--no-link を付け忘れたときに残る)
+/result
+/result-*
