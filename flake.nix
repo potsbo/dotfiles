@@ -105,6 +105,7 @@
         ./modules/home-manager/home.nix
         ./modules/home-manager/hosts.nix
         ./modules/home-manager/dotfiles.nix
+        ./modules/home-manager/aqua.nix
         ./modules/home-manager/mozc.nix
         ./modules/home-manager/starship.nix
         ./modules/home-manager/lazygit.nix

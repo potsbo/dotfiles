@@ -3,7 +3,6 @@
 { config, pkgs, lib, ... }:
 
 let
-  dotfilesPath = "${config.home.homeDirectory}/src/github.com/potsbo/dotfiles";
   notesDir = "${config.home.homeDirectory}/src/github.com/potsbo/notes";
 
   notesPull = pkgs.writeShellScript "notes-pull" ''
@@ -14,8 +13,8 @@ let
     # "command is not found" で落ちる (systemd user unit にはログインシェルの
     # 環境が入っていないので、対話シェルでは再現しない)。
     export PATH="''${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua/bin:$PATH"
-    export AQUA_GLOBAL_CONFIG=${dotfilesPath}/home/.config/aquaproj-aqua/aqua.yaml
-    export AQUA_POLICY_CONFIG=${dotfilesPath}/home/.config/aquaproj-aqua/aqua-policy.yaml
+    export AQUA_GLOBAL_CONFIG=${config.aqua.configDir}/aqua.yaml
+    export AQUA_POLICY_CONFIG=${config.aqua.configDir}/aqua-policy.yaml
     repo=${notesDir}
     [ -d "$repo/.git" ] || exit 0
     branch=$(${pkgs.git}/bin/git -C "$repo" symbolic-ref --quiet --short HEAD) || exit 0

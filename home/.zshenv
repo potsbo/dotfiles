@@ -71,10 +71,13 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
 # M1 Mac で amd64 の docker image を動かすため
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml
+# aqua が読むのは repo の作業ツリーではなく store のコピー (modules/home-manager/aqua.nix)。
+# 実体を編集したら rebuild するまで効かない。conflict した aqua.yaml で aqua 管理の
+# コマンドが全部死ぬのを避けるため、意図的にそうしてある。
+export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua.yaml
 # Required to allow the `local` registry (e.g. macmon). After first checkout, run once:
 #   aqua policy allow "$AQUA_POLICY_CONFIG"
-export AQUA_POLICY_CONFIG=${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua-policy.yaml
+export AQUA_POLICY_CONFIG=${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua-policy.yaml
 
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
