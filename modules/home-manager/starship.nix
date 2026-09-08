@@ -42,11 +42,13 @@
     # command_timeout を超えてモジュールが空になる。コマンドは全部 POSIX なので sh で走らせる。
     # 4 つとも同じ理由。
     custom = {
+      # アイコンは format に直書きする。sh の echo は \uXXXX を解釈しないので、command で
+      # 出そうとするとエスケープがそのまま prompt に出る。当てにできるのは when だけ。
       git_worktree = {
         shell = [ "sh" ];
-        command = "echo '\\uef81'";
+        command = "true";
         when = "git rev-parse --git-dir 2>/dev/null | grep -q worktrees";
-        format = "[$output ]($style)";
+        format = "[ ]($style)";
         style = "bg:accent fg:on_accent";
       };
 
