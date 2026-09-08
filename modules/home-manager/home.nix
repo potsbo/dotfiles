@@ -137,6 +137,14 @@ in
       mosh
       groff # aws help が man 整形に要求する
       chafa # 端末に画像を出す
+
+      # yazi のプレビュー用。yazi 本体 (aqua) はこれらを外部コマンドとして呼ぶだけで、
+      # 無ければそのファイル種別のプレビューが黙って空になる。
+      poppler-utils # PDF (pdftoppm)
+      ffmpeg # 動画・音声のサムネイルとメタデータ (ffmpeg, ffprobe)
+      p7zip # 書庫の中身一覧 (7z)
+      imagemagick # HEIC/SVG/フォント等、chafa が直接扱えない画像の変換
+
       # LazyVim の lang.nix extra が nix 保存時に nvim-lint 経由で呼ぶ。aqua 標準レジストリ未登録。
       # 同 extra が formatter に指定する nixfmt は入れていない: このリポジトリの 1 行 attrset
       # スタイルをほぼ全ファイル書き換えてしまうので、保存時整形は無効のままにしておく。
