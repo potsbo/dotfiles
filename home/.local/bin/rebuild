@@ -23,6 +23,7 @@ else
 fi
 step() { printf '%s%12s%s %s\n' "$c_verb" "$1" "$c_reset" "${*:2}" >&2; }
 fail() { printf '%s%12s%s %s\n' "$c_err" error "$c_reset" "$*" >&2; exit 1; }
+warn() { printf '%s%12s%s %s\n' "$c_err" warning "$c_reset" "$*" >&2; }
 
 DOTPATH="${HOME}/src/github.com/potsbo/dotfiles"
 HOSTNAME="${HOSTNAME:-$(hostname)}"
@@ -82,4 +83,20 @@ else
   # 対象は NixOS と macOS だけ。それ以外の Linux は使っていない。
   fail "os $(uname -s): only NixOS and macOS are supported"
 fi
+# aqua は lazy install なので、aqua.yaml に足しただけでは shim (~/.local/share/
+# aquaproj-aqua/bin/*) が無く、コマンドが PATH に出てこない。-l で shim だけ張る
+# (本体は初回実行時に落ちる)。-a が要るのは、aqua i が既定でカレントディレクトリ側の
+# aqua.yaml しか見ず、ここの設定は global config だから。
+# 呼び出し元のシェルは switch 前の PATH と環境なので (./install の bash には
+# AQUA_* も無い)、aqua の実体も設定もフルパスで渡す。
+# 失敗しても rebuild は落とさない: registry の取得にネットが要り、圏外や GitHub の
+# rate limit で、switch 自体は成功しているのに失敗扱いになる。
+step Linking "aqua packages"
+# manage = system なら per-user profile、standalone なら ~/.nix-profile (home/.zshenv と同じ)。
+aqua="/etc/profiles/per-user/$(id -un)/bin/aqua"
+[[ -x $aqua ]] || aqua="${HOME}/.nix-profile/bin/aqua"
+AQUA_GLOBAL_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua.yaml" \
+  AQUA_POLICY_CONFIG="${DOTPATH}/home/.config/aquaproj-aqua/aqua-policy.yaml" \
+  "$aqua" install --only-link --all || warn "aqua i -l -a に失敗した (ネットワーク?)"
+
 step Finished "in ${SECONDS}s"

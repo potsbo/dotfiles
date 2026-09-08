@@ -48,6 +48,12 @@ mobile_width_threshold = 100
 # tmux の prefix+c のように、名前入力なしで即 tab を作る。
 prompt_new_tab_name = false
 
+tab_bar_right = [
+  { type = "zoom" },
+  { type = "hostname" },
+  { type = "datetime", format = "%H:%M" },
+  { type = "text", text = " " },
+]
 # default は [["state_icon","workspace","tab"],["agent"]]。
 # 1行目は状態+workspace、2行目に agent と tab、3行目に実行中タスク
 # (terminal_title_stripped)。state_text (icon と冗長) / terminal_title

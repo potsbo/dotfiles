@@ -137,6 +137,18 @@ in
       mosh
       groff # aws help が man 整形に要求する
       chafa # 端末に画像を出す
+
+      # yazi のプレビュー用。yazi 本体 (aqua) はこれらを外部コマンドとして呼ぶだけで、
+      # 無ければそのファイル種別のプレビューが黙って空になる。
+      # aqua を使わない理由は各行に書いた通りで、いずれも aqua 側で解決できない。
+      poppler-utils # PDF (pdftoppm)。aqua-registry に無い
+      # 動画・音声のサムネイルとメタデータ (ffmpeg, ffprobe)。aqua には Tyrrrz/FFmpegBin が
+      # あるが checksum が提供されず、この repo の require_checksum + supported_envs: all の
+      # 下では "checksum is required" で install できない。
+      ffmpeg
+      p7zip # 書庫の中身一覧。aqua の ip7z/7zip も同じ理由 (checksum 無し) で入らない
+      imagemagick # HEIC/SVG/フォント等の変換。aqua の ImageMagick は linux/windows 用のみ
+
       # LazyVim の lang.nix extra が nix 保存時に nvim-lint 経由で呼ぶ。aqua 標準レジストリ未登録。
       # 同 extra が formatter に指定する nixfmt は入れていない: このリポジトリの 1 行 attrset
       # スタイルをほぼ全ファイル書き換えてしまうので、保存時整形は無効のままにしておく。

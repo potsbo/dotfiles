@@ -34,6 +34,16 @@ in
     # 手で足す一時的な設定の置き場。gitignore 済み。
     includes = [ "~/.ssh/config.d/*" ];
 
+    # ~/.ssh/config は nix store への symlink なので手では書けない。開いた人 (人でも
+    # エージェントでも) が生成元と逃げ道にたどり着けるよう、先頭に書いておく。
+    # home-manager に見出し用の口はないので、コメント行を directive の名前として流す。
+    # extraOptionOverrides だけが Include や Host ブロックより前に出る。
+    extraOptionOverrides."#" = [
+      "このファイルは home-manager が modules/home-manager/hosts.nix から生成している。"
+      "nix store への symlink なので手では編集できない。設定を足すならそちらを直して ./install。"
+      "このマシンだけの一時的な設定は ~/.ssh/config.d/ に置けば下の Include で読まれる。"
+    ];
+
     settings =
       # Linux ホスト共通: open/xdg-open を手元の Mac で開くための opener 転送。
       # Mac 側は launchd の opener-listen (home.nix) が 2226 を listen。
@@ -43,6 +53,18 @@ in
       lib.mapAttrs
         (_: h: {
           ForwardAgent = true;
+          # ここのホストへは Tailscale (100.64.0.0/10) か Cloudflare WARP 経由で入る。
+          # どちらも IPv4 なので、AAAA を候補にする理由がない。
+          # 一方 graniteridge は素の名前が Tailscale の A に加えて会社側 DNS が返す
+          # Cloudflare プロキシの AAAA 2 件にも解決される。ssh は AAAA を先に試すが
+          # そこに sshd はいないので、ConnectTimeout を明示する呼び出しでは死んだ
+          # 2 件を待ち切ってからでないと Tailscale のアドレスに到達しない。herdr の
+          # SSH ブリッジは ConnectTimeout=10 なので 20 秒かかり、その前に接続を諦める
+          # (手打ちの ssh は ConnectTimeout 無指定で即座に落ちるので気付かない)。
+          # 同じ罠は他のホストにも増えうるので、1 ホストの例外にせず全ホストで IPv4 に絞る。
+          # HostName を Tailscale の FQDN に固定しても直るが、Tailscale を使わず
+          # WARP だけで入る経路 (hosts/raptorlake/README.md) を塞ぐので採らない。
+          AddressFamily = "inet";
         } // lib.optionalAttrs (h.os == "nixos") {
           RemoteForward = [{
             bind = { address = "127.0.0.1"; port = 2226; };
