@@ -47,10 +47,11 @@ packages:
   - name: github/copilot-cli@v1.0.83
   - name: anthropics/claude-code@v2.1.263
   # herdr の self-update (`herdr update`) は使わない。バージョンはここの Renovate 更新で上げる。
+  # インストール先は "$(aqua which herdr)" で引ける (GitHub の org が移転して pkgs のパスも変わった)。
   # 稼働中サーバを pane を殺さず入れ替えるには、素の `herdr server live-handoff` では不足
   # (旧サーバが自分の current_exe = 旧 aqua パスを再 spawn するため)。新バイナリを明示する:
   #   herdr server live-handoff --expected-version <NEW> \
-  #     --import-exe ~/.local/share/aquaproj-aqua/pkgs/github_release/github.com/ogulcancelik/herdr/v<NEW>/herdr-linux-x86_64/herdr-linux-x86_64
+  #     --import-exe ~/.local/share/aquaproj-aqua/pkgs/github_release/github.com/herdrdev/herdr/v<NEW>/herdr-linux-x86_64/herdr-linux-x86_64
   - name: ogulcancelik/herdr@v0.9.0
   - name: aristocratos/btop@v1.4.7
   - name: ynqa/jnv@v0.7.1
