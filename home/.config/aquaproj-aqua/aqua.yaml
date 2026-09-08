@@ -45,9 +45,6 @@ packages:
   - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.83
   - name: anthropics/claude-code@v2.1.263
-  # herdr の self-update (`herdr update`) は使わない。バージョンはここの Renovate 更新で上げる。
-  # 稼働中サーバの載せ替えは ~/.local/bin/herdr-handoff (attach 時に自動で走る)。
-  - name: ogulcancelik/herdr@v0.9.0
   - name: aristocratos/btop@v1.4.7
   - name: ynqa/jnv@v0.7.1
   - name: theseus-rs/postgresql-binaries@18.6.0
