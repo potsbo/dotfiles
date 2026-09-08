@@ -25,8 +25,8 @@ let
   # slack のように Exec が絶対パスのものに効かないので、.desktop 自体を差し替える。
   #
   # runCommandLocal にしておく。入力に system-path と home-manager-path 全体を持つので、
-  # remote builder に出ると cache.nixos.org に無い unfree アプリ (vscode, zoom, cursor など
-  # 合計 6 GB 弱) を builder に送ることになる。awk で .desktop を書き換えるだけなので
+  # remote builder に出ると cache.nixos.org に無い unfree アプリ (1password, chrome, slack
+  # など合計 1 GB 強) を builder に送ることになる。awk で .desktop を書き換えるだけなので
   # ローカルで十分。パス全体を入力に取る runCommand は同じ罠になる。
   launcherEntries = pkgs.runCommandLocal "dms-launcher-entries" { } ''
     mkdir -p $out/share/applications
