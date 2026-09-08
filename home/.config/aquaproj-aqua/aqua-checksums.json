@@ -131,18 +131,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.263/claude-linux-arm64-musl.tar.gz",
-      "checksum": "7D49674FD10BBF7D0E5989BD300AAA8DCE4C2ECFEC66D2C19A82FE4EC84BFEB8",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/anthropics/claude-code/v2.1.263/claude-linux-arm64.tar.gz",
       "checksum": "CBA2E616346C4F45F7FE468297BCC186D84EE6C292B2B1814B9BE190B1DA49BE",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.263/claude-linux-x64-musl.tar.gz",
-      "checksum": "9A96F0E03CEA5EBBB3AF9B70CDE7DC145ED33C7912735CBEEE1F923F55DE0585",
       "algorithm": "sha256"
     },
     {
@@ -1306,31 +1296,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zellij-org/zellij/v0.45.1/zellij-aarch64-apple-darwin.tar.gz",
-      "checksum": "C029BA4FE1927B79AD9F0CDD59155C4DFF80777863C85857D4D09B88B56F9891",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/zellij-org/zellij/v0.45.1/zellij-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "05F0802AFADD53F8DB9514E7CAE53C9AE8432FED1B35B8294AA816EE3044A16B",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/zellij-org/zellij/v0.45.1/zellij-x86_64-apple-darwin.tar.gz",
-      "checksum": "8E8BEA22737D1652278C51FC5C26C7C22C9855D0EBB9634A84B8873823093114",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/zellij-org/zellij/v0.45.1/zellij-x86_64-pc-windows-msvc.zip",
-      "checksum": "B854E7B223E67D0705C5F685EF50541C38A57981B13624D09C92BED419B6F80D",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/zellij-org/zellij/v0.45.1/zellij-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "40BCC2E03F5D5AE8E054E39F676081FE12AB70871506996BA595834C3718EEFC",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.8.0/terminal-browser-darwin-arm64.tar.gz",
       "checksum": "9D61C334795F78E1E765C124AC8BE43DECD67C8667DAE1DA5329CCA378E5E94E",
       "algorithm": "sha256"
@@ -1448,16 +1413,6 @@
     {
       "id": "http/nodejs.org/dist/v26.8.1/node-v26.8.1-win-x64.zip",
       "checksum": "57693D8E93D1B04E7B7DE46ACA53ECD63E97564E73DE36A68428D7FF08D83587",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.8.1/node-v26.8.1-linux-arm64-musl.tar.gz",
-      "checksum": "0FE78AFDEB4A4D273B14ABBD4B946C772885C58994C9D23B1C8AE0A59A2F8A53",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.8.1/node-v26.8.1-linux-x64-musl.tar.gz",
-      "checksum": "13135A6A2106F9D111FA9B48C8801ED119AD43E7E1D00DE17D77A9C44899AADA",
       "algorithm": "sha256"
     },
     {

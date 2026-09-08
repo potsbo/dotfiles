@@ -10,7 +10,6 @@
 [color]
 	ui = true
 [alias]
-  pr = pull-request
   pbrowse = !git push && gh browse
   viewpr = !"f() { gh pr view -- `git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' '`; }; f"
   openpr = !"f() { gh pr view --web -- `git log --merges --oneline --reverse --ancestry-path $1...$(git default-branch) | grep 'Merge pull request #' | head -n 1 | cut -f5 -d' '`; }; f"
@@ -30,8 +29,6 @@
   set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
 [push]
 	default = current
-[github]
-	privatekey = ~/.ssh/id_rsa.github
 [github]
 	user = potsbo
 [merge]

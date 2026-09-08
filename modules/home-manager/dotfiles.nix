@@ -29,7 +29,6 @@ let
     ".zshenv"
     ".zprofile"
     ".zshrc"
-    ".default-npm-packages"
     # .claude はセッション状態などが多いのでディレクトリごとはリンクせず settings.json だけ管理する。
     # 注意: herdr が integration 更新時にこのファイルを書き直す (二重登録や再整形の diff が出たらこの管理をやめる)
     ".claude/settings.json"
