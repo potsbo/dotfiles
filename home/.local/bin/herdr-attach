@@ -7,6 +7,7 @@
 # full-screen and re-attach when it ends; otherwise just return to the caller.
 set -u
 
+~/.local/bin/herdr-handoff
 while :; do
   herdr
   # mtime 1分以内のものだけ拾う (消し損ねた古い pending で ssh しない)
