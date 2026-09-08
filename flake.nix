@@ -16,7 +16,7 @@
     # Renovate の nix manager は lock の rev しか見ず URL 中の tag は進めないので、
     # renovate.json の regex で tag を進め、flake.lock は autofix.ci が relock する。
     dms = {
-      url = "github:AvengeMedia/DankMaterialShell/v1.6.0";
+      url = "github:AvengeMedia/DankMaterialShell/v1.6.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # herdr: aqua ではなく upstream flake から source build する。1 台に 1 版しか居られないので
