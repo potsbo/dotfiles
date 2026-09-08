@@ -37,7 +37,6 @@ packages:
   - name: aws/aws-cli@2.36.40
   - name: astral-sh/uv@0.12.10
   - name: starship/starship@v1.26.0
-  - name: zellij-org/zellij@v0.45.1
   - name: johnkerl/miller@v6.21.0
   - name: tldr-pages/tlrc@v1.13.1
   - name: k1LoW/git-wt@v0.29.1
@@ -46,12 +45,6 @@ packages:
   - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.83
   - name: anthropics/claude-code@v2.1.263
-  # herdr の self-update (`herdr update`) は使わない。バージョンはここの Renovate 更新で上げる。
-  # 稼働中サーバを pane を殺さず入れ替えるには、素の `herdr server live-handoff` では不足
-  # (旧サーバが自分の current_exe = 旧 aqua パスを再 spawn するため)。新バイナリを明示する:
-  #   herdr server live-handoff --expected-version <NEW> \
-  #     --import-exe ~/.local/share/aquaproj-aqua/pkgs/github_release/github.com/ogulcancelik/herdr/v<NEW>/herdr-linux-x86_64/herdr-linux-x86_64
-  - name: ogulcancelik/herdr@v0.8.2
   - name: aristocratos/btop@v1.4.7
   - name: ynqa/jnv@v0.7.1
   - name: theseus-rs/postgresql-binaries@18.6.0
@@ -82,3 +75,5 @@ packages:
   - name: modem-dev/hunk@v0.21.1
   - name: fastfetch-cli/fastfetch@2.68.1
   - name: cloudflare/cloudflared@2026.8.3
+  - name: zenbu-labs/terminal-browser@v0.8.0
+    registry: local

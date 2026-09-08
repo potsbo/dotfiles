@@ -19,13 +19,21 @@
       url = "github:AvengeMedia/DankMaterialShell/v1.6.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # herdr: aqua ではなく upstream flake から source build する。1 台に 1 版しか居られないので
+    # lazy install の利点が無く、rebuild で入れて同じ activation で稼働中サーバを載せ替える
+    # (modules/home-manager/home.nix)。tag 固定と Renovate/relock の扱いは dms と同じ。
+    # upstream は binary cache を出していないので release ごとに各ホストで build する (raptorlake で 1m43s)。
+    herdr = {
+      url = "github:herdrdev/herdr/v0.9.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, herdr, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -104,7 +112,7 @@
       ];
       # home 配下のパスは渡さない。各モジュールが config.home.homeDirectory から組む。
       hmSpecialArgs = hostname: {
-        inherit hostname palette hosts;
+        inherit hostname palette hosts herdr;
         accentColor = hosts.${hostname}.color;
         # accent の上に乗せる文字色。accent が暗いホストだけ fg で白を指定する。
         accentFgColor = hosts.${hostname}.fg or palette.black;

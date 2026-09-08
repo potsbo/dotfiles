@@ -38,7 +38,6 @@ lightdash
 /microsoft-edge/NativeMessagingHosts
 /opera/NativeMessagingHosts
 /fontconfig/conf.d
-/kdedefaults
 /gtk-4.0
 /google-chrome*
 /microsoft-edge-dev/NativeMessagingHosts
@@ -57,3 +56,5 @@ lightdash
 /herdr/*
 !/herdr/config.toml
 /obsidian
+# terminal-browser が作る Chromium のプロファイル (id はインストールごとに変わる)
+terminal-browser-*

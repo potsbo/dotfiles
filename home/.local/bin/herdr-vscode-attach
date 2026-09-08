@@ -15,4 +15,5 @@ set -eu
 
 # basename alone collides across worktrees; a short path hash keeps names unique.
 slug="code-$(basename "$PWD")-$(printf '%s' "$PWD" | shasum | cut -c1-6)"
+~/.local/bin/herdr-handoff
 exec herdr --session "$slug"

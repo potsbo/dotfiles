@@ -1,7 +1,7 @@
 _:
 
 # macOS の GUI アプリ (Homebrew cask / Mac App Store) の宣言。
-# brew / mas の更新は遅く、`rebuild` で毎回挟まると鬱陶しいので
+# brew / mas の確認は遅く、`rebuild` で毎回挟まると鬱陶しいので
 # 本体の default.nix から切り離し、`apps` コマンド (home/.local/bin/apps) が
 # 使う `<host>-apps` 構成でだけ読み込む。
 {
@@ -13,7 +13,13 @@ _:
       cleanup = "zap";
       # false: `brew update` は手動で実行し、意図したタイミングでのみバージョンを上げる
       autoUpdate = false;
-      upgrade = true;
+      # false: `apps` は足した / 消したアプリの反映だけにする。true だと
+      # `brew bundle` が Mac App Store のアプリ (Word など) まで毎回上げにいき、
+      # 遅いうえに更新のタイミングを選べない。`brew bundle` の upgrade 抑止は
+      # `--no-upgrade` 一つで cask と mas を分けられないので、cask も含めて
+      # 止めている (Chrome / VS Code / Slack などは自前で更新する)。
+      # 上げたいときは `brew upgrade` / `mas upgrade` を手で打つ。
+      upgrade = false;
     };
     brews = [
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要

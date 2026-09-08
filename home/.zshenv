@@ -54,6 +54,9 @@ export PATH=/etc/profiles/per-user/$USER/bin:$PATH
 export PATH=$HOME/.nix-profile/bin:$PATH
 export PATH=$HOME/bin:$PATH
 ## Build
+# aqua は ~/.local/bin より後ろ: 手で置いた wrapper がパッケージマネージャの出力に勝つのが原則。
+# 以前は aqua が先で、~/.local/bin/claude (native installer の symlink) が aqua の pin を隠していた。
+export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 # prepend: 自作の open/xdg-open ラッパーが system の xdg-open (nix) に勝つ必要がある
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/go/bin
@@ -68,7 +71,6 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
 # M1 Mac で amd64 の docker image を動かすため
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml
 # Required to allow the `local` registry (e.g. macmon). After first checkout, run once:
 #   aqua policy allow "$AQUA_POLICY_CONFIG"

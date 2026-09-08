@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, herdr, ... }:
 
 let
 
@@ -9,6 +9,9 @@ let
   tuicast = pkgs.callPackage ../../pkgs/tuicast.nix { };
 
   evalcache = pkgs.callPackage ../../pkgs/evalcache.nix { };
+
+  # flake input (upstream flake) の package。理由は flake.nix の herdr input のコメント。
+  herdrPkg = herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
 in
 {
@@ -93,9 +96,17 @@ in
       done
     '';
 
+    # 新しい herdr が入ったら、稼働中サーバを pane を殺さず載せ替える。server が居ない・
+    # 同じ版なら no-op。attach 時にも同じ script が走る (rebuild 中に handoff が失敗した保険)。
+    # PATH に新バイナリと jq を先頭で足すのは、activation の PATH が switch 前のままのため。
+    activation.herdrHandoff = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      PATH="${herdrPkg}/bin:${pkgs.jq}/bin:$PATH" run "${config.home.homeDirectory}/.local/bin/herdr-handoff"
+    '';
+
     packages = with pkgs; [
       aqua
       tuicast
+      herdrPkg
       # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
       # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
       # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。

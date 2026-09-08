@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 
 let
   # HHKB Studio USB vendor/product ID (PFU vendor 0x04FE, product 0x0016)
@@ -81,7 +81,6 @@ in
     services.xremap = {
       # Hyprland では IPC でフォーカス中のウィンドウ class を取る
       withHypr = config.desktop.environment == "hyprland";
-      withKDE = config.desktop.environment == "plasma";
       userName = "potsbo";
       serviceMode = "user";
       watch = true;

@@ -26,7 +26,7 @@ jobs:
           for pkg in aqua tuicast evalcache; do
             nix run nixpkgs#nix-update -- --flake --version=skip "$pkg"
           done
-      # Renovate は flake.nix の dms の tag しか書き換えないので、lock を追従させる。
+      # Renovate は flake.nix の dms / herdr の tag しか書き換えないので、lock を追従させる。
       # tag が動いていなければ同じ rev に解決されて no-op。
-      - run: nix flake update dms
+      - run: nix flake update dms herdr
       - uses: autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a # v1.3.4

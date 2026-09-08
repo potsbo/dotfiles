@@ -1,0 +1,73 @@
+# https://taskfile.dev — `task check` で lint と eval を全部回す。
+# CI (.github/workflows/ci.yaml) も同じ task を呼ぶので、ここに足せば両方に効く。
+# ツールは flake.lock の nixpkgs から `nix run --inputs-from .` で引く。手元と CI で
+# 同じ版になり、home-manager に入れ忘れても動く。
+version: '3'
+
+vars:
+  # deadnix と shellcheck の対象。hardware-configuration.nix は nixos-generate-config の
+  # 出力そのままで、直しても再生成で戻る (statix.toml の ignore と同じ理由)。
+  NIX_FILES:
+    sh: git ls-files '*.nix' | grep -v hardware-configuration.nix
+  SHELL_FILES:
+    sh: git ls-files | while read -r f; do head -1 "$f" 2>/dev/null | grep -qE '^#!.*\b(ba)?sh\b' && echo "$f"; done
+
+tasks:
+  check:
+    desc: lint と全ホストの eval。commit 前に必ず通す
+    deps: [statix, deadnix, nixf-tidy, shellcheck, actionlint, eval, flake-check]
+
+  statix:
+    cmds:
+      - nix run --inputs-from . nixpkgs#statix -- check .
+
+  deadnix:
+    cmds:
+      - nix run --inputs-from . nixpkgs#deadnix -- --fail {{.NIX_FILES | catLines}}
+
+  shellcheck:
+    cmds:
+      - nix run --inputs-from . nixpkgs#shellcheck -- --severity=warning {{.SHELL_FILES | catLines}}
+
+  # 全ホストを eval する。build はしない (closure の build は重い)。
+  # abort-on-warn で nixpkgs の deprecation warning (属性の rename など) を error にする。
+  # statix / deadnix は構文しか見ないので、eval 時の lib.warn はこれでしか拾えない。
+  # darwin ホストも Linux 上で eval だけはできる。
+  eval:
+    vars:
+      # ホスト一覧は flake から取る。手で並べると hosts に足したホストが漏れる。
+      ATTRS:
+        sh: |
+          names() { nix eval --raw ".#$1" --apply "c: builtins.concatStringsSep \"\n\" (map (h: \"$1.\${h}.$2\") (builtins.attrNames c))"; echo; }
+          names nixosConfigurations config.system.build.toplevel
+          names darwinConfigurations system
+          names homeConfigurations activationPackage
+    cmds:
+      - for: { var: ATTRS }
+        cmd: nix eval --raw --option abort-on-warn true '.#{{.ITEM}}.drvPath' > /dev/null
+
+  flake-check:
+    cmds:
+      - nix flake check --no-build --option abort-on-warn true
+
+  actionlint:
+    cmds:
+      - nix run --inputs-from . nixpkgs#actionlint
+
+  # nixf-tidy (nixd 同梱) は statix / deadnix より広い意味解析の診断を出す。
+  # 1 回に 1 ファイルを stdin から読み、診断を JSON 配列で返して常に exit 0 なので、
+  # 空でない配列を返したファイルがあれば fail にする。設定ファイルも抑止コメントも
+  # 無いので、誤検知はコードを書き換えて避けるか対象から外すかしかない。
+  nixf-tidy:
+    cmds:
+      - |
+        nix shell --inputs-from . nixpkgs#nixf -c sh -c '
+          fail=0
+          for f in "$@"; do
+            out=$(nixf-tidy --variable-lookup --pretty-print < "$f")
+            if [ "$out" != "[]" ]; then
+              echo "== $f"; echo "$out"; fail=1
+            fi
+          done
+          exit $fail
+        ' sh {{.NIX_FILES | catLines}}

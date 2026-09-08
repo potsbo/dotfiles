@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# 稼働中の herdr server が手元の client (nix が入れた版) より古ければ、pane を
+# 生かしたまま live-handoff で載せ替える。server が居ない・既に同じ版なら何もしない。
+# home-manager の activation (rebuild) と、herdr-attach / herdr-vscode-attach が attach の前に呼ぶ。
+#
+# 素の `herdr server live-handoff` は旧 server が自分の current_exe (= 旧 store パス) を
+# 再 spawn するので、新バイナリを --import-exe で明示する必要がある。
+set -u
+st=$(herdr status --json 2>/dev/null) || exit 0
+[ "$(jq -r '.server.running and .server.restart_needed' <<<"$st")" = true ] || exit 0
+herdr server live-handoff \
+  --expected-version "$(jq -r .client.version <<<"$st")" \
+  --import-exe "$(jq -r .client.binary <<<"$st")"

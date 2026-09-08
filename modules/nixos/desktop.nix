@@ -12,12 +12,13 @@ let
     };
 in
 {
-  imports = [ ./desktop/plasma.nix ./desktop/hyprland.nix ];
+  imports = [ ./desktop/hyprland.nix ];
 
   options.desktop.environment = lib.mkOption {
-    type = lib.types.enum [ "plasma" "hyprland" "none" ];
+    type = lib.types.enum [ "hyprland" "none" ];
     # 2026-09-06 に GNOME から Hyprland + DMS に切り替えた (見た目と macOS との操作の近さ)。
-    # GNOME の設定 (gnome.nix) は同日に消した。戻すなら git 履歴から。
+    # GNOME の設定 (gnome.nix) は同日に消し、試用していた Plasma (plasma.nix) も 2026-09-08 に
+    # 使っていないので消した。戻すなら git 履歴から。
     default = "hyprland";
     description = "どの DE を有効にするか。specialisation で差し替えて別の DE を試す。";
   };
@@ -47,13 +48,13 @@ in
 
     programs.dconf.enable = true;
 
+    # fcitx5 用の GTK_IM_MODULE / QT_IM_MODULE / XMODIFIERS はここに書かない。
+    # i18n.inputMethod.fcitx5 が waylandFrontend の有無を見て必要な分だけ設定する
+    # (Wayland ネイティブなら XMODIFIERS だけ)。手で GTK/QT_IM_MODULE を足すと、fcitx5 が
+    # ログインごとに "Wayland Diagnose" の通知で外せと言ってくる (2026-09-07)。
     environment.sessionVariables = {
       # GTK Emacs keybindings (Ctrl+A/E/K/D/H etc.) — like macOS Cocoa
       GTK_KEY_THEME = "Emacs";
-      # fcitx5 input method
-      GTK_IM_MODULE = "fcitx";
-      QT_IM_MODULE = "fcitx";
-      XMODIFIERS = "@im=fcitx";
     };
 
     fonts.packages = with pkgs; [
