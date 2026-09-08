@@ -75,6 +75,22 @@ in
         fi
       '';
 
+      # aqua は lazy install なので、aqua.yaml に足しただけでは shim (~/.local/share/
+      # aquaproj-aqua/bin/*) が無く、コマンドが PATH に出てこない。-l で shim だけ張る
+      # (本体は初回実行時に落ちる)。-a が要るのは、aqua i が既定でカレントディレクトリ側の
+      # aqua.yaml しか見ず、ここの設定は global config だから。
+      # .zshrc の precmd も同じことをするので、これが無くても次のプロンプトでは揃う。
+      # ここでやるのは switch した直後のそのシェルで使えるようにするため。
+      # 失敗しても activation は落とさない: registry の取得にネットが要り、圏外や GitHub の
+      # rate limit で失敗しうる。module mode では boot 時の home-manager-<user>.service でも
+      # 走るので、落とすと起動が degraded になる。
+      linkAquaShims = lib.hm.dag.entryAfter [ "installPackages" ] ''
+        export AQUA_GLOBAL_CONFIG="${repoHome}/.config/aquaproj-aqua/aqua.yaml"
+        export AQUA_POLICY_CONFIG="${repoHome}/.config/aquaproj-aqua/aqua-policy.yaml"
+        run "${config.home.profileDirectory}/bin/aqua" install --only-link --all || \
+          warnEcho "aqua i -l -a に失敗した (ネットワーク?)"
+      '';
+
       # Hunk (hunk.dev) 同梱のレビュースキルを user skill として全 repo に見せる。
       # これが無いと別 repo で Hunk セッションを認識できずエージェントが暴走する。
       # 実体パスは OS とバージョンで変わるため hardcode せず `hunk skill path` で
