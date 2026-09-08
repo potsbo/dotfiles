@@ -23,7 +23,12 @@ in
     distributedBuilds = builders != { };
     buildMachines = lib.mapAttrsToList
       (name: h: {
-        hostName = name;
+        # ?compress=true は ssh に -C を付けさせる (ssh-ng の既定は無圧縮)。ここを通るのは
+        # build 出力の NAR で、ソースツリーやバイナリなので圧縮がよく効く。herdr の
+        # zig cache (486 MiB) は gzip -6 で 120 MiB、24.6% になった。NixOS module に
+        # 専用オプションが無いので store URI の query として hostName に混ぜている
+        # (URI は "${protocol}://${sshUser}@${hostName}" で組まれる)。
+        hostName = "${name}?compress=true";
         inherit (h) system;
         inherit (h.builder) maxJobs speedFactor;
         sshUser = user;
