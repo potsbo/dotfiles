@@ -85,7 +85,7 @@ runtime, not baked in.
 (`~/.config/aws/config` など) から起動時に引く。
 
 `avalanche` (メインの Mac) は ssh を受け付けない。Mac 側にしか効かない変更は
-リポジトリに入れたうえで、本人が Mac で `home-manager switch` を打つ必要がある。
+リポジトリに入れたうえで、本人が Mac で `./install` を打つ必要がある。
 
 ## Package Management Strategy
 
