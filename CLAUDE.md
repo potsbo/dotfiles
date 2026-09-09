@@ -9,8 +9,9 @@ immediately (the repo is symlinked into `~`), so branching just adds friction.
 ### commit 前の check
 
 **`task check` が通るまで commit しない。** statix / deadnix / nixf-tidy / shellcheck / actionlint と、全ホストの
-eval (`abort-on-warn` で nixpkgs の deprecation warning も error 扱い) を回す。何を
-回しているかは `Taskfile.yml`。CI も同じ task を呼ぶので、手元で通れば CI も通る。
+eval (nixpkgs の deprecation warning も error 扱い。ただし flake input の中から出る
+warning は直しようがないので Taskfile の `EVAL_WARN_IGNORE` で除外する) を回す。
+何を回しているかは `Taskfile.yml`。CI も同じ task を呼ぶので、手元で通れば CI も通る。
 落ちたら指摘を直す。lint を黙らせるための無効化コメントは、誤検知だと説明できる
 ときだけ、理由を添えて置く。
 
