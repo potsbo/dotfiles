@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Plaud (ボイスレコーダ) の公式 CLI。npm でしか配られていない。
+#   plaud login      ブラウザで OAuth 認証 (最初に一度)
+#   plaud files      最近の録音一覧
+#   plaud transcript <file_id>
+#
+# npx で毎回引くのは、npm 配布のものを宣言的に入れる手段がこのリポジトリに無いため。
+# aqua は npm を扱えず、nix の buildNpmPackage は `npm ci` 前提で lock を要求するが、
+# 配布 tarball に lock は入っておらず、こちらで 900 行の lock を抱えることになる。
+# 同じ理由で statusline の claude-powerline も npx 直叩きにしてある (home/.claude/settings.json)。
+# 版を固定していないので、破壊的変更が来たらここでバージョンを打つ。
+exec npx -y @plaud-ai/cli@latest "$@"
