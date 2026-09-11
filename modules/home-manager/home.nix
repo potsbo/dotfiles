@@ -10,6 +10,8 @@ let
 
   evalcache = pkgs.callPackage ../../pkgs/evalcache.nix { };
 
+  nix-graph = pkgs.callPackage ../../pkgs/nix-graph.nix { };
+
   # flake input (upstream flake) の package。理由は flake.nix の herdr input のコメント。
   herdrPkg = herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
@@ -106,6 +108,7 @@ in
     packages = with pkgs; [
       aqua
       tuicast
+      nix-graph
       herdrPkg
       # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
       # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
