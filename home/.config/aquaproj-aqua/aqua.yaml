@@ -39,7 +39,7 @@ packages:
   - name: starship/starship@v1.26.0
   - name: johnkerl/miller@v6.21.0
   - name: tldr-pages/tlrc@v1.13.1
-  - name: k1LoW/git-wt@v0.29.2
+  - name: k1LoW/git-wt@v0.29.3
   - name: k1LoW/roots@v0.4.1
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: sxyazi/yazi@v26.9.1
