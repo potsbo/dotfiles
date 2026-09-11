@@ -24,19 +24,9 @@
       "customType": "regex",
       "fileMatch": ["^flake\\.nix$"],
       "matchStrings": [
-        "github:AvengeMedia/DankMaterialShell/(?<currentValue>v[0-9][^\"]*)\""
+        "url\\s*=\\s*\"github:(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/(?<currentValue>v?[0-9]+\\.[0-9]+\\.[0-9]+[^\"/?\\s]*)\""
       ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "AvengeMedia/DankMaterialShell"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": ["^flake\\.nix$"],
-      "matchStrings": [
-        "github:herdrdev/herdr/(?<currentValue>v[0-9][^\"]*)\""
-      ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "herdrdev/herdr"
+      "datasourceTemplate": "github-releases"
     },
     {
       "customType": "regex",

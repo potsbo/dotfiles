@@ -30,7 +30,7 @@ jobs:
           for pkg in $pkgs; do
             nix run nixpkgs#nix-update -- --flake --version=skip "$pkg"
           done
-      # Renovate は flake.nix の dms / herdr の tag しか書き換えないので、lock を追従させる。
-      # tag が動いていなければ同じ rev に解決されて no-op。
-      - run: nix flake update dms herdr
+      # 宣言を変更した input の lock だけ追従させる。update と違い、変更のない
+      # input は固定したままで、タグ固定の input を追加しても対象の列挙が要らない。
+      - run: nix flake lock
       - uses: autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a # v1.3.4
