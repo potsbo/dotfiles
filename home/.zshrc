@@ -106,9 +106,8 @@ bindkey -e
 # ト+U+3099 へ変換されて 1 件もマッチしなくなっていた。しかも濁点のない文字だけなら
 # 素通りするので、「たまに効く」形で原因が見えにくい。
 #
-# 対象を rclone mount (~/var/<host>) に絞る案も検討したが、そこが serve しているのは
-# remote-mount の用途上 Linux ホスト = NFC で、いちばん外れている。NFD が実際に
-# 出てくるのは Mac ローカルの古いファイルなので、必要になったらそちら側で狭く直す。
+# NFD が実際に出てくるのは Mac ローカルの古いファイルなので、必要になったら
+# そちら側で狭く直す。
 setopt COMBINING_CHARS
 
 if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"; fi
