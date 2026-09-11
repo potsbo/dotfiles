@@ -22,8 +22,12 @@ jobs:
       # Renovate は version だけを書き換えるので、src の hash と vendorHash が取り残される。
       # --version=skip でバージョンには触れず、両方のハッシュだけ再計算させる。
       # nix-update は 1 回につき 1 attribute しか扱えないため個別に回す。
+      # 対象は flake の packages (= pkgs/ のファイル) から引く。ここに名前を書き下すと
+      # パッケージを足したとき落とす (実際 nix-graph で落とした)。
       - run: |
-          for pkg in aqua tuicast evalcache; do
+          pkgs=$(nix eval --raw .#packages.x86_64-linux \
+            --apply 'ps: builtins.concatStringsSep " " (builtins.attrNames ps)')
+          for pkg in $pkgs; do
             nix run nixpkgs#nix-update -- --flake --version=skip "$pkg"
           done
       # Renovate は flake.nix の dms / herdr の tag しか書き換えないので、lock を追従させる。

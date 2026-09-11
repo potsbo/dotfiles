@@ -196,8 +196,15 @@
 
         # nix-update がハッシュを自動更新するための出力。CI (autofix.ci) が
         # `nix-update --flake --version=skip <name>` で参照する。
-        x86_64-linux = lib.genAttrs [ "aqua" "tuicast" "evalcache" "nix-graph" ]
-          (name: nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/${name}.nix { });
+        #
+        # 名前は書き下さず pkgs/ を読んで作る。ここ・home.nix・autofix.yaml の 3 箇所に
+        # 同じ一覧を書いていて、実際 nix-graph を足したとき autofix.yaml を落とした。
+        # CI は下の attrNames を読むので、パッケージの追加は pkgs/ にファイルを置いて
+        # 使う場所から参照するだけで済む。
+        x86_64-linux = lib.packagesFromDirectoryRecursive {
+          inherit (nixpkgs.legacyPackages.x86_64-linux) callPackage;
+          directory = ./pkgs;
+        };
       };
     };
 }
