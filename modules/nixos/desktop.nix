@@ -12,10 +12,10 @@ let
     };
 in
 {
-  imports = [ ./desktop/hyprland.nix ];
+  imports = [ ./desktop/dms.nix ./desktop/hyprland.nix ./desktop/niri.nix ];
 
   options.desktop.environment = lib.mkOption {
-    type = lib.types.enum [ "hyprland" "none" ];
+    type = lib.types.enum [ "hyprland" "niri" "none" ];
     # 2026-09-06 に GNOME から Hyprland + DMS に切り替えた (見た目と macOS との操作の近さ)。
     # GNOME の設定 (gnome.nix) は同日に消し、試用していた Plasma (plasma.nix) も 2026-09-08 に
     # 使っていないので消した。戻すなら git 履歴から。

@@ -28,7 +28,7 @@ in
 #   Linux の Ctrl が両方の役割を担っているため、Super → Ctrl のグローバル変換では
 #   ターミナルで衝突する (例: Cmd+C → Ctrl+C = SIGINT、コピーにならない)
 #
-# --- 解決: アプリ種別ごとに変換先を分ける (withHypr でフォーカス中のアプリを判定) ---
+# --- 解決: アプリ種別ごとに変換先を分ける (withHypr / withNiri でフォーカス中のアプリを判定) ---
 #
 #   ┌─────────────────┬──────────────────────────────┬──────────────────────────────┐
 #   │ 物理キー         │ GUI アプリ (Chrome 等)         │ ターミナル (Ghostty)          │
@@ -52,7 +52,7 @@ in
       RestartSec = 3;
     };
     # GDM の greeter でも graphical-session.target 経由で起動し、uinput を作れずに
-    # 3 秒おきに落ち続ける。greeter の判定は desktop/hyprland.nix の DMS と同じ。
+    # 3 秒おきに落ち続ける。greeter の判定は desktop/dms.nix の DMS と同じ。
     systemd.user.services.xremap.unitConfig.ConditionEnvironment = "!XDG_SESSION_CLASS=greeter";
   
     # nixos-rebuild switch 時に xremap の設定変更を検知して自動再起動する
@@ -79,8 +79,9 @@ in
     };
   
     services.xremap = {
-      # Hyprland では IPC でフォーカス中のウィンドウ class を取る
+      # Hyprland / niri では IPC でフォーカス中のウィンドウ class を取る
       withHypr = config.desktop.environment == "hyprland";
+      withNiri = config.desktop.environment == "niri";
       userName = "potsbo";
       serviceMode = "user";
       watch = true;
@@ -173,10 +174,10 @@ in
             };
           }
   
-          # === Super+Alt は変換せず compositor に渡す (Hyprland 用) ===
+          # === Super+Alt は変換せず compositor に渡す ===
           # 下の "Super shortcuts" は修飾キーが上位集合でも当たる (xremap の既定) ので、
-          # Super+Alt+Q は Ctrl+Alt+Q になってしまう。Hyprland 側で Super+Alt に寄せた WM 操作
-          # (home/.config/hypr/dms/binds-user.lua) を届けるため、完全一致の同一写像で先に受ける。
+          # Super+Alt+Q は Ctrl+Alt+Q になってしまう。compositor 側で Super+Alt に寄せた WM 操作
+          # (hypr/dms/binds-user.lua、niri/binds-user.kdl) を届けるため、完全一致の同一写像で先に受ける。
           {
             name = "Super+Alt passthrough";
             exact_match = true;

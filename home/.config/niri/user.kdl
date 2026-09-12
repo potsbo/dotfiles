@@ -1,0 +1,90 @@
+// DMS 既定 (dms/*.kdl) への上書き。config.kdl が最後に include する。
+// niri に unbind は無く、後から同じキーを宣言したものが勝つ (include をまたいだときだけ。
+// 1 つのファイルに同じセクションを 2 回書くとパースエラーになる)。
+//
+// 前提: xremap (modules/nixos/xremap.nix) が macOS の Cmd 再現のために Super+C/V/X/A/Z/
+// S/W/T/F/R/L/K/N/P/O/Q/Return を Ctrl+同キーに変えてから compositor に渡す。これらの Super
+// コンボは niri には届かないので、要るものは Super+Alt (物理 Cmd+Option) に付け替える。
+// xremap は Super+Alt+<同キー> を素通しする。
+//
+// Hyprland 側 (hypr/dms/binds-user.lua) から持ってきていないもの:
+// - Magnet 風の四分割: 全ウィンドウ浮動の Hyprland 用。スクロール式のタイリングを試すのが
+//   niri の目的なので持ち込まない。Magnet のキー (xremap が Ctrl+Option+矢印 → Super+矢印、
+//   Ctrl+Option+U/I/J/K → Super+U/I/J/K に変える) のうち、矢印は下で「列を動かす」に当てた。
+//   U/I/J/K は DMS 既定 (ワークスペース移動・上下フォーカス) のまま。
+// - DMS のランチャー上での Emacs バインド (Ctrl+N/P/M など): Hyprland では layer が開いて
+//   いる間だけバインドを足して補っていた。niri には layer の開閉を拾う仕組みが無い。
+// - HHKB だけナチュラルスクロールを切る指定: niri の input はデバイス単位の上書きを持たない。
+
+binds {
+    // === アプリ起動・DMS のパネル (Cmd+Option) ===
+    Mod+Alt+T hotkey-overlay-title="Terminal" { spawn "ghostty"; }
+    Mod+Alt+V hotkey-overlay-title="Clipboard history" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
+    Mod+Alt+N hotkey-overlay-title="Notifications" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
+    Mod+Alt+X hotkey-overlay-title="Power menu" { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
+
+    // === ウィンドウ操作 (Cmd+Option) ===
+    Mod+Alt+Q repeat=false { close-window; }
+    Mod+Alt+F { maximize-column; }
+    Mod+Alt+R { switch-preset-column-width; }
+    Mod+Alt+C { center-column; }
+    // Mission Control 相当。Hyprland 側も Super+Alt+Tab に置いている
+    // (三本指の上スワイプは niri が既定で俯瞰に割り当てている)
+    Mod+Alt+Tab repeat=false { toggle-overview; }
+
+    // === フォーカス移動 (macOS の Cmd+Option+矢印) ===
+    Mod+Alt+Left  { focus-column-left; }
+    Mod+Alt+Right { focus-column-right; }
+    Mod+Alt+Up    { focus-window-up; }
+    Mod+Alt+Down  { focus-window-down; }
+
+    // === 列を動かす (Magnet の Ctrl+Option+矢印 が Super+矢印 で届く) ===
+    // 素の Super+矢印 も同じキーになるので、DMS 既定のフォーカス移動はここで潰れる
+    // (フォーカス移動は上の Super+Alt+矢印)。
+    Mod+Left  { move-column-left; }
+    Mod+Right { move-column-right; }
+    Mod+Up    { move-window-up; }
+    Mod+Down  { move-window-down; }
+
+    // === キーボードバックライト (MacBook の F5/F6) ===
+    // DMS の brightness IPC は画面用なので brightnessctl で leds クラスを直接動かす
+    // (modules/nixos/desktop/dms.nix)。デバイス名は機種で変わるので glob。niri の spawn は
+    // shell を通さないが、パターンは brightnessctl 自身が解決する。
+    XF86KbdBrightnessUp allow-when-locked=true repeat=true {
+        spawn "brightnessctl" "-d" "*::kbd_backlight" "set" "10%+";
+    }
+    XF86KbdBrightnessDown allow-when-locked=true repeat=true {
+        spawn "brightnessctl" "-d" "*::kbd_backlight" "set" "10%-";
+    }
+}
+
+// === 入力: macOS の既定 + modules/darwin/default.nix の上書きに合わせる ===
+// 揃えているものは hypr/dms/binds-user.lua の同じ節と同じ。DMS の dms/input.kdl は
+// タップ・ナチュラルスクロール・加速だけを書くので、それ以外はここで足す。
+input {
+    keyboard {
+        // キーリピートは macOS の最速 (66/s, 225ms) より速い。macOS 側は KeyRepeat = 1 が
+        // 下限でこれ以上詰められないので、ここだけ揃わない。
+        repeat-delay 180
+        repeat-rate 80
+    }
+    touchpad {
+        tap
+        natural-scroll
+        dwt
+        // 二本指クリックで右クリック (macOS と同じ)
+        click-method "clickfinger"
+        // スクロール量。トラックパッドは速く感じるので下げる
+        scroll-factor 0.3
+    }
+    mouse {
+        natural-scroll
+        scroll-factor 0.6
+        // libinput の加速 (-1 〜 1)
+        accel-speed 0.5
+    }
+}
+
+cursor {
+    hide-when-typing
+}

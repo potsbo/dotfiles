@@ -11,4 +11,10 @@ _:
     dates = "weekly";
     flags = [ "--all" "--volumes" ];
   };
+
+  # niri (スクロール式タイリング) のお試し。ブートメニューで "niri" を選んだときだけ
+  # 有効になる。通常起動は Hyprland のまま。設定は home/.config/niri/。
+  specialisation.niri.configuration = {
+    desktop.environment = "niri";
+  };
 }
