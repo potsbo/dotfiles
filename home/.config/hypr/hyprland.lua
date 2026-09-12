@@ -66,6 +66,14 @@ hl.config({
 		-- compositor 自身が入力で点ければ DMS の状態に依存しない。
 		key_press_enables_dpms = true,
 		mouse_move_enables_dpms = true,
+		-- 既定 (false) だと xdg-activation の要求を Hyprland が握り潰す。Chrome の
+		-- プロファイル切り替えは、そのプロファイルのウィンドウが既にあるときは新規に
+		-- 開かず activation を投げるだけなので、false のままだと「切り替え UI を操作しても
+		-- 何も起きない」ように見える (実際は切り替わっていて、裏のウィンドウが前に
+		-- 来ないだけ)。同じ理由で、外部アプリからリンクを開いたときも既存ウィンドウが
+		-- 上がらない。引き換えにどのアプリも focus を奪えるようになるが、意図した
+		-- activation が全部死ぬ方が実害が大きい。
+		focus_on_activate = true,
 	},
 	dwindle = {
 		preserve_split = true,
