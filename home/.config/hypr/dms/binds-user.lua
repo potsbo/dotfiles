@@ -249,8 +249,10 @@ hl.config({
 -- ポインタを隠す、中クリック貼り付けは無い、ウィンドウの縁でサイズ変更できる。
 hl.config({
   input = {
-    repeat_rate = 66,
-    repeat_delay = 225,
+    -- キーリピートだけは macOS の最速 (66/s, 225ms) より速い。macOS 側は
+    -- KeyRepeat = 1 が下限でこれ以上詰められないので、ここだけ揃わない。
+    repeat_rate = 80,
+    repeat_delay = 180,
     natural_scroll = true,
     touchpad = {
       natural_scroll = true,
