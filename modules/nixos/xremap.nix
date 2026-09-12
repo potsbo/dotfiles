@@ -216,14 +216,19 @@ in
             };
           }
   
-          # === Chrome 用 Cmd-Q (Ctrl+Shift+W で全タブ・全ウィンドウを閉じる) ===
+          # === Chrome 用 Cmd ショートカット ===
           {
-            name = "Chrome Cmd-Q quit";
+            name = "Chrome Cmd shortcuts";
             application = {
               only = [ "google-chrome" "Google-chrome" "chromium-browser" "Chromium-browser" ];
             };
             remap = {
+              # Cmd-Q: Ctrl+Shift+W で全タブ・全ウィンドウを閉じる
               Super-q = "C-Shift-w";
+              # Cmd-Enter: アドレスバーの入力を新しいタブで開く (macOS と同じ)。
+              # 下の "Super shortcuts" 経由の Ctrl+Enter は Chrome では www./.com
+              # 補完になってしまうので、Chrome だけ Linux 版の同機能 Alt+Enter に寄せる。
+              Super-Enter = "Alt-Enter";
             };
           }
   
