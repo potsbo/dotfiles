@@ -13,7 +13,7 @@ network_access = true
 terminal_title = ["activity", "thread-title"]
 
 [tui.model_availability_nux]
-gpt-6-astra = 3
+gpt-6-astra = 4
 
 [projects."/home/potsbo/src/github.com/medicu-inc/one"]
 trust_level = "trusted"
