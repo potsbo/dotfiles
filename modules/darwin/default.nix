@@ -44,6 +44,15 @@
           showAppExposeGestureEnabled = true;
           expose-group-apps = true;
         };
+        # Chrome 内蔵の DNS client を切って macOS の resolver (mDNSResponder) に戻す。
+        # 内蔵 client は起動時に読んだ resolver 設定を持ち続けるので、Tailscale の
+        # split DNS (MagicDNS の 100.100.100.100) が付いたり外れたりすると古い設定の
+        # まま NXDOMAIN を返し続け、回線が戻っても Chrome だけ名前を引けない状態が残る。
+        # DoH も MagicDNS 名を引けなくなるので併せて切る。
+        "com.google.Chrome" = {
+          BuiltInDnsClientEnabled = false;
+          DnsOverHttpsMode = "off";
+        };
         # Cmd+Shift+Space の入力ソース切り替えを無効化 (WezTerm QuickSelect で使うため)
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {
