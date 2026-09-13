@@ -34,6 +34,6 @@ nix run . -- switch --flake .#<host>               # nix-darwin
 - `home/.config/aquaproj-aqua/aqua.yaml` - aqua package definitions
 - `modules/home-manager/dotfiles.nix` - symlinks `home/` into `$HOME`
 - `flake.nix` - single flake for NixOS hosts, nix-darwin and home-manager
-- `hosts/<host>/` - NixOS host configurations
+- `hosts/<host>/` - NixOS host configurations (`hosts/raptorlake-win/` だけは Windows ゲストで、PowerShell のスクリプト)
 - `modules/{nixos,darwin,home-manager}/` - shared modules per system type
 - `pkgs/` - packages not in nixpkgs

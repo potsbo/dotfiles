@@ -134,7 +134,8 @@ sudo virsh autostart raptorlake-win                                  # ホスト
 
 virtio-win の CD (`sdb`) は挿したままにしてある (ゲストツールの導入に使う)。
 
-ゲスト側:
+ゲスト側 (ここに書いてあるのは対話が要る手作業。スクリプトで冪等に当てる分は
+`../raptorlake-win/` にある):
 
 - virtio-win の `virtio-win-guest-tools.exe` を実行 (残りのドライバ + qemu-ga)。
 - Tailscale を入れる。これでゲストが固有の tailnet IP を持つので、

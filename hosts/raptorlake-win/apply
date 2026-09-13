@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# raptorlake-win (Windows 11 ゲスト) に設定を当てる。
+#   ./hosts/raptorlake-win/apply
+#   RUNNER_URL=... RUNNER_TOKEN=... ./hosts/raptorlake-win/apply   # runner を登録するとき
+#
+# bootstrap.ps1 (SYSTEM で当てる sshd の設定) と setup.ps1 (ユーザーとして当てる残り) を
+# 毎回この順に流す。bootstrap は libvirt ホスト (raptorlake) の上なら guest agent 経由で、
+# それ以外の場所からは ssh 経由で流す。ssh がまだ無い状態を起こせるのは guest agent
+# だけなので、作り直した直後の 1 回目は raptorlake の上で実行すること。
+#
+# スクリプトはコピーせず、-EncodedCommand で丸ごと渡す。ゲスト側に「どの版が置いて
+# あるか」という状態を持たせない。stdin から流す (-Command -) のは使わない。あれは
+# 1 行ずつ実行するので複数行の構文が壊れ、エラーが出ても次の行に進んでしまう。
+set -euo pipefail
+
+here=$(cd "$(dirname "$0")" && pwd)
+guest=raptorlake-win
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+
+ssh_ok() { ssh -o BatchMode=yes -o ConnectTimeout=5 "$guest" exit >/dev/null 2>&1; }
+
+# PowerShell の -EncodedCommand は UTF-16LE の base64
+encode() { iconv -f utf-8 -t utf-16le "$1" | base64 -w0; }
+
+# guest-exec は非同期で pid を返す。終了を待って出力を取り出す。JSON の組み立てと分解は jq。
+guest_powershell() {
+  local enc req pid status
+  enc=$(encode "$1")
+  req=$(jq -cn --arg enc "$enc" '{execute:"guest-exec",arguments:{path:"powershell.exe",arg:["-NoProfile","-NonInteractive","-EncodedCommand",$enc],"capture-output":true}}')
+  pid=$(virsh -c qemu:///system qemu-agent-command "$guest" "$req" | jq '.return.pid')
+  while :; do
+    status=$(virsh -c qemu:///system qemu-agent-command "$guest" "{\"execute\":\"guest-exec-status\",\"arguments\":{\"pid\":$pid}}")
+    if [ "$(jq '.return.exited' <<<"$status")" = true ]; then
+      jq -r '.return["out-data"] // empty' <<<"$status" | base64 -d
+      jq -r '.return["err-data"] // empty' <<<"$status" | base64 -d >&2
+      return "$(jq '.return.exitcode' <<<"$status")"
+    fi
+    sleep 2
+  done
+}
+
+if [ "$(hostname)" = raptorlake ]; then
+  guest_powershell "$here/bootstrap.ps1"
+  # ホスト鍵は bootstrap でゲストが作る。初回接続で受け入れる (TOFU) のではなく、
+  # 既に信頼している経路 (guest agent) で公開鍵を取り出して known_hosts に固定する。
+  echo 'Get-Content C:\ProgramData\ssh\ssh_host_ed25519_key.pub' > "$tmp"
+  hostkey=$(guest_powershell "$tmp" | awk '{print $1, $2}')
+  if ! ssh-keygen -F "$guest" -f ~/.ssh/known_hosts 2>/dev/null | grep -q "$hostkey"; then
+    ssh-keygen -R "$guest" >/dev/null 2>&1 || true
+    printf '%s %s\n' "$guest" "$hostkey" >> ~/.ssh/known_hosts
+  fi
+else
+  ssh_ok || { echo "ssh が通らない。作り直した直後は raptorlake の上で実行すること" >&2; exit 1; }
+  # sshd の設定が変わると bootstrap 自身が sshd を再起動し、この接続ごと切れる。
+  # そのときは終了コードが 255 になるだけなので、通らなくなっていないかを後で確かめる。
+  ssh "$guest" "powershell -NoProfile -NonInteractive -EncodedCommand $(encode "$here/bootstrap.ps1")" || true
+fi
+# sshd の起動を待つ
+for _ in $(seq 1 15); do ssh_ok && break; sleep 2; done
+ssh_ok || { echo "bootstrap 後に ssh が通らない" >&2; exit 1; }
+
+# 環境変数は ssh を越えないので、スクリプトの先頭に代入として付けて流す
+{
+  [ -n "${RUNNER_URL:-}" ] && printf '$env:RUNNER_URL = %s\n' "'${RUNNER_URL}'"
+  [ -n "${RUNNER_TOKEN:-}" ] && printf '$env:RUNNER_TOKEN = %s\n' "'${RUNNER_TOKEN}'"
+  cat "$here/setup.ps1"
+} > "$tmp"
+ssh "$guest" "powershell -NoProfile -NonInteractive -EncodedCommand $(encode "$tmp")"
