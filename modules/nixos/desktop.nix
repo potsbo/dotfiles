@@ -4,12 +4,40 @@
 
 let
   # Web アプリを Chrome --app モードで起動する .desktop エントリを生成
-  webApp = { name, desktopName, url, icon ? "google-chrome" }:
+  #
+  # profile は Chrome のプロファイルディレクトリ名 (~/.config/google-chrome/ の下)。渡さないと
+  # Chrome は最後に使ったプロファイルで開くので、仕事用を触った後に起動すると仕事用のアカウントで
+  # 開いてしまう。個人のアカウントで固定したいものは明示する。
+  #
+  # wmSlug は Chrome が --app ウィンドウの app-id に使う文字列で、host + "_" + path の非英数字を
+  # "_" にした物 (実測: https://music.apple.com/us/home → music.apple.com__us_home)。タスクバーは
+  # ウィンドウの app-id から .desktop を引いてアイコンを出すので、これを渡さないと下の icon が
+  # 効かずウィンドウ側だけ既定アイコンになる。app-id の末尾にはプロファイル名が付くため、
+  # ここで profile から組み立てて両者がずれないようにしている。合わなくなったら
+  # `niri msg windows` で実際の app-id を見て直す。
+  webApp = { name, desktopName, url, icon ? "google-chrome", profile ? null, wmSlug ? null }:
     pkgs.makeDesktopItem {
       inherit name desktopName icon;
-      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --app=${url}";
+      exec = "${pkgs.google-chrome}/bin/google-chrome-stable"
+        + lib.optionalString (profile != null) " --profile-directory=${lib.escapeShellArg profile}"
+        + " --app=${url}";
       categories = [ "Network" ];
+      startupWMClass = lib.mapNullable
+        (slug: "chrome-${slug}-${lib.replaceStrings [ " " ] [ "_" ] (if profile == null then "Default" else profile)}")
+        wmSlug;
     };
+
+  # Apple Music のアイコン。Apple の PWA manifest (music.apple.com/manifest.json) が指している
+  # ものをビルド時に取ってきて hicolor テーマに入れる。png をリポジトリに commit しないのは、
+  # 公開リポジトリに Apple の意匠を持ち込まないため。代償として Apple が差し替えると hash 不一致で
+  # ビルドが落ちる (eval では落ちないので task check は素通りする)。落ちたら
+  # `nix store prefetch-file <url>` で取り直す。
+  appleMusicIcon = pkgs.runCommand "apple-music-icon" { } ''
+    install -Dm444 ${pkgs.fetchurl {
+      url = "https://music.apple.com/assets/app-icons/pwa-manifest/music-icon_512.png";
+      hash = "sha256-8pFrNe2Sb0gbz/ZJ6UpCWpx3jo+++zvJhunMJteFSkk=";
+    }} $out/share/icons/hicolor/512x512/apps/apple-music.png
+  '';
 in
 {
   imports = [ ./desktop/dms.nix ./desktop/hyprland.nix ./desktop/niri.nix ];
@@ -122,6 +150,15 @@ in
       # GUI セッションでも直接開くため。
       obsidian
       (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
+      appleMusicIcon
+      (webApp {
+        name = "apple-music";
+        desktopName = "Apple Music";
+        url = "https://music.apple.com/us/home";
+        icon = "apple-music";
+        profile = "Default";
+        wmSlug = "music.apple.com__us_home";
+      })
       freerdp
       slack
       pgadmin4-desktopmode
