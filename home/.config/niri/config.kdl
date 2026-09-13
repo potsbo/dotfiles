@@ -234,19 +234,30 @@ debug {
     honor-xdg-activation-with-invalid-serial
 }
 
-// docs/keymap.md の W2 (Option+Tab で、いま使っているアプリのウィンドウを切り替える) を
-// niri 内蔵の MRU に当てる。Hyprland では A3 と合わせて hyprshell が担っていた。
+// docs/keymap.md の A3 (Cmd+Tab でアプリを特定) と W2 (Option+Tab でその中のウィンドウを
+// 特定) を niri 内蔵の MRU に当てる。Hyprland では同じものを hyprshell が担っていた。
 //
-// A3 (Cmd+Tab) はここには置かない。内蔵はウィンドウのプレビューを並べるので、全面が同系色の
-// 窓ばかりだと見分けがつかない。アイコンで探せる niriswitcher に渡してある (user.kdl の
-// Mod+Tab、常駐は modules/nixos/desktop/niri.nix)。W2 を内蔵に残すのは、こちらは同じアプリの
-// 中を回るのでアイコンが全部同じになり、プレビューの方が手掛かりになるから。
+// A3 はアプリ単位が原則だが、niri の MRU はウィンドウ単位しか持たない。仕様が認めている
+// 範囲でウィンドウ単位に落としてある。
 //
-// Alt と明示するのは、物理キーで書いたほうが仕様と突き合わせやすいから (Mod は既定の Super
-// だが、nested で動かすと Alt になる)。MRU のバインドは通常の binds より弱いので、
-// dms/binds.kdl 側から Mod+Tab を外してある。
+// 内蔵の switcher はウィンドウのプレビューを並べる。端末もエディタもブラウザも全面が
+// 同系色なので、アイコンで探せる方がよく、2026-09-13 に A3 だけ niriswitcher (GTK4 の
+// 外部 switcher、アイコン + アプリ名を並べる) に移したが、戻した。**外部プロセスの
+// switcher は「Cmd+Tab を 1 回叩いて直前のアプリに戻る」ができない。**確定の契機が
+// 修飾キーの release イベントで、速く叩くとレイヤーウィンドウがキーボードフォーカスを
+// 得る前に Cmd が離れ、イベントが届かない (niriswitcher issue #27 で作者も「compositor に
+// on-release バインドが無いと解決できない」と認めている)。その niri 側の PR (#1923) は
+// 2025-10 に未マージでクローズ済み。内蔵はこれを compositor の中でやっているので、
+// 別の switcher を持ってきてもこの一点では勝てない。アイコンで探したいときは DMS の
+// Spotlight (Alt+Space) がアプリ名で引ける (dms-focus-or-launch が起動済みなら移る)。
+//
+// Mod ではなく Super / Alt と明示するのは、物理キーで書いたほうが仕様と突き合わせやすいから
+// (Mod は既定の Super だが、nested で動かすと Alt になる)。MRU のバインドは通常の binds より
+// 弱いので、dms/binds.kdl 側から Mod+Tab を外してある。
 recent-windows {
     binds {
+        Super+Tab       { next-window; }
+        Super+Shift+Tab { previous-window; }
         Alt+Tab         { next-window filter="app-id"; }
         Alt+Shift+Tab   { previous-window filter="app-id"; }
     }
