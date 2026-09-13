@@ -4,28 +4,31 @@
 source ~/src/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh
 source ~/src/github.com/mroth/evalcache/evalcache.plugin.zsh
 
-# PATH / FPATH の重複除去。下で先頭に足す分と、/etc/zprofile の path_helper が
-# 積んだ分が重なる。brew shellenv はこの重複を潰す副作用も持っていたので、
-# それを zsh 側の仕組みで置き換える。
+# PATH / FPATH の重複除去。/etc/zprofile の path_helper と下の brew shellenv が
+# 同じ entry を二重に積む。PATH のほうは path_helper 自身が潰すが、FPATH は
+# 誰も潰さず 26 件のうち半分が重複していた。
 typeset -U path fpath
 
 # brew
-# `brew shellenv` は呼ばない (~84ms で .zshrc 全体の半分を占めていた)。中で
-# /usr/libexec/path_helper を fork するのが重い。出力は prefix 固定の静的な内容
-# なので展開して直接書く。PATH に対する実効も「先頭に bin と sbin を足す」だけで、
-# 残りの並べ替えは path_helper が元の PATH を組み直して同じ順序に戻しているだけ。
-# evalcache ではこれは解けない。出力そのものに path_helper を呼ぶ eval 行が
-# 入っているので、キャッシュを source しても fork は毎回起きる (実測 113ms)。
-# 出力がずれたときに気づけないのは evalcache も同じ (キャッシュキーはコマンド文字列
-# だけで、出力が変わっても無効化されない) ので、doctor 側で突き合わせる。
-# 手で見るなら `env -i HOME=$HOME PATH=/usr/bin:/bin /opt/homebrew/bin/brew shellenv zsh`。
+# `brew shellenv` を毎回呼ぶと 84ms かかる (brew 本体が bash の大きなスクリプトで、
+# さらに出力の中で /usr/libexec/path_helper を fork する)。出力をキャッシュする。
+#
+# 素の evalcache ではキャッシュが古くなっても気づけない。キャッシュキーがコマンド
+# 文字列だけなので、Homebrew 側が出力を変えても無効化されない。そこで出力を決める
+# ファイルの mtime を引数に混ぜてキーにする。evalcache は NAME=VALUE も含めて
+# ハッシュを取るので、Homebrew が更新されればキーが変わって勝手に取り直す。
+# 一度手で展開した値を置く案もあったが、ずれを doctor で人が確認する形になるので
+# やめた (25ms の差より、同期が自動で保たれるほうを取る)。
+#
+# PATH= を前置するのは brew の no-op 対策。PATH の先頭が既に homebrew だと
+# brew は「設定済み」と判断して何も出力せず、空のキャッシュができる。herdr の
+# pane のように親から環境を継いだシェルで実際に起きる。
 if [ -d "/opt/homebrew" ]; then
-  export HOMEBREW_PREFIX="/opt/homebrew"
-  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-  export HOMEBREW_REPOSITORY="/opt/homebrew"
-  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
-  fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
-  path=("/opt/homebrew/bin" "/opt/homebrew/sbin" $path)
+  zmodload -F zsh/stat b:zstat
+  # zstat は + オプションを 1 つしか取らないので mtime だけ。更新されれば必ず動く。
+  zstat -A _brew_key +mtime /opt/homebrew/Library/Homebrew/cmd/shellenv.sh /opt/homebrew/etc/paths
+  _evalcache BREW_SHELLENV="${(j:-:)_brew_key}" PATH=/usr/bin:/bin /opt/homebrew/bin/brew shellenv zsh
+  unset _brew_key
 fi
 
 # zsh が書き込む XDG ディレクトリ（history / zcompdump の親）を用意
