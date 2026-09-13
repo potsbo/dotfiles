@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+# 起動が遅くなったかを同じ条件で測り直す。zsh と nvim は設定を足すたびに重くなる
+# 一方で、体感では「なんとなく遅い」までしか分からず、直したあとに効いたのかも
+# 分からない。数字が出れば、設定を足す前後で比べられる。
+#
+# 測るのは hyperfine (aqua で導入済み)。自前でループを回して time を取ると、
+# ウォームアップやばらつきの扱いを毎回書き直すことになる。
+#
+# 測る対象は「端末を開く」「nvim を開く」に対応させる:
+#   zsh  : ログイン + 対話シェル (端末が起動するのはこの形。.zprofile も含む)
+#   nvim : --headless での起動と終了。TUI の描画は含まないが、設定と plugin の
+#          読み込みは通常起動と同じで、遅くなるのは常にそちら側。
+#
+# 使い方: bench [--profile] [zsh|nvim]
+#   引数なし  : 両方を測る
+#   --profile : 測定のかわりに内訳を出す (zsh は zprof、nvim は --startuptime)
+
+set -eu
+
+usage() {
+  echo "usage: bench [--profile] [zsh|nvim]" >&2
+  exit 1
+}
+
+PROFILE=0
+TARGETS=()
+for arg in "$@"; do
+  case "$arg" in
+    --profile) PROFILE=1 ;;
+    zsh | nvim) TARGETS+=("$arg") ;;
+    -h | --help) usage ;;
+    *)
+      echo "bench: unknown argument: $arg" >&2
+      usage
+      ;;
+  esac
+done
+[ ${#TARGETS[@]} -eq 0 ] && TARGETS=(zsh nvim)
+
+have() { command -v "$1" >/dev/null 2>&1; }
+
+if [ "$PROFILE" = 0 ] && ! have hyperfine; then
+  echo "bench: hyperfine がない (aqua i sharkdp/hyperfine)" >&2
+  exit 1
+fi
+
+# zprof は測りたいコードより先に読み込まないと何も記録しない。zshrc には入れず
+# (常時読むと本番の起動が重くなる)、ZDOTDIR を差し替えて前段に挟む。zsh は各段で
+# ZDOTDIR を読み直すので、.zshenv の中で $HOME に戻せば以降は普段どおりに進む。
+profile_zsh() {
+  local dir
+  dir="$(mktemp -d)"
+  trap 'rm -rf "$dir"' RETURN
+  cat >"$dir/.zshenv" <<'EOF'
+zmodload zsh/zprof
+ZDOTDIR=$HOME
+[ -f "$HOME/.zshenv" ] && source "$HOME/.zshenv"
+EOF
+  # zprof は -c のコマンドとして呼ぶ。zshrc を読み終えた後に走るので、そこまでの
+  # 集計がそのまま出る。
+  ZDOTDIR="$dir" zsh -l -i -c zprof
+}
+
+# --startuptime の行は 2 種類ある。script を読んだ行は「経過 / 自分 + source した分 /
+# 自分だけ:」の 3 列、それ以外の段階は「経過 / 経過差:」の 2 列で、どちらも ':' が
+# 付いた最後の数値が「その行自身にかかった時間」。遅い犯人はそこが大きい行なので、
+# 降順に並べて上位だけ出す。合計は最後の行の経過時間。
+profile_nvim() {
+  local log
+  log="$(mktemp)"
+  trap 'rm -f "$log"' RETURN
+  nvim --headless --startuptime "$log" +qa >/dev/null 2>&1
+  awk '$1 ~ /^[0-9.]+$/ { t = $1 } END { printf "total: %.3f ms\n", t }' "$log"
+  echo "--- slowest 20 (self ms) ---"
+  awk '$1 ~ /^[0-9.]+$/ {
+         if ($3 ~ /^[0-9.]+:$/) { self = $3; n = 3 }
+         else if ($2 ~ /^[0-9.]+:$/) { self = $2; n = 2 }
+         else next
+         for (i = 1; i <= n; i++) $i = ""
+         sub(/^ +/, "")
+         printf "%8.3f  %s\n", self + 0, $0
+       }' "$log" | sort -rn | head -20
+}
+
+for target in "${TARGETS[@]}"; do
+  case "$target" in
+    zsh)
+      if [ "$PROFILE" = 1 ]; then
+        echo "== zsh (zprof) =="
+        profile_zsh
+      else
+        hyperfine --warmup 3 --command-name 'zsh -l -i' 'zsh -l -i -c exit'
+      fi
+      ;;
+    nvim)
+      if ! have nvim; then
+        echo "bench: nvim がない" >&2
+        exit 1
+      fi
+      if [ "$PROFILE" = 1 ]; then
+        echo "== nvim (--startuptime) =="
+        profile_nvim
+      else
+        hyperfine --warmup 3 --command-name 'nvim --headless' 'nvim --headless +qa'
+      fi
+      ;;
+  esac
+done
