@@ -28,5 +28,10 @@ buildGoModule {
     wrapProgram $out/bin/nix-graph --prefix PATH : ${lib.makeBinPath [ nix ]}
   '';
 
-  meta.mainProgram = "nix-graph";
+  # upstream の TUI が termios を linux 固有の syscall で叩くので linux でしか
+  # ビルドできない (詳細は参照側 home.nix のコメント)。
+  meta = {
+    mainProgram = "nix-graph";
+    platforms = lib.platforms.linux;
+  };
 }
