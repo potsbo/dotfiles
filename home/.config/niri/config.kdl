@@ -256,6 +256,13 @@ recent-windows {
 include optional=true "dms/colors.kdl"
 include optional=true "dms/layout.kdl"
 include optional=true "dms/alttab.kdl"
+// DMS の既定バインドはそのまま使う。niri に unbind は無く (空のバインドはパースエラー)、
+// 別の action で上書きしてもキーは niri が消費するので、要らない既定を「アプリに返す」には
+// この include ごと外すしかない。外すと音量・輝度・スクリーンショット・ランチャーなども
+// 一緒に消えるので残している。承知のうえで諦めているのは 2 つ:
+//   - Ctrl+Shift+R (ワークスペース名変更) がブラウザのスーパーリロードを食う
+//   - Alt+Space (もう 1 つのランチャー) が zsh の Meta-Space を食う
+// どちらも使っていない。使うようになったら include を外して user.kdl に書き直す。
 include optional=true "dms/binds.kdl"
 include optional=true "dms/outputs.kdl"
 include optional=true "dms/cursor.kdl"
