@@ -10,11 +10,12 @@
 // Hyprland 側 (hypr/dms/binds-user.lua) から持ってきていないもの:
 // - Magnet 風の四分割: 全ウィンドウ浮動の Hyprland 用。スクロール式のタイリングを試すのが
 //   niri の目的なので持ち込まない。Magnet のキー (xremap が Ctrl+Option+矢印 → Super+矢印、
-//   Ctrl+Option+U/I/J/K → Super+U/I/J/K に変える) のうち、矢印は下で「列を動かす」に当てた。
+//   Ctrl+Option+U/I/J/K → Super+U/I/J/K に変える) のうち、矢印は下で「列を動かす」と最大化に当てた。
 //   U/I/J/K は DMS 既定 (ワークスペース移動・上下フォーカス) のまま。
 // - DMS のランチャー上での Emacs バインド (Ctrl+N/P/M など): Hyprland では layer が開いて
 //   いる間だけバインドを足して補っていた。niri には layer の開閉を拾う仕組みが無い。
 // - HHKB だけナチュラルスクロールを切る指定: niri の input はデバイス単位の上書きを持たない。
+//   ただし今つないでいる機器では mouse クラスが HHKB のスティックだけなので、下の mouse 節で足りる。
 
 binds {
     // === アプリ起動・DMS のパネル (Cmd+Option) ===
@@ -33,18 +34,30 @@ binds {
     Mod+Alt+Tab repeat=false { toggle-overview; }
 
     // === フォーカス移動 (macOS の Cmd+Option+矢印) ===
-    Mod+Alt+Left  { focus-column-left; }
-    Mod+Alt+Right { focus-column-right; }
-    Mod+Alt+Up    { focus-window-up; }
-    Mod+Alt+Down  { focus-window-down; }
+    // 端に着いたら隣のモニタへ抜ける版。ディスプレイ 2 枚を 1 本のスクロール帯のように
+    // 扱いたいので、モニタ境界で止まる focus-column-left などは使わない。
+    Mod+Alt+Left  { focus-column-or-monitor-left; }
+    Mod+Alt+Right { focus-column-or-monitor-right; }
+    Mod+Alt+Up    { focus-window-or-monitor-up; }
+    Mod+Alt+Down  { focus-window-or-monitor-down; }
 
     // === 列を動かす (Magnet の Ctrl+Option+矢印 が Super+矢印 で届く) ===
     // 素の Super+矢印 も同じキーになるので、DMS 既定のフォーカス移動はここで潰れる
     // (フォーカス移動は上の Super+Alt+矢印)。
-    Mod+Left  { move-column-left; }
-    Mod+Right { move-column-right; }
-    Mod+Up    { move-window-up; }
+    // フォーカス移動と同じく、端まで来たら隣のモニタへ送る。niri には「あふれたら自動で
+    // 隣のモニタへ」という仕組みは無い (出力ごとにワークスペースが独立している) ので、
+    // 手で押し出す形でしか帯をまたげない。
+    Mod+Left  { move-column-left-or-to-monitor-left; }
+    Mod+Right { move-column-right-or-to-monitor-right; }
     Mod+Down  { move-window-down; }
+
+    // Magnet の最大化 (Ctrl+Option+↑ と Ctrl+Option+Enter。xremap がどちらも Super+↑ に
+    // する) だけは持ち込む。fullscreen-window ではなく maximize-window-to-edges なのは、
+    // Magnet の最大化が macOS のメニューバーを残すのと同じで DMS のバーを残したいから。
+    // トグルなので Magnet の「元に戻す」(Ctrl+Option+↓) は別の action を当てなくてよい。
+    Mod+Up { maximize-window-to-edges; }
+    // ↑ を明け渡した分の引っ越し先。↓ 側は Magnet が使わないので素の Super+↓ のまま。
+    Mod+Shift+Up { move-window-up; }
 
     // === キーボードバックライト (MacBook の F5/F6) ===
     // DMS の brightness IPC は画面用なので brightnessctl で leds クラスを直接動かす
@@ -78,7 +91,9 @@ input {
         scroll-factor 0.3
     }
     mouse {
-        natural-scroll
+        // ここに来るのは HHKB Studio のスティックだけ (04fe:0016 は ID_INPUT_MOUSE を出し、
+        // ID_INPUT_POINTINGSTICK は出さないので niri の trackpoint 節には落ちない)。
+        // スティックはトラックパッドと逆向き (natural-scroll なし) の方が押しやすい。
         scroll-factor 0.6
         // libinput の加速 (-1 〜 1)
         accel-speed 0.5
@@ -87,4 +102,17 @@ input {
 
 cursor {
     hide-when-typing
+}
+
+// === 出力 (phoenix の 4K 2 枚) ===
+// niri は output 設定が無いと物理サイズから小数スケールを自動で決める (この 2 枚では
+// 1.5 と 1.25 になっていた)。等倍で使いたいので明示する。DMS の display 設定は
+// dms/outputs.kdl に書くが、あれは gitignore された実行時ファイルなのでここで持つ。
+// 名前は `niri msg outputs` の見出し。他ホストでは一致せず無視されるだけ。
+// 位置は書かない (niri の自動配置に任せる)。
+output "Dell Inc. DELL U2718QM KWHF293E0JRL" {
+    scale 1
+}
+output "LG Electronics LG ULTRAFINE 501NTGY30383" {
+    scale 1
 }
