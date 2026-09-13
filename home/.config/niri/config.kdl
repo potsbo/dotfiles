@@ -234,16 +234,21 @@ debug {
     honor-xdg-activation-with-invalid-serial
 }
 
-// Cmd+Tab / Cmd+` (macOS)。niri 内蔵の MRU 切り替えに当てる。物理 Cmd は Super で、xremap は
-// Super+Tab と Super+grave を変換せずここへ渡す (Hyprland では同じものを hyprshell が担う)。
-// user.kdl で Mod=Alt にしているので Mod ではなく Super と明示する (雛形の Alt+Tab は俯瞰に回した)。
-// MRU のバインドは通常の binds より弱いので、dms/binds.kdl 側から Mod+Tab を外してある。
+// docs/keymap.md の A3 (Cmd+Tab でアプリを特定) と W2 (Option+Tab でその中のウィンドウを
+// 特定) を niri 内蔵の MRU に当てる。Hyprland では同じものを hyprshell が担っていた。
+//
+// A3 はアプリ単位が原則だが、niri の MRU はウィンドウ単位しか持たない。仕様が認めている
+// 範囲でウィンドウ単位に落としてある。
+//
+// Mod ではなく Super / Alt と明示するのは、物理キーで書いたほうが仕様と突き合わせやすいから
+// (Mod は既定の Super だが、nested で動かすと Alt になる)。MRU のバインドは通常の binds より
+// 弱いので、dms/binds.kdl 側から Mod+Tab を外してある。
 recent-windows {
     binds {
-        Super+Tab         { next-window; }
-        Super+Shift+Tab   { previous-window; }
-        Super+grave       { next-window filter="app-id"; }
-        Super+Shift+grave { previous-window filter="app-id"; }
+        Super+Tab       { next-window; }
+        Super+Shift+Tab { previous-window; }
+        Alt+Tab         { next-window filter="app-id"; }
+        Alt+Shift+Tab   { previous-window filter="app-id"; }
     }
 }
 

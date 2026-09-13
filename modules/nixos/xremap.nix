@@ -186,6 +186,22 @@ in
               (k: k);
           }
 
+          # === Magnet 風の格子配置 (Ctrl+Option) をそのまま compositor へ ===
+          # docs/keymap.md §2 で Ctrl+Option を格子配置の面と決めたので、変換せずに
+          # compositor (niri の user.kdl) が Ctrl+Alt+... を直接受ける。
+          # ただ下の "Terminal Cmd shortcuts" と "Emacs Ctrl bindings" は修飾キーが上位集合でも
+          # 当たる (xremap の既定) ので、素通しにしないと Ctrl+Alt+K が Ctrl+K (行末まで削除) に
+          # 化ける。完全一致の同一写像で、どちらより前に置いて先に受ける。
+          # Hyprland 側 (binds-user.lua) は Super+矢印 / Super+U/I/J/K で受けていたので、
+          # あちらに戻すときはこの節を元の変換に戻す。
+          {
+            name = "Ctrl+Alt passthrough (Magnet)";
+            exact_match = true;
+            remap = lib.genAttrs
+              (map (k: "C-Alt-${k}") [ "Left" "Right" "Up" "Down" "u" "i" "j" "k" "Enter" ])
+              (k: k);
+          }
+
           # === ターミナル用 Cmd ショートカット ===
           # Wayland では Super+key が compositor に消費されアプリに届かないため、
           # ターミナルでは Ctrl+Shift+key に変換して Ghostty keybind で処理する。
@@ -267,26 +283,7 @@ in
               # Cmd+Tab と Cmd+` は変換せず Hyprland 側 (hyprshell) に渡す
             };
           }
-  
-          # === Magnet 風ウィンドウ操作 (Ctrl+Option → Ctrl+Alt) ===
-          # macOS の Magnet ショートカット。受け側は home/.config/hypr/dms/binds-user.lua
-          {
-            name = "Magnet window management";
-            application = { not = rdpApps; };
-            remap = {
-              C-Alt-Left = "Super-Left";    # 左半分
-              C-Alt-Right = "Super-Right";   # 右半分
-              C-Alt-Up = "Super-Up";         # 最大化
-              C-Alt-Down = "Super-Down";     # 元に戻す
-              C-Alt-Enter = "Super-Up";      # 最大化 (Magnet の Ctrl+Option+Enter)
-              # 四分割
-              C-Alt-u = "Super-u";           # 左上
-              C-Alt-i = "Super-i";           # 右上
-              C-Alt-j = "Super-j";           # 左下
-              C-Alt-k = "Super-k";           # 右下
-            };
-          }
-  
+    
           # === Emacs Ctrl バインド (ターミナル以外) ===
           # macOS の Cocoa テキストシステムと同じ挙動を再現。
           # ターミナル (Ghostty) を除外して適用する。

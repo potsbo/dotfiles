@@ -2,72 +2,39 @@
 // niri に unbind は無く、後から同じキーを宣言したものが勝つ (include をまたいだときだけ。
 // 1 つのファイルに同じセクションを 2 回書くとパースエラーになる)。
 //
-// === Mod = Alt (物理 Option) にしている ===
-// xremap (modules/nixos/xremap.nix) が macOS の Cmd 再現のために Super+C/V/X/A/Z/S/W/T/F/R/
-// L/K/N/P/O/Q/Return を Ctrl+同キーに変えてしまうので、Mod=Super のままだと DMS 既定と niri
-// 公式のバインドが半分も届かなかった (fullscreen-window や toggle-window-floating は押す手段が
-// 無かった)。Mod を Alt に移すと Super を丸ごと Cmd 再現に返せて、DMS 既定と公式配列が
-// そのまま Option 側で使える。ネットのチートシートも「Mod = Option」と読むだけで通る。
+// 何をどのキーに置くかは docs/keymap.md が決める。ここはそれを niri で満たすための
+// 設定で、仕様が定めていないものは DMS の既定に任せる。ここに書くのは 3 種類だけ:
+//   - 仕様にあるが DMS の既定では埋まらないもの (格子配置、Mission Control)
+//   - この機種にしか無いもの (キーボードバックライト)
+//   - macOS の入力設定に揃えるための入力まわりと、出力のスケール
 //
-// 代償は Option+文字 をターミナルから奪うこと。zsh の Meta バインド (Alt+. の last-arg、
-// fzf の Alt+C など) と衝突する。Mod+Escape (= Option+Esc) の shortcut-inhibit トグルで
-// 一時的に niri 側を黙らせられる。
-//
-// Hyprland 側 (hypr/dms/binds-user.lua) から持ってきていないもの:
-// - Magnet 風の四分割: 全ウィンドウ浮動の Hyprland 用。スクロール式のタイリングを試すのが
-//   niri の目的なので持ち込まない。Magnet の矢印 (xremap が Ctrl+Option+矢印 → Super+矢印に
-//   変える) だけ下で拾う。U/I/J/K は DMS 既定のまま。
-// - DMS のランチャー上での Emacs バインド (Ctrl+N/P/M など): Hyprland では layer が開いて
-//   いる間だけバインドを足して補っていた。niri には layer の開閉を拾う仕組みが無い。
-// - HHKB だけナチュラルスクロールを切る指定: niri の input はデバイス単位の上書きを持たない。
-//   ただし今つないでいる機器では mouse クラスが HHKB のスティックだけなので、下の mouse 節で足りる。
+// Mod は既定のまま Super (物理 Cmd)。2026-09-13 に Mod=Alt を試したが、Option 面は
+// アプリに渡すと決めたので戻した (docs/keymap.md §2)。その結果 DMS 既定の Mod+<英字> は
+// 17 個が xremap に食われて niri に届かない。届かないままにしてあるのは、それらが仕様の
+// 約束していない組み合わせだから。要るものだけ下で拾う。
 
 binds {
-    // === DMS 既定で埋まらないところ ===
-    // DMS は powermenu だけ Mod ではなく素の Super+X に置いていて、そこは xremap が食う
-    Mod+X hotkey-overlay-title="Power menu" { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
-    // Mission Control 相当。Super+Tab は Cmd+Tab の MRU 切り替え (config.kdl) に使っている
-    Mod+Tab repeat=false { toggle-overview; }
-    // DMS のロックは Mod+Alt+L 表記で、Mod=Alt だと Alt+L に潰れて DMS 自身の
-    // Mod+L (focus-column-right) と同じキーになる。物理 Cmd+Option+L のまま残す
-    // (xremap は Super+Alt+L を素通しする)。
-    Super+Alt+L hotkey-overlay-title="Lock screen" { spawn "dms" "ipc" "call" "lock" "lock"; }
-    // ランチャーは macOS と同じ Cmd+Space に置く。DMS 既定は Mod+Space だが、Mod=Alt だと
-    // DMS 自身の Alt+Space (spotlight-bar) と同じキーになってしまう。xremap は Super+Space を
-    // 変換しないのでそのまま届く。
-    Super+Space hotkey-overlay-title="Application launcher" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+    // === 格子配置 (docs/keymap.md §3.4 の P1〜P7) ===
+    // 物理キーは Magnet と同じ Ctrl+Option。xremap は Ctrl+Alt+... を変換せずここへ渡す。
+    // niri は 1 バインド 1 action しか書けないので、複数の action を niri-place にまとめて
+    // ある (modules/nixos/desktop/niri-place.sh)。
+    Ctrl+Alt+Left  hotkey-overlay-title="Left half"  { spawn "niri-place" "left"; }
+    Ctrl+Alt+Right hotkey-overlay-title="Right half" { spawn "niri-place" "right"; }
+    Ctrl+Alt+U     hotkey-overlay-title="Top-left quarter"     { spawn "niri-place" "tl"; }
+    Ctrl+Alt+I     hotkey-overlay-title="Top-right quarter"    { spawn "niri-place" "tr"; }
+    Ctrl+Alt+J     hotkey-overlay-title="Bottom-left quarter"  { spawn "niri-place" "bl"; }
+    Ctrl+Alt+K     hotkey-overlay-title="Bottom-right quarter" { spawn "niri-place" "br"; }
+    // P7 は 1 action で足りるのでスクリプトを通さない。fullscreen-window ではなく
+    // maximize-window-to-edges なのは、Magnet の最大化が macOS のメニューバーを残すのと
+    // 同じで DMS のバーを残したいから。
+    Ctrl+Alt+Return hotkey-overlay-title="Maximize" { maximize-window-to-edges; }
+    // MacBook 内蔵キーボード向けの別名 (docs/keymap.md §1.2)。Magnet も上矢印を最大化に
+    // 当てている。
+    Ctrl+Alt+Up { maximize-window-to-edges; }
 
-    // === 矢印はモニタ境界を越える版に差し替える ===
-    // ディスプレイ 2 枚を 1 本のスクロール帯のように扱いたいので、境界で止まる
-    // focus-column-left / move-column-left ではなく or-monitor 版を当てる。
-    // niri には「あふれたら自動で隣のモニタへ」という仕組みは無い (出力ごとにワークスペースが
-    // 独立している。upstream でも not planned) ので、手で押し出す形でしか帯をまたげない。
-    Mod+Left  { focus-column-or-monitor-left; }
-    Mod+Right { focus-column-or-monitor-right; }
-    Mod+Up    { focus-window-or-monitor-up; }
-    Mod+Down  { focus-window-or-monitor-down; }
-    Mod+Shift+Left  { move-column-left-or-to-monitor-left; }
-    Mod+Shift+Right { move-column-right-or-to-monitor-right; }
-
-    // === HHKB のスティックで帯を横に送る ===
-    // トラックパッドは 3 本指の横スワイプで連続的にビューが動くが、マウス入力には同じ手が
-    // 無い: niri のアクションに「ビューを N ピクセル動かす」は無く (`niri msg action`)、
-    // スワイプのジェスチャは touchpad 専用。なのでホイールは 1 ノッチ = 1 カラムの離散になる。
-    // 修飾なしの WheelScrollLeft/Right でも拾えるが、それだとアプリの横スクロールを丸ごと
-    // 奪うので Mod を付ける。矢印と同じく or-monitor 版でモニタ境界を越える。
-    Mod+WheelScrollLeft  cooldown-ms=150 { focus-column-or-monitor-left; }
-    Mod+WheelScrollRight cooldown-ms=150 { focus-column-or-monitor-right; }
-
-    // === Magnet の筋肉記憶 (Ctrl+Option+矢印) ===
-    // xremap が Super+矢印 に変えて寄こす。Mod ではなくなったので Super と明示する。
-    // 素の Cmd+矢印 も同じキーになる。
-    // 最大化に fullscreen-window ではなく maximize-window-to-edges を当てるのは、Magnet の
-    // 最大化が macOS のメニューバーを残すのと同じで DMS のバーを残したいから。トグルなので
-    // Magnet の「元に戻す」(Ctrl+Option+↓) に別の action は要らない。
-    Super+Up    { maximize-window-to-edges; }
-    Super+Left  { move-column-left-or-to-monitor-left; }
-    Super+Right { move-column-right-or-to-monitor-right; }
-    Super+Down  { move-window-down; }
+    // === Mission Control (docs/keymap.md の W3) ===
+    // Super+Tab と Alt+Tab は config.kdl の recent-windows が使っている。
+    Mod+Alt+Tab repeat=false hotkey-overlay-title="Mission Control" { toggle-overview; }
 
     // === キーボードバックライト (MacBook の F5/F6) ===
     // DMS の brightness IPC は画面用なので brightnessctl で leds クラスを直接動かす
@@ -85,8 +52,6 @@ binds {
 // 揃えているものは hypr/dms/binds-user.lua の同じ節と同じ。DMS の dms/input.kdl は
 // タップ・ナチュラルスクロール・加速だけを書くので、それ以外はここで足す。
 input {
-    // 上の「Mod = Alt」参照。niri 25.05 以降の設定。
-    mod-key "Alt"
     keyboard {
         // キーリピートは macOS の最速 (66/s, 225ms) より速い。macOS 側は KeyRepeat = 1 が
         // 下限でこれ以上詰められないので、ここだけ揃わない。
