@@ -7,4 +7,3 @@
 # nix build の出力 symlink (--no-link を付け忘れたときに残る)
 /result
 /result-*
-/home/.config/niri/dms

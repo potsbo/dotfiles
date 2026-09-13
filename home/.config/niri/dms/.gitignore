@@ -1,0 +1,10 @@
+# DMS (DankMaterialShell) が設定画面やテーマ変更のたびに書き戻す生成物。ファイル自身に
+# DO NOT EDIT ヘッダが付いていて、commit しても DMS が上書きするので権威にならない。
+# 再現に要るものは 1 つ後に include される ../user.kdl 側で持つ (出力スケールなど)。
+*
+!.gitignore
+
+# binds.kdl だけは例外で追跡する。DMS の雛形から Mod+Tab を削ってあり (理由は先頭の
+# コメント)、niri に unbind が無いので ../user.kdl から打ち消せない。消えると Cmd+Tab の
+# MRU がエラーも出さずに効かなくなる。DMS は設定画面で触らない限り書き戻してこない。
+!binds.kdl
