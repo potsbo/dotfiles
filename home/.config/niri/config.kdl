@@ -236,14 +236,14 @@ debug {
 
 // Cmd+Tab / Cmd+` (macOS)。niri 内蔵の MRU 切り替えに当てる。物理 Cmd は Super で、xremap は
 // Super+Tab と Super+grave を変換せずここへ渡す (Hyprland では同じものを hyprshell が担う)。
-// 雛形は Alt+Tab だが、Alt は物理 Option なので macOS の操作と合わない。
+// user.kdl で Mod=Alt にしているので Mod ではなく Super と明示する (雛形の Alt+Tab は俯瞰に回した)。
 // MRU のバインドは通常の binds より弱いので、dms/binds.kdl 側から Mod+Tab を外してある。
 recent-windows {
     binds {
-        Mod+Tab         { next-window; }
-        Mod+Shift+Tab   { previous-window; }
-        Mod+grave       { next-window filter="app-id"; }
-        Mod+Shift+grave { previous-window filter="app-id"; }
+        Super+Tab         { next-window; }
+        Super+Shift+Tab   { previous-window; }
+        Super+grave       { next-window filter="app-id"; }
+        Super+Shift+grave { previous-window filter="app-id"; }
     }
 }
 

@@ -2,62 +2,55 @@
 // niri に unbind は無く、後から同じキーを宣言したものが勝つ (include をまたいだときだけ。
 // 1 つのファイルに同じセクションを 2 回書くとパースエラーになる)。
 //
-// 前提: xremap (modules/nixos/xremap.nix) が macOS の Cmd 再現のために Super+C/V/X/A/Z/
-// S/W/T/F/R/L/K/N/P/O/Q/Return を Ctrl+同キーに変えてから compositor に渡す。これらの Super
-// コンボは niri には届かないので、要るものは Super+Alt (物理 Cmd+Option) に付け替える。
-// xremap は Super+Alt+<同キー> を素通しする。
+// === Mod = Alt (物理 Option) にしている ===
+// xremap (modules/nixos/xremap.nix) が macOS の Cmd 再現のために Super+C/V/X/A/Z/S/W/T/F/R/
+// L/K/N/P/O/Q/Return を Ctrl+同キーに変えてしまうので、Mod=Super のままだと DMS 既定と niri
+// 公式のバインドが半分も届かなかった (fullscreen-window や toggle-window-floating は押す手段が
+// 無かった)。Mod を Alt に移すと Super を丸ごと Cmd 再現に返せて、DMS 既定と公式配列が
+// そのまま Option 側で使える。ネットのチートシートも「Mod = Option」と読むだけで通る。
+//
+// 代償は Option+文字 をターミナルから奪うこと。zsh の Meta バインド (Alt+. の last-arg、
+// fzf の Alt+C など) と衝突する。Mod+Escape (= Option+Esc) の shortcut-inhibit トグルで
+// 一時的に niri 側を黙らせられる。
 //
 // Hyprland 側 (hypr/dms/binds-user.lua) から持ってきていないもの:
 // - Magnet 風の四分割: 全ウィンドウ浮動の Hyprland 用。スクロール式のタイリングを試すのが
-//   niri の目的なので持ち込まない。Magnet のキー (xremap が Ctrl+Option+矢印 → Super+矢印、
-//   Ctrl+Option+U/I/J/K → Super+U/I/J/K に変える) のうち、矢印は下で「列を動かす」と最大化に当てた。
-//   U/I/J/K は DMS 既定 (ワークスペース移動・上下フォーカス) のまま。
+//   niri の目的なので持ち込まない。Magnet の矢印 (xremap が Ctrl+Option+矢印 → Super+矢印に
+//   変える) だけ下で拾う。U/I/J/K は DMS 既定のまま。
 // - DMS のランチャー上での Emacs バインド (Ctrl+N/P/M など): Hyprland では layer が開いて
 //   いる間だけバインドを足して補っていた。niri には layer の開閉を拾う仕組みが無い。
 // - HHKB だけナチュラルスクロールを切る指定: niri の input はデバイス単位の上書きを持たない。
 //   ただし今つないでいる機器では mouse クラスが HHKB のスティックだけなので、下の mouse 節で足りる。
 
 binds {
-    // === アプリ起動・DMS のパネル (Cmd+Option) ===
-    Mod+Alt+T hotkey-overlay-title="Terminal" { spawn "ghostty"; }
-    Mod+Alt+V hotkey-overlay-title="Clipboard history" { spawn "dms" "ipc" "call" "clipboard" "toggle"; }
-    Mod+Alt+N hotkey-overlay-title="Notifications" { spawn "dms" "ipc" "call" "notifications" "toggle"; }
-    Mod+Alt+X hotkey-overlay-title="Power menu" { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
+    // === DMS 既定で埋まらないところ ===
+    // DMS は powermenu だけ Mod ではなく素の Super+X に置いていて、そこは xremap が食う
+    Mod+X hotkey-overlay-title="Power menu" { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
+    // Mission Control 相当。Super+Tab は Cmd+Tab の MRU 切り替え (config.kdl) に使っている
+    Mod+Tab repeat=false { toggle-overview; }
 
-    // === ウィンドウ操作 (Cmd+Option) ===
-    Mod+Alt+Q repeat=false { close-window; }
-    Mod+Alt+F { maximize-column; }
-    Mod+Alt+R { switch-preset-column-width; }
-    Mod+Alt+C { center-column; }
-    // Mission Control 相当。Hyprland 側も Super+Alt+Tab に置いている
-    // (三本指の上スワイプは niri が既定で俯瞰に割り当てている)
-    Mod+Alt+Tab repeat=false { toggle-overview; }
+    // === 矢印はモニタ境界を越える版に差し替える ===
+    // ディスプレイ 2 枚を 1 本のスクロール帯のように扱いたいので、境界で止まる
+    // focus-column-left / move-column-left ではなく or-monitor 版を当てる。
+    // niri には「あふれたら自動で隣のモニタへ」という仕組みは無い (出力ごとにワークスペースが
+    // 独立している。upstream でも not planned) ので、手で押し出す形でしか帯をまたげない。
+    Mod+Left  { focus-column-or-monitor-left; }
+    Mod+Right { focus-column-or-monitor-right; }
+    Mod+Up    { focus-window-or-monitor-up; }
+    Mod+Down  { focus-window-or-monitor-down; }
+    Mod+Shift+Left  { move-column-left-or-to-monitor-left; }
+    Mod+Shift+Right { move-column-right-or-to-monitor-right; }
 
-    // === フォーカス移動 (macOS の Cmd+Option+矢印) ===
-    // 端に着いたら隣のモニタへ抜ける版。ディスプレイ 2 枚を 1 本のスクロール帯のように
-    // 扱いたいので、モニタ境界で止まる focus-column-left などは使わない。
-    Mod+Alt+Left  { focus-column-or-monitor-left; }
-    Mod+Alt+Right { focus-column-or-monitor-right; }
-    Mod+Alt+Up    { focus-window-or-monitor-up; }
-    Mod+Alt+Down  { focus-window-or-monitor-down; }
-
-    // === 列を動かす (Magnet の Ctrl+Option+矢印 が Super+矢印 で届く) ===
-    // 素の Super+矢印 も同じキーになるので、DMS 既定のフォーカス移動はここで潰れる
-    // (フォーカス移動は上の Super+Alt+矢印)。
-    // フォーカス移動と同じく、端まで来たら隣のモニタへ送る。niri には「あふれたら自動で
-    // 隣のモニタへ」という仕組みは無い (出力ごとにワークスペースが独立している) ので、
-    // 手で押し出す形でしか帯をまたげない。
-    Mod+Left  { move-column-left-or-to-monitor-left; }
-    Mod+Right { move-column-right-or-to-monitor-right; }
-    Mod+Down  { move-window-down; }
-
-    // Magnet の最大化 (Ctrl+Option+↑ と Ctrl+Option+Enter。xremap がどちらも Super+↑ に
-    // する) だけは持ち込む。fullscreen-window ではなく maximize-window-to-edges なのは、
-    // Magnet の最大化が macOS のメニューバーを残すのと同じで DMS のバーを残したいから。
-    // トグルなので Magnet の「元に戻す」(Ctrl+Option+↓) は別の action を当てなくてよい。
-    Mod+Up { maximize-window-to-edges; }
-    // ↑ を明け渡した分の引っ越し先。↓ 側は Magnet が使わないので素の Super+↓ のまま。
-    Mod+Shift+Up { move-window-up; }
+    // === Magnet の筋肉記憶 (Ctrl+Option+矢印) ===
+    // xremap が Super+矢印 に変えて寄こす。Mod ではなくなったので Super と明示する。
+    // 素の Cmd+矢印 も同じキーになる。
+    // 最大化に fullscreen-window ではなく maximize-window-to-edges を当てるのは、Magnet の
+    // 最大化が macOS のメニューバーを残すのと同じで DMS のバーを残したいから。トグルなので
+    // Magnet の「元に戻す」(Ctrl+Option+↓) に別の action は要らない。
+    Super+Up    { maximize-window-to-edges; }
+    Super+Left  { move-column-left-or-to-monitor-left; }
+    Super+Right { move-column-right-or-to-monitor-right; }
+    Super+Down  { move-window-down; }
 
     // === キーボードバックライト (MacBook の F5/F6) ===
     // DMS の brightness IPC は画面用なので brightnessctl で leds クラスを直接動かす
@@ -75,6 +68,8 @@ binds {
 // 揃えているものは hypr/dms/binds-user.lua の同じ節と同じ。DMS の dms/input.kdl は
 // タップ・ナチュラルスクロール・加速だけを書くので、それ以外はここで足す。
 input {
+    // 上の「Mod = Alt」参照。niri 25.05 以降の設定。
+    mod-key "Alt"
     keyboard {
         // キーリピートは macOS の最速 (66/s, 225ms) より速い。macOS 側は KeyRepeat = 1 が
         // 下限でこれ以上詰められないので、ここだけ揃わない。
