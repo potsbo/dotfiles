@@ -76,13 +76,17 @@ case "$target" in
     ;;
 esac
 
-# 横方向は 1 つ隣まで。並びの端まで飛ばさない (docs/keymap.md §4.1)。niri の IPC は
-# 今どの列が画面に見えているかを教えてくれない (tile_pos_in_workspace_view は埋まらず、
-# スクロール位置を返す API も無い) ので、「見えている枠の左」を厳密には判定できない。
+# 左右半分だけ横に動かす。1 つ隣までで、並びの端までは飛ばさない (docs/keymap.md §4.2)。
+# niri の IPC は今どの列が画面に見えているかを教えてくれない (tile_pos_in_workspace_view は
+# 埋まらず、スクロール位置を返す API も無い) ので、端まで飛ばすと見えていない列へ行きうる。
 # 常用の 2 列なら 1 つ隣が見えている枠の反対側になるので、それで近似する。
+#
+# 四隅は横に動かさない。同じ理由で「見えている枠の左」が判定できず、動かすと行き過ぎる。
+# 動かさなければ今いる場所がそのまま左右になるので、そちらのほうが Magnet の体験に近い。
+# 左右へ動かしたいときは左右半分 (P1/P2) を先に押す。
 case "$target" in
-  left | tl | bl) act move-column-left ;;
-  right | tr | br) act move-column-right ;;
+  left) act move-column-left ;;
+  right) act move-column-right ;;
 esac
 read_state
 
