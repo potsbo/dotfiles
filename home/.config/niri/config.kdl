@@ -234,19 +234,19 @@ debug {
     honor-xdg-activation-with-invalid-serial
 }
 
-// docs/keymap.md の A3 (Cmd+Tab でアプリを特定) と W2 (Option+Tab でその中のウィンドウを
-// 特定) を niri 内蔵の MRU に当てる。Hyprland では同じものを hyprshell が担っていた。
+// docs/keymap.md の W2 (Option+Tab で、いま使っているアプリのウィンドウを切り替える) を
+// niri 内蔵の MRU に当てる。Hyprland では A3 と合わせて hyprshell が担っていた。
 //
-// A3 はアプリ単位が原則だが、niri の MRU はウィンドウ単位しか持たない。仕様が認めている
-// 範囲でウィンドウ単位に落としてある。
+// A3 (Cmd+Tab) はここには置かない。内蔵はウィンドウのプレビューを並べるので、全面が同系色の
+// 窓ばかりだと見分けがつかない。アイコンで探せる niriswitcher に渡してある (user.kdl の
+// Mod+Tab、常駐は modules/nixos/desktop/niri.nix)。W2 を内蔵に残すのは、こちらは同じアプリの
+// 中を回るのでアイコンが全部同じになり、プレビューの方が手掛かりになるから。
 //
-// Mod ではなく Super / Alt と明示するのは、物理キーで書いたほうが仕様と突き合わせやすいから
-// (Mod は既定の Super だが、nested で動かすと Alt になる)。MRU のバインドは通常の binds より
-// 弱いので、dms/binds.kdl 側から Mod+Tab を外してある。
+// Alt と明示するのは、物理キーで書いたほうが仕様と突き合わせやすいから (Mod は既定の Super
+// だが、nested で動かすと Alt になる)。MRU のバインドは通常の binds より弱いので、
+// dms/binds.kdl 側から Mod+Tab を外してある。
 recent-windows {
     binds {
-        Super+Tab       { next-window; }
-        Super+Shift+Tab { previous-window; }
         Alt+Tab         { next-window filter="app-id"; }
         Alt+Shift+Tab   { previous-window filter="app-id"; }
     }

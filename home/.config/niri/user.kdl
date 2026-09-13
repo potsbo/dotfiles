@@ -40,8 +40,19 @@ binds {
     Ctrl+Alt+Mod+Left  hotkey-overlay-title="Move to left display"  { move-window-to-monitor-left; }
     Ctrl+Alt+Mod+Right hotkey-overlay-title="Move to right display" { move-window-to-monitor-right; }
 
+    // === アプリの切り替え (docs/keymap.md の A3) ===
+    // アイコンで探せるように niriswitcher を使う (理由と常駐は
+    // modules/nixos/desktop/niri.nix、見た目は ~/.config/niriswitcher/config.toml)。
+    // 一覧は Super を離すまで開いたままで、その間の Tab / Shift+Tab は niriswitcher 自身が
+    // 受ける。ここで拾うのは開く瞬間の 1 打だけなので、逆回りも同じ spawn でよい。
+    // recent-windows ではなく通常の binds に置くのは、niri の action ではなく外部プロセスを
+    // 起動するから。通常の binds の方が強いので、config.kdl の recent-windows に Super+Tab を
+    // 残していても、こちらが勝つ。
+    Mod+Tab       repeat=false hotkey-overlay-title="Switch application" { spawn "niriswitcherctl" "show" "--window"; }
+    Mod+Shift+Tab repeat=false { spawn "niriswitcherctl" "show" "--window"; }
+
     // === Mission Control (docs/keymap.md の W3) ===
-    // Super+Tab と Alt+Tab は config.kdl の recent-windows が使っている。
+    // Alt+Tab は config.kdl の recent-windows が使っている。
     Mod+Alt+Tab repeat=false hotkey-overlay-title="Mission Control" { toggle-overview; }
 
     // === キーボードバックライト (MacBook の F5/F6) ===
