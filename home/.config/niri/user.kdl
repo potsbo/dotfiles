@@ -4,7 +4,7 @@
 //
 // 何をどのキーに置くかは docs/keymap.md が決める。ここはそれを niri で満たすための
 // 設定で、仕様が定めていないものは DMS の既定に任せる。ここに書くのは 3 種類だけ:
-//   - 仕様にあるが DMS の既定では埋まらないもの (格子配置、Mission Control)
+//   - 仕様にあるが DMS の既定では埋まらないもの (格子配置、画面をまたぐ移動、Mission Control)
 //   - この機種にしか無いもの (キーボードバックライト)
 //   - macOS の入力設定に揃えるための入力まわりと、出力のスケール
 //
@@ -31,6 +31,14 @@ binds {
     // MacBook 内蔵キーボード向けの別名 (docs/keymap.md §1.2)。Magnet も上矢印を最大化に
     // 当てている。
     Ctrl+Alt+Up { maximize-window-to-edges; }
+
+    // === 画面をまたぐ移動 (docs/keymap.md §3.5 の P8/P9) ===
+    // 物理キーは Magnet と同じ Ctrl+Option+Cmd。xremap に Ctrl+Alt+Super+矢印 を拾う規則は
+    // 無いので、変換されずそのまま届く。
+    // 列ごとではなく窓だけを送る (move-column-to-monitor-* ではない)。仕様が「窓を」と
+    // 書いていて、Magnet も操作した窓だけが移るため。
+    Ctrl+Alt+Mod+Left  hotkey-overlay-title="Move to left display"  { move-window-to-monitor-left; }
+    Ctrl+Alt+Mod+Right hotkey-overlay-title="Move to right display" { move-window-to-monitor-right; }
 
     // === Mission Control (docs/keymap.md の W3) ===
     // Super+Tab と Alt+Tab は config.kdl の recent-windows が使っている。
