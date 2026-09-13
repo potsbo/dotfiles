@@ -64,9 +64,23 @@ esac
 
 if [ "$at_edge" = yes ] && [ "$skip" = no ]; then
   ws_output=$(niri msg --json workspaces | jq -r --argjson ws "$ws_id" '.[] | select(.id == $ws) | .output')
-  out_width=$(niri msg --json outputs | jq --arg o "$ws_output" '.[$o].logical.width')
-  tile_width=$(niri msg --json windows | jq '.[] | select(.is_focused) | .layout.tile_size[0]')
-  if [ "$(jq -n --argjson w "$tile_width" --argjson o "$out_width" '$w <= $o * 0.6')" = true ]; then
+  out_size=$(niri msg --json outputs | jq -c --arg o "$ws_output" '.[$o].logical | [.width, .height]')
+  tile_size=$(niri msg --json windows | jq -c '.[] | select(.is_focused) | .layout.tile_size')
+  narrow=$(jq -n --argjson t "$tile_size" --argjson o "$out_size" '$t[0] <= $o[0] * 0.6')
+  short=$(jq -n --argjson t "$tile_size" --argjson o "$out_size" '$t[1] <= $o[1] * 0.6')
+
+  # 「もう置き終わっている」かどうか。左右半分は幅が半分になっていれば終わり。四隅は
+  # 高さも半分になって初めて終わり。幅だけで判定すると、左半分の窓に左下を押したときに
+  # 下へ潜り込む前に隣の画面へ飛んでしまう。
+  placed=no
+  case "$target" in
+    left | right) if [ "$narrow" = true ]; then placed=yes; fi ;;
+    tl | tr | bl | br)
+      if [ "$narrow" = true ] && [ "$short" = true ]; then placed=yes; fi
+      ;;
+  esac
+
+  if [ "$placed" = yes ]; then
     # 四隅は列ごと運ぶ。上下に分けた 2 枚が離ればなれにならないように。
     case "$target" in
       left) act move-window-to-monitor-left ;;
