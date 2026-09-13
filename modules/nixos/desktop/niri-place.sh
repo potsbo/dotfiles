@@ -31,9 +31,9 @@ read_state() {
   # 浮動の窓は並びに乗っていないので対象外
   [ "$(jq -r '.is_floating' <<<"$me")" = "false" ] || exit 0
 
-  local ws peers
-  ws=$(jq '.workspace_id' <<<"$me")
-  peers=$(jq -c --argjson ws "$ws" \
+  local peers
+  ws_id=$(jq '.workspace_id' <<<"$me")
+  peers=$(jq -c --argjson ws "$ws_id" \
     '[.[] | select(.workspace_id == $ws and .is_floating == false)]' <<<"$windows")
 
   col=$(jq '.layout.pos_in_scrolling_layout[0]' <<<"$me")
@@ -44,6 +44,26 @@ read_state() {
 }
 
 read_state
+
+# すでにその側の半分に収まっている状態で、もう一度同じ向きを押したら隣のディスプレイへ送る。
+# 「収まっている」の判定は、その向きの端の列にいる / その列に自分だけ / 幅が作業領域の半分
+# 程度、の 3 つ。幅を見ないと、端にいる全幅の窓を半分にできずにいきなり隣の画面へ飛ぶ。
+at_edge=no
+if [ "$target" = left ] && [ "$col" -eq 1 ]; then at_edge=yes; fi
+if [ "$target" = right ] && [ "$col" -eq "$ncols" ]; then at_edge=yes; fi
+
+if [ "$at_edge" = yes ] && [ "$colsize" -eq 1 ]; then
+  ws_output=$(niri msg --json workspaces | jq -r --argjson ws "$ws_id" '.[] | select(.id == $ws) | .output')
+  out_width=$(niri msg --json outputs | jq --arg o "$ws_output" '.[$o].logical.width')
+  tile_width=$(niri msg --json windows | jq '.[] | select(.is_focused) | .layout.tile_size[0]')
+  if [ "$(jq -n --argjson w "$tile_width" --argjson o "$out_width" '$w <= $o * 0.6')" = true ]; then
+    case "$target" in
+      left) act move-window-to-monitor-left ;;
+      right) act move-window-to-monitor-right ;;
+    esac
+    exit 0
+  fi
+fi
 
 case "$target" in
   left | right)
