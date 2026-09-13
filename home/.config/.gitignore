@@ -12,7 +12,6 @@ go
 pypoetry
 rclone
 lightdash
-/.copilot/logs/
 /mozilla/firefox
 /evolution/sources
 /ibus/bus
@@ -25,13 +24,13 @@ lightdash
 /cagent
 /monitors.xml
 /odbc/odbcinst.ini
-/fcitx5/conf/cached_layouts
 /dleyna-server-service.conf
 /user-dirs.dirs
 /user-dirs.locale
 /gtk-3.0
 /mozc
 /fcitx/dbus
+/Code
 /1Password
 /BraveSoftware
 /mozilla/native-messaging-hosts
@@ -53,8 +52,7 @@ lightdash
 /autostart
 /todoist-cli
 /github-copilot
-/herdr/*
-!/herdr/config.toml
 /obsidian
 # terminal-browser が作る Chromium のプロファイル (id はインストールごとに変わる)
 terminal-browser-*
+/hyprshell/config.json

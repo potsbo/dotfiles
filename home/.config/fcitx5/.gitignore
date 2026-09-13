@@ -1,0 +1,2 @@
+# fcitx5 が起動のたびに書き直すレイアウトのキャッシュ。
+/conf/cached_layouts

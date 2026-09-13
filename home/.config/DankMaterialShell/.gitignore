@@ -1,0 +1,3 @@
+# DMS が起動時に置く状態。設定 (settings.json) と違ってマシンごとに変わる。
+.changelog-*
+.firstlaunch

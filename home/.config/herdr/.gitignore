@@ -1,0 +1,5 @@
+# herdr はソケット・ログ・セッションを設定と同じディレクトリに置くので、
+# 持つもの (config.toml) だけを許可して残りを落とす。
+*
+!.gitignore
+!config.toml
