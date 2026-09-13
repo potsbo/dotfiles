@@ -28,6 +28,10 @@ binds {
     Mod+X hotkey-overlay-title="Power menu" { spawn "dms" "ipc" "call" "powermenu" "toggle"; }
     // Mission Control 相当。Super+Tab は Cmd+Tab の MRU 切り替え (config.kdl) に使っている
     Mod+Tab repeat=false { toggle-overview; }
+    // DMS のロックは Mod+Alt+L 表記で、Mod=Alt だと Alt+L に潰れて DMS 自身の
+    // Mod+L (focus-column-right) と同じキーになる。物理 Cmd+Option+L のまま残す
+    // (xremap は Super+Alt+L を素通しする)。
+    Super+Alt+L hotkey-overlay-title="Lock screen" { spawn "dms" "ipc" "call" "lock" "lock"; }
 
     // === 矢印はモニタ境界を越える版に差し替える ===
     // ディスプレイ 2 枚を 1 本のスクロール帯のように扱いたいので、境界で止まる
