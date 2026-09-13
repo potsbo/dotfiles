@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
-# Mac から ssh しているとき、URL / ファイルを透過的に Mac 側で開く open/xdg-open。
+# Mac から ssh しているとき、URL を透過的に Mac 側で開く open/xdg-open。
 #
 # 経路: 127.0.0.1:2226 → ssh RemoteForward (home/.ssh/config) → Mac の
 # opener-listen (launchd, modules/home-manager/home.nix)。ACK ("ok") が返ったときだけ成功と
 # みなすので、転送や Mac 側リスナーが死んでいれば確実にローカル
 # (nautilus / 本物の xdg-open) にフォールバックする。
 #
-# ファイル/ディレクトリは Mac 側の rclone mount (remote-mount ensure <host> で
-# 作る ~/var/<host>) のパスに変換して送る。$HOME の外は Mac から見えないので
-# ローカルで開く。
+# ファイル/ディレクトリはローカルで開く。Mac 側へのリモートマウントは
+# 不安定で利用をやめたため、Mac から見えるパスへの変換はしない。
 
 set -eu
 
 PORT=${OPENER_PORT:-2226}
-MAC_HOME="/Users/potsbo"
 
 # macOS では素の open に委譲 (~/.local/bin が PATH 先頭にあり shadow するため)
 if [ "$(uname -s)" = "Darwin" ]; then
@@ -63,15 +61,6 @@ notice_local() {
 }
 
 if [ -e "$buf" ]; then
-  abs=$(realpath "$buf")
-  case "$abs" in
-  "$HOME" | "$HOME"/*)
-    if send_mac "${MAC_HOME}/var/$(hostname)${abs#"$HOME"}"; then
-      exit 0
-    fi
-    notice_local
-    ;;
-  esac
   if command -v nautilus >/dev/null; then
     nautilus "$buf" &>/dev/null &
     disown

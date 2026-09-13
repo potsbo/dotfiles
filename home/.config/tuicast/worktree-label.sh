@@ -8,10 +8,6 @@
 # herdr-label, ghq root) — ~8s for the column. One process doing pure string
 # ops per line brings that under 100ms.
 #
-# The label logic mirrors ~/.local/bin/herdr-label ("<branch-leaf> <icon>
-# <shorturl>") instead of calling it, for the spawn cost above. herdr-label
-# stays the source of truth for herdr itself; keep the two in sync.
-#
 # fzf matches on the displayed text only (tuicast renders field 3 via
 # --with-nth and searches that string), so anything not in the label is
 # unsearchable. The branch is appended for main checkouts and herdr's own
@@ -32,6 +28,9 @@
 # Usage: list-worktrees.sh ... | worktree-label.sh --dot (open|blocked|working|idle|unknown|none)
 set -u
 
+# shellcheck source=home/.config/shell/worktree-label.sh
+source ~/.config/shell/worktree-label.sh
+
 declare -A DOT=(
   [blocked]=$'\033[38;2;255;128;128m\342\227\217\033[39m '
   [working]=$'\033[38;2;255;199;153m\342\227\217\033[39m '
@@ -50,8 +49,6 @@ else
 fi
 
 ghq_root="${GHQ_ROOT:-$(ghq root)}"
-ICON_GITHUB=$(printf '\356\252\204')
-ICON_GITLAB=$(printf '\356\237\253')
 
 declare -A pane_status=()
 if [ "$mode" = open ]; then
@@ -67,24 +64,8 @@ while IFS= read -r path; do
     dot=${DOT[$st]:-${DOT[unknown]}}
   fi
 
-  rel="${path#"$ghq_root"/}"
-  host="${rel%%/*}"
-  rest="${rel#*/}"
-
-  case "$host" in
-    github.com) icon=$ICON_GITHUB ;;
-    gitlab.com) icon=$ICON_GITLAB ;;
-    *)          icon=$host ;;
-  esac
-
-  if [[ "$rest" == */.worktrees/* ]]; then
-    repo="${rest%%/.worktrees/*}"
-    leaf="${rest#*/.worktrees/}"
-    leaf="${leaf#potsbo/}"
-    label="$leaf $icon $repo"
-  else
-    label="$icon $rest"
-  fi
+  label=''
+  worktree_label label "$path" "$ghq_root"
 
   gitdir="$path/.git"
   if [ -f "$gitdir" ]; then

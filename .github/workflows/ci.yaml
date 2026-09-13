@@ -41,6 +41,7 @@ jobs:
           AQUA_POLICY_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua-policy.yaml
 
   # 手元の `task check` と同じもの (Taskfile.yml)。lint と全ホストの eval。
+  # ホスト列挙も Taskfile が flake から行うため、CI 側に eval 用 matrix は持たない。
   # task は aqua で引く。`aqua i -l` は proxy の symlink を張るだけで、本体は初回実行時に落ちる。
   check:
     runs-on: ubuntu-latest
@@ -64,27 +65,3 @@ jobs:
       - run: nix build .#nixosConfigurations.phoenix.config.home-manager.users.potsbo.home.activationPackage
       # standalone (manage = home) は allowUnfree と homeDirectory を flake 側で持つので別に確認する
       - run: nix build .#homeConfigurations.graniteridge.activationPackage
-
-  # ホスト一覧は flake.nix から取る。ここに手で並べると hosts に足したホストが
-  # CI から漏れる。
-  hosts:
-    runs-on: ubuntu-latest
-    outputs:
-      nixos: ${{ steps.list.outputs.nixos }}
-    steps:
-      - uses: actions/checkout@v7
-      - uses: DeterminateSystems/determinate-nix-action@v3
-      - id: list
-        run: echo "nixos=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames)" >> "$GITHUB_OUTPUT"
-
-  # NixOS ホストは build せず eval だけする (closure の build は重い)。
-  nixos:
-    needs: hosts
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        host: ${{ fromJSON(needs.hosts.outputs.nixos) }}
-    steps:
-      - uses: actions/checkout@v7
-      - uses: DeterminateSystems/determinate-nix-action@v3
-      - run: nix eval --raw .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel.drvPath

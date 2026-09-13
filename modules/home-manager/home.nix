@@ -2,13 +2,14 @@
 
 let
 
+  # この repo で package 化したもの (localPkgs.aqua のように参照する)。
   # 別ファイルなのは nix-update が flake output 経由でハッシュを自動更新するため。
   # nix-update は derivation の meta.position を見て書き戻すので、let 束縛のままだと扱えない。
-  aqua = pkgs.callPackage ../../pkgs/aqua.nix { };
-
-  tuicast = pkgs.callPackage ../../pkgs/tuicast.nix { };
-
-  evalcache = pkgs.callPackage ../../pkgs/evalcache.nix { };
+  # 名前を列挙せず pkgs/ を読むのは flake.nix の packages と同じ理由。
+  localPkgs = lib.packagesFromDirectoryRecursive {
+    inherit (pkgs) callPackage;
+    directory = ../../pkgs;
+  };
 
   # flake input (upstream flake) の package。理由は flake.nix の herdr input のコメント。
   herdrPkg = herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -64,7 +65,7 @@ in
       # zsh plugins (.zshrc から source する)。以前は ghq clone だったのを nix 管理に
       # 置き換えたもので、配置は ghq 規約のパスのまま維持している。
       "src/github.com/romkatv/zsh-defer".source = "${pkgs.zsh-defer}/share/zsh-defer";
-      "src/github.com/mroth/evalcache".source = "${evalcache}/share/evalcache";
+      "src/github.com/mroth/evalcache".source = "${localPkgs.evalcache}/share/evalcache";
 
       # プロフィール画像。DMS (ロック画面、コントロールセンター) と GDM は AccountsService の
       # IconFile を見て、それが ~/.face を指している。GitHub のアイコンを使う。画像が変わったら
@@ -104,8 +105,9 @@ in
     '';
 
     packages = with pkgs; [
-      aqua
-      tuicast
+      localPkgs.aqua
+      localPkgs.tuicast
+      localPkgs.nix-graph
       herdrPkg
       # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
       # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、

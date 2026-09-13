@@ -16,25 +16,10 @@
 # Usage: herdr-label <checkout-path>
 set -eu
 
+# shellcheck source=home/.config/shell/worktree-label.sh
+source ~/.config/shell/worktree-label.sh
+
 ghq_root="${GHQ_ROOT:-$(ghq root)}"
-ICON_GITHUB=$(printf '')
-ICON_GITLAB=$(printf '')
-
-rel="${1#"$ghq_root"/}"
-host="${rel%%/*}"
-rest="${rel#*/}"
-
-case "$host" in
-  github.com) icon=$ICON_GITHUB ;;
-  gitlab.com) icon=$ICON_GITLAB ;;
-  *)          icon=$host ;;
-esac
-
-if [[ "$rest" == */.worktrees/* ]]; then
-  repo="${rest%%/.worktrees/*}"
-  branch="${rest#*/.worktrees/}"
-  branch="${branch#potsbo/}"
-  printf '%s %s %s' "$branch" "$icon" "$repo"
-else
-  printf '%s %s' "$icon" "$rest"
-fi
+label=''
+worktree_label label "$1" "$ghq_root"
+printf '%s' "$label"

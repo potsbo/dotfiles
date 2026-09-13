@@ -88,13 +88,9 @@ in
       # macOS 側は cask (darwin/apps.nix)。notes リポジトリ (notes-sync.nix) を
       # GUI セッションでも直接開くため。
       obsidian
-      vscode
       (webApp { name = "notion"; desktopName = "Notion"; url = "https://www.notion.so"; })
-      zotero
       freerdp
       slack
-      zoom-us
-      code-cursor
       pgadmin4-desktopmode
     ];
   };

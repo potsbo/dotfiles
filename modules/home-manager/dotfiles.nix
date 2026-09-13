@@ -13,6 +13,9 @@
 #   ビルドが落ちる。ln で張った symlink ならそれらは今までどおり symlink 越しに
 #   リポジトリ側へ落ちる (gitignore 済み)。.config を丸ごと 1 本にするのは
 #   「知らないファイルが追加されたときに気づく」ためで、個別リンクにはしない。
+#
+# 例外は aqua の設定だけ (aqua.nix)。作業ツリーを直接指すと conflict marker が
+# そのまま実行時の設定になり、aqua 管理のコマンドが全部落ちるため store 経由にしてある。
 { config, lib, pkgs, ... }:
 
 let
@@ -69,8 +72,7 @@ in
       # 書き込み先は ~/.config ではなくリポジトリ側 (同じ場所を指す symlink だが、
       # gitignore 済みの実体として置く)。トークンをログに出さないよう run は使わない。
       writeNixGithubToken = lib.hm.dag.entryAfter [ "installPackages" ] ''
-        export AQUA_GLOBAL_CONFIG="${repoHome}/.config/aquaproj-aqua/aqua.yaml"
-        if [ -z "''${DRY_RUN:-}" ] && token="$("${config.home.profileDirectory}/bin/aqua" exec -- gh auth token 2>/dev/null)" && [ -n "$token" ]; then
+        if [ -z "''${DRY_RUN:-}" ] && token="$(${config.aqua.exec} exec -- gh auth token 2>/dev/null)" && [ -n "$token" ]; then
           (umask 077; printf 'access-tokens = github.com=%s\n' "$token" >"${repoHome}/.config/nix/access-tokens.conf")
         fi
       '';
@@ -80,10 +82,8 @@ in
       # 実体パスは OS とバージョンで変わるため hardcode せず `hunk skill path` で
       # 毎回解決し、現在インストール済みの版へ貼り直す。hunk は aqua の lazy install
       # なので aqua exec 経由で叩く。aqua か hunk が未導入なら no-op。
-      # activation の PATH に aqua は無い (system 側から呼ばれる) ので profile の実体を叩く。
       linkHunkReviewSkill = lib.hm.dag.entryAfter [ "installPackages" ] ''
-        export AQUA_GLOBAL_CONFIG="${repoHome}/.config/aquaproj-aqua/aqua.yaml"
-        if p="$("${config.home.profileDirectory}/bin/aqua" exec -- hunk skill path 2>/dev/null)" && [ -n "$p" ]; then
+        if p="$(${config.aqua.exec} exec -- hunk skill path 2>/dev/null)" && [ -n "$p" ]; then
           link="$HOME/.claude/skills/hunk-review"
           if [ "$(readlink "$link" 2>/dev/null)" != "$(dirname "$p")" ]; then
             run mkdir -p "$HOME/.claude/skills"

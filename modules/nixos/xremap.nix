@@ -217,6 +217,14 @@ in
           }
   
           # === Chrome 用 Cmd-Q (Ctrl+Shift+W で全タブ・全ウィンドウを閉じる) ===
+          # Cmd+Enter は下の "Super shortcuts" の Ctrl+Enter のままにする。macOS の
+          # omnibox と同じ「新しいタブで開く」(Linux Chrome では Alt+Enter) に変えると、
+          # xremap は omnibox に focus があるかを判別できない (見えるのは class だけ) ため
+          # ページ側の Ctrl+Enter (BigQuery のクエリ実行、Gmail 送信など) が全滅する。
+          # omnibox で新しいタブに開きたいときは Option+Enter か Cmd+Option+Enter を使う。
+          # Chrome の omnibox は修飾キーだけで disposition を決めていて OS 分岐がない
+          # (searchbox::ComputeOpenDispositionFromModifiersAndLogToUma) ので、
+          # どちらも macOS と Linux で同じ挙動になる。
           {
             name = "Chrome Cmd-Q quit";
             application = {

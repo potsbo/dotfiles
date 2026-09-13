@@ -14,7 +14,8 @@
     xremap-flake.url = "github:xremap/nix-flake";
     # DankMaterialShell: Hyprland 上の bar / ランチャー / 通知 / ロック画面。release tag に固定。
     # Renovate の nix manager は lock の rev しか見ず URL 中の tag は進めないので、
-    # renovate.json の regex で tag を進め、flake.lock は autofix.ci が relock する。
+    # renovate.json は github:owner/repo/[v]X.Y.Z の URL を共通の regex で拾う。
+    # autofix.ci の nix flake lock が宣言の変更に追従するので、input 名の列挙は不要。
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/v1.6.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -105,6 +106,7 @@
         ./modules/home-manager/home.nix
         ./modules/home-manager/hosts.nix
         ./modules/home-manager/dotfiles.nix
+        ./modules/home-manager/aqua.nix
         ./modules/home-manager/mozc.nix
         ./modules/home-manager/starship.nix
         ./modules/home-manager/lazygit.nix
@@ -195,8 +197,15 @@
 
         # nix-update がハッシュを自動更新するための出力。CI (autofix.ci) が
         # `nix-update --flake --version=skip <name>` で参照する。
-        x86_64-linux = lib.genAttrs [ "aqua" "tuicast" "evalcache" ]
-          (name: nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/${name}.nix { });
+        #
+        # 名前は書き下さず pkgs/ を読んで作る。ここ・home.nix・autofix.yaml の 3 箇所に
+        # 同じ一覧を書いていて、実際 nix-graph を足したとき autofix.yaml を落とした。
+        # CI は下の attrNames を読むので、パッケージの追加は pkgs/ にファイルを置いて
+        # 使う場所から参照するだけで済む。
+        x86_64-linux = lib.packagesFromDirectoryRecursive {
+          inherit (nixpkgs.legacyPackages.x86_64-linux) callPackage;
+          directory = ./pkgs;
+        };
       };
     };
 }

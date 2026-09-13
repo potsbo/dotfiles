@@ -12,6 +12,9 @@ network_access = true
 # thread-title 未生成の間は title を書き換えない (直前の title が残る)。
 terminal_title = ["activity", "thread-title"]
 
+[tui.model_availability_nux]
+gpt-6-astra = 4
+
 [projects."/home/potsbo/src/github.com/medicu-inc/one"]
 trust_level = "trusted"
 

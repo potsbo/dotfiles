@@ -11,6 +11,11 @@ vars:
     sh: git ls-files '*.nix' | grep -v hardware-configuration.nix
   SHELL_FILES:
     sh: git ls-files | while read -r f; do head -1 "$f" 2>/dev/null | grep -qE '^#!.*\b(ba)?sh\b' && echo "$f"; done
+  # eval 中の warning のうち、flake input の中から出るもの。nix の warning は message しか
+  # 出さず出所が分からないので、文面で除外する。ここに書く条件はこのリポジトリの .nix が
+  # その書き方をしていないこと (`grep -r 'stdenv\.is' --include='*.nix'` が空)。
+  # upstream の lock が上がって出なくなったら消す。
+  EVAL_WARN_IGNORE: 'stdenv\.is[A-Za-z0-9_]+ is deprecated'
 
 tasks:
   check:
@@ -30,9 +35,13 @@ tasks:
       - nix run --inputs-from . nixpkgs#shellcheck -- --severity=warning {{.SHELL_FILES | catLines}}
 
   # 全ホストを eval する。build はしない (closure の build は重い)。
-  # abort-on-warn で nixpkgs の deprecation warning (属性の rename など) を error にする。
-  # statix / deadnix は構文しか見ないので、eval 時の lib.warn はこれでしか拾えない。
+  # nixpkgs の deprecation warning (属性の rename など) を error 扱いにする。statix / deadnix は
+  # 構文しか見ないので、eval 時の lib.warn はこれでしか拾えない。
   # darwin ホストも Linux 上で eval だけはできる。
+  #
+  # --option abort-on-warn true は使わない。warning は flake input (herdr → rust-overlay など)
+  # の中からも出るが、そちらは lock を待つ以外に直しようがなく、CI が upstream の都合で
+  # 止まる。代わりに warning を集めて EVAL_WARN_IGNORE に載らないものだけを fail にする。
   eval:
     vars:
       # ホスト一覧は flake から取る。手で並べると hosts に足したホストが漏れる。
@@ -44,11 +53,17 @@ tasks:
           names homeConfigurations activationPackage
     cmds:
       - for: { var: ATTRS }
-        cmd: nix eval --raw --option abort-on-warn true '.#{{.ITEM}}.drvPath' > /dev/null
+        cmd: |
+          warn=$(nix eval --raw '.#{{.ITEM}}.drvPath' 2>&1 >/dev/null) || { printf '%s\n' "$warn" >&2; exit 1; }
+          left=$(printf '%s' "$warn" | grep 'evaluation warning' | grep -Ev '{{.EVAL_WARN_IGNORE}}' || true)
+          [ -z "$left" ] || { printf '%s\n' "$left" >&2; exit 1; }
 
   flake-check:
     cmds:
-      - nix flake check --no-build --option abort-on-warn true
+      - |
+        warn=$(nix flake check --no-build 2>&1 >/dev/null) || { printf '%s\n' "$warn" >&2; exit 1; }
+        left=$(printf '%s' "$warn" | grep 'evaluation warning' | grep -Ev '{{.EVAL_WARN_IGNORE}}' || true)
+        [ -z "$left" ] || { printf '%s\n' "$left" >&2; exit 1; }
 
   actionlint:
     cmds:
