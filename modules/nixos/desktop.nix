@@ -83,7 +83,11 @@ in
     # 結果どの形も解決できず compositor 組み込みのフォールバックカーソルが出る
     # (niri なら journal に "error loading xcursor default@24: no default icon" が並ぶ)。
     # home.pointerCursor が ~/.icons/default/index.theme を Inherits 付きで置くので、
-    # compositor 側の設定 (niri の cursor ノード等) には何も書かなくてよい。
+    # これだけでフォールバックカーソルは直る。ただしサイズは直らない: ここで出る
+    # XCURSOR_SIZE / XCURSOR_THEME は hm-session-vars.sh 経由でシェルにしか届かず、
+    # GDM から起動する compositor 自身には入らない。compositor は自分の既定値
+    # (niri ならテーマ "default"、サイズ 24) を使い、それを子プロセスに配り直す。
+    # そちら側にも同じ値を書く必要がある (home/.config/niri/user.kdl の cursor ノード)。
     #
     # dconf に残っていた Bibata-Modern-Ice は、やめた omarchy 試用 (desktop/dms.nix の
     # 冒頭) が gsettings に書いた名残で、パッケージはもう入っていない。GTK/GNOME の

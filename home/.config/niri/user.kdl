@@ -86,6 +86,15 @@ input {
 }
 
 cursor {
+    // テーマとサイズをここに書く理由: niri は XCURSOR_THEME / XCURSOR_SIZE を
+    // 読む側ではなく、このノードの値を env として子プロセスに配る側。値は
+    // home-manager (modules/nixos/desktop.nix の home.pointerCursor) が持つ
+    // XCURSOR_* と同じだが、あちらは hm-session-vars.sh 経由でシェルにしか
+    // 届かず、GDM から起動する niri 自身には入らない。書かないと niri の既定値
+    // (テーマ "default"、サイズ 24) のままになる。片方だけ変えると、ランチャーから
+    // 起動したアプリと端末から起動したアプリでカーソルの大きさがずれる。
+    xcursor-theme "Adwaita"
+    xcursor-size 32
     hide-when-typing
 }
 
