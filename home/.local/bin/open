@@ -6,6 +6,14 @@
 # みなすので、転送や Mac 側リスナーが死んでいれば確実にローカル
 # (nautilus / 本物の xdg-open) にフォールバックする。
 #
+# 転送するのは ssh セッション由来の呼び出しだけ (SSH_CONNECTION で判定)。ポートが
+# listen しているかで判定してはいけない: RemoteForward はホスト全体に 2226 を開くので、
+# ssh が 1 本でも張られていれば、そのホストのローカル GUI (ブラウザ、Slack、
+# dms-focus-or-launch 経由の https ハンドラ) からのクリックまで Mac に飛ぶ。
+# しかも Mac がスリープしていると ACK が 2 秒で切れてローカルにフォールバックする一方、
+# 送った行は ssh のバッファに残り、Mac が起きた瞬間にまとめて開かれる
+# (phoenix をデスクトップ運用にして顕在化した)。
+#
 # ファイル/ディレクトリはローカルで開く。Mac 側へのリモートマウントは
 # 不安定で利用をやめたため、Mac から見えるパスへの変換はしない。
 
@@ -69,8 +77,8 @@ if [ -e "$buf" ]; then
   fallback_xdg_open "$buf"
 fi
 
-if send_mac "$(rewrite_for_mac "$buf")"; then
-  exit 0
+if [ -n "${SSH_CONNECTION:-}" ]; then
+  send_mac "$(rewrite_for_mac "$buf")" && exit 0
+  notice_local
 fi
-notice_local
 fallback_xdg_open "$buf"
