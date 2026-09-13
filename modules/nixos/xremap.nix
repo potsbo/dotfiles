@@ -282,10 +282,11 @@ in
               Super-Enter = "C-Enter";
               # 表示の拡大縮小。アプリに届けるだけでは何も起きない (A6) ので、アプリが
               # 拡大縮小として解釈する Ctrl 系に変換する (A7)。Chrome は Ctrl+- と
-              # Ctrl+= / Ctrl+Plus のどちらも見る。
+              # Ctrl+= / Ctrl+Plus のどちらも見る。Ctrl+0 は 100% に戻す。
               Super-minus = "C-minus";
               Super-equal = "C-equal";
               Super-Shift-equal = "C-Shift-equal";
+              Super-0 = "C-0";
               # Cmd+Tab と Cmd+` は変換せず Hyprland 側 (hyprshell) に渡す
             };
           }
