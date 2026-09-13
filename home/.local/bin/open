@@ -11,9 +11,6 @@
 
 set -eu
 
-# TEMP TRACE (claude debug)
-{ echo "=== $(date -Is) argv=$* ppid=$PPID parent=$(cat /proc/$PPID/comm 2>/dev/null)"; echo "PATH=$PATH"; } >> /tmp/open-trace.log 2>/dev/null || true
-
 PORT=${OPENER_PORT:-2226}
 
 # macOS では素の open に委譲 (~/.local/bin が PATH 先頭にあり shadow するため)
