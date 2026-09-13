@@ -69,7 +69,13 @@ in
         size = 32;
       };
 
+      # GNOME はもう無いが、この 3 つだけは GNOME 以外も読む: color-scheme は GTK4/
+      # libadwaita アプリと portal が、cursor-* は GTK と XSETTINGS 側が見る。
+      # 残りの org/gnome/** (mutter・gnome-shell・gsd・各 GNOME アプリ) は読む物が
+      # 居ないので 2026-09-13 に dconf から消した。GNOME を消したときに dconf だけ
+      # 生き残っていて、その中の cursor-theme が上の事故の元になっている。
       dconf.settings."org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
         cursor-theme = "Adwaita";
         cursor-size = 32;
       };
