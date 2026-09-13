@@ -210,10 +210,9 @@ binds {
     Mod+Ctrl+C { center-visible-columns; }
 
     // === Manual Sizing ===
-    Mod+Minus { set-column-width "-10%"; }
-    Mod+Equal { set-column-width "+10%"; }
-    Mod+Shift+Minus { set-window-height "-10%"; }
-    Mod+Shift+Equal { set-window-height "+10%"; }
+    // Mod+Minus / Mod+Equal とその Shift 付き (列幅・窓の高さの増減) は外した。
+    // Cmd+- / Cmd+= はブラウザやエディタの拡大縮小に渡す (docs/keymap.md A6)。
+    // niri に unbind が無く、通常の binds はアプリより先に食うので、ここから消すしかない。
 
     // === Screenshots ===
     XF86Launch1 hotkey-overlay-title="Screenshot: Region" { spawn "dms" "screenshot"; }
