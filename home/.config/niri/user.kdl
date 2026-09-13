@@ -32,6 +32,10 @@ binds {
     // Mod+L (focus-column-right) と同じキーになる。物理 Cmd+Option+L のまま残す
     // (xremap は Super+Alt+L を素通しする)。
     Super+Alt+L hotkey-overlay-title="Lock screen" { spawn "dms" "ipc" "call" "lock" "lock"; }
+    // ランチャーは macOS と同じ Cmd+Space に置く。DMS 既定は Mod+Space だが、Mod=Alt だと
+    // DMS 自身の Alt+Space (spotlight-bar) と同じキーになってしまう。xremap は Super+Space を
+    // 変換しないのでそのまま届く。
+    Super+Space hotkey-overlay-title="Application launcher" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
 
     // === 矢印はモニタ境界を越える版に差し替える ===
     // ディスプレイ 2 枚を 1 本のスクロール帯のように扱いたいので、境界で止まる
@@ -44,6 +48,15 @@ binds {
     Mod+Down  { focus-window-or-monitor-down; }
     Mod+Shift+Left  { move-column-left-or-to-monitor-left; }
     Mod+Shift+Right { move-column-right-or-to-monitor-right; }
+
+    // === HHKB のスティックで帯を横に送る ===
+    // トラックパッドは 3 本指の横スワイプで連続的にビューが動くが、マウス入力には同じ手が
+    // 無い: niri のアクションに「ビューを N ピクセル動かす」は無く (`niri msg action`)、
+    // スワイプのジェスチャは touchpad 専用。なのでホイールは 1 ノッチ = 1 カラムの離散になる。
+    // 修飾なしの WheelScrollLeft/Right でも拾えるが、それだとアプリの横スクロールを丸ごと
+    // 奪うので Mod を付ける。矢印と同じく or-monitor 版でモニタ境界を越える。
+    Mod+WheelScrollLeft  cooldown-ms=150 { focus-column-or-monitor-left; }
+    Mod+WheelScrollRight cooldown-ms=150 { focus-column-or-monitor-right; }
 
     // === Magnet の筋肉記憶 (Ctrl+Option+矢印) ===
     // xremap が Super+矢印 に変えて寄こす。Mod ではなくなったので Super と明示する。
