@@ -48,6 +48,33 @@ in
 
     programs.dconf.enable = true;
 
+    # マウスカーソル。Hyprland でも niri でも同じものを使うのでここに置く。
+    #
+    # 指定しないと壊れる: compositor が引く xcursor テーマ名の既定値は "default" で、
+    # NixOS はその名前のテーマ (/usr/share/icons/default/index.theme) を作らない。
+    # 結果どの形も解決できず compositor 組み込みのフォールバックカーソルが出る
+    # (niri なら journal に "error loading xcursor default@24: no default icon" が並ぶ)。
+    # home.pointerCursor が ~/.icons/default/index.theme を Inherits 付きで置くので、
+    # compositor 側の設定 (niri の cursor ノード等) には何も書かなくてよい。
+    #
+    # dconf に残っていた Bibata-Modern-Ice は、やめた omarchy 試用 (desktop/dms.nix の
+    # 冒頭) が gsettings に書いた名残で、パッケージはもう入っていない。GTK/GNOME の
+    # 既定である Adwaita に寄せて、dconf 側も同じ値で上書きする。
+    home-manager.users.potsbo = {
+      home.pointerCursor = {
+        enable = true;
+        package = pkgs.adwaita-icon-theme;
+        name = "Adwaita";
+        # 4K を等倍 (約 160dpi) で使っているので、96dpi 前提の 24 では物理的に小さすぎる。
+        size = 32;
+      };
+
+      dconf.settings."org/gnome/desktop/interface" = {
+        cursor-theme = "Adwaita";
+        cursor-size = 32;
+      };
+    };
+
     # fcitx5 用の GTK_IM_MODULE / QT_IM_MODULE / XMODIFIERS はここに書かない。
     # i18n.inputMethod.fcitx5 が waylandFrontend の有無を見て必要な分だけ設定する
     # (Wayland ネイティブなら XMODIFIERS だけ)。手で GTK/QT_IM_MODULE を足すと、fcitx5 が
