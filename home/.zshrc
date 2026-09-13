@@ -4,9 +4,25 @@
 source ~/src/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh
 source ~/src/github.com/mroth/evalcache/evalcache.plugin.zsh
 
+# PATH / FPATH の重複除去。下で先頭に足す分と、/etc/zprofile の path_helper が
+# 積んだ分が重なる。brew shellenv はこの重複を潰す副作用も持っていたので、
+# それを zsh 側の仕組みで置き換える。
+typeset -U path fpath
+
 # brew
-if [ -f "/opt/homebrew/bin/brew" ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+# `brew shellenv` は呼ばない (~84ms で .zshrc 全体の半分を占めていた)。中で
+# /usr/libexec/path_helper を fork するのが重い。出力は prefix 固定の静的な内容
+# なので展開して直接書く。PATH に対する実効も「先頭に bin と sbin を足す」だけで、
+# 残りの並べ替えは path_helper が元の PATH を組み直して同じ順序に戻しているだけ。
+# 中身がずれたら `env -i HOME=$HOME PATH=/usr/bin:/bin /opt/homebrew/bin/brew shellenv`
+# と突き合わせる。
+if [ -d "/opt/homebrew" ]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+  export HOMEBREW_REPOSITORY="/opt/homebrew"
+  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+  fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
+  path=("/opt/homebrew/bin" "/opt/homebrew/sbin" $path)
 fi
 
 # zsh が書き込む XDG ディレクトリ（history / zcompdump の親）を用意
@@ -73,8 +89,10 @@ if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua complet
 if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
 # host-colored frame so any fzf shows which host it runs on.
-thm_main=$(host-color "$(hostname)")
-export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
+# hostname(1) ではなく $HOST を使う。zsh が起動時に持っている値で同じ文字列になり、
+# fork が 1 回 (host-color) で済む (hostname の fork は 1 回 9ms かかっていた)。
+thm_main=$(host-color "$HOST")
+export FZF_DEFAULT_OPTS="--border --border-label \" $HOST \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
