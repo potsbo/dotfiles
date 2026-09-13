@@ -76,10 +76,15 @@ case "$target" in
     ;;
 esac
 
+# 横方向は 1 つ隣まで。並びの端まで飛ばさない (docs/keymap.md §4.1)。niri の IPC は
+# 今どの列が画面に見えているかを教えてくれない (tile_pos_in_workspace_view は埋まらず、
+# スクロール位置を返す API も無い) ので、「見えている枠の左」を厳密には判定できない。
+# 常用の 2 列なら 1 つ隣が見えている枠の反対側になるので、それで近似する。
 case "$target" in
-  left | tl | bl) act move-column-to-first ;;
-  right | tr | br) act move-column-to-last ;;
+  left | tl | bl) act move-column-left ;;
+  right | tr | br) act move-column-right ;;
 esac
+read_state
 
 case "$target" in
   tl | bl)
