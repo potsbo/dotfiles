@@ -107,7 +107,6 @@ in
     packages = with pkgs; [
       localPkgs.aqua
       localPkgs.tuicast
-      localPkgs.nix-graph
       herdrPkg
       # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
       # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
@@ -157,6 +156,10 @@ in
       statix
     ] ++ lib.optionals stdenv.hostPlatform.isLinux [
       wl-clipboard
+      # darwin では入れない。upstream の TUI (cmd/nix-graph/ui.go) が //go:build linux で、
+      # termios を linux 固有の syscall.TCGETS/TCSETS で叩いているのでビルドが通らない。
+      # darwin 用に移植する (TIOCGETA/TIOCSETA への patch) ほどの用途ではない。
+      localPkgs.nix-graph
     ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
       coreutils
     ];
