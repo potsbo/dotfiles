@@ -14,8 +14,11 @@ typeset -U path fpath
 # /usr/libexec/path_helper を fork するのが重い。出力は prefix 固定の静的な内容
 # なので展開して直接書く。PATH に対する実効も「先頭に bin と sbin を足す」だけで、
 # 残りの並べ替えは path_helper が元の PATH を組み直して同じ順序に戻しているだけ。
-# 中身がずれたら `env -i HOME=$HOME PATH=/usr/bin:/bin /opt/homebrew/bin/brew shellenv`
-# と突き合わせる。
+# evalcache ではこれは解けない。出力そのものに path_helper を呼ぶ eval 行が
+# 入っているので、キャッシュを source しても fork は毎回起きる (実測 113ms)。
+# 出力がずれたときに気づけないのは evalcache も同じ (キャッシュキーはコマンド文字列
+# だけで、出力が変わっても無効化されない) ので、doctor 側で突き合わせる。
+# 手で見るなら `env -i HOME=$HOME PATH=/usr/bin:/bin /opt/homebrew/bin/brew shellenv zsh`。
 if [ -d "/opt/homebrew" ]; then
   export HOMEBREW_PREFIX="/opt/homebrew"
   export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
