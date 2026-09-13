@@ -50,17 +50,29 @@ read_state
 # いない窓を弾くため。1 枚だけの全幅の窓も並びの端ではあるので、これが無いと 1 回目の
 # 押下で半分にならずにいきなり隣の画面へ飛ぶ。
 at_edge=no
-if [ "$target" = left ] && [ "$col" -eq 1 ]; then at_edge=yes; fi
-if [ "$target" = right ] && [ "$col" -eq "$ncols" ]; then at_edge=yes; fi
+case "$target" in
+  left | tl | bl) if [ "$col" -eq 1 ]; then at_edge=yes; fi ;;
+  right | tr | br) if [ "$col" -eq "$ncols" ]; then at_edge=yes; fi ;;
+esac
 
-if [ "$at_edge" = yes ] && [ "$colsize" -eq 1 ]; then
+# 左右半分は列に 1 枚しか置かない前提なので、相方がいるなら先に追い出す方を優先する。
+# 四隅は上下に 2 枚並んでいるのが通常の姿なので、枚数は問わない。
+skip=no
+case "$target" in
+  left | right) if [ "$colsize" -gt 1 ]; then skip=yes; fi ;;
+esac
+
+if [ "$at_edge" = yes ] && [ "$skip" = no ]; then
   ws_output=$(niri msg --json workspaces | jq -r --argjson ws "$ws_id" '.[] | select(.id == $ws) | .output')
   out_width=$(niri msg --json outputs | jq --arg o "$ws_output" '.[$o].logical.width')
   tile_width=$(niri msg --json windows | jq '.[] | select(.is_focused) | .layout.tile_size[0]')
   if [ "$(jq -n --argjson w "$tile_width" --argjson o "$out_width" '$w <= $o * 0.6')" = true ]; then
+    # 四隅は列ごと運ぶ。上下に分けた 2 枚が離ればなれにならないように。
     case "$target" in
       left) act move-window-to-monitor-left ;;
       right) act move-window-to-monitor-right ;;
+      tl | bl) act move-column-to-monitor-left ;;
+      tr | br) act move-column-to-monitor-right ;;
     esac
     exit 0
   fi
