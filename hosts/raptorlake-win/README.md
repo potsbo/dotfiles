@@ -48,10 +48,21 @@ RUNNER_URL=https://github.com/<owner>/<repo> RUNNER_TOKEN=... ./hosts/raptorlake
 - **ホスト鍵は guest agent で取り出して known_hosts に固定する。** 初回接続で
   受け入れる (TOFU) 経路を作らない。bootstrap のときは既に信頼している経路
   (virsh) があるので、そこから公開鍵を読めばよい
-- **runner は service ではなく、ログオン中のユーザーのセッションで動かす。**
-  Excel の COM 自動化は対話セッションでしか安定しない。タスクスケジューラの
-  「ログオン時」「ユーザーがログオンしているときのみ実行」で `run.cmd` を起動する。
-  自動ログオンは Sysinternals Autologon で済ませてある (`../raptorlake/README.md`)
+- **runner は専用の非管理者アカウント `runner` の Windows サービスとして動かす。**
+  runner はワークフローを書けるメンバー全員のコードを実行する。この VM は共有ドライブの
+  橋渡し (`potsbo` のセッションで Drive が動いている) も兼ねていて、`potsbo` で動かすと
+  そのコードから共有ドライブと Drive のトークンに届いてしまう。`runner` は Drive も
+  Tailscale の認証も管理者権限も持たない。残るのは Windows のユーザー分離を破る
+  ローカル権限昇格と、VM のネットワーク経由で tailnet に触れることの 2 つで、
+  後者は VM を分けない限り消えない (ライセンスの都合で分けていない)。
+  パスワードは apply のたびに作り直してサービスにだけ渡し、どこにも保存しない
+- **Excel の COM 自動化をデスクトップの無いセッションで動かしている。** Microsoft は
+  これを非サポートとしている。自動ログオンは 1 ユーザー分しかなく `potsbo` (Drive) が
+  使っているので、`runner` にデスクトップ セッションは無い。今回のテストはダイアログも
+  UI 操作も無い (COM で開いて VBA を注入し、マクロを呼んで保存するだけ) ので通る見込みで
+  置いている。通らなくなったら、ホストが起動時に `runner` として RDP で入って切断する
+  unit を足せばセッションができる (`potsbo` の切断中セッションで Drive が動いているのと
+  同じ原理)。ただしホスト側に `runner` のパスワードを置くことになる
 - **開発ツールはここで入れない。** 入れるのは git (runner の checkout 用) と
   PowerShell 7 だけ。task や uv はワークフローの中で aqua が入れる。ゲストにツールの
   版という状態を増やさない
