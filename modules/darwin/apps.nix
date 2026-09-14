@@ -59,6 +59,20 @@ _:
       "pgadmin4"
       "plaud"
       "cloudflare-warp"
+      # niri (Linux 側の WM) と同じスクロール型タイリングを macOS でも使うための試用。
+      # niri 自体は Wayland コンポジタなので移植版は存在せず、体験を再実装したものから
+      # 選ぶことになる。候補は PaperWM.spoon (Hammerspoon 上、枯れている) / Paneru
+      # (niri に一番近いが nixpkgs にも cask にも無く入手経路を自作する必要がある) /
+      # これ。署名 + notarize 済みで cask から入る配布品質を取った。
+      #
+      # 設定は流用できない。niri の KDL を読めるものは無いので、移すのは
+      # docs/keymap.md の仕様のほう。ただし niri 側で手のかかっている格子配置
+      # (niri-place.sh) と画面をまたぐ移動は macOS では Magnet の担当なので、
+      # 移植が要るのは列の操作だけ。
+      #
+      # cask が arm64 かつ macOS 26 以降を要求する。blizzard がこれを満たさない間は
+      # あちらで `apps` が落ちるので、そのときはホスト別に分ける。
+      "omniwm"
     ];
   };
 }
