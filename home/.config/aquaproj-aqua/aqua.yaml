@@ -8,7 +8,7 @@ checksum:
     - all
 registries:
   - type: standard
-    ref: v4.561.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.562.0 # renovate: depName=aquaproj/aqua-registry
   - name: local
     type: local
     path: registry.yaml
@@ -34,7 +34,7 @@ packages:
   - name: sharkdp/fd@v10.5.0
   - name: jesseduffield/lazygit@v0.65.1
   - name: go-task/task@v3.53.1
-  - name: aws/aws-cli@2.36.44
+  - name: aws/aws-cli@2.36.45
   - name: astral-sh/uv@0.12.10
   - name: starship/starship@v1.26.0
   - name: johnkerl/miller@v6.21.0
@@ -44,7 +44,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.83
-  - name: anthropics/claude-code@v2.1.270
+  - name: anthropics/claude-code@v2.1.272
   - name: aristocratos/btop@v1.4.7
   - name: ynqa/jnv@v0.7.1
   - name: theseus-rs/postgresql-binaries@18.6.0

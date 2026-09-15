@@ -6,6 +6,14 @@
 # みなすので、転送や Mac 側リスナーが死んでいれば確実にローカル
 # (nautilus / 本物の xdg-open) にフォールバックする。
 #
+# 転送するのは「今この画面を Mac から見ている」ときだけ (from_ssh で判定)。ポートが
+# listen しているかで判定してはいけない: RemoteForward はホスト全体に 2226 を開くので、
+# ssh が 1 本でも張られていれば、そのホストのローカル GUI (ブラウザ、Slack、
+# dms-focus-or-launch 経由の https ハンドラ) からのクリックまで Mac に飛ぶ。
+# しかも Mac がスリープしていると ACK が 2 秒で切れてローカルにフォールバックする一方、
+# 送った行は ssh のバッファに残り、Mac が起きた瞬間にまとめて開かれる
+# (phoenix をデスクトップ運用にして顕在化した)。
+#
 # ファイル/ディレクトリはローカルで開く。Mac 側へのリモートマウントは
 # 不安定で利用をやめたため、Mac から見えるパスへの変換はしない。
 
@@ -43,6 +51,28 @@ rewrite_for_mac() {
   fi
 }
 
+# 「この呼び出しの先にいる人間はどちらの画面を見ているか」。
+#
+# herdr のペインの中では env を信じない。ペインの env は作成時に凍結されるので、
+# ローカルで作ったペインに Mac から attach しても SSH_CONNECTION は立たず、ssh 中に
+# 作ったペインは phoenix に座り直しても残る。herdr は attach 元を API
+# (herdr api snapshot / status --json) に出さないので、attach のたびに ~/.zprofile が
+# 書く marker を見る。同じ「長寿命ペイン + 張り替わる接続」を ssh-agent 側で
+# ssh-auth-sock の安定 symlink で解いているのと同じ形 (.zshenv)。
+#
+# ペインの外 — 素の ssh シェル、ローカル端末、GUI アプリ — は env がそのまま正しい。
+#
+# marker が古いまま (ssh を切ったあと等) でも害は無い: 送信が ACK で落ちてローカルに
+# 戻るだけ。逆に headless ホストで attach の外から呼ぶと GUI が無くて失敗するが、
+# 背景ジョブが黙って Mac のブラウザを開くよりその方がよい。
+from_ssh() {
+  if [ -n "${HERDR_ENV:-}" ]; then
+    [ "$(cat "${XDG_RUNTIME_DIR:-/tmp}/opener-origin" 2>/dev/null)" = ssh ]
+  else
+    [ -n "${SSH_CONNECTION:-}" ]
+  fi
+}
+
 # ~/.local/bin/{open,xdg-open} (= このスクリプト) を除いた本物の xdg-open で開く
 fallback_xdg_open() {
   local self candidate
@@ -69,8 +99,8 @@ if [ -e "$buf" ]; then
   fallback_xdg_open "$buf"
 fi
 
-if send_mac "$(rewrite_for_mac "$buf")"; then
-  exit 0
+if from_ssh; then
+  send_mac "$(rewrite_for_mac "$buf")" && exit 0
+  notice_local
 fi
-notice_local
 fallback_xdg_open "$buf"
