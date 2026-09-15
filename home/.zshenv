@@ -74,7 +74,12 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 # aqua が読むのは repo の作業ツリーではなく store のコピー (modules/home-manager/aqua.nix)。
 # 実体を編集したら rebuild するまで効かない。conflict した aqua.yaml で aqua 管理の
 # コマンドが全部死ぬのを避けるため、意図的にそうしてある。
-export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua.yaml
+# 継ぎ足さずに代入する。継ぎ足すと、値がこの行の変更前から生きているプロセス
+# (長生きの terminal や tmux) の下では古いパスが残り続け、aqua がそちら (作業ツリー側の
+# aqua.yaml) からも install しようとする。policy の `path: registry.yaml` は policy
+# ファイルの隣を指すので、作業ツリー側の local registry は許可されず install が落ちる。
+# 入れ子の shell で同じパスが際限なく増えるのも防げる。
+export AQUA_GLOBAL_CONFIG=${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua.yaml
 # Required to allow the `local` registry (e.g. macmon). After first checkout, run once:
 #   aqua policy allow "$AQUA_POLICY_CONFIG"
 export AQUA_POLICY_CONFIG=${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua-policy.yaml

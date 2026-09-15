@@ -17,7 +17,7 @@ local home = os.getenv("HOME")
 hl.env("PATH", home .. "/.local/share/aquaproj-aqua/bin:" .. home .. "/.local/bin:" .. (os.getenv("PATH") or ""))
 -- aqua が global 設定と policy を見つけるための 2 つも .zshenv と同じにする
 -- (実体は store のコピー。modules/home-manager/aqua.nix)
-hl.env("AQUA_GLOBAL_CONFIG", ":" .. home .. "/.local/share/aqua-config/aqua.yaml")
+hl.env("AQUA_GLOBAL_CONFIG", home .. "/.local/share/aqua-config/aqua.yaml")
 hl.env("AQUA_POLICY_CONFIG", home .. "/.local/share/aqua-config/aqua-policy.yaml")
 
 -- DMS_STARTUP_BEGIN
