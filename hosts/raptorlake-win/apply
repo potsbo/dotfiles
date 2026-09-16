@@ -8,9 +8,16 @@
 # それ以外の場所からは ssh 経由で流す。ssh がまだ無い状態を起こせるのは guest agent
 # だけなので、作り直した直後の 1 回目は raptorlake の上で実行すること。
 #
-# スクリプトはコピーせず、-EncodedCommand で丸ごと渡す。ゲスト側に「どの版が置いて
-# あるか」という状態を持たせない。stdin から流す (-Command -) のは使わない。あれは
-# 1 行ずつ実行するので複数行の構文が壊れ、エラーが出ても次の行に進んでしまう。
+# スクリプトはゲストに置きっぱなしにしない。ゲスト側に「どの版が置いてあるか」という
+# 状態を持たせないため、ssh 越しの分は scp で送って実行し、そのまま消す。
+#
+# -EncodedCommand に丸ごと載せる形は捨てた。Windows のコマンドライン長 32767 が上限で、
+# UTF-16LE の base64 は元の 8/3 倍に膨らむため 12KB 程度のスクリプトで超え、2026-09-16 に
+# 実際に超えて "exec request failed on channel 0" で落ちた。本体を stdin から渡してスタブで
+# 実行する形も試したが、数 KB を超えると ssh の既定シェル (powershell) を挟んだ先で
+# 読み手が止まる。素の -Command - は、1 行ずつ実行するので複数行の構文が壊れる。
+# guest agent 経由 (bootstrap) は同じ長さの制限を持つが、あちらは小さいままなので触らない。
+
 set -euo pipefail
 
 here=$(cd "$(dirname "$0")" && pwd)
@@ -23,6 +30,20 @@ ssh_ok() { ssh -o BatchMode=yes -o ConnectTimeout=5 "$guest" exit >/dev/null 2>&
 # PowerShell の -EncodedCommand は UTF-16LE の base64
 encode() { iconv -f utf-8 -t utf-16le "$1" | base64 -w0; }
 
+
+# ssh 越しの実行。送って、流して、消す。
+# BOM を付けるのは、PowerShell 5.1 の -File が BOM の無いファイルをコードページ (cp932)
+# として読むから。UTF-8 のまま渡すと日本語のコメントごと壊れる。
+ssh_powershell() {
+  local remote payload
+  remote="apply-$$.ps1"
+  payload=$(mktemp)
+  printf '\xef\xbb\xbf' > "$payload"
+  cat "$1" >> "$payload"
+  scp -q "$payload" "$guest:$remote"
+  rm -f "$payload"
+  ssh "$guest" "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $remote; \$c = \$LASTEXITCODE; Remove-Item -Force -ErrorAction SilentlyContinue $remote; exit \$c"
+}
 # guest-exec は非同期で pid を返す。終了を待って出力を取り出す。JSON の組み立てと分解は jq。
 guest_powershell() {
   local enc req pid status
@@ -54,7 +75,7 @@ else
   ssh_ok || { echo "ssh が通らない。作り直した直後は raptorlake の上で実行すること" >&2; exit 1; }
   # sshd の設定が変わると bootstrap 自身が sshd を再起動し、この接続ごと切れる。
   # そのときは終了コードが 255 になるだけなので、通らなくなっていないかを後で確かめる。
-  ssh "$guest" "powershell -NoProfile -NonInteractive -EncodedCommand $(encode "$here/bootstrap.ps1")" || true
+  ssh_powershell "$here/bootstrap.ps1" || true
 fi
 # sshd の起動を待つ
 for _ in $(seq 1 15); do ssh_ok && break; sleep 2; done
@@ -66,4 +87,4 @@ ssh_ok || { echo "bootstrap 後に ssh が通らない" >&2; exit 1; }
   [ -n "${RUNNER_TOKEN:-}" ] && printf '$env:RUNNER_TOKEN = %s\n' "'${RUNNER_TOKEN}'"
   cat "$here/setup.ps1"
 } > "$tmp"
-ssh "$guest" "powershell -NoProfile -NonInteractive -EncodedCommand $(encode "$tmp")"
+ssh_powershell "$tmp"
