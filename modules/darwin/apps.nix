@@ -21,6 +21,10 @@ _:
       # 上げたいときは `brew upgrade` / `mas upgrade` を手で打つ。
       upgrade = false;
     };
+    taps = [
+      # tinycast の配布元。本家 homebrew-cask には無い。
+      "abue-ammar/tinycast"
+    ];
     brews = [
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
     ];
@@ -73,6 +77,10 @@ _:
       # cask が arm64 かつ macOS 26 以降を要求する。blizzard がこれを満たさない間は
       # あちらで `apps` が落ちるので、そのときはホスト別に分ける。
       "omniwm"
+      # Raycast の代替候補として試用。ネイティブ実装 (SwiftUI/AppKit) で常駐が軽い。
+      # 置き換えると決めるまでは raycast を残して両方入れる。
+      # omniwm と同じく arm64 + macOS 26 以降を要求する。
+      "abue-ammar/tinycast/tinycast"
     ];
   };
 }
