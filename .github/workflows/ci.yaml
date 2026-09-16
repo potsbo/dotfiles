@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: aquaproj/aqua-installer@v4.0.5
         with:
-          aqua_version: v2.62.3
+          aqua_version: v2.63.0
       - run: aqua install
         env:
           AQUA_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua.yaml
@@ -53,7 +53,7 @@ jobs:
       - uses: DeterminateSystems/determinate-nix-action@v3
       - uses: aquaproj/aqua-installer@v4.0.5
         with:
-          aqua_version: v2.62.3
+          aqua_version: v2.63.0
       - run: aqua i -l
       - run: task check
 

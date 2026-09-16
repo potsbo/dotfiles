@@ -4,9 +4,31 @@
 source ~/src/github.com/romkatv/zsh-defer/zsh-defer.plugin.zsh
 source ~/src/github.com/mroth/evalcache/evalcache.plugin.zsh
 
+# PATH / FPATH の重複除去。/etc/zprofile の path_helper と下の brew shellenv が
+# 同じ entry を二重に積む。PATH のほうは path_helper 自身が潰すが、FPATH は
+# 誰も潰さず 26 件のうち半分が重複していた。
+typeset -U path fpath
+
 # brew
-if [ -f "/opt/homebrew/bin/brew" ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+# `brew shellenv` を毎回呼ぶと 84ms かかる (brew 本体が bash の大きなスクリプトで、
+# さらに出力の中で /usr/libexec/path_helper を fork する)。出力をキャッシュする。
+#
+# 素の evalcache ではキャッシュが古くなっても気づけない。キャッシュキーがコマンド
+# 文字列だけなので、Homebrew 側が出力を変えても無効化されない。そこで出力を決める
+# ファイルの mtime を引数に混ぜてキーにする。evalcache は NAME=VALUE も含めて
+# ハッシュを取るので、Homebrew が更新されればキーが変わって勝手に取り直す。
+# 一度手で展開した値を置く案もあったが、ずれを doctor で人が確認する形になるので
+# やめた (25ms の差より、同期が自動で保たれるほうを取る)。
+#
+# PATH= を前置するのは brew の no-op 対策。PATH の先頭が既に homebrew だと
+# brew は「設定済み」と判断して何も出力せず、空のキャッシュができる。herdr の
+# pane のように親から環境を継いだシェルで実際に起きる。
+if [ -d "/opt/homebrew" ]; then
+  zmodload -F zsh/stat b:zstat
+  # zstat は + オプションを 1 つしか取らないので mtime だけ。更新されれば必ず動く。
+  zstat -A _brew_key +mtime /opt/homebrew/Library/Homebrew/cmd/shellenv.sh /opt/homebrew/etc/paths
+  _evalcache BREW_SHELLENV="${(j:-:)_brew_key}" PATH=/usr/bin:/bin /opt/homebrew/bin/brew shellenv zsh
+  unset _brew_key
 fi
 
 # zsh が書き込む XDG ディレクトリ（history / zcompdump の親）を用意
@@ -73,8 +95,10 @@ if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua complet
 if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 
 # host-colored frame so any fzf shows which host it runs on.
-thm_main=$(host-color "$(hostname)")
-export FZF_DEFAULT_OPTS="--border --border-label \" $(hostname) \" --color=border:${thm_main},label:${thm_main}"
+# hostname(1) ではなく $HOST を使う。zsh が起動時に持っている値で同じ文字列になり、
+# fork が 1 回 (host-color) で済む (hostname の fork は 1 回 9ms かかっていた)。
+thm_main=$(host-color "$HOST")
+export FZF_DEFAULT_OPTS="--border --border-label \" $HOST \" --color=border:${thm_main},label:${thm_main}"
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
