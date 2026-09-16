@@ -43,7 +43,7 @@ packages:
   - name: k1LoW/roots@v0.4.1
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: sxyazi/yazi@v26.9.1
-  - name: github/copilot-cli@v1.0.83
+  - name: github/copilot-cli@v1.0.85
   - name: anthropics/claude-code@v2.1.273
   - name: aristocratos/btop@v1.4.7
   - name: ynqa/jnv@v0.7.1
