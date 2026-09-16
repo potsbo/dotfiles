@@ -2,7 +2,7 @@
 
 let
   # renovate: datasource=github-releases depName=aquaproj/aqua
-  version = "2.62.3";
+  version = "2.63.0";
 in
 # go は固定しない。go_1_XX で override すると nixpkgs の default が進んでも追従せず、
 # Renovate も attr 名は書き換えないので手で bump することになる (2026-09 に一度やった)。
