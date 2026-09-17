@@ -25,7 +25,7 @@
     # (modules/home-manager/home.nix)。tag 固定と Renovate/relock の扱いは dms と同じ。
     # upstream は binary cache を出していないので release ごとに各ホストで build する (raptorlake で 1m43s)。
     herdr = {
-      url = "github:herdrdev/herdr/v0.9.0";
+      url = "github:herdrdev/herdr/v0.9.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
