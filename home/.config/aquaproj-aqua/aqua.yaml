@@ -75,5 +75,5 @@ packages:
   - name: modem-dev/hunk@v0.22.0
   - name: fastfetch-cli/fastfetch@2.68.1
   - name: cloudflare/cloudflared@2026.9.1
-  - name: zenbu-labs/terminal-browser@v0.8.1
+  - name: zenbu-labs/terminal-browser@v0.11.1
     registry: local
