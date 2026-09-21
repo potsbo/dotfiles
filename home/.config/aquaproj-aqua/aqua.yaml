@@ -65,7 +65,7 @@ packages:
   # Not in aqua-registry; defined via the local registry below. Apple Silicon only.
   - name: vladkens/macmon@v0.8.2
     registry: local
-  - name: dlvhdr/gh-dash@v4.25.2
+  - name: dlvhdr/gh-dash@v4.26.0
   - name: kitlangton/ghui@v0.9.1
     registry: local
   - name: charmbracelet/glow@v3.0.0
