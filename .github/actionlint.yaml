@@ -1,0 +1,8 @@
+# ubuntu-26.04 は実在する GitHub-hosted runner だが、nixpkgs pin 由来の
+# actionlint (1.7.12) は内蔵のラベル表が古くて知らず、runner-label で落ちる。
+# self-hosted-runner.labels はラベル表への追加であって self-hosted 宣言では
+# ないので、ここに書けば known label として扱われる。actionlint のラベル表が
+# 追いついたら消してよい。
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
