@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # raptorlake-win (Windows 11 ゲスト) に設定を当てる。
 #   ./hosts/raptorlake-win/apply
-#   RUNNER_URL=... RUNNER_TOKEN=... ./hosts/raptorlake-win/apply   # runner を登録するとき
 #
 # bootstrap.ps1 (SYSTEM で当てる sshd の設定) と setup.ps1 (ユーザーとして当てる残り) を
 # 毎回この順に流す。bootstrap は libvirt ホスト (raptorlake) の上なら guest agent 経由で、
@@ -81,10 +80,4 @@ fi
 for _ in $(seq 1 15); do ssh_ok && break; sleep 2; done
 ssh_ok || { echo "bootstrap 後に ssh が通らない" >&2; exit 1; }
 
-# 環境変数は ssh を越えないので、スクリプトの先頭に代入として付けて流す
-{
-  [ -n "${RUNNER_URL:-}" ] && printf '$env:RUNNER_URL = %s\n' "'${RUNNER_URL}'"
-  [ -n "${RUNNER_TOKEN:-}" ] && printf '$env:RUNNER_TOKEN = %s\n' "'${RUNNER_TOKEN}'"
-  cat "$here/setup.ps1"
-} > "$tmp"
-ssh_powershell "$tmp"
+ssh "$guest" "powershell -NoProfile -NonInteractive -EncodedCommand $(encode "$here/setup.ps1")"
