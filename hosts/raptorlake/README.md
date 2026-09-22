@@ -182,6 +182,64 @@ WARP を切っていれば従来どおり `ssh raptorlake` (Tailscale + GitHub �
 `sudo systemctl start cloudflared`。置くまでは unit が `ConditionPathExists` で
 止まっているだけで rebuild は通る。
 
+## Nextcloud
+
+端末間のファイル共有。宣言は `nextcloud.nix`。入口は Tailscale Serve だけで、
+`https://raptorlake.<tailnet>.ts.net` に tailnet からのみ届く。nginx は
+127.0.0.1:8080 でしか待ち受けず、firewall には穴を開けていない。
+
+Syncthing ではなくこれを選んだ理由と、代わりに背負ったもの (再生成できない
+Postgres) は `nextcloud.nix` の冒頭にある。
+
+### ホストを作り直したときに手で用意するもの
+
+管理者パスワードだけ。
+
+```sh
+sudo install -d -m 700 /srv/nextcloud
+head -c 24 /dev/urandom | base64 | tr -d '/+=' | head -c 24 |
+  sudo install -m 600 /dev/stdin /srv/nextcloud/admin-pass
+sudo systemctl start nextcloud-setup
+```
+
+置くまでは `nextcloud-setup` が `ConditionPathExists` で止まっているだけで
+rebuild は通る (cloudflared と同じ形)。ユーザー名は `potsbo`。
+
+tailnet 側で **HTTPS 証明書が有効になっている必要がある** (Tailscale の admin
+console → DNS → HTTPS Certificates)。無効だと `tailscale serve` が証明書を
+取れず、`tailscale-serve-nextcloud` が起動に失敗し続ける。
+
+### クライアント
+
+- **デスクトップ (Mac / Linux)**: `nextcloud-client`。サーバ URL に上の FQDN を入れる
+- **iPhone**: App Store の Nextcloud。同じ URL。Tailscale アプリが繋がっていれば届く
+
+**WARP を繋いでいる Mac からは同期が止まる。** tailnet に経路が無くなるため
+(`docs` ではなく本 README の「Cloudflare 経由で SSH する」に経緯がある)。
+壊れはせず、WARP を切れば再開する。Cloudflare Access 側に出す手もあるが、
+Access は同期クライアントの SSO を通せないので、DAV のパスを bypass に
+落とすことになり、そこは Nextcloud 自身の認証だけで公開される。採っていない。
+
+### まだ無いもの
+
+**バックアップ。** このホストは冗長性を持たない (`disk-config.nix`) うえ、
+Nextcloud は他のコピーから再生成できない state (Postgres) を持つ。ファイルが
+無事でも DB を失うと共有・タグ・版が消える。実データを預ける前に restic で
+外に逃がす口が要る。
+
+### ハマった点
+
+- **postgres が 5432 を取れない。** このホストでは docker のコンテナが
+  `0.0.0.0:5432` を publish していることがあり、NixOS の postgresql が
+  `could not create any TCP/IP sockets` で起動に失敗する。Nextcloud は unix
+  socket で繋ぐので、`listen_addresses` を空にして TCP を持たせないことで避けた
+- **`overwrite.cli.url` が要る。** 無いと管理画面のセットアップチェックが自分自身に
+  接続できず、WebDAV の疎通・データディレクトリの保護・`.mjs` の MIME 型が
+  「確認できませんでした」のまま残る。値は tailnet の FQDN で、公開リポジトリに
+  書けないので `nextcloud-tailnet-url` が起動時に tailscaled から引いて入れる
+- **初回の cron は数十秒かかる。** 終わるまで「最後のバックグラウンドジョブが
+  56 年前」と出るが、待てば消える
+
 ## Google 共有ドライブを Linux から読む
 
 共有ドライブ (Shared drives) は Drive for Desktop が**ストリーミング固定**で扱う。
