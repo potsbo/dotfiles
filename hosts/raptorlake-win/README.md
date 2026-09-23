@@ -2,7 +2,7 @@
 
 raptorlake 上の Windows 11 Pro ゲスト。VM そのもの (libvirt の domain、ホスト側の
 マウント) は `../raptorlake/README.md` にある。ここにあるのはゲストの中の設定で、
-Excel を使う CI を GitHub Actions の self-hosted runner としてここで動かすためのもの。
+目的は **Excel の入った Windows で、手元の変更を ssh 越しにテストできる状態を保つ**こと。
 
 Windows には nix が無いので、ゲスト側は PowerShell のスクリプトを冪等に書く形で
 持つ。何度流しても同じ状態に収束することを、各スクリプトが自分で保証する
@@ -16,27 +16,22 @@ raptorlake の上で:
 ./hosts/raptorlake-win/apply
 ```
 
-ssh が通ればそれで `setup.ps1` を流す。通らなければ (作り直した直後など)、
-libvirt の guest agent 経由で `bootstrap.ps1` を SYSTEM として流して ssh を通し、
-そのあと `setup.ps1` に進む。guest agent は libvirt ホストの上でしか叩けないので、
-bootstrap だけは raptorlake 上で実行する必要がある。ssh が通ったあとは、ゲストに
-届くところならどこからでも `apply` できる。
+`bootstrap.ps1` (SYSTEM で当てる sshd の設定) と `setup.ps1` (ユーザーとして当てる
+残り) を毎回この順に流す。bootstrap は libvirt の guest agent 経由なので raptorlake の
+上でしか流せない。ssh が無い状態 (作り直した直後) を起こせるのは guest agent だけ
+なので、1 回目は必ず raptorlake の上で実行する。
 
-スクリプトはゲストにコピーせず stdin から流す。ゲスト側に「どの版のスクリプトが
-置いてあるか」という状態を持たせないため。
+スクリプトはゲストにコピーせず、`-EncodedCommand` で丸ごと渡す。ゲスト側に「どの版が
+置いてあるか」という状態を持たせない。
 
-### runner の登録
+### Excel でテストを回す
 
-runner の登録先 (リポジトリ) はここに書かない。公開リポジトリなので。
-登録トークンは 1 時間で失効する使い捨てで、リポジトリの
-Settings → Actions → Runners → New self-hosted runner に出る。
+`potsbo` は管理者なので、ssh のセッション (デスクトップ無し) からでも Excel の COM が動く。
 
 ```sh
-RUNNER_URL=https://github.com/<owner>/<repo> RUNNER_TOKEN=... ./hosts/raptorlake-win/apply
+scp -r anonymizer raptorlake-win:C:/Users/shimp/src/one/
+ssh raptorlake-win 'cd C:\Users\shimp\src\one\anonymizer; uv run pytest'
 ```
-
-一度登録すれば `C:\actions-runner\.runner` が残るので、以後は環境変数なしでよい。
-ラベルは `excel`。ワークフロー側は `runs-on: [self-hosted, windows, excel]`。
 
 ## 何をどう決めたか
 
@@ -48,28 +43,18 @@ RUNNER_URL=https://github.com/<owner>/<repo> RUNNER_TOKEN=... ./hosts/raptorlake
 - **ホスト鍵は guest agent で取り出して known_hosts に固定する。** 初回接続で
   受け入れる (TOFU) 経路を作らない。bootstrap のときは既に信頼している経路
   (virsh) があるので、そこから公開鍵を読めばよい
-- **runner は専用の非管理者アカウント `runner` の Windows サービスとして動かす。**
-  runner はワークフローを書けるメンバー全員のコードを実行する。この VM は共有ドライブの
-  橋渡し (`potsbo` のセッションで Drive が動いている) も兼ねていて、`potsbo` で動かすと
-  そのコードから共有ドライブと Drive のトークンに届いてしまう。`runner` は Drive も
-  Tailscale の認証も管理者権限も持たない。残るのは Windows のユーザー分離を破る
-  ローカル権限昇格と、VM のネットワーク経由で tailnet に触れることの 2 つで、
-  後者は VM を分けない限り消えない (ライセンスの都合で分けていない)。
-  パスワードは apply のたびに作り直してサービスにだけ渡し、どこにも保存しない
-- **Excel の COM 自動化をデスクトップの無いセッションで動かしている。** Microsoft は
-  これを非サポートとしている。自動ログオンは 1 ユーザー分しかなく `potsbo` (Drive) が
-  使っているので、`runner` にデスクトップ セッションは無い。今回のテストはダイアログも
-  UI 操作も無い (COM で開いて VBA を注入し、マクロを呼んで保存するだけ) ので通る見込みで
-  置いている。通らなくなったら、ホストが起動時に `runner` として RDP で入って切断する
-  unit を足せばセッションができる (`potsbo` の切断中セッションで Drive が動いているのと
-  同じ原理)。ただしホスト側に `runner` のパスワードを置くことになる
-- **開発ツールはここで入れない。** 入れるのは git (runner の checkout 用) と
-  PowerShell 7 だけ。task や uv はワークフローの中で aqua が入れる。ゲストにツールの
-  版という状態を増やさない
+- **CI (GitHub Actions の self-hosted runner) にはしない。** 一度組んで動くところまで
+  確かめたが撤去した。runner はリポジトリに書ける人全員のコードをこの VM で実行する
+  口になり、この VM は共有ドライブの橋渡し (`potsbo` のセッションで Drive が動いている)
+  も兼ねている。専用の非管理者アカウントで動かしても、ローカル権限昇格と VM の
+  ネットワーク経由の到達は残る。テストの実行頻度に対して、常設の口を開けておく
+  釣り合いが取れない。加えて、非管理者からの Excel の COM 起動は DCOM の起動許可
+  (既定は Administrators / INTERACTIVE / SYSTEM) で拒まれ、Excel の CLSID には AppID が
+  紐づいていないので Excel だけに許可を足す手段も素直ではなかった
+- **開発ツールは git、uv、PowerShell 7 だけ。** task や aqua はテストの実行に要らない
+  (`uv run pytest` で足りる)
 - **VM が壊れたら作り直すのではなく、スナップショットから戻す。** ライセンス認証が
-  domain の構成に紐づくので、domain を作り直すと認証が外れる (`../raptorlake/README.md`)。
-  runner まで通った状態で `sudo virsh snapshot-create-as raptorlake-win --name runner-ok`
-  を取っておく
+  domain の構成に紐づくので、domain を作り直すと認証が外れる (`../raptorlake/README.md`)
 
 ## 手で済ませてある (宣言に入っていない) もの
 
