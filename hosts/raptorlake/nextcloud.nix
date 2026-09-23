@@ -169,5 +169,54 @@ in
         unitConfig.StartLimitIntervalSec = 0;
       };
     };
+
+    # このホストから Nextcloud のファイルを普通のディレクトリとして読み書きする口。
+    #
+    # 同期クライアント (nextcloudcmd) は使わない。ここはサーバ自身なので、同期すると
+    # 同じディスクに 2 つ目のコピーができる。857MB の動画 1 本で 1.7GB になる。
+    # マウントなら実体は 1 つ。
+    #
+    # /var/lib/nextcloud/data/<user>/files を直に触る案も却下。書いても DB が
+    # 知らないままで、web にも iPhone にも出てこない。毎回 occ files:scan が要る。
+    #
+    # davfs2 ではなく rclone にしたのは、davfs2 がローカルキャッシュを噛ませる作りで
+    # 大きいファイルで詰まるため。実際に扱っているのが数百 MB 級なので、そこが
+    # 弱い方式を選ぶ理由がない。
+    #
+    # 相手は tailnet の FQDN ではなく 127.0.0.1:8080 (nginx が待ち受けている所)。
+    # 自分自身に繋ぐのに TLS と tailnet を経由する必然性がなく、tailscaled の
+    # 起動順にも依存しなくなる。
+    #
+    # user unit にしてあるのは、マウント先がユーザーの home で、資格情報も
+    # ユーザーのものだから。このホストの実ユーザーは potsbo 一人。
+    user.services.nextcloud-mount = {
+      description = "Mount Nextcloud over WebDAV at ~/Nextcloud";
+      wantedBy = [ "default.target" ];
+      # 資格情報を置くまでは起動しない (nextcloud-setup と同じ形)。
+      unitConfig.ConditionPathExists = "%h/.config/rclone/rclone.conf";
+      # rclone は fusermount3 を PATH から探す。store の fuse3 に入っているほうは
+      # setuid されていないので "mount failed: Operation not permitted" で落ちる。
+      # 実際にマウントできるのは NixOS が setuid root で置く wrapper のほうだけ。
+      path = [ "/run/wrappers" ];
+      serviceConfig = {
+        # rclone mount は sd_notify に対応していて、マウントが実際に見えるように
+        # なってから READY を返す。simple だと後続が空のディレクトリを掴みうる。
+        Type = "notify";
+        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %h/Nextcloud";
+        ExecStart = ''
+          ${lib.getExe pkgs.rclone} mount nextcloud: %h/Nextcloud \
+            --config %h/.config/rclone/rclone.conf \
+            --vfs-cache-mode writes \
+            --dir-cache-time 1m \
+            --umask 077
+        '';
+        # 落ち方によっては mount が残るので、後片付けを必ず通す。
+        ExecStopPost = "-/run/wrappers/bin/fusermount3 -u -z %h/Nextcloud";
+        # user unit は system 側の nginx/phpfpm と順序を付けられない。起動直後は
+        # 相手がまだ上がっていないことがあるので、諦めずに繋ぎ直す。
+        Restart = "on-failure";
+        RestartSec = "10s";
+      };
+    };
   };
 }

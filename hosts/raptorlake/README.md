@@ -220,6 +220,45 @@ console → DNS → HTTPS Certificates)。無効だと `tailscale serve` が証�
 Access は同期クライアントの SSO を通せないので、DAV のパスを bypass に
 落とすことになり、そこは Nextcloud 自身の認証だけで公開される。採っていない。
 
+### raptorlake 自身から読み書きする
+
+`~/Nextcloud` に rclone が WebDAV をマウントしている (`nextcloud-mount.service`、
+user unit)。普通のディレクトリとして読み書きでき、書いたものはそのまま web にも
+iPhone にも出る。
+
+同期クライアント (`nextcloudcmd`) を使っていないのは、ここがサーバ自身だから。
+同期すると同じディスクに 2 つ目のコピーができる。マウントなら実体は 1 つ。
+
+`/var/lib/nextcloud/data/<user>/files` を直に触るのは避けること。書いても DB が
+知らないままで、web にも iPhone にも出てこない (`occ files:scan` が要る)。
+
+#### ホストを作り直したときに手で用意するもの
+
+rclone の remote 定義。パスワードは**アプリパスワード**にする (web UI の
+設定 → セキュリティ から個別に失効できる)。
+
+```sh
+apppw=$(sudo -u nextcloud nextcloud-occ user:auth-tokens:add potsbo \
+          --name="rclone (raptorlake)" -n | tail -1)
+install -d -m 700 ~/.config/rclone
+cat > ~/.config/rclone/rclone.conf <<EOF
+[nextcloud]
+type = webdav
+url = http://127.0.0.1:8080/remote.php/dav/files/potsbo/
+vendor = nextcloud
+user = potsbo
+pass = $(rclone obscure "$apppw")
+EOF
+chmod 600 ~/.config/rclone/rclone.conf
+systemctl --user start nextcloud-mount
+```
+
+`~/.config/rclone` は gitignore 済み (`home/.config/.gitignore`)。置くまでは unit が
+`ConditionPathExists` で止まっているだけで rebuild は通る。
+
+繋ぎ先が tailnet の FQDN ではなく `127.0.0.1:8080` なのは、自分自身に繋ぐのに
+TLS と tailnet を経由する必然性がないため。tailscaled の起動順にも依存しない。
+
 ### まだ無いもの
 
 **バックアップ。** このホストは冗長性を持たない (`disk-config.nix`) うえ、
@@ -237,6 +276,9 @@ Nextcloud は他のコピーから再生成できない state (Postgres) を持�
   接続できず、WebDAV の疎通・データディレクトリの保護・`.mjs` の MIME 型が
   「確認できませんでした」のまま残る。値は tailnet の FQDN で、公開リポジトリに
   書けないので `nextcloud-tailnet-url` が起動時に tailscaled から引いて入れる
+- **rclone の fusermount3 は wrapper のほうでないと動かない。** store の fuse3 に入っている
+  ものは setuid されておらず、`mount failed: Operation not permitted` で落ちる。unit の
+  `path` に `/run/wrappers` を足して解決した
 - **初回の cron は数十秒かかる。** 終わるまで「最後のバックグラウンドジョブが
   56 年前」と出るが、待てば消える
 
