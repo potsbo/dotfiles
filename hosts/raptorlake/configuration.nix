@@ -6,6 +6,8 @@
     # 到達できなくなるので laptop ではなく server 扱いにする。
     # WARP 接続中の Mac から入るための Cloudflare 経路 (Tailscale と併存)
     ./cloudflare-access.nix
+    # 端末間のファイル共有。tailscale serve で tailnet にだけ出す
+    ./nextcloud.nix
   ];
 
   # GeForce RTX 4070 (Ada)。Ada 以降は open kernel module が NVIDIA 推奨で、
