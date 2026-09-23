@@ -27,6 +27,9 @@ macos-option-as-alt = left
 # タイトルバーを隠す (wezterm macOS: window_decorations = "RESIZE")
 # hidden はフレーム/リサイズを維持したままタイトルバーだけ消す。
 macos-titlebar-style = hidden
+# hidden だと信号機ボタンも消え、OmniWM はフルスクリーンボタンの無い窓を float
+# 扱いにする。そのため omniwm/settings.toml の Ghostty の appRule で
+# layout = "tile" を強制している (settings.toml は OmniWM が書き直すので理由はここに置く)。
 # Linux では WM のタイトルバーで最下行が欠ける問題があった (wezterm: "NONE")。
 # ghostty で再発する場合は window-decoration = none を有効化する。
 # window-decoration = none
