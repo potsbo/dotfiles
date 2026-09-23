@@ -156,6 +156,10 @@ in
       statix
     ] ++ lib.optionals stdenv.hostPlatform.isLinux [
       wl-clipboard
+      # Nextcloud の同期クライアント。darwin では入らない (nixpkgs の
+      # meta.platforms が linux のみで、そのまま並べると Mac の eval が落ちる) ので、
+      # Mac 側は cask (modules/darwin/apps.nix) に置いている。
+      nextcloud-client
       # darwin では入れない。upstream の TUI (cmd/nix-graph/ui.go) が //go:build linux で、
       # termios を linux 固有の syscall.TCGETS/TCSETS で叩いているのでビルドが通らない。
       # darwin 用に移植する (TIOCGETA/TIOCSETA への patch) ほどの用途ではない。
