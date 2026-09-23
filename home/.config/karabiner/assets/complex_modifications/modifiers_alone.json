@@ -2,7 +2,7 @@
   "title": "Modifiers Alone for potsbo",
   "rules": [
     {
-      "description": "Right Shift only to Alt+space to invoke Raycast",
+      "description": "Right Shift only to Alt+space to invoke the launcher",
       "manipulators": [
         {
           "type": "basic",

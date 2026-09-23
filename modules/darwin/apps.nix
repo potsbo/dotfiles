@@ -43,7 +43,6 @@ _:
       "visual-studio-code"
       "google-chrome"
       "google-japanese-ime"
-      "raycast"
       "keyboard-cleaner"
       "zoom"
       "dash"
@@ -80,8 +79,7 @@ _:
       # cask が arm64 かつ macOS 26 以降を要求する。blizzard がこれを満たさない間は
       # あちらで `apps` が落ちるので、そのときはホスト別に分ける。
       "omniwm"
-      # Raycast の代替候補として試用。ネイティブ実装 (SwiftUI/AppKit) で常駐が軽い。
-      # 置き換えると決めるまでは raycast を残して両方入れる。
+      # ランチャー。Raycast から置き換えた。ネイティブ実装 (SwiftUI/AppKit) で常駐が軽い。
       # omniwm と同じく arm64 + macOS 26 以降を要求する。
       "abue-ammar/tinycast/tinycast"
     ];
