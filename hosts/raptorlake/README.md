@@ -220,6 +220,40 @@ console → DNS → HTTPS Certificates)。無効だと `tailscale serve` が証�
 Access は同期クライアントの SSO を通せないので、DAV のパスを bypass に
 落とすことになり、そこは Nextcloud 自身の認証だけで公開される。採っていない。
 
+#### 二要素認証
+
+TOTP を必須にしてある。この tailnet には他人の端末も居て、`tailscale serve` は
+tailnet 全体に出ているので、ログイン画面までは他人も届く。本来は Tailscale の
+ACL で `raptorlake:443` を絞るのが筋だが、**会社の tailnet なので個人の用途で
+policy file をいじらない**。代わりにアプリ側で壁を 2 枚にしている。
+
+```sh
+sudo -u nextcloud nextcloud-occ twofactorauth:state potsbo   # totp が enabled か
+sudo -u nextcloud nextcloud-occ twofactorauth:enforce --on
+```
+
+**順序を守ること。** TOTP を登録する前に `--on` すると、次のログインで
+「2FA が必須だが未設定」で止まって web UI に入れなくなる。登録は
+`/settings/user/security` から。
+
+宣言 (`nextcloud.nix`) に入れていないのは 2 つ理由がある。config.php ではなく
+DB のアプリ設定であることと、ホストを作り直した直後 (TOTP 未登録) に自動で
+有効になると、新品のインスタンスから締め出されること。
+
+締め出されたら ssh から戻せる:
+
+```sh
+sudo -u nextcloud nextcloud-occ twofactorauth:enforce --off
+sudo -u nextcloud nextcloud-occ twofactorauth:disable potsbo totp
+```
+
+**同期クライアントは影響を受けない。** アプリパスワードは 2FA を迂回する設計なので、
+rclone のマウントも iPhone も再認証は要らない (enforce 後に実測で確認した)。
+
+パスキー (設定 → セキュリティ → パスワードレス認証) は**入れていない**。
+core の `WebAuthnChain` が `TwoFactorCommand` を通すので、パスキーは 2 要素の
+代わりにならず、登録すると Touch ID と 6 桁の両方を求められて手間が増えるだけになる。
+
 ### raptorlake 自身から読み書きする
 
 `~/Nextcloud` に rclone が WebDAV をマウントしている (`nextcloud-mount.service`、
