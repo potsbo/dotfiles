@@ -26,10 +26,10 @@ packages:
   - name: YS-L/csvlens@v0.15.1
   - name: golang/go@go1.27.1
   - name: cli/cli@v2.101.0
-  - name: Wilfred/difftastic@0.70.0
+  - name: Wilfred/difftastic@0.71.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.8.0
-  - name: nodejs/node@v26.9.0
+  - name: nodejs/node@v26.10.0
   - name: XAMPPRocky/tokei@v15.0.0
   - name: sharkdp/fd@v10.5.0
   - name: jesseduffield/lazygit@v0.65.1
@@ -69,7 +69,7 @@ packages:
   - name: kitlangton/ghui@v0.9.1
     registry: local
   - name: charmbracelet/glow@v3.0.0
-  - name: openai/codex@rust-v0.155.1
+  - name: openai/codex@rust-v0.156.1
   - name: yusukebe/ax@v0.1.25
     registry: local
   - name: modem-dev/hunk@v0.22.0

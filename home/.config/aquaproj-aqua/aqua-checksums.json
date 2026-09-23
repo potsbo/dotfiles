@@ -46,28 +46,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.70.0/difft-aarch64-apple-darwin.tar.gz",
-      "checksum": "1921267221FCB5779D30C4DCC0B3B4620ABBE851FFD5596A4715576581518F51",
+      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "92ACF8890543B6D6F436A87A7A5EC64F82A4B8DBE3A7E564C1E5CBFE60823BC7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.70.0/difft-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "E729684907D67D1A1727A08F443877E19E40EEB2EFEBCD95C1B8F7FEE4284E8E",
+      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-aarch64-pc-windows-msvc.zip",
+      "checksum": "FBF0497F654271F9C96DFC52F06AAD2163AC391EE4050F9DAB7B88CBA2BD9E77",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.70.0/difft-x86_64-apple-darwin.tar.gz",
-      "checksum": "C180541EF7963AAD4F75D4EF99AED2BF7F5C132D25A3B8152B20309BE1FBA82F",
+      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "5F046098B36FF985D0F99FEC6F22CF74961DB60386FF9D40DF39FD99660AAE2C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.70.0/difft-x86_64-pc-windows-msvc.zip",
-      "checksum": "B563AE76E22CE28C7080A8B628CFABF6FA86F9EE114A0F5697BC2CA26F9CE1D7",
+      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "390B5299B0BC5059B5617F448EB1F3CB42C689933258FC57770C24D257A5D8A8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.70.0/difft-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "16F65A74A3D64D0BB44D31223D56D0CCAA9AD148F520322450A0629EE21F205F",
+      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-x86_64-pc-windows-msvc.zip",
+      "checksum": "9A979F9D96D739625A0FE69317F3197CC7BCEF663A6D7195197D6C9BF96ED6F5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "0A65E6715DF992B0ADAE012E606BD9CC74FA6CFE90EAF13BBAE165A0A19B3086",
       "algorithm": "sha256"
     },
     {
@@ -931,28 +936,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.155.1/codex-package-aarch64-apple-darwin.tar.gz",
-      "checksum": "E6E08717DA9E35B72332EFF753527FE79A9AE876081033C5C6820A8E5F58B943",
+      "id": "github_release/github.com/openai/codex/rust-v0.156.1/codex-package-aarch64-apple-darwin.tar.gz",
+      "checksum": "FEA42F9625091F011E38F059DA974D52E57BA31831648BB1C7F0B1A385FDE547",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.155.1/codex-package-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "71857DBC9BEA3613410E8A69CFB46B07C0402D6D20FEC18843DBAFFD757634BD",
+      "id": "github_release/github.com/openai/codex/rust-v0.156.1/codex-package-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "FDD47ED6AADE0360796FD3F6F95A45096F327C15E19E8C7339F9DC5633041786",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.155.1/codex-package-x86_64-apple-darwin.tar.gz",
-      "checksum": "BE752AEBB2AC022C5BFED3FA14F46943D11DDB36A950B553B058794ABA22496A",
+      "id": "github_release/github.com/openai/codex/rust-v0.156.1/codex-package-x86_64-apple-darwin.tar.gz",
+      "checksum": "618DBCD55419FA041871F777A14B107CEB3FE2D339EF81E21E6AB5374420DC71",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.155.1/codex-package-x86_64-pc-windows-msvc.tar.gz",
-      "checksum": "F45C273B7835C192AAA9CEF5B93AA9528966AC7301444632DE80A565A9BF14E8",
+      "id": "github_release/github.com/openai/codex/rust-v0.156.1/codex-package-x86_64-pc-windows-msvc.tar.gz",
+      "checksum": "A2E017DB9807E6A2269A26FEA0E1D9546469CEF4D472A33016BC9F3AD7D3B733",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.155.1/codex-package-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "A65B895C6AC1A73629BBE4B864640C86133E94A43B4D67B3103044E1A306D5A2",
+      "id": "github_release/github.com/openai/codex/rust-v0.156.1/codex-package-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "8B711520BEDDF385467B8DA4D2C93736637C6BA1E46811CF0D8606B7C490B6F6",
       "algorithm": "sha256"
     },
     {
@@ -1381,38 +1386,38 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.9.0/node-v26.9.0-darwin-arm64.tar.gz",
-      "checksum": "6F3DE7ED853EE283B4BF24B6E426618F1D357401CE5815DB1866EB85EB4B05D9",
+      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-darwin-arm64.tar.gz",
+      "checksum": "751FDF7439F115D87EE2A8F3F18C065B6151852068E3E666AC60AC2996F75AC9",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.9.0/node-v26.9.0-darwin-x64.tar.gz",
-      "checksum": "06B2E742ED9025DC84ADC830243B3F731956EAC9C321BCCD0EDE384209AF02A8",
+      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-darwin-x64.tar.gz",
+      "checksum": "EBBE9AB9B58AD6BB54390D6E2C862C1AFA7D4475FB7E8AE8146ACDE211BF70DF",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.9.0/node-v26.9.0-linux-arm64.tar.gz",
-      "checksum": "D5077591AA38B48D90BF9B3AC10DA8D2F40DCE289B20294913C58C19F153EB12",
+      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-linux-arm64.tar.gz",
+      "checksum": "423A41BFF8E2A2FA15E702FEFE2919EF95823B2378744DACCB8439302534B44F",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.9.0/node-v26.9.0-linux-x64.tar.gz",
-      "checksum": "03D9104FC4F19652E74480FED11C023D75981464B7292F21A601C3F95CE7D90D",
+      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-linux-x64.tar.gz",
+      "checksum": "CB5C9CE9C80D7B8821E3A258543C71B939138CF17C74D5CC44BBE85D6DBC5AD8",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.9.0/node-v26.9.0-win-x64.zip",
-      "checksum": "C8AF870B5B3E9789A6CBDB30270E7C212E12D76A7AFA7FC7F21B6B21CC22A71B",
+      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-win-x64.zip",
+      "checksum": "9FEF7ECA6743A6B910989CD8E78712376B394FCB9B6E1E9C44A0799A287F90C5",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-arm64-musl.tar.gz",
-      "checksum": "B52B747E86EF6D18068F02F43F508A608358C974DC5DA8EF270BC823BA4710CA",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.10.0/node-v26.10.0-linux-arm64-musl.tar.gz",
+      "checksum": "D26027BFF3197050D2A2B0BFA151B18E8378ED81AFFA2BF5093804DB158979B6",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-x64-musl.tar.gz",
-      "checksum": "669DD67EC374F7315DBAC9E119641D0E4F371519E00C4B692F1F81E7A04B747C",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.10.0/node-v26.10.0-linux-x64-musl.tar.gz",
+      "checksum": "E42DA94821B9422EB76BF5AAF4DE0977E04BA320B8AFF6148D895A94B08EE223",
       "algorithm": "sha256"
     },
     {
