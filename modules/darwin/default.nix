@@ -37,8 +37,15 @@
           "com.apple.trackpad.scaling" = 2;
           AppleLanguages = [ "en-US" "ja-JP" ];
         };
+        # 3 本指の左右スワイプは OmniWM の列スクロールに渡す。macOS 側に残すと
+        # フルスクリーンアプリ間の移動が先に取ってしまう。そちらは 4 本指
+        # (FourFingerHoriz の既定) で引き続き使える。
         "com.apple.AppleMultitouchTrackpad" = {
           Clicking = true;
+          TrackpadThreeFingerHorizSwipeGesture = 0;
+        };
+        "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+          TrackpadThreeFingerHorizSwipeGesture = 0;
         };
         "com.apple.dock" = {
           showAppExposeGestureEnabled = true;
