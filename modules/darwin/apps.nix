@@ -63,6 +63,9 @@ _:
       "pgadmin4"
       "plaud"
       "cloudflare-warp"
+      # Nextcloud の同期クライアント。Linux 側は nix (modules/home-manager/home.nix)
+      # だが、nixpkgs の nextcloud-client は linux 専用なので Mac は cask で入れる。
+      "nextcloud"
       # niri (Linux 側の WM) と同じスクロール型タイリングを macOS でも使うための試用。
       # niri 自体は Wayland コンポジタなので移植版は存在せず、体験を再実装したものから
       # 選ぶことになる。候補は PaperWM.spoon (Hammerspoon 上、枯れている) / Paneru
