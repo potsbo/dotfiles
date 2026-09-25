@@ -456,33 +456,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-linux-aarch64.tar.gz",
-      "checksum": "D3369AA9C1BC77FD8BD7BA3BE2AE2CDCECE4A137620C48A9DE58026779FDB7D4",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.69.0/fastfetch-linux-aarch64.tar.gz",
+      "checksum": "843A0D4E3D604EFC7CCE18DF1EFCC09B00A1960CFEA9949118B50BF999694027",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-linux-amd64.tar.gz",
-      "checksum": "0C51EF6FA3E976EB5038FE0AFDA38629D3CA07947740BB0E3354C7C4F1238C0C",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.69.0/fastfetch-linux-amd64.tar.gz",
+      "checksum": "9FE880A34DE3FEC88E57A69230C02FD7BE0846DB3F3EA9F88F2B74489A79FF55",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-macos-aarch64.tar.gz",
-      "checksum": "22426608DCA945E0531AF37054E21A2727AA7BB30179EFAF44DE7F59163BE5FE",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.69.0/fastfetch-macos-aarch64.tar.gz",
+      "checksum": "3901A90B11F1823A00FEA6F3C3C877E7F336465E9D9FACC98FD6B8803E8FAC7E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-macos-amd64.tar.gz",
-      "checksum": "1E9A6BA7474A41B3CC2BB1B923AFCF40C749C25BD17DC1E62B64464E7445A534",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.69.0/fastfetch-macos-amd64.tar.gz",
+      "checksum": "EC6EA2AED26DF0561C9331526F1F4289F4285B11F7E3910C29F0B66766B635F1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-windows-aarch64.zip",
-      "checksum": "16FD27F055707049A8E143909BB72DC4D9DC5574D643E415254846FD5554D200",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.69.0/fastfetch-windows-aarch64.zip",
+      "checksum": "454E48B8AA3C25698B9DBF80BA8E9267C64B78D1EE2715AD3276DFE18AC87A82",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.68.1/fastfetch-windows-amd64.zip",
-      "checksum": "7002024C5BA37BDF9142F8B38039D3DD5DA6DE33D3B679B57693DC42483D882D",
+      "id": "github_release/github.com/fastfetch-cli/fastfetch/2.69.0/fastfetch-windows-amd64.zip",
+      "checksum": "ABA011C1C45D1A6BDCF52098DD0B9AFE990FE444180BC491E87F36670F1452EF",
       "algorithm": "sha256"
     },
     {
