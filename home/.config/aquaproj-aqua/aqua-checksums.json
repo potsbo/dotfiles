@@ -306,28 +306,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.1/cloudflared-darwin-amd64.tgz",
-      "checksum": "FF0D3B51D5FF70ECEEF89D6B32145FEE985018A2174596A5DBE405E2766E2AC4",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.3/cloudflared-darwin-amd64.tgz",
+      "checksum": "D1155D0837487F261183B15C1EAB6C4EBCAD9DC49B94675F1524C3564CEA3977",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.1/cloudflared-darwin-arm64.tgz",
-      "checksum": "C27AB8FD0AA489449E3D201EB02F957EF460A13B613662928B1B23394BF1BCFE",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.3/cloudflared-darwin-arm64.tgz",
+      "checksum": "587C2CFB1C230FE36C7FA7727DA78BE459DAE028CABE8C001291999350F07095",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.1/cloudflared-linux-amd64",
-      "checksum": "03F1F25D1CC93B9AD6C60569D44060BC4F17ED97075760ED8CFCA4B12DCD68CC",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.3/cloudflared-linux-amd64",
+      "checksum": "77E26D8D900E0B8469F416239D14B5F296525FDF79FEE6F511EF55609E3FBAC2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.1/cloudflared-linux-arm64",
-      "checksum": "3D97437C71848BD8DF68041E12436B484A661D95073EA1937F01A845CE88FAA3",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.3/cloudflared-linux-arm64",
+      "checksum": "AAEB2D7D0DA3614634C7E03AB13487A1522C2E79165ED2929CFE23D5E95B326D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.1/cloudflared-windows-amd64.exe",
-      "checksum": "2837888CC0F5D58F15B6DC478376DE90B4D3BA5241C7947455D1E0A0DF429712",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.9.3/cloudflared-windows-amd64.exe",
+      "checksum": "F096265EC2FCBE9BB6E2D64268DB167CED3FCBB83D894BDB9E2FCDB26F2EA7E2",
       "algorithm": "sha256"
     },
     {
