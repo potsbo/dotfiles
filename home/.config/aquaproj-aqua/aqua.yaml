@@ -37,7 +37,7 @@ packages:
   - name: aws/aws-cli@2.37.4
   - name: astral-sh/uv@0.12.10
   - name: starship/starship@v1.26.0
-  - name: johnkerl/miller@v6.21.0
+  - name: johnkerl/miller@v6.22.0
   - name: tldr-pages/tlrc@v1.13.1
   - name: k1LoW/git-wt@v0.29.3
   - name: k1LoW/roots@v0.4.1
