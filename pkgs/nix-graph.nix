@@ -13,7 +13,7 @@ buildGoModule {
     owner = "AlexAntonik";
     repo = "nix-graph";
     # renovate: datasource=git-refs depName=https://github.com/AlexAntonik/nix-graph branch=main
-    rev = "b2c611858349a9d831539a7f10c683a1059e08ea";
+    rev = "2e1875acbbe41cf02df759036bb4ca47e17b98b3";
     hash = "sha256-rQV3r1UwuWtkwM6fkIYsfdEbTtAEbSZr9AH+ioDrVjs=";
   };
 
