@@ -30,7 +30,7 @@ in
       # nixpkgs は EOL になった版を消す。既定は system.stateVersion (25.11) から
       # 決まるので 31 になるが、それは「25.11 の頃から居る instance」の想定であって、
       # 新規に建てるここでは最新を入れるのが正しい。以後 33 → 34 と 1つずつ上げる。
-      package = pkgs.nextcloud34;
+      package = pkgs.nextcloud35;
 
       # nginx の vhost 名になる。tailnet の FQDN を書かないのは、ここが公開リポジトリで
       # tailnet 名を載せる必然性がないため。実際に届く名前は trusted_domains 側で受ける。
