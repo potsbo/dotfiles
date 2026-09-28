@@ -14,7 +14,7 @@ buildGoModule {
     repo = "nix-graph";
     # renovate: datasource=git-refs depName=https://github.com/AlexAntonik/nix-graph branch=main
     rev = "d4b03ff66b9518cfac1503e5e8344bac3e5a879d";
-    hash = "sha256-1w4aEvozw7VOso9oHxdiPElM0XPoOY5eFk/l2z+dVIA=";
+    hash = "sha256-K2/jehGL+Aga1sdgHhQXgiv4movynKSdTjPm4QH3Jrw=";
   };
 
   subPackages = [ "cmd/nix-graph" ];
