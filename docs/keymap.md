@@ -31,6 +31,8 @@ MacBook 内蔵キーボードは「HHKB のこのキーに相当するのはこ�
 | `Shift` | 通常位置               | 同じ                 |
 | `Fn`    | 右下                   | fn キー              |
 
+Clicks Power Keyboard では Globe キーと Ctrl キーの役割を入れ替える。
+
 ### 1.2 前提: 矢印キーは Fn レイヤにしかない
 
 HHKB Studio に独立した矢印キーは無い。したがって「修飾キー + 矢印」は実質

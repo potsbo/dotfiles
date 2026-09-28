@@ -3829,6 +3829,26 @@
                 {
                     "identifiers": {
                         "is_keyboard": true,
+                        "vendor_id": 2007
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "consumer_key_code": "ac_keyboard_layout_select" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
                         "product_id": 256,
                         "vendor_id": 2131
                     },
@@ -8003,6 +8023,26 @@
                 ]
             },
             "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "vendor_id": 2007
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "consumer_key_code": "ac_keyboard_layout_select" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                        }
+                    ]
+                },
                 {
                     "identifiers": {
                         "is_keyboard": true,
