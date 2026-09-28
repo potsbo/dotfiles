@@ -11,6 +11,7 @@ network_access = true
 # project-name は herdr の workspace トークンと重複するので入れない。
 # thread-title 未生成の間は title を書き換えない (直前の title が残る)。
 terminal_title = ["activity", "thread-title"]
+screen_reader_detection_done = true
 
 [tui.model_availability_nux]
 gpt-6-astra = 4

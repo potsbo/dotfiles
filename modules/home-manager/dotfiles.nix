@@ -38,12 +38,15 @@ let
     ".claude/claude-powerline.json"
     # .codex もセッション状態などを含むため、設定ファイルだけ管理する。
     ".codex/config.toml"
+    # 全セッション共通の指示。Claude Code 用の ~/.claude/CLAUDE.md も同じファイルを指す。
+    ".codex/AGENTS.md"
   ];
 in
 {
   home = {
     file = lib.genAttrs fileLinks (path: { source = mkOutOfStoreSymlink "${repoHome}/${path}"; })
       // {
+        ".claude/CLAUDE.md".source = mkOutOfStoreSymlink "${repoHome}/.codex/AGENTS.md";
         # go/src -> ~/src
         "go/src".source = mkOutOfStoreSymlink "${config.home.homeDirectory}/src";
       }

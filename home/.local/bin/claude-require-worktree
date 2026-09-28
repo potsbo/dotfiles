@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Claude Code の PreToolUse hook (Edit / Write / MultiEdit / NotebookEdit)。
+# 編集先がメインの checkout なら拒否し、worktree を切らせる (方針は ~/.claude/CLAUDE.md)。
+#
+# 素通しするもの:
+# - git 管理外のパス、~/.claude 配下 (memory などアプリの状態)
+# - この dotfiles repo。~ の symlink がメインの checkout を指すので、worktree で
+#   編集しても反映されない。repo はこのスクリプト自身の実体の場所から引く。
+
+set -eu
+
+path="$(jq -r '.tool_input.file_path // .tool_input.notebook_path // empty')"
+[ -n "$path" ] || exit 0
+
+case "$path" in
+  "$HOME/.claude" | "$HOME/.claude/"*) exit 0 ;;
+esac
+
+# 新規作成するファイルは存在しないので、存在する親まで遡る。
+dir="$(dirname "$path")"
+while [ ! -d "$dir" ]; do dir="$(dirname "$dir")"; done
+
+top="$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)" || exit 0
+dotfiles="$(git -C "$(dirname "$(realpath "$0")")" rev-parse --show-toplevel)"
+[ "$top" != "$dotfiles" ] || exit 0
+
+git_dir="$(git -C "$dir" rev-parse --path-format=absolute --git-dir)"
+common_dir="$(git -C "$dir" rev-parse --path-format=absolute --git-common-dir)"
+[ "$git_dir" = "$common_dir" ] || exit 0
+
+echo "$top はメインの checkout です。worktree を切ってから (EnterWorktree) 編集してください。" >&2
+exit 2

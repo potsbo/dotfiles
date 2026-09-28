@@ -2,9 +2,10 @@
 
 ## Workflow
 
-Commit dotfiles changes directly on `main` — do **not** create a branch or git
-worktree unless explicitly asked. These changes are usually meant to be tried
-immediately (the repo is symlinked into `~`), so branching just adds friction.
+この repo では worktree を使わず、メインの checkout を直接編集して `main` に commit する
+(ユーザー全体の「worktree を切ってから編集する」方針の例外。明示的に頼まれたときだけ
+branch / worktree を切る)。`~` の symlink はメインの checkout を指すので、worktree で
+編集しても適用先に反映されず、試して確かめられない。
 
 ### commit 前の check
 
