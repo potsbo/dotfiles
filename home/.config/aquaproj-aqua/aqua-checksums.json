@@ -766,28 +766,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_darwin_amd64.zip",
-      "checksum": "E0970B111E2872D237E8B95BF600A2F8EC3965047499C0E228E0D18D4C32185D",
+      "id": "github_release/github.com/k1LoW/roots/v0.4.2/roots_v0.4.2_darwin_amd64.zip",
+      "checksum": "E8A5C26AFC8DE0F7AAD26F3410A45F6C06C0DD820843B79B78A93292FFE2144B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_darwin_arm64.zip",
-      "checksum": "7D658C375CBC331D075B18FCAB15CF24147046B9C88D5587886F6E2E545B8B2A",
+      "id": "github_release/github.com/k1LoW/roots/v0.4.2/roots_v0.4.2_darwin_arm64.zip",
+      "checksum": "4C80BE4911A4F73557537BAC3A6BF4C4124DF0637CA08801D65BC25DB80F189B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_linux_amd64.tar.gz",
-      "checksum": "F67112927422B18E72BA5827A5E42E6E4CA771127EF65BF89DAA6B03AE23DE55",
+      "id": "github_release/github.com/k1LoW/roots/v0.4.2/roots_v0.4.2_linux_amd64.tar.gz",
+      "checksum": "80191E25B20C4577C2EF591A9A51F5A2A9761B66A277F2915F6DA454CDE26DFF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_linux_arm64.tar.gz",
-      "checksum": "B5EC1D449CF33066DFCCD280DDB4D7748F1AD655974620DB1C96841A60EC9F1E",
+      "id": "github_release/github.com/k1LoW/roots/v0.4.2/roots_v0.4.2_linux_arm64.tar.gz",
+      "checksum": "7AB4502E36E0C94DED711A9C0EE44C9B52E8DB93BE9F1F8E8CDFEA5BBBB74E24",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/k1LoW/roots/v0.4.1/roots_v0.4.1_windows_amd64.tar.gz",
-      "checksum": "D8574108D21E9FB77CFDE97F2D288710F36BBF627C1CD478D35513D38B95EEF1",
+      "id": "github_release/github.com/k1LoW/roots/v0.4.2/roots_v0.4.2_windows_amd64.tar.gz",
+      "checksum": "1A10CEAF692E0A67EB6C497480AD39FB89134887335A14587AB9042ED2B42BEB",
       "algorithm": "sha256"
     },
     {
