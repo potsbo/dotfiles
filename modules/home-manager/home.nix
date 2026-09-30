@@ -111,6 +111,9 @@ in
       # macOS の /usr/bin/git (Apple Git) は版が古く upstream から遅れるので、全ホストで
       # nixpkgs (unstable) の git に揃える。設定は programs.git ではなく home/.config/git/config。
       git
+      # macOS の /usr/bin/rsync は openrsync (protocol 29) で、Linux の rsync 3.x の
+      # オプション (--info=progress2, --mkpath, -A/-X 等) が通らない。
+      rsync
       # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
       # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
       # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
@@ -168,7 +171,19 @@ in
       # darwin 用に移植する (TIOCGETA/TIOCSETA への patch) ほどの用途ではない。
       localPkgs.nix-graph
     ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      # BSD 版を GNU 版で PATH ごと上書きし、Linux ホストと同じ挙動に揃える (NixOS 側は
+      # 元から GNU)。g 接頭辞や対話 shell だけの alias にしないのは意図的: `uname` で
+      # macOS を判定して BSD 構文 (`sed -i ''`, `stat -f` 等) を渡すサードパーティの
+      # script は壊れうるが、その都度直す方を取った。
       coreutils
+      gnused
+      gawk
+      gnugrep
+      findutils
+      diffutils
+      gnupatch
+      gnutar
+      gzip
     ];
   };
 
