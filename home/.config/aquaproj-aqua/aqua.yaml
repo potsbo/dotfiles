@@ -44,7 +44,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.85
-  - name: anthropics/claude-code@v2.1.284
+  - name: anthropics/claude-code@v2.1.285
   - name: aristocratos/btop@v1.4.7
   - name: ynqa/jnv@v0.7.1
   - name: theseus-rs/postgresql-binaries@18.6.0
@@ -69,7 +69,7 @@ packages:
   - name: kitlangton/ghui@v0.9.1
     registry: local
   - name: charmbracelet/glow@v3.0.0
-  - name: openai/codex@rust-v0.159.0
+  - name: openai/codex@rust-v0.159.2
   - name: yusukebe/ax@v0.1.25
     registry: local
   - name: modem-dev/hunk@v0.22.0
