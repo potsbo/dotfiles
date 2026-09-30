@@ -108,6 +108,9 @@ in
       localPkgs.aqua
       localPkgs.tuicast
       herdrPkg
+      # macOS の /usr/bin/git (Apple Git) は版が古く upstream から遅れるので、全ホストで
+      # nixpkgs (unstable) の git に揃える。設定は programs.git ではなく home/.config/git/config。
+      git
       # cargo は aqua 管理の tokei (cargo crate) のビルドに必要。
       # rustup は aqua で入るが、toolchain install を別途実行しないと cargo が使えず、
       # aqua install を最低でも2回に分ける必要が出てしまうため nix で直接入れる。
