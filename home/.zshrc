@@ -53,9 +53,12 @@ setopt no_beep
 setopt interactive_comments
 
 # history
-# HISTFILE はここで設定する: システムの /etc/zshrc が user .zshenv の後・この
-# .zshrc の前に HISTFILE=$HOME/.zsh_history を代入してくるため、zshenv では負ける。
+# HISTFILE / SAVEHIST / HISTSIZE はここで設定する: システムの /etc/zshrc (NixOS /
+# nix-darwin の生成物) が user .zshenv の後・この .zshrc の前に HISTFILE=$HOME/.zsh_history と
+# SAVEHIST=HISTSIZE=2000 を代入してくるため、zshenv では負ける。
 export HISTFILE="$XDG_STATE_HOME/zsh/history"
+SAVEHIST=100000
+HISTSIZE=100000
 setopt append_history
 setopt share_history
 setopt inc_append_history
