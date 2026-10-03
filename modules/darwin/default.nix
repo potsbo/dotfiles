@@ -84,6 +84,10 @@
             "61" = { enabled = false; };
             # 64 = "Show Spotlight search"
             "64" = { enabled = false; };
+            # 52 = "Turn Dock hiding on/off" (Cmd+Option+D)。docs/keymap.md の G1 に充てる。
+            # Karabiner が先にキーを食うので通常は届かないが、Karabiner が止まっているときに
+            # 押して Dock が黙って隠れる事故を防ぐ。
+            "52" = { enabled = false; };
           };
         };
       };

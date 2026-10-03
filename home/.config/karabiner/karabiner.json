@@ -3425,7 +3425,7 @@
                         ]
                     },
                     {
-                        "description": "Left Shift only to open Obsidian today's note",
+                        "description": "Command+Option+D to open Obsidian today's note (docs/keymap.md G1)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -3437,16 +3437,13 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "left_shift",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "d",
+                                    "modifiers": {
+                                        "mandatory": ["command", "option"],
+                                        "optional": ["caps_lock"]
+                                    }
                                 },
                                 "to": [
-                                    {
-                                        "key_code": "left_shift",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_if_alone": [
                                     {
                                         "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'"
                                     }
@@ -7622,7 +7619,7 @@
                         ]
                     },
                     {
-                        "description": "Left Shift only to open Obsidian today's note",
+                        "description": "Command+Option+D to open Obsidian today's note (docs/keymap.md G1)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -7634,16 +7631,13 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "left_shift",
-                                    "modifiers": { "optional": ["any"] }
+                                    "key_code": "d",
+                                    "modifiers": {
+                                        "mandatory": ["command", "option"],
+                                        "optional": ["caps_lock"]
+                                    }
                                 },
                                 "to": [
-                                    {
-                                        "key_code": "left_shift",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_if_alone": [
                                     {
                                         "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'"
                                     }
