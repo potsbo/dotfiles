@@ -92,9 +92,7 @@ export GODEBUG=asyncpreemptoff=1
 # for `go test -race ...`
 export CGO_ENABLED=1
 
-# HISTFILE は .zshrc で設定（/etc/zshrc の上書きに勝つため）
-export SAVEHIST=100000
-export HISTSIZE=100000
+# HISTFILE / SAVEHIST / HISTSIZE は .zshrc で設定（/etc/zshrc の上書きに勝つため）
 
 # macOS (multi-user nix)。インストーラに /etc/zshrc を書かせていないので、ここで読む。
 if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi

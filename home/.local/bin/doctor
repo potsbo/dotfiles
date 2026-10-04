@@ -141,6 +141,9 @@ if [[ $os == Darwin ]]; then
   check "xcode CLT" "xcode-select --install" xcode-select -p
   # 公式 installer の nix.conf が残っていると nix-darwin の初回 switch が止まる (darwin/default.nix)。
   check "nix.conf (nix-darwin)" "sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin && rebuild" test -L /etc/nix/nix.conf
+  # uid が宣言と違うと nix-darwin は警告だけ出して UserShell を書かない (darwin/default.nix)。
+  login_shell_is_nix() { dscl . -read "/Users/$USER" UserShell | grep -q ' /run/current-system/sw/bin/zsh$'; }
+  check "login shell (nix zsh)" "modules/darwin/default.nix の uid を id -u の値に合わせて rebuild" login_shell_is_nix
   # GUI アプリは rebuild から切り離してある。brew と mas は apps が使う。
   check "homebrew" "apps" command -v brew
   check "app store" "App Store にサインイン" mas account
