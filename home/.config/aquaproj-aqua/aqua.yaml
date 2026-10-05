@@ -74,6 +74,6 @@ packages:
     registry: local
   - name: modem-dev/hunk@v0.23.0
   - name: fastfetch-cli/fastfetch@2.69.0
-  - name: cloudflare/cloudflared@2026.9.3
+  - name: cloudflare/cloudflared@2026.10.0
   - name: zenbu-labs/terminal-browser@v0.13.4
     registry: local
