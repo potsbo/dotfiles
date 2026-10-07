@@ -1096,23 +1096,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "7C3E7183E4178E5C1BB68EF714FBF2AC1CEF04D4D7FC751D645D290AC0041D7A",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "F8244D1E17F8DA23EE6B3AE2CDC04A6A185A450F6B74E09BFF12E498038FCBC9",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "60AD42427F09647EA2F301186282C083D75A2F1C5D82E7B9D89F7524F1B9FD57",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "8AFE204926AFEFA406AD320CEF0672B739E5F676C623FBD6D43D779BACD684E3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-x86_64-pc-windows-msvc.zip",
-      "checksum": "C6B6D228A86250D355EBA41D254585CBBE6BA5C1887E0A8DF9CCDA2E66836A3D",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-x86_64-pc-windows-msvc.zip",
+      "checksum": "3DEC51ACEE1060908E67948838D6BC0A7AACDE0774ACEBFA4AFB220DCF0BC078",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "2C64127C1A0FC3BC58E365060B4D8A09E4632082E4DEA843B8E4AFB6A7B09F36",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "38E59087BD65520930A13CF513D8A493B7043741E8AD62349A8A9929EB61BC5C",
       "algorithm": "sha256"
     },
     {
