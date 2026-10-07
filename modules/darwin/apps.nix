@@ -29,6 +29,7 @@ _:
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
     ];
     masApps = {
+      "Amazon Kindle" = 302584613;
       "Amphetamine" = 937984704;
       "Magnet" = 441258766;
       "Microsoft Excel" = 462058435;
