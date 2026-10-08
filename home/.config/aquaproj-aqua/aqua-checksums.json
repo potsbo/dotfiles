@@ -131,43 +131,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-darwin-arm64.tar.gz",
-      "checksum": "7A7DCC508696A2093DFC690398B86217F12B07809B7BD534C2FDE4F417881556",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-darwin-arm64.tar.gz",
+      "checksum": "2ADAC5F74F236D434D42E1E24A7D68591269F229C987AFF19D9EF7E61EEE405B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-darwin-x64.tar.gz",
-      "checksum": "09CAE50768D6CFDC2C8B110E8417627C0B0C6950ADFAE0C5B000EBEF18ECF6D5",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-darwin-x64.tar.gz",
+      "checksum": "967358670CAD3B8D164CD681AC704E1141ECE51E8A44781F6992F79A93F25E73",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-linux-arm64-musl.tar.gz",
-      "checksum": "185D5339DFBD490CC14778B2F3AF7A4BF871C9675D2D454AE26844B0048E4567",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-linux-arm64-musl.tar.gz",
+      "checksum": "5BD24E9AA79BA8B5B6206C75435F4DD7B94B4D16AF37EBB67433EAE1FFCF6ABE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-linux-arm64.tar.gz",
-      "checksum": "3B2B5F594BEF12054B00E6CB61CDDCC0900150E0A22A0FF822A0515BC17B1230",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-linux-arm64.tar.gz",
+      "checksum": "A4BE2509F5AD94B4A1C490CE0DD0A3FFFA2825D1047F69979C0C9D7B4C913AA8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-linux-x64-musl.tar.gz",
-      "checksum": "363A98B0856DC5C5404A64BB17EF94D41650883C8BF3A94033EE48AFDEAEF2F1",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-linux-x64-musl.tar.gz",
+      "checksum": "B6FF07E61FB06AC62019CBADDEDC76147D859A0048CB30417595C87EB1527656",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-linux-x64.tar.gz",
-      "checksum": "7045CD790B2C7B8CC6169D061AEC7274D37A6A0D8ED318A6FF8868262433B1F9",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-linux-x64.tar.gz",
+      "checksum": "C152A9520CBE30ADFAA7DBFF26016D74C668C7DFB093FCA2A06FA72CB6E98369",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-win32-arm64.zip",
-      "checksum": "A0B7EF3126E2EE6E2F2884A30864AB7328BB8FF7B985DFCF03EF6F5907FF985C",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-win32-arm64.zip",
+      "checksum": "8EBE0759CF4635BFBAC837E4E8F5BF3B5BCD115EA3358D8133F8F469CEDAA78A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.292/claude-win32-x64.zip",
-      "checksum": "5D291BD9FA05345FB1BAF6834A5609B996AB8C518E18B86DD3869907166E9E88",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.294/claude-win32-x64.zip",
+      "checksum": "D952DA509CF9CD434E4A4AB0BD901D8BF98F7C11823D06CA68DC583CE95F6570",
       "algorithm": "sha256"
     },
     {
@@ -1096,23 +1096,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "7C3E7183E4178E5C1BB68EF714FBF2AC1CEF04D4D7FC751D645D290AC0041D7A",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "F8244D1E17F8DA23EE6B3AE2CDC04A6A185A450F6B74E09BFF12E498038FCBC9",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "60AD42427F09647EA2F301186282C083D75A2F1C5D82E7B9D89F7524F1B9FD57",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "8AFE204926AFEFA406AD320CEF0672B739E5F676C623FBD6D43D779BACD684E3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-x86_64-pc-windows-msvc.zip",
-      "checksum": "C6B6D228A86250D355EBA41D254585CBBE6BA5C1887E0A8DF9CCDA2E66836A3D",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-x86_64-pc-windows-msvc.zip",
+      "checksum": "3DEC51ACEE1060908E67948838D6BC0A7AACDE0774ACEBFA4AFB220DCF0BC078",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/hyperfine/v1.21.0/hyperfine-v1.21.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "2C64127C1A0FC3BC58E365060B4D8A09E4632082E4DEA843B8E4AFB6A7B09F36",
+      "id": "github_release/github.com/sharkdp/hyperfine/v2.0.0/hyperfine-v2.0.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "38E59087BD65520930A13CF513D8A493B7043741E8AD62349A8A9929EB61BC5C",
       "algorithm": "sha256"
     },
     {
@@ -1216,8 +1216,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/vladkens/macmon/v0.8.2/macmon-v0.8.2.tar.gz",
-      "checksum": "588D5BDE79885BA36F693E5150911C10C3AD208A2E418A3F2AA827AC84A2D973",
+      "id": "github_release/github.com/vladkens/macmon/v0.9.0/macmon-v0.9.0.tar.gz",
+      "checksum": "539D8A39DC4C3823D68410DE1C270289790826D983B005B91B2A4441008108BB",
       "algorithm": "sha256"
     },
     {
@@ -1391,38 +1391,38 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-darwin-arm64.tar.gz",
-      "checksum": "751FDF7439F115D87EE2A8F3F18C065B6151852068E3E666AC60AC2996F75AC9",
+      "id": "http/nodejs.org/dist/v26.11.1/node-v26.11.1-darwin-arm64.tar.gz",
+      "checksum": "D916511B55965E91BE7A88E17F88D895B6793CEABA3E6C9B194AEFE51C2C65AC",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-darwin-x64.tar.gz",
-      "checksum": "EBBE9AB9B58AD6BB54390D6E2C862C1AFA7D4475FB7E8AE8146ACDE211BF70DF",
+      "id": "http/nodejs.org/dist/v26.11.1/node-v26.11.1-darwin-x64.tar.gz",
+      "checksum": "9A8129BD9AB08039793DD1143A7AEDEE6B5D60AC06592AD938D8BDDF36142F3A",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-linux-arm64.tar.gz",
-      "checksum": "423A41BFF8E2A2FA15E702FEFE2919EF95823B2378744DACCB8439302534B44F",
+      "id": "http/nodejs.org/dist/v26.11.1/node-v26.11.1-linux-arm64.tar.gz",
+      "checksum": "170454FB022F5E9B5F6CC76C25FA32EF5100895BE44EB04E92F9780591491BBF",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-linux-x64.tar.gz",
-      "checksum": "CB5C9CE9C80D7B8821E3A258543C71B939138CF17C74D5CC44BBE85D6DBC5AD8",
+      "id": "http/nodejs.org/dist/v26.11.1/node-v26.11.1-linux-x64.tar.gz",
+      "checksum": "15FC043A51A5783F2F4B634561091658F5A7F0E3DB03F997DCA3A8033A33E45B",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.10.0/node-v26.10.0-win-x64.zip",
-      "checksum": "9FEF7ECA6743A6B910989CD8E78712376B394FCB9B6E1E9C44A0799A287F90C5",
+      "id": "http/nodejs.org/dist/v26.11.1/node-v26.11.1-win-x64.zip",
+      "checksum": "97F36A8A9684FF0D3E35758B4610FEF5B628A5880E96F2CCC11240E5DAF9934E",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.10.0/node-v26.10.0-linux-arm64-musl.tar.gz",
-      "checksum": "D26027BFF3197050D2A2B0BFA151B18E8378ED81AFFA2BF5093804DB158979B6",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.11.1/node-v26.11.1-linux-arm64-musl.tar.gz",
+      "checksum": "5AC42D71176924D34BE570C85567C729CC9283294D3FD710011851510B30C9D1",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.10.0/node-v26.10.0-linux-x64-musl.tar.gz",
-      "checksum": "E42DA94821B9422EB76BF5AAF4DE0977E04BA320B8AFF6148D895A94B08EE223",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.11.1/node-v26.11.1-linux-x64-musl.tar.gz",
+      "checksum": "DC822F43A55877E060B9E16702019C91DEB9684310FA47EA4E9BDAB0F2146366",
       "algorithm": "sha256"
     },
     {
