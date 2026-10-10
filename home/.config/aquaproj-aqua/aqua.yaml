@@ -20,7 +20,7 @@ packages:
   - name: x-motemen/ghq@v1.11.2
   - name: sharkdp/bat@v0.26.1
   - name: jqlang/jq@jq-1.8.2
-  - name: direnv/direnv@v2.37.1
+  - name: direnv/direnv@v2.38.2
   - name: neovim/neovim@v0.12.6
   - name: mikefarah/yq@v4.54.1
   - name: YS-L/csvlens@v0.15.1
