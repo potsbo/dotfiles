@@ -861,28 +861,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-darwin-aarch64.tar.gz",
-      "checksum": "9817C57A21644B51DC8B23A98A13C686F8A7F2DE945B3ADC61B8141991DD65A2",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.1/doggo-darwin-aarch64.tar.gz",
+      "checksum": "4052103FCA53FA63623BBEE3C6075AD3FB80C10E8413D6D10BBE66851CEEE416",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-darwin-x86_64.tar.gz",
-      "checksum": "CD2AA6EAD10FEFF313D7AFD52BCCC6B9DB80414132FAB9702F279B2B5F686900",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.1/doggo-darwin-x86_64.tar.gz",
+      "checksum": "2BC89D17D022D597E2B0E4A1A238A7BC29505A059F3E04AEED4E45A148B746EA",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-linux-aarch64.tar.gz",
-      "checksum": "BF5BD32F26FA8F652F3AC73F08AF2ECC9E59955BC47E98A260D7DC6860710162",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.1/doggo-linux-aarch64.tar.gz",
+      "checksum": "69B9CE66545744459C0287BF3DF6CE8A64E114B94D2DD617EA6119314C73B992",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-linux-x86_64.tar.gz",
-      "checksum": "F85E2471737677A5FA65491B4241E0F46960AAE6CC2211CC660EE6394A1A3D06",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.1/doggo-linux-x86_64.tar.gz",
+      "checksum": "D4785AB19287C5973CBD0C3390945C3EDCE3105B7C9AAA5A08BC19C7D7F2DCBC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/mr-karan/doggo/v1.4.0/doggo-windows-x86_64.zip",
-      "checksum": "24FF6FE2BE4BAFF39574CCC50C50C467A344804998D1773B9B76B838A26ACD67",
+      "id": "github_release/github.com/mr-karan/doggo/v1.4.1/doggo-windows-x86_64.zip",
+      "checksum": "93472211F07EF69E1A57349F29D9EBC988DED191B1F1DF191A2D23E081D8C2AC",
       "algorithm": "sha256"
     },
     {
