@@ -78,6 +78,14 @@ case $1 in
 esac
 "#;
 
+/// 両側: 今回使った chunk (stdin) の mtime を「最後に使った時刻」にする。reap が古い順に消す
+/// ときの基準。atime は使わない: raptorlake の btrfs は noatime で、読んでも更新されない。
+/// chunk の中身は変えないので、mtime を書き換えてもハッシュが名前という性質は崩れない。
+const TOUCH: &str = r#"
+cd "$store" || exit 1
+tr '\n' '\0' | xargs -0 touch -c
+"#;
+
 #[derive(Debug, PartialEq, Clone, Copy)]
 enum Direction {
     Pull,
@@ -554,6 +562,18 @@ fn cascp(args: Args) -> Result<()> {
         Some(index),
         "assembling",
     )?;
+    // 記録が漏れても次の --gc で消える順が変わるだけなので、転送の失敗にはしない
+    if !paths.is_empty() {
+        for side in [receiver, sender] {
+            if let Err(e) = run(
+                s.sh(side, TOUCH, &[]),
+                Some(list(&paths)),
+                "recording chunk use",
+            ) {
+                eprintln!("{:>12} {e}", "warning");
+            }
+        }
+    }
 
     step(
         "Finished",

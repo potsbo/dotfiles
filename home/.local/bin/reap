@@ -8,6 +8,7 @@
 #   - mac  : brew のダウンロードキャッシュと旧バージョン (brew cleanup --prune=all)
 #   - mac  : Electron 自動更新のダウンロード残骸、Chrome / Slack のキャッシュ
 #   - mac  : Podcasts のダウンロード済みエピソード
+#   - cascp: desync の chunk store を上限 (CASCP_CACHE_MAX_GB, 既定 50) まで古い順に
 #   - git  : マージ済みの古い worktree / branch (git vacuum) ← 安全網で処理中データは残す
 #
 # git vacuum は dirty・未 push・30日以内の worktree をスキップするので、処理対象データが
@@ -119,6 +120,31 @@ if [ "$(uname -s)" = Darwin ]; then
   # 狙うのは、同じ Cache に artwork (Assets) が同居しているため。
   pod="$HOME/Library/Group Containers/243LU875E5.groups.com.apple.podcasts/Library/Cache"
   for f in "$pod"/*.mp3 "$pod"/*.m4a; do purge "$f"; done
+fi
+
+# --- cascp: desync の chunk store を上限まで、最後に使ったのが古い chunk から削る ---
+# cascp は転送のたびに使った chunk の mtime を更新するので、mtime が「最後に使った時刻」
+# (atime は noatime のマウントで更新されないので使わない)。消しても次回の再転送が増える
+# だけだが、細い回線では再転送が重いので、期限ではなく容量で切ってできる限り残す。
+# 直近 1 時間に使われた chunk は、並行して走っている cascp が使っているかもしれないので残す。
+store="${XDG_CACHE_HOME:-$HOME/.cache}/desync"
+if [ -n "$(find "$store" -type f -name '*.cacnk' 2>/dev/null | head -n 1)" ]; then
+  limit_gb=${CASCP_CACHE_MAX_GB:-50}
+  echo "== cascp store (CASCP_CACHE_MAX_GB=$limit_gb) =="
+  evict=$(mktemp)
+  # store 内の相対パスで扱う。chunk 名は 16 進なので、awk の空白区切りで壊れない。
+  read -r n bytes < <(
+    cd "$store"
+    if stat -c %Y . >/dev/null 2>&1; then fmt=(-c '%Y %s %n'); else fmt=(-f '%m %z %N'); fi
+    find . -type f -name '*.cacnk' -print0 | xargs -0 stat "${fmt[@]}" | sort -rn |
+      awk -v limit=$((limit_gb << 30)) -v cutoff=$(($(date +%s) - 3600)) -v out="$evict" '
+        { total += $2 }
+        total > limit && $1 < cutoff { print $3 > out; n++; freed += $2 }
+        END { printf "%d %d\n", n, freed }'
+  )
+  echo "+ rm $n chunks ($(human "$bytes")) from $store"
+  [ "$DRY_RUN" = 1 ] || (cd "$store" && xargs rm -f <"$evict")
+  rm -f "$evict"
 fi
 
 # --- git: マージ済みの古い worktree / branch を掃除 (安全網は git vacuum 側が持つ) ---
