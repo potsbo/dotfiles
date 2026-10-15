@@ -25,6 +25,13 @@ local function is_deno_project(bufnr)
 end
 
 return {
+  -- lang.rust extra は rustaceanvim が PATH の rust-analyzer (rustup 前提) を使う想定で
+  -- mason から入れない。ここは rustup ではなく nix の rustc なので、本体は mason で入れる。
+  -- rustaceanvim は lspconfig を通さないため mason-lspconfig ではなく mason 側に書く。
+  {
+    "mason-org/mason.nvim",
+    opts = { ensure_installed = { "rust-analyzer" } },
+  },
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {

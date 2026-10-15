@@ -48,6 +48,9 @@ in
       # (npx 製 MCP サーバ等) にも hm-session-vars 経由で継承させ ~/.npm 生成を防ぐ。
       # 他ツール (cargo/rustup 等) は .zshenv 側に集約。npm だけ背景プロセス対策で例外。
       NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.cache/npm";
+      # nixpkgs の rustc は rust-src を同梱せず、rust-analyzer (nvim では mason 管理) が
+      # sysroot から std を解決できない。store path は lua に書けないのでここで渡す。
+      RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
     } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       LIBRARY_PATH = "${pkgs.libiconv}/lib";
 
