@@ -20,7 +20,7 @@ vars:
 tasks:
   check:
     desc: lint と全ホストの eval。commit 前に必ず通す
-    deps: [statix, deadnix, nixf-tidy, shellcheck, actionlint, eval, flake-check]
+    deps: [statix, deadnix, nixf-tidy, shellcheck, cargo, actionlint, eval, flake-check]
 
   statix:
     cmds:
@@ -33,6 +33,11 @@ tasks:
   shellcheck:
     cmds:
       - nix run --inputs-from . nixpkgs#shellcheck -- --severity=warning {{.SHELL_FILES | catLines}}
+
+  # pkgs/ の Rust crate。eval は build しないので、コンパイルとテストはここで見る。
+  cargo:
+    cmds:
+      - nix shell --inputs-from . nixpkgs#cargo nixpkgs#rustc nixpkgs#clippy nixpkgs#rustfmt -c sh -c 'cd pkgs/cascp && cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test'
 
   # 全ホストを eval する。build はしない (closure の build は重い)。
   # nixpkgs の deprecation warning (属性の rename など) を error 扱いにする。statix / deadnix は

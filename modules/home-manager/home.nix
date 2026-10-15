@@ -107,6 +107,7 @@ in
     packages = with pkgs; [
       localPkgs.aqua
       localPkgs.tuicast
+      localPkgs.cascp
       herdrPkg
       # macOS の /usr/bin/git (Apple Git) は版が古く upstream から遅れるので、全ホストで
       # nixpkgs (unstable) の git に揃える。設定は programs.git ではなく home/.config/git/config。
