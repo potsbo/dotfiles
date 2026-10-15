@@ -34,7 +34,13 @@ macos-titlebar-style = hidden
 # Linux の ghostty は $SHELL をそのまま (非ログインで) 起動するので .zprofile が
 # 読まれず herdr が自動起動しなかった (2026-09-06)。ログインシェルにする。
 # `direct:` で /bin/sh 経由を避ける。macOS は元々 login 経由なので害はない。
-command = direct:zsh -l
+#
+# HERDR_* は捨ててから起動する。macOS の `open` は呼び出し元の env をアプリに渡すので、
+# herdr のペインから `open -a Tinycast` するとランチャーごと HERDR_ENV を抱え込み、
+# そこから開いた ghostty でも .zprofile が「herdr の中」と判定して herdr を起動しなくなる
+# (2026-10-05)。ghostty が herdr の内側で動くことは無いので、ここで消して困る場面は無い。
+# ghostty の `env = KEY=` は自前の上書きを外すだけで継承分は消せないため env(1) を挟む。
+command = direct:/usr/bin/env -u HERDR_ENV -u HERDR_BIN_PATH -u HERDR_SOCKET_PATH -u HERDR_WORKSPACE_ID -u HERDR_TAB_ID -u HERDR_PANE_ID zsh -l
 
 # ウィンドウ余白を無くす (wezterm: window_padding = 0)
 window-padding-x = 0

@@ -61,7 +61,11 @@
 [wt]
 	basedir = ~/.local/share/worktrees/{gitroot}
 	nocd = create
+[credential]
+	helper =
 [credential "https://github.com"]
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
 	helper = !gh auth git-credential
 [filter "lfs"]
 	# `git lfs install` が書き込む内容そのもの。本体は aqua の git-lfs。

@@ -24,6 +24,9 @@ hl.unbind("SUPER + R") -- togglesplit。浮動既定 (windowrules.lua) では使
 hl.unbind("SUPER + L") -- focus right。下の Super+Alt+矢印で代替 (Super+Alt+L は DMS のロック)
 hl.unbind("SUPER + K")
 
+-- 今日のデイリーノート (docs/keymap.md の G1)。xremap は Super+Alt+D を変換しない。
+hl.bind("SUPER + ALT + D", hl.dsp.exec_cmd("obsidian 'obsidian://advanced-uri?vault=notes&daily=true'"), { description = "Today's note" })
+
 -- 全ウィンドウ浮動の本体 (float) は DMS が dms/windowrules.lua で持つ (初回起動で取り込まれた)。
 -- DMS の形式には無い center と persistent_size (同じ class+title は前回の大きさで開く) を
 -- ここで足す。

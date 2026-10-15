@@ -44,6 +44,12 @@ binds {
     // Super+Tab と Alt+Tab は config.kdl の recent-windows が使っている。
     Mod+Alt+Tab repeat=false hotkey-overlay-title="Mission Control" { toggle-overview; }
 
+    // === 今日のデイリーノート (docs/keymap.md の G1) ===
+    // xremap に Super+Alt+D を拾う規則は無いので、変換されずそのまま届く。
+    Mod+Alt+D repeat=false hotkey-overlay-title="Today's note" {
+        spawn "obsidian" "obsidian://advanced-uri?vault=notes&daily=true";
+    }
+
     // === キーボードバックライト (MacBook の F5/F6) ===
     // DMS の brightness IPC は画面用なので brightnessctl で leds クラスを直接動かす
     // (modules/nixos/desktop/dms.nix)。デバイス名は機種で変わるので glob。niri の spawn は
