@@ -501,6 +501,11 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_darwin_arm64.tar.gz",
+      "checksum": "860F8CA3FC5B3BE542A036E7EA894E0E423CAEF0C9698439580C28548C0739A5",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_linux_amd64.tar.gz",
       "checksum": "5F9153351383907B513F3DBB0CF21C86B85D4CDA267BE9898AED25F799AE9706",
       "algorithm": "sha256"
