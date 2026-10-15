@@ -167,10 +167,6 @@ in
       # meta.platforms が linux のみで、そのまま並べると Mac の eval が落ちる) ので、
       # Mac 側は cask (modules/darwin/apps.nix) に置いている。
       nextcloud-client
-      # darwin では入れない。upstream の TUI (cmd/nix-graph/ui.go) が //go:build linux で、
-      # termios を linux 固有の syscall.TCGETS/TCSETS で叩いているのでビルドが通らない。
-      # darwin 用に移植する (TIOCGETA/TIOCSETA への patch) ほどの用途ではない。
-      localPkgs.nix-graph
     ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # BSD 版を GNU 版で PATH ごと上書きし、Linux ホストと同じ挙動に揃える (NixOS 側は
       # 元から GNU)。g 接頭辞や対話 shell だけの alias にしないのは意図的: `uname` で

@@ -192,20 +192,21 @@
 
       homeConfigurations = lib.mapAttrs mkHome (hostsWith "home" "nixos");
 
-      packages = {
-        aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
-
-        # nix-update がハッシュを自動更新するための出力。CI (autofix.ci) が
-        # `nix-update --flake --version=skip <name>` で参照する。
-        #
-        # 名前は書き下さず pkgs/ を読んで作る。ここ・home.nix・autofix.yaml の 3 箇所に
-        # 同じ一覧を書いていて、実際 nix-graph を足したとき autofix.yaml を落とした。
-        # CI は下の attrNames を読むので、パッケージの追加は pkgs/ にファイルを置いて
-        # 使う場所から参照するだけで済む。
-        x86_64-linux = lib.packagesFromDirectoryRecursive {
-          inherit (nixpkgs.legacyPackages.x86_64-linux) callPackage;
+      # pkgs/ の出力。CI (autofix.ci) が `nix-update --flake --version=skip <name>` で
+      # ハッシュを自動更新するために x86_64-linux の attrNames を読む。
+      #
+      # 名前は書き下さず pkgs/ を読んで作る。ここ・home.nix・autofix.yaml の 3 箇所に
+      # 同じ一覧を書いていて、実際 nix-graph を足したとき autofix.yaml を落とした。
+      # パッケージの追加は pkgs/ にファイルを置いて使う場所から参照するだけで済む。
+      #
+      # aarch64-darwin にも出すのは、`task cargo` が手元の Mac でも `.#cascp` を build するため。
+      packages = lib.recursiveUpdate
+        (lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system: lib.packagesFromDirectoryRecursive {
+          inherit (nixpkgs.legacyPackages.${system}) callPackage;
           directory = ./pkgs;
+        }))
+        {
+          aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
         };
-      };
     };
 }
