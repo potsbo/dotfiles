@@ -165,7 +165,6 @@ in
       })
       freerdp
       slack
-      pgadmin4-desktopmode
     ];
   };
 }
