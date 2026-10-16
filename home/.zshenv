@@ -97,8 +97,27 @@ export CGO_ENABLED=1
 # macOS (multi-user nix)。インストーラに /etc/zshrc を書かせていないので、ここで読む。
 if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
-if [ -e /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh ]; then . /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh; fi
-if [ -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh ]; then . $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; fi
+# hm-session-vars.sh 冒頭の include guard (__HM_SESS_VARS_SOURCED) は「この process tree で
+# 一度読んだ」しか見ない。herdr server のような長寿命プロセスが起動時のガードを抱えていると、
+# その下の新しい pane は ./install 後も古い値のままになる。そこでガードを「どの generation を
+# 読んだか」に置き換え、実体の store path (中身が変われば変わる) が前回と違うときだけガードを
+# 外して読み直す。
+# - __HM_SESS_VARS_SOURCED は home-manager の非公開の名前。改名されたら unset が空振りして
+#   元の「一度だけ」に戻るだけで、壊れはしない。
+# - 読み直しで重なるのは追記型の変数 (XCURSOR_PATH) だけで、generation が変わるたびに 1 回。
+# - server を systemd / launchd から起動してガードを持たせない案は、OS ごとに分かれるうえ、
+#   remote-client-bridge が ssh 先で server を起動する経路まで塞ぐ必要があるので取らなかった。
+# - 2 つとも在るホストでは先の方だけを読む (元のガード下でも後の方は読まれなかった)。
+for _hm_vars in /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; do
+  [ -e $_hm_vars ] || continue
+  if [ "${__HM_SESS_VARS_GEN-}" != "${_hm_vars:A}" ]; then
+    unset __HM_SESS_VARS_SOURCED
+    . $_hm_vars
+    export __HM_SESS_VARS_GEN=${_hm_vars:A}
+  fi
+  break
+done
+unset _hm_vars
 
 # --- forwarded ssh-agent: keep keys on the origin host, usable across herdr ---
 # We ssh in with agent forwarding (ForwardAgent), so no private key lives here.
