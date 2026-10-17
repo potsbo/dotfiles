@@ -186,17 +186,7 @@ pub fn copy(args: Args) -> Result<()> {
         )?;
     }
     let t_transfer = t0.elapsed().as_secs();
-
-    step("Assembling", s.display(receiver, &dst));
-    run(
-        s.sh(
-            receiver,
-            ASSEMBLE,
-            &[src.kind.as_str(), &dst, &src.mode, bars],
-        ),
-        Some(index),
-        "assembling",
-    )?;
+    assemble(s, src, receiver, &dst, bars, index)?;
 
     touch(s, &paths, receiver, sender);
 
@@ -209,6 +199,27 @@ pub fn copy(args: Args) -> Result<()> {
             duration(t_transfer)
         ),
     );
+    Ok(())
+}
+
+fn assemble(
+    s: &Session,
+    src: Source,
+    receiver: Side,
+    dst: &str,
+    bars: &str,
+    index: Vec<u8>,
+) -> Result<()> {
+    step("Assembling", s.display(receiver, dst));
+    run(
+        s.sh(
+            receiver,
+            ASSEMBLE,
+            &[src.kind.as_str(), dst, &src.mode, bars],
+        ),
+        Some(index),
+        "assembling",
+    )?;
     Ok(())
 }
 
