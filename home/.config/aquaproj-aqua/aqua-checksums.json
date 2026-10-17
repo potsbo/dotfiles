@@ -496,23 +496,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_darwin_amd64.tar.gz",
-      "checksum": "C9F33C4E4D56B98F796EBD871DA23FA15CDCFA2F7FB9836E05AFEC80E93FB10B",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_darwin_amd64.tar.gz",
+      "checksum": "259091C6F11474C08A591FEF469EBAAA7E0FEE8F4BA39AE5FAB95E4DB7B8F2BC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_darwin_arm64.tar.gz",
-      "checksum": "860F8CA3FC5B3BE542A036E7EA894E0E423CAEF0C9698439580C28548C0739A5",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_darwin_arm64.tar.gz",
+      "checksum": "DCBBAA2C6B6960CCC1B9F6C8095DD724F6E74BC7E6F9A6372219D6754F2B6717",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_linux_amd64.tar.gz",
-      "checksum": "5F9153351383907B513F3DBB0CF21C86B85D4CDA267BE9898AED25F799AE9706",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_linux_amd64.tar.gz",
+      "checksum": "19DA8689AFF8E85B90C5CAFD5999087E390BC5B12982A8A9CEA79C9C72C8A412",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_linux_arm64.tar.gz",
-      "checksum": "888A17892C31FB91FBF980EF46A8934398DA1F061EB1C20D967ABF887FAF0B34",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_linux_arm64.tar.gz",
+      "checksum": "E11E922C24D3232144D68C74A9D62EBD057533EC7D6C082DCB1C68337B2FE8B2",
       "algorithm": "sha256"
     },
     {
