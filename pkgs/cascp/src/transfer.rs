@@ -1,10 +1,11 @@
 mod progress;
 
-use std::io::{IsTerminal, Read, Write};
+use std::io::{Read, Write};
 use std::process::{Command, Stdio};
 
 use crate::Result;
 use crate::session::Session;
+use crate::ui::stderr_is_terminal;
 use progress::Progress;
 
 /// 足りない chunk を rsync でまとめて流す。
@@ -27,7 +28,7 @@ pub fn transfer(s: &Session, from: String, to: String, list: Vec<u8>, total: u64
     let writer = std::thread::spawn(move || stdin.write_all(&list));
 
     {
-        let mut progress = Progress::new(total, std::io::stderr().is_terminal());
+        let mut progress = Progress::new(total, stderr_is_terminal());
         let mut stdout = child.stdout.take().expect("stdout is piped");
         let mut buf = [0u8; 8192];
         let mut line = Vec::new();

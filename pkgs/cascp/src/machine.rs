@@ -1,7 +1,11 @@
 use std::process::Command;
 
-use crate::script::STORE;
+use crate::script::PRELUDE;
 use crate::session::Session;
+use crate::ui::stderr_is_terminal;
+
+/// 手元の stderr が端末かを script に伝える変数。何に使うかは script (PRELUDE) が決める。
+const TTY_VAR: &str = "CASCP_STDERR_TTY";
 
 /// script を走らせ、パスを指す先。手元か、`Session` でつないだリモートか。
 /// 手元とリモートの違い (sh か ssh 越しか、パスの書き方) はここに閉じ、呼ぶ側は
@@ -17,15 +21,28 @@ pub enum Machine {
 
 impl Machine {
     pub fn sh(&self, script: &str, args: &[&str]) -> Command {
-        let script = format!("{STORE}{script}");
+        let script = format!("{PRELUDE}{script}");
+        let tty = stderr_is_terminal();
         match self {
             Machine::Local => {
                 let mut c = Command::new("sh");
                 c.arg("-c").arg(script).arg("cascp").args(args);
+                // 手元の sh は cascp の環境を継ぐので、外から付いてきた値も消しておく
+                if tty {
+                    c.env(TTY_VAR, "1");
+                } else {
+                    c.env_remove(TTY_VAR);
+                }
                 c
             }
             Machine::Remote(s) => {
-                let mut line = format!("sh -c {} cascp", quote(&script));
+                // ssh の SendEnv は受け側 sshd の AcceptEnv が要るので、コマンド行の頭で渡す
+                let env = if tty {
+                    format!("{TTY_VAR}=1 ")
+                } else {
+                    String::new()
+                };
+                let mut line = format!("{env}sh -c {} cascp", quote(&script));
                 for a in args {
                     line.push(' ');
                     line.push_str(&quote(a));

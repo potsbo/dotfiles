@@ -1,6 +1,5 @@
 //! 1 回のコピーの流れ。どの手順もこのファイルを上から読めば追える。
 
-use std::io::IsTerminal;
 use std::path::Path;
 use std::time::Instant;
 
@@ -87,10 +86,9 @@ impl Source {
     }
 
     /// chunk に切って store に入れ、index を返す。
-    fn chunk(&self, bars: &str) -> Result<Vec<u8>> {
+    fn chunk(&self) -> Result<Vec<u8>> {
         run(
-            self.machine
-                .sh(CHUNK, &[self.kind.as_str(), &self.path, bars]),
+            self.machine.sh(CHUNK, &[self.kind.as_str(), &self.path]),
             None,
             "chunking",
         )
@@ -144,7 +142,7 @@ impl Destination {
     }
 
     /// `index` を store から組み立てる。
-    fn assemble(&self, src: &Source, bars: &str, index: Vec<u8>) -> Result<()> {
+    fn assemble(&self, src: &Source, index: Vec<u8>) -> Result<()> {
         // ASSEMBLE の dir の枝は $3 を見ないので、何を渡してもよい
         let mode = match &src.kind {
             Kind::File { mode } => mode.as_str(),
@@ -152,7 +150,7 @@ impl Destination {
         };
         run(
             self.machine
-                .sh(ASSEMBLE, &[src.kind.as_str(), &self.path, mode, bars]),
+                .sh(ASSEMBLE, &[src.kind.as_str(), &self.path, mode]),
             Some(index),
             "assembling",
         )?;
@@ -195,12 +193,6 @@ fn base_name(path: &str) -> String {
 
 pub fn copy(args: Args) -> Result<()> {
     let s = Session::open(&args.host)?;
-    let bars = if std::io::stderr().is_terminal() {
-        "1"
-    } else {
-        ""
-    };
-
     let (src, dst) = endpoints(s, &args)?;
 
     step(
@@ -209,7 +201,7 @@ pub fn copy(args: Args) -> Result<()> {
     );
 
     let t0 = Instant::now();
-    let index = src.chunk(bars)?;
+    let index = src.chunk()?;
     let t_chunk = t0.elapsed().as_secs();
 
     let paths = chunk::paths(&index)?;
@@ -261,7 +253,7 @@ pub fn copy(args: Args) -> Result<()> {
     let t_transfer = t0.elapsed().as_secs();
 
     step("Assembling", dst.display());
-    dst.assemble(&src, bars, index)?;
+    dst.assemble(&src, index)?;
 
     touch(&paths, &src, &dst);
 

@@ -1,7 +1,10 @@
-//! 送る側・受け取る側で走る sh script。どれも先頭に [`STORE`] を付けて走らせる。
+//! 送る側・受け取る側で走る sh script。どれも先頭に [`PRELUDE`] を付けて走らせる。
 
-pub const STORE: &str = r#"store=${XDG_CACHE_HOME:-$HOME/.cache}/desync
+/// $CASCP_STDERR_TTY は手元の stderr が端末のときだけ付く (machine.rs)。desync は自分の
+/// stderr (リモートでは ssh のパイプ) しか見ないので、進捗バーを出すかはここで伝える。
+pub const PRELUDE: &str = r#"store=${XDG_CACHE_HOME:-$HOME/.cache}/desync
 mkdir -p "$store" || exit 1
+[ -n "${CASCP_STDERR_TTY-}" ] && export DESYNC_PROGRESSBAR_ENABLED=1
 "#;
 
 /// 送る側: $1 の種類などを 1 行ずつ返す。
@@ -26,7 +29,6 @@ printf '%s\n' "$store" "$dst"
 
 /// 送る側: chunk に切って store に入れ、index を stdout に出す。
 pub const CHUNK: &str = r#"
-[ -n "$3" ] && export DESYNC_PROGRESSBAR_ENABLED=1
 case $1 in
   dir) exec desync tar -i -s "$store" - "$2" ;;
   *) exec desync make -s "$store" - "$2" ;;
@@ -47,7 +49,6 @@ tr '\n' '\0' | xargs -0 stat "$@"
 
 /// 受け取る側: stdin の index を store から組み立てる。
 pub const ASSEMBLE: &str = r#"
-[ -n "$4" ] && export DESYNC_PROGRESSBAR_ENABLED=1
 case $1 in
   dir) exec desync untar -i -s "$store" --no-same-owner --no-same-xattrs - "$2" ;;
   *) desync extract -s "$store" - "$2" && chmod "$3" "$2" ;;
