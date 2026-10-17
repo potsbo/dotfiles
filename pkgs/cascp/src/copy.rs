@@ -222,7 +222,7 @@ pub fn copy(args: Args) -> Result<()> {
     let plan = plan(&src, &dst, &index)?;
 
     fill_missing(s, &plan, &src, &dst)?;
-    assemble(&src, &dst);
+    assemble(&src, &dst, index)?;
     touch(&plan.paths, &src, &dst);
 
     Ok(())
@@ -271,17 +271,18 @@ fn fill_missing(s: &Session, plan: &Plan, src: &Source, dst: &Destination) -> Re
     Ok(())
 }
 
-fn assemble(src: &Source, dst: &Destination) {
+/// chunk() で得た index を受け取る側で組み立てる。組み立ては転送の本体なので、touch と
+/// 違って失敗はそのまま返す。
+fn assemble(src: &Source, dst: &Destination, index: Vec<u8>) -> Result<()> {
     let t0 = Instant::now();
     step(
         "Assembling",
         format!("{} ({})", dst.display(), src.describe()),
     );
-    if let Err(e) = dst.assemble(src, src.chunk().unwrap_or_default()) {
-        warning(e);
-    }
+    dst.assemble(src, index)?;
     let t_assemble = t0.elapsed().as_secs();
     step("Assembled", format!("in {}", duration(t_assemble)));
+    Ok(())
 }
 
 fn touch(paths: &[String], src: &Source, dst: &Destination) {
