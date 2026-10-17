@@ -102,6 +102,12 @@ fn with_chunks(
     )?))
 }
 
+fn base_name(path: &str) -> String {
+    Path::new(path)
+        .file_name()
+        .map_or(path.to_string(), |n| n.to_string_lossy().into_owned())
+}
+
 pub fn copy(args: Args) -> Result<()> {
     let s = Session::open(&args.host)?;
     let (sender, receiver) = args.direction.sides();
@@ -115,9 +121,7 @@ pub fn copy(args: Args) -> Result<()> {
     if src.kind == Kind::Dir && !args.recursive {
         return Err(format!("{}: not a regular file", args.src));
     }
-    let base = Path::new(&args.src)
-        .file_name()
-        .map_or(args.src.clone(), |n| n.to_string_lossy().into_owned());
+    let base = base_name(&args.src);
     let (rstore, dst) = prepare(s, receiver, &args.dst, &base)?;
 
     step(
@@ -217,5 +221,18 @@ fn touch(s: &Session, paths: &[String], receiver: Side, sender: Side) {
         if let Err(e) = with_chunks(s, side, TOUCH, paths, "recording chunk use") {
             warning(e);
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn base_names() {
+        assert_eq!(base_name("/abc/def"), "def");
+        assert_eq!(base_name("/abc/def/"), "def");
+        assert_eq!(base_name("/"), "/");
+        assert_eq!(base_name(""), "");
     }
 }
