@@ -6,6 +6,7 @@ use std::time::Instant;
 use crate::Result;
 use crate::chunk::{self, Plan};
 use crate::cli::Args;
+use crate::direction::Direction;
 use crate::machine::Machine;
 use crate::process::{lines, run};
 use crate::script::{ASSEMBLE, CHUNK, INSPECT, MISSING, PREPARE, SIZES, TOUCH};
@@ -221,19 +222,7 @@ pub fn copy(args: Args) -> Result<()> {
     let index = chunk(&src)?;
     let plan = plan(&src, &dst, &index)?;
 
-    let t0 = Instant::now();
-    if !plan.missing.is_empty() {
-        let (verb, prep) = args.direction.verb();
-        step(verb, format!("{} {prep} {}", human(plan.fetch), s.host));
-        transfer(
-            s,
-            src.rsync_store(),
-            dst.rsync_store(),
-            chunk::list(&plan.missing),
-            plan.fetch,
-        )?;
-    }
-    let t_transfer = t0.elapsed().as_secs();
+    let t_transfer = fill_missing(s, args.direction, &plan, &src, &dst)?;
 
     step("Assembling", dst.display());
     dst.assemble(&src, index)?;
@@ -250,6 +239,29 @@ pub fn copy(args: Args) -> Result<()> {
         ),
     );
     Ok(())
+}
+
+/// 受け取る側に足りない chunk を、送る側の store から流し込む。かかった秒数を返す。
+fn fill_missing(
+    s: &Session,
+    direction: Direction,
+    plan: &Plan,
+    src: &Source,
+    dst: &Destination,
+) -> Result<u64> {
+    let t0 = Instant::now();
+    if !plan.missing.is_empty() {
+        let (verb, prep) = direction.verb();
+        step(verb, format!("{} {prep} {}", human(plan.fetch), s.host));
+        transfer(
+            s,
+            src.rsync_store(),
+            dst.rsync_store(),
+            chunk::list(&plan.missing),
+            plan.fetch,
+        )?;
+    }
+    Ok(t0.elapsed().as_secs())
 }
 
 fn chunk(src: &Source) -> Result<Vec<u8>> {
