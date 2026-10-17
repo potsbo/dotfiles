@@ -193,14 +193,8 @@ pub fn copy(args: Args) -> Result<()> {
         Some(index),
         "assembling",
     )?;
-    // 記録が漏れても次の --gc で消える順が変わるだけなので、転送の失敗にはしない
-    if !paths.is_empty() {
-        for side in [receiver, sender] {
-            if let Err(e) = with_chunks(s, side, TOUCH, &paths, "recording chunk use") {
-                warning(e);
-            }
-        }
-    }
+
+    touch(s, &paths, receiver, sender);
 
     step(
         "Finished",
@@ -212,4 +206,16 @@ pub fn copy(args: Args) -> Result<()> {
         ),
     );
     Ok(())
+}
+
+fn touch(s: &Session, paths: &[String], receiver: Side, sender: Side) {
+    // 記録が漏れても次の reap で消える順が変わるだけなので、転送の失敗にはしない
+    if paths.is_empty() {
+        return;
+    }
+    for side in [receiver, sender] {
+        if let Err(e) = with_chunks(s, side, TOUCH, paths, "recording chunk use") {
+            warning(e);
+        }
+    }
 }
