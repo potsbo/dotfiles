@@ -52,18 +52,12 @@ impl Machine {
         }
     }
 
-    pub fn display(&self, path: &str) -> String {
+    /// このマシン上の path を、どのマシンのものか分かる形 (scp / rsync の `host:path`、手元なら
+    /// そのまま) にする。表示にも rsync の引数にも使う。絶対パスにはしない。
+    pub fn qualified(&self, path: &str) -> String {
         match self {
             Machine::Local => path.to_string(),
             Machine::Remote(s) => format!("{}:{path}", s.host),
-        }
-    }
-
-    /// rsync の引数での store の書き方。
-    pub fn rsync_path(&self, store: &str) -> String {
-        match self {
-            Machine::Local => format!("{store}/"),
-            Machine::Remote(s) => format!("{}:{store}/", s.host),
         }
     }
 }

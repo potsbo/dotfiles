@@ -75,7 +75,7 @@ impl Source {
     }
 
     fn display(&self) -> String {
-        self.machine.display(&self.path)
+        self.machine.qualified(&self.path)
     }
 
     fn describe(&self) -> String {
@@ -95,7 +95,7 @@ impl Source {
     }
 
     fn rsync_store(&self) -> String {
-        self.machine.rsync_path(&self.store)
+        self.machine.qualified(&self.store)
     }
 
     /// chunk の (圧縮後の) 大きさを `paths` と同じ順で返す。
@@ -132,11 +132,11 @@ impl Destination {
     }
 
     fn display(&self) -> String {
-        self.machine.display(&self.path)
+        self.machine.qualified(&self.path)
     }
 
     fn rsync_store(&self) -> String {
-        self.machine.rsync_path(&self.store)
+        self.machine.qualified(&self.store)
     }
 
     /// `paths` のうち store に無いもの。
