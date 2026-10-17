@@ -3,7 +3,6 @@ use std::process::{Command, Stdio};
 use std::sync::OnceLock;
 
 use crate::Result;
-use crate::ui::step;
 
 /// リモート 1 台との ssh 接続。確立は ControlMaster で 1 回にし、以後のコマンドは
 /// `sock` に相乗りさせる。ssh の叩き方はここに閉じ、手元とリモートの違いは
@@ -37,7 +36,6 @@ impl Session {
         })
         .map_err(|e| e.to_string())?;
 
-        step("Connecting", &s.host);
         // 往復 300ms 級の回線を想定しているので、ssh の確立は 1 回にして使い回す
         let status = Command::new("ssh")
             .arg("-fNM")
@@ -74,15 +72,16 @@ impl Session {
 /// Drop にしないのは、static の値は drop されず、Ctrl-C の handler の
 /// `std::process::exit` も destructor を飛ばすから。正常終了時は main から呼ぶ。
 pub fn cleanup() {
-    if let Some(s) = SESSION.get() {
-        let _ = Command::new("ssh")
-            .arg("-S")
-            .arg(&s.sock)
-            .args(["-O", "exit"])
-            .arg(&s.host)
-            .stdout(Stdio::null())
-            .stderr(Stdio::null())
-            .status();
-        let _ = std::fs::remove_dir_all(&s.tmp);
-    }
+    let Some(s) = SESSION.get() else {
+        return;
+    };
+    let _ = Command::new("ssh")
+        .arg("-S")
+        .arg(&s.sock)
+        .args(["-O", "exit"])
+        .arg(&s.host)
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .status();
+    let _ = std::fs::remove_dir_all(&s.tmp);
 }

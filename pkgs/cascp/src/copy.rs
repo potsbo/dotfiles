@@ -171,7 +171,7 @@ struct Link {
 
 /// 両端を調べて Source と Destination を作る。どちらのマシンが送る側かはここで決め、
 /// copy() はマシンを意識しない。
-fn endpoints(s: &'static Session, args: &Args) -> Result<Link> {
+fn link(s: &'static Session, args: &Args) -> Result<Link> {
     let (from, to) = args.direction.sides(s);
     let src = Source::inspect(from, args.src.clone())?;
     // 受け取る側に触る前に断る (scp と同じく、-r 無しのディレクトリはエラー)
@@ -227,8 +227,8 @@ fn base_name(path: &str) -> String {
 }
 
 pub fn copy(args: Args) -> Result<()> {
-    let s = Session::open(&args.host)?;
-    let link = endpoints(s, &args)?;
+    let s = open(&args.host)?;
+    let link = link(s, &args)?;
 
     let index = chunk(&link.src)?;
     let plan = plan(&link, &index)?;
@@ -238,6 +238,11 @@ pub fn copy(args: Args) -> Result<()> {
     touch(&plan.paths, &link);
 
     Ok(())
+}
+
+fn open(host: &str) -> Result<&'static Session> {
+    step("Connecting", host);
+    Session::open(host)
 }
 
 fn chunk(src: &Source) -> Result<Vec<u8>> {
