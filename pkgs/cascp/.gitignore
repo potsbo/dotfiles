@@ -1,1 +1,3 @@
 /target
+# direnv の use flake が置く評価結果のキャッシュ
+/.direnv

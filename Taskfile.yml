@@ -37,11 +37,11 @@ tasks:
   # pkgs/ の Rust crate。eval は build しないので、ここだけ例外として derivation を build する。
   # インストールされるものと同じ derivation で、コンパイルとテスト (buildRustPackage の
   # checkPhase が cargo test を回す) を確かめるため。数秒で終わる大きさなので重くない。
-  # fmt と clippy は derivation に含まれないので cargo で回す。
+  # fmt と clippy は derivation に含まれないので、devShell (pkgs/cascp/shell.nix) で回す。
   cargo:
     cmds:
       - nix build --no-link .#cascp
-      - nix shell --inputs-from . nixpkgs#cargo nixpkgs#rustc nixpkgs#clippy nixpkgs#rustfmt -c sh -c 'cd pkgs/cascp && cargo fmt --check && cargo clippy --all-targets -- -D warnings'
+      - nix develop .#cascp -c sh -c 'cd pkgs/cascp && cargo fmt --check && cargo clippy --all-targets -- -D warnings'
 
   # 全ホストを eval する。build はしない (closure の build は重い)。
   # nixpkgs の deprecation warning (属性の rename など) を error 扱いにする。statix / deadnix は

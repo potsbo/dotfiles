@@ -166,6 +166,10 @@
         ] ++ extraModules;
       };
 
+      # pkgs/ の出力 (packages / devShells) を出す system。aarch64-darwin は、`task cargo` が
+      # 手元の Mac でも `.#cascp` を build するため。
+      pkgSystems = [ "x86_64-linux" "aarch64-darwin" ];
+
       mkDarwin = { hostname, system, apps }: nix-darwin.lib.darwinSystem {
         inherit system;
         specialArgs = { inherit user hosts hostname; };
@@ -198,15 +202,21 @@
       # 名前は書き下さず pkgs/ を読んで作る。ここ・home.nix・autofix.yaml の 3 箇所に
       # 同じ一覧を書いていて、実際 nix-graph を足したとき autofix.yaml を落とした。
       # パッケージの追加は pkgs/ にファイルを置いて使う場所から参照するだけで済む。
-      #
-      # aarch64-darwin にも出すのは、`task cargo` が手元の Mac でも `.#cascp` を build するため。
       packages = lib.recursiveUpdate
-        (lib.genAttrs [ "x86_64-linux" "aarch64-darwin" ] (system: lib.packagesFromDirectoryRecursive {
+        (lib.genAttrs pkgSystems (system: lib.packagesFromDirectoryRecursive {
           inherit (nixpkgs.legacyPackages.${system}) callPackage;
           directory = ./pkgs;
         }))
         {
           aarch64-darwin.default = nix-darwin.packages.aarch64-darwin.default;
         };
+
+      # pkgs/<name>/shell.nix を devShells.<name> として出す。中身は各ディレクトリに閉じ、ここには
+      # 個別の名前を書かない (packages と同じく、足すときにここを触らずに済むように)。
+      # packagesFromDirectoryRecursive は package.nix のあるディレクトリでは他のファイルを
+      # 見ないので、shell.nix が packages に混ざることはない。
+      devShells = lib.genAttrs pkgSystems (system:
+        lib.mapAttrs (name: _: nixpkgs.legacyPackages.${system}.callPackage ./pkgs/${name}/shell.nix { })
+          (lib.filterAttrs (name: _: builtins.pathExists ./pkgs/${name}/shell.nix) (builtins.readDir ./pkgs)));
     };
 }
