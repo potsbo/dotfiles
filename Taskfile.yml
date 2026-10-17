@@ -15,6 +15,9 @@ vars:
   # 出さず出所が分からないので、文面で除外する。ここに書く条件はこのリポジトリの .nix が
   # その書き方をしていないこと (`grep -r 'stdenv\.is' --include='*.nix'` が空)。
   # upstream の lock が上がって出なくなったら消す。
+  # 2026-10 時点の出所は herdr が lock している rust-overlay で、rust-overlay 側は直っている。
+  # `nix flake update herdr/rust-overlay` で先取りできるが、作者が試していない組み合わせを
+  # warning のためだけに抱えたくないので、herdr の lock が上がるのを待つ。
   EVAL_WARN_IGNORE: 'stdenv\.is[A-Za-z0-9_]+ is deprecated'
 
 tasks:
