@@ -6,7 +6,6 @@ use std::time::Instant;
 use crate::Result;
 use crate::chunk::{self, Plan};
 use crate::cli::Args;
-use crate::direction::Direction;
 use crate::machine::Machine;
 use crate::process::{lines, run};
 use crate::script::{ASSEMBLE, CHUNK, INSPECT, MISSING, PREPARE, SIZES, TOUCH};
@@ -222,7 +221,7 @@ pub fn copy(args: Args) -> Result<()> {
     let index = chunk(&src)?;
     let plan = plan(&src, &dst, &index)?;
 
-    fill_missing(s, args.direction, &plan, &src, &dst)?;
+    fill_missing(s, &plan, &src, &dst)?;
     assemble(&src, &dst);
     touch(&plan.paths, &src, &dst);
 
@@ -242,19 +241,15 @@ fn chunk(src: &Source) -> Result<Vec<u8>> {
 }
 
 /// 受け取る側に足りない chunk を、送る側の store から流し込む。かかった秒数を返す。
-fn fill_missing(
-    s: &Session,
-    direction: Direction,
-    plan: &Plan,
-    src: &Source,
-    dst: &Destination,
-) -> Result<()> {
+fn fill_missing(s: &Session, plan: &Plan, src: &Source, dst: &Destination) -> Result<()> {
     let t0 = Instant::now();
     if plan.missing.is_empty() {
         return Ok(());
     }
-    let (verb, prep) = direction.verb();
-    step(verb, format!("{} {prep} {}", human(plan.fetch), s.host));
+    step(
+        "Transferring",
+        format!("{} => {}", src.display(), dst.display()),
+    );
     transfer(
         s,
         src.rsync_store(),
