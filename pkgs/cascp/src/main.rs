@@ -16,6 +16,7 @@ mod chunk;
 mod cli;
 mod copy;
 mod direction;
+mod machine;
 mod process;
 mod script;
 mod session;
