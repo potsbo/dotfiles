@@ -4,7 +4,7 @@ use std::path::Path;
 use std::time::Instant;
 
 use crate::Result;
-use crate::chunk::{self, Sizes};
+use crate::chunk::{self, Plan};
 use crate::cli::Args;
 use crate::machine::Machine;
 use crate::process::{lines, run};
@@ -99,8 +99,11 @@ impl Source {
     }
 
     /// chunk の (圧縮後の) 大きさを `paths` と同じ順で返す。
-    fn sizes(&self, paths: &[String]) -> Result<Vec<String>> {
-        with_chunks(self.machine, SIZES, paths, "measuring chunks")
+    fn sizes(&self, paths: &[String]) -> Result<Vec<u64>> {
+        with_chunks(self.machine, SIZES, paths, "measuring chunks")?
+            .iter()
+            .map(|v| v.trim().parse().map_err(|_| format!("bad chunk size: {v}")))
+            .collect()
     }
 }
 
@@ -171,6 +174,19 @@ fn endpoints(s: &'static Session, args: &Args) -> Result<(Source, Destination)> 
     Ok((src, dst))
 }
 
+/// index から今回の Plan を立てる。受け取る側には何が無いかを、送る側にはそれぞれの
+/// 大きさを聞く。
+fn plan(src: &Source, dst: &Destination, index: &[u8]) -> Result<Plan> {
+    let paths = chunk::paths(index)?;
+    // chunk が 1 つも無い (空のファイルなど) なら聞くことがないので、往復を省く
+    if paths.is_empty() {
+        return Plan::new(paths, Vec::new(), &[]);
+    }
+    let missing = dst.missing(&paths)?;
+    let sizes = src.sizes(&paths)?;
+    Plan::new(paths, missing, &sizes)
+}
+
 /// chunk path の一覧を stdin に渡して script を走らせ、出力を行で返す。
 fn with_chunks(
     machine: Machine,
@@ -195,50 +211,39 @@ pub fn copy(args: Args) -> Result<()> {
     let s = Session::open(&args.host)?;
     let (src, dst) = endpoints(s, &args)?;
 
-    step(
-        "Chunking",
-        format!("{} ({})", src.display(), src.describe()),
-    );
-
     let t0 = Instant::now();
-    let index = src.chunk()?;
+    let index = chunk(&src)?;
     let t_chunk = t0.elapsed().as_secs();
 
-    let paths = chunk::paths(&index)?;
-    let (missing, sizes) = if paths.is_empty() {
-        (Vec::new(), Vec::new())
-    } else {
-        (dst.missing(&paths)?, src.sizes(&paths)?)
-    };
-    let Sizes { all, fetch } = Sizes::of(&paths, &sizes, &missing)?;
-    let n_cached = paths.len() - missing.len();
+    let plan = plan(&src, &dst, &index)?;
     step(
         "Chunks",
         format!(
             "{} unique, {} compressed (chunked in {})",
-            paths.len(),
-            human(all),
+            plan.paths.len(),
+            human(plan.all),
             duration(t_chunk)
         ),
     );
     step(
         "Cached",
         format!(
-            "{n_cached} chunks, {} ({}%)",
-            human(all - fetch),
-            n_cached * 100 / paths.len().max(1)
+            "{} chunks, {} ({}%)",
+            plan.cached(),
+            human(plan.all - plan.fetch),
+            plan.cached() * 100 / plan.paths.len().max(1)
         ),
     );
 
     let t0 = Instant::now();
-    if !missing.is_empty() {
+    if !plan.missing.is_empty() {
         let (verb, prep) = args.direction.verb();
         step(
             verb,
             format!(
                 "{} chunks, {} {prep} {}",
-                missing.len(),
-                human(fetch),
+                plan.missing.len(),
+                human(plan.fetch),
                 s.host
             ),
         );
@@ -246,8 +251,8 @@ pub fn copy(args: Args) -> Result<()> {
             s,
             src.rsync_store(),
             dst.rsync_store(),
-            chunk::list(&missing),
-            fetch,
+            chunk::list(&plan.missing),
+            plan.fetch,
         )?;
     }
     let t_transfer = t0.elapsed().as_secs();
@@ -255,18 +260,27 @@ pub fn copy(args: Args) -> Result<()> {
     step("Assembling", dst.display());
     dst.assemble(&src, index)?;
 
-    touch(&paths, &src, &dst);
+    touch(&plan.paths, &src, &dst);
 
     step(
         "Finished",
         format!(
             "transferred {} of {} in {}",
-            human(fetch),
-            human(all),
+            human(plan.fetch),
+            human(plan.all),
             duration(t_transfer)
         ),
     );
     Ok(())
+}
+
+fn chunk(src: &Source) -> Result<Vec<u8>> {
+    step(
+        "Chunking",
+        format!("{} ({})", src.display(), src.describe()),
+    );
+    let index = src.chunk()?;
+    Ok(index)
 }
 
 fn touch(paths: &[String], src: &Source, dst: &Destination) {

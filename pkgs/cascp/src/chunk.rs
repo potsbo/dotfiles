@@ -28,15 +28,21 @@ pub fn list(paths: &[String]) -> Vec<u8> {
         .collect()
 }
 
-/// 圧縮後の大きさの合計。回線を流れるのは圧縮後の chunk なので、残り時間はこちらから出す。
-pub struct Sizes {
+/// 今回の転送で、どの chunk を使い、そのうちどれをどれだけ送るか。
+pub struct Plan {
+    /// index が使う chunk 全部。組み立てた後に両端で「最近使った」と記録する対象。
+    pub paths: Vec<String>,
+    /// そのうち受け取る側に無いもの。rsync で送るのはこれだけ。
+    pub missing: Vec<String>,
+    /// `paths` 全部の圧縮後の大きさ。表示用。
     pub all: u64,
+    /// `missing` の圧縮後の大きさ。回線を流れるのは圧縮後の chunk なので、残り時間はこちらから出す。
     pub fetch: u64,
 }
 
-impl Sizes {
-    /// `sizes` は `paths` と同じ順に並んだ SIZES script の出力。
-    pub fn of(paths: &[String], sizes: &[String], missing: &[String]) -> Result<Self> {
+impl Plan {
+    /// `sizes` は `paths` と同じ順に並んだ、各 chunk の圧縮後の大きさ。
+    pub fn new(paths: Vec<String>, missing: Vec<String>, sizes: &[u64]) -> Result<Self> {
         if sizes.len() != paths.len() {
             return Err(format!(
                 "got {} chunk sizes for {} chunks",
@@ -47,14 +53,24 @@ impl Sizes {
         let size_of: HashMap<&str, u64> = paths
             .iter()
             .map(String::as_str)
-            .zip(sizes.iter().map(|v| v.trim().parse().unwrap_or(0)))
+            .zip(sizes.iter().copied())
             .collect();
         let all = size_of.values().sum();
         let fetch = missing
             .iter()
             .map(|p| size_of.get(p.as_str()).copied().unwrap_or(0))
             .sum();
-        Ok(Sizes { all, fetch })
+        Ok(Plan {
+            paths,
+            missing,
+            all,
+            fetch,
+        })
+    }
+
+    /// 受け取る側にもうあって、送らずに済む chunk の数。
+    pub fn cached(&self) -> usize {
+        self.paths.len() - self.missing.len()
     }
 }
 
@@ -77,14 +93,9 @@ mod tests {
     }
 
     #[test]
-    fn sizes_sum_missing_only() {
-        let s = Sizes::of(
-            &strings(&["a", "b", "c"]),
-            &strings(&["10", " 20", "30"]),
-            &strings(&["b"]),
-        )
-        .unwrap();
-        assert_eq!((s.all, s.fetch), (60, 20));
-        assert!(Sizes::of(&strings(&["a"]), &[], &[]).is_err());
+    fn plan_sums_missing_only() {
+        let p = Plan::new(strings(&["a", "b", "c"]), strings(&["b"]), &[10, 20, 30]).unwrap();
+        assert_eq!((p.all, p.fetch, p.cached()), (60, 20, 2));
+        assert!(Plan::new(strings(&["a"]), vec![], &[]).is_err());
     }
 }
