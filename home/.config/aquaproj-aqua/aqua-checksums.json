@@ -496,23 +496,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_darwin_amd64.tar.gz",
-      "checksum": "C9F33C4E4D56B98F796EBD871DA23FA15CDCFA2F7FB9836E05AFEC80E93FB10B",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_darwin_amd64.tar.gz",
+      "checksum": "259091C6F11474C08A591FEF469EBAAA7E0FEE8F4BA39AE5FAB95E4DB7B8F2BC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_darwin_arm64.tar.gz",
-      "checksum": "860F8CA3FC5B3BE542A036E7EA894E0E423CAEF0C9698439580C28548C0739A5",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_darwin_arm64.tar.gz",
+      "checksum": "DCBBAA2C6B6960CCC1B9F6C8095DD724F6E74BC7E6F9A6372219D6754F2B6717",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_linux_amd64.tar.gz",
-      "checksum": "5F9153351383907B513F3DBB0CF21C86B85D4CDA267BE9898AED25F799AE9706",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_linux_amd64.tar.gz",
+      "checksum": "19DA8689AFF8E85B90C5CAFD5999087E390BC5B12982A8A9CEA79C9C72C8A412",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/folbricht/desync/v1.1.4/desync_1.1.4_linux_arm64.tar.gz",
-      "checksum": "888A17892C31FB91FBF980EF46A8934398DA1F061EB1C20D967ABF887FAF0B34",
+      "id": "github_release/github.com/folbricht/desync/v1.1.5/desync_1.1.5_linux_arm64.tar.gz",
+      "checksum": "E11E922C24D3232144D68C74A9D62EBD057533EC7D6C082DCB1C68337B2FE8B2",
       "algorithm": "sha256"
     },
     {
@@ -1156,33 +1156,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/starship/starship/v1.26.0/starship-aarch64-apple-darwin.tar.gz",
-      "checksum": "C40B27B11F580411E068F2FA6C1BE7830A387C0BC47A94D1D37F32B054C5361D",
+      "id": "github_release/github.com/starship/starship/v1.27.0/starship-aarch64-apple-darwin.tar.gz",
+      "checksum": "5362DA8CB2928F98F3CE0FFDA697CF0F8DE70081DB000DAE316D6D3A404F6CF0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/starship/starship/v1.26.0/starship-aarch64-pc-windows-msvc.zip",
-      "checksum": "52E60A2182AED66AF225401D8906B2EB8CD2A08D206C7304D503C2CF44345F77",
+      "id": "github_release/github.com/starship/starship/v1.27.0/starship-aarch64-pc-windows-msvc.zip",
+      "checksum": "1822B6CF1AF28071B056976D3F445359D61DF324918FFE76C6D0F851EEF9366F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/starship/starship/v1.26.0/starship-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "DC30189378D2F2E287384E8A692D3F95AD1DF64CF0E8C36AA9201516028AED6B",
+      "id": "github_release/github.com/starship/starship/v1.27.0/starship-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "341F5CBF24699FA0B27EC88965AD25F862EA09E15D35A543FD6FFDFF1D2AA00D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/starship/starship/v1.26.0/starship-x86_64-apple-darwin.tar.gz",
-      "checksum": "5548F406A4B6F5695903BDEA83F77CE47EC12C8C0E62DABD33122D8F133E4207",
+      "id": "github_release/github.com/starship/starship/v1.27.0/starship-x86_64-apple-darwin.tar.gz",
+      "checksum": "344E4D38787E0AA86DD522AE5462E6FB6DA1227691F81A79FFED480A4563CCB3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/starship/starship/v1.26.0/starship-x86_64-pc-windows-msvc.zip",
-      "checksum": "690021E22F2BF2C57D5867DC0FABABE5E55E714C26942BD909FFDDB6C5DF42F2",
+      "id": "github_release/github.com/starship/starship/v1.27.0/starship-x86_64-pc-windows-msvc.zip",
+      "checksum": "7764F861805376AF2812DD78C84FADC16B714CF3F346BAED9B597BFDA8484403",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/starship/starship/v1.26.0/starship-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "B7C232B0E8249D8E55A40BEB79C5C43A7D370F3F9408BD215DEB0170DAEAADF3",
+      "id": "github_release/github.com/starship/starship/v1.27.0/starship-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "10C8EB4CB3B761D9BF59EA828444C2DAB36C900B7D69A69E08814B286969DF89",
       "algorithm": "sha256"
     },
     {
