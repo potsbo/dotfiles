@@ -145,15 +145,15 @@ impl Destination {
     }
 
     /// `index` を store から組み立てる。
-    fn assemble(&self, src: &Source, index: Vec<u8>) -> Result<()> {
+    fn assemble(&self, kind: &Kind, index: Vec<u8>) -> Result<()> {
         // ASSEMBLE の dir の枝は $3 を見ないので、何を渡してもよい
-        let mode = match &src.kind {
+        let mode = match kind {
             Kind::File { mode } => mode.as_str(),
             Kind::Dir { .. } => "",
         };
         run(
             self.machine
-                .sh(ASSEMBLE, &[src.kind.as_str(), &self.path, mode]),
+                .sh(ASSEMBLE, &[kind.as_str(), &self.path, mode]),
             Some(index),
             "assembling",
         )?;
@@ -234,7 +234,7 @@ pub fn copy(args: Args) -> Result<()> {
     let plan = plan(&link, &index)?;
 
     fill_missing(&plan, &link)?;
-    assemble(&link, index)?;
+    assemble(&link.dst, &link.src.kind, index)?;
     touch(&plan.paths, &link);
 
     Ok(())
@@ -285,13 +285,10 @@ fn fill_missing(plan: &Plan, link: &Link) -> Result<()> {
 
 /// chunk() で得た index を受け取る側で組み立てる。組み立ては転送の本体なので、touch と
 /// 違って失敗はそのまま返す。
-fn assemble(link: &Link, index: Vec<u8>) -> Result<()> {
+fn assemble(dst: &Destination, kind: &Kind, index: Vec<u8>) -> Result<()> {
     let t0 = Instant::now();
-    step(
-        "Assembling",
-        format!("{} ({})", link.dst.display(), link.src.describe()),
-    );
-    link.dst.assemble(&link.src, index)?;
+    step("Assembling", dst.display());
+    dst.assemble(kind, index)?;
     let t_assemble = t0.elapsed().as_secs();
     step("Assembled", format!("in {}", duration(t_assemble)));
     Ok(())
