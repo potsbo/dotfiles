@@ -161,9 +161,17 @@ impl Destination {
     }
 }
 
+/// 送る元から受け取る先へのつながり。copy() の手順はどれも両端を使うので、組にして渡す。
+struct Link {
+    /// 両端をつなぐ ssh 接続。rsync の --rsh に使う。
+    session: &'static Session,
+    src: Source,
+    dst: Destination,
+}
+
 /// 両端を調べて Source と Destination を作る。どちらのマシンが送る側かはここで決め、
 /// copy() はマシンを意識しない。
-fn endpoints(s: &'static Session, args: &Args) -> Result<(Source, Destination)> {
+fn endpoints(s: &'static Session, args: &Args) -> Result<Link> {
     let (from, to) = args.direction.sides(s);
     let src = Source::inspect(from, args.src.clone())?;
     // 受け取る側に触る前に断る (scp と同じく、-r 無しのディレクトリはエラー)
@@ -171,19 +179,23 @@ fn endpoints(s: &'static Session, args: &Args) -> Result<(Source, Destination)> 
         return Err(format!("{}: not a regular file", src.path));
     }
     let dst = Destination::prepare(to, &args.dst, &base_name(&src.path))?;
-    Ok((src, dst))
+    Ok(Link {
+        session: s,
+        src,
+        dst,
+    })
 }
 
 /// index から今回の Plan を立てる。受け取る側には何が無いかを、送る側にはそれぞれの
 /// 大きさを聞く。
-fn plan(src: &Source, dst: &Destination, index: &[u8]) -> Result<Plan> {
+fn plan(link: &Link, index: &[u8]) -> Result<Plan> {
     let paths = chunk::paths(index)?;
     // chunk が 1 つも無い (空のファイルなど) なら聞くことがないので、往復を省く
     let plan = if paths.is_empty() {
         Plan::new(paths, Vec::new(), &[])?
     } else {
-        let missing = dst.missing(&paths)?;
-        let sizes = src.sizes(&paths)?;
+        let missing = link.dst.missing(&paths)?;
+        let sizes = link.src.sizes(&paths)?;
         Plan::new(paths, missing, &sizes)?
     };
     let (head, details) = plan.report();
@@ -216,14 +228,14 @@ fn base_name(path: &str) -> String {
 
 pub fn copy(args: Args) -> Result<()> {
     let s = Session::open(&args.host)?;
-    let (src, dst) = endpoints(s, &args)?;
+    let link = endpoints(s, &args)?;
 
-    let index = chunk(&src)?;
-    let plan = plan(&src, &dst, &index)?;
+    let index = chunk(&link.src)?;
+    let plan = plan(&link, &index)?;
 
-    fill_missing(s, &plan, &src, &dst)?;
-    assemble(&src, &dst, index)?;
-    touch(&plan.paths, &src, &dst);
+    fill_missing(&plan, &link)?;
+    assemble(&link, index)?;
+    touch(&plan.paths, &link);
 
     Ok(())
 }
@@ -240,20 +252,20 @@ fn chunk(src: &Source) -> Result<Vec<u8>> {
     Ok(index)
 }
 
-/// 受け取る側に足りない chunk を、送る側の store から流し込む。かかった秒数を返す。
-fn fill_missing(s: &Session, plan: &Plan, src: &Source, dst: &Destination) -> Result<()> {
+/// 受け取る側に足りない chunk を、送る側の store から流し込む。
+fn fill_missing(plan: &Plan, link: &Link) -> Result<()> {
     let t0 = Instant::now();
     if plan.missing.is_empty() {
         return Ok(());
     }
     step(
         "Transferring",
-        format!("{} => {}", src.display(), dst.display()),
+        format!("{} => {}", link.src.display(), link.dst.display()),
     );
     transfer(
-        s,
-        src.rsync_store(),
-        dst.rsync_store(),
+        link.session,
+        link.src.rsync_store(),
+        link.dst.rsync_store(),
         chunk::list(&plan.missing),
         plan.fetch,
     )?;
@@ -273,24 +285,24 @@ fn fill_missing(s: &Session, plan: &Plan, src: &Source, dst: &Destination) -> Re
 
 /// chunk() で得た index を受け取る側で組み立てる。組み立ては転送の本体なので、touch と
 /// 違って失敗はそのまま返す。
-fn assemble(src: &Source, dst: &Destination, index: Vec<u8>) -> Result<()> {
+fn assemble(link: &Link, index: Vec<u8>) -> Result<()> {
     let t0 = Instant::now();
     step(
         "Assembling",
-        format!("{} ({})", dst.display(), src.describe()),
+        format!("{} ({})", link.dst.display(), link.src.describe()),
     );
-    dst.assemble(src, index)?;
+    link.dst.assemble(&link.src, index)?;
     let t_assemble = t0.elapsed().as_secs();
     step("Assembled", format!("in {}", duration(t_assemble)));
     Ok(())
 }
 
-fn touch(paths: &[String], src: &Source, dst: &Destination) {
+fn touch(paths: &[String], link: &Link) {
     // 記録が漏れても次の reap で消える順が変わるだけなので、転送の失敗にはしない
     if paths.is_empty() {
         return;
     }
-    for machine in [dst.machine, src.machine] {
+    for machine in [link.dst.machine, link.src.machine] {
         if let Err(e) = with_chunks(machine, TOUCH, paths, "recording chunk use") {
             warning(e);
         }
