@@ -222,46 +222,11 @@ pub fn copy(args: Args) -> Result<()> {
     let index = chunk(&src)?;
     let plan = plan(&src, &dst, &index)?;
 
-    let t_transfer = fill_missing(s, args.direction, &plan, &src, &dst)?;
-
-    step("Assembling", dst.display());
-    dst.assemble(&src, index)?;
-
+    fill_missing(s, args.direction, &plan, &src, &dst)?;
+    assemble(&src, &dst);
     touch(&plan.paths, &src, &dst);
 
-    step(
-        "Finished",
-        format!(
-            "transferred {} of {} in {}",
-            human(plan.fetch),
-            human(plan.all),
-            duration(t_transfer)
-        ),
-    );
     Ok(())
-}
-
-/// 受け取る側に足りない chunk を、送る側の store から流し込む。かかった秒数を返す。
-fn fill_missing(
-    s: &Session,
-    direction: Direction,
-    plan: &Plan,
-    src: &Source,
-    dst: &Destination,
-) -> Result<u64> {
-    let t0 = Instant::now();
-    if !plan.missing.is_empty() {
-        let (verb, prep) = direction.verb();
-        step(verb, format!("{} {prep} {}", human(plan.fetch), s.host));
-        transfer(
-            s,
-            src.rsync_store(),
-            dst.rsync_store(),
-            chunk::list(&plan.missing),
-            plan.fetch,
-        )?;
-    }
-    Ok(t0.elapsed().as_secs())
 }
 
 fn chunk(src: &Source) -> Result<Vec<u8>> {
@@ -274,6 +239,54 @@ fn chunk(src: &Source) -> Result<Vec<u8>> {
     let t_chunk = t0.elapsed().as_secs();
     step("Chunked", format!("in {}", duration(t_chunk)));
     Ok(index)
+}
+
+/// 受け取る側に足りない chunk を、送る側の store から流し込む。かかった秒数を返す。
+fn fill_missing(
+    s: &Session,
+    direction: Direction,
+    plan: &Plan,
+    src: &Source,
+    dst: &Destination,
+) -> Result<()> {
+    let t0 = Instant::now();
+    if plan.missing.is_empty() {
+        return Ok(());
+    }
+    let (verb, prep) = direction.verb();
+    step(verb, format!("{} {prep} {}", human(plan.fetch), s.host));
+    transfer(
+        s,
+        src.rsync_store(),
+        dst.rsync_store(),
+        chunk::list(&plan.missing),
+        plan.fetch,
+    )?;
+
+    let t_transfer = t0.elapsed().as_secs();
+    step(
+        "Finished",
+        format!(
+            "transferred {} of {} in {}",
+            human(plan.fetch),
+            human(plan.all),
+            duration(t_transfer)
+        ),
+    );
+    Ok(())
+}
+
+fn assemble(src: &Source, dst: &Destination) {
+    let t0 = Instant::now();
+    step(
+        "Assembling",
+        format!("{} ({})", dst.display(), src.describe()),
+    );
+    if let Err(e) = dst.assemble(src, src.chunk().unwrap_or_default()) {
+        warning(e);
+    }
+    let t_assemble = t0.elapsed().as_secs();
+    step("Assembled", format!("in {}", duration(t_assemble)));
 }
 
 fn touch(paths: &[String], src: &Source, dst: &Destination) {
