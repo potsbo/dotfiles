@@ -7,13 +7,18 @@ use crate::direction::Side;
 use crate::script::STORE;
 use crate::ui::step;
 
+/// リモート 1 台との接続。ssh の確立は ControlMaster で 1 回にし、以後のコマンドは
+/// `sock` に相乗りさせる。手元とリモートの違い (sh か ssh 越しか、パスの書き方) はここに閉じ、
+/// 呼ぶ側は「どちら側で何を走らせるか」だけを言う。
 pub struct Session {
     pub host: String,
     tmp: PathBuf,
     sock: PathBuf,
 }
 
-// Ctrl-C の handler からも片付けられるように static に置く。
+// Ctrl-C の handler からも片付けられるように static に置く。handler は別スレッドから
+// いつ呼ばれるか分からないので 'static + Send なものしか捕まえられず、copy() の
+// ローカル変数は参照できない。
 static SESSION: OnceLock<Session> = OnceLock::new();
 
 impl Session {
@@ -96,6 +101,8 @@ impl Session {
     }
 }
 
+/// Drop にしないのは、static の値は drop されず、Ctrl-C の handler の
+/// `std::process::exit` も destructor を飛ばすから。正常終了時は main から呼ぶ。
 pub fn cleanup() {
     if let Some(s) = SESSION.get() {
         let _ = Command::new("ssh")
