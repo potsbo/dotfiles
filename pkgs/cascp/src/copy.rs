@@ -7,10 +7,9 @@ use std::time::Instant;
 use crate::Result;
 use crate::chunk::{self, Sizes};
 use crate::cli::Args;
-use crate::direction::Side;
 use crate::process::{lines, run};
 use crate::script::{ASSEMBLE, CHUNK, INSPECT, MISSING, PREPARE, SIZES, TOUCH};
-use crate::session::Session;
+use crate::session::{End, Session};
 use crate::transfer::transfer;
 use crate::ui::{step, warning};
 use crate::units::{duration, human};
@@ -49,12 +48,8 @@ struct Source {
 }
 
 impl Source {
-    fn inspect(s: &Session, side: Side, path: &str) -> Result<Self> {
-        let info = lines(&run(
-            s.sh(side, INSPECT, &[path]),
-            None,
-            "inspecting source",
-        )?);
+    fn inspect(end: End, path: &str) -> Result<Self> {
+        let info = lines(&run(end.sh(INSPECT, &[path]), None, "inspecting source")?);
         let [store, kind, mode, size, nfiles] = <[String; 5]>::try_from(info)
             .map_err(|l| format!("unexpected output while inspecting source: {l:?}"))?;
         Ok(Source {
@@ -76,9 +71,9 @@ impl Source {
 }
 
 /// 受け取る側の (store, 実際に置く path)。
-fn prepare(s: &Session, side: Side, dst: &str, base: &str) -> Result<(String, String)> {
+fn prepare(end: End, dst: &str, base: &str) -> Result<(String, String)> {
     let prep = lines(&run(
-        s.sh(side, PREPARE, &[dst, base]),
+        end.sh(PREPARE, &[dst, base]),
         None,
         "preparing destination",
     )?);
@@ -88,15 +83,9 @@ fn prepare(s: &Session, side: Side, dst: &str, base: &str) -> Result<(String, St
 }
 
 /// chunk path の一覧を stdin に渡して script を走らせ、出力を行で返す。
-fn with_chunks(
-    s: &Session,
-    side: Side,
-    script: &str,
-    paths: &[String],
-    what: &str,
-) -> Result<Vec<String>> {
+fn with_chunks(end: End, script: &str, paths: &[String], what: &str) -> Result<Vec<String>> {
     Ok(lines(&run(
-        s.sh(side, script, &[]),
+        end.sh(script, &[]),
         Some(chunk::list(paths)),
         what,
     )?))
@@ -111,26 +100,27 @@ fn base_name(path: &str) -> String {
 pub fn copy(args: Args) -> Result<()> {
     let s = Session::open(&args.host)?;
     let (sender, receiver) = args.direction.sides();
+    let (sender, receiver) = (s.end(sender), s.end(receiver));
     let bars = if std::io::stderr().is_terminal() {
         "1"
     } else {
         ""
     };
 
-    let src = Source::inspect(s, sender, &args.src)?;
+    let src = Source::inspect(sender, &args.src)?;
     if src.kind == Kind::Dir && !args.recursive {
         return Err(format!("{}: not a regular file", args.src));
     }
     let base = base_name(&args.src);
-    let (rstore, dst) = prepare(s, receiver, &args.dst, &base)?;
+    let (rstore, dst) = prepare(receiver, &args.dst, &base)?;
 
     step(
         "Chunking",
-        format!("{} ({})", s.display(sender, &args.src), src.describe()),
+        format!("{} ({})", sender.display(&args.src), src.describe()),
     );
     let t0 = Instant::now();
     let index = run(
-        s.sh(sender, CHUNK, &[src.kind.as_str(), &args.src, bars]),
+        sender.sh(CHUNK, &[src.kind.as_str(), &args.src, bars]),
         None,
         "chunking",
     )?;
@@ -141,8 +131,8 @@ pub fn copy(args: Args) -> Result<()> {
         (Vec::new(), Vec::new())
     } else {
         (
-            with_chunks(s, receiver, MISSING, &paths, "checking cache")?,
-            with_chunks(s, sender, SIZES, &paths, "measuring chunks")?,
+            with_chunks(receiver, MISSING, &paths, "checking cache")?,
+            with_chunks(sender, SIZES, &paths, "measuring chunks")?,
         )
     };
     let Sizes { all, fetch } = Sizes::of(&paths, &sizes, &missing)?;
@@ -179,16 +169,16 @@ pub fn copy(args: Args) -> Result<()> {
         );
         transfer(
             s,
-            s.rsync_path(sender, &src.store),
-            s.rsync_path(receiver, &rstore),
+            sender.rsync_path(&src.store),
+            receiver.rsync_path(&rstore),
             chunk::list(&missing),
             fetch,
         )?;
     }
     let t_transfer = t0.elapsed().as_secs();
-    assemble(s, src, receiver, &dst, bars, index)?;
+    assemble(receiver, src, &dst, bars, index)?;
 
-    touch(s, &paths, receiver, sender);
+    touch(&paths, receiver, sender);
 
     step(
         "Finished",
@@ -202,34 +192,23 @@ pub fn copy(args: Args) -> Result<()> {
     Ok(())
 }
 
-fn assemble(
-    s: &Session,
-    src: Source,
-    receiver: Side,
-    dst: &str,
-    bars: &str,
-    index: Vec<u8>,
-) -> Result<()> {
-    step("Assembling", s.display(receiver, dst));
+fn assemble(receiver: End, src: Source, dst: &str, bars: &str, index: Vec<u8>) -> Result<()> {
+    step("Assembling", receiver.display(dst));
     run(
-        s.sh(
-            receiver,
-            ASSEMBLE,
-            &[src.kind.as_str(), dst, &src.mode, bars],
-        ),
+        receiver.sh(ASSEMBLE, &[src.kind.as_str(), dst, &src.mode, bars]),
         Some(index),
         "assembling",
     )?;
     Ok(())
 }
 
-fn touch(s: &Session, paths: &[String], receiver: Side, sender: Side) {
+fn touch(paths: &[String], receiver: End, sender: End) {
     // 記録が漏れても次の reap で消える順が変わるだけなので、転送の失敗にはしない
     if paths.is_empty() {
         return;
     }
-    for side in [receiver, sender] {
-        if let Err(e) = with_chunks(s, side, TOUCH, paths, "recording chunk use") {
+    for end in [receiver, sender] {
+        if let Err(e) = with_chunks(end, TOUCH, paths, "recording chunk use") {
             warning(e);
         }
     }
