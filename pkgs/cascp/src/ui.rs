@@ -28,6 +28,11 @@ pub fn step(verb: &str, msg: impl Display) {
     eprintln!("{on}{verb:>12}{off} {msg}");
 }
 
+/// 直前の step の本文に続く行。動詞の列は空けておく (内訳のように、手順ではないもの用)。
+pub fn detail(msg: impl Display) {
+    eprintln!("{:>12} {msg}", "");
+}
+
 pub fn warning(msg: impl Display) {
     eprintln!("{:>12} {msg}", "warning");
 }

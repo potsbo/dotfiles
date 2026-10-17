@@ -5,6 +5,7 @@ use std::process::Command;
 
 use crate::Result;
 use crate::process::{lines, run};
+use crate::units::human;
 
 /// index に出てくる chunk の、store 内での path (重複なし)。
 pub fn paths(index: &[u8]) -> Result<Vec<String>> {
@@ -69,8 +70,45 @@ impl Plan {
     }
 
     /// 受け取る側にもうあって、送らずに済む chunk の数。
-    pub fn cached(&self) -> usize {
+    fn cached(&self) -> usize {
         self.paths.len() - self.missing.len()
+    }
+}
+
+impl Plan {
+    /// 表示する見出しの本文と、その下に続ける内訳 2 行。
+    ///
+    /// ```text
+    ///      Planned 45 chunks, 2.4 MiB
+    ///              32 cached,  1.9 MiB (71%)
+    ///              13 to send, 515.9 KiB (29%)
+    /// ```
+    ///
+    /// 内訳は手順ではないので動詞の列には出さず、見出しの本文に続ける (ui::detail)。
+    /// % は chunk の数で見る。to send は 100 からの引き算にして、2 行の % の和を 100 に揃える
+    /// (それぞれ切り捨てると 86% + 13% のようにずれる)。chunk 数は桁を揃えて縦に読めるようにする。
+    pub fn report(&self) -> (String, [String; 2]) {
+        let total = self.paths.len();
+        let w = total.to_string().len();
+        let cached_pct = self.cached() * 100 / total.max(1);
+        let send_pct = if total == 0 { 0 } else { 100 - cached_pct };
+        (
+            format!("{total} chunks, {}", human(self.all)),
+            [
+                format!(
+                    "{:>w$} {:<8} {} ({cached_pct}%)",
+                    self.cached(),
+                    "cached,",
+                    human(self.all - self.fetch)
+                ),
+                format!(
+                    "{:>w$} {:<8} {} ({send_pct}%)",
+                    self.missing.len(),
+                    "to send,",
+                    human(self.fetch)
+                ),
+            ],
+        )
     }
 }
 
@@ -96,6 +134,18 @@ mod tests {
     fn plan_sums_missing_only() {
         let p = Plan::new(strings(&["a", "b", "c"]), strings(&["b"]), &[10, 20, 30]).unwrap();
         assert_eq!((p.all, p.fetch, p.cached()), (60, 20, 2));
+        assert_eq!(
+            p.report(),
+            (
+                "3 chunks, 60 B".to_string(),
+                [
+                    "2 cached,  40 B (66%)".to_string(),
+                    "1 to send, 20 B (34%)".to_string(),
+                ]
+            )
+        );
+        let empty = Plan::new(vec![], vec![], &[]).unwrap();
+        assert!(empty.report().1[1].ends_with("(0%)"));
         assert!(Plan::new(strings(&["a"]), vec![], &[]).is_err());
     }
 }

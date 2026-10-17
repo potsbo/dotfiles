@@ -11,7 +11,7 @@ use crate::process::{lines, run};
 use crate::script::{ASSEMBLE, CHUNK, INSPECT, MISSING, PREPARE, SIZES, TOUCH};
 use crate::session::Session;
 use crate::transfer::transfer;
-use crate::ui::{step, warning};
+use crate::ui::{detail, step, warning};
 use crate::units::{duration, human};
 
 /// 送る元がファイルかディレクトリかと、その種類でだけ意味を持つ値。
@@ -179,12 +179,19 @@ fn endpoints(s: &'static Session, args: &Args) -> Result<(Source, Destination)> 
 fn plan(src: &Source, dst: &Destination, index: &[u8]) -> Result<Plan> {
     let paths = chunk::paths(index)?;
     // chunk が 1 つも無い (空のファイルなど) なら聞くことがないので、往復を省く
-    if paths.is_empty() {
-        return Plan::new(paths, Vec::new(), &[]);
+    let plan = if paths.is_empty() {
+        Plan::new(paths, Vec::new(), &[])?
+    } else {
+        let missing = dst.missing(&paths)?;
+        let sizes = src.sizes(&paths)?;
+        Plan::new(paths, missing, &sizes)?
+    };
+    let (head, details) = plan.report();
+    step("Planned", head);
+    for d in details {
+        detail(d);
     }
-    let missing = dst.missing(&paths)?;
-    let sizes = src.sizes(&paths)?;
-    Plan::new(paths, missing, &sizes)
+    Ok(plan)
 }
 
 /// chunk path の一覧を stdin に渡して script を走らせ、出力を行で返す。
@@ -211,42 +218,13 @@ pub fn copy(args: Args) -> Result<()> {
     let s = Session::open(&args.host)?;
     let (src, dst) = endpoints(s, &args)?;
 
-    let t0 = Instant::now();
     let index = chunk(&src)?;
-    let t_chunk = t0.elapsed().as_secs();
-
     let plan = plan(&src, &dst, &index)?;
-    step(
-        "Chunks",
-        format!(
-            "{} unique, {} compressed (chunked in {})",
-            plan.paths.len(),
-            human(plan.all),
-            duration(t_chunk)
-        ),
-    );
-    step(
-        "Cached",
-        format!(
-            "{} chunks, {} ({}%)",
-            plan.cached(),
-            human(plan.all - plan.fetch),
-            plan.cached() * 100 / plan.paths.len().max(1)
-        ),
-    );
 
     let t0 = Instant::now();
     if !plan.missing.is_empty() {
         let (verb, prep) = args.direction.verb();
-        step(
-            verb,
-            format!(
-                "{} chunks, {} {prep} {}",
-                plan.missing.len(),
-                human(plan.fetch),
-                s.host
-            ),
-        );
+        step(verb, format!("{} {prep} {}", human(plan.fetch), s.host));
         transfer(
             s,
             src.rsync_store(),
@@ -275,11 +253,14 @@ pub fn copy(args: Args) -> Result<()> {
 }
 
 fn chunk(src: &Source) -> Result<Vec<u8>> {
+    let t0 = Instant::now();
     step(
         "Chunking",
         format!("{} ({})", src.display(), src.describe()),
     );
     let index = src.chunk()?;
+    let t_chunk = t0.elapsed().as_secs();
+    step("Chunked", format!("in {}", duration(t_chunk)));
     Ok(index)
 }
 
