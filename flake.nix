@@ -166,7 +166,7 @@
         ] ++ extraModules;
       };
 
-      # pkgs/ の出力 (packages / devShells) を出す system。aarch64-darwin は、`task cargo` が
+      # pkgs/ の出力 (packages / devShells) を出す system。aarch64-darwin は、`task cascp:cargo` が
       # 手元の Mac でも `.#cascp` を build するため。
       pkgSystems = [ "x86_64-linux" "aarch64-darwin" ];
 

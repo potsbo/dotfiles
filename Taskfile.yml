@@ -20,10 +20,16 @@ vars:
   # warning のためだけに抱えたくないので、herdr の lock が上がるのを待つ。
   EVAL_WARN_IGNORE: 'stdenv\.is[A-Za-z0-9_]+ is deprecated'
 
+# pkgs/ の crate の task は、それぞれのディレクトリの Taskfile に置く。
+includes:
+  cascp:
+    taskfile: pkgs/cascp/Taskfile.yml
+    dir: pkgs/cascp
+
 tasks:
   check:
     desc: lint と全ホストの eval。commit 前に必ず通す
-    deps: [statix, deadnix, nixf-tidy, shellcheck, cargo, actionlint, eval, flake-check]
+    deps: [statix, deadnix, nixf-tidy, shellcheck, cascp:cargo, actionlint, eval, flake-check]
 
   statix:
     cmds:
@@ -36,15 +42,6 @@ tasks:
   shellcheck:
     cmds:
       - nix run --inputs-from . nixpkgs#shellcheck -- --severity=warning {{.SHELL_FILES | catLines}}
-
-  # pkgs/ の Rust crate。eval は build しないので、ここだけ例外として derivation を build する。
-  # インストールされるものと同じ derivation で、コンパイルとテスト (buildRustPackage の
-  # checkPhase が cargo test を回す) を確かめるため。数秒で終わる大きさなので重くない。
-  # fmt と clippy は derivation に含まれないので、devShell (pkgs/cascp/shell.nix) で回す。
-  cargo:
-    cmds:
-      - nix build --no-link .#cascp
-      - nix develop .#cascp -c sh -c 'cd pkgs/cascp && cargo fmt --check && cargo clippy --all-targets -- -D warnings'
 
   # 全ホストを eval する。build はしない (closure の build は重い)。
   # nixpkgs の deprecation warning (属性の rename など) を error 扱いにする。statix / deadnix は

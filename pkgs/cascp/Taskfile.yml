@@ -1,0 +1,29 @@
+# cascp の task。root の Taskfile.yml が `cascp:` として読み込むので、root からは
+# `task cascp:e2e`、このディレクトリの中では (go-task が近い Taskfile を使うので) `task e2e`。
+# どちらの場合も、コマンドはこのディレクトリで走る。
+version: '3'
+
+vars:
+  # flake は repo の root にある。root から読み込まれたときも、ここで直接打ったときも同じ
+  # 場所を指すよう git から引く (`.` でも nix は上へ探しに行くが、そのたびに断りを出す)。
+  FLAKE:
+    sh: git rev-parse --show-toplevel
+
+tasks:
+  # eval は build しないので、ここだけ例外として derivation を build する (root の check から呼ぶ)。
+  # インストールされるものと同じ derivation で、コンパイルとテスト (buildRustPackage の
+  # checkPhase が cargo test を回す) を確かめるため。数秒で終わる大きさなので重くない。
+  # fmt と clippy は derivation に含まれないので、devShell (shell.nix) で回す。
+  cargo:
+    cmds:
+      - nix build --no-link "{{.FLAKE}}#cascp"
+      - nix develop "{{.FLAKE}}#cascp" -c sh -c 'cargo fmt --check && cargo clippy --all-targets -- -D warnings'
+
+  # cascp を、テスト用のコンテナをリモートに見立てて実際に走らせる (tests/e2e.rs)。
+  # docker が要るので check には入れない (Mac や docker の無い CI で check が通らなくなる)。
+  # 転送まわりを変えたときに Linux で手で回す。
+  e2e:
+    desc: cascp の e2e テスト (docker が要る)
+    cmds:
+      - docker load < "$(nix build --no-link --print-out-paths '{{.FLAKE}}#cascp.e2eImage')"
+      - nix develop "{{.FLAKE}}#cascp" -c cargo test --test e2e -- --ignored
