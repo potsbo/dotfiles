@@ -47,7 +47,7 @@ packages:
   - name: anthropics/claude-code@v2.1.302
   - name: aristocratos/btop@v1.4.7
   - name: ynqa/jnv@v0.7.1
-  - name: theseus-rs/postgresql-binaries@18.6.0
+  - name: theseus-rs/postgresql-binaries@18.6.1
   - name: bootandy/dust@v1.2.6
   - name: sachaos/viddy@v1.3.1
   - name: dev.yorhel.nl/ncdu
