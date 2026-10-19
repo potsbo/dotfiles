@@ -55,6 +55,8 @@ let
       CONFIG_HEAD y
       CONFIG_FEATURE_FANCY_HEAD y
       CONFIG_CAT y
+      # symlink を含む木 (regress/scp.sh の forest) を作る
+      CONFIG_LN y
     '';
   };
 

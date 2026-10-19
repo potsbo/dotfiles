@@ -13,17 +13,18 @@ tasks:
   # eval は build しないので、ここだけ例外として derivation を build する (root の check から呼ぶ)。
   # インストールされるものと同じ derivation で、コンパイルとテスト (buildRustPackage の
   # checkPhase が cargo test を回す) を確かめるため。数秒で終わる大きさなので重くない。
-  # fmt と clippy は derivation に含まれないので、devShell (shell.nix) で回す。
+  # fmt と clippy は derivation に含まれないので、devShell (shell.nix) で回す。clippy は feature
+  # `e2e` の付いた tests/ も見るよう --all-features を付ける。
   cargo:
     cmds:
       - nix build --no-link "{{.FLAKE}}#cascp"
-      - nix develop "{{.FLAKE}}#cascp" -c sh -c 'cargo fmt --check && cargo clippy --all-targets -- -D warnings'
+      - nix develop "{{.FLAKE}}#cascp" -c sh -c 'cargo fmt --check && cargo clippy --all-targets --all-features -- -D warnings'
 
-  # cascp を、テスト用のコンテナをリモートに見立てて実際に走らせる (tests/e2e.rs)。
+  # cascp を、テスト用のコンテナをリモートに見立てて実際に走らせる (tests/e2e.rs、tests/scp_regress.rs)。
   # docker が要るので check には入れない (Mac や docker の無い CI で check が通らなくなる)。
   # 転送まわりを変えたときに Linux で手で回す。
   e2e:
     desc: cascp の e2e テスト (docker が要る)
     cmds:
       - docker load < "$(nix build --no-link --print-out-paths '{{.FLAKE}}#cascp.e2eImage')"
-      - nix develop "{{.FLAKE}}#cascp" -c cargo test --test e2e -- --ignored
+      - nix develop "{{.FLAKE}}#cascp" -c cargo test --features e2e

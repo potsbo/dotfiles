@@ -6,3 +6,8 @@ edition = "2024"
 [dependencies]
 # std にシグナル処理が無い。Ctrl-C でも ssh の ControlMaster と一時ディレクトリを片付けたい。
 ctrlc = { version = "3", features = ["termination"] }
+
+[features]
+# tests/ の e2e テストをビルドする。docker と e2e の image (e2e-image.nix) が要るので既定では
+# 入れず、`task e2e` が付ける。これで `#[ignore]` は「今の cascp では通らない」印だけに使える。
+e2e = []
