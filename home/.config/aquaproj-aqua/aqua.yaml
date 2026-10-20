@@ -76,6 +76,6 @@ packages:
   - name: folbricht/desync@v1.1.5
     registry: local
   - name: fastfetch-cli/fastfetch@2.69.0
-  - name: cloudflare/cloudflared@2026.10.1
+  - name: cloudflare/cloudflared@2026.10.2
   - name: zenbu-labs/terminal-browser@v0.13.4
     registry: local
