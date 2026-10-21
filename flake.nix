@@ -158,6 +158,7 @@
           ./hosts/${hostname}/hardware-configuration.nix
           ./hosts/${hostname}/configuration.nix
           ./modules/remote-build.nix
+          ./modules/certificate-trust.nix
           xremap-flake.nixosModules.default
           ./modules/nixos/xremap.nix
           dms.nixosModules.dank-material-shell
@@ -176,6 +177,7 @@
         modules = [
           { networking.hostName = hostname; }
           ./modules/darwin
+          ./modules/certificate-trust.nix
           ./modules/remote-build.nix
           home-manager.darwinModules.home-manager
           (hmModule hostname)
