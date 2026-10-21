@@ -1,5 +1,7 @@
 use std::process::Command;
 
+use crate::Result;
+use crate::cli::Endpoint;
 use crate::script::PRELUDE;
 use crate::session::Session;
 use crate::ui::stderr_is_terminal;
@@ -20,6 +22,22 @@ pub enum Machine {
 }
 
 impl Machine {
+    /// その場所で sh を走らせられるようにする。リモートなら ssh の ControlMaster を張る。
+    pub fn connect(endpoint: &Endpoint) -> Result<Self> {
+        match endpoint {
+            Endpoint::Local(_) => Ok(Machine::Local),
+            Endpoint::Remote { host, .. } => Ok(Machine::Remote(Session::open(host)?)),
+        }
+    }
+
+    /// リモートなら、つないでいる ssh の接続。
+    pub fn session(&self) -> Option<&'static Session> {
+        match self {
+            Machine::Local => None,
+            Machine::Remote(s) => Some(s),
+        }
+    }
+
     pub fn sh(&self, script: &str, args: &[&str]) -> Command {
         let script = format!("{PRELUDE}{script}");
         let tty = stderr_is_terminal();

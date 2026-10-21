@@ -34,7 +34,6 @@ fn remote(path: &str) -> String {
 
 /// simple copy local file to local file
 #[test]
-#[ignore = "手元どうしのコピーは未対応 (scp は cp として振る舞う)"]
 fn local_file_to_local_file() {
     let r = Remote::start();
     fs::write(r.local("data"), data()).unwrap();
@@ -128,7 +127,6 @@ fn local_file_to_remote_dir() {
 
 /// simple copy local file to local dir
 #[test]
-#[ignore = "手元どうしのコピーは未対応 (scp は cp として振る舞う)"]
 fn local_file_to_local_dir() {
     let r = Remote::start();
     fs::write(r.local("copy"), data()).unwrap();
@@ -165,7 +163,6 @@ fn recursive_local_dir_to_remote_dir() {
 
 /// recursive local dir to local dir
 #[test]
-#[ignore = "手元どうしのコピーは未対応 (scp は cp として振る舞う)"]
 fn recursive_local_dir_to_local_dir() {
     let r = Remote::start();
     forest(&r.local("dd"), &data());

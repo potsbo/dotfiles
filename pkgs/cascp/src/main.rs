@@ -15,7 +15,7 @@
 mod chunk;
 mod cli;
 mod copy;
-mod direction;
+mod local;
 mod machine;
 mod process;
 mod script;
@@ -26,11 +26,23 @@ mod units;
 
 use std::process::ExitCode;
 
+use cli::Endpoint::{Local, Remote};
+
 type Result<T> = std::result::Result<T, String>;
 
 fn main() -> ExitCode {
     let argv: Vec<String> = std::env::args().skip(1).collect();
-    let result = cli::parse_args(&argv).and_then(copy::copy);
+    let result = cli::parse_args(&argv).and_then(|args| match (&args.src, &args.dst) {
+        // scp と同じく手元どうしは cp に任せる
+        (Local(src), Local(dst)) => local::copy(src, dst, args.recursive),
+        // push と pull。copy は向きを区別しない (両端を connect するだけ)
+        (src @ Local(_), dst @ Remote { .. }) | (src @ Remote { .. }, dst @ Local(_)) => {
+            copy::copy(src, dst, args.recursive)
+        }
+        (Remote { .. }, Remote { .. }) => {
+            Err("copying between two remote hosts is not supported".into())
+        }
+    });
     session::cleanup();
     match result {
         Ok(()) => ExitCode::SUCCESS,

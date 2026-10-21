@@ -5,7 +5,7 @@ use std::time::Instant;
 
 use crate::Result;
 use crate::chunk::{self, Plan};
-use crate::cli::Args;
+use crate::cli::Endpoint;
 use crate::machine::Machine;
 use crate::process::{lines, run};
 use crate::script::{ASSEMBLE, CHUNK, INSPECT, MISSING, PREPARE, SIZES, TOUCH};
@@ -169,20 +169,22 @@ struct Link {
     dst: Destination,
 }
 
-/// 両端を調べて Source と Destination を作る。どちらのマシンが送る側かはここで決め、
-/// copy() はマシンを意識しない。
-fn link(s: &'static Session, args: &Args) -> Result<Link> {
-    let (from, to) = args.direction.sides(s);
-    let src = Source::inspect(from, args.src.clone())?;
+/// 両端につないで調べ、Source と Destination を作る。ここから先の copy() はマシンを意識しない。
+fn link(src: &Endpoint, dst: &Endpoint, recursive: bool) -> Result<Link> {
+    let from = connect(src)?;
+    let to = connect(dst)?;
+    // 片方は必ずリモート。両方手元なら main が cp に任せ、両方リモートは main が断っている
+    let session = from.session().or(to.session()).expect("one end is remote");
+    let source = Source::inspect(from, src.path().to_string())?;
     // 受け取る側に触る前に断る (scp と同じく、-r 無しのディレクトリはエラー)
-    if matches!(src.kind, Kind::Dir { .. }) && !args.recursive {
-        return Err(format!("{}: not a regular file", src.path));
+    if matches!(source.kind, Kind::Dir { .. }) && !recursive {
+        return Err(format!("{}: not a regular file", source.path));
     }
-    let dst = Destination::prepare(to, &args.dst, &base_name(&src.path))?;
+    let destination = Destination::prepare(to, dst.path(), &base_name(&source.path))?;
     Ok(Link {
-        session: s,
-        src,
-        dst,
+        session,
+        src: source,
+        dst: destination,
     })
 }
 
@@ -226,9 +228,9 @@ fn base_name(path: &str) -> String {
         .map_or(path.to_string(), |n| n.to_string_lossy().into_owned())
 }
 
-pub fn copy(args: Args) -> Result<()> {
-    let s = open(&args.host)?;
-    let link = link(s, &args)?;
+/// 片方がリモートのコピー。手元どうしは local.rs、どちらに渡すかは main が決める。
+pub fn copy(src: &Endpoint, dst: &Endpoint, recursive: bool) -> Result<()> {
+    let link = link(src, dst, recursive)?;
 
     let index = chunk(&link.src)?;
     let plan = plan(&link, &index)?;
@@ -240,9 +242,11 @@ pub fn copy(args: Args) -> Result<()> {
     Ok(())
 }
 
-fn open(host: &str) -> Result<&'static Session> {
-    step("Connecting", host);
-    Session::open(host)
+fn connect(endpoint: &Endpoint) -> Result<Machine> {
+    if let Endpoint::Remote { host, .. } = endpoint {
+        step("Connecting", host);
+    }
+    Machine::connect(endpoint)
 }
 
 fn chunk(src: &Source) -> Result<Vec<u8>> {
