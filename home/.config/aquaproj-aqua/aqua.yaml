@@ -59,7 +59,7 @@ packages:
   - name: orf/gping@gping-v1.21.0
   - name: fujiapple852/trippy@0.13.0
   - name: sharkdp/hexyl@v0.17.0
-  - name: ducaale/xh@v0.26.2
+  - name: ducaale/xh@v0.26.3
   - name: sharkdp/hyperfine@v2.0.0
   - name: imsnif/bandwhich@v0.23.1
   # Not in aqua-registry; defined via the local registry below. Apple Silicon only.
