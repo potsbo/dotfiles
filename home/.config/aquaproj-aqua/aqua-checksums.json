@@ -546,33 +546,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.0/git-lfs-darwin-amd64-v3.8.0.zip",
-      "checksum": "F1C17AECA0B4EAAB9EA606226477DBED3B84B56FE0811A9F967D2EA2B2393C53",
+      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.1/git-lfs-darwin-amd64-v3.8.1.zip",
+      "checksum": "4292B3518E717E53C20A6C2C0696E2069A21E97500AD14B80B06BD52DE8F3B72",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.0/git-lfs-darwin-arm64-v3.8.0.zip",
-      "checksum": "CAFF76A7D070D8160C89BC39B6E85D98F24135B6FED038A3B4DE2590D25102D8",
+      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.1/git-lfs-darwin-arm64-v3.8.1.zip",
+      "checksum": "0BA10E897E0496412CD86EACAED4ED554C97DDC29BC5C709D28FAA5EAAA2222C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.0/git-lfs-linux-amd64-v3.8.0.tar.gz",
-      "checksum": "E455E00F15D9B95661B8D53498FFB0C3367962CF1EC73C31AB7369516CD6AB8D",
+      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.1/git-lfs-linux-amd64-v3.8.1.tar.gz",
+      "checksum": "E72CF723A4A660438862282E8AECF3885FC8123E88BFCAD534CF6B941A354B75",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.0/git-lfs-linux-arm64-v3.8.0.tar.gz",
-      "checksum": "AC9C8EFAC980BB0505EAD384D087E2ACB6486FD8498691A2165FA174EC6118C2",
+      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.1/git-lfs-linux-arm64-v3.8.1.tar.gz",
+      "checksum": "67895DD77B63329796BC5EFDD47B57F218E1F7B98717EBAF936A8238DBCAEC0F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.0/git-lfs-windows-amd64-v3.8.0.zip",
-      "checksum": "B62E7B8CEDDEE635F691233D77DE8EAA4B213E9209E0173811D8CFA77F7882C1",
+      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.1/git-lfs-windows-amd64-v3.8.1.zip",
+      "checksum": "5BB771C12B3DACC535E912D0270A010C209D4DA2E63819C5918E3547C2DEFED9",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.0/git-lfs-windows-arm64-v3.8.0.zip",
-      "checksum": "72403A96EAE6689C3A4038C99E5D9E0938EF5552C71A234AEF65EF0C314AF081",
+      "id": "github_release/github.com/git-lfs/git-lfs/v3.8.1/git-lfs-windows-arm64-v3.8.1.zip",
+      "checksum": "7E70990E339EFAB3E793AFFB919355B548C9A41C5B6BB52D90267BCB84BA4784",
       "algorithm": "sha256"
     },
     {
