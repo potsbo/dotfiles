@@ -1,5 +1,4 @@
-# アプリが書き込む絶対パス・一時的な MCP/marketplace 設定や、マシン固有の信頼設定は
-# マシン間で共有できないため含めない。ここでは共通の動作設定だけを管理する。
+# 通知や MCP/marketplace の一時的な実行パスはマシン間で共有できないため含めない。
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 sandbox_mode = "workspace-write"
@@ -24,3 +23,8 @@ hooks = true
 [desktop]
 followUpQueueMode = "steer"
 conversationDetailMode = "STEPS_PROSE"
+
+# 信頼設定は ~ が展開されず絶対パスで照合されるため、OS ごとのパスを保存する。
+# 一致しない項目は使われないので、復元のために独自の変換処理を持つ必要はない。
+[projects."/Users/potsbo/src/github.com/potsbo/dotfiles"]
+trust_level = "trusted"

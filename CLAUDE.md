@@ -90,8 +90,12 @@ runtime, not baked in.
 - **No hardcoded home paths.** Never write `/home/<user>` or `/Users/<user>`
   literally — home differs per OS (`/home/...` on Linux, `/Users/...` on macOS).
   Prefer `~`, `$HOME`, or an XDG var (`$XDG_DATA_HOME`, etc.). When a tool's
-  config format can't expand `~`/env vars, find a mechanism that can (a wrapper,
-  a generated file, or the tool's own template vars) rather than hardcoding.
+  config format can't expand `~`/env vars, first check for its own template vars
+  or another supported way to express a shared path.
+  **例外:** 設定形式にパスを共通化して書く方法がなく、かつ OS ごとの絶対パスを
+  複数登録しても問題ない場合は、ホームを含む絶対パスを併記して commit してよい。
+  この条件を満たす場合、共通化だけを目的とした wrapper や生成・同期機構は作らない。
+  判断理由は該当設定の直上に残す。
 - Guard OS-specific commands/paths behind an `uname`/`$OSTYPE` check.
 
 ## Personal identifiers
