@@ -21,7 +21,9 @@
   environment.etc."ssh/gh-authorized-keys" = {
     text = ''
       #!/bin/sh
-      exec ${pkgs.curl}/bin/curl -fsSL --connect-timeout 5 --max-time 10 "https://github.com/$1.keys"
+      # 同名の第三者 GitHub アカウントを別の Unix ユーザーの認証元にしない。
+      [ "$1" = potsbo ] || exit 0
+      exec ${pkgs.curl}/bin/curl -fsSL --connect-timeout 5 --max-time 10 https://github.com/potsbo.keys
     '';
     mode = "0555";
     user = "root";
