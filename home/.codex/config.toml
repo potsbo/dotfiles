@@ -1,5 +1,6 @@
 # アプリが書き込む絶対パス・一時的な MCP/marketplace 設定や、信頼・初回案内の状態は
 # マシン間で共有できないため含めない。ここでは共通の動作設定だけを管理する。
+# rebuild 時に ~/.codex/config.toml の共通キーへ反映し、他のローカル状態は保持する。
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 sandbox_mode = "workspace-write"

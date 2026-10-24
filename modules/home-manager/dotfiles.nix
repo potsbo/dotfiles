@@ -14,7 +14,7 @@
 #   リポジトリ側へ落ちる (gitignore 済み)。.config を丸ごと 1 本にするのは
 #   「知らないファイルが追加されたときに気づく」ためで、個別リンクにはしない。
 #
-# 例外は aqua の設定だけ (aqua.nix)。作業ツリーを直接指すと conflict marker が
+# aqua の設定は例外 (aqua.nix)。作業ツリーを直接指すと conflict marker が
 # そのまま実行時の設定になり、aqua 管理のコマンドが全部落ちるため store 経由にしてある。
 { config, lib, pkgs, ... }:
 
@@ -36,8 +36,6 @@ let
     # 注意: herdr が integration 更新時にこのファイルを書き直す (二重登録や再整形の diff が出たらこの管理をやめる)
     ".claude/settings.json"
     ".claude/claude-powerline.json"
-    # .codex もセッション状態などを含むため、設定ファイルだけ管理する。
-    ".codex/config.toml"
     # 全セッション共通の指示。Claude Code 用の ~/.claude/CLAUDE.md も同じファイルを指す。
     ".codex/AGENTS.md"
   ];
@@ -55,6 +53,16 @@ in
         (_: { source = mkOutOfStoreSymlink "${repoHome}/.config/cursor/user/settings.json"; }));
 
     activation = {
+      # Codex は信頼状態・初回案内・一時 marketplace の絶対パスを config.toml に
+      # 書き戻す。symlink だと pull のたびに競合するので、実体は各ホストに置く。
+      # /etc の共通設定レイヤは standalone home-manager では管理できないため、
+      # rebuild 時に共通キーだけ上書きし、それ以外のローカル状態は残す。
+      # linkGeneration より前に旧 symlink を実ファイルへ置換し、移行時の状態も保つ。
+      syncCodexConfig = lib.hm.dag.entryBetween [ "linkGeneration" ] [ "writeBoundary" ] ''
+        run ${pkgs.python3.withPackages (ps: [ ps.tomlkit ])}/bin/python \
+          ${./sync-codex-config.py} ${../../home/.codex/config.toml} "$HOME/.codex/config.toml"
+      '';
+
       # writeBoundary より前に張るのは、この後の linkGeneration が
       # ~/.config/starship.toml 等を symlink 越しに書くため。
       #
