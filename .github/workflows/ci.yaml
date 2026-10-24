@@ -32,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: aquaproj/aqua-installer@v4.1.0
+      - uses: aquaproj/aqua-installer@v4.1.1
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.2
       - run: aqua install
         env:
           AQUA_CONFIG: ${{ github.workspace }}/home/.config/aquaproj-aqua/aqua.yaml
@@ -51,9 +51,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: DeterminateSystems/determinate-nix-action@v3
-      - uses: aquaproj/aqua-installer@v4.1.0
+      - uses: aquaproj/aqua-installer@v4.1.1
         with:
-          aqua_version: v2.64.0
+          aqua_version: v2.65.2
       - run: aqua i -l
       - run: task check
 
