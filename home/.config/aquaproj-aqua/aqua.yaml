@@ -75,7 +75,7 @@ packages:
   - name: modem-dev/hunk@v0.24.0
   - name: folbricht/desync@v1.1.5
     registry: local
-  - name: fastfetch-cli/fastfetch@2.69.0
+  - name: fastfetch-cli/fastfetch@2.70.0
   - name: cloudflare/cloudflared@2026.10.3
   - name: zenbu-labs/terminal-browser@v0.13.4
     registry: local
