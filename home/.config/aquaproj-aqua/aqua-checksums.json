@@ -866,28 +866,28 @@
       "algorithm": "sha512"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.24.0/hunkdiff-darwin-arm64.tar.gz",
-      "checksum": "F876F1E86D6BA88E120937EB79F63889762A29FED951236D6DE69CE3FF967819",
+      "id": "github_release/github.com/modem-dev/hunk/v0.24.1/hunkdiff-darwin-arm64.tar.gz",
+      "checksum": "5F9AFD41D825E2F87958B0702E779E52D38207C0B42D5316EFE54218F35B4D7D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.24.0/hunkdiff-darwin-x64.tar.gz",
-      "checksum": "7E64DB632276ACF354597A6966CC0E2879A03190E1DBFC0C3A713535FAF5E090",
+      "id": "github_release/github.com/modem-dev/hunk/v0.24.1/hunkdiff-darwin-x64.tar.gz",
+      "checksum": "8014B3EB7389C78767DC0F51EA07FF24C773FA7CD5D432811E881B3359D99489",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.24.0/hunkdiff-linux-arm64.tar.gz",
-      "checksum": "EAABA9F5C0C184DB4A8493AC386B112EE8CBB553884C4A0E5E04138DEF5E2D29",
+      "id": "github_release/github.com/modem-dev/hunk/v0.24.1/hunkdiff-linux-arm64.tar.gz",
+      "checksum": "AB49C8ABA82C3C9872F1C5EEFD96D1C4C2491E5B80647F97B2E81FC6C4676DEB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.24.0/hunkdiff-linux-x64.tar.gz",
-      "checksum": "7656402A8EBBD5117AD24E12BDA1AF045FC9C85C3B40E72DBFDE4DEA79B60C69",
+      "id": "github_release/github.com/modem-dev/hunk/v0.24.1/hunkdiff-linux-x64.tar.gz",
+      "checksum": "4B8C98F8D97745499916CC1E1D2F27FFD258C6D6358DD4532F61E41C5EB19692",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/modem-dev/hunk/v0.24.0/hunkdiff-windows-x64.tar.gz",
-      "checksum": "9DA71A746C4210636193D6C4C1A1ED61BD0E1140B64EF3846623C45446EFF3E6",
+      "id": "github_release/github.com/modem-dev/hunk/v0.24.1/hunkdiff-windows-x64.tar.gz",
+      "checksum": "77433C296E4E2A96BD3BEC57CAB44BD185183997972F796E1649E5FC50C3F6A3",
       "algorithm": "sha256"
     },
     {
