@@ -120,7 +120,7 @@ done
 unset _hm_vars
 
 # --- forwarded ssh-agent: keep keys on the origin host, usable across herdr ---
-# We ssh in with agent forwarding (ForwardAgent), so no private key lives here.
+# When opting into agent forwarding (ssh -A), keep the private key on the origin host.
 # But every ssh connection gets its own forwarded socket, and long-lived herdr
 # panes keep the one they first saw — so after a reconnect their $SSH_AUTH_SOCK
 # is stale and the agent looks gone. Fix: point a stable, machine-local symlink

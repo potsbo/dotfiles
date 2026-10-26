@@ -52,7 +52,6 @@ in
       # avalanche は ssh を受け付けないが、ブロックがあっても害はないので除外しない。
       lib.mapAttrs
         (_: h: {
-          ForwardAgent = true;
           # ここのホストへは Tailscale (100.64.0.0/10) か Cloudflare WARP 経由で入る。
           # どちらも IPv4 なので、AAAA を候補にする理由がない。
           # 一方 graniteridge は素の名前が Tailscale の A に加えて会社側 DNS が返す
@@ -80,8 +79,10 @@ in
         };
 
         "*" = {
+          # 接続先の侵害から他ホストへ認証を悪用されないよう、必要な接続だけ ssh -A で許可する。
+          ForwardAgent = false;
           IdentityFile = "~/.ssh/id_ed25519";
-          # 初回使用時に鍵を agent (macOS では keychain にも) へ入れる。ForwardAgent と
+          # 初回使用時に鍵を agent (macOS では keychain にも) へ入れる。ssh -A と
           # 組み合わせると中継ホストに鍵を置かずに使い回せる。IgnoreUnknown は Linux で
           # UseKeychain がエラーにならないため (home-manager がブロック先頭に出す)。
           AddKeysToAgent = true;
