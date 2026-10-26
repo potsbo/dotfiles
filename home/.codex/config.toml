@@ -32,6 +32,9 @@ trust_level = "trusted"
 [projects."/home/potsbo/src/github.com/potsbo/dotfiles"]
 trust_level = "trusted"
 
+[projects."/home/potsbo/src/github.com/medicu-inc/one"]
+trust_level = "trusted"
+
 [hooks.state]
 
 [hooks.state."/home/potsbo/.codex/hooks.json:session_start:0:0"]
