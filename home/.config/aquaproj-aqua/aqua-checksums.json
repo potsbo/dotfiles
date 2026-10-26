@@ -316,28 +316,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.3/cloudflared-darwin-amd64.tgz",
-      "checksum": "81B7B85F2376815C4F59B1AA323887B62E16CE8B67555C2E1577DC23F2A82000",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.4/cloudflared-darwin-amd64.tgz",
+      "checksum": "F11FBEF4207D715892331917DAFD437F032CF4B7137ED64DEA3008338C1C613D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.3/cloudflared-darwin-arm64.tgz",
-      "checksum": "1165D14B6F6360A3B8C283D7D1100024D6EC7CD9BC9E32519E96150645F3EC55",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.4/cloudflared-darwin-arm64.tgz",
+      "checksum": "68B6BC4080AC1330234DB2A9002D07F98B000537A1BD531A687B660D4160FA7F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.3/cloudflared-linux-amd64",
-      "checksum": "053B80B0A23031A038FDBF3C073F59F82B8F1F152AA67971D7383FFAFC0DBAB0",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.4/cloudflared-linux-amd64",
+      "checksum": "AE5E8ADD7884B0531D66BBCA4570D1DE491FF6DA51E4EBE7EB160CDF241D9E42",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.3/cloudflared-linux-arm64",
-      "checksum": "89297EBFB9E8C99C0DC013A1140601453CF3798D8306C5591651F4A3F5210BE8",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.4/cloudflared-linux-arm64",
+      "checksum": "2B7203B4FB0BA28A0C1E12F8855CE2C25F76D266A8D5EDAFAC5540B6812ACFF6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.3/cloudflared-windows-amd64.exe",
-      "checksum": "76B2805253D0D6FFACB092A7ACFBEE99E7AF6917835C0C5410E23F3EF5052DA2",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.4/cloudflared-windows-amd64.exe",
+      "checksum": "411B16D40C8D872243EFEB52C550053D00AF0A8A97FBB32E730FB8ABA429EAA8",
       "algorithm": "sha256"
     },
     {
