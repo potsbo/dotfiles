@@ -42,6 +42,7 @@
   },
   "lockFileMaintenance": {
     "enabled": true,
+    "schedule": ["before 4am"],
     "automerge": true
   },
   "packageRules": [
