@@ -131,43 +131,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-darwin-arm64.tar.gz",
-      "checksum": "CF47D30004FF26E5CFED6004A29CA94E05AD53D6F890EE1BE8BB582E8CE2A5B5",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-darwin-arm64.tar.gz",
+      "checksum": "28DC437C4530E4FBD5E4F8924119CB001C332B64DE5E817B35898C39EC107155",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-darwin-x64.tar.gz",
-      "checksum": "4C62F49341F7D902BB92186D67EEE2ADBF014FABA9AB617729DE52D7B719E1C4",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-darwin-x64.tar.gz",
+      "checksum": "D35C77B739797451772B8179C076BD7230F456239BF538890FBC0B38CA209BDE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-linux-arm64-musl.tar.gz",
-      "checksum": "9F233D46CD396F97260825A7E68C3410288CA6976A7F4A6A5B3CAEAD4A5E785A",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-linux-arm64-musl.tar.gz",
+      "checksum": "916FE5C7E0593F42982AE8491A04A51F3D840BB06E54C68BDD8A731E421C4473",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-linux-arm64.tar.gz",
-      "checksum": "97AB45A42FDB141DC37D3B12973638EBD8FDA59163ECA51B02AA2EDED0630874",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-linux-arm64.tar.gz",
+      "checksum": "F464C31D01CD364D1D5DF529DC4C202CE9A05C7A87B9FD4FEFEBB0A8FFE1ECB5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-linux-x64-musl.tar.gz",
-      "checksum": "6DDC4F6666AA87629F416B9EB6E6DCE9E9ABCFA749FBFBDC81758D4D6A9C442B",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-linux-x64-musl.tar.gz",
+      "checksum": "21CF8759CE58E9040457A0DAFB6AD36A855B57C350337A3BD865F42D7E69F377",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-linux-x64.tar.gz",
-      "checksum": "5BEA9E13AC07EA6804C24E6263EC7E5B3D13F81D3F681C92F9784C534425FAE1",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-linux-x64.tar.gz",
+      "checksum": "1E506D1D4466D854F0A2EA662F04122C77475E8C71A680BBBDC1C99FEFFF3FA7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-win32-arm64.zip",
-      "checksum": "11867B6473E2D8CECCC72847B9E6B75583C7D0FBC9660827E849B2FD77384CC7",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-win32-arm64.zip",
+      "checksum": "2D268C9127F34F7712BEA17B1943C8A2C78DE6E3AF627547E147A281FBFF73BB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.310/claude-win32-x64.zip",
-      "checksum": "A9419B5C4942B919CB048D3F3288E19D2BEC55F843615D652636F7CB638ABB80",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.311/claude-win32-x64.zip",
+      "checksum": "D5CEB396733C2B96C163B925149ABCE37ED075ADAC9A3D94208279986E4546ED",
       "algorithm": "sha256"
     },
     {
