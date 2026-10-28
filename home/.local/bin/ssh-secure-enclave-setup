@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+[[ $(uname -s) == Darwin ]] || exit 0
+[[ $(id -u) != 0 ]] || { echo 'Run as the logged-in Mac user, without sudo.' >&2; exit 1; }
+
+label=dotfiles-ssh-no-bio
+key="$HOME/.ssh/id_secure_enclave"
+fail() { echo "Secure Enclave SSH: $*" >&2; exit 1; }
+identity() {
+  /usr/sbin/sc_auth list-ctk-identities |
+    awk -v label="$label" '$4 == label { print $1, $2, $3 }'
+}
+
+# herdr の複数ホストへの再接続で毎回承認する負担を避け、使用時の承認は求めない。
+# p-256-ne による秘密鍵の持ち出し防止は維持する。bio 付きの旧鍵は別ラベルで残す。
+found=$(identity)
+if [[ -z $found ]]; then
+  /usr/sbin/sc_auth create-ctk-identity -l "$label" -k p-256-ne -t none
+  found=$(identity)
+fi
+[[ -n $found && $found != *$'\n'* ]] || fail "Expected exactly one identity named $label."
+read -r key_type _key_hash protection <<< "$found"
+[[ $key_type == p-256-ne && $protection == none ]] || fail "Expected p-256-ne / none for $label."
+
+# 公開鍵のコメントで旧 bio 版の参照と区別する。パスは変えず、初回だけ取り直す。
+if [[ -s $key && -s $key.pub ]] && awk -v label="$label" '$3 == label { found=1 } END { exit !found }' "$key.pub"; then
+  echo "Secure Enclave SSH: already set up ($key.pub)."
+  exit 0
+fi
+
+# -K が保存するのは秘密鍵ではなく Mac 固有の鍵への参照。
+# ファイルが足りないときだけ CTK から同じ鍵の参照を復元する。
+# provider は全 CTK 鍵の参照を返すので、保存後に専用ラベルのファイルだけ選ぶ。
+umask 077
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+(
+  cd "$tmp"
+  # PIN 不要だが ssh-keygen は端末があると stdin より /dev/tty を優先する。
+  # この列挙だけ空の PIN を返す。
+  SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=/usr/bin/true \
+    /usr/bin/ssh-keygen -K -w /usr/lib/ssh-keychain.dylib -N ''
+)
+downloaded="$tmp/id_ecdsa_sk_rk_$label"
+[[ -s $downloaded && -s $downloaded.pub ]] || fail "Missing resident SSH key for $label."
+mkdir -p "$HOME/.ssh"
+mv "$downloaded" "$key"
+awk -v label="$label" '{ print $1, $2, label }' "$downloaded.pub" > "$key.pub"
+echo "Secure Enclave SSH: ready. Register $key.pub on GitHub (doctor shows the command)."
