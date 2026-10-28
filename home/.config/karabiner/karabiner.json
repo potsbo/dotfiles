@@ -3443,11 +3443,7 @@
                                         "optional": ["caps_lock"]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'"
-                                    }
-                                ],
+                                "to": [{ "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'" }],
                                 "type": "basic"
                             }
                         ]
@@ -7637,11 +7633,7 @@
                                         "optional": ["caps_lock"]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'"
-                                    }
-                                ],
+                                "to": [{ "shell_command": "/usr/bin/open 'obsidian://advanced-uri?vault=notes&daily=true'" }],
                                 "type": "basic"
                             }
                         ]
