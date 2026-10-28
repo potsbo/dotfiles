@@ -51,15 +51,21 @@ if [[ $os == Linux ]]; then
   check "user password" "sudo passwd potsbo" passwd_set
 fi
 
-# 鍵は gitignore なので新規マシンでは無い。他ホストの sshd は GitHub の公開鍵を
-# 毎回引く (ssh.nix) ので、登録するまで他ホストにも入れない。
-check "ssh key" "ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519" test -f ~/.ssh/id_ed25519.pub
+# 他ホストの sshd は GitHub の公開鍵を毎回引くので、登録するまで他ホストにも入れない。
+if [[ $os == Darwin ]]; then
+  ssh_public_key="$HOME/.ssh/id_secure_enclave.pub"
+  check "Secure Enclave SSH reference" "ssh-secure-enclave-setup" test -s "$HOME/.ssh/id_secure_enclave"
+  check "ssh public key" "ssh-secure-enclave-setup" test -s "$ssh_public_key"
+else
+  ssh_public_key="$HOME/.ssh/id_ed25519.pub"
+  check "ssh key" "ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519" test -f "$ssh_public_key"
+fi
 ssh_key_on_github() {
   local key
-  key=$(cut -d' ' -f2 ~/.ssh/id_ed25519.pub) || return 1
+  key=$(cut -d' ' -f2 "$ssh_public_key") || return 1
   curl -fsSL --max-time 10 https://github.com/potsbo.keys | grep -qF "$key"
 }
-check "ssh key on GitHub" "gh ssh-key add ~/.ssh/id_ed25519.pub" ssh_key_on_github
+check "ssh key on GitHub" "gh ssh-key add ${ssh_public_key/#$HOME/\~}" ssh_key_on_github
 
 # gh は git の credential helper、nix の GitHub token、notes-pull が依存する。
 # ログイン後に rebuild をもう一度流すと access-tokens.conf が生える (dotfiles.nix)。
