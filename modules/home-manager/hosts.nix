@@ -80,13 +80,17 @@ in
         };
 
         "*" = {
-          IdentityFile = "~/.ssh/id_ed25519";
-          # 初回使用時に鍵を agent (macOS では keychain にも) へ入れる。ForwardAgent と
-          # 組み合わせると中継ホストに鍵を置かずに使い回せる。IgnoreUnknown は Linux で
-          # UseKeychain がエラーにならないため (home-manager がブロック先頭に出す)。
+          IdentityFile = if pkgs.stdenv.hostPlatform.isDarwin
+            then "~/.ssh/id_secure_enclave"
+            else "~/.ssh/id_ed25519";
+          # agent には秘密鍵ではなく参照情報を渡す。再起動後も最初の接続で読み込まれ、
+          # 転送先 Linux からの署名依頼も Mac の Secure Enclave を使う。
           AddKeysToAgent = true;
-          IgnoreUnknown = "UseKeychain";
-          UseKeychain = true;
+        } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+          SecurityKeyProvider = "/usr/lib/ssh-keychain.dylib";
+          # 古いファイル鍵が agent に残っていてもそちらで成功してしまわないようにする。
+          # Linux では転送された agent の鍵を使うので IdentitiesOnly を指定しない。
+          IdentitiesOnly = true;
         };
       };
   };
