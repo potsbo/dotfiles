@@ -1336,23 +1336,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.0/terminal-browser-darwin-arm64.tar.gz",
-      "checksum": "68BAFFC7CC3B1A817D5744CB70655FBB3002AE0D985538F9DFAF0517788FA7A4",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-darwin-arm64.tar.gz",
+      "checksum": "1D63DB26249CE074301C1B5D308C57DD322C6C0758ADB41D00C632496D818526",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.0/terminal-browser-darwin-x64.tar.gz",
-      "checksum": "4309AA1479B6C472C8E554CF07BE16C9E164CDFDA2B443597236A26B3C2F1653",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-darwin-x64.tar.gz",
+      "checksum": "8C49A55E4CDB9B79D0EA68071C6119483194E3405FC68ACD496079CD991C803F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.0/terminal-browser-linux-arm64.tar.gz",
-      "checksum": "1474FF2C5654EF9A810B83EDC514938163586F1E994333891FE109C81FA1E97F",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-linux-arm64.tar.gz",
+      "checksum": "6ED94377367BA0923DB922BDBEFFFE919D002FA21841FBFBB1B1025FEBAF364E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.0/terminal-browser-linux-x64.tar.gz",
-      "checksum": "856A5FBE1F0DAF769C87FE54C16453C2A5B873A4D384A988DC8B0ABCE405BA02",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-linux-x64.tar.gz",
+      "checksum": "138BF71C3D6F115025E8661B7EE2D036CF7C92ECB2F715E0B4C316539BCAA7EB",
       "algorithm": "sha256"
     },
     {
