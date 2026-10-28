@@ -101,7 +101,11 @@
       PubkeyAuthentication yes
       PasswordAuthentication no
       KbdInteractiveAuthentication no
-      AuthorizedKeysCommand /usr/bin/curl -fsSL https://github.com/%u.keys
+      AuthorizedKeysCommand ${pkgs.writeShellScript "gh-authorized-keys" ''
+        # 同名の第三者 GitHub アカウントを別の Unix ユーザーの認証元にしない。
+        [ "$1" = potsbo ] || exit 0
+        exec /usr/bin/curl -fsSL --connect-timeout 5 --max-time 10 https://github.com/potsbo.keys
+      ''} %u
       AuthorizedKeysCommandUser nobody
     '';
   };

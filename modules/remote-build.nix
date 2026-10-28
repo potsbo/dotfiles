@@ -38,6 +38,8 @@ in
       })
       builders;
     settings = {
+      # サービス用アカウントには daemon を使わせない。root は trusted-users で許可される。
+      allowed-users = [ user ];
       # builder に無い依存は client 経由で送らず builder が直接 cache から取る。
       builders-use-substitutes = true;
       trusted-users = lib.mkIf isBuilder [ user ];

@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    "github>aquaproj/aqua-renovate-config#2.13.0"
+    "github>aquaproj/aqua-renovate-config#2.14.0"
   ],
   "customManagers": [
     {
@@ -42,6 +42,7 @@
   },
   "lockFileMaintenance": {
     "enabled": true,
+    "schedule": ["before 4am"],
     "automerge": true
   },
   "packageRules": [

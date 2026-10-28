@@ -52,7 +52,6 @@ in
       # avalanche は ssh を受け付けないが、ブロックがあっても害はないので除外しない。
       lib.mapAttrs
         (_: h: {
-          ForwardAgent = true;
           # ここのホストへは Tailscale (100.64.0.0/10) か Cloudflare WARP 経由で入る。
           # どちらも IPv4 なので、AAAA を候補にする理由がない。
           # 一方 graniteridge は素の名前が Tailscale の A に加えて会社側 DNS が返す
@@ -80,11 +79,13 @@ in
         };
 
         "*" = {
+          # 接続先の侵害から他ホストへ認証を悪用されないよう、必要な接続だけ ssh -A で許可する。
+          ForwardAgent = false;
           IdentityFile = if pkgs.stdenv.hostPlatform.isDarwin
             then "~/.ssh/id_secure_enclave"
             else "~/.ssh/id_ed25519";
           # agent には秘密鍵ではなく参照情報を渡す。再起動後も最初の接続で読み込まれ、
-          # 転送先 Linux からの署名依頼も Mac の Secure Enclave を使う。
+          # ssh -A で転送した Linux からの署名依頼も Mac の Secure Enclave を使う。
           AddKeysToAgent = true;
         } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
           SecurityKeyProvider = "/usr/lib/ssh-keychain.dylib";
