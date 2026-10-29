@@ -1336,23 +1336,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.13.4/terminal-browser-darwin-arm64.tar.gz",
-      "checksum": "F017230C78C60A07EF4451A1EB0A92727F0B955A8FCD87AEC358910C5D0C03C7",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-darwin-arm64.tar.gz",
+      "checksum": "1D63DB26249CE074301C1B5D308C57DD322C6C0758ADB41D00C632496D818526",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.13.4/terminal-browser-darwin-x64.tar.gz",
-      "checksum": "01BC6991BAD122F42E4F2A5164A198D8384B944C036DE112078FD51F58DC67ED",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-darwin-x64.tar.gz",
+      "checksum": "8C49A55E4CDB9B79D0EA68071C6119483194E3405FC68ACD496079CD991C803F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.13.4/terminal-browser-linux-arm64.tar.gz",
-      "checksum": "0CF567D8218995A24FB6CE4B06C07CCF58A8C517906058087355F1E2FAD1969F",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-linux-arm64.tar.gz",
+      "checksum": "6ED94377367BA0923DB922BDBEFFFE919D002FA21841FBFBB1B1025FEBAF364E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.13.4/terminal-browser-linux-x64.tar.gz",
-      "checksum": "6277DAAABAB16711AB3F1961CDFFAD9EFAC5E70AC55D5076E2C86496D649D3A4",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.1/terminal-browser-linux-x64.tar.gz",
+      "checksum": "138BF71C3D6F115025E8661B7EE2D036CF7C92ECB2F715E0B4C316539BCAA7EB",
       "algorithm": "sha256"
     },
     {
@@ -1431,43 +1431,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.12.1/node-v26.12.1-darwin-arm64.tar.gz",
-      "checksum": "1901D539912C02AFA10D1CC126943A8855A7EEDEBE830119463470DB5E6C59E8",
+      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-arm64.tar.gz",
+      "checksum": "D38BD5E5A2DDCE6BBB5CE45E46E208337DA4D51FFFE611E567FD32073D6439F6",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.12.1/node-v26.12.1-darwin-x64.tar.gz",
-      "checksum": "B85C2EA4420AD0BC4ABF2DC6CF1F55130ED681F1CABF60CF3F526E4C9E2712FF",
+      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-x64.tar.gz",
+      "checksum": "525C9B29BB0263D687DE60A4CEC0E2A6DB876A8EB032369E5795ECA71E7C358E",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.12.1/node-v26.12.1-linux-arm64.tar.gz",
-      "checksum": "A6C01AF459DD8972AB3FB08EE5DA81244D26BA8C4944A62D5BBBA8C597AE154F",
+      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-linux-arm64.tar.gz",
+      "checksum": "439E9C438ACDF6A6FFE47418DA709153D66C4BED812E30A473FAACB107DD2791",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.12.1/node-v26.12.1-linux-x64.tar.gz",
-      "checksum": "0FD1EB7770598F52A21995EDF6ED35FC690400FA437C2386AF329519E9143132",
+      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-linux-x64.tar.gz",
+      "checksum": "5848553868B402D3FABB5B09270649977780A390F832155721025A08B5104455",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.12.1/node-v26.12.1-win-x64.zip",
-      "checksum": "B3EFD5C70CBA3308ED46E7E699A9B8AAC075BBC6B027FCB39C84C31ACC25E2B4",
+      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-win-x64.zip",
+      "checksum": "DCC60D59A0746999F99064A01C020445D54D84228C691CDBF25B49AC3B59150A",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.12.1/node-v26.12.1-linux-arm64-musl.tar.gz",
-      "checksum": "C3694551F6CB888FE0BEFB4CB2E13FFE45B0BB2528EC141E7C3A29A7D7974D13",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.0/node-v26.13.0-linux-arm64-musl.tar.gz",
+      "checksum": "F3DDA772BA0C1F2CD6FEC46F6EC24687584767F2C3F9117A47EDF191E7786720",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.12.1/node-v26.12.1-linux-x64-musl.tar.gz",
-      "checksum": "8BF9CC0E7F8E3C7EC5368DCA19242CAD651B6B09D35BCDCF290AC3F80925E8DD",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.0/node-v26.13.0-linux-x64-musl.tar.gz",
+      "checksum": "C6C738FE564C3EB053172BFD4CA1166EEC8BC076F84231A2EA70165E316F5809",
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.578.0/registry.yaml",
-      "checksum": "EA4C2D5E969C4DA4C261F87B2B090A2BC137E6DC6406884E380AA465E25EA68D",
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.579.0/registry.yaml",
+      "checksum": "5BC609335C3E930F66B52E4EF44824852868C88898137557B078570C3CE9DF94",
       "algorithm": "sha256"
     }
   ]
