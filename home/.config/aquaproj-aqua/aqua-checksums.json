@@ -316,28 +316,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.5/cloudflared-darwin-amd64.tgz",
-      "checksum": "6699392FED92367808C248C2D90BED66E49BBF66E1B4EE3E4141230F3F7391B3",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.6/cloudflared-darwin-amd64.tgz",
+      "checksum": "6C04A13835CA5FF29A0C6F58D17D1F3956AAD1B7DF1631F5B5EFBC06269DEDED",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.5/cloudflared-darwin-arm64.tgz",
-      "checksum": "184C7D4F5F977348243A6D7CA8F6CF6073B9B2746CFE8C1FE15AA59E9A522BF0",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.6/cloudflared-darwin-arm64.tgz",
+      "checksum": "EA1E5105D35BBE16CEE5B2F7B4742059ADA341FBD35938ED827C24B85EFA51C8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.5/cloudflared-linux-amd64",
-      "checksum": "E1BC0CF084FD9E590554FE769A86B1DB46701C3F847A43D902F7B974A4E16298",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.6/cloudflared-linux-amd64",
+      "checksum": "1D356DAC769D0DBF62EBE588C4034824BBFF98D5790C2F844CC99E0E2F57462D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.5/cloudflared-linux-arm64",
-      "checksum": "72E0D05A67E09DA87CF495E409A28C3CC5994DD23FC66A982EEBEA6A55923B7D",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.6/cloudflared-linux-arm64",
+      "checksum": "0AE0E179475B2C77651A718D2B376E0151F4FCA5954702A84F02843A4D5FCAC0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.5/cloudflared-windows-amd64.exe",
-      "checksum": "DB4E4C413612A0916F3E1679D3CAAF376F94911952D163028FB726FB2E0516A9",
+      "id": "github_release/github.com/cloudflare/cloudflared/2026.10.6/cloudflared-windows-amd64.exe",
+      "checksum": "D521B3BF68982165F0D06D76732F22D9A105EF057FF3AE4C0986F3A23190950F",
       "algorithm": "sha256"
     },
     {
@@ -971,28 +971,28 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.160.0/codex-package-aarch64-apple-darwin.tar.gz",
-      "checksum": "007DF41B607DBBC8D204B9746CE7FED2D4CE6C813F44C32CEEE54175CA796525",
+      "id": "github_release/github.com/openai/codex/rust-v0.165.0/codex-package-aarch64-apple-darwin.tar.gz",
+      "checksum": "34D12384D90F8E09B0B9ABAABF2A0AC02A52093B131504AEAF282107F54A44B2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.160.0/codex-package-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "7F0FE42FF22ECFA3A47BC4A34F5B22C4218B431A4EC0ABA51C7D98299F07900C",
+      "id": "github_release/github.com/openai/codex/rust-v0.165.0/codex-package-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "C8B2844FDEF57498572DB960344AEE8C836CE9F75C203379DA0A9C3A334FC3B7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.160.0/codex-package-x86_64-apple-darwin.tar.gz",
-      "checksum": "4D50514B2D8ACD81CA8CFEE55B667B3DC4F7681B65BF3299FF06B11A064F8861",
+      "id": "github_release/github.com/openai/codex/rust-v0.165.0/codex-package-x86_64-apple-darwin.tar.gz",
+      "checksum": "792ECAB0596006BD9F286430B2790AA487FD40FCA2F351CA313AD85991720226",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.160.0/codex-package-x86_64-pc-windows-msvc.tar.gz",
-      "checksum": "7F7FBBC8D6FD4EA2F3B13855EF47EA59663BA7E61FB2E9821DF37163B8030891",
+      "id": "github_release/github.com/openai/codex/rust-v0.165.0/codex-package-x86_64-pc-windows-msvc.tar.gz",
+      "checksum": "2A64BEB5856C3170738793E0AA65B44AA3F2D7B8F53221A3F72BDAFE6485D119",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.160.0/codex-package-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "4FCC47AB57F52FF75363951A8761146CD10C8288BD86FED45487DBB204A16B71",
+      "id": "github_release/github.com/openai/codex/rust-v0.165.0/codex-package-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "E97C4463D7F146692A955D7B0E1C8CF48F97CD4D616CD45C5DCAB2E8D9743316",
       "algorithm": "sha256"
     },
     {
