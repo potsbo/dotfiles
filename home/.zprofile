@@ -8,7 +8,9 @@
 # 対話シェルに限る: ディスプレイマネージャが wayland-session を `zsh --login <script>` で
 # 実行すると stdin が tty になり、-t 0 だけだと herdr が立ち上がって DE が起動せず黒画面で
 # 固まる (2026-09-06 に SDDM で踏んだ。SDDM を使っていた Plasma の設定はその後消した)。
-if [ -z "$HERDR_ENV" ] && [[ -o interactive ]] && [[ -t 0 ]]; then
+# Rex のペイン内 (REX_SESSION が立つ) でも入らない。Rex 自体がセッション/ペインを
+# 持つマルチプレクサなので、herdr を重ねると二重になる。
+if [ -z "$HERDR_ENV" ] && [ -z "$REX_SESSION" ] && [[ -o interactive ]] && [[ -t 0 ]]; then
   # この attach がどこから来たかを記録する。herdr のペインは env がペイン作成時に
   # 凍結されるので、中から見た SSH_CONNECTION は「今どこから見ているか」を表さない
   # (ローカルで作ったペインに Mac から attach しても立たず、ssh 中に作ったペインは
