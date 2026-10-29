@@ -15,6 +15,12 @@ host="$1"
 
 # 内外判定は HERDR_ENV で行う。HERDR_PANE_ID は通常 pane にしか入らず、
 # popup (keys.command type="popup") では未設定なので判定に使えない。
+# Rex 内では 1 ホスト = 1 Rex ウィンドウ。herdr のような detach は要らない
+# (Rex はリモートの herdr を入れ子で描くだけで、自分は抜けなくてよい)。
+if [ -z "${HERDR_ENV:-}" ] && [ -n "${REX_SESSION:-}" ]; then
+  exec ~/.config/tuicast/rex-window.sh "$host" "$HOME" ~/.config/tuicast/ssh-reconnect.sh "$host"
+fi
+
 if [ -z "${HERDR_ENV:-}" ]; then
   exec ~/.config/tuicast/ssh-reconnect.sh "$host"
 fi

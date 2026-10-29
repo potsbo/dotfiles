@@ -3,6 +3,7 @@
 # run target, and the one place where herdr-inside/outside behavior forks:
 #
 #   inside herdr : focus the workspace rooted at the path (create it if needed)
+#   inside Rex   : focus the Rex window for the path (create it if needed)
 #   outside      : same, but prepare it server-side and then attach; if no
 #                  herdr server is up yet, start herdr from that directory
 set -eu
@@ -12,6 +13,13 @@ dir="$1"
 # 内外判定は HERDR_ENV (popup にも入る)。HERDR_PANE_ID は popup で未設定。
 if [ -n "${HERDR_ENV:-}" ]; then
   exec ~/.local/bin/herdr-space-connect "$dir"
+fi
+
+# Rex 自体がマルチプレクサなので herdr には入らず Rex のウィンドウを使う
+# (.zprofile も Rex 内では herdr に自動 attach しない)。ラベルは herdr の
+# space と同じものにして、どちらで開いても同じ名前で見えるようにする。
+if [ -n "${REX_SESSION:-}" ]; then
+  exec ~/.config/tuicast/rex-window.sh "$(~/.local/bin/herdr-label "$dir")" "$dir"
 fi
 
 if ~/.local/bin/herdr-space-connect "$dir" 2>/dev/null; then
