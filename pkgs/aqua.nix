@@ -1,4 +1,4 @@
-{ buildGoModule, fetchFromGitHub }:
+{ buildGoModule, fetchFromGitHub, go_1_27 }:
 
 let
   # renovate: datasource=github-releases depName=aquaproj/aqua
@@ -8,7 +8,8 @@ in
 # Renovate も attr 名は書き換えないので手で bump することになる (2026-09 に一度やった)。
 # aqua の go.mod が nixpkgs の default より新しい go を要求したときだけ一時的に
 # override し、default が追いついたら外す。
-buildGoModule {
+# 今は aqua 2.65 の go.mod が 1.27.3 を要求し、default は 1.26.10 (2026-10)。
+buildGoModule.override { go = go_1_27; } {
   pname = "aqua";
   inherit version;
 
