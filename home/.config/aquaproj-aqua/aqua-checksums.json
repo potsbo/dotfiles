@@ -46,33 +46,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "92ACF8890543B6D6F436A87A7A5EC64F82A4B8DBE3A7E564C1E5CBFE60823BC7",
+      "id": "github_release/github.com/Wilfred/difftastic/0.72.0/difft-0.72.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "959CE3E4B661663A6BB0B79DE5E03051897E521E99C1B85F3C810B54F025EC93",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-aarch64-pc-windows-msvc.zip",
-      "checksum": "FBF0497F654271F9C96DFC52F06AAD2163AC391EE4050F9DAB7B88CBA2BD9E77",
+      "id": "github_release/github.com/Wilfred/difftastic/0.72.0/difft-0.72.0-aarch64-pc-windows-msvc.zip",
+      "checksum": "D5FC6BE7140AC28A26985328B9AE7724962D467E21AA78F7245319573AF76CDC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "5F046098B36FF985D0F99FEC6F22CF74961DB60386FF9D40DF39FD99660AAE2C",
+      "id": "github_release/github.com/Wilfred/difftastic/0.72.0/difft-0.72.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "0993A82A6708A24ADC6C6B8DE366924728ED08F537A5B488940082C8EDC79353",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "390B5299B0BC5059B5617F448EB1F3CB42C689933258FC57770C24D257A5D8A8",
+      "id": "github_release/github.com/Wilfred/difftastic/0.72.0/difft-0.72.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "31472D5CC1D40444BEB697B58E6CF83FEBB3C7741DF4007C3039952FFC1C36C6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-x86_64-pc-windows-msvc.zip",
-      "checksum": "9A979F9D96D739625A0FE69317F3197CC7BCEF663A6D7195197D6C9BF96ED6F5",
+      "id": "github_release/github.com/Wilfred/difftastic/0.72.0/difft-0.72.0-x86_64-pc-windows-msvc.zip",
+      "checksum": "7B6295A9A433BA79978B02AD4B4B27F955423B8EB379927409B9FF4E5156379E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/Wilfred/difftastic/0.71.0/difft-0.71.0-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "0A65E6715DF992B0ADAE012E606BD9CC74FA6CFE90EAF13BBAE165A0A19B3086",
+      "id": "github_release/github.com/Wilfred/difftastic/0.72.0/difft-0.72.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "27B9C1FE038A95682EED241265A3CACB781227730F106104B617E10067D38FF4",
       "algorithm": "sha256"
     },
     {
