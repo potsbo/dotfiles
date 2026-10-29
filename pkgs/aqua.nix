@@ -17,10 +17,10 @@ buildGoModule.override { go = go_1_27; } {
     owner = "aquaproj";
     repo = "aqua";
     rev = "v${version}";
-    hash = "sha256-SrkSel+hiUIRAip/U3ODFkLBkqFjVKjar6TbkQab+lE=";
+    hash = "sha256-1YdyVlF4ZyJtRysaHReegOFjFcfSsdJOODnJb4tRV3E=";
   };
 
-  vendorHash = "sha256-PLtYXYpbZKHDzvK589wZtpVcv2YIBxLruHLHKbRjM30=";
+  vendorHash = "sha256-xgFQ2iVUbSRupTdCOBe258D5t7kXVP0xEwkuvm+HRgY=";
 
   # 公式 release (goreleaser) と同じく main.version を埋める。無いと `aqua version` が
   # unknown になり、aqua 自身の update 判定やログの version 表示も効かない。
