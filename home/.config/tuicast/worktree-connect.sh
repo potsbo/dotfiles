@@ -16,10 +16,9 @@ if [ -n "${HERDR_ENV:-}" ]; then
 fi
 
 # repo ごとのタブや分割を独立させるため、Rex では checkout ごとに session を使う
-# (.zprofile も Rex 内では herdr に自動 attach しない)。ラベルは herdr の
-# space と同じものにして、どちらで開いても同じ名前で見えるようにする。
+# (.zprofile も Rex 内では herdr に自動 attach しない)。
 if [ -n "${REX_SESSION:-}" ]; then
-  exec ~/.config/tuicast/rex-session.sh "$(~/.local/bin/herdr-label "$dir")" "$dir"
+  exec ~/.config/tuicast/rex-session.sh "$(~/.local/bin/herdr-label "$dir" plain)" "$dir"
 fi
 
 if ~/.local/bin/herdr-space-connect "$dir" 2>/dev/null; then

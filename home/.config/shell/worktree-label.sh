@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Usage: worktree_label <output-variable> <checkout-path> <ghq-root>
+# Usage: worktree_label <output-variable> <checkout-path> <ghq-root> [plain]
 # 結果は変数へ返す。一覧の各行で command substitution の subshell を作らないため。
 worktree_label() {
   local rel host rest icon repo branch
@@ -14,12 +14,18 @@ worktree_label() {
     *)          icon=$host ;;
   esac
 
+  # Rex のセッション一覧は Nerd Font の字形を表示できないため省く。
+  if [ "${4:-}" = plain ] && [ "$icon" != "$host" ]; then
+    icon=''
+  fi
+  local prefix="${icon:+$icon }"
+
   if [[ "$rest" == */.worktrees/* ]]; then
     repo="${rest%%/.worktrees/*}"
     branch="${rest#*/.worktrees/}"
     branch="${branch#potsbo/}"
-    printf -v "$1" '%s %s %s' "$branch" "$icon" "$repo"
+    printf -v "$1" '%s %s%s' "$branch" "$prefix" "$repo"
   else
-    printf -v "$1" '%s %s' "$icon" "$rest"
+    printf -v "$1" '%s%s' "$prefix" "$rest"
   fi
 }
