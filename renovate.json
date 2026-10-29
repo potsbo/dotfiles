@@ -37,6 +37,9 @@
       "datasourceTemplate": "github-releases"
     }
   ],
+  "gitIgnoredAuthors": [
+    "114827586+autofix-ci[bot]@users.noreply.github.com"
+  ],
   "nix": {
     "enabled": true
   },
