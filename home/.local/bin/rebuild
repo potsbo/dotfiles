@@ -34,8 +34,7 @@ program_status() {
   [[ -t 2 ]] || return 0
   local msg
   msg=$(printf '%s' "$2" | base64 | tr -d '\r\n')
-  # Rex が Nix のアイコンを持っていれば使えるよう、アプリ名は nix として報告する。
-  printf '\033]7501;state=%s:id=rebuild:app=nix:msg=%s\033\\' "$1" "$msg" >&2
+  printf '\033]7501;state=%s:id=rebuild:app=rebuild:msg=%s\033\\' "$1" "$msg" >&2
 }
 rebuild_exit() {
   local code=$?
