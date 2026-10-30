@@ -15,11 +15,17 @@ if [ -n "${HERDR_ENV:-}" ]; then
   exec ~/.local/bin/herdr-space-connect "$dir"
 fi
 
-# repo ごとのタブや分割を独立させるため、Rex では checkout ごとに session を使う
-# (.zprofile も Rex 内では herdr に自動 attach しない)。ラベルは herdr の
-# space と同じものにして、どちらで開いても同じ名前で見えるようにする。
+# 新規 tab の固定 dir を名前から復元するため、Rex ではアイコンを使わず
+# ghq root からの repo パスを session 名にする。worktree も同じ session を使う。
 if [ -n "${REX_SESSION:-}" ]; then
-  exec ~/.config/tuicast/rex-session.sh "$(~/.local/bin/herdr-label "$dir")" "$dir"
+  common=$(git -C "$dir" rev-parse --path-format=absolute --git-common-dir)
+  repo=$(dirname "$common")
+  root=$(ghq root)
+  case "$repo" in
+    "$root"/*) label="${repo#"$root"/}" ;;
+    *) printf 'Repository is outside ghq root: %s\n' "$repo" >&2; exit 1 ;;
+  esac
+  exec ~/.config/tuicast/rex-session.sh "$label" "$dir"
 fi
 
 if ~/.local/bin/herdr-space-connect "$dir" 2>/dev/null; then

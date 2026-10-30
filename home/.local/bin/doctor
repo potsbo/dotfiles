@@ -16,6 +16,41 @@
 
 set -u
 
+# 対応確認の応答を読むと診断コマンドの stdin と競合するので、任意の probe はしない。
+# ログには制御列を残さず、NO_COLOR は文字色だけに適用する。
+program_status() {
+  [[ -t 2 ]] || return 0
+  local title msg
+  title=$(printf '%s' "$3" | base64 | tr -d '\r\n')
+  msg=$(printf '%s' "$4" | base64 | tr -d '\r\n')
+  printf '\033]7501;state=%s:id=%s:app=doctor:title=%s:msg=%s%s\033\\' \
+    "$1" "$2" "$title" "$msg" "${5:+:progress=$5}" >&2
+}
+doctor_exit() {
+  local code=$?
+  if [[ $code == 130 || $code == 143 ]]; then
+    if [[ -n $active_id ]]; then
+      program_status clear "$active_id" '' ''
+    fi
+    program_status idle doctor 'Environment diagnosis' 'Diagnosis cancelled'
+  elif [[ $diagnosis_complete == 1 ]]; then
+    # missing は診断の正常な結果で、人の入力を待っているわけでもない。
+    program_status done doctor 'Environment diagnosis' \
+      "Checks complete: $passed passed, $failed missing"
+  else
+    program_status error doctor 'Environment diagnosis' 'Diagnosis failed'
+  fi
+  return "$code"
+}
+diagnosis_complete=0
+active_id=''
+passed=0 failed=0 completed=0
+trap doctor_exit EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+program_status clear doctor '' ''
+program_status working doctor 'Environment diagnosis' 'Preparing checks' 0
+
 # 出力は install と同じ cargo 風。tty のときだけ色を付ける。
 if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
   c_ok=$'\033[1;32m' c_ng=$'\033[1;31m' c_dim=$'\033[2m' c_reset=$'\033[0m'
@@ -31,15 +66,33 @@ missing=0
 # check <name> <fix> <cmd...>
 #   cmd が 0 で終われば ok、それ以外なら fix を添えて出す。cmd の出力は捨てる
 #   (状態表示だけが目的で、診断の詳細は fix のコマンドを打てば見える)。
+# OS・ホストで対象数が変わるので、先に登録してから実行し、件数を進捗に使う。
+checks=()
 check() {
+  local command
+  printf -v command '%q ' "$@"
+  checks+=("$command")
+}
+run_check() {
   local name=$1 fix=$2
   shift 2
+  active_id="doctor/check-$((completed + 1))"
+  program_status working doctor 'Environment diagnosis' "Checking $name" "$((completed * 100 / ${#checks[@]}))"
+  program_status working "$active_id" "$name" "Checking $name"
   if "$@" >/dev/null 2>&1; then
     printf '%s%12s%s %s\n' "$c_ok" ok "$c_reset" "$name"
+    passed=$((passed + 1))
+    program_status done "$active_id" "$name" 'Check passed'
   else
     printf '%s%12s%s %s  %s→ %s%s\n' "$c_ng" missing "$c_reset" "$name" "$c_dim" "$fix" "$c_reset"
     missing=1
+    failed=$((failed + 1))
+    program_status error "$active_id" "$name" "Missing; run: $fix"
   fi
+  active_id=''
+  completed=$((completed + 1))
+  program_status working doctor 'Environment diagnosis' \
+    "Checked $completed of ${#checks[@]} items" "$((completed * 100 / ${#checks[@]}))"
 }
 
 # --- 土台 (他の項目がこれに依存する) ---
@@ -70,7 +123,7 @@ check "ssh key on GitHub" "gh ssh-key add ${ssh_public_key/#$HOME/\~}" ssh_key_o
 # gh は git の credential helper、nix の GitHub token、notes-pull が依存する。
 # ログイン後に rebuild をもう一度流すと access-tokens.conf が生える (dotfiles.nix)。
 check "gh" "gh auth login && rebuild" gh auth status
-check "nix github token" "rebuild (gh ログイン後)" test -f ~/.config/nix/access-tokens.conf
+check "nix github token" "rebuild (after gh login)" test -f ~/.config/nix/access-tokens.conf
 
 # --- ログイン ---
 
@@ -111,7 +164,7 @@ tailscale_running() {
   "$bin" status --json 2>/dev/null | grep -q '"BackendState": *"Running"'
 }
 if [[ $os == Darwin ]]; then
-  check "tailscale" "open -a Tailscale してログイン" tailscale_running
+  check "tailscale" "open -a Tailscale (then sign in)" tailscale_running
 else
   check "tailscale" "sudo tailscale up" tailscale_running
 fi
@@ -126,7 +179,7 @@ check "hunk review skill" "hunk --version && rebuild" test -L ~/.claude/skills/h
 
 # lazy.nvim は初回起動で取りに行く。cache コマンドが前倒しする。
 nvim_plugins() { [[ -n $(ls -A ~/.local/share/nvim/lazy 2>/dev/null) ]]; }
-check "nvim plugins" "cache (または nvim を一度開く)" nvim_plugins
+check "nvim plugins" "cache (or start nvim once)" nvim_plugins
 
 # rustup を使っているマシンだけ。cargo/rustc は nix で入るので無くてもよい。
 if command -v rustup >/dev/null; then
@@ -137,8 +190,8 @@ fi
 
 if [[ $host == raptorlake ]]; then
   # 宣言に入れられない資格情報。手順は hosts/raptorlake/README.md。
-  check "cloudflared token" "hosts/raptorlake/README.md 「Cloudflare 経由で SSH する」" sudo -n test -s /srv/cloudflared/env
-  check "smb credentials" "hosts/raptorlake/README.md 「Google 共有ドライブを Linux から読む」" sudo -n test -s /etc/smb-credentials/gdrive
+  check "cloudflared token" "hosts/raptorlake/README.md (SSH via Cloudflare)" sudo -n test -s /srv/cloudflared/env
+  check "smb credentials" "hosts/raptorlake/README.md (Google shared drives)" sudo -n test -s /etc/smb-credentials/gdrive
 fi
 
 # --- macOS ---
@@ -149,10 +202,15 @@ if [[ $os == Darwin ]]; then
   check "nix.conf (nix-darwin)" "sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.before-nix-darwin && rebuild" test -L /etc/nix/nix.conf
   # uid が宣言と違うと nix-darwin は警告だけ出して UserShell を書かない (darwin/default.nix)。
   login_shell_is_nix() { dscl . -read "/Users/$USER" UserShell | grep -q ' /run/current-system/sw/bin/zsh$'; }
-  check "login shell (nix zsh)" "modules/darwin/default.nix の uid を id -u の値に合わせて rebuild" login_shell_is_nix
+  check "login shell (nix zsh)" "match uid in modules/darwin/default.nix to id -u, then rebuild" login_shell_is_nix
   # GUI アプリは rebuild から切り離してある。brew と mas は apps が使う。
   check "homebrew" "apps" command -v brew
-  check "app store" "App Store にサインイン" mas account
+  check "app store" "sign in to App Store" mas account
 fi
 
+for registered_check in "${checks[@]}"; do
+  eval "run_check $registered_check"
+done
+
+diagnosis_complete=1
 exit "$missing"

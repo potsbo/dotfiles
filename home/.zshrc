@@ -72,6 +72,14 @@ unsetopt hist_find_no_dups
 function chpwd() { ls }
 
 ### Utility alias
+# clear(1) は macOS で -x でも履歴を消すため、画面だけ消す制御列を送る。
+# 画面を片付けたあとに完了 activity だけ残らないよう、pane 内の状態も消す。
+clear() {
+  if [[ -t 1 ]]; then
+    printf '\033[H\033[2J\033]7501;state=clear\033\\'
+  fi
+}
+
 alias -g LB="\`git for-each-ref --sort=-committerdate refs/heads/ --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --prompt 'GIT BRANCH>' | cut -d$'\t' -f2\`"
 alias -g RB="\`git for-each-ref --sort=-committerdate --format=\"%(committerdate:relative) %09 %(refname:short) %09 %(contents:subject)\" | fzf --query 'origin/ ' --prompt 'GIT REMOTE BRANCH>'| cut -d$'\t' -f2 | sed 's/origin\///' \`"
 
@@ -123,6 +131,13 @@ bindkey -M emacs "^]" _tuicast_connect
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e
+
+# ZLE の既定 clear-screen は clear 関数を通らないので、画面と activity の消去を共有する。
+_clear_screen_and_activity() {
+  clear
+  zle .redisplay
+}
+zle -N clear-screen _clear_screen_and_activity
 
 # 古い macOS (HFS+) 由来のファイル名は NFD (分解形) で、濁点・半濁点が結合文字
 # (U+3099/U+309A) として分離されている。例: 「パ」= U+30D1 (NFC) → U+30CF U+309A。

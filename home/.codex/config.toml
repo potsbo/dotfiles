@@ -7,6 +7,8 @@ sandbox_mode = "workspace-write"
 network_access = true
 
 [tui]
+# Rex で Shift なしの文字選択・コピーを使えるよう、通常画面で起動する。
+alternate_screen = "never"
 # terminal title にタスク内容 (thread-title) を出す。default は activity + project-name で
 # worktree 名しか出ず、herdr sidebar の terminal_title_stripped 行が機能しないため。
 # project-name は herdr の workspace トークンと重複するので入れない。

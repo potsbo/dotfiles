@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Keep each checkout's tabs and splits in its own session. Match labels exactly
+# Keep each repo's tabs and splits in its own session. Match labels exactly
 # so a repo name cannot accidentally resolve to another resource's ID suffix.
 set -euo pipefail
 
