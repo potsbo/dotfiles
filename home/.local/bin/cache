@@ -29,9 +29,10 @@ DRY_RUN=0
 # dry-run は実作業の通知を残さず、ログにも制御列を混ぜない。
 program_status() {
   [[ -t 2 && $DRY_RUN == 0 ]] || return 0
-  local msg
+  local title msg
+  title=$(printf '%s' 'Cache' | base64 | tr -d '\r\n')
   msg=$(printf '%s' "$2" | base64 | tr -d '\r\n')
-  printf '\033]7501;state=%s:id=cache:app=cache:msg=%s\033\\' "$1" "$msg" >&2
+  printf '\033]7501;state=%s:id=cache:app=cache:title=%s:msg=%s\033\\' "$1" "$title" "$msg" >&2
 }
 cache_exit() {
   local code=$?
