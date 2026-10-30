@@ -20,6 +20,7 @@ mod machine;
 mod process;
 mod script;
 mod session;
+mod status;
 mod transfer;
 mod ui;
 mod units;
@@ -32,18 +33,31 @@ type Result<T> = std::result::Result<T, String>;
 
 fn main() -> ExitCode {
     let argv: Vec<String> = std::env::args().skip(1).collect();
+    let mut remote_copy = false;
     let result = cli::parse_args(&argv).and_then(|args| match (&args.src, &args.dst) {
         // scp と同じく手元どうしは cp に任せる
         (Local(src), Local(dst)) => local::copy(src, dst, args.recursive),
         // push と pull。copy は向きを区別しない (両端を connect するだけ)
         (src @ Local(_), dst @ Remote { .. }) | (src @ Remote { .. }, dst @ Local(_)) => {
+            remote_copy = true;
             copy::copy(src, dst, args.recursive)
         }
         (Remote { .. }, Remote { .. }) => {
             Err("copying between two remote hosts is not supported".into())
         }
     });
+    if remote_copy {
+        status::Status::Cleaning.report();
+    }
     session::cleanup();
+    if remote_copy {
+        if result.is_ok() {
+            status::Status::Done
+        } else {
+            status::Status::Error
+        }
+        .report();
+    }
     match result {
         Ok(()) => ExitCode::SUCCESS,
         Err(e) => {

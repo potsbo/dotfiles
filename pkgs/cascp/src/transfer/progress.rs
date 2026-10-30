@@ -35,6 +35,8 @@ impl Progress {
             return;
         }
         self.last = Some(elapsed.as_secs());
+        let percent = ((u128::from(bytes) * 100 / u128::from(self.total.max(1))).min(100)) as u8;
+        crate::status::Status::Transferring.report_progress(Some(percent));
         eprint!("\r\x1b[K{}", render(bytes, self.total, elapsed));
     }
 }
