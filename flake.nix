@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     xremap-flake.url = "github:xremap/nix-flake";
+    # 独自のパッケージ定義を持たず公式 flake を使い、既存の snapshot 利用を維持する。
+    rex = {
+      url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # DankMaterialShell: Hyprland 上の bar / ランチャー / 通知 / ロック画面。release tag に固定。
     # Renovate の nix manager は lock の rev しか見ず URL 中の tag は進めないので、
     # renovate.json は github:owner/repo/[v]X.Y.Z の URL を共通の regex で拾う。
@@ -34,7 +39,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, herdr, ... }:
+  outputs = { nixpkgs, home-manager, nix-darwin, xremap-flake, disko, dms, herdr, rex, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -114,7 +119,7 @@
       ];
       # home 配下のパスは渡さない。各モジュールが config.home.homeDirectory から組む。
       hmSpecialArgs = hostname: {
-        inherit hostname palette hosts herdr;
+        inherit hostname palette hosts herdr rex;
         accentColor = hosts.${hostname}.color;
         # accent の上に乗せる文字色。accent が暗いホストだけ fg で白を指定する。
         accentFgColor = hosts.${hostname}.fg or palette.black;

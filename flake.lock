@@ -217,6 +217,23 @@
         "type": "github"
       }
     },
+    "rex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793390926,
+        "narHash": "sha256-XSoze/qGnzL7+iv5sSOsJjHxFfWJs0ZHF6dRk6vQvXk=",
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot/0.0.1793390926-g3b2dce.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
@@ -225,6 +242,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
+        "rex": "rex",
         "xremap-flake": "xremap-flake"
       }
     },
