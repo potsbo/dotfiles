@@ -35,7 +35,7 @@ doctor_exit() {
     program_status idle doctor 'Environment diagnosis' 'Diagnosis cancelled'
   elif [[ $diagnosis_complete == 1 ]]; then
     # missing は診断の正常な結果で、人の入力を待っているわけでもない。
-    program_status done doctor 'Environment diagnosis' \
+    program_status 'done' doctor 'Environment diagnosis' \
       "Checks complete: $passed passed, $failed missing"
   else
     program_status error doctor 'Environment diagnosis' 'Diagnosis failed'
@@ -82,7 +82,7 @@ run_check() {
   if "$@" >/dev/null 2>&1; then
     printf '%s%12s%s %s\n' "$c_ok" ok "$c_reset" "$name"
     passed=$((passed + 1))
-    program_status done "$active_id" "$name" 'Check passed'
+    program_status 'done' "$active_id" "$name" 'Check passed'
   else
     printf '%s%12s%s %s  %s→ %s%s\n' "$c_ng" missing "$c_reset" "$name" "$c_dim" "$fix" "$c_reset"
     missing=1
