@@ -26,7 +26,7 @@ packages:
   - name: YS-L/csvlens@v0.15.1
   - name: golang/go@go1.27.3
   - name: cli/cli@v2.103.3
-  - name: Wilfred/difftastic@0.71.0
+  - name: Wilfred/difftastic@0.72.0
   - name: Schniz/fnm@v1.39.0
   - name: git-lfs/git-lfs@v3.8.1
   - name: nodejs/node@v26.13.0
@@ -77,5 +77,5 @@ packages:
     registry: local
   - name: fastfetch-cli/fastfetch@2.69.0
   - name: cloudflare/cloudflared@2026.10.6
-  - name: zenbu-labs/terminal-browser@v0.15.1
+  - name: zenbu-labs/terminal-browser@v0.15.2
     registry: local
