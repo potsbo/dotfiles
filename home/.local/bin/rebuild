@@ -28,6 +28,29 @@ DOTPATH="${HOME}/src/github.com/potsbo/dotfiles"
 HOSTNAME="${HOSTNAME:-$(hostname)}"
 HOSTNAME="${HOSTNAME%.local}"
 
+# probe の応答を読むと sudo などの stdin と競合するので、対応確認はしない。
+# ログには制御列を残さず、NO_COLOR は文字色だけに適用する。
+program_status() {
+  [[ -t 2 ]] || return 0
+  local msg
+  msg=$(printf '%s' "$2" | base64 | tr -d '\r\n')
+  printf '\033]7501;state=%s:id=rebuild:app=rebuild:msg=%s\033\\' "$1" "$msg" >&2
+}
+rebuild_exit() {
+  local code=$?
+  if [[ $code == 130 || $code == 143 ]]; then
+    program_status idle 'Rebuild cancelled'
+  elif [[ $code == 0 ]]; then
+    program_status 'done' "Rebuild finished in ${SECONDS}s"
+  else
+    program_status error "Rebuild failed (exit $code)"
+  fi
+  return "$code"
+}
+trap rebuild_exit EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
 # flakes は NixOS / nix-darwin が switch 後に nix.conf で有効にする。新規 Mac の初回は
 # その前に走るので、nix を呼ぶ行には毎回 --extra-experimental-features を付ける。
 nix() { command nix --extra-experimental-features 'nix-command flakes' "$@"; }
@@ -37,6 +60,7 @@ nix() { command nix --extra-experimental-features 'nix-command flakes' "$@"; }
 # 止まるので、どちらも事前確認はしない。
 step Switching "$HOSTNAME"
 SECONDS=0
+program_status working 'Evaluating configuration'
 if [[ -e /etc/NIXOS ]]; then
   if nix eval "${DOTPATH}#nixosConfigurations" --apply "c: c ? \"${HOSTNAME}\"" | grep -qx true; then
     # 素の `sudo nixos-rebuild switch` は通らない ("file 'nixos-config' was not found
@@ -65,21 +89,26 @@ if [[ -e /etc/NIXOS ]]; then
         break
       fi
     done
+    program_status working 'Switching NixOS configuration'
     sudo nixos-rebuild switch --flake "${DOTPATH}#${HOSTNAME}" "${specialisation[@]}"
   else
     # OS 側を触れないホスト (flake.nix の hosts で manage = home)。home-manager だけを
     # standalone で当てる。`nix run home-manager` は使わない: unpinned な参照は rev 確定に
     # GitHub API を叩き、gh が無い新環境では未認証のまま 403 に当たりうる。lock 済みの
     # activationPackage を直接ビルドすれば API 解決が要らず、CLI と設定の版ずれも消える。
+    program_status working 'Building home configuration'
     HM_ACTIVATION=$(nix build --no-link --print-out-paths "${DOTPATH}#homeConfigurations.${HOSTNAME}.activationPackage")
+    program_status working 'Activating home configuration'
     "${HM_ACTIVATION}/activate"
   fi
 elif [[ "$(uname -s)" == Darwin ]]; then
+  program_status working 'Switching nix-darwin configuration'
   # sudo 越しなので上の関数は届かない (本物の nix を呼ぶ意図)。
   # shellcheck disable=SC2033
   sudo -H nix --extra-experimental-features 'nix-command flakes' run "${DOTPATH}" -- switch --flake "${DOTPATH}#${HOSTNAME}"
   # 鍵はユーザーの GUI セッションで作る。sudo / activation 内ではキーチェーンと
   # Touch ID にアクセスできない。install からもここを通り、失敗は成功扱いにしない。
+  program_status working 'Setting up Secure Enclave SSH key'
   "${DOTPATH}/home/.local/bin/ssh-secure-enclave-setup"
 else
   # 対象は NixOS と macOS だけ。それ以外の Linux は使っていない。
