@@ -67,7 +67,7 @@
     }
   },
   "effortLevel": "medium",
-  "tui": "fullscreen",
+  "tui": "default",
   "skipDangerousModePermissionPrompt": true,
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true
