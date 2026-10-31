@@ -44,7 +44,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.10.0
   - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.85
-  - name: anthropics/claude-code@v2.1.314
+  - name: anthropics/claude-code@v2.1.316
   - name: aristocratos/btop@v1.4.8
   - name: ynqa/jnv@v0.7.1
   - name: theseus-rs/postgresql-binaries@18.6.1
@@ -76,6 +76,6 @@ packages:
   - name: folbricht/desync@v1.1.5
     registry: local
   - name: fastfetch-cli/fastfetch@2.69.0
-  - name: cloudflare/cloudflared@2026.10.6
-  - name: zenbu-labs/terminal-browser@v0.15.2
+  - name: cloudflare/cloudflared@2026.10.7
+  - name: zenbu-labs/terminal-browser@v0.15.3
     registry: local
