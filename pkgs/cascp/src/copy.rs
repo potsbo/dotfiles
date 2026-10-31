@@ -10,6 +10,7 @@ use crate::machine::Machine;
 use crate::process::{lines, run};
 use crate::script::{ASSEMBLE, CHUNK, INSPECT, MISSING, PREPARE, SIZES, TOUCH};
 use crate::session::Session;
+use crate::status::Status;
 use crate::transfer::transfer;
 use crate::ui::{detail, step, warning};
 use crate::units::{duration, human};
@@ -58,6 +59,7 @@ struct Source {
 
 impl Source {
     fn inspect(machine: Machine, path: String) -> Result<Self> {
+        Status::Inspecting.report();
         let info = lines(&run(
             machine.sh(INSPECT, &[&path]),
             None,
@@ -117,6 +119,7 @@ struct Destination {
 impl Destination {
     /// `base` は、`path` が既存ディレクトリだったときにその中に置く名前。
     fn prepare(machine: Machine, path: &str, base: &str) -> Result<Self> {
+        Status::Preparing.report();
         let prep = lines(&run(
             machine.sh(PREPARE, &[path, base]),
             None,
@@ -196,7 +199,9 @@ fn plan(link: &Link, index: &[u8]) -> Result<Plan> {
     let plan = if paths.is_empty() {
         Plan::new(paths, Vec::new(), &[])?
     } else {
+        Status::Checking.report();
         let missing = link.dst.missing(&paths)?;
+        Status::Measuring.report();
         let sizes = link.src.sizes(&paths)?;
         Plan::new(paths, missing, &sizes)?
     };
@@ -237,6 +242,7 @@ pub fn copy(src: &Endpoint, dst: &Endpoint, recursive: bool) -> Result<()> {
 
     fill_missing(&plan, &link)?;
     assemble(&link.dst, &link.src.kind, index)?;
+    Status::Recording.report();
     touch(&plan.paths, &link);
 
     Ok(())
@@ -244,6 +250,7 @@ pub fn copy(src: &Endpoint, dst: &Endpoint, recursive: bool) -> Result<()> {
 
 fn connect(endpoint: &Endpoint) -> Result<Machine> {
     if let Endpoint::Remote { host, .. } = endpoint {
+        Status::Connecting.report();
         step("Connecting", host);
     }
     Machine::connect(endpoint)
@@ -255,6 +262,7 @@ fn chunk(src: &Source) -> Result<Vec<u8>> {
         "Chunking",
         format!("{} ({})", src.display(), src.describe()),
     );
+    Status::Chunking.report();
     let index = src.chunk()?;
     let t_chunk = t0.elapsed().as_secs();
     step("Chunked", format!("in {}", duration(t_chunk)));
@@ -271,6 +279,7 @@ fn fill_missing(plan: &Plan, link: &Link) -> Result<()> {
         "Transferring",
         format!("{} => {}", link.src.display(), link.dst.display()),
     );
+    Status::Transferring.report();
     transfer(
         link.session,
         link.src.rsync_store(),
@@ -297,6 +306,7 @@ fn fill_missing(plan: &Plan, link: &Link) -> Result<()> {
 fn assemble(dst: &Destination, kind: &Kind, index: Vec<u8>) -> Result<()> {
     let t0 = Instant::now();
     step("Assembling", dst.display());
+    Status::Assembling.report();
     dst.assemble(kind, index)?;
     let t_assemble = t0.elapsed().as_secs();
     step("Assembled", format!("in {}", duration(t_assemble)));

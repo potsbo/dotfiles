@@ -1,4 +1,4 @@
-{ config, pkgs, lib, herdr, ... }:
+{ config, pkgs, lib, herdr, rex, ... }:
 
 let
 
@@ -165,6 +165,7 @@ in
       # スタイルをほぼ全ファイル書き換えてしまうので、保存時整形は無効のままにしておく。
       statix
     ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      rex.packages.${stdenv.hostPlatform.system}.default
       wl-clipboard
     ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # BSD 版を GNU 版で PATH ごと上書きし、Linux ホストと同じ挙動に揃える (NixOS 側は

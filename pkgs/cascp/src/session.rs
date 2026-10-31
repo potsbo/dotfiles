@@ -31,6 +31,7 @@ impl Session {
         ctrlc::set_handler(|| {
             // desync extract は SIGINT/SIGTERM を受けると、書きかけの出力を本来の名前に置いて
             // 0 で終わる (v1.1.4)。成功に見えないよう、こちらで非 0 にする。
+            crate::status::Status::Idle.report();
             cleanup();
             std::process::exit(130);
         })

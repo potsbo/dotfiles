@@ -20,7 +20,7 @@ if [[ -z $found ]]; then
   found=$(identity)
 fi
 [[ -n $found && $found != *$'\n'* ]] || fail "Expected exactly one identity named $label."
-read -r key_type _key_hash protection <<< "$found"
+read -r key_type key_hash protection <<< "$found"
 [[ $key_type == p-256-ne && $protection == none ]] || fail "Expected p-256-ne / none for $label."
 
 # 公開鍵のコメントで旧 bio 版の参照と区別する。パスは変えず、初回だけ取り直す。
@@ -31,7 +31,8 @@ fi
 
 # -K が保存するのは秘密鍵ではなく Mac 固有の鍵への参照。
 # ファイルが足りないときだけ CTK から同じ鍵の参照を復元する。
-# provider は全 CTK 鍵の参照を返すので、保存後に専用ラベルのファイルだけ選ぶ。
+# provider の保存名にはラベルが付かないこともある。別の CTK 鍵を選ばないよう、
+# ssh-keychain のフィルタで対象の hash だけを渡し、取得結果が 1 個であることを確かめる。
 umask 077
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
@@ -39,10 +40,17 @@ trap 'rm -rf "$tmp"' EXIT
   cd "$tmp"
   # PIN 不要だが ssh-keygen は端末があると stdin より /dev/tty を優先する。
   # この列挙だけ空の PIN を返す。
-  SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=/usr/bin/true \
+  KEYCHAIN_CERTIFICATES="$key_hash" SSH_ASKPASS_REQUIRE=force SSH_ASKPASS=/usr/bin/true \
     /usr/bin/ssh-keygen -K -w /usr/lib/ssh-keychain.dylib -N ''
 )
-downloaded="$tmp/id_ecdsa_sk_rk_$label"
+shopt -s nullglob
+downloaded_keys=("$tmp"/id_ecdsa_sk_rk*)
+references=()
+for candidate in "${downloaded_keys[@]}"; do
+  [[ $candidate == *.pub ]] || references+=("$candidate")
+done
+[[ ${#references[@]} == 1 ]] || fail "Expected exactly one resident SSH key for $label."
+downloaded=${references[0]}
 [[ -s $downloaded && -s $downloaded.pub ]] || fail "Missing resident SSH key for $label."
 mkdir -p "$HOME/.ssh"
 mv "$downloaded" "$key"
