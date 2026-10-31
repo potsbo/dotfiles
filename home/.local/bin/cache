@@ -25,6 +25,32 @@ set -eu
 DRY_RUN=0
 [ "${1:-}" = "--dry-run" ] && { DRY_RUN=1; shift; }
 
+# probe の応答を読むと子コマンドの stdin と競合するので、対応確認はしない。
+# dry-run は実作業の通知を残さず、ログにも制御列を混ぜない。
+program_status() {
+  [[ -t 2 && $DRY_RUN == 0 ]] || return 0
+  local title msg
+  title=$(printf '%s' 'Cache' | base64 | tr -d '\r\n')
+  msg=$(printf '%s' "$2" | base64 | tr -d '\r\n')
+  printf '\033]7501;state=%s:id=cache:app=cache:title=%s:msg=%s\033\\' "$1" "$title" "$msg" >&2
+}
+cache_exit() {
+  local code=$?
+  if [[ $code == 130 || $code == 143 ]]; then
+    program_status idle 'Cache cancelled'
+  elif [[ $code == 0 ]]; then
+    program_status 'done' "Cache finished in ${SECONDS}s"
+  else
+    program_status error "Cache failed (exit $code)"
+  fi
+  return "$code"
+}
+trap cache_exit EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+SECONDS=0
+program_status working 'Preparing caches'
+
 run() {
   echo "+ $*"
   [ "$DRY_RUN" = 1 ] && return 0
@@ -33,6 +59,7 @@ run() {
 
 # --- aqua: 遅延インストールされる実体を先に取得 ---
 if command -v aqua >/dev/null 2>&1; then
+  program_status working 'Installing aqua packages'
   echo "== aqua =="
   # local registry を使うパッケージは policy を許可しないと install が失敗する
   if [ -n "${AQUA_POLICY_CONFIG:-}" ]; then
@@ -45,6 +72,7 @@ fi
 # lazy.nvim は install と restore が別コマンド。restore は導入済みのものを lockfile の
 # rev に戻すだけで、未導入の plugin は入れないので install を先に流す必要がある。
 if command -v nvim >/dev/null 2>&1; then
+  program_status working 'Installing Neovim plugins and tools'
   echo "== nvim =="
   nvim_cache="${XDG_CONFIG_HOME:-$HOME/.config}/nvim/scripts/cache.lua"
   # Lazy install は終了時に lockfile を無条件で今の rev で書き戻す
@@ -71,6 +99,7 @@ fi
 
 # --- tldr: ページキャッシュ ---
 if command -v tldr >/dev/null 2>&1; then
+  program_status working 'Updating tldr pages'
   echo "== tldr =="
   run tldr --update
 fi
@@ -78,6 +107,7 @@ fi
 # --- zsh: 対話シェルの初回起動で作られるキャッシュ ---
 # compinit の zcompdump と evalcache の生成が目的なので、起動させるだけでよい。
 if command -v zsh >/dev/null 2>&1; then
+  program_status working 'Warming shell caches'
   echo "== zsh =="
   run zsh -ic exit
 fi
@@ -87,6 +117,7 @@ fi
 # までフルに育てるのはディスクが跳ねるので、その repo の中で実行したとき (下の
 # repo セクション) 限定。消えた remote などで 1 repo が失敗しても続行する。
 if command -v ghq >/dev/null 2>&1; then
+  program_status working 'Fetching ghq repositories'
   echo "== repos =="
   if [ "$DRY_RUN" = 1 ]; then
     echo "+ ghq list | xargs -P4 git fetch --prune (各 repo)"
@@ -119,6 +150,7 @@ fi
 # (monorepo でも lockfile は root に置かれるのが普通)。
 repo_root="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 if [ -n "$repo_root" ]; then
+  program_status working 'Fetching repository dependencies'
   echo "== repo ($repo_root) =="
   cd "$repo_root"
 
