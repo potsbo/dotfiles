@@ -165,6 +165,8 @@ in
       # スタイルをほぼ全ファイル書き換えてしまうので、保存時整形は無効のままにしておく。
       statix
     ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+      # Codex の Linux sandbox 用。PATH 上の bwrap を使い、同梱 helper への依存を避ける。
+      bubblewrap
       rex.packages.${stdenv.hostPlatform.system}.default
       wl-clipboard
     ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
