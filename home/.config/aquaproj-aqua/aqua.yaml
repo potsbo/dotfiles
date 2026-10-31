@@ -77,5 +77,5 @@ packages:
     registry: local
   - name: fastfetch-cli/fastfetch@2.69.0
   - name: cloudflare/cloudflared@2026.10.7
-  - name: zenbu-labs/terminal-browser@v0.15.2
+  - name: zenbu-labs/terminal-browser@v0.15.3
     registry: local
