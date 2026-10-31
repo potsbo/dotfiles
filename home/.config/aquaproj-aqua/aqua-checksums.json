@@ -131,43 +131,43 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-darwin-arm64.tar.gz",
-      "checksum": "C819253FA84C46EE77E14AFB1AAB0C38D7FDB240D914D168E9AD2E21CE3BA1B4",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-darwin-arm64.tar.gz",
+      "checksum": "E8956064B1C5055C1C79945AA7714FAEF98B29060A065C6930E8956953D0BACE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-darwin-x64.tar.gz",
-      "checksum": "B323D782325F71825B14189CCB6663CA772CA90FAB95BC79B2E365B29F82234B",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-darwin-x64.tar.gz",
+      "checksum": "7265A50837056D5B4F90985610228EA3FBA6FA0A457DD499D22FF6FF905B34C6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-linux-arm64-musl.tar.gz",
-      "checksum": "92D8CA6238F961914E320DFB95863193281AFE6AA6AA5851598E63B4FB02BD1A",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-linux-arm64-musl.tar.gz",
+      "checksum": "7241F7935485BD49421CE5EBB2E0BA9D1D9AB6A696742DFC3E6D9A7BB18B63E9",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-linux-arm64.tar.gz",
-      "checksum": "6ACFC0D2F965BF910F12E89DA32CC2BC826974E555D50C4A4B0936E042EC749B",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-linux-arm64.tar.gz",
+      "checksum": "5F82C7FD9F289C9AAD37792FFA5CA1BCD40D6DD3298B3A36CE01179E12AB2B14",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-linux-x64-musl.tar.gz",
-      "checksum": "79FBABAD07A6F3A950FEEE37DF83B58514DA7A1199428025FE9835D49E531CFC",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-linux-x64-musl.tar.gz",
+      "checksum": "7F8277957C7D06AEEF103DA8CF4B54FBCECFB9A4CC6675D6037CDA55EBA6EAE5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-linux-x64.tar.gz",
-      "checksum": "348A302629F3734A2A7318A97EB6A05D4C30E772F9C8366CB78A55977ECA46DA",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-linux-x64.tar.gz",
+      "checksum": "9CA14CD81A7B0D9654D392FC1253773E70F31F470AA98334732744956CD1006B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-win32-arm64.zip",
-      "checksum": "8FBF9C12DB204E7430413442313DBD2F0CFB40AED0C70F1B1EC53D33A16CB614",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-win32-arm64.zip",
+      "checksum": "2FE7F55209CE50B101F5DEA198A2DC0FDB910547A28BBD701F8D858F9D62566E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.314/claude-win32-x64.zip",
-      "checksum": "0722D17136EF06C5675DBF97AD75148642213111F2192DDA14C9ED5411B66746",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.316/claude-win32-x64.zip",
+      "checksum": "C77CB13C50365DE63AD3A0E09C915294A9D1657627B82A6FC3C1BDF327E6A346",
       "algorithm": "sha256"
     },
     {
@@ -1336,23 +1336,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.2/terminal-browser-darwin-arm64.tar.gz",
-      "checksum": "986250885E71260FB2F9DE3D0B3CC3A3C5ECB63FD360E46CAB2C48E1716FD3DB",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-darwin-arm64.tar.gz",
+      "checksum": "11AFBC1C0CC0B8D12BB5EFFC2E2BAF08507DD32456D6E0052824C1BC30C108F0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.2/terminal-browser-darwin-x64.tar.gz",
-      "checksum": "37027AF564DB12487129161F66310DF2FBF0D5BBDAC4DD98AF01CA40242D455F",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-darwin-x64.tar.gz",
+      "checksum": "F91BB601F93B2959B76B24A6E4B765CAB7AD35A885B97C07BEAA1FD0773F6B05",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.2/terminal-browser-linux-arm64.tar.gz",
-      "checksum": "5DB099C0C3037936F2B22CFA9F9A929367CC2754D96A631C2E91B886F67D0F2A",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-linux-arm64.tar.gz",
+      "checksum": "69F26A76BDCC61E4782733AA1B9FCB6E06774AC9D6B0DF3E9FBB0AA4ABB0F6BC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.2/terminal-browser-linux-x64.tar.gz",
-      "checksum": "9681A94DB7ACE106CCE86BF14DCB3FCBA7A404E5E660E70BF9CEB72ACE36B146",
+      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-linux-x64.tar.gz",
+      "checksum": "244E995B554EDB29F66CF07F7F830A76885AE6A6FA233DEC53980BFB0A509541",
       "algorithm": "sha256"
     },
     {
