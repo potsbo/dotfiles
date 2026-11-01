@@ -206,33 +206,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.6/dust-v1.2.6-aarch64-apple-darwin.tar.gz",
-      "checksum": "5C37EE0D353165C73AEDD6B21B9133182221EFE08F9A5E76C082D9D6D5A0935D",
+      "id": "github_release/github.com/bootandy/dust/v1.2.7/dust-v1.2.7-aarch64-apple-darwin.tar.gz",
+      "checksum": "38E1B3B4E5E6A5CDB044B5FDB32EA45F18DC78276711796214806F20F7705A99",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.6/dust-v1.2.6-aarch64-pc-windows-msvc.zip",
-      "checksum": "43B14B97245452E8DD5506AB5FDC996DDD51C2F820C936D45210D3253B613062",
+      "id": "github_release/github.com/bootandy/dust/v1.2.7/dust-v1.2.7-aarch64-pc-windows-msvc.zip",
+      "checksum": "4D8CCE667FBFB39B9F6F1D81B4FFC70DC51744E9D1E5A654D96DD1EEE59D1695",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.6/dust-v1.2.6-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "A51CF42A4654864837CC116EACA914271D7A09A9C2A60DE90ECC2187B8D855A7",
+      "id": "github_release/github.com/bootandy/dust/v1.2.7/dust-v1.2.7-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "4C8EBAF224179BFD42DB45D8A50FD5304BBD89532EDA94DB684D309C7B734ED6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.6/dust-v1.2.6-x86_64-apple-darwin.tar.gz",
-      "checksum": "7603C92462BD56305847732EB25D70AB06386D7BCFBCE7532B7CF3937FD9684F",
+      "id": "github_release/github.com/bootandy/dust/v1.2.7/dust-v1.2.7-x86_64-apple-darwin.tar.gz",
+      "checksum": "5EEF77D18DFD2D1D56D1B3C415BC2D41B5B793BC63B5C7F706005D058A48A363",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.6/dust-v1.2.6-x86_64-pc-windows-msvc.zip",
-      "checksum": "6A73222902D6960CE7183CD833A5D3EA99A3E3FF3CFB33720C1939A41CB7744D",
+      "id": "github_release/github.com/bootandy/dust/v1.2.7/dust-v1.2.7-x86_64-pc-windows-msvc.zip",
+      "checksum": "D07A41521958895E701AD55F342302B7362799D6A328C843E8E2208BA0564C30",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/bootandy/dust/v1.2.6/dust-v1.2.6-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "CBF2CB5C9D6227E46FC4B29C03DC43B8632020DFC5CF269D263D6E29C399E044",
+      "id": "github_release/github.com/bootandy/dust/v1.2.7/dust-v1.2.7-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "2F1A1106F1F14C0B684B2F0A5F4482C6D53E07A871DF4AFC11E3B91ADE300B55",
       "algorithm": "sha256"
     },
     {
