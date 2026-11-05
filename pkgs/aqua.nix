@@ -17,7 +17,7 @@ buildGoModule.override { go = go_1_27; } {
     owner = "aquaproj";
     repo = "aqua";
     rev = "v${version}";
-    hash = "sha256-1WYPwjv+MFaVsocBxxA01bFbrqzcz9UvURIxeeZffQQ=";
+    hash = "sha256-IrJb2TIKgcSffQ4IKmivDEeG2+YJkQN6B1j7+EEKaDk=";
   };
 
   vendorHash = "sha256-xgFQ2iVUbSRupTdCOBe258D5t7kXVP0xEwkuvm+HRgY=";
