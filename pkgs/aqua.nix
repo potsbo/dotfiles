@@ -2,7 +2,7 @@
 
 let
   # renovate: datasource=github-releases depName=aquaproj/aqua
-  version = "2.66.0";
+  version = "2.66.1";
 in
 # go は固定しない。go_1_XX で override すると nixpkgs の default が進んでも追従せず、
 # Renovate も attr 名は書き換えないので手で bump することになる (2026-09 に一度やった)。
@@ -17,7 +17,7 @@ buildGoModule.override { go = go_1_27; } {
     owner = "aquaproj";
     repo = "aqua";
     rev = "v${version}";
-    hash = "sha256-1WYPwjv+MFaVsocBxxA01bFbrqzcz9UvURIxeeZffQQ=";
+    hash = "sha256-IrJb2TIKgcSffQ4IKmivDEeG2+YJkQN6B1j7+EEKaDk=";
   };
 
   vendorHash = "sha256-xgFQ2iVUbSRupTdCOBe258D5t7kXVP0xEwkuvm+HRgY=";
