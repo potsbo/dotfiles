@@ -1071,33 +1071,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/fd/v10.5.1/fd-v10.5.1-aarch64-apple-darwin.tar.gz",
-      "checksum": "2D336895ED27B14C5CC9FC5EB22DF03B3EE842B5DCE80060E99D9CDC1B1B9FC7",
+      "id": "github_release/github.com/sharkdp/fd/v10.5.2/fd-v10.5.2-aarch64-apple-darwin.tar.gz",
+      "checksum": "81BF98A16D3D7230E4A9123FCEDE243D71EA31A577113476ED43F1CDF4773162",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/fd/v10.5.1/fd-v10.5.1-aarch64-pc-windows-msvc.zip",
-      "checksum": "39D0166D11EF01975FBC8FB92CF4C8E78AFCDA5CA0F64AA924F950F2BAACD5E0",
+      "id": "github_release/github.com/sharkdp/fd/v10.5.2/fd-v10.5.2-aarch64-pc-windows-msvc.zip",
+      "checksum": "0EE570AD513E6E1909642DBD79BF7177CF3457652E912C27726582C0F49DF86E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/fd/v10.5.1/fd-v10.5.1-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "64C20B9B154C9D4B36D4B7DF3521DE771C499C4768B4B5B045EF6B01532117BE",
+      "id": "github_release/github.com/sharkdp/fd/v10.5.2/fd-v10.5.2-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "63EA52CB31586E6D98EFA2F06D73D542F16C7D0C4AF0F07B579AAF9714CF907A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/fd/v10.5.1/fd-v10.5.1-x86_64-apple-darwin.tar.gz",
-      "checksum": "308AC4FA5F53798B4E4BD77D243BA65E77B3EAAE1EF2FE4E2A8A4BB2128EEDFF",
+      "id": "github_release/github.com/sharkdp/fd/v10.5.2/fd-v10.5.2-x86_64-apple-darwin.tar.gz",
+      "checksum": "0F02E6000A8C896CD254CF4DCCC7DA1E604E77A32C6783609EED5E4CB07785E3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/fd/v10.5.1/fd-v10.5.1-x86_64-pc-windows-msvc.zip",
-      "checksum": "E52306A600E60B7BA92019C81DC753E6EA6665379D005867D38215FFD14CF5C2",
+      "id": "github_release/github.com/sharkdp/fd/v10.5.2/fd-v10.5.2-x86_64-pc-windows-msvc.zip",
+      "checksum": "7EDAC75EF96B7E9A01EBB251A21EE86EA365A09ADCFB865F1EC3346A906153B6",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/fd/v10.5.1/fd-v10.5.1-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "F6C95EDB190C241DF6FDDC815A5BAB4051444993AC5D92DDC6EEC0E0DC2342C7",
+      "id": "github_release/github.com/sharkdp/fd/v10.5.2/fd-v10.5.2-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "7E2D07FA2B8807642AAEC67B7E2972A9FBE4DB26FCB340A7372392DB42B26694",
       "algorithm": "sha256"
     },
     {
