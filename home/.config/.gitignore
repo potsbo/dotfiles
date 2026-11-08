@@ -56,3 +56,4 @@ lightdash
 # terminal-browser が作る Chromium のプロファイル (id はインストールごとに変わる)
 terminal-browser-*
 /hyprshell/config.json
+/libreoffice/
