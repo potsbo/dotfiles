@@ -13,7 +13,10 @@ alternate_screen = "never"
 # worktree 名しか出ず、herdr sidebar の terminal_title_stripped 行が機能しないため。
 # project-name は herdr の workspace トークンと重複するので入れない。
 # thread-title 未生成の間は title を書き換えない (直前の title が残る)。
-terminal_title = ["activity", "thread-title"]
+# activity (title 先頭の spinner) は入れない。動作中かどうかは OSC 7501 で Rex に渡り、
+# Rex がタブに spinner を出す。Claude Code は OSC 7501 対応の端末では title の spinner を
+# 出さないので、Codex だけ title でも回ると見え方が揃わない。
+terminal_title = ["thread-title"]
 screen_reader_detection_done = true
 
 [tui.model_availability_nux]
