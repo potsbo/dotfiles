@@ -27,7 +27,7 @@ psp_exit() {
   if (( code == 130 || code == 143 )); then
     program_status clear
   elif (( code == 0 )); then
-    program_status done
+    program_status "done"
   else
     program_status error
   fi
