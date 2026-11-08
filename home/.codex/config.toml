@@ -52,6 +52,10 @@ trust_level = "trusted"
 trusted_hash = "sha256:3fec0550859c2fb3d142996741418905f81edf81079e64fe115773e830dd7cb0"
 enabled = true
 
+[hooks.state."/Users/potsbo/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:7ac16f27c7b29bec5952047d0a2193dc7595d731faca5a12c3c476194bd2d532"
+enabled = true
+
 [marketplaces.openai-bundled]
 source_type = "local"
 source = "/home/potsbo/.codex/.tmp/bundled-marketplaces/openai-bundled"
