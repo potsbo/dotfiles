@@ -116,6 +116,7 @@
         ./modules/home-manager/starship.nix
         ./modules/home-manager/lazygit.nix
         ./modules/home-manager/notes-sync.nix
+        ./modules/home-manager/rex.nix
       ];
       # home 配下のパスは渡さない。各モジュールが config.home.homeDirectory から組む。
       hmSpecialArgs = hostname: {

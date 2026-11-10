@@ -18,7 +18,10 @@ vars:
   # 2026-10 時点の出所は herdr が lock している rust-overlay で、rust-overlay 側は直っている。
   # `nix flake update herdr/rust-overlay` で先取りできるが、作者が試していない組み合わせを
   # warning のためだけに抱えたくないので、herdr の lock が上がるのを待つ。
-  EVAL_WARN_IGNORE: 'stdenv\.is[A-Za-z0-9_]+ is deprecated'
+  #
+  # services.rex の warning は rex の home-manager module が enable 時に無条件で出す
+  # (linger を促す文面)。linger は modules/nixos/common.nix で有効化済みで、消す口が無い。
+  EVAL_WARN_IGNORE: 'stdenv\.is[A-Za-z0-9_]+ is deprecated|services\.rex: the Rex server runs as a systemd user service'
 
 # pkgs/ の crate の task は、それぞれのディレクトリの Taskfile に置く。
 includes:
