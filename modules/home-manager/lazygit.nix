@@ -28,6 +28,12 @@
       # SSH セッションでは wl-copy 等が使えないので OSC52 でターミナル経由コピー
       os.copyToClipboardCmd = ''printf "\033]52;c;$(printf {{text}} | base64 -w0)\a" > /dev/tty'';
       keybinding.universal = {
+        # Rex は Karabiner の Emacs 変換から外してあり (docs/keymap.md E7)、Ctrl+P/N が
+        # ↑/↓ にならず生のまま届く。E3 を lazygit でも効かせるためここで受ける。
+        prevItem = [ "<up>" "<ctrl+p>" ];
+        nextItem = [ "<down>" "<ctrl+n>" ];
+        # 既定の <ctrl+p> は上と衝突するので、既定で空いている <ctrl+x> に逃がす。
+        createPatchOptionsMenu = "<ctrl+x>";
         prevItem-alt = "t";
         nextItem-alt = "h";
         prevBlock-alt = "d";
