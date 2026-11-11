@@ -53,6 +53,28 @@ packages:
     files:
       - name: terminal-browser
         src: terminal-browser/bin/terminal-browser
+  # neorex - Rex の pane を Neovim の window として使う Neovim frontend。
+  # https://github.com/alexrlocke/neorex
+  # upstream flake もあるが Zig からの source build になる。release の tarball は
+  # 静的リンクで NixOS でもそのまま動くので aqua で入れる。
+  - type: github_release
+    repo_owner: alexrlocke
+    repo_name: neorex
+    asset: neorex-{{.Arch}}-{{.OS}}.tar.gz
+    replacements:
+      darwin: macos
+      amd64: x86_64
+      arm64: aarch64
+    checksum:
+      type: github_release
+      asset: checksums.txt
+      algorithm: sha256
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: neorex
+        src: "{{.AssetWithoutExt}}/bin/neorex"
   # desync - casync 互換の content-addressed chunk store (cascp が使う)。
   # https://github.com/folbricht/desync
   # standard registry にもあるが rosetta2: true で、Apple Silicon でも amd64 版を

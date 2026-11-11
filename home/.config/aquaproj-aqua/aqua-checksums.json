@@ -131,6 +131,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-aarch64-linux.tar.gz",
+      "checksum": "10E5AA80D0560666CF3EA018E8063437903FCCED388D70C83C31C9255DF7EFA4",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-aarch64-macos.tar.gz",
+      "checksum": "F4E64364CEDA52F130E49786825101312BEF46F93491B9CAD757DDEA986364A3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-x86_64-linux.tar.gz",
+      "checksum": "5733B133012E515580D44A2BCBEDA1BDB430DACB708567D55C31E8F941C3A9F5",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-x86_64-macos.tar.gz",
+      "checksum": "B231729084DE599716FDE30596E0C839755E95C3023C0C3E6A86F399A314FA48",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/anthropics/claude-code/v2.1.322/claude-darwin-arm64.tar.gz",
       "checksum": "0FF389F1A313F50778C2472C2F85882CA82C10156398C68CFC3C332004694646",
       "algorithm": "sha256"

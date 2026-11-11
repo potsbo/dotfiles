@@ -79,3 +79,5 @@ packages:
   - name: cloudflare/cloudflared@2026.10.7
   - name: zenbu-labs/terminal-browser@v0.15.3
     registry: local
+  - name: alexrlocke/neorex@v0.1.0
+    registry: local
