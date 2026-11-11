@@ -119,6 +119,16 @@ autoload -Uz colors && colors
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
+# worktree を選んだら今のシェルで cd する。受け渡しは worktree-connect.sh 参照。
+tuicast() {
+  local f dir
+  f=$(mktemp) || return
+  TUICAST_CD_FILE=$f command tuicast "$@"
+  dir=$(<"$f")
+  rm -f "$f"
+  [[ -n $dir ]] && cd "$dir"
+}
+
 # C-] で tuicast (worktree / ssh ピッカー)
 _tuicast_connect() {
   BUFFER="tuicast"
