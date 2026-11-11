@@ -119,6 +119,51 @@ autoload -Uz colors && colors
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
+# worktree を選んだら今のシェルで cd する。受け渡しは worktree-connect.sh 参照。
+#
+# Rex の中では floating pane に出し、選んだアプリ (lazygit, nvim 等) もその中で
+# 動かす。herdr の popup と違って選択結果は session 切替ではなくこのシェルの cd
+# なので、このシェルは pane が閉じるまで待つ (アプリを使っている間もブロック)。
+# pane は Rex サーバーの環境 + login profile で起動するため、このシェルで export
+# したもの (direnv / nix develop / venv) は中のアプリに引き継がれない。
+# 選択だけ floating でやって実行はこのシェルに戻す案もあったが、まず全部 floating
+# で試している。
+tuicast() {
+  local f dir
+  f=$(mktemp) || return
+  if [[ -n ${REX_SESSION:-} && -n ${REX_BLOCK:-} && -x ${REX_BIN_DIR:-}/rex ]]; then
+    _tuicast_float "$f" "$@"
+  else
+    TUICAST_CD_FILE=$f command tuicast "$@"
+  fi
+  dir=$(<"$f")
+  rm -f "$f"
+  [[ -n $dir ]] && cd "$dir"
+}
+
+_tuicast_float() {
+  local f=$1; shift
+  local rex=$REX_BIN_DIR/rex win req block
+  win=$("$rex" block inspect -s "$REX_SESSION" "$REX_BLOCK" --json | jq -er '.block.window_id') || return
+  # quick_exit_threshold_ms=0: Rex は即失敗した pane を開いたままにするが、tuicast
+  # 自身が失敗時に画面を残すので二重になる。Esc での即キャンセルでも閉じたい。
+  req=$(jq -n --arg s "$REX_SESSION" --arg w "$win" --arg cwd "$PWD" --arg f "$f" '{
+    session_id: $s, window_id: $w, bounds: [0.05, 0.05, 0.9, 0.9], focus: true,
+    layout: {block: {flavor: "com.superlogical.terminal.shell", label: "tuicast", options: {
+      cwd: $cwd,
+      command: (["env", "TUICAST_CD_FILE=\($f)", "tuicast"] + $ARGS.positional),
+      exit: {quick_exit_threshold_ms: 0}
+    }}}}' --args "$@") || return
+  block=$("$rex" api call -s "$REX_SESSION" session.new_layer "$req" | jq -er '.block_ids[0]') || return
+  {
+    "$rex" wait -s "$REX_SESSION" "$block" >/dev/null 2>&1
+  } always {
+    # 待っている側を Ctrl-C したら floating も畳む (cd 先を返す相手がいなくなるため)。
+    # 正常終了ならもう閉じていて失敗するだけなので、条件を付けずに呼ぶ。
+    "$rex" block close -s "$REX_SESSION" "$block" >/dev/null 2>&1
+  }
+}
+
 # C-] で tuicast (worktree / ssh ピッカー)
 _tuicast_connect() {
   BUFFER="tuicast"

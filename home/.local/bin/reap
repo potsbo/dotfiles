@@ -23,6 +23,32 @@ set -eu
 DRY_RUN=0
 [ "${1:-}" = "--dry-run" ] && { DRY_RUN=1; shift; }
 
+# probe の応答を読むと sudo などの stdin と競合するので、対応確認はしない。
+# dry-run は実作業の通知を残さず、ログにも制御列を混ぜない。
+program_status() {
+  [[ -t 2 && $DRY_RUN == 0 ]] || return 0
+  local title msg
+  title=$(printf '%s' 'Reap' | base64 | tr -d '\r\n')
+  msg=$(printf '%s' "$2" | base64 | tr -d '\r\n')
+  printf '\033]7501;state=%s:id=reap:app=reap:title=%s:msg=%s\033\\' "$1" "$title" "$msg" >&2
+}
+reap_exit() {
+  local code=$?
+  if [[ $code == 130 || $code == 143 ]]; then
+    program_status idle 'Reap cancelled'
+  elif [[ $code == 0 ]]; then
+    program_status 'done' "${done_msg:-Reap finished in ${SECONDS}s}"
+  else
+    program_status error "Reap failed (exit $code)"
+  fi
+  return "$code"
+}
+trap reap_exit EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+SECONDS=0
+program_status working 'Reaping caches'
+
 run() {
   echo "+ $*"
   [ "$DRY_RUN" = 1 ] && return 0
@@ -63,18 +89,21 @@ before=$(avail)
 
 # --- aqua: 未使用の旧バージョンを削除 (再取得は遅延インストールで自動) ---
 if command -v aqua >/dev/null 2>&1; then
+  program_status working 'Vacuuming aqua packages'
   echo "== aqua vacuum (AQUA_VACUUM_DAYS=${AQUA_VACUUM_DAYS:-60}) =="
   run aqua vacuum
 fi
 
 # --- nix: user profile GC ---
 if command -v nix-collect-garbage >/dev/null 2>&1; then
+  program_status working 'Collecting Nix garbage (user)'
   echo "== nix-collect-garbage -d (user) =="
   run nix-collect-garbage -d
 
   # --- nix: system profile GC (store の大半を保持している旧世代を削除) ---
   # sudo が要るので対話でパスワードを聞かれることがある。NixOS/nix-darwin 両対応。
   if [ -e /nix/var/nix/profiles/system ]; then
+    program_status working 'Collecting Nix garbage (system)'
     echo "== sudo nix-collect-garbage -d (system) =="
     run sudo nix-collect-garbage -d
   fi
@@ -90,6 +119,7 @@ if [ "$(uname -s)" = Darwin ]; then
   # アンインストール」であって、宣言どおり入っているアプリの残骸には効かないので
   # apps を流しても減らない。
   if command -v brew >/dev/null 2>&1; then
+    program_status working 'Cleaning up Homebrew'
     echo "== brew cleanup --prune=all =="
     if [ "$DRY_RUN" = 1 ]; then
       brew cleanup --dry-run --prune=all
@@ -98,6 +128,7 @@ if [ "$(uname -s)" = Darwin ]; then
     fi
   fi
 
+  program_status working 'Purging macOS app caches'
   echo "== macOS app caches =="
   caches="$HOME/Library/Caches"
   # Squirrel.Mac (Electron アプリの自動更新) が落とした .zip / .app。適用後も消えず
@@ -130,6 +161,7 @@ fi
 store="${XDG_CACHE_HOME:-$HOME/.cache}/desync"
 if [ -n "$(find "$store" -type f -name '*.cacnk' 2>/dev/null | head -n 1)" ]; then
   limit_gb=${CASCP_CACHE_MAX_GB:-50}
+  program_status working 'Evicting cascp chunks'
   echo "== cascp store (CASCP_CACHE_MAX_GB=$limit_gb) =="
   evict=$(mktemp)
   # store 内の相対パスで扱う。chunk 名は 16 進なので、awk の空白区切りで壊れない。
@@ -149,6 +181,7 @@ fi
 
 # --- git: マージ済みの古い worktree / branch を掃除 (安全網は git vacuum 側が持つ) ---
 if command -v git-vacuum >/dev/null 2>&1; then
+  program_status working 'Vacuuming git worktrees'
   echo "== git vacuum (worktree/branch GC) =="
   if [ "$DRY_RUN" = 1 ]; then
     git vacuum --dry-run
@@ -163,5 +196,6 @@ if [ "$DRY_RUN" = 1 ]; then
   echo "dry-run: the commands above would delete regenerable caches."
 else
   freed=$(( after - before ))
+  done_msg="Reap freed $(human "$freed") in ${SECONDS}s"
   echo "done: freed $(human "$freed") ($(human "$before") -> $(human "$after") free on $HOME)"
 fi
