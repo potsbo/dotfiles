@@ -1,37 +1,13 @@
 #!/usr/bin/env bash
-# Connect to an SSH host, handling the herdr detach-and-reconnect pattern
-# (same shape as the old tmux flow).
+# Connect to an SSH host from the tuicast ssh view.
 #
-# Inside herdr the remote host's own herdr would draw nested inside the local
-# pane, so we want the local client out of the way first. herdr has no
-# client-detach API, but its client quits gracefully (terminal restored,
-# server untouched) on SIGINT via its ctrl-c handler — and a detached server
-# is exactly what prefix+d leaves behind. So: stash the target, SIGINT the
-# attached client(s); the login-shell wrapper in .zprofile picks up the
-# pending file, runs the ssh full-screen, and re-attaches herdr afterwards.
+# Rex 内では 1 ホスト = 1 Rex ウィンドウにする。外では今の端末でそのまま繋ぐ。
 set -eu
 
 host="$1"
 
-# 内外判定は HERDR_ENV で行う。HERDR_PANE_ID は通常 pane にしか入らず、
-# popup (keys.command type="popup") では未設定なので判定に使えない。
-# Rex 内では 1 ホスト = 1 Rex ウィンドウ。herdr のような detach は要らない
-# (Rex はリモートの herdr を入れ子で描くだけで、自分は抜けなくてよい)。
-if [ -z "${HERDR_ENV:-}" ] && [ -n "${REX_SESSION:-}" ]; then
+if [ -n "${REX_SESSION:-}" ]; then
   exec ~/.config/tuicast/rex-window.sh "$host" "$HOME" ~/.config/tuicast/ssh-reconnect.sh "$host"
 fi
 
-if [ -z "${HERDR_ENV:-}" ]; then
-  exec ~/.config/tuicast/ssh-reconnect.sh "$host"
-fi
-
-echo "$host" >/tmp/herdr-ssh-pending
-
-# Attached clients on this machine: a herdr process with a controlling tty
-# whose argv is an attach form (`herdr`, `herdr --session x`) — not the server
-# daemon, not transient `herdr <subcommand>` CLI calls. If several windows are
-# attached they all detach; the first wrapper to consume the pending file runs
-# the ssh and the rest just re-attach.
-ps -eo pid=,tty=,args= \
-  | awk '$2 != "?" && $3 ~ /(^|\/)herdr[^ ]*$/ && ($4 == "" || $4 ~ /^--/) && $0 !~ / server / { print $1 }' \
-  | xargs -r kill -INT
+exec ~/.config/tuicast/ssh-reconnect.sh "$host"

@@ -38,7 +38,7 @@
 
     # custom モジュールの shell は STARSHIP_SHELL (= zsh) が既定で、コマンドごとに zsh を起動して
     # .zshenv を読む。.zshenv は ssh-agent のソケットを探して生死を確かめる (応答しないものは
-    # 1 秒待つ) ので、agent が死んでいる環境 (herdr の pane など) では毎回 500ms の
+    # 1 秒待つ) ので、agent が死んでいる環境 (長寿命のマルチプレクサの pane など) では毎回 500ms の
     # command_timeout を超えてモジュールが空になる。コマンドは全部 POSIX なので sh で走らせる。
     # 4 つとも同じ理由。
     custom = {

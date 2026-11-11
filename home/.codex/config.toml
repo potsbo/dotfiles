@@ -10,8 +10,7 @@ network_access = true
 # Rex で Shift なしの文字選択・コピーを使えるよう、通常画面で起動する。
 alternate_screen = "never"
 # terminal title にタスク内容 (thread-title) を出す。default は activity + project-name で
-# worktree 名しか出ず、herdr sidebar の terminal_title_stripped 行が機能しないため。
-# project-name は herdr の workspace トークンと重複するので入れない。
+# worktree 名しか出ず、何のタスクか分からないため。
 # thread-title 未生成の間は title を書き換えない (直前の title が残る)。
 # activity (title 先頭の spinner) は入れない。動作中かどうかは OSC 7501 で Rex に渡り、
 # Rex がタブに spinner を出す。Claude Code は OSC 7501 対応の端末では title の spinner を

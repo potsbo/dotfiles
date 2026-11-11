@@ -227,7 +227,7 @@ in
               C-h = "C-h";
               C-k = "C-k";
               # Enter に変換する。Ghostty は Ctrl+M を Enter (CR) と区別して送るので、zsh の
-              # 行確定にならない。herdr など kitty keyboard protocol を使う TUI は Ctrl+M を
+              # 行確定にならない。kitty keyboard protocol を使う TUI は Ctrl+M を
               # Enter 扱いするので、Enter を送っても振る舞いは変わらない
               C-m = "Enter";
             };

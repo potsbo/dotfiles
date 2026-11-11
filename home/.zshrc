@@ -21,7 +21,7 @@ typeset -U path fpath
 # やめた (25ms の差より、同期が自動で保たれるほうを取る)。
 #
 # PATH= を前置するのは brew の no-op 対策。PATH の先頭が既に homebrew だと
-# brew は「設定済み」と判断して何も出力せず、空のキャッシュができる。herdr の
+# brew は「設定済み」と判断して何も出力せず、空のキャッシュができる。マルチプレクサの
 # pane のように親から環境を継いだシェルで実際に起きる。
 if [ -d "/opt/homebrew" ]; then
   zmodload -F zsh/stat b:zstat
@@ -103,7 +103,6 @@ if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --compl
 if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
-if type herdr &> /dev/null; then _lazy_load_completion herdr 'eval "$(herdr completion zsh)"'; fi
 # cascp は scp のサブセットなので、zsh 同梱の scp の補完 (ssh 越しのリモートパスを含む) を
 # そのまま使う。scp にしか無いオプションも候補に出るが、自前の補完を持つほどではない。
 compdef cascp=scp
@@ -120,8 +119,7 @@ autoload -Uz colors && colors
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
-# C-] で tuicast (worktree / ssh ピッカー)。herdr ペイン内では herdr 側の
-# ctrl+] keybind が同じ tuicast を起動するので、内外どちらでも同じ体験になる
+# C-] で tuicast (worktree / ssh ピッカー)
 _tuicast_connect() {
   BUFFER="tuicast"
   zle accept-line

@@ -98,7 +98,7 @@ export CGO_ENABLED=1
 if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 # hm-session-vars.sh 冒頭の include guard (__HM_SESS_VARS_SOURCED) は「この process tree で
-# 一度読んだ」しか見ない。herdr server のような長寿命プロセスが起動時のガードを抱えていると、
+# 一度読んだ」しか見ない。マルチプレクサの server のような長寿命プロセスが起動時のガードを抱えていると、
 # その下の新しい pane は ./install 後も古い値のままになる。そこでガードを「どの generation を
 # 読んだか」に置き換え、実体の store path (中身が変われば変わる) が前回と違うときだけガードを
 # 外して読み直す。
@@ -119,13 +119,13 @@ for _hm_vars in /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh $H
 done
 unset _hm_vars
 
-# --- forwarded ssh-agent: keep keys on the origin host, usable across herdr ---
+# --- forwarded ssh-agent: keep keys on the origin host, usable across multiplexer panes ---
 # When opting into agent forwarding (ssh -A), keep the private key on the origin host.
-# But every ssh connection gets its own forwarded socket, and long-lived herdr
+# But every ssh connection gets its own forwarded socket, and long-lived multiplexer
 # panes keep the one they first saw — so after a reconnect their $SSH_AUTH_SOCK
 # is stale and the agent looks gone. Fix: point a stable, machine-local symlink
 # at a live socket and have every shell use that link. Every new shell repoints
-# it (not just the login shell), so already-open herdr panes get a working agent
+# it (not just the login shell), so already-open multiplexer panes get a working agent
 # again without touching their env.
 # The link lives under $XDG_RUNTIME_DIR (per-machine, tmpfs) — never under ~/.ssh,
 # which is a symlink into the shared dotfiles repo.

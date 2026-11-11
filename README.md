@@ -20,7 +20,7 @@ Homebrew cask と Mac App Store のアプリは遅いので `rebuild` からは�
 `./install` / `rebuild` はログイン中の Mac ユーザーとして Secure Enclave 内に
 取り出し不可の P-256 鍵を作り、次回から同じ鍵を再利用する。追加アプリは不要。
 Secure Enclave と `sc_auth create-ctk-identity` 対応の macOS が必要。
-herdr の複数ホストへの再接続で毎回承認する負担を避けるため、`-t none` を使う。
+複数ホストへの再接続のたびに承認する負担を避けるため、`-t none` を使う。
 SSH のパスフレーズ入力も Touch ID の承認も不要だが、秘密鍵は取り出せない。
 Mac 上のプロセスからの署名依頼は承認なしで処理される。
 

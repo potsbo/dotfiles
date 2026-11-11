@@ -1,4 +1,4 @@
-{ config, pkgs, lib, herdr, rex, ... }:
+{ config, pkgs, lib, rex, ... }:
 
 let
 
@@ -10,9 +10,6 @@ let
     inherit (pkgs) callPackage;
     directory = ../../pkgs;
   };
-
-  # flake input (upstream flake) の package。理由は flake.nix の herdr input のコメント。
-  herdrPkg = herdr.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
 in
 {
@@ -100,18 +97,10 @@ in
       done
     '';
 
-    # 新しい herdr が入ったら、稼働中サーバを pane を殺さず載せ替える。server が居ない・
-    # 同じ版なら no-op。attach 時にも同じ script が走る (rebuild 中に handoff が失敗した保険)。
-    # PATH に新バイナリと jq を先頭で足すのは、activation の PATH が switch 前のままのため。
-    activation.herdrHandoff = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      PATH="${herdrPkg}/bin:${pkgs.jq}/bin:$PATH" run "${config.home.homeDirectory}/.local/bin/herdr-handoff"
-    '';
-
     packages = with pkgs; [
       localPkgs.aqua
       localPkgs.tuicast
       localPkgs.cascp
-      herdrPkg
       # macOS の /usr/bin/git (Apple Git) は版が古く upstream から遅れるので、全ホストで
       # nixpkgs (unstable) の git に揃える。設定は programs.git ではなく home/.config/git/config。
       git

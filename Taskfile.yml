@@ -12,17 +12,11 @@ vars:
   SHELL_FILES:
     sh: git ls-files | while read -r f; do head -1 "$f" 2>/dev/null | grep -qE '^#!.*\b(ba)?sh\b' && echo "$f"; done
   # eval 中の warning のうち、flake input の中から出るもの。nix の warning は message しか
-  # 出さず出所が分からないので、文面で除外する。ここに書く条件はこのリポジトリの .nix が
-  # その書き方をしていないこと (`grep -r 'stdenv\.is' --include='*.nix'` が空)。
-  # upstream の lock が上がって出なくなったら消す。
-  # 2026-10 時点の出所は herdr が lock している rust-overlay で、rust-overlay 側は直っている。
-  # `nix flake update herdr/rust-overlay` で先取りできるが、作者が試していない組み合わせを
-  # warning のためだけに抱えたくないので、herdr の lock が上がるのを待つ。
+  # 出さず出所が分からないので、文面で除外する。upstream で出なくなったら消す。
   #
   # services.rex の warning は rex の home-manager module が enable 時に無条件で出す
   # (linger を促す文面)。linger は modules/nixos/common.nix で有効化済みで、消す口が無い。
-  EVAL_WARN_IGNORE: 'stdenv\.is[A-Za-z0-9_]+ is deprecated|services\.rex: the Rex server runs as a systemd user service'
-
+  EVAL_WARN_IGNORE: 'services\.rex: the Rex server runs as a systemd user service'
 # pkgs/ の crate の task は、それぞれのディレクトリの Taskfile に置く。
 includes:
   cascp:
@@ -51,7 +45,7 @@ tasks:
   # 構文しか見ないので、eval 時の lib.warn はこれでしか拾えない。
   # darwin ホストも Linux 上で eval だけはできる。
   #
-  # --option abort-on-warn true は使わない。warning は flake input (herdr → rust-overlay など)
+  # --option abort-on-warn true は使わない。warning は flake input
   # の中からも出るが、そちらは lock を待つ以外に直しようがなく、CI が upstream の都合で
   # 止まる。代わりに warning を集めて EVAL_WARN_IGNORE に載らないものだけを fail にする。
   eval:

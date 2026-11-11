@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # git tree <branch words...> [-- <prompt...>]
 #
-# Create a worktree named after the branch words and open its herdr space.
+# Create a worktree named after the branch words and open it (a Rex window
+# inside Rex).
 # With `-- <prompt>`, also start claude there with that prompt. Branch words
 # and prompt are separated so the prompt can be free-form (Japanese, long
-# sentences) without leaking into the branch/space name.
+# sentences) without leaking into the branch/window name.
 #
 # Auto-generating the branch name from the prompt (e.g. `claude -p --model haiku`)
 # was considered and rejected: branch naming stays the user's call. It would also
@@ -30,8 +31,19 @@ git switch "$(git default-branch)"
 git wt "$b"
 dir="$(git wt | grep "$b" | awk '{print $1}')"
 
+cmd=()
 if [ $# -gt 0 ]; then
-  exec ~/.local/bin/herdr-space-connect "$dir" claude "$*"
-else
-  exec ~/.local/bin/herdr-space-connect "$dir"
+  cmd=(claude "$*")
 fi
+
+if [ -n "${REX_SESSION:-}" ]; then
+  exec ~/.config/tuicast/rex-window.sh "${b#potsbo/}" "$dir" "${cmd[@]}"
+fi
+
+# Rex の外ではこのプロセスから親シェルの cwd を変えられないので、prompt が
+# あればその場で claude を起動し、なければ移動先を表示するだけにする。
+if [ ${#cmd[@]} -gt 0 ]; then
+  cd "$dir"
+  exec "${cmd[@]}"
+fi
+echo "cd $dir"

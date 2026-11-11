@@ -47,7 +47,7 @@ in
     settings =
       # Linux ホスト共通: open/xdg-open を手元の Mac で開くための opener 転送。
       # Mac 側は launchd の opener-listen (home.nix) が 2226 を listen。
-      # unix socket 転送と違い、短命な ssh 接続が長寿命接続 (herdr) のフォワードを
+      # unix socket 転送と違い、短命な ssh 接続が長寿命接続のフォワードを
       # unlink で壊さない。後続の接続は bind に失敗するだけ (警告のみ) で無害。
       # avalanche は ssh を受け付けないが、ブロックがあっても害はないので除外しない。
       lib.mapAttrs
@@ -57,8 +57,8 @@ in
           # 一方 graniteridge は素の名前が Tailscale の A に加えて会社側 DNS が返す
           # Cloudflare プロキシの AAAA 2 件にも解決される。ssh は AAAA を先に試すが
           # そこに sshd はいないので、ConnectTimeout を明示する呼び出しでは死んだ
-          # 2 件を待ち切ってからでないと Tailscale のアドレスに到達しない。herdr の
-          # SSH ブリッジは ConnectTimeout=10 なので 20 秒かかり、その前に接続を諦める
+          # 2 件を待ち切ってからでないと Tailscale のアドレスに到達しない。以前使っていた herdr の
+          # SSH ブリッジは ConnectTimeout=10 なので 20 秒かかり、その前に接続を諦めていた
           # (手打ちの ssh は ConnectTimeout 無指定で即座に落ちるので気付かない)。
           # 同じ罠は他のホストにも増えうるので、1 ホストの例外にせず全ホストで IPv4 に絞る。
           # HostName を Tailscale の FQDN に固定しても直るが、Tailscale を使わず

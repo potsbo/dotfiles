@@ -13,7 +13,7 @@ end, { range = true })
 vim.api.nvim_create_user_command("CommandP", "Telescope find_files", {})
 -- OSC 52 の copy(書き込み)は端末に一方的に送るだけなので動くが、
 -- paste(読み出し)は端末にクリップボード内容を問い合わせて応答を待つ。
--- herdr など多くのターミナル/マルチプレクサは OSC 52 の読み出し応答に
+-- 多くのターミナル/マルチプレクサは OSC 52 の読み出し応答に
 -- 対応しておらず、`unnamedplus` 経由の p が
 --   "Waiting for OSC 52 response from the terminal..."
 -- で固まる。そこで paste は端末に問い合わせず nvim 内部レジスタから返す。

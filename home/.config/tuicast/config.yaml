@@ -1,11 +1,9 @@
-# 共通ピッカー: herdr の中 (ctrl+] → herdr keybind) からも外 (zsh の C-]) からも
-# 同じ tuicast を呼ぶ。内外差は各 run スクリプト側で HERDR_ENV を見て
-# 切り替える (worktree-connect.sh / ssh-connect.sh)。Rex のペイン内
-# (REX_SESSION) も同じ場所で分岐し、herdr ではなく Rex のウィンドウを開く。
+# 共通ピッカー: Rex の中でも外 (zsh の C-]、ログインシェル) でも同じ tuicast を呼ぶ。
+# 内外差は各 run スクリプト側で REX_SESSION を見て切り替え、Rex の中では
+# Rex のセッション/ウィンドウを開く (worktree-connect.sh / ssh-connect.sh)。
 views:
   main:
     union:
-      - herdr
       - zsh
       - lazygit
       - hunk
@@ -16,24 +14,12 @@ views:
       - glow
       - btop
       # union は設定順に直列実行されるので、重い source ほど後ろに置く。
-      # ssh は即時 (~0.1s)、open worktree は herdr 呼び出しで ~0.3s、closed の
-      # 列挙は全 ghq repo を舐めて ~1s。
+      # ssh は即時 (~0.1s)、worktree の列挙は全 ghq repo を舐めて ~1s。
       - ssh
       - worktree
-      - worktree-closed
-
-  # herdr の外にいるときだけ出る「herdr に入る」エントリ。
-  # attach は herdr-attach 経由 (ssh detach-and-reconnect ループ付き)。
-  herdr:
-    steps:
-      - name: _herdr
-        sources:
-          - list: '[ -z "${HERDR_ENV:-}" ] && command -v herdr >/dev/null && echo herdr || true'
-            display: "printf '\\033[38;2;255;199;153m\\357\\222\\211\\033[39m %s\\n' {}"
-    run: ~/.local/bin/herdr-attach
 
   # git リポジトリ内にいるときだけ出る lazygit エントリ。選んで抜けたら popup/pane が閉じる。
-  # 色は worktree の working と同じ peach 系に合わせ、アイコンは git branch (\356\202\240)。
+  # 色は peach 系、アイコンは git branch (\356\202\240)。
   lazygit:
     steps:
       - name: _lazygit
@@ -103,7 +89,7 @@ views:
     run: glow
 
   # システムモニタ。どこにいても出せるよう無条件 (btop がある場合のみ)。
-  # 色は idle と同じ mint 系、アイコンは bar chart (\357\202\200)。
+  # 色は mint 系、アイコンは bar chart (\357\202\200)。
   btop:
     steps:
       - name: _btop
@@ -122,29 +108,15 @@ views:
             display: "printf '\\033[38;2;180;180;180m\\357\\204\\240\\033[39m %s\\n' {}"
     run: zsh
 
-  # 開いている space がある worktree、緊急なもの (blocked) が先頭。並び順は
-  # list 側、行ごとのドット (herdr の状態色)・ラベル・branch は display filter
-  # (worktree-label.sh) の担当。かつては状態ごとに 4 source に分けて static な
-  # ドットを塗っていたが、source ごとに herdr RPC (~50ms) を払うのをやめて
-  # 1 source に統合した。pipe 形式 ("|") なのは per-item だと spawn コストが
+  # 全 ghq repo の worktree。並び順は list 側、ラベル・branch は display filter
+  # (worktree-label.sh) の担当。pipe 形式 ("|") なのは per-item だと spawn コストが
   # 支配的になるため (詳細はスクリプト冒頭)。
   worktree:
     steps:
       - name: worktree
         sources:
-          - list: ~/.config/tuicast/list-worktrees.sh --open
-            display: "|~/.config/tuicast/worktree-label.sh --dot open"
-            preview: git -C {} log --oneline --decorate -15 2>/dev/null
-    run: ~/.config/tuicast/worktree-connect.sh $worktree
-
-  # 開いていない worktree。worktree view と別なのは union での表示優先度の
-  # ため (union の comment 参照)。
-  worktree-closed:
-    steps:
-      - name: worktree
-        sources:
-          - list: ~/.config/tuicast/list-worktrees.sh --closed
-            display: "|~/.config/tuicast/worktree-label.sh --dot none"
+          - list: ~/.config/tuicast/list-worktrees.sh
+            display: "|~/.config/tuicast/worktree-label.sh"
             preview: git -C {} log --oneline --decorate -15 2>/dev/null
     run: ~/.config/tuicast/worktree-connect.sh $worktree
 

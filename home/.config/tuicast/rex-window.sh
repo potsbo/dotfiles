@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Focus (or create) the Rex window labeled LABEL in the current Rex session —
-# Rex's counterpart of herdr-space-connect, used by the tuicast run scripts
-# when they run inside a Rex pane.
+# Focus (or create) the Rex window labeled LABEL in the current Rex session,
+# used by the tuicast run scripts and `git tree` when they run inside a Rex
+# pane.
 #
-# Rex's block/window listings carry no cwd, so unlike herdr-space-connect the
+# Rex's block/window listings carry no cwd, so the
 # window is keyed off its label, not the directory. The lookup is an exact
 # match on `window ls --json`: `rex focus LABEL` also accepts ID suffixes and
 # block labels, which could land on an unrelated window.

@@ -33,7 +33,6 @@ let
     ".zprofile"
     ".zshrc"
     # .claude はセッション状態などが多いのでディレクトリごとはリンクせず settings.json だけ管理する。
-    # 注意: herdr が integration 更新時にこのファイルを書き直す (二重登録や再整形の diff が出たらこの管理をやめる)
     ".claude/settings.json"
     ".claude/claude-powerline.json"
     # .codex もセッション状態などを含むため、設定ファイルだけ管理する。

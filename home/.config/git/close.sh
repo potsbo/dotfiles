@@ -4,7 +4,7 @@
 #   1. clean かつ default branch に merge 済みであることを確認する
 #   2. 残っている remote branch を消す
 #   3. worktree と local branch を消す (git wt)
-#   4. main worktree の space に移り、この worktree の space を閉じる
+#   4. main worktree への cd を促す
 #
 # Usage: git close [-f]
 #   -f: default branch に merge されていなくても捨てる
@@ -70,16 +70,5 @@ git wt -D "$branch"
 # main worktree を最新にしておく (default branch を checkout していて clean なときだけ)
 git merge --quiet --ff-only "$merge_target" 2>/dev/null || true
 
-# main worktree の space に移り、この worktree の space を閉じる。
-# 自分のいた space を閉じるので必ず最後に実行する
-if [ -n "${HERDR_PANE_ID:-}" ]; then
-  workspace=$(herdr pane list | jq -r --arg p "$worktree" \
-    'first(.result.panes[] | select(.cwd == $p) | .workspace_id) // empty')
-  ~/.local/bin/herdr-space-connect "$main_worktree"
-  if [ -n "$workspace" ]; then
-    herdr workspace close "$workspace"
-  fi
-else
-  # space を移らないシェルは消えた worktree に留まっているので促す
-  echo "cd $main_worktree"
-fi
+# このシェルは消えた worktree に留まっているので促す
+echo "cd $main_worktree"
