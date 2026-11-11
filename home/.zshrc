@@ -163,11 +163,9 @@ if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; 
 # 自動判定に任せたいときは chafa をそのまま呼べばよい。
 alias img="chafa -f kitty"
 
-# neorex は Rex の pane の中でしか window を pane にできないので、Rex の中だけ差し替える。
-# まだ v0.1 で荒いので、素の nvim が要るときは `command nvim` で抜ける。
-# EDITOR (git commit など) は差し替えない: 他のプロセスから開かれる editor が
-# neorex の不具合に巻き込まれると復旧しにくい。
-if [[ -n "${REX_SESSION:-}" ]] && command -v neorex &> /dev/null; then; alias nvim='neorex'; fi
+# nvim を neorex に alias しない: neorex (v0.1) の中では、少なくとも ssh 先で
+# yank が clipboard に入らず、ctrl-z で bg に回せない。同じ環境の素の nvim では
+# どちらも動く。neorex を使うときは名前で呼ぶ。
 
 # aqua: prompt 毎にパッケージをインストール（~50ms, バックグラウンド実行）
 _aqua_install() {
