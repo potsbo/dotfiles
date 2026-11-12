@@ -129,13 +129,23 @@ _evalcache starship init zsh
 # 選択だけ floating でやって実行はこのシェルに戻す案もあったが、まず全部 floating
 # で試している。
 tuicast() {
-  local f dir
-  f=$(mktemp) || return
   if [[ -n ${REX_SESSION:-} && -n ${REX_BLOCK:-} && -x ${REX_BIN_DIR:-}/rex ]]; then
-    _tuicast_float "$f" "$@"
+    _tuicast_cd _tuicast_float "$@"
   else
-    TUICAST_CD_FILE=$f command tuicast "$@"
+    _tuicast_cd _tuicast_inline "$@"
   fi
+}
+
+_tuicast_inline() {
+  local f=$1; shift
+  TUICAST_CD_FILE=$f command tuicast "$@"
+}
+
+# $1 の runner に受け口のファイルを渡し、書かれた dir へこのシェルで cd する。
+_tuicast_cd() {
+  local runner=$1 f dir; shift
+  f=$(mktemp) || return
+  "$runner" "$f" "$@"
   dir=$(<"$f")
   rm -f "$f"
   [[ -n $dir ]] && cd "$dir"
@@ -249,3 +259,12 @@ precmd_functions+=(_aqua_install)
 rdp() {
   xfreerdp /v:"$1" /u:Administrator /p:"$(op read "op://Engineering/$1/password")" /f /bpp:32 /gfx:RFX /network:lan
 }
+
+# Rex で新しく開いた端末 (tab / 分割 / floating) では最初に tuicast を出す。Esc で
+# 素のシェルになる。Rex の外は .zprofile が出す。ここでは floating に重ねず pane の中で
+# 開く: 開いたばかりの pane の上にさらに pane を出す意味がなく、選んだ dir にこの
+# シェルで cd できる。login に限るのは、worktree-connect.sh の exec zsh や手で打った
+# zsh で再び出さないため (Rex は pane のシェルを login で起動する)。
+if [[ -n ${REX_SESSION:-} ]] && [[ -o login ]] && [[ -o interactive ]] && [[ -t 0 ]] && (( $+commands[tuicast] )); then
+  _tuicast_cd _tuicast_inline
+fi
