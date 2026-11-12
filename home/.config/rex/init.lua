@@ -65,6 +65,21 @@ rex.action{
   end,
 }
 
+-- 起動中のアプリ (Claude Code など) を止めずに、手元の dir でシェルを重ねたい。
+rex.action{
+  name = "cwd_float",
+  title = "New Floating Pane in Current Directory",
+  run = function()
+    return checked(rex.session.new_layer{
+      bounds = { 0.05, 0.05, 0.9, 0.9 },
+      focus = true,
+      layout = terminal(current_dir()),
+    })
+  end,
+}
+
 rex.bind("cmd+t", "repo_tab")
+-- 標準の cmd+n (新規ウィンドウ) は Rex では使わないので置き換える (docs/keymap.md A10)。
+rex.bind("cmd+n", "cwd_float")
 rex.bind("cmd+d", "cwd_split", { direction = "right" })
 rex.bind("shift+cmd+d", "cwd_split", { direction = "down" })
