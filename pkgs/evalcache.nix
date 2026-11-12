@@ -11,8 +11,8 @@ stdenvNoCC.mkDerivation {
     owner = "mroth";
     repo = "evalcache";
     # renovate: datasource=git-refs depName=https://github.com/mroth/evalcache branch=master
-    rev ="d6973f8c3ecde3eabd75c17b47e2222e24ab3e87";
-    hash = "sha256-CN9dnSt9kc5AEkWnbtjyv+DCQZ08Ifmac5wELqve17U=";
+    rev ="7479c02bb524801bb898f7447ea14fd4f5478fa9";
+    hash = "sha256-o8x/dw+wZPhE+VFrV4Zh6xONTqXIcktvNWBxnkrQOXY=";
   };
 
   installPhase = ''
