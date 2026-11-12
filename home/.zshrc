@@ -206,7 +206,8 @@ if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; 
 # 落ちるため、ピクセルを送れる端末でも文字アート (symbols) に退避してしまい
 # 荒い絵になる。使う端末はどれも kitty graphics を解するので明示する。
 # 自動判定に任せたいときは chafa をそのまま呼べばよい。
-alias img="chafa -f kitty"
+# 名前は kitty 公式 (`alias icat="kitten icat"`) に合わせる。
+alias icat="chafa -f kitty"
 
 # nvim を neorex に alias しない: neorex (v0.1) の中では、少なくとも ssh 先で
 # yank が clipboard に入らず、ctrl-z で bg に回せない。同じ環境の素の nvim では
