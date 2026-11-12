@@ -143,24 +143,41 @@ tuicast() {
 
 _tuicast_float() {
   local f=$1; shift
-  local rex=$REX_BIN_DIR/rex win req block
-  win=$("$rex" block inspect -s "$REX_SESSION" "$REX_BLOCK" --json | jq -er '.block.window_id') || return
-  # quick_exit_threshold_ms=0: Rex は即失敗した pane を開いたままにするが、tuicast
-  # 自身が失敗時に画面を残すので二重になる。Esc での即キャンセルでも閉じたい。
-  req=$(jq -n --arg s "$REX_SESSION" --arg w "$win" --arg cwd "$PWD" --arg f "$f" '{
-    session_id: $s, window_id: $w, bounds: [0.05, 0.05, 0.9, 0.9], focus: true,
-    layout: {block: {flavor: "com.superlogical.terminal.shell", label: "tuicast", options: {
-      cwd: $cwd,
-      command: (["env", "TUICAST_CD_FILE=\($f)", "tuicast"] + $ARGS.positional),
-      exit: {quick_exit_threshold_ms: 0}
-    }}}}' --args "$@") || return
-  block=$("$rex" api call -s "$REX_SESSION" session.new_layer "$req" | jq -er '.block_ids[0]') || return
+  local rex=$REX_BIN_DIR/rex win req block typeahead tty_state
+  # floating pane にフォーカスが移るまで (C-] 直後) に打った文字は、この pane の tty に
+  # 溜まってエコーされ、tuicast の検索語に入らない。エコーを止めて非 canonical にして
+  # おき、pane ができたら溜まった分を送り直す。起動を速くしても Rex の API 往復と
+  # フォーカス移動の間は必ず残るので、速度ではなく転送で塞ぐ。
+  tty_state=$(stty -g 2>/dev/null)
+  [[ -n $tty_state ]] && stty -echo -icanon min 0 time 0 2>/dev/null
   {
-    "$rex" wait -s "$REX_SESSION" "$block" >/dev/null 2>&1
+    win=$("$rex" block inspect -s "$REX_SESSION" "$REX_BLOCK" --json | jq -er '.block.window_id') || return
+    # quick_exit_threshold_ms=0: Rex は即失敗した pane を開いたままにするが、tuicast
+    # 自身が失敗時に画面を残すので二重になる。Esc での即キャンセルでも閉じたい。
+    req=$(jq -n --arg s "$REX_SESSION" --arg w "$win" --arg cwd "$PWD" --arg f "$f" '{
+      session_id: $s, window_id: $w, bounds: [0.05, 0.05, 0.9, 0.9], focus: true,
+      layout: {block: {flavor: "com.superlogical.terminal.shell", label: "tuicast", options: {
+        cwd: $cwd,
+        command: (["env", "TUICAST_CD_FILE=\($f)", "tuicast"] + $ARGS.positional),
+        exit: {quick_exit_threshold_ms: 0}
+      }}}}' --args "$@") || return
+    block=$("$rex" api call -s "$REX_SESSION" session.new_layer "$req" | jq -er '.block_ids[0]') || return
+    if [[ -n $tty_state ]]; then
+      # min 0 time 0 なので、何も溜まっていなければ dd は 0 バイトで即返る。
+      # 末尾の x は $(...) に末尾改行を削らせないため。
+      typeahead=$(dd bs=4096 count=1 2>/dev/null; print -n x)
+      typeahead=${typeahead%x}
+      [[ -n $typeahead ]] && print -rn -- "$typeahead" | "$rex" send -s "$REX_SESSION" -b "$block" >/dev/null 2>&1
+    fi
+    {
+      "$rex" wait -s "$REX_SESSION" "$block" >/dev/null 2>&1
+    } always {
+      # 待っている側を Ctrl-C したら floating も畳む (cd 先を返す相手がいなくなるため)。
+      # 正常終了ならもう閉じていて失敗するだけなので、条件を付けずに呼ぶ。
+      "$rex" block close -s "$REX_SESSION" "$block" >/dev/null 2>&1
+    }
   } always {
-    # 待っている側を Ctrl-C したら floating も畳む (cd 先を返す相手がいなくなるため)。
-    # 正常終了ならもう閉じていて失敗するだけなので、条件を付けずに呼ぶ。
-    "$rex" block close -s "$REX_SESSION" "$block" >/dev/null 2>&1
+    [[ -n $tty_state ]] && stty "$tty_state" 2>/dev/null
   }
 }
 
