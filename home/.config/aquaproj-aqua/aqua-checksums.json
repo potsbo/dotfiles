@@ -1451,38 +1451,38 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-arm64.tar.gz",
-      "checksum": "D38BD5E5A2DDCE6BBB5CE45E46E208337DA4D51FFFE611E567FD32073D6439F6",
+      "id": "http/nodejs.org/dist/v26.13.1/node-v26.13.1-darwin-arm64.tar.gz",
+      "checksum": "AEC2514EA1CEB2BA52455E9EC65986F6749A06DD759E5DB2A72E6889668C9735",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-x64.tar.gz",
-      "checksum": "525C9B29BB0263D687DE60A4CEC0E2A6DB876A8EB032369E5795ECA71E7C358E",
+      "id": "http/nodejs.org/dist/v26.13.1/node-v26.13.1-darwin-x64.tar.gz",
+      "checksum": "82BB96078A24CA50B9C9A38F2379E6BE6D87171FCD400FC14C8934B3BCE96E2F",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-linux-arm64.tar.gz",
-      "checksum": "439E9C438ACDF6A6FFE47418DA709153D66C4BED812E30A473FAACB107DD2791",
+      "id": "http/nodejs.org/dist/v26.13.1/node-v26.13.1-linux-arm64.tar.gz",
+      "checksum": "80A330B35415382878DF18D41AFBD106EA89BFB3BE0087D6608E289A14C5CC7D",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-linux-x64.tar.gz",
-      "checksum": "5848553868B402D3FABB5B09270649977780A390F832155721025A08B5104455",
+      "id": "http/nodejs.org/dist/v26.13.1/node-v26.13.1-linux-x64.tar.gz",
+      "checksum": "518674DE2B621728A5E4486F5FB3B7D2900BB3CC4AA97969EDAA463DB99F9778",
       "algorithm": "sha256"
     },
     {
-      "id": "http/nodejs.org/dist/v26.13.0/node-v26.13.0-win-x64.zip",
-      "checksum": "DCC60D59A0746999F99064A01C020445D54D84228C691CDBF25B49AC3B59150A",
+      "id": "http/nodejs.org/dist/v26.13.1/node-v26.13.1-win-x64.zip",
+      "checksum": "E2EDDA75BFB089654705CF65A13B58933BFD5F57148E8EBDA916F58A2474F1F7",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.0/node-v26.13.0-linux-arm64-musl.tar.gz",
-      "checksum": "F3DDA772BA0C1F2CD6FEC46F6EC24687584767F2C3F9117A47EDF191E7786720",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.1/node-v26.13.1-linux-arm64-musl.tar.gz",
+      "checksum": "42684E7F1830EF9EAADD040672CBA41BBAFF9549D834600699F92EE1EE5B1FB1",
       "algorithm": "sha256"
     },
     {
-      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.0/node-v26.13.0-linux-x64-musl.tar.gz",
-      "checksum": "C6C738FE564C3EB053172BFD4CA1166EEC8BC076F84231A2EA70165E316F5809",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.1/node-v26.13.1-linux-x64-musl.tar.gz",
+      "checksum": "04BF9ED3E32EA139C9AF52F6DD06879FF6F8880555A0AA1183EF2D156C0E02D3",
       "algorithm": "sha256"
     },
     {
