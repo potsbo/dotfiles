@@ -43,7 +43,9 @@
   "nix": {
     "enabled": true
   },
+  "timezone": "Asia/Tokyo",
   "lockFileMaintenance": {
+    "description": "JST の朝には新しい lock が入っているよう、夜中 (JST) に PR を作って automerge する",
     "enabled": true,
     "schedule": ["before 4am"],
     "automerge": true
