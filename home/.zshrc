@@ -146,7 +146,7 @@ _tuicast_float() {
   local rex=$REX_BIN_DIR/rex win req block typeahead tty_state
   # floating pane にフォーカスが移るまで (C-] 直後) に打った文字は、この pane の tty に
   # 溜まってエコーされ、tuicast の検索語に入らない。エコーを止めて非 canonical にして
-  # おき、pane ができたら溜まった分を送り直す。起動を速くしても Rex の API 往復と
+  # おき、pane ができたら届いた分を送り直す。起動を速くしても Rex の API 往復と
   # フォーカス移動の間は必ず残るので、速度ではなく転送で塞ぐ。
   tty_state=$(stty -g 2>/dev/null)
   [[ -n $tty_state ]] && stty -echo -icanon min 0 time 0 2>/dev/null
@@ -162,15 +162,25 @@ _tuicast_float() {
         exit: {quick_exit_threshold_ms: 0}
       }}}}' --args "$@") || return
     block=$("$rex" api call -s "$REX_SESSION" session.new_layer "$req" | jq -er '.block_ids[0]') || return
-    if [[ -n $tty_state ]]; then
-      # min 0 time 0 なので、何も溜まっていなければ dd は 0 バイトで即返る。
-      # 末尾の x は $(...) に末尾改行を削らせないため。
-      typeahead=$(dd bs=4096 count=1 2>/dev/null; print -n x)
-      typeahead=${typeahead%x}
-      [[ -n $typeahead ]] && print -rn -- "$typeahead" | "$rex" send -s "$REX_SESSION" -b "$block" >/dev/null 2>&1
-    fi
     {
-      "$rex" wait -s "$REX_SESSION" "$block" >/dev/null 2>&1
+      setopt local_options no_monitor no_notify
+      "$rex" wait -s "$REX_SESSION" "$block" >/dev/null 2>&1 &
+      local waiter=$! i
+      if [[ -n $tty_state ]]; then
+        # API が返っても、クライアントが打鍵の宛先を切り替えるのはフォーカス変更の
+        # イベントが届いてから。その間の文字は読み出しの後にもこちらへ来るので、
+        # 一度読んで終わりではなく、最初の 2 秒は来たぶんを送り続ける。それ以降も
+        # 続けると、元の pane に戻って打った文字まで floating に飛ぶので止める。
+        stty min 0 time 1 2>/dev/null # dd を最大 0.1 秒で返す
+        for i in {1..20}; do
+          kill -0 $waiter 2>/dev/null || break
+          # 末尾の x は $(...) に末尾改行を削らせないため。
+          typeahead=$(dd bs=4096 count=1 2>/dev/null; print -n x)
+          typeahead=${typeahead%x}
+          [[ -n $typeahead ]] && print -rn -- "$typeahead" | "$rex" send -s "$REX_SESSION" -b "$block" >/dev/null 2>&1
+        done
+      fi
+      wait $waiter
     } always {
       # 待っている側を Ctrl-C したら floating も畳む (cd 先を返す相手がいなくなるため)。
       # 正常終了ならもう閉じていて失敗するだけなので、条件を付けずに呼ぶ。
