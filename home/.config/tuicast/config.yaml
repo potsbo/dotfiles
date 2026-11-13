@@ -11,6 +11,8 @@ views:
       - ghui
       - yazi
       - nvim
+      - claude
+      - codex
       - glow
       - btop
       # union は設定順に直列実行されるので、重い source ほど後ろに置く。
@@ -77,6 +79,26 @@ views:
           - list: "command -v nvim >/dev/null && echo nvim || true"
             display: "printf '\\033[38;2;138;192;120m\\356\\230\\253\\033[39m %s\\n' {}"
     run: nvim
+
+  # コーディングエージェント。どこでも出せるよう無条件 (claude がある場合のみ)。
+  # 色は Anthropic の clay orange、アイコンは asterisk (\357\201\251)。
+  claude:
+    steps:
+      - name: _claude
+        sources:
+          - list: "command -v claude >/dev/null && echo claude || true"
+            display: "printf '\\033[38;2;217;119;87m\\357\\201\\251\\033[39m %s\\n' {}"
+    run: claude
+
+  # もう一つのコーディングエージェント。無条件 (codex がある場合のみ)。
+  # 色は OpenAI の green、アイコンは robot (\363\260\232\251)。
+  codex:
+    steps:
+      - name: _codex
+        sources:
+          - list: "command -v codex >/dev/null && echo codex || true"
+            display: "printf '\\033[38;2;16;163;127m\\363\\260\\232\\251\\033[39m %s\\n' {}"
+    run: codex
 
   # cwd 配下の Markdown をブラウズする TUI (glow)。無条件 (glow がある場合のみ)。
   # 色は glow らしい pink、アイコンは book (\357\200\255)。
