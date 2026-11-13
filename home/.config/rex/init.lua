@@ -10,28 +10,6 @@ local function terminal(cwd)
   }
 end
 
--- session に独自 metadata を持たせず、表示名から固定 dir を復元する。
--- 通常名の session は Rex 標準に戻し、repo を装った存在しないパスでは失敗させる。
-rex.action{
-  name = "repo_tab",
-  title = "New Tab in Session Repository",
-  run = function()
-    local view = checked(rex.session.view{})
-    local host, owner, repo = (view.label or ""):match("^([%w.-]+)/([%w_.-]+)/([%w_.-]+)$")
-    if not host or not host:find("%.") or owner == "." or owner == ".."
-      or repo == "." or repo == ".." then
-      rex.client.queue("client.tab.new")
-      return
-    end
-    -- GUI 起動の server にも Nix / aqua の PATH を渡すため login shell を使う。
-    local result = checked(rex.exec({ os.getenv("SHELL") or "/bin/sh", "-lc", "ghq root" }))
-    assert(result.ok, result.stderr)
-    local root = result.stdout:gsub("%s+$", "")
-    assert(root:sub(1, 1) == "/", "ghq root must be an absolute path")
-    return checked(rex.session.new_window{ layout = terminal(root .. "/" .. view.label) })
-  end,
-}
-
 local function current_dir()
   local reported = checked(rex.block.call("com.superlogical.terminal", "pwd", {}))
   local cwd = reported.pwd
@@ -78,7 +56,6 @@ rex.action{
   end,
 }
 
-rex.bind("cmd+t", "repo_tab")
 -- 標準の cmd+n (新規ウィンドウ) は Rex では使わないので置き換える (docs/keymap.md A10)。
 rex.bind("cmd+n", "cwd_float")
 rex.bind("cmd+d", "cwd_split", { direction = "right" })
