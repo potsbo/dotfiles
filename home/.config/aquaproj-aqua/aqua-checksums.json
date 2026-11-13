@@ -431,33 +431,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.2/gh-dash_v4.26.2_darwin-amd64",
-      "checksum": "6B8D26B4D01D7B9F96930B7AAAFD145A91A9AF94332199C44E20B5A3E8E5F1DC",
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.3/gh-dash_v4.26.3_darwin-amd64",
+      "checksum": "B77A5028CB7198F35C0F5056F965A1EBE0F17D13E8FF34C653940E7F3CDA47BC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.2/gh-dash_v4.26.2_darwin-arm64",
-      "checksum": "591CFE85838C3459B56B4A08BCDF0CE11A5C59A92D466AB312CCA0C4AD0D163F",
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.3/gh-dash_v4.26.3_darwin-arm64",
+      "checksum": "850C0F652F77837462BA4EBA43513B10A63AC7E06646DBC80E00A9D7C1C959AB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.2/gh-dash_v4.26.2_linux-amd64",
-      "checksum": "565D7DBFAFC568C06441AB49D31C7059B7ADE7CBBA12490FA7F12F9BB71DC1B5",
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.3/gh-dash_v4.26.3_linux-amd64",
+      "checksum": "9178ABE35621EBE0D03978DB0601C1F1AA9E7D42437BF71A07B6F6E43A7E7B40",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.2/gh-dash_v4.26.2_linux-arm64",
-      "checksum": "67E55FE550E86DC7555979F8E0D05B88E1BA086B022A6E19E071DFC67369EC50",
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.3/gh-dash_v4.26.3_linux-arm64",
+      "checksum": "940E93C216DC7FDEA5B0C6471CE44EB7F6199D5A3B015BF3EA8ADC50E67CCCD0",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.2/gh-dash_v4.26.2_windows-amd64.exe",
-      "checksum": "047AD12A4AEBAEDD4FA6997AE195F0EC791BF57F0CAABE71059401C1AD3C5CA0",
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.3/gh-dash_v4.26.3_windows-amd64.exe",
+      "checksum": "972D49D0DDDC2B47CB6D81F0E0A18638A4753776D38D130B13B1D0026F65AC3C",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.2/gh-dash_v4.26.2_windows-arm64.exe",
-      "checksum": "AA9D7FE68F628FFB98497F36BD071EF95BF71C6088C270A7C0D83971F8F89CCF",
+      "id": "github_release/github.com/dlvhdr/gh-dash/v4.26.3/gh-dash_v4.26.3_windows-arm64.exe",
+      "checksum": "8C89864E1BE8BD08241AC830D0F7EC073A0F4ED5CC98BAC822E259B462C28CC9",
       "algorithm": "sha256"
     },
     {
