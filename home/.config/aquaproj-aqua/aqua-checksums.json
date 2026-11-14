@@ -146,8 +146,18 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-arm64-musl.tar.gz",
+      "checksum": "E2E584D57C80DE163B4F31F8DD82109CCE1C3F7DCF9B542CDDC705AD21D98737",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-arm64.tar.gz",
       "checksum": "2ABE2BEA8B802190A303F335B0FD09F95EB775457E99DF5A4778B09DFAB6BBD6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-x64-musl.tar.gz",
+      "checksum": "BA798CBED37B7B108CC5898DEE27320321EB7E4717081B7EA611C907D2BAB3FF",
       "algorithm": "sha256"
     },
     {
@@ -1031,26 +1041,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-darwin-arm64.tar.gz",
-      "checksum": "11AFBC1C0CC0B8D12BB5EFFC2E2BAF08507DD32456D6E0052824C1BC30C108F0",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-darwin-x64.tar.gz",
-      "checksum": "F91BB601F93B2959B76B24A6E4B765CAB7AD35A885B97C07BEAA1FD0773F6B05",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-linux-arm64.tar.gz",
-      "checksum": "69F26A76BDCC61E4782733AA1B9FCB6E06774AC9D6B0DF3E9FBB0AA4ABB0F6BC",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/zenbu-labs/terminal-browser/v0.15.3/terminal-browser-linux-x64.tar.gz",
-      "checksum": "244E995B554EDB29F66CF07F7F830A76885AE6A6FA233DEC53980BFB0A509541",
-      "algorithm": "sha256"
-    },
-    {
       "id": "http/awscli.amazonaws.com/AWSCLIV2-2.40.3.pkg",
       "checksum": "BE032742FF205F7F2D7C189010BBB1F3891D0A67BE0B1DF0FE9D3E7F5FC5AD30",
       "algorithm": "sha256"
@@ -1136,8 +1126,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.585.0/registry.yaml",
-      "checksum": "0FB3F31B7AF2CFF8BC0B7971133448060B47FA0DACF320EB4300B081917C4D35",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.1/node-v26.13.1-linux-arm64-musl.tar.gz",
+      "checksum": "42684E7F1830EF9EAADD040672CBA41BBAFF9549D834600699F92EE1EE5B1FB1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.1/node-v26.13.1-linux-x64-musl.tar.gz",
+      "checksum": "04BF9ED3E32EA139C9AF52F6DD06879FF6F8880555A0AA1183EF2D156C0E02D3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.586.0/registry.yaml",
+      "checksum": "4E75FD9CD08EB383B93374B52FE4A566B078C1AC87520AAAB409195C21D213A4",
       "algorithm": "sha256"
     }
   ]

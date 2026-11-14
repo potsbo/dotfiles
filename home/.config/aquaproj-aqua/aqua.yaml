@@ -11,7 +11,7 @@ checksum:
     - linux
 registries:
   - type: standard
-    ref: v4.585.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.586.0 # renovate: depName=aquaproj/aqua-registry
   - name: local
     type: local
     path: registry.yaml
@@ -82,8 +82,6 @@ packages:
   - name: fastfetch-cli/fastfetch@2.71.0
     registry: local
   - name: cloudflare/cloudflared@2026.11.0
-  - name: zenbu-labs/terminal-browser@v0.15.3
-    registry: local
   - name: alexrlocke/neorex@v0.1.0
     registry: local
   - name: agavra/tuicr@v0.28.0
