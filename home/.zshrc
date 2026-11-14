@@ -107,11 +107,8 @@ if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua complet
 # そのまま使う。scp にしか無いオプションも候補に出るが、自前の補完を持つほどではない。
 compdef cascp=scp
 
-# host-colored frame so any fzf shows which host it runs on.
-# hostname(1) ではなく $HOST を使う。zsh が起動時に持っている値で同じ文字列になり、
-# fork が 1 回 (host-color) で済む (hostname の fork は 1 回 9ms かかっていた)。
-thm_main=$(host-color "$HOST")
-export FZF_DEFAULT_OPTS="--border --border-label \" $HOST \" --color=border:${thm_main},label:${thm_main}"
+# fzf に host 色の外枠と host 名のラベルは付けない。以前は付けていたが、装飾が多いわりに、
+# どの host かはシェルのプロンプトで足りる。
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
