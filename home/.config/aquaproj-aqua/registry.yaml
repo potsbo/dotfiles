@@ -1,11 +1,15 @@
 packages:
   # macmon - CPU/GPU temperature, power and frequency monitor for Apple Silicon.
   # https://github.com/vladkens/macmon
-  # Single universal arm64 asset, so darwin/arm64 only.
+  # Single arm64 asset, so darwin/arm64 only.
   - type: github_release
     repo_owner: vladkens
     repo_name: macmon
-    asset: macmon-{{.Version}}.tar.gz
+    asset: macmon-{{.Version}}-aarch64-apple-darwin.tar.gz
+    version_constraint: semver(">= 0.11.0")
+    version_overrides:
+      - version_constraint: "true"
+        asset: macmon-{{.Version}}.tar.gz
     supported_envs:
       - darwin/arm64
     files:
@@ -93,3 +97,22 @@ packages:
       - linux
     files:
       - name: tuicr
+  # fastfetch - aqua-registry に定義はあるが、2.71.0 で macOS の asset が universal だけに
+  # なったのに追従しておらず (v4.585.0 時点)、Renovate の PR が checksum 更新で落ち続けた。
+  # 標準 registry が直ったら aqua.yaml の registry: local を外してこの定義を消す。
+  - type: github_release
+    repo_owner: fastfetch-cli
+    repo_name: fastfetch
+    asset: fastfetch-{{.OS}}-{{.Arch}}.tar.gz
+    replacements:
+      darwin: macos
+      arm64: aarch64
+    overrides:
+      - goos: darwin
+        asset: fastfetch-macos-universal.tar.gz
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: fastfetch
+        src: "{{.AssetWithoutExt}}/usr/bin/fastfetch"

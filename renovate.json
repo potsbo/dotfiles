@@ -45,9 +45,14 @@
   },
   "timezone": "Asia/Tokyo",
   "lockFileMaintenance": {
-    "description": "JST の朝には新しい lock が入っているよう、夜中 (JST) に PR を作って automerge する",
+    "description": [
+      "毎日 lock を更新して automerge する。依存更新の中で最優先。",
+      "prPriority: config:recommended の prHourlyLimit (2) を毎回 aqua 等の更新が使い切り、優先度の低い lock 更新が Rate-Limited のまま 2026-11-09 から止まったため。",
+      "schedule を半日に広げるのは、Renovate の実行が数時間おきで、4 時間の窓では空き枠のある実行に当たらない日が出るため。"
+    ],
     "enabled": true,
-    "schedule": ["before 4am"],
+    "prPriority": 10,
+    "schedule": ["before 12pm"],
     "automerge": true
   },
   "packageRules": [
