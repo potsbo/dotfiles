@@ -451,23 +451,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.111/copilot-darwin-arm64.tar.gz",
-      "checksum": "398B49EBEAFA67231151347794E07C4665A0EC904708645CA4992C917565A901",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.112/copilot-darwin-arm64.tar.gz",
+      "checksum": "4A4A6AA624DCEB76A23E1A53FB5F64E87A0BB5A2161A5017E0EDF78D7082CE68",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.111/copilot-darwin-x64.tar.gz",
-      "checksum": "43063DA8B867DE20C920E19521EED18401CD2E67D94C8B48EC9A3387E9175EEF",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.112/copilot-darwin-x64.tar.gz",
+      "checksum": "FDA4B6661269589B15447C9C6EBDE96939A4CD32D08D6595A9DAD6E92D1E83F5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.111/copilot-linux-arm64.tar.gz",
-      "checksum": "203FFACB01D40383D34427FAC7577EB7C847D77CD88B45B2C7AB560E044D9613",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.112/copilot-linux-arm64.tar.gz",
+      "checksum": "491D18303505935675DC20987EF0C5F3AE899F81E66C53D567AD97A8B03E504E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.111/copilot-linux-x64.tar.gz",
-      "checksum": "33EA4378CCC829BC18520648AD97C8FB1D9DE4BA478EBFF8EB2AD890AA0A95C8",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.112/copilot-linux-x64.tar.gz",
+      "checksum": "DFE7E59ACF04F0B7F59B024EA9DB101A9246503E9BF7152EB668FBB2A469B151",
       "algorithm": "sha256"
     },
     {
@@ -931,23 +931,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.1/postgresql-18.6.1-aarch64-apple-darwin.tar.gz",
-      "checksum": "89E91CC80650A43D22C018B95CA356A0C9E15838A1182FED2880BFB5D7D9C9A6",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "86456C0ED99D2466524EAA074DB6580CF7D748B91042E252C83EACA9A9D216E7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.1/postgresql-18.6.1-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "1AB47FA2F06FF70454309AD02E5D89C46488300D43977231481FD6B160B9D556",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "6FCF45163AA044FE58597885B0E27C4B1614C53AD088D4D0EBBBFDF5DF510EAF",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.1/postgresql-18.6.1-x86_64-apple-darwin.tar.gz",
-      "checksum": "4229812543E19C91864EBDF5D8F78883C5816D51D4CC5D065298260C1F64D37E",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "9CD649259D6BF4AF60A235E772C83853DF215B63F4C1967C2EED7F9376AEFB89",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.6.1/postgresql-18.6.1-x86_64-unknown-linux-gnu.tar.gz",
-      "checksum": "E84B02DD8D0CE5879FB697330A789231C8B8F8D958DAE3AD4D90FECC710B1315",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-x86_64-unknown-linux-gnu.tar.gz",
+      "checksum": "53CA01952CB581145E4FB16B6B3B675DA345A82879F350707B9F65863A0642F4",
       "algorithm": "sha256"
     },
     {
