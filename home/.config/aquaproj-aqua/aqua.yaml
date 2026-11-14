@@ -77,8 +77,6 @@ packages:
     registry: local
   - name: fastfetch-cli/fastfetch@2.69.0
   - name: cloudflare/cloudflared@2026.11.0
-  - name: zenbu-labs/terminal-browser@v0.15.3
-    registry: local
   - name: alexrlocke/neorex@v0.1.0
     registry: local
   - name: agavra/tuicr@v0.28.0
