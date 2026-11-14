@@ -5,13 +5,13 @@
 #
 # Pipe form instead of per-item ({}): this renders every ghq worktree
 # (~170 rows), and per-item cost is several process spawns a row (sh, this
-# script, ghq root) — ~8s for the column. One process doing pure string ops
-# per line brings that under 100ms.
+# script, ghq root) — ~8s for the column. Labels come from one path-label run
+# over all paths and the rest is pure string ops per line, which brings that
+# under 100ms.
 #
 # fzf matches on the displayed text only (tuicast renders field 3 via
 # --with-nth and searches that string), so anything not in the label is
-# unsearchable. The branch is appended for main checkouts, whose label carries
-# no branch leaf.
+# unsearchable, hence the branch is appended.
 #
 # HEAD is read as a file instead of calling git: process spawns dominate here.
 #
@@ -20,15 +20,17 @@
 # Usage: list-worktrees.sh | worktree-label.sh
 set -u
 
-# shellcheck source=home/.config/shell/worktree-label.sh
-source ~/.config/shell/worktree-label.sh
-
 pad='  '
-ghq_root="${GHQ_ROOT:-$(ghq root)}"
 
-while IFS= read -r path; do
-  label=''
-  worktree_label label "$path" "$ghq_root"
+paths=()
+while IFS= read -r path; do paths+=("$path"); done
+[ ${#paths[@]} -gt 0 ] || exit 0
+labels=()
+while IFS= read -r label; do labels+=("$label"); done < <(printf '%s\n' "${paths[@]}" | ~/.local/bin/path-label)
+
+for i in "${!paths[@]}"; do
+  path=${paths[$i]}
+  label=${labels[$i]}
 
   gitdir="$path/.git"
   if [ -f "$gitdir" ]; then
@@ -52,9 +54,7 @@ while IFS= read -r path; do
     esac
   fi
 
-  # The label front-loads the branch leaf (own-owner prefix stripped) for
-  # .worktrees/ paths; re-printing it there would be pure noise.
-  if [ -n "$branch" ] && [ "${label%% *}" != "${branch#potsbo/}" ]; then
+  if [ -n "$branch" ]; then
     printf '%s%s \033[38;2;92;92;92m\356\202\240 %s\033[39m\n' "$pad" "$label" "$branch"
   else
     printf '%s%s\n' "$pad" "$label"
