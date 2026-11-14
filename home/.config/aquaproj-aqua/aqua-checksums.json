@@ -146,8 +146,18 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-arm64-musl.tar.gz",
+      "checksum": "E2E584D57C80DE163B4F31F8DD82109CCE1C3F7DCF9B542CDDC705AD21D98737",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-arm64.tar.gz",
       "checksum": "2ABE2BEA8B802190A303F335B0FD09F95EB775457E99DF5A4778B09DFAB6BBD6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-x64-musl.tar.gz",
+      "checksum": "BA798CBED37B7B108CC5898DEE27320321EB7E4717081B7EA611C907D2BAB3FF",
       "algorithm": "sha256"
     },
     {
@@ -1136,8 +1146,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.585.0/registry.yaml",
-      "checksum": "0FB3F31B7AF2CFF8BC0B7971133448060B47FA0DACF320EB4300B081917C4D35",
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.1/node-v26.13.1-linux-arm64-musl.tar.gz",
+      "checksum": "42684E7F1830EF9EAADD040672CBA41BBAFF9549D834600699F92EE1EE5B1FB1",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/unofficial-builds.nodejs.org/download/release/v26.13.1/node-v26.13.1-linux-x64-musl.tar.gz",
+      "checksum": "04BF9ED3E32EA139C9AF52F6DD06879FF6F8880555A0AA1183EF2D156C0E02D3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.586.0/registry.yaml",
+      "checksum": "4E75FD9CD08EB383B93374B52FE4A566B078C1AC87520AAAB409195C21D213A4",
       "algorithm": "sha256"
     }
   ]
