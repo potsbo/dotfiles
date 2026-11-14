@@ -93,3 +93,21 @@ packages:
       - linux
     files:
       - name: desync
+  # tuicr - TUI で diff をレビューし、コメントを AI エージェントに渡す。
+  # https://github.com/agavra/tuicr
+  # standard registry に無いのでここで定義する。release に checksum ファイルは無い。
+  # Linux は glibc 非依存の musl 版を使う。
+  - type: github_release
+    repo_owner: agavra
+    repo_name: tuicr
+    asset: tuicr-{{trimV .Version}}-{{.Arch}}-{{.OS}}.tar.gz
+    replacements:
+      darwin: apple-darwin
+      linux: unknown-linux-musl
+      amd64: x86_64
+      arm64: aarch64
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: tuicr

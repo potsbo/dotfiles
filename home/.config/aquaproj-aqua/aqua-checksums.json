@@ -101,6 +101,26 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/agavra/tuicr/v0.28.0/tuicr-0.28.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "4138F2D243422AFF68B32EC52FB1524CBADFFCF6763B34FC180F25F0AC971674",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/agavra/tuicr/v0.28.0/tuicr-0.28.0-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "C5F60E3846733C3F6F676F0B5B44A6C1CEC148E2D1132F3BD107833CF5F7FC0E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/agavra/tuicr/v0.28.0/tuicr-0.28.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "28C8EB8C7ADCA4AE4D557E032255DF0089BD261FCD45A715D44481881F126871",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/agavra/tuicr/v0.28.0/tuicr-0.28.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "0E6BE65458E83BF3F917A30660D029B7F4DC5F9B6D203ADC10F11A93A30C22F2",
+      "algorithm": "sha256"
+    },
+    {
       "id": "github_release/github.com/ajeetdsouza/zoxide/v0.10.0/zoxide-0.10.0-aarch64-apple-darwin.tar.gz",
       "checksum": "B55AE6F2F5F23D0A6CCB3BD4EEB2AF9C7E0A6556E5255C82100E40305129BBB0",
       "algorithm": "sha256"
