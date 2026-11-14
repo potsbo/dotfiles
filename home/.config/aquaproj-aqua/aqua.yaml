@@ -4,8 +4,11 @@
 checksum:
   enabled: true
   require_checksum: true
+  # Windows は使わない。Windows の asset 名だけが変わったリリース (direnv v2.38.2 の .exe 付与など) で
+  # checksum 更新が落ち、Renovate の automerge が止まるので対象から外す。
   supported_envs:
-    - all
+    - darwin
+    - linux
 registries:
   - type: standard
     ref: v4.585.0 # renovate: depName=aquaproj/aqua-registry
@@ -20,7 +23,7 @@ packages:
   - name: x-motemen/ghq@v1.12.0
   - name: sharkdp/bat@v0.26.1
   - name: jqlang/jq@jq-1.8.2
-  - name: direnv/direnv@v2.37.1
+  - name: direnv/direnv@v2.38.2
   - name: neovim/neovim@v0.12.6
   - name: mikefarah/yq@v4.54.3
   - name: YS-L/csvlens@v0.15.1
@@ -63,7 +66,7 @@ packages:
   - name: sharkdp/hyperfine@v2.0.0
   - name: imsnif/bandwhich@v0.23.1
   # Not in aqua-registry; defined via the local registry below. Apple Silicon only.
-  - name: vladkens/macmon@v0.10.0
+  - name: vladkens/macmon@v0.11.0
     registry: local
   - name: dlvhdr/gh-dash@v4.26.3
   - name: kitlangton/ghui@v0.9.1
@@ -75,7 +78,9 @@ packages:
   - name: modem-dev/hunk@v0.25.0
   - name: folbricht/desync@v1.1.5
     registry: local
-  - name: fastfetch-cli/fastfetch@2.69.0
+  # aqua-registry の定義が 2.71.0 の asset 名に追従していないので local で上書き (registry.yaml)。
+  - name: fastfetch-cli/fastfetch@2.71.0
+    registry: local
   - name: cloudflare/cloudflared@2026.11.0
   - name: zenbu-labs/terminal-browser@v0.15.3
     registry: local
