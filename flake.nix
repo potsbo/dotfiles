@@ -22,7 +22,7 @@
     # renovate.json は github:owner/repo/[v]X.Y.Z の URL を共通の regex で拾う。
     # autofix.ci の nix flake lock が宣言の変更に追従するので、input 名の列挙は不要。
     dms = {
-      url = "github:AvengeMedia/DankMaterialShell/v1.6.0";
+      url = "github:AvengeMedia/DankMaterialShell/v1.6.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     disko = {
