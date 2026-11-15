@@ -11,7 +11,7 @@ checksum:
     - linux
 registries:
   - type: standard
-    ref: v4.586.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.587.0 # renovate: depName=aquaproj/aqua-registry
   - name: local
     type: local
     path: registry.yaml
@@ -86,5 +86,5 @@ packages:
     registry: local
   - name: agavra/tuicr@v0.29.0
     registry: local
-  - name: DeepanshuMishraa/leaf@v0.16.0
+  - name: DeepanshuMishraa/leaf@v0.16.1
     registry: local
