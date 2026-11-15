@@ -77,6 +77,30 @@
           BuiltInDnsClientEnabled = false;
           DnsOverHttpsMode = "off";
         };
+        # Syntax Highlight (apps.nix) の Quick Look で JSON を整形してから表示する。
+        # jq は nix store のものを直に指す。Quick Look の XPC はログインシェルの PATH を
+        # 持たないので aqua の shim は引けず、/usr/bin/python3 は Command Line Tools が
+        # 無いと動かない。XPC は sandbox されていないので /nix/store は実行できる。
+        # 壊れた JSON や JSONC (コメント入り) で jq が落ちるとプレビューごとエラーになるので、
+        # そのときは原文を返す。jq の出力を一度溜めるのは、複数値の途中で落ちたときに
+        # 部分出力と原文が二重に出ないようにするため。
+        # `$targetHL` を引用符で囲まないのは、アプリが前処理の書式として空白区切りの
+        # `$targetHL` を要求するため (zsh の eval なので空白入りのパスでも分割されない)。
+        # キーごと上書きするので、GUI で他の形式に付けた個別設定は rebuild で消える。
+        # 足したくなったらここに書く。
+        "org.sbarex.SourceCodeSyntaxHighlight" = {
+          "uti-settings" = {
+            "public.json" = {
+              preprocessor = "${pkgs.writeShellScript "ql-json-pretty" ''
+                if out=$(${pkgs.jq}/bin/jq . "$1" 2>/dev/null); then
+                  printf '%s\n' "$out"
+                else
+                  cat "$1"
+                fi
+              ''} $targetHL";
+            };
+          };
+        };
         # Cmd+Shift+Space の入力ソース切り替えを無効化 (WezTerm QuickSelect で使うため)
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {

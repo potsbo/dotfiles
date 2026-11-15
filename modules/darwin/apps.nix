@@ -85,6 +85,10 @@ _:
       # 初回はアプリを一度起動し、システム設定で Quick Look 拡張を有効にする必要がある。
       # rex でリモートの md を見るときにも便利。消すならその代わりを用意してから。
       "qlmarkdown"
+      # JSON / YAML / ソースコードを Quick Look でハイライト表示する。qlmarkdown と同じ作者で
+      # 設定の作りも同じ。JSON の整形は標準ではしないので、前処理を default.nix の
+      # CustomUserPreferences で入れている。初回は qlmarkdown と同じく一度起動して拡張を有効にする。
+      "syntax-highlight"
     ];
   };
 }
