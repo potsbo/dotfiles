@@ -88,7 +88,11 @@
         # `$targetHL` を要求するため (zsh の eval なので空白入りのパスでも分割されない)。
         # キーごと上書きするので、GUI で他の形式に付けた個別設定は rebuild で消える。
         # 足したくなったらここに書く。
-        "org.sbarex.SourceCodeSyntaxHighlight" = {
+        # ドメイン名でなくパスで書くのは、アプリが sandbox されていてコンテナがあるため。
+        # `defaults write <bundle id>` はコンテナ側の plist に書き (初回起動時に macOS が
+        # ~/Library/Preferences のものをコンテナへ移しもする)、sandbox の外で描画する XPC
+        # は ~/Library/Preferences しか読まないので、ドメイン名だと設定が効かない。
+        "~${user}/Library/Preferences/org.sbarex.SourceCodeSyntaxHighlight" = {
           "uti-settings" = {
             "public.json" = {
               preprocessor = "${pkgs.writeShellScript "ql-json-pretty" ''
