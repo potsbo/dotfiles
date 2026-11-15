@@ -44,12 +44,7 @@ window-padding-y = 0
 # (wezterm: skip_close_confirmation_for_processes_named)
 confirm-close-surface = false
 
-# Keybindings (neovim integration)
-# neovim へコマンド送信 (wezterm: Super+key で SendString)
-keybind = super+p=text:\x1b:CommandP\r
-keybind = super+s=text:\x1b:w\r
-keybind = super+backslash=text:\x1b:vsplit\r
-keybind = super+r=text:\x1b:e!\r
+# ⌘S は nvim 側の <D-s> で受けるので、ここで :w を打ち込まない (docs/keymap.md A12)。
 
 # Linux: xremap terminal rule が Super+key → Ctrl+Shift+key に変換して送ってくる
 # (wezterm と同じく両方を明示的にバインド)

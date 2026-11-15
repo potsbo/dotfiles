@@ -10,7 +10,6 @@
 vim.api.nvim_create_user_command("CommandShiftF", function()
   require("conform").format({ async = true, lsp_format = "fallback" })
 end, { range = true })
-vim.api.nvim_create_user_command("CommandP", "Telescope find_files", {})
 -- OSC 52 の copy(書き込み)は端末に一方的に送るだけなので動くが、
 -- paste(読み出し)は端末にクリップボード内容を問い合わせて応答を待つ。
 -- 多くのターミナル/マルチプレクサは OSC 52 の読み出し応答に
