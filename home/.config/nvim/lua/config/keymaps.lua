@@ -2,6 +2,12 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+-- ⌘S で保存 (docs/keymap.md A12)。端末が kitty keyboard protocol で <D-s> として
+-- 渡してくるのを受ける。端末側で ESC:w⏎ を打ち込む方式 (旧 ghostty) は、Rex では
+-- 前面が vim かを判定できず (tuicast や bash -c 経由だと親プロセス名が返る) 使わない。
+-- 形は LazyVim の <C-s> に揃える。
+vim.keymap.set({ "i", "x", "n", "s" }, "<D-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
+
 -- move for dvorak
 vim.keymap.set("n", "d", "h", { noremap = true })
 vim.keymap.set("v", "d", "h", { noremap = true })

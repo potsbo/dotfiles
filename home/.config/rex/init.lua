@@ -124,24 +124,8 @@ rex.action{
   end,
 }
 
--- 前面が vim のときだけ :w を送る (docs/keymap.md A12)。ghostty は無条件に送っていたが、
--- シェルや Claude Code に ESC:w⏎ を打ち込むと誤ったコマンドが走る。
-local vims = { nvim = true, vim = true, vi = true }
-
-rex.action{
-  name = "vim_save",
-  title = "Save in Vim",
-  run = function()
-    local fg = (checked(rex.block.call("com.superlogical.terminal", "process", {})).foreground or {})
-    if not (vims[fg.name] or vims[fg.argv0]) then return { saved = false } end
-    checked(rex.block.call("com.superlogical.terminal", "write", { data = "\27:w\r" }))
-    return { saved = true }
-  end,
-}
-
 -- 標準の cmd+n (新規ウィンドウ) は Rex では使わないので置き換える (docs/keymap.md A10)。
 rex.bind("cmd+n", "cwd_float")
-rex.bind("cmd+s", "vim_save")
 rex.bind("cmd+d", "cwd_split", { direction = "right" })
 rex.bind("shift+cmd+d", "cwd_split", { direction = "down" })
 rex.bind("cmd+'", "focus_waiting", { direction = "next" })
