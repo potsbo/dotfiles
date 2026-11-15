@@ -96,6 +96,7 @@
       nix-ld.libraries = with pkgs; [
         readline
         krb5.lib
+        alsa-lib
       ];
       mosh.enable = true;
       _1password.enable = true;

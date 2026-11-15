@@ -116,3 +116,25 @@ packages:
     files:
       - name: fastfetch
         src: "{{.AssetWithoutExt}}/usr/bin/fastfetch"
+  # leaf - 論文・ドキュメント・diff・PR を読む TUI。選択箇所をエージェントに渡せる。
+  # https://github.com/DeepanshuMishraa/leaf
+  # standard registry に無いのでここで定義する。Linux 版は glibc 動的リンクで
+  # libasound を要求するので、NixOS では nix-ld.libraries に alsa-lib を入れてある。
+  - type: github_release
+    repo_owner: DeepanshuMishraa
+    repo_name: leaf
+    asset: leaf-{{.Arch}}-{{.OS}}.tar.gz
+    replacements:
+      darwin: apple-darwin
+      linux: unknown-linux-gnu
+      amd64: x86_64
+      arm64: aarch64
+    checksum:
+      type: github_release
+      asset: SHA256SUMS
+      algorithm: sha256
+    supported_envs:
+      - darwin
+      - linux
+    files:
+      - name: leaf
