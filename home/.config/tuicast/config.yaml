@@ -1,6 +1,9 @@
 # 共通ピッカー: Rex の中でも外 (zsh の C-]、ログインシェル) でも同じ tuicast を呼ぶ。
 # 内外差は各 run スクリプト側で REX_SESSION を見て切り替え、Rex の中では
 # Rex のセッション/ウィンドウを開く (worktree-connect.sh / ssh-connect.sh)。
+#
+# preview は付けない。1 つの source にでもあると main view 全体に preview 窓が出るが、
+# 中身があるのは worktree (git log) と ssh (ssh -G) だけで、ほとんどの行では空の枠になる。
 views:
   main:
     union:
@@ -139,7 +142,6 @@ views:
         sources:
           - list: ~/.config/tuicast/list-worktrees.sh
             display: "|~/.config/tuicast/worktree-label.sh"
-            preview: git -C {} log --oneline --decorate -15 2>/dev/null
     run: ~/.config/tuicast/worktree-connect.sh $worktree
 
   ssh:
@@ -148,5 +150,4 @@ views:
         sources:
           - list: ~/.config/tuicast/list-ssh-hosts.sh
             display: ~/.config/tuicast/ssh-display.sh {}
-            preview: ssh -G {} 2>/dev/null | grep -iE '^(hostname|user|port|identityfile) '
     run: ~/.config/tuicast/ssh-connect.sh $host

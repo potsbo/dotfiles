@@ -107,11 +107,8 @@ if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua complet
 # そのまま使う。scp にしか無いオプションも候補に出るが、自前の補完を持つほどではない。
 compdef cascp=scp
 
-# host-colored frame so any fzf shows which host it runs on.
-# hostname(1) ではなく $HOST を使う。zsh が起動時に持っている値で同じ文字列になり、
-# fork が 1 回 (host-color) で済む (hostname の fork は 1 回 9ms かかっていた)。
-thm_main=$(host-color "$HOST")
-export FZF_DEFAULT_OPTS="--border --border-label \" $HOST \" --color=border:${thm_main},label:${thm_main}"
+# fzf に host 色の外枠と host 名のラベルは付けない。以前は付けていたが、装飾が多いわりに、
+# どの host かはシェルのプロンプトで足りる。
 
 # color setting like %{${fg[red]}%}
 autoload -Uz colors && colors
@@ -136,9 +133,20 @@ tuicast() {
   fi
 }
 
+# tuicast からは今どこにいるかが見えないので、cwd を fzf の ghost (未入力時の薄い文字) に
+# 出す。header / 枠ラベル / prompt も試したが、ghost は行を増やさず、打ち始めたら消えて
+# 検索の邪魔をしない。prompt と同じ行を取り合うので prompt は既定の短いままにしておく。
+# FZF_DEFAULT_OPTS は zshrc 時点の値で固定なので、cwd は起動のたびに足す。
+# 表記は worktree 一覧の行と同じ path-label にして、一覧と見比べられるようにする。
+_tuicast_fzf_opts() {
+  local p
+  p=$(~/.local/bin/path-label "$PWD")
+  print -r -- "$FZF_DEFAULT_OPTS --ghost=${(qq)p}"
+}
+
 _tuicast_inline() {
   local f=$1; shift
-  TUICAST_CD_FILE=$f command tuicast "$@"
+  TUICAST_CD_FILE=$f FZF_DEFAULT_OPTS=$(_tuicast_fzf_opts) command tuicast "$@"
 }
 
 # $1 の runner に受け口のファイルを渡し、書かれた dir へこのシェルで cd する。
@@ -164,11 +172,14 @@ _tuicast_float() {
     win=$("$rex" block inspect -s "$REX_SESSION" "$REX_BLOCK" --json | jq -er '.block.window_id') || return
     # quick_exit_threshold_ms=0: Rex は即失敗した pane を開いたままにするが、tuicast
     # 自身が失敗時に画面を残すので二重になる。Esc での即キャンセルでも閉じたい。
-    req=$(jq -n --arg s "$REX_SESSION" --arg w "$win" --arg cwd "$PWD" --arg f "$f" '{
+    # floating の pane は Rex サーバーの環境で起動し、このシェルの FZF_DEFAULT_OPTS が
+    # 届かないので、command の env で明示的に渡す。
+    req=$(jq -n --arg s "$REX_SESSION" --arg w "$win" --arg cwd "$PWD" --arg f "$f" \
+      --arg fzf "$(_tuicast_fzf_opts)" '{
       session_id: $s, window_id: $w, bounds: [0.05, 0.05, 0.9, 0.9], focus: true,
       layout: {block: {flavor: "com.superlogical.terminal.shell", label: "tuicast", options: {
         cwd: $cwd,
-        command: (["env", "TUICAST_CD_FILE=\($f)", "tuicast"] + $ARGS.positional),
+        command: (["env", "TUICAST_CD_FILE=\($f)", "FZF_DEFAULT_OPTS=\($fzf)", "tuicast"] + $ARGS.positional),
         exit: {quick_exit_threshold_ms: 0}
       }}}}' --args "$@") || return
     block=$("$rex" api call -s "$REX_SESSION" session.new_layer "$req" | jq -er '.block_ids[0]') || return

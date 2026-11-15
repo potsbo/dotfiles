@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Print a path as short as it can be read: repos under ~/src/github.com/ lose the
+# prefix to a GitHub icon, anything else under $HOME is written with ~.
+#
+#   path-label PATH...        one label per argument
+#   ... | path-label          one label per stdin line (tuicast の一覧で全行を 1 回で通す)
+#
+# ~/src を ghq root から引かず決め打ちにするのは、`ghq root` の fork を呼ぶたびに
+# 払わないため。ghq の root は git/config で 2 つあり、もう片方の
+# ~/.local/share/worktrees は host/owner/repo の構成ではないので、どのみち ~ 表記で
+# 出すしかない。
+#
+# 入力 1 行に必ず 1 行返す (tuicast の pipe display は行数の一致を要求する)。
+set -u
+
+github=$'\356\252\204' # nf-cod-github (U+EA84)。locale に依らないようバイト列で書く。
+
+label() {
+  local p=$1
+  case "$p" in
+    "$HOME"/src/github.com/*) p="$github ${p#"$HOME"/src/github.com/}" ;;
+    "$HOME" | "$HOME"/*) p="~${p#"$HOME"}" ;;
+  esac
+  printf '%s\n' "$p"
+}
+
+if [ $# -gt 0 ]; then
+  for p; do label "$p"; done
+else
+  while IFS= read -r p; do label "$p"; done
+fi
