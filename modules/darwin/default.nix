@@ -93,6 +93,8 @@
         # ~/Library/Preferences のものをコンテナへ移しもする)、sandbox の外で描画する XPC
         # は ~/Library/Preferences しか読まないので、ドメイン名だと設定が効かない。
         "~${user}/Library/Preferences/org.sbarex.SourceCodeSyntaxHighlight" = {
+          # プレビュー末尾の作者クレジットを出さない。
+          about = false;
           "uti-settings" = {
             "public.json" = {
               preprocessor = "${pkgs.writeShellScript "ql-json-pretty" ''
