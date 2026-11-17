@@ -32,7 +32,6 @@ _:
       "Microsoft PowerPoint" = 462062816;
       "Microsoft Word" = 462054704;
       "Slack" = 803453959;
-      "Todoist" = 585829637;
       "Windows App" = 1295203466;
     };
     casks = [
@@ -49,16 +48,11 @@ _:
       "notion-calendar"
       "obsidian"
       "font-monaspice-nerd-font"
-      "ghostty"
-      # ターミナルの日本語フォールバック (home/.config/ghostty/config)。
-      # 未インストールだと一部の漢字が tofu (斜線付き□) になるため必須。
-      "font-biz-udgothic"
       "tailscale-app"
       "chatgpt"
       "claude"
       "pgadmin4"
       "plaud"
-      "cloudflare-warp"
       # niri (Linux 側の WM) と同じスクロール型タイリングを macOS でも使うための試用。
       # niri 自体は Wayland コンポジタなので移植版は存在せず、体験を再実装したものから
       # 選ぶことになる。候補は PaperWM.spoon (Hammerspoon 上、枯れている) / Paneru
