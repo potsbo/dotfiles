@@ -21,10 +21,6 @@ _:
       # 上げたいときは `brew upgrade` / `mas upgrade` を手で打つ。
       upgrade = false;
     };
-    taps = [
-      # tinycast の配布元。本家 homebrew-cask には無い。
-      "abue-ammar/tinycast"
-    ];
     brews = [
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
     ];
@@ -79,7 +75,7 @@ _:
       "omniwm"
       # ランチャー。Raycast から置き換えた。ネイティブ実装 (SwiftUI/AppKit) で常駐が軽い。
       # omniwm と同じく arm64 + macOS 26 以降を要求する。
-      "abue-ammar/tinycast/tinycast"
+      "tinycast"
       # .md を Finder の Quick Look (Space) で整形表示する。見るだけのために VS Code などの
       # IDE を起動しないための選択。MarkEdit は編集が主で、プレビューも拡張頼みだったので不採用。
       # 初回はアプリを一度起動し、システム設定で Quick Look 拡張を有効にする必要がある。
