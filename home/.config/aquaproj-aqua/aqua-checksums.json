@@ -21,23 +21,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.1/leaf-aarch64-apple-darwin.tar.gz",
-      "checksum": "39F1C05DFFEE98270FB468045DDCD31D0BD03F6236A6651399683386E5FA0227",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.3/leaf-aarch64-apple-darwin.tar.gz",
+      "checksum": "EFD6F4ADBB3558BFAACC41F3328D15913F0847D986F4EBACC0BEE0038CB658DB",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.1/leaf-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "4034943BB49836246BA2543DD6DC5D560D929AD58291F8A442EDCC0400292EA4",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.3/leaf-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "F80BD0C4DC35DE3F915E2BEEBD4F4C581040F76780C3236F159AB1A9E2A1FB10",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.1/leaf-x86_64-apple-darwin.tar.gz",
-      "checksum": "E6D9D366B79777FE0C94F967864E0ACB9C83CA0F408A190A3B7DC1AB1B10E9C8",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.3/leaf-x86_64-apple-darwin.tar.gz",
+      "checksum": "A13443CC81953E926A15085576F2FB29626607BA7AA650D983CA1D05C8E224F1",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.1/leaf-x86_64-unknown-linux-gnu.tar.gz",
-      "checksum": "3D8539EEA2A2A84F394CDA80D5B2ACC92116C6F3C6EE4B8F229BCAFC55963322",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.16.3/leaf-x86_64-unknown-linux-gnu.tar.gz",
+      "checksum": "9819CEE745664AD9D45B51F515CFF10AD2221C61F1609A44A9A26401B7F90C0D",
       "algorithm": "sha256"
     },
     {
@@ -156,33 +156,33 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-darwin-arm64.tar.gz",
-      "checksum": "B0DC23F2D8C3EF55B2B22F03EF204E98B06B22B6C51A15B66D263B13442C4E03",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.326/claude-darwin-arm64.tar.gz",
+      "checksum": "4E27662F58B98CA3C5CBE67081891D2CC86461FBB285C22ED8309078A070671B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-darwin-x64.tar.gz",
-      "checksum": "EA9D1CF6CC3284450208F0E7045849022B6DA558000D6F0699D96515F0FD2A0D",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.326/claude-darwin-x64.tar.gz",
+      "checksum": "FFEE46842D77F57D0F275B493E23F44413A7D3208A3347C7FACC07A0BA6EC48E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-arm64-musl.tar.gz",
-      "checksum": "E2E584D57C80DE163B4F31F8DD82109CCE1C3F7DCF9B542CDDC705AD21D98737",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.326/claude-linux-arm64-musl.tar.gz",
+      "checksum": "C48B1F6E2FE0E521A5F5CE936ABD8DCAC34ED497B151542AB997F5796308BE86",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-arm64.tar.gz",
-      "checksum": "2ABE2BEA8B802190A303F335B0FD09F95EB775457E99DF5A4778B09DFAB6BBD6",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.326/claude-linux-arm64.tar.gz",
+      "checksum": "61D9C24AD8AA6356E076753760641521D8C85F3E37A3641412EAAE4D5885141F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-x64-musl.tar.gz",
-      "checksum": "BA798CBED37B7B108CC5898DEE27320321EB7E4717081B7EA611C907D2BAB3FF",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.326/claude-linux-x64-musl.tar.gz",
+      "checksum": "B1D3CEDCAF268905289BCED2EDC2CB046A8FAE95194750DF3665A1CA5B895EFE",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/anthropics/claude-code/v2.1.325/claude-linux-x64.tar.gz",
-      "checksum": "9686B0FB1EEFBD7F2CC1F53F932516C29CD605E9D976223323A6C6E9A4C9C7FE",
+      "id": "github_release/github.com/anthropics/claude-code/v2.1.326/claude-linux-x64.tar.gz",
+      "checksum": "30F5542005D138D74EABA6AF8DE7A6678E71E87DC4BA929435AC2FF9011D5A53",
       "algorithm": "sha256"
     },
     {
@@ -996,8 +996,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/vladkens/macmon/v0.11.0/macmon-v0.11.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "51A3FC694F303FC6AD3904423BE7C0437B3133B3359D2986B4066CBF5753C4F1",
+      "id": "github_release/github.com/vladkens/macmon/v0.12.0/macmon-v0.12.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "CD5A701F8537072AEE93EBA686BC582897BD00D826F62146B32C8A8D2654641A",
       "algorithm": "sha256"
     },
     {

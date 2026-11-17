@@ -95,7 +95,11 @@ export CGO_ENABLED=1
 # HISTFILE / SAVEHIST / HISTSIZE は .zshrc で設定（/etc/zshrc の上書きに勝つため）
 
 # macOS (multi-user nix)。インストーラに /etc/zshrc を書かせていないので、ここで読む。
-if [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi
+# nix-darwin が /etc/zshenv で環境を組んだあとは読まない。nix-daemon.sh は installer が
+# default profile に入れた nix (以後だれも更新しない) を PATH の先頭に足すので、
+# nix-darwin が nixpkgs から入れて lock とともに上がる /run/current-system/sw/bin/nix が隠れる。
+# 必要なのは nix-darwin を入れる前の初回 bootstrap と、nix-darwin の無い Linux (CI) だけ。
+if [ -z "${__NIX_DARWIN_SET_ENVIRONMENT_DONE-}" ] && [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 # hm-session-vars.sh 冒頭の include guard (__HM_SESS_VARS_SOURCED) は「この process tree で
 # 一度読んだ」しか見ない。マルチプレクサの server のような長寿命プロセスが起動時のガードを抱えていると、
