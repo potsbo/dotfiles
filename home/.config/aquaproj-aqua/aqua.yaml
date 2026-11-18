@@ -81,7 +81,7 @@ packages:
   # aqua-registry の定義が 2.71.0 の asset 名に追従していないので local で上書き (registry.yaml)。
   - name: fastfetch-cli/fastfetch@2.71.0
     registry: local
-  - name: cloudflare/cloudflared@2026.11.0
+  - name: cloudflare/cloudflared@2026.11.1
   - name: alexrlocke/neorex@v0.1.0
     registry: local
   - name: agavra/tuicr@v0.29.0
