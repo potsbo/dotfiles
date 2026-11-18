@@ -130,3 +130,23 @@ rex.bind("cmd+d", "cwd_split", { direction = "right" })
 rex.bind("shift+cmd+d", "cwd_split", { direction = "down" })
 rex.bind("cmd+'", "focus_waiting", { direction = "next" })
 rex.bind("shift+cmd+'", "focus_waiting", { direction = "previous" })
+
+-- copy mode を nvim の dvorak マップ (nvim/lua/config/keymaps.lua) に揃える (docs/keymap.md A13)。
+-- モード名 "copy" はアプリ組み込みの既定キーと同じ層を指す前提。ドキュメントに明記が無い。
+local copy_move = {
+  d = "left", h = "down", t = "up", n = "right",
+  ["space>d"] = "line_first_non_blank",
+  ["space>h"] = "history_bottom",
+  ["space>t"] = "history_top",
+  ["space>n"] = "line_end",
+}
+for key, to in pairs(copy_move) do
+  rex.bind("copy/" .. key, "pane.copy_mode.move", { to = to })
+end
+rex.bind("copy/l", "pane.copy_mode.search_again", { direction = "same" })
+rex.bind("copy/shift+l", "pane.copy_mode.search_again", { direction = "opposite" })
+rex.bind("copy/k", "pane.copy_mode.find", { direction = "forward", till = true })
+rex.bind("copy/shift+n", "pane.copy_mode.find_again", { direction = "same" })
+rex.bind("copy/shift+d", "pane.copy_mode.find_again", { direction = "opposite" })
+-- nvim では j は削除。copy mode に削除は無いので、下移動 (vim の既定) を残さず塞ぐ。
+rex.unbind("copy/j")
