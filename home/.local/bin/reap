@@ -3,6 +3,7 @@
 # 再生成可能なパッケージ/ビルド成果物を刈り取ってディスクを空ける。
 # ここで消すものは「消えても再取得できるキャッシュ類」だけ:
 #   - aqua : 60日 (AQUA_VACUUM_DAYS) 以上使っていない旧バージョンのバイナリ (aqua vacuum)
+#   - uv   : どこからも参照されていない cache エントリ (uv cache prune)
 #   - nix  : user profile の旧世代 + 到達不能な store パス (nix-collect-garbage -d)
 #   - nix  : system profile の旧世代 (sudo nix-collect-garbage -d) ← store の大半はここが保持
 #   - mac  : brew のダウンロードキャッシュと旧バージョン (brew cleanup --prune=all)
@@ -92,6 +93,16 @@ if command -v aqua >/dev/null 2>&1; then
   program_status working 'Vacuuming aqua packages'
   echo "== aqua vacuum (AQUA_VACUUM_DAYS=${AQUA_VACUUM_DAYS:-60}) =="
   run aqua vacuum
+fi
+
+# --- uv: 参照されなくなった cache エントリを削除 ---
+# clean ではなく prune なのは、venv が archive-v0 からハードリンクしているため。
+# 使用中のエントリまで消しても venv 側に実体が残るので容量は空かず、次の install で
+# 再ダウンロードが増えるだけになる。
+if command -v uv >/dev/null 2>&1; then
+  program_status working 'Pruning uv cache'
+  echo "== uv cache prune =="
+  run uv cache prune
 fi
 
 # --- nix: user profile GC ---
