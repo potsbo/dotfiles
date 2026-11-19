@@ -136,23 +136,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-aarch64-linux.tar.gz",
-      "checksum": "10E5AA80D0560666CF3EA018E8063437903FCCED388D70C83C31C9255DF7EFA4",
+      "id": "github_release/github.com/alexrlocke/neorex/v0.2.0/neorex-aarch64-linux.tar.gz",
+      "checksum": "BF35E7CE1DEE9AA6428DEC3722A05044F8EEF00E9C4016D166A44003410567BA",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-aarch64-macos.tar.gz",
-      "checksum": "F4E64364CEDA52F130E49786825101312BEF46F93491B9CAD757DDEA986364A3",
+      "id": "github_release/github.com/alexrlocke/neorex/v0.2.0/neorex-aarch64-macos.tar.gz",
+      "checksum": "C3996F0A512935501E1A8D85DFDE333B4D51040A580BDD465AD72E5AE0E9F19A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-x86_64-linux.tar.gz",
-      "checksum": "5733B133012E515580D44A2BCBEDA1BDB430DACB708567D55C31E8F941C3A9F5",
+      "id": "github_release/github.com/alexrlocke/neorex/v0.2.0/neorex-x86_64-linux.tar.gz",
+      "checksum": "B9AAEC0E9DA37C7FD0EE95C7B3D9AE4D66D21C0ECC97381FF7DF2798AEDCB876",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/alexrlocke/neorex/v0.1.0/neorex-x86_64-macos.tar.gz",
-      "checksum": "B231729084DE599716FDE30596E0C839755E95C3023C0C3E6A86F399A314FA48",
+      "id": "github_release/github.com/alexrlocke/neorex/v0.2.0/neorex-x86_64-macos.tar.gz",
+      "checksum": "3CA4B914A8753435C7991867DEA63C56397CD942A3AB4F9E24738F9AC506BB02",
       "algorithm": "sha256"
     },
     {
