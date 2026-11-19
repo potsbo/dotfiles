@@ -21,10 +21,6 @@ _:
       # 上げたいときは `brew upgrade` / `mas upgrade` を手で打つ。
       upgrade = false;
     };
-    taps = [
-      # tinycast の配布元。本家 homebrew-cask には無い。
-      "abue-ammar/tinycast"
-    ];
     brews = [
       "libomp" # LightGBM 等の機械学習ライブラリのビルドに必要
     ];
@@ -36,7 +32,6 @@ _:
       "Microsoft PowerPoint" = 462062816;
       "Microsoft Word" = 462054704;
       "Slack" = 803453959;
-      "Todoist" = 585829637;
       "Windows App" = 1295203466;
     };
     casks = [
@@ -53,16 +48,11 @@ _:
       "notion-calendar"
       "obsidian"
       "font-monaspice-nerd-font"
-      "ghostty"
-      # ターミナルの日本語フォールバック (home/.config/ghostty/config)。
-      # 未インストールだと一部の漢字が tofu (斜線付き□) になるため必須。
-      "font-biz-udgothic"
       "tailscale-app"
       "chatgpt"
       "claude"
       "pgadmin4"
       "plaud"
-      "cloudflare-warp"
       # niri (Linux 側の WM) と同じスクロール型タイリングを macOS でも使うための試用。
       # niri 自体は Wayland コンポジタなので移植版は存在せず、体験を再実装したものから
       # 選ぶことになる。候補は PaperWM.spoon (Hammerspoon 上、枯れている) / Paneru
@@ -79,7 +69,7 @@ _:
       "omniwm"
       # ランチャー。Raycast から置き換えた。ネイティブ実装 (SwiftUI/AppKit) で常駐が軽い。
       # omniwm と同じく arm64 + macOS 26 以降を要求する。
-      "abue-ammar/tinycast/tinycast"
+      "tinycast"
       # .md を Finder の Quick Look (Space) で整形表示する。見るだけのために VS Code などの
       # IDE を起動しないための選択。MarkEdit は編集が主で、プレビューも拡張頼みだったので不採用。
       # 初回はアプリを一度起動し、システム設定で Quick Look 拡張を有効にする必要がある。
