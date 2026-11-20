@@ -76,7 +76,24 @@
         "com.google.Chrome" = {
           BuiltInDnsClientEnabled = false;
           DnsOverHttpsMode = "off";
+          # 以下の NSUserKeyEquivalents は System Settings > Keyboard > App Shortcuts と同じもの。
+          # サイドバーの出し入れを cmd+b に揃える (docs/keymap.md A14)。メニュー項目名で照合
+          # するので、開閉で名前が変わるアプリは両方の名前に付ける。キーごと上書きするので、
+          # GUI で足した App Shortcuts は rebuild で消える。
+          # Chrome の項目名は開閉で変わらない。
+          NSUserKeyEquivalents."Collapse Vertical Tabs" = "@b";
         };
+        "notion.id".NSUserKeyEquivalents."Show/Hide Sidebar" = "@b";
+        "com.apple.finder".NSUserKeyEquivalents = {
+          "Hide Sidebar" = "@b";
+          "Show Sidebar" = "@b";
+        };
+        "com.apple.Preview".NSUserKeyEquivalents = {
+          "Hide Sidebar" = "@b";
+          "Show Sidebar" = "@b";
+        };
+        # Safari は入れない。設定がコンテナにあり TCC で守られていて、Full Disk Access の無い
+        # activation から書くと失敗する。
         # Syntax Highlight (apps.nix) の Quick Look で JSON を整形してから表示する。
         # jq は nix store のものを直に指す。Quick Look の XPC はログインシェルの PATH を
         # 持たないので aqua の shim は引けず、/usr/bin/python3 は Command Line Tools が
