@@ -223,6 +223,9 @@ bindkey -M emacs "^]" _tuicast_connect
 # VSCode で emacs キーバインドを使うため
 bindkey -e
 
+# Rex (iOS) は Ctrl+I を Tab (^I) でなく CSI u (ESC [105;5u) で送る。Tab と同じく補完にする
+bindkey -M emacs "^[[105;5u" expand-or-complete
+
 # ZLE の既定 clear-screen は clear 関数を通らないので、画面と activity の消去を共有する。
 _clear_screen_and_activity() {
   clear
