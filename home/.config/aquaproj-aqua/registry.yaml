@@ -138,3 +138,23 @@ packages:
       - linux
     files:
       - name: leaf
+  # krd - SSH 越しに macOS のデスクトップを kitty graphics で pane に映して操作する。
+  # https://github.com/zzjcool/krd
+  # upstream の install.sh は手元の Apple Development 証明書で署名し直して ~/bin に置く。
+  # 署名が効くのは TCC の許可を krd 自身に付けたとき (launchd から起動する場合) だけで、
+  # ssh 越しなら許可は /usr/libexec/sshd-keygen-wrapper が受けるので (upstream
+  # docs/DEPLOY.md §3)、release の linker 署名のままバージョンごとのパスに置いて困らない。
+  # install.sh が足す `wall` symlink は入れない。macOS にも /usr/bin/wall があって隠れる。
+  - type: github_release
+    repo_owner: zzjcool
+    repo_name: krd
+    asset: krd-{{.Version}}-macos-universal.tar.gz
+    checksum:
+      type: github_release
+      asset: "{{.Asset}}.sha256"
+      algorithm: sha256
+    supported_envs:
+      - darwin
+    files:
+      - name: krd
+        src: "{{.AssetWithoutExt}}/krd"

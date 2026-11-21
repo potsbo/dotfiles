@@ -1061,6 +1061,11 @@
       "algorithm": "sha256"
     },
     {
+      "id": "github_release/github.com/zzjcool/krd/v0.3.0/krd-v0.3.0-macos-universal.tar.gz",
+      "checksum": "B6461DC808AC26DFC8923D2A5BD947196FC937BC930FD29A7FAE2D02DB42971A",
+      "algorithm": "sha256"
+    },
+    {
       "id": "http/awscli.amazonaws.com/AWSCLIV2-2.42.1.pkg",
       "checksum": "74E38AB8A592B635D7B0AE85E6F33CB1CEBA79CE19C112D425CBBF535E607B23",
       "algorithm": "sha256"
