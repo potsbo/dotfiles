@@ -88,12 +88,9 @@
           "Hide Sidebar" = "@b";
           "Show Sidebar" = "@b";
         };
-        "com.apple.Preview".NSUserKeyEquivalents = {
-          "Hide Sidebar" = "@b";
-          "Show Sidebar" = "@b";
-        };
-        # Safari は入れない。設定がコンテナにあり TCC で守られていて、Full Disk Access の無い
-        # activation から書くと失敗する。
+        # Safari と Preview は入れない。sandbox アプリで設定がコンテナにあり TCC で守られて
+        # いて、Full Disk Access の無い activation から書くと失敗する (user defaults で
+        # "Could not write domain" になり switch ごと止まる)。
         # Syntax Highlight (apps.nix) の Quick Look で JSON を整形してから表示する。
         # jq は nix store のものを直に指す。Quick Look の XPC はログインシェルの PATH を
         # 持たないので aqua の shim は引けず、/usr/bin/python3 は Command Line Tools が
