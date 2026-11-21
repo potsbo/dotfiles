@@ -86,7 +86,7 @@ packages:
     registry: local
   - name: agavra/tuicr@v0.29.0
     registry: local
-  - name: DeepanshuMishraa/leaf@v0.17.3
+  - name: DeepanshuMishraa/leaf@v0.18.0
     registry: local
   - name: zzjcool/krd@v0.3.0
     registry: local

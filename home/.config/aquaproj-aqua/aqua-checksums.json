@@ -21,23 +21,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.17.3/leaf-aarch64-apple-darwin.tar.gz",
-      "checksum": "C7D3023619454C6C36F9C97A6EF328B6B2355C63147A8BB318B10E8B0572BA49",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.18.0/leaf-aarch64-apple-darwin.tar.gz",
+      "checksum": "F8EB3C17CED05A9B3769B9EF6B5AC85DDFB38AC6350C1EE727FAF457407E431A",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.17.3/leaf-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "827809F989157A9125CC30DDA4C01DC1157DDB721EBED6BED2D3BB402C3DEC54",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.18.0/leaf-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "167A9BA8F607B75045AAF17AD0391D01794CC4FD2B1345C4A5669D5E8B693FC5",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.17.3/leaf-x86_64-apple-darwin.tar.gz",
-      "checksum": "4382CB9664804C582D28EEA331C903E5C321A0EAEA797BA33A343C1E7F5AF87D",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.18.0/leaf-x86_64-apple-darwin.tar.gz",
+      "checksum": "DC28A4D6453A898A030095497628DE3DF50A3FAE73F8EDAED5D9BAF6C8D4956F",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.17.3/leaf-x86_64-unknown-linux-gnu.tar.gz",
-      "checksum": "51D985AA5C8EAAA66718D3B8F293C86A577C5900F7E17849ED3B392BC7FD790A",
+      "id": "github_release/github.com/DeepanshuMishraa/leaf/v0.18.0/leaf-x86_64-unknown-linux-gnu.tar.gz",
+      "checksum": "046443CA776856875D59AE733A7A2CE9333F9A5A7C55710911474143492B41AF",
       "algorithm": "sha256"
     },
     {
