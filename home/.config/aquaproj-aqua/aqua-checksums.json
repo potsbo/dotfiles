@@ -961,23 +961,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "86456C0ED99D2466524EAA074DB6580CF7D748B91042E252C83EACA9A9D216E7",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/19.0.0/postgresql-19.0.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "3165A453906BB345F54E189F65DB828A76D60E7696191AFD26FCA6DC73BA51A4",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-aarch64-unknown-linux-gnu.tar.gz",
-      "checksum": "6FCF45163AA044FE58597885B0E27C4B1614C53AD088D4D0EBBBFDF5DF510EAF",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/19.0.0/postgresql-19.0.0-aarch64-unknown-linux-gnu.tar.gz",
+      "checksum": "256AE47D0E9E0E6E22586643E10ED554B54D5679B6F401EF63D09A0FBC3368D2",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-x86_64-apple-darwin.tar.gz",
-      "checksum": "9CD649259D6BF4AF60A235E772C83853DF215B63F4C1967C2EED7F9376AEFB89",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/19.0.0/postgresql-19.0.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "F255A9C1A3489B4125794C7D2221FF6D82466D5DA24876A3A9655C5A596E2EFD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/theseus-rs/postgresql-binaries/18.7.0/postgresql-18.7.0-x86_64-unknown-linux-gnu.tar.gz",
-      "checksum": "53CA01952CB581145E4FB16B6B3B675DA345A82879F350707B9F65863A0642F4",
+      "id": "github_release/github.com/theseus-rs/postgresql-binaries/19.0.0/postgresql-19.0.0-x86_64-unknown-linux-gnu.tar.gz",
+      "checksum": "EC7044FB9E2F1126383A869E463C8028D403D161C6A4A88501F43CA64112B623",
       "algorithm": "sha256"
     },
     {
