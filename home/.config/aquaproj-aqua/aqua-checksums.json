@@ -561,23 +561,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.22.0/miller-6.22.0-darwin-amd64.tar.gz",
-      "checksum": "441B486B0C4D89A7465FC958DC6F3BBD0339E270230E5F81A520B04D202A9838",
+      "id": "github_release/github.com/johnkerl/miller/v6.23.0/miller-6.23.0-darwin-amd64.tar.gz",
+      "checksum": "C75AC2AAB422E96CB59A642E39659E2664CEB80639FF8A0C5387FC56D2E9EBC7",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.22.0/miller-6.22.0-darwin-arm64.tar.gz",
-      "checksum": "B99AF86BF902C4FD269C28EC4142111DC27815B3AE63801BACEAA001D09B9FD7",
+      "id": "github_release/github.com/johnkerl/miller/v6.23.0/miller-6.23.0-darwin-arm64.tar.gz",
+      "checksum": "B91A8DAAFFACE9C1C4F93F82C3DAA32C5DB44001CCE83C9AA4EA0ED56E46041D",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.22.0/miller-6.22.0-linux-amd64.tar.gz",
-      "checksum": "0551F8696E8F42DAE1C67C782BBE04E0589E718268722FA98561E2566E4623B8",
+      "id": "github_release/github.com/johnkerl/miller/v6.23.0/miller-6.23.0-linux-amd64.tar.gz",
+      "checksum": "3D9B22EE1269B46C864FFC64E5696ABE3352A7F91530BB01BE51967A4CEEEAC3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/johnkerl/miller/v6.22.0/miller-6.22.0-linux-arm64.tar.gz",
-      "checksum": "86DBF9078CF4CD96FEF7A8306B3786A441CDF7F8526324A233E38C37C4BFE742",
+      "id": "github_release/github.com/johnkerl/miller/v6.23.0/miller-6.23.0-linux-arm64.tar.gz",
+      "checksum": "2D5E66474C5C5143F40E671A429A18EF05B91B06DBDE8EC253978E5A35D20C7D",
       "algorithm": "sha256"
     },
     {
