@@ -84,7 +84,7 @@ packages:
   - name: cloudflare/cloudflared@2026.11.2
   - name: alexrlocke/neorex@v0.2.0
     registry: local
-  - name: agavra/tuicr@v0.29.0
+  - name: agavra/tuicr@v0.30.0
     registry: local
   - name: DeepanshuMishraa/leaf@v0.18.1
     registry: local
