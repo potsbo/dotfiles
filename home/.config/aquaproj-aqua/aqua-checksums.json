@@ -996,8 +996,8 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/vladkens/macmon/v0.12.0/macmon-v0.12.0-aarch64-apple-darwin.tar.gz",
-      "checksum": "CD5A701F8537072AEE93EBA686BC582897BD00D826F62146B32C8A8D2654641A",
+      "id": "github_release/github.com/vladkens/macmon/v0.12.1/macmon-v0.12.1-aarch64-apple-darwin.tar.gz",
+      "checksum": "93E37628F57023AAF51147D32AEEAD6FA7BA092BF85BDA86581A78E826E0D6FB",
       "algorithm": "sha256"
     },
     {
