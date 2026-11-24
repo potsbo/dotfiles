@@ -130,6 +130,8 @@ rex.bind("cmd+d", "cwd_split", { direction = "right" })
 rex.bind("shift+cmd+d", "cwd_split", { direction = "down" })
 rex.bind("cmd+'", "focus_waiting", { direction = "next" })
 rex.bind("shift+cmd+'", "focus_waiting", { direction = "previous" })
+-- 既定の cmd+/ も残る。アプリをまたいで cmd+b に揃える (docs/keymap.md A14)。
+rex.bind("cmd+b", "client.sidebar.toggle")
 
 -- copy mode を nvim の dvorak マップ (nvim/lua/config/keymaps.lua) に揃える (docs/keymap.md A13)。
 -- モード名 "copy" はアプリ組み込みの既定キーと同じ層を指す前提。ドキュメントに明記が無い。

@@ -66,6 +66,9 @@ export PATH=$PATH:/sbin              # ping, ifconfig, ...
 export PATH=$PATH:/usr/bin           # arch, top, ...
 export PATH=$PATH:/usr/sbin          # chown, chroot, ...
 export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
+# Rex はペインのシェルを起動する前に REX_BIN_DIR を PATH の先頭に足すが、nix-darwin の
+# /etc/zshenv (set-environment) が PATH を丸ごと代入し直すので消える。Rex が意図した状態に戻す。
+[[ -n ${REX_BIN_DIR:-} ]] && export PATH="$REX_BIN_DIR:$PATH"
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
 
 # M1 Mac で amd64 の docker image を動かすため
