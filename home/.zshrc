@@ -104,6 +104,18 @@ if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
 if type rex &> /dev/null; then _lazy_load_completion rex 'eval "$(rex completion zsh)"'; fi
+if type uv &> /dev/null; then _lazy_load_completion uv 'eval "$(uv generate-shell-completion zsh)"'; fi
+if type uvx &> /dev/null; then _lazy_load_completion uvx 'eval "$(uvx --generate-shell-completion zsh)"'; fi
+if type rg &> /dev/null; then _lazy_load_completion rg 'eval "$(rg --generate complete-zsh)"'; fi
+if type fd &> /dev/null; then _lazy_load_completion fd 'eval "$(fd --gen-completions zsh)"'; fi
+# bat の出力は autoload 用の関数本体 (_bat を定義しない) なので、自分で _bat に包む。
+if type bat &> /dev/null; then _lazy_load_completion bat 'eval "_bat() { $(bat --completion zsh) }"'; fi
+if type yq &> /dev/null; then _lazy_load_completion yq 'eval "$(yq completion zsh)"'; fi
+if type codex &> /dev/null; then _lazy_load_completion codex 'eval "$(codex completion zsh)"'; fi
+if type copilot &> /dev/null; then _lazy_load_completion copilot 'eval "$(copilot completion zsh)"'; fi
+if type hunk &> /dev/null; then _lazy_load_completion hunk 'eval "$(hunk completion zsh)"'; fi
+if type fnm &> /dev/null; then _lazy_load_completion fnm 'eval "$(fnm completions --shell zsh)"'; fi
+if type git-lfs &> /dev/null; then _lazy_load_completion git-lfs 'eval "$(git-lfs completion zsh)"'; fi
 # cascp は scp のサブセットなので、zsh 同梱の scp の補完 (ssh 越しのリモートパスを含む) を
 # そのまま使う。scp にしか無いオプションも候補に出るが、自前の補完を持つほどではない。
 compdef cascp=scp
