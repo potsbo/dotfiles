@@ -124,8 +124,9 @@ rex.action{
   end,
 }
 
--- 標準の cmd+n (新規ウィンドウ) は Rex では使わないので置き換える (docs/keymap.md A10)。
-rex.bind("cmd+n", "cwd_float")
+-- 標準の cmd+n (新規ウィンドウ) は Rex では使わないので新規 session に置き換える (docs/keymap.md A10)。
+rex.bind("cmd+n", "session.new")
+rex.bind("shift+cmd+n", "cwd_float")
 rex.bind("cmd+d", "cwd_split", { direction = "right" })
 rex.bind("shift+cmd+d", "cwd_split", { direction = "down" })
 rex.bind("cmd+'", "focus_waiting", { direction = "next" })
