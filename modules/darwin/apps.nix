@@ -79,6 +79,11 @@ _:
       # 設定の作りも同じ。JSON の整形は標準ではしないので、前処理を default.nix の
       # CustomUserPreferences で入れている。初回は qlmarkdown と同じく一度起動して拡張を有効にする。
       "syntax-highlight"
+      # CLI だが aqua では入れない。release tarball が署名の xattr を pax ヘッダに含み、
+      # aqua の展開がそれを ._* ファイルとして .app 内に書き出して署名を壊すため、
+      # 起動直後に SIGKILL される (edeae8c2)。cask は macOS の展開を使うので署名が残る。
+      # nixpkgs には無い。
+      "terminal-browser"
     ];
   };
 }
