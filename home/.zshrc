@@ -103,6 +103,7 @@ if type task &> /dev/null; then _lazy_load_completion task 'eval "$(task --compl
 if type gh &> /dev/null; then _lazy_load_completion gh 'eval "$(gh completion --shell zsh)"'; fi
 if type git-wt &> /dev/null; then _lazy_load_completion git-wt 'eval "$(git wt --init zsh)"'; fi
 if type aqua &> /dev/null; then _lazy_load_completion aqua 'eval "$(aqua completion zsh)"'; fi
+if type rex &> /dev/null; then _lazy_load_completion rex 'eval "$(rex completion zsh)"'; fi
 # cascp は scp のサブセットなので、zsh 同梱の scp の補完 (ssh 越しのリモートパスを含む) を
 # そのまま使う。scp にしか無いオプションも候補に出るが、自前の補完を持つほどではない。
 compdef cascp=scp
