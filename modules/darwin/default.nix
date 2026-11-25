@@ -138,6 +138,16 @@
     };
   };
 
+  # ファイルの既定アプリ。GUI (Finder の「情報を見る」) で直しても、Chrome が自分を
+  # PDF の handler に登録し直していつの間にか戻るので、rebuild のたびに書き戻す。
+  # LaunchServices の DB はユーザーごとで、書くには lsd のあるユーザーセッションが
+  # 要るため、root の activation から launchctl asuser でユーザーとして叩く
+  # (nix-darwin の defaults も同じ形で書いている)。
+  system.activationScripts.postActivation.text = ''
+    launchctl asuser "$(id -u -- ${user})" sudo --user=${user} -- \
+      ${pkgs.duti}/bin/duti -s com.apple.Preview com.adobe.pdf all
+  '';
+
   # GitHub の公開鍵で SSH できるようにする (NixOS の common.nix と同等)
   services.openssh = {
     enable = true;
