@@ -32,9 +32,11 @@ let
     ".zshenv"
     ".zprofile"
     ".zshrc"
-    # .claude はセッション状態などが多いのでディレクトリごとはリンクせず settings.json だけ管理する。
+    # .claude はセッション状態などが多いのでディレクトリごとはリンクせず、管理するファイルだけ張る。
     ".claude/settings.json"
     ".claude/claude-powerline.json"
+    # ~/.claude/skills には他の仕組みが置く skill (synced、hunk-review) もあるので、自分の skill も 1 ファイルずつ張る。
+    ".claude/skills/express-scan/SKILL.md"
     # .codex もセッション状態などを含むため、設定ファイルだけ管理する。
     ".codex/config.toml"
     # 全セッション共通の指示。Claude Code 用の ~/.claude/CLAUDE.md も同じファイルを指す。

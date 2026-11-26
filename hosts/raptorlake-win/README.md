@@ -33,6 +33,19 @@ scp -r anonymizer raptorlake-win:C:/Users/shimp/src/one/
 ssh raptorlake-win 'cd C:\Users\shimp\src\one\anonymizer; uv run pytest'
 ```
 
+### 最新の定義でのフルスキャンを早く済ませる
+
+raptorlake の上で:
+
+```sh
+./hosts/raptorlake-win/express-scan
+```
+
+定義を更新し、取り直せるキャッシュを消し (Drive は止めて最後に起こし直す)、CPU の上限を
+外してフルスキャンを流す。最後に定義の版、スキャンの時刻、段階ごとの時間を出す。
+流している間はホストの /srv/raptorlake-win が空に見える。Claude Code からは skill
+`express-scan` で呼べる。
+
 ## 何をどう決めたか
 
 - **ssh の鍵は GitHub から引く。** `modules/nixos/sshd.nix` と同じ方針で、静的な

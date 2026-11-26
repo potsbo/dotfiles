@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# raptorlake-win で、最新の定義でのフルスキャンをできる限り早く済ませる。
+#   ./hosts/raptorlake-win/express-scan
+#
+# 中身は express-scan.ps1。Drive を止めてキャッシュを消してからスキャンするので、
+# 流している間はホストの /srv/raptorlake-win (cifs) が空に見える。
+#
+# ssh ではなく guest agent で流す。Drive の停止と起動、Defender の操作はどれも SYSTEM で
+# できるので、ssh の鍵 (agent) が無いシェルからでも同じように動かせる。そのため
+# raptorlake の上でしか動かない。
+
+set -euo pipefail
+
+here=$(cd "$(dirname "$0")" && pwd)
+
+[ "$(hostname)" = raptorlake ] || { echo "raptorlake の上で実行すること (guest agent を使う)" >&2; exit 1; }
+
+# shellcheck source=hosts/raptorlake-win/guest-powershell.sh
+. "$here/guest-powershell.sh"
+
+guest_powershell "$here/express-scan.ps1"

@@ -26,9 +26,9 @@ trap 'rm -f "$tmp"' EXIT
 
 ssh_ok() { ssh -o BatchMode=yes -o ConnectTimeout=5 "$guest" exit >/dev/null 2>&1; }
 
-# PowerShell の -EncodedCommand は UTF-16LE の base64
-encode() { iconv -f utf-8 -t utf-16le "$1" | base64 -w0; }
-
+# encode と guest_powershell (guest agent 経由で SYSTEM として流す)
+# shellcheck source=hosts/raptorlake-win/guest-powershell.sh
+. "$here/guest-powershell.sh"
 
 # ssh 越しの実行。送って、流して、消す。
 # BOM を付けるのは、PowerShell 5.1 の -File が BOM の無いファイルをコードページ (cp932)
@@ -42,22 +42,6 @@ ssh_powershell() {
   scp -q "$payload" "$guest:$remote"
   rm -f "$payload"
   ssh "$guest" "powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $remote; \$c = \$LASTEXITCODE; Remove-Item -Force -ErrorAction SilentlyContinue $remote; exit \$c"
-}
-# guest-exec は非同期で pid を返す。終了を待って出力を取り出す。JSON の組み立てと分解は jq。
-guest_powershell() {
-  local enc req pid status
-  enc=$(encode "$1")
-  req=$(jq -cn --arg enc "$enc" '{execute:"guest-exec",arguments:{path:"powershell.exe",arg:["-NoProfile","-NonInteractive","-EncodedCommand",$enc],"capture-output":true}}')
-  pid=$(virsh -c qemu:///system qemu-agent-command "$guest" "$req" | jq '.return.pid')
-  while :; do
-    status=$(virsh -c qemu:///system qemu-agent-command "$guest" "{\"execute\":\"guest-exec-status\",\"arguments\":{\"pid\":$pid}}")
-    if [ "$(jq '.return.exited' <<<"$status")" = true ]; then
-      jq -r '.return["out-data"] // empty' <<<"$status" | base64 -d
-      jq -r '.return["err-data"] // empty' <<<"$status" | base64 -d >&2
-      return "$(jq '.return.exitcode' <<<"$status")"
-    fi
-    sleep 2
-  done
 }
 
 if [ "$(hostname)" = raptorlake ]; then
