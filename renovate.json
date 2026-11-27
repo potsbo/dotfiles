@@ -7,7 +7,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["\\.nix$"],
+      "managerFilePatterns": ["/\\.nix$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-]+) depName=(?<depName>[^\\n]+)\\n\\s*version\\s*=\\s*\"(?<currentValue>[^\"]+)\";"
       ],
@@ -15,14 +15,14 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^pkgs/.*\\.nix$"],
+      "managerFilePatterns": ["/^pkgs/.*\\.nix$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>git-refs) depName=(?<depName>\\S+) branch=(?<currentValue>\\S+)\\n\\s*rev\\s*=\\s*\"(?<currentDigest>[0-9a-f]{40})\";"
       ]
     },
     {
       "customType": "regex",
-      "fileMatch": ["^flake\\.nix$"],
+      "managerFilePatterns": ["/^flake\\.nix$/"],
       "matchStrings": [
         "url\\s*=\\s*\"github:(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/(?<currentValue>v?[0-9]+\\.[0-9]+\\.[0-9]+[^\"/?\\s]*)\""
       ],
@@ -30,7 +30,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["home/.config/aquaproj-aqua/aqua\\.yaml$"],
+      "managerFilePatterns": ["/home/.config/aquaproj-aqua/aqua\\.yaml$/"],
       "matchStrings": [
         "name:\\s*(?<depName>[^@\\s]+)@(?<currentValue>v?[0-9][^\\s]*)\\s*\\n\\s*registry:\\s*local"
       ],
