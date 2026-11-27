@@ -28,6 +28,11 @@ jobs:
           pkgs=$(nix eval --raw .#packages.x86_64-linux \
             --apply 'ps: builtins.concatStringsSep " " (builtins.attrNames ps)')
           for pkg in $pkgs; do
+            # Nix 2.35 から `nix flake metadata` が dirty tree を store にコピーしなくなり、
+            # nix-update 1.16 はその path を eval して "No such file" で落ちる
+            # (Mic92/nix-update#693)。1.17 で直ったが nixpkgs に来るまで先にコピーしておく。
+            # 前の pkg の hash 更新で tree が変わり path も変わるので、毎回打つ。
+            nix flake prefetch .
             nix run nixpkgs#nix-update -- --flake --version=skip "$pkg"
           done
       # 宣言を変更した input の lock だけ追従させる。update と違い、変更のない
