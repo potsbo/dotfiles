@@ -781,23 +781,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.171.0/codex-package-aarch64-apple-darwin.tar.gz",
-      "checksum": "58C88032EC446E72922D911D8F03773102DA20C16A6059CF21F6744BCE57F210",
+      "id": "github_release/github.com/openai/codex/rust-v0.172.0/codex-package-aarch64-apple-darwin.tar.gz",
+      "checksum": "0970016D48209A09C4039139629ED79B4A31C5E3D864E792C043419D98FA6466",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.171.0/codex-package-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "D8C43BEE6CF11B01EB18B95F4D7961092BC40228180808859E70DABB7784C1C9",
+      "id": "github_release/github.com/openai/codex/rust-v0.172.0/codex-package-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "FAF17B8071927F33346A805DC8CB45DE4E08C0D75CF0E5E68CECDDCA28B8861E",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.171.0/codex-package-x86_64-apple-darwin.tar.gz",
-      "checksum": "DD130EA3217B4E6FE4454C99949E0B28E2E8A9AD8DA8C3A75F0C7265FAB7153B",
+      "id": "github_release/github.com/openai/codex/rust-v0.172.0/codex-package-x86_64-apple-darwin.tar.gz",
+      "checksum": "B5E94828F45171F13D81DE2B96CAE05C0B7E6A7F2F7D3C9D4E748BE3D3906C02",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/openai/codex/rust-v0.171.0/codex-package-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "8391D67757496BFD14893ECA6CBF0C96994BF2627566FF1F018F70600C9EF6B3",
+      "id": "github_release/github.com/openai/codex/rust-v0.172.0/codex-package-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "63E3B00065ED7F62166D0522E17F663CB866A31D80D03E63365482ED34A1D991",
       "algorithm": "sha256"
     },
     {
