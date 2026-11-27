@@ -276,23 +276,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.105.0/gh_2.105.0_linux_amd64.tar.gz",
-      "checksum": "79E7AB5DB738C48777B696E374F8B428F0647DEBFB424F44D2F426370407FE2F",
+      "id": "github_release/github.com/cli/cli/v2.106.0/gh_2.106.0_linux_amd64.tar.gz",
+      "checksum": "A476449FA9625413C54A3734EDED62E9E480E49F421FF08E7F3B3879C059A033",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.105.0/gh_2.105.0_linux_arm64.tar.gz",
-      "checksum": "B1278C75107423D818F1937FD92CAFC9E5E9B606631568F68D7FB816F5885A02",
+      "id": "github_release/github.com/cli/cli/v2.106.0/gh_2.106.0_linux_arm64.tar.gz",
+      "checksum": "5E8A0C51E1A8345F36BD0B8BB88604B6A5388DF16F3AB3E3B9B6D794FA223A67",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.105.0/gh_2.105.0_macOS_amd64.zip",
-      "checksum": "23602CBCCBBDC6285A8520745B714CB927CE2CA621779373C2A20CD8E33FDA66",
+      "id": "github_release/github.com/cli/cli/v2.106.0/gh_2.106.0_macOS_amd64.zip",
+      "checksum": "F43A04A5FFE0717E2E39D7591CBC50DB24C6C38D09D0EA4998BE27CD197758E3",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/cli/cli/v2.105.0/gh_2.105.0_macOS_arm64.zip",
-      "checksum": "2A5D03103AE444927383B93D9FFD65579A26E2EB900CE1CF11F55258D5319DED",
+      "id": "github_release/github.com/cli/cli/v2.106.0/gh_2.106.0_macOS_arm64.zip",
+      "checksum": "22B2B723DFBC69B6022B1B08604FF51C0DB5AA8B6774B4CED1A47B8413A995D6",
       "algorithm": "sha256"
     },
     {
