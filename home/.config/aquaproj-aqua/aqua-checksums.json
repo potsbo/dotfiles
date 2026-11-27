@@ -481,23 +481,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.114/copilot-darwin-arm64.tar.gz",
-      "checksum": "35E8165A6CA811FB907B5AFB7892E53D1BB85426BB77FE3F83B7F0B4E955249A",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.117/copilot-darwin-arm64.tar.gz",
+      "checksum": "081E8B48EF046C7A1D1C1F3178FA0260998C2848FA720B600A27F24840E4F8BC",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.114/copilot-darwin-x64.tar.gz",
-      "checksum": "9AC9F8785AD036C8D6A976A386FD05D721B510B57F083F1AAC0CAC9E378051BB",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.117/copilot-darwin-x64.tar.gz",
+      "checksum": "FC3827DFC74229C6045E12CCA2F517DB0B1AB11D05C3A9C7D5195A3C39FA67C8",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.114/copilot-linux-arm64.tar.gz",
-      "checksum": "A204154D4522A7C3AA73A65BA598E432F6AAFE37D5FA31CF853163A27D98018E",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.117/copilot-linux-arm64.tar.gz",
+      "checksum": "24591C89A6A155F26E97BD081EA20F55C12E8A423EAAD01386E7C49A80990846",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/github/copilot-cli/v1.0.114/copilot-linux-x64.tar.gz",
-      "checksum": "B91A96F2257297CFB67ED6784A2A658609A6B8C2EE2DED18AF9C9ABE8CC790AE",
+      "id": "github_release/github.com/github/copilot-cli/v1.0.117/copilot-linux-x64.tar.gz",
+      "checksum": "D12052D8CB42C0EE4345FB625D3D65DFC6E19F65277E2A4827EE10723ADCE8AA",
       "algorithm": "sha256"
     },
     {
@@ -1066,18 +1066,18 @@
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.42.2.pkg",
-      "checksum": "CBC45E33B1BD0E6BB9934A9193494D333DCEA6877DD4790794141AFA8A8BEE0D",
+      "id": "http/awscli.amazonaws.com/AWSCLIV2-2.42.5.pkg",
+      "checksum": "9F69F236D7CEB66945C83DAA39F95B692C7A6AD8DA73BED67D570EE3CFE503D0",
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.42.2.zip",
-      "checksum": "EFDA2E5D9D01726F47C491A7B006F55611E682A0BDB08F4D65594E27BDC6AB30",
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-aarch64-2.42.5.zip",
+      "checksum": "57CB17BDD0327A5685A12D3255B7A3B223F639F566E934EF3D2FA4557BD71675",
       "algorithm": "sha256"
     },
     {
-      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.42.2.zip",
-      "checksum": "EB2181C8F391EE63ACBADF53B13A80EFE8702CBFEF6A7DA99A57E60631B47665",
+      "id": "http/awscli.amazonaws.com/awscli-exe-linux-x86_64-2.42.5.zip",
+      "checksum": "7694A5B0BDD31DDCCDBE9C103849CFE1A2AA4B4768E803A50AE94610AA970800",
       "algorithm": "sha256"
     },
     {
