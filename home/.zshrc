@@ -295,6 +295,9 @@ rdp() {
 # 開く: 開いたばかりの pane の上にさらに pane を出す意味がなく、選んだ dir にこの
 # シェルで cd できる。login に限るのは、worktree-connect.sh の exec zsh や手で打った
 # zsh で再び出さないため (Rex は pane のシェルを login で起動する)。
-if [[ -n ${REX_SESSION:-} ]] && [[ -o login ]] && [[ -o interactive ]] && [[ -t 0 ]] && (( $+commands[tuicast] )); then
+# -c (ZSH_EXECUTION_STRING) を除くのは、Rex が server 再起動後の program resume や
+# `rex run` で `zsh -ilc '<cmd>'` と login + interactive のまま起動するため。ここで
+# tuicast を出すと、resume される claude などがその後ろで止まる。
+if [[ -n ${REX_BLOCK:-} ]] && [[ -z ${ZSH_EXECUTION_STRING:-} ]] && [[ -o login ]] && [[ -o interactive ]] && [[ -t 0 ]] && (( $+commands[tuicast] )); then
   _tuicast_cd _tuicast_inline
 fi
