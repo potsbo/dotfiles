@@ -46,16 +46,22 @@
   "timezone": "Asia/Tokyo",
   "lockFileMaintenance": {
     "description": [
-      "毎日 lock を更新して automerge する。依存更新の中で最優先。",
-      "prPriority: config:recommended の prHourlyLimit (2) を毎回 aqua 等の更新が使い切り、優先度の低い lock 更新が Rate-Limited のまま 2026-11-09 から止まったため。",
+      "毎日 lock を更新して automerge する。優先度は packageRules 側で上げている。",
       "schedule を半日に広げるのは、Renovate の実行が数時間おきで、4 時間の窓では空き枠のある実行に当たらない日が出るため。"
     ],
     "enabled": true,
-    "prPriority": 10,
     "schedule": ["before 12pm"],
     "automerge": true
   },
   "packageRules": [
+    {
+      "description": [
+        "lock 更新を依存更新の中で最優先にする。config:recommended の prHourlyLimit (2) を毎回 aqua 等の更新が使い切り、優先度の低い lock 更新が Rate-Limited のまま 2026-11-09 から止まったため。",
+        "prPriority は packageRules の中でしか効かない (lockFileMaintenance 直下に置くと validator が無効と警告する) ので、ここに置く。"
+      ],
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "prPriority": 10
+    },
     {
       "matchPackageNames": [
         "aquaproj/aqua",
