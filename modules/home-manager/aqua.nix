@@ -17,6 +17,9 @@
 # g -i) を環境変数任せに打つと失敗する。--config か AQUA_CONFIG で repo 側を明示する。
 { lib, config, ... }:
 
+let
+  configDirName = "aqua-config";
+in
 {
   options.aqua = {
     configDir = lib.mkOption {
@@ -50,7 +53,7 @@
     # そこに置くと生成物がリポジトリのツリーに落ちて gitignore が要る。~/.local は
     # .local/bin しかリンクしていないので、この下なら何も落ちない。
     aqua = {
-      configDir = "${config.home.homeDirectory}/.local/share/aqua-config";
+      configDir = "${config.xdg.dataHome}/${configDirName}";
 
       env = {
         AQUA_GLOBAL_CONFIG = "${config.aqua.configDir}/aqua.yaml";
@@ -65,10 +68,10 @@
       );
     };
 
+    xdg.dataFile.${configDirName}.source = ../../home/.config/aquaproj-aqua;
+
     home = {
       sessionVariables = config.aqua.env;
-
-      file.".local/share/aqua-config".source = ../../home/.config/aquaproj-aqua;
 
       # aqua は lazy install なので、aqua.yaml に足しただけでは shim (~/.local/share/
       # aquaproj-aqua/bin/*) が無く、コマンドが PATH に出てこない。-l で shim だけ張る
