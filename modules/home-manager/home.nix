@@ -81,19 +81,6 @@ in
       ".hushlogin".text = "";
     };
 
-    # 移行前の ghq clone が実体ディレクトリとして残っていると symlink を張れず
-    # activation が止まる (force = true もディレクトリには効かない) ので先に消す。
-    # symlink になっていれば管理済みなので触らない。
-    activation.removeStaleZshPluginClones = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-      for dir in \
-        "$HOME/src/github.com/romkatv/zsh-defer" \
-        "$HOME/src/github.com/mroth/evalcache"; do
-        if [ -d "$dir" ] && [ ! -L "$dir" ]; then
-          run rm -rf "$dir"
-        fi
-      done
-    '';
-
     packages = with pkgs; [
       localPkgs.aqua
       localPkgs.cascp
