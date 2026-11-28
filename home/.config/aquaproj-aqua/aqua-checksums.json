@@ -921,26 +921,6 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sxyazi/yazi/v26.9.1/yazi-aarch64-apple-darwin.zip",
-      "checksum": "3921182A21CCEB0A505E5DAC578E1487D48104CAA5F114E9F8ADF40B5A7289A9",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/sxyazi/yazi/v26.9.1/yazi-aarch64-unknown-linux-musl.zip",
-      "checksum": "DD569DAECAAE914185F295634109295CCD25C1B42B02EB89A74F651970024F2E",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/sxyazi/yazi/v26.9.1/yazi-x86_64-apple-darwin.zip",
-      "checksum": "36E09036FCC446488D876D139A5E303F2443B82CFB6AC7DFCB43892D6FE6FA20",
-      "algorithm": "sha256"
-    },
-    {
-      "id": "github_release/github.com/sxyazi/yazi/v26.9.1/yazi-x86_64-unknown-linux-musl.zip",
-      "checksum": "9B9C39DECCCF8CB0FF53A7D637D38F8A79D93BBD0099F4EA9C619EF6BB392F5D",
-      "algorithm": "sha256"
-    },
-    {
       "id": "github_release/github.com/theseus-rs/postgresql-binaries/19.0.0/postgresql-19.0.0-aarch64-apple-darwin.tar.gz",
       "checksum": "3165A453906BB345F54E189F65DB828A76D60E7696191AFD26FCA6DC73BA51A4",
       "algorithm": "sha256"

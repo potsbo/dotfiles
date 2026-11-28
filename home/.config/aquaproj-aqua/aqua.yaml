@@ -44,7 +44,6 @@ packages:
   - name: k1LoW/git-wt@v0.30.0
   - name: k1LoW/roots@v0.4.2
   - name: ajeetdsouza/zoxide@v0.10.0
-  - name: sxyazi/yazi@v26.9.1
   - name: github/copilot-cli@v1.0.117
   - name: anthropics/claude-code@v2.1.332
   - name: aristocratos/btop@v1.4.8
