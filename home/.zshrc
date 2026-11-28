@@ -202,7 +202,3 @@ _aqua_install() {
 # 重複を弾く add-zsh-hook を使う。
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _aqua_install
-
-rdp() {
-  xfreerdp /v:"$1" /u:Administrator /p:"$(op read "op://Engineering/$1/password")" /f /bpp:32 /gfx:RFX /network:lan
-}
