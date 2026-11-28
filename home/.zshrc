@@ -124,7 +124,17 @@ compdef cascp=scp
 # どの host かはシェルのプロンプトで足りる。
 
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
-_evalcache starship init zsh
+# init は PATH で見つけた starship のパスを PROMPT に埋め込む。PATH 上に aqua の古い shim
+# (aqua は設定から消したパッケージの shim を消さない) が残っていると、毎プロンプト aqua-proxy
+# 経由になる。そこで PATH を home-manager の profile だけにして init を呼ぶ。キーも変わるので、
+# 古いキャッシュを各ホストで消して回る必要もない。
+# profile は .zshenv の hm-session-vars と同じ 2 か所 (module 組み込み / standalone)。
+for _starship in /etc/profiles/per-user/$USER/bin/starship $HOME/.nix-profile/bin/starship; do
+  [[ -x $_starship ]] || continue
+  _evalcache PATH=${_starship:h} $_starship init zsh
+  break
+done
+unset _starship
 
 # C-] で ghq の repo (worktree 含む) を選んで cd する。
 # cd を widget の中で直接せず BUFFER に積んで accept-line するのは、precmd

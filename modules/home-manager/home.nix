@@ -15,6 +15,9 @@ in
 {
   programs = {
     home-manager.enable = true;
+    # starship は aqua でなく nix で入れる。プロンプト 1 回で 2 回 (左右)、起動時はさらに 1 回
+    # 呼ばれるので、aqua-proxy が呼び出しごとに足す ~12ms (config と registry の読み込み) が
+    # そのまま効く。実測で shell の起動が 78ms → 42ms (phoenix)。aqua.yaml に戻さないこと。
     starship.enable = true;
     # eza は aqua でも管理できるが、zsh completion を自動で fpath に配置するために home-manager を使う。
     # aqua は completion ファイルを展開せず、eza 自体にも `eza completion zsh` のような生成コマンドがないため。
