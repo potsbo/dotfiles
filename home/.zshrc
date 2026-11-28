@@ -132,10 +132,18 @@ _evalcache starship init zsh
 # C-] で ghq の repo (worktree 含む) を選んで cd する。
 # cd を widget の中で直接せず BUFFER に積んで accept-line するのは、precmd
 # (direnv / starship) を通常のコマンドと同じく走らせるため。
+# 表示は ~/src/github.com/ を GitHub アイコン (nf-cod-github, U+EA84) に、他の $HOME 配下を
+# ~ に縮める。fzf には「表示 \t 実パス」を渡して表示列だけで検索させ、実パスを返させる。
+# アイコンは locale に依らないようバイト列で書く。
 _cd_repo() {
   local dir
-  dir=$(ghq list --full-path | sed "s|^$HOME/|~/|" | fzf --prompt 'cd> ') || { zle reset-prompt; return }
-  BUFFER="cd ${dir}"
+  dir=$(ghq list --full-path | awk -v h="$HOME" -v gh=$'\356\252\204' '{
+    l = $0
+    if (index(l, h "/src/github.com/") == 1) l = gh " " substr(l, length(h "/src/github.com/") + 1)
+    else if (index(l, h "/") == 1) l = "~" substr(l, length(h) + 1)
+    print l "\t" $0
+  }' | fzf --prompt 'cd> ' --delimiter '\t' --with-nth 1 --accept-nth 2) || { zle reset-prompt; return }
+  BUFFER="cd ${(q)dir}"
   zle accept-line
 }
 zle -N _cd_repo
