@@ -79,7 +79,7 @@ packages:
   - name: folbricht/desync@v1.1.5
     registry: local
   # aqua-registry の定義が 2.71.0 の asset 名に追従していないので local で上書き (registry.yaml)。
-  - name: fastfetch-cli/fastfetch@2.71.0
+  - name: fastfetch-cli/fastfetch@2.72.0
     registry: local
   - name: cloudflare/cloudflared@2026.11.2
   - name: alexrlocke/neorex@v0.2.0
