@@ -19,10 +19,6 @@ in
     # 呼ばれるので、aqua-proxy が呼び出しごとに足す ~12ms (config と registry の読み込み) が
     # そのまま効く。実測で shell の起動が 78ms → 42ms (phoenix)。aqua.yaml に戻さないこと。
     starship.enable = true;
-    # eza は aqua でも管理できるが、zsh completion を自動で fpath に配置するために home-manager を使う。
-    # aqua は completion ファイルを展開せず、eza 自体にも `eza completion zsh` のような生成コマンドがないため。
-    eza.enable = true;
-    eza.enableZshIntegration = false; # エイリアスは不要、completion だけ欲しい
   };
 
   # home-manager 内部で builtins.toFile が store path を参照する際の警告を回避
@@ -98,7 +94,7 @@ in
       rustc
       btop # aqua では macos 用のバイナリが提供されていない
       whois
-      dnsutils
+      dnsutils # dig / nslookup / delv / nsupdate。Linux の最小構成には dig が無い
       rclone
 
       # 以下 aqua 未提供
