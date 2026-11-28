@@ -132,9 +132,7 @@ in
       watch
       libyaml
       pv
-      mosh
       groff # aws help が man 整形に要求する
-      chafa # 端末に画像を出す
 
       # yazi のプレビュー用。yazi 本体 (aqua) はこれらを外部コマンドとして呼ぶだけで、
       # 無ければそのファイル種別のプレビューが黙って空になる。
