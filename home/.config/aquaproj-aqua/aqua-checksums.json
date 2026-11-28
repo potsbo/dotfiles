@@ -841,23 +841,23 @@
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-aarch64-apple-darwin.tar.gz",
-      "checksum": "E30BEFF26779C9BF60BB541E1D79046250CB74378F2757F8EB250AFDDB19E114",
+      "id": "github_release/github.com/sharkdp/bat/v0.27.0/bat-v0.27.0-aarch64-apple-darwin.tar.gz",
+      "checksum": "3BD50D70E1A2C52C57B4FFAAEE3113595EC970604BF1B4E2E0992E3E1752C23B",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "6369242C584065F195FB20CB36FBD7CB63AE690605BBE89868A7596B596C2C23",
+      "id": "github_release/github.com/sharkdp/bat/v0.27.0/bat-v0.27.0-aarch64-unknown-linux-musl.tar.gz",
+      "checksum": "4A071FC6BCF3CD6ECA70981B172CF0F0E25BA8CAA286DADDAF4303576172F9BD",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-x86_64-apple-darwin.tar.gz",
-      "checksum": "830D63B0BBA1FA040542EC569E3CF77F60D3356B9DE75116A344B061E0894245",
+      "id": "github_release/github.com/sharkdp/bat/v0.27.0/bat-v0.27.0-x86_64-apple-darwin.tar.gz",
+      "checksum": "29029A4AAECEF1EC873AA319047BF70803026BD3EAFF664011FFF650F73355F9",
       "algorithm": "sha256"
     },
     {
-      "id": "github_release/github.com/sharkdp/bat/v0.26.1/bat-v0.26.1-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "0DCD8AC79732C0D5B136F11F4EE00E581440E16A44EAB5B3105B611BBF2CF191",
+      "id": "github_release/github.com/sharkdp/bat/v0.27.0/bat-v0.27.0-x86_64-unknown-linux-musl.tar.gz",
+      "checksum": "350B244087C555D316F82C3C2EE45E3273B4DAC2530890BE892452EB8AA3D22C",
       "algorithm": "sha256"
     },
     {
