@@ -46,11 +46,8 @@ export PYTHON_HISTORY="$XDG_STATE_HOME/python_history" # 効くのは Python 3.1
 export ZSH_EVALCACHE_DIR="$XDG_CACHE_HOME/zsh/evalcache"
 
 # PATH
-# home-manager の profile。manage = system (flake.nix の hosts) なら NixOS / nix-darwin の
-# モジュールとして当たるので per-user 配下、manage = home (standalone) なら ~/.nix-profile。
-# 同じホストに両方あることは無いので、存在する方だけが効く。
-export PATH=/etc/profiles/per-user/$USER/bin:$PATH
-export PATH=$HOME/.nix-profile/bin:$PATH
+# home-manager の profile (/etc/profiles/per-user/$USER/bin と ~/.nix-profile/bin) は
+# 足さない。NixOS / nix-darwin が /etc/zshenv で組む PATH に両方とも入っている。
 ## Build
 # aqua は ~/.local/bin より後ろ: 手で置いた wrapper がパッケージマネージャの出力に勝つのが原則。
 # 以前は aqua が先で、~/.local/bin/claude (native installer の symlink) が aqua の pin を隠していた。
