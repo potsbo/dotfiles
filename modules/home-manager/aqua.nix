@@ -24,6 +24,11 @@
       readOnly = true;
       description = "実行時に aqua が読む設定ディレクトリ (store のコピーへの symlink)。";
     };
+    env = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      readOnly = true;
+      description = "aqua に設定の在り処を教える環境変数。";
+    };
     exec = lib.mkOption {
       type = lib.types.str;
       readOnly = true;
@@ -44,16 +49,25 @@
     # ~/.config ではないのは、~/.config が丸ごとこのリポジトリへの symlink だから。
     # そこに置くと生成物がリポジトリのツリーに落ちて gitignore が要る。~/.local は
     # .local/bin しかリンクしていないので、この下なら何も落ちない。
-    aqua.configDir = "${config.home.homeDirectory}/.local/share/aqua-config";
+    aqua = {
+      configDir = "${config.home.homeDirectory}/.local/share/aqua-config";
 
-    aqua.exec = lib.escapeShellArgs [
-      "env"
-      "AQUA_GLOBAL_CONFIG=${config.aqua.configDir}/aqua.yaml"
-      "AQUA_POLICY_CONFIG=${config.aqua.configDir}/aqua-policy.yaml"
-      "${config.home.profileDirectory}/bin/aqua"
-    ];
+      env = {
+        AQUA_GLOBAL_CONFIG = "${config.aqua.configDir}/aqua.yaml";
+        # local registry (macmon など) を使うには policy の allow が要る。`cache` が打つ。
+        AQUA_POLICY_CONFIG = "${config.aqua.configDir}/aqua-policy.yaml";
+      };
+
+      exec = lib.escapeShellArgs (
+        [ "env" ]
+        ++ lib.mapAttrsToList (k: v: "${k}=${v}") config.aqua.env
+        ++ [ "${config.home.profileDirectory}/bin/aqua" ]
+      );
+    };
 
     home = {
+      sessionVariables = config.aqua.env;
+
       file.".local/share/aqua-config".source = ../../home/.config/aquaproj-aqua;
 
       # aqua は lazy install なので、aqua.yaml に足しただけでは shim (~/.local/share/
