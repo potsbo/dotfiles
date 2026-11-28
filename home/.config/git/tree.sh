@@ -37,7 +37,7 @@ if [ $# -gt 0 ]; then
 fi
 
 if [ -n "${REX_SESSION:-}" ]; then
-  exec ~/.config/tuicast/rex-window.sh "${b#potsbo/}" "$dir" "${cmd[@]}"
+  exec ~/.config/git/rex-window.sh "${b#potsbo/}" "$dir" "${cmd[@]}"
 fi
 
 # Rex の外ではこのプロセスから親シェルの cwd を変えられないので、prompt が

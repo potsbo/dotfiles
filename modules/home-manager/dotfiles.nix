@@ -30,7 +30,6 @@ let
 
   fileLinks = [
     ".zshenv"
-    ".zprofile"
     ".zshrc"
     # .claude はセッション状態などが多いのでディレクトリごとはリンクせず、管理するファイルだけ張る。
     ".claude/settings.json"

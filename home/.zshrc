@@ -129,109 +129,17 @@ autoload -Uz colors && colors
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
-# worktree を選んだら今のシェルで cd する。受け渡しは worktree-connect.sh 参照。
-#
-# Rex の中では floating pane に出し、選んだアプリ (lazygit, nvim 等) もその中で
-# 動かす。herdr の popup と違って選択結果は session 切替ではなくこのシェルの cd
-# なので、このシェルは pane が閉じるまで待つ (アプリを使っている間もブロック)。
-# pane は Rex サーバーの環境 + login profile で起動するため、このシェルで export
-# したもの (direnv / nix develop / venv) は中のアプリに引き継がれない。
-# 選択だけ floating でやって実行はこのシェルに戻す案もあったが、まず全部 floating
-# で試している。
-tuicast() {
-  if [[ -n ${REX_SESSION:-} && -n ${REX_BLOCK:-} && -x ${REX_BIN_DIR:-}/rex ]]; then
-    _tuicast_cd _tuicast_float "$@"
-  else
-    _tuicast_cd _tuicast_inline "$@"
-  fi
-}
-
-# tuicast からは今どこにいるかが見えないので、cwd を fzf の ghost (未入力時の薄い文字) に
-# 出す。header / 枠ラベル / prompt も試したが、ghost は行を増やさず、打ち始めたら消えて
-# 検索の邪魔をしない。prompt と同じ行を取り合うので prompt は既定の短いままにしておく。
-# FZF_DEFAULT_OPTS は zshrc 時点の値で固定なので、cwd は起動のたびに足す。
-# 表記は worktree 一覧の行と同じ path-label にして、一覧と見比べられるようにする。
-_tuicast_fzf_opts() {
-  local p
-  p=$(~/.local/bin/path-label "$PWD")
-  print -r -- "$FZF_DEFAULT_OPTS --ghost=${(qq)p}"
-}
-
-_tuicast_inline() {
-  local f=$1; shift
-  TUICAST_CD_FILE=$f FZF_DEFAULT_OPTS=$(_tuicast_fzf_opts) command tuicast "$@"
-}
-
-# $1 の runner に受け口のファイルを渡し、書かれた dir へこのシェルで cd する。
-_tuicast_cd() {
-  local runner=$1 f dir; shift
-  f=$(mktemp) || return
-  "$runner" "$f" "$@"
-  dir=$(<"$f")
-  rm -f "$f"
-  [[ -n $dir ]] && cd "$dir"
-}
-
-_tuicast_float() {
-  local f=$1; shift
-  local rex=$REX_BIN_DIR/rex win req block typeahead tty_state
-  # floating pane にフォーカスが移るまで (C-] 直後) に打った文字は、この pane の tty に
-  # 溜まってエコーされ、tuicast の検索語に入らない。エコーを止めて非 canonical にして
-  # おき、pane ができたら届いた分を送り直す。起動を速くしても Rex の API 往復と
-  # フォーカス移動の間は必ず残るので、速度ではなく転送で塞ぐ。
-  tty_state=$(stty -g 2>/dev/null)
-  [[ -n $tty_state ]] && stty -echo -icanon min 0 time 0 2>/dev/null
-  {
-    win=$("$rex" block inspect -s "$REX_SESSION" "$REX_BLOCK" --json | jq -er '.block.window_id') || return
-    # quick_exit_threshold_ms=0: Rex は即失敗した pane を開いたままにするが、tuicast
-    # 自身が失敗時に画面を残すので二重になる。Esc での即キャンセルでも閉じたい。
-    # floating の pane は Rex サーバーの環境で起動し、このシェルの FZF_DEFAULT_OPTS が
-    # 届かないので、command の env で明示的に渡す。
-    req=$(jq -n --arg s "$REX_SESSION" --arg w "$win" --arg cwd "$PWD" --arg f "$f" \
-      --arg fzf "$(_tuicast_fzf_opts)" '{
-      session_id: $s, window_id: $w, bounds: [0.05, 0.05, 0.9, 0.9], focus: true,
-      layout: {block: {flavor: "com.superlogical.terminal.shell", label: "tuicast", options: {
-        cwd: $cwd,
-        command: (["env", "TUICAST_CD_FILE=\($f)", "FZF_DEFAULT_OPTS=\($fzf)", "tuicast"] + $ARGS.positional),
-        exit: {quick_exit_threshold_ms: 0}
-      }}}}' --args "$@") || return
-    block=$("$rex" api call -s "$REX_SESSION" session.new_layer "$req" | jq -er '.block_ids[0]') || return
-    {
-      setopt local_options no_monitor no_notify
-      "$rex" wait -s "$REX_SESSION" "$block" >/dev/null 2>&1 &
-      local waiter=$! i
-      if [[ -n $tty_state ]]; then
-        # API が返っても、クライアントが打鍵の宛先を切り替えるのはフォーカス変更の
-        # イベントが届いてから。その間の文字は読み出しの後にもこちらへ来るので、
-        # 一度読んで終わりではなく、最初の 2 秒は来たぶんを送り続ける。それ以降も
-        # 続けると、元の pane に戻って打った文字まで floating に飛ぶので止める。
-        stty min 0 time 1 2>/dev/null # dd を最大 0.1 秒で返す
-        for i in {1..20}; do
-          kill -0 $waiter 2>/dev/null || break
-          # 末尾の x は $(...) に末尾改行を削らせないため。
-          typeahead=$(dd bs=4096 count=1 2>/dev/null; print -n x)
-          typeahead=${typeahead%x}
-          [[ -n $typeahead ]] && print -rn -- "$typeahead" | "$rex" send -s "$REX_SESSION" -b "$block" >/dev/null 2>&1
-        done
-      fi
-      wait $waiter
-    } always {
-      # 待っている側を Ctrl-C したら floating も畳む (cd 先を返す相手がいなくなるため)。
-      # 正常終了ならもう閉じていて失敗するだけなので、条件を付けずに呼ぶ。
-      "$rex" block close -s "$REX_SESSION" "$block" >/dev/null 2>&1
-    }
-  } always {
-    [[ -n $tty_state ]] && stty "$tty_state" 2>/dev/null
-  }
-}
-
-# C-] で tuicast (worktree ピッカー)
-_tuicast_connect() {
-  BUFFER="tuicast"
+# C-] で ghq の repo (worktree 含む) を選んで cd する。
+# cd を widget の中で直接せず BUFFER に積んで accept-line するのは、precmd
+# (direnv / starship) を通常のコマンドと同じく走らせるため。
+_cd_repo() {
+  local dir
+  dir=$(ghq list --full-path | sed "s|^$HOME/|~/|" | fzf --prompt 'cd> ') || { zle reset-prompt; return }
+  BUFFER="cd ${dir}"
   zle accept-line
 }
-zle -N _tuicast_connect
-bindkey -M emacs "^]" _tuicast_connect
+zle -N _cd_repo
+bindkey -M emacs "^]" _cd_repo
 
 # VSCode で emacs キーバインドを使うため
 bindkey -e
@@ -289,15 +197,3 @@ add-zsh-hook precmd _aqua_install
 rdp() {
   xfreerdp /v:"$1" /u:Administrator /p:"$(op read "op://Engineering/$1/password")" /f /bpp:32 /gfx:RFX /network:lan
 }
-
-# Rex で新しく開いた端末 (tab / 分割 / floating) では最初に tuicast を出す。Esc で
-# 素のシェルになる。Rex の外は .zprofile が出す。ここでは floating に重ねず pane の中で
-# 開く: 開いたばかりの pane の上にさらに pane を出す意味がなく、選んだ dir にこの
-# シェルで cd できる。login に限るのは、worktree-connect.sh の exec zsh や手で打った
-# zsh で再び出さないため (Rex は pane のシェルを login で起動する)。
-# -c (ZSH_EXECUTION_STRING) を除くのは、Rex が server 再起動後の program resume や
-# `rex run` で `zsh -ilc '<cmd>'` と login + interactive のまま起動するため。ここで
-# tuicast を出すと、resume される claude などがその後ろで止まる。
-if [[ -n ${REX_BLOCK:-} ]] && [[ -z ${ZSH_EXECUTION_STRING:-} ]] && [[ -o login ]] && [[ -o interactive ]] && [[ -t 0 ]] && (( $+commands[tuicast] )); then
-  _tuicast_cd _tuicast_inline
-fi

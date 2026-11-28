@@ -31,8 +31,8 @@ macos-titlebar-style = hidden
 # ghostty で再発する場合は window-decoration = none を有効化する。
 # window-decoration = none
 
-# Linux の ghostty は $SHELL をそのまま (非ログインで) 起動するので .zprofile が
-# 読まれなかった (2026-09-06)。ログインシェルにする。
+# Linux の ghostty は $SHELL をそのまま (非ログインで) 起動する。ログインシェルにして
+# macOS や Rex の pane (どちらも login で起動する) と同じ初期化を通す。
 # `direct:` で /bin/sh 経由を避ける。macOS は元々 login 経由なので害はない。
 command = direct:zsh -l
 
