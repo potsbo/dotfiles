@@ -117,7 +117,6 @@ in
       whois
       dnsutils
       rclone
-      elan # Lean toolchain manager (rustup 相当)。aqua 未登録
 
       # ODBC (arrow-odbc + FreeTDS で SQL Server から Arrow ネイティブ読み取り)
       unixodbc
