@@ -98,6 +98,10 @@ in
       rclone
 
       # 以下 aqua 未提供
+      # gcc は特定の project ではなく常用ツールが PATH 上の cc を要求するので、nix-direnv で
+      # project ごとに用意する形にはできない: rustc のリンク (aqua の cargo パッケージ tokei の
+      # ビルド)、nvim-treesitter のパーサのコンパイル。NixOS ではこれが唯一の cc。
+      # macOS では /usr/bin/cc (Apple clang) で足りる。
       gcc
       gnumake
       cmake
