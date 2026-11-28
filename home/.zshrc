@@ -123,9 +123,6 @@ compdef cascp=scp
 # fzf に host 色の外枠と host 名のラベルは付けない。以前は付けていたが、装飾が多いわりに、
 # どの host かはシェルのプロンプトで足りる。
 
-# color setting like %{${fg[red]}%}
-autoload -Uz colors && colors
-
 # starship (cache のみ、プロンプト表示に必要なので defer 不可)
 _evalcache starship init zsh
 
@@ -182,13 +179,6 @@ if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tai
 if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
 if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
 if ! command -v open &> /dev/null && command -v xdg-open &> /dev/null; then; alias open='xdg-open'; fi
-
-# chafa は端末の正体を TERM から判定するが、ssh 越しだと xterm-256color に
-# 落ちるため、ピクセルを送れる端末でも文字アート (symbols) に退避してしまい
-# 荒い絵になる。使う端末はどれも kitty graphics を解するので明示する。
-# 自動判定に任せたいときは chafa をそのまま呼べばよい。
-# 名前は kitty 公式 (`alias icat="kitten icat"`) に合わせる。
-alias icat="chafa -f kitty"
 
 # nvim を neorex に alias しない: neorex (v0.1) の中では、少なくとも ssh 先で
 # yank が clipboard に入らず、ctrl-z で bg に回せない。同じ環境の素の nvim では
