@@ -17,10 +17,30 @@ export LC_MONETARY=C
 export LC_MESSAGES=C
 
 export EDITOR=nvim
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.cache"
+# home-manager の session vars は以下のどれよりも先に読む。XDG_*_HOME は home-manager
+# (xdg.enable) が持ち、このファイルの残りはそれを前提に組む。
+# hm-session-vars.sh 冒頭の include guard (__HM_SESS_VARS_SOURCED) は「この process tree で
+# 一度読んだ」しか見ない。マルチプレクサの server のような長寿命プロセスが起動時のガードを抱えていると、
+# その下の新しい pane は ./install 後も古い値のままになる。そこでガードを「どの generation を
+# 読んだか」に置き換え、実体の store path (中身が変われば変わる) が前回と違うときだけガードを
+# 外して読み直す。
+# - __HM_SESS_VARS_SOURCED は home-manager の非公開の名前。改名されたら unset が空振りして
+#   元の「一度だけ」に戻るだけで、壊れはしない。
+# - 読み直しで重なるのは追記型の変数 (XCURSOR_PATH) だけで、generation が変わるたびに 1 回。
+# - server を systemd から起動しても防げない。Rex の server は systemd user service だが、
+#   systemd の user 環境経由で __HM_SESS_VARS_SOURCED=1 を持っていた (2026-11-28 に確認)。
+# - 2 つとも在るホストでは先の方だけを読む (元のガード下でも後の方は読まれなかった)。
+for _hm_vars in /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; do
+  [ -e $_hm_vars ] || continue
+  if [ "${__HM_SESS_VARS_GEN-}" != "${_hm_vars:A}" ]; then
+    unset __HM_SESS_VARS_SOURCED
+    . $_hm_vars
+    export __HM_SESS_VARS_GEN=${_hm_vars:A}
+  fi
+  break
+done
+unset _hm_vars
+
 # XDG: $HOME に散らばる生成物を XDG 配下へ寄せる。
 # 移動先は xdg-ninja (github.com/b3nj5m1n/xdg-ninja) が示すデファクトに従う。
 # 各ツールとも $HOME 直下を決め打ちしており、下記変数が正規の変更手段。
@@ -66,24 +86,3 @@ export CARGO_NET_GIT_FETCH_WITH_CLI=true
 # single-user nix の ~/.nix-profile/etc/profile.d/nix.sh は読まない: install は --daemon で入れ、
 # NixOS も nix-darwin も single-user ではない。
 if [ -z "${__NIX_DARWIN_SET_ENVIRONMENT_DONE-}" ] && [ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]; then . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; fi
-# hm-session-vars.sh 冒頭の include guard (__HM_SESS_VARS_SOURCED) は「この process tree で
-# 一度読んだ」しか見ない。マルチプレクサの server のような長寿命プロセスが起動時のガードを抱えていると、
-# その下の新しい pane は ./install 後も古い値のままになる。そこでガードを「どの generation を
-# 読んだか」に置き換え、実体の store path (中身が変われば変わる) が前回と違うときだけガードを
-# 外して読み直す。
-# - __HM_SESS_VARS_SOURCED は home-manager の非公開の名前。改名されたら unset が空振りして
-#   元の「一度だけ」に戻るだけで、壊れはしない。
-# - 読み直しで重なるのは追記型の変数 (XCURSOR_PATH) だけで、generation が変わるたびに 1 回。
-# - server を systemd から起動しても防げない。Rex の server は systemd user service だが、
-#   systemd の user 環境経由で __HM_SESS_VARS_SOURCED=1 を持っていた (2026-11-28 に確認)。
-# - 2 つとも在るホストでは先の方だけを読む (元のガード下でも後の方は読まれなかった)。
-for _hm_vars in /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; do
-  [ -e $_hm_vars ] || continue
-  if [ "${__HM_SESS_VARS_GEN-}" != "${_hm_vars:A}" ]; then
-    unset __HM_SESS_VARS_SOURCED
-    . $_hm_vars
-    export __HM_SESS_VARS_GEN=${_hm_vars:A}
-  fi
-  break
-done
-unset _hm_vars

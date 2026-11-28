@@ -29,6 +29,11 @@ in
   # home-manager が .config に書き込まないようにする
   targets.genericLinux.enable = false;
 
+  # XDG_*_HOME の値はここが唯一の出どころ。nix 側は config.xdg.* を引き、シェルには
+  # hm-session-vars.sh (.zshenv が読む)、Linux の systemd user service には environment.d
+  # 経由で同じ値が届く。値は XDG の既定値のまま。
+  xdg.enable = true;
+
   home = {
     stateVersion = "24.05";
 
@@ -39,7 +44,7 @@ in
       # home-manager を単一ソースにする理由: 対話 shell を経ずに npx を叩く背景プロセス
       # (npx 製 MCP サーバ等) にも hm-session-vars 経由で継承させ ~/.npm 生成を防ぐ。
       # 他ツール (cargo/rustup 等) は .zshenv 側に集約。npm だけ背景プロセス対策で例外。
-      NPM_CONFIG_CACHE = "${config.home.homeDirectory}/.cache/npm";
+      NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
       # nixpkgs の rustc は rust-src を同梱せず、rust-analyzer (nvim では mason 管理) が
       # sysroot から std を解決できない。store path は lua に書けないのでここで渡す。
       RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";

@@ -12,7 +12,7 @@ let
     # AQUA_GLOBAL_CONFIG から知るため、これも渡さないと shim が
     # "command is not found" で落ちる (systemd user unit にはログインシェルの
     # 環境が入っていないので、対話シェルでは再現しない)。
-    export PATH="''${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua/bin:$PATH"
+    export PATH="${config.xdg.dataHome}/aquaproj-aqua/bin:$PATH"
     ${lib.toShellVars config.aqua.env}
     export ${lib.concatStringsSep " " (lib.attrNames config.aqua.env)}
     repo=${notesDir}
