@@ -181,6 +181,7 @@ setopt COMBINING_CHARS
 if ! command -v tailscale &> /dev/null; then; alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"; fi
 if ! command -v pbcopy &> /dev/null && command -v wl-copy &> /dev/null; then; alias pbcopy='wl-copy'; fi
 if ! command -v pbpaste &> /dev/null && command -v wl-paste &> /dev/null; then; alias pbpaste='wl-paste'; fi
+if ! command -v open &> /dev/null && command -v xdg-open &> /dev/null; then; alias open='xdg-open'; fi
 
 # chafa は端末の正体を TERM から判定するが、ssh 越しだと xterm-256color に
 # 落ちるため、ピクセルを送れる端末でも文字アート (symbols) に退避してしまい

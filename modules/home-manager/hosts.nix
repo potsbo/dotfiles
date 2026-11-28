@@ -38,13 +38,8 @@ in
     ];
 
     settings =
-      # Linux ホスト共通: open/xdg-open を手元の Mac で開くための opener 転送。
-      # Mac 側は launchd の opener-listen (home.nix) が 2226 を listen。
-      # unix socket 転送と違い、短命な ssh 接続が長寿命接続のフォワードを
-      # unlink で壊さない。後続の接続は bind に失敗するだけ (警告のみ) で無害。
-      # avalanche は ssh を受け付けないが、ブロックがあっても害はないので除外しない。
       lib.mapAttrs
-        (_: h: {
+        (_: _: {
           # ここのホストへは Tailscale (100.64.0.0/10) か Cloudflare WARP 経由で入る。
           # どちらも IPv4 なので、AAAA を候補にする理由がない。
           # 一方 graniteridge は素の名前が Tailscale の A に加えて会社側 DNS が返す
@@ -57,11 +52,6 @@ in
           # HostName を Tailscale の FQDN に固定しても直るが、Tailscale を使わず
           # WARP だけで入る経路 (hosts/raptorlake/README.md) を塞ぐので採らない。
           AddressFamily = "inet";
-        } // lib.optionalAttrs (h.os == "nixos") {
-          RemoteForward = [{
-            bind = { address = "127.0.0.1"; port = 2226; };
-            host = { address = "127.0.0.1"; port = 2226; };
-          }];
         })
         hosts
       // {

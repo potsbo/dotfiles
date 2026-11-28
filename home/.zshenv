@@ -57,7 +57,6 @@ export PATH=$HOME/bin:$PATH
 # aqua は ~/.local/bin より後ろ: 手で置いた wrapper がパッケージマネージャの出力に勝つのが原則。
 # 以前は aqua が先で、~/.local/bin/claude (native installer の symlink) が aqua の pin を隠していた。
 export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
-# prepend: 自作の open/xdg-open ラッパーが system の xdg-open (nix) に勝つ必要がある
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/go/bin
 ## System
@@ -125,70 +124,3 @@ for _hm_vars in /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh $H
   break
 done
 unset _hm_vars
-
-# --- forwarded ssh-agent: keep keys on the origin host, usable across multiplexer panes ---
-# When opting into agent forwarding (ssh -A), keep the private key on the origin host.
-# But every ssh connection gets its own forwarded socket, and long-lived multiplexer
-# panes keep the one they first saw — so after a reconnect their $SSH_AUTH_SOCK
-# is stale and the agent looks gone. Fix: point a stable, machine-local symlink
-# at a live socket and have every shell use that link. Every new shell repoints
-# it (not just the login shell), so already-open multiplexer panes get a working agent
-# again without touching their env.
-# The link lives under $XDG_RUNTIME_DIR (per-machine, tmpfs) — never under ~/.ssh,
-# which is a symlink into the shared dotfiles repo.
-#
-# ソケットの存在は生存を意味しない。接続が異常終了しても sshd 側のプロセスが
-# 残っている間はソケットも残り、connect() は通るのに応答だけ返らない。これを
-# 掴むと ssh-add も ssh も無期限に待つ (nixos-anywhere が内部の ssh-copy-id で
-# 固まったのがこれ)。しかも張り替えた直後の「最新の」ソケットがこの状態のこと
-# もある (クライアント側の TCP が片側だけ死んだとき) ので、張り替えのタイミング
-# だけを直しても足りない。なので採用前に必ず一度問い合わせて確かめる。
-# 生きた agent が一つも無ければ link を消して SSH_AUTH_SOCK も外す。固まるより
-# 「agent が無い」で即失敗した方が、ForwardAgent 無しの ssh などに落とせる。
-if [ -n "$SSH_CONNECTION" ]; then
-  _stable_sock="${XDG_RUNTIME_DIR:-/tmp}/ssh-auth-sock"
-
-  # 応答すれば 0。timeout が無い環境 (coreutils を入れていない素の macOS) では
-  # 判定を諦めて採用する — 無応答を待たされる方がましで、無条件に鍵を失うより
-  # 害が小さい。ssh-add の終了コードは 0=鍵あり 1=鍵ゼロ (どちらも生きている)、
-  # 2=接続不可、124=timeout に殺された (=無応答)。
-  _ssh_agent_alive() {
-    local rc
-    command -v timeout >/dev/null 2>&1 || return 0
-    SSH_AUTH_SOCK=$1 timeout 1 ssh-add -l >/dev/null 2>&1
-    rc=$?
-    [ $rc -eq 0 ] || [ $rc -eq 1 ]
-  }
-
-  # 候補: 自分の接続のソケット → 今 link が指しているもの → 他の接続のソケット
-  # (新しい順)。最後のものは、自分の接続の agent チャネルだけが死んで別セッション
-  # のものは生きている、という実際に起きた状態からの復帰用。新しい方が生きている
-  # 見込みは高いだけで確実ではない (前日のセッションだけが生きていた例がある)
-  # ので、打ち切りは 8 個と広めに取る。応答しないソケットだけが 1 秒待たされ、
-  # 相手のいない残骸は connect が即失敗するので、実際の待ち時間はほぼ増えない。
-  # OpenSSH 10 は転送ソケットを ~/.ssh/agent に置く (それ以前は /tmp/ssh-*)。
-  # 存在しなければ nullglob で候補が減るだけなので、古い OpenSSH でも壊れない。
-  _live_sock=
-  _tried=()
-  for _cand in "$SSH_AUTH_SOCK" "$_stable_sock" ~/.ssh/agent/*(N=om[1,8]); do
-    [ -S "$_cand" ] || continue
-    # link とその実体は同じソケット。無応答なものを二度待たないよう解決して弾く。
-    _real=${_cand:A}
-    (( ${_tried[(Ie)$_real]} )) && continue
-    _tried+=$_real
-    _ssh_agent_alive "$_cand" || continue
-    _live_sock=$_cand
-    break
-  done
-
-  if [ -n "$_live_sock" ]; then
-    [ "$_live_sock" = "$_stable_sock" ] || ln -sf "$_live_sock" "$_stable_sock"
-    export SSH_AUTH_SOCK="$_stable_sock"
-  else
-    rm -f "$_stable_sock"
-    unset SSH_AUTH_SOCK
-  fi
-
-  unset _stable_sock _live_sock _cand _tried _real
-  unfunction _ssh_agent_alive
-fi
