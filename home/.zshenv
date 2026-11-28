@@ -66,9 +66,6 @@ export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 [[ -n ${REX_BIN_DIR:-} ]] && export PATH="$REX_BIN_DIR:$PATH"
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
 
-# M1 Mac で amd64 の docker image を動かすため
-export DOCKER_DEFAULT_PLATFORM=linux/amd64
-
 # aqua が読むのは repo の作業ツリーではなく store のコピー (modules/home-manager/aqua.nix)。
 # 実体を編集したら rebuild するまで効かない。conflict した aqua.yaml で aqua 管理の
 # コマンドが全部死ぬのを避けるため、意図的にそうしてある。
