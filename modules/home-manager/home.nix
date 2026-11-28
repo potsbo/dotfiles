@@ -78,6 +78,12 @@ in
         hash = "sha256-vL+tQ5Xvfm+/HU9XRdxdsoZTG9b21AZ8szjYLuKFgBQ=";
       };
 
+      # login(1) が pane / タブを開くたびに出す "Last login: ..." と motd を消す。macOS の端末
+      # (Rex, Terminal.app) は login -f 経由でシェルを起動するので毎回出る。sshd も同じファイルを
+      # 見るため ssh ログイン時の Last login も消え、不正ログインに気づく手がかりが一つ減るが、
+      # 受け入れている。中身は見られず存在だけで効くので、作業ツリーではなく store から張る。
+      ".hushlogin".text = "";
+
       # FreeTDS ODBC ドライバの登録
       ".config/odbc/odbcinst.ini".text = ''
         [FreeTDS]
