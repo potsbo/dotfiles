@@ -121,7 +121,6 @@ in
       # cargo と rustc はバージョンが一致しないとビルドエラーになるため両方入れる。
       cargo
       rustc
-      temurin-bin-17 # H2O AutoML が JVM を要求する
       btop # aqua では macos 用のバイナリが提供されていない
       whois
       dnsutils
