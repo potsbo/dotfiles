@@ -38,17 +38,17 @@
       palette = import ./lib/palette.nix;
 
       # ホスト一覧はここだけ。nixos / darwin / home の各 configuration、
-      # シェル側の host-color / host-tags (modules/home-manager/hosts.nix) は
+      # シェル側の host-color (modules/home-manager/hosts.nix) は
       # すべてここから導出する。
       #
       # 既定値は持たず、各ホストで全キーを書き下す。省略可能にすると既定値の埋めが
       # 参照側 (mkNixos の引数、hostsWith) に散って読めなくなる。
       #
-      # os:      nixos | darwin。host-tags が表示に使う
+      # os:      nixos | darwin
       # manage:  この dotfiles がそのホストで何を管理するか。
       #          system: OS (NixOS / nix-darwin) ごと。home-manager はそのモジュールとして当たる
       #          home:   home-manager だけ (standalone)。会社管理などで OS 側を触れないホスト
-      #          どちらも管理しない (ssh 先として色とタグだけ持つ) ホストは今は無い
+      #          どちらも管理しない (ssh 先として色だけ持つ) ホストは今は無い
       # 以下は manage = system な nixos ホストだけが持つ:
       # role:    laptop (蓋で寝る、GUI) | workstation (常時稼働、GUI) | server (常時稼働、headless)。
       #          意味は modules/nixos/common.nix の options.host。物理形状ではなく扱い

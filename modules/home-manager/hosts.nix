@@ -1,6 +1,5 @@
 # flake.nix の hosts 一覧から、シェル側が使うホスト情報を生やす。
-#   host-color <host>  ホストに割り当てた色 ("#rrggbb")。zsh の fzf 枠と tuicast の ssh view が使う
-#   host-tags  <host>  OS 種別 (nixos / darwin)。tuicast の ssh view が使う
+#   host-color <host>  ホストに割り当てた色 ("#rrggbb")。zsh の fzf 枠が使う
 #   ~/.ssh/config      全ホストの Host ブロック。hosts に足せば ssh 先としても勝手に増える
 # 短い名前で照合するので "blizzard" も "blizzard.local" も同じ結果になる。
 { pkgs, lib, hosts, defaultColor, ... }:
@@ -14,15 +13,9 @@ let
       *) echo '${defaultColor}' ;;
     esac
   '';
-
-  host-tags = pkgs.writeShellScriptBin "host-tags" ''
-    case "''${1%%.*}" in
-    ${caseLines (h: "echo ${h.os}")}
-    esac
-  '';
 in
 {
-  home.packages = [ host-color host-tags ];
+  home.packages = [ host-color ];
 
   programs.ssh = {
     enable = true;

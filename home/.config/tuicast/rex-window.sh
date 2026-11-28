@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Focus (or create) the Rex window labeled LABEL in the current Rex session,
-# used by the tuicast run scripts and `git tree` when they run inside a Rex
-# pane.
+# used by `git tree` when it runs inside a Rex pane.
 #
 # Rex's block/window listings carry no cwd, so the
 # window is keyed off its label, not the directory. The lookup is an exact

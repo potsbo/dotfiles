@@ -225,7 +225,7 @@ _tuicast_float() {
   }
 }
 
-# C-] で tuicast (worktree / ssh ピッカー)
+# C-] で tuicast (worktree ピッカー)
 _tuicast_connect() {
   BUFFER="tuicast"
   zle accept-line
