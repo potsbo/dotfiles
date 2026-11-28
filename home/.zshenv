@@ -51,7 +51,7 @@ export ZSH_EVALCACHE_DIR="$XDG_CACHE_HOME/zsh/evalcache"
 ## Build
 # aqua は ~/.local/bin より後ろ: 手で置いた wrapper がパッケージマネージャの出力に勝つのが原則。
 # 以前は aqua が先で、~/.local/bin/claude (native installer の symlink) が aqua の pin を隠していた。
-export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
+export PATH="$XDG_DATA_HOME/aquaproj-aqua/bin:$PATH"
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/go/bin
 ## System
@@ -69,10 +69,10 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc
 # aqua.yaml) からも install しようとする。policy の `path: registry.yaml` は policy
 # ファイルの隣を指すので、作業ツリー側の local registry は許可されず install が落ちる。
 # 入れ子の shell で同じパスが際限なく増えるのも防げる。
-export AQUA_GLOBAL_CONFIG=${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua.yaml
+export AQUA_GLOBAL_CONFIG=$XDG_DATA_HOME/aqua-config/aqua.yaml
 # Required to allow the `local` registry (e.g. macmon). After first checkout, run once:
 #   aqua policy allow "$AQUA_POLICY_CONFIG"
-export AQUA_POLICY_CONFIG=${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua-policy.yaml
+export AQUA_POLICY_CONFIG=$XDG_DATA_HOME/aqua-config/aqua-policy.yaml
 
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
 
