@@ -1,6 +1,8 @@
 # nvim (LazyVim lang.nix extra → nvim-lint) と `statix check .` の両方が読む。
 # hardware-configuration.nix は nixos-generate-config の出力そのままで、書き換えても
 # 再生成で戻るので lint の対象から外す。
+# .direnv は statix の既定の除外だが、ignore を書くと既定ごと置き換わるので書き直す。
+# 無いと direnv の use flake が置く flake input (nixpkgs 丸ごと) まで lint して落ちる。
 disabled = []
 nix_version = '2.4'
-ignore = ['hardware-configuration.nix']
+ignore = ['hardware-configuration.nix', '.direnv']
