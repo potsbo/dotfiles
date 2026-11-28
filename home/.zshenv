@@ -60,10 +60,6 @@ export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:$HOME/go/bin
 ## System
-export PATH=$PATH:/bin               # cat, cp, ...
-export PATH=$PATH:/sbin              # ping, ifconfig, ...
-export PATH=$PATH:/usr/bin           # arch, top, ...
-export PATH=$PATH:/usr/sbin          # chown, chroot, ...
 export PATH=$PATH:/Applications/Docker.app/Contents/Resources/bin/
 # Rex はペインのシェルを起動する前に REX_BIN_DIR を PATH の先頭に足すが、nix-darwin の
 # /etc/zshenv (set-environment) が PATH を丸ごと代入し直すので消える。Rex が意図した状態に戻す。
@@ -87,12 +83,6 @@ export AQUA_GLOBAL_CONFIG=${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua.
 export AQUA_POLICY_CONFIG=${XDG_DATA_HOME:-$HOME/.local/share}/aqua-config/aqua-policy.yaml
 
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
-
-# https://github.com/golang/go/issues/42700
-export GODEBUG=asyncpreemptoff=1
-
-# for `go test -race ...`
-export CGO_ENABLED=1
 
 # HISTFILE / SAVEHIST / HISTSIZE は .zshrc で設定（/etc/zshrc の上書きに勝つため）
 
