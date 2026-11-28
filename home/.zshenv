@@ -21,7 +21,6 @@ export LC_MONETARY=C
 export LC_MESSAGES=C
 
 export EDITOR=nvim
-export TERM=xterm-256color
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
@@ -52,7 +51,6 @@ export ZSH_EVALCACHE_DIR="$XDG_CACHE_HOME/zsh/evalcache"
 # 同じホストに両方あることは無いので、存在する方だけが効く。
 export PATH=/etc/profiles/per-user/$USER/bin:$PATH
 export PATH=$HOME/.nix-profile/bin:$PATH
-export PATH=$HOME/bin:$PATH
 ## Build
 # aqua は ~/.local/bin より後ろ: 手で置いた wrapper がパッケージマネージャの出力に勝つのが原則。
 # 以前は aqua が先で、~/.local/bin/claude (native installer の symlink) が aqua の pin を隠していた。
