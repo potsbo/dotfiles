@@ -39,10 +39,6 @@ in
     # Nix の gcc は macOS SDK のライブラリパスを検索しないため、
     # cargo crate (tokei 等) のビルド時に -liconv が見つからずリンクエラーになる。
     sessionVariables = {
-      # arrow-odbc が libodbc.so.2 を見つけるために必要
-      LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.unixodbc pkgs.freetds ];
-      # odbcinst.ini の検索先ディレクトリ
-      ODBCSYSINI = "${config.home.homeDirectory}/.config/odbc";
       # npm cache を XDG へ。npm は $HOME 直下を決め打ちするため変数で変更する。
       # home-manager を単一ソースにする理由: 対話 shell を経ずに npx を叩く背景プロセス
       # (npx 製 MCP サーバ等) にも hm-session-vars 経由で継承させ ~/.npm 生成を防ぐ。
@@ -83,14 +79,6 @@ in
       # 見るため ssh ログイン時の Last login も消え、不正ログインに気づく手がかりが一つ減るが、
       # 受け入れている。中身は見られず存在だけで効くので、作業ツリーではなく store から張る。
       ".hushlogin".text = "";
-
-      # FreeTDS ODBC ドライバの登録
-      ".config/odbc/odbcinst.ini".text = ''
-        [FreeTDS]
-        Description=FreeTDS ODBC Driver
-        Driver=${pkgs.freetds}/lib/libtdsodbc.so
-        UsageCount=1
-      '';
     };
 
     # 移行前の ghq clone が実体ディレクトリとして残っていると symlink を張れず
@@ -125,10 +113,6 @@ in
       whois
       dnsutils
       rclone
-
-      # ODBC (arrow-odbc + FreeTDS で SQL Server から Arrow ネイティブ読み取り)
-      unixodbc
-      freetds
 
       # 以下 aqua 未提供
       gcc
