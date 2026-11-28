@@ -25,13 +25,22 @@
 {
   imports = [ rex.homeManagerModules.default ];
 
-  services.rex = lib.mkIf (hosts.${hostname}.os == "nixos") {
-    enable = true;
-    tailscale = {
+  config = lib.mkIf (hosts.${hostname}.os == "nixos") {
+    services.rex = {
       enable = true;
-      # 他ホストはこの名前 (<host>-rex.<tailnet>.ts.net) で繋ぐ。既定の rex だと
-      # ホスト間で衝突するうえ、既存の接続先と食い違う。
-      hostname = "${hostname}-rex";
+      tailscale = {
+        enable = true;
+        # 他ホストはこの名前 (<host>-rex.<tailnet>.ts.net) で繋ぐ。既定の rex だと
+        # ホスト間で衝突するうえ、既存の接続先と食い違う。
+        hostname = "${hostname}-rex";
+      };
     };
+
+    # デスクトップホストではセッション起動が hm-session-vars.sh の include guard ごと環境を
+    # systemd の user 環境に流す (経緯は home/.zshenv)。server がそれを継ぐと、配下の pane は
+    # hm-session-vars を読まず、./install 後も再ログインまで古い値のままになる。気づきにくいので
+    # server からだけ guard を落とす。home-manager の内部の名前なので、改名されたら空振りして
+    # 再ログイン待ちに戻るだけで壊れはしない。
+    systemd.user.services.rex.Service.UnsetEnvironment = [ "__HM_SESS_VARS_SOURCED" ];
   };
 }

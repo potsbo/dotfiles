@@ -19,24 +19,19 @@ export LC_MESSAGES=C
 export EDITOR=nvim
 # home-manager の session vars は以下のどれよりも先に読む。XDG_*_HOME は home-manager
 # (xdg.enable) が持ち、このファイルの残りはそれを前提に組む。
-# hm-session-vars.sh 冒頭の include guard (__HM_SESS_VARS_SOURCED) は「この process tree で
-# 一度読んだ」しか見ない。マルチプレクサの server のような長寿命プロセスが起動時のガードを抱えていると、
-# その下の新しい pane は ./install 後も古い値のままになる。そこでガードを「どの generation を
-# 読んだか」に置き換え、実体の store path (中身が変われば変わる) が前回と違うときだけガードを
-# 外して読み直す。
-# - __HM_SESS_VARS_SOURCED は home-manager の非公開の名前。改名されたら unset が空振りして
-#   元の「一度だけ」に戻るだけで、壊れはしない。
-# - 読み直しで重なるのは追記型の変数 (XCURSOR_PATH) だけで、generation が変わるたびに 1 回。
-# - server を systemd から起動しても防げない。Rex の server は systemd user service だが、
-#   systemd の user 環境経由で __HM_SESS_VARS_SOURCED=1 を持っていた (2026-11-28 に確認)。
-# - 2 つとも在るホストでは先の方だけを読む (元のガード下でも後の方は読まれなかった)。
+# hm-session-vars.sh の include guard には手を入れない。guard は process tree で一度しか
+# 読ませないので、guard を継いだ長寿命プロセスの下では ./install 後も古い値が残る。
+# 実際に継ぐのは Linux のデスクトップホストだけで、セッション起動 (niri-session、Hyprland の
+# dbus-update-activation-environment --all) が guard ごと環境を systemd の user 環境に流す
+# (2026-11-28 に phoenix で確認。Mac と非デスクトップの Linux では Rex server の環境に無い)。
+# 以前は generation を見て guard を外し読み直していたが、反映が再ログイン待ちになるのは
+# デスクトップの環境変数として普通の挙動なので、guard の内部の名前に依存する仕組みを捨てた。
+# Rex の pane だけは古いままだと気づきにくいので、rex.service 側で guard を落としている
+# (modules/home-manager/rex.nix)。
+# 2 つとも在るホストでは先の方だけを読む。
 for _hm_vars in /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh; do
   [ -e $_hm_vars ] || continue
-  if [ "${__HM_SESS_VARS_GEN-}" != "${_hm_vars:A}" ]; then
-    unset __HM_SESS_VARS_SOURCED
-    . $_hm_vars
-    export __HM_SESS_VARS_GEN=${_hm_vars:A}
-  fi
+  . $_hm_vars
   break
 done
 unset _hm_vars
